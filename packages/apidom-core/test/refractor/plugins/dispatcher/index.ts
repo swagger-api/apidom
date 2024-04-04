@@ -1,5 +1,6 @@
 import sinon from 'sinon';
 import { assert } from 'chai';
+import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 
 import {
   NumberElement,
@@ -31,6 +32,27 @@ describe('refrator', function () {
           assert.isTrue(preSpy.calledBefore(NumberElementSpy));
           assert.isTrue(postSpy.calledAfter(NumberElementSpy));
           assert.deepEqual(toValue(result), { a: 2 });
+        });
+
+        specify('should throw when async plugin is used', function () {
+          const plugin1 = () => ({
+            visitor: {
+              NumberElement: () => {},
+            },
+          });
+          const plugin2 = () => ({
+            visitor: {
+              NumberElement: async () => {},
+            },
+          });
+
+          const objectElement = new ObjectElement({ a: 1 });
+
+          assert.throws(
+            () => dispatchPluginsSync(objectElement, [plugin1, plugin2]),
+            ApiDOMStructuredError,
+            'Async visitor not supported in sync mode',
+          );
         });
       });
 

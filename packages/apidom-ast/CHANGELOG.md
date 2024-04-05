@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.99.1](https://github.com/swagger-api/apidom/compare/v0.99.0...v0.99.1) (2024-04-05)
+
+### Bug Fixes
+
+- **ast:** throw while visiting async visitor in sync mode ([#4009](https://github.com/swagger-api/apidom/issues/4009)) ([bd94545](https://github.com/swagger-api/apidom/commit/bd945456a202c57f25fc71c1d0148376635146ed)), closes [#4007](https://github.com/swagger-api/apidom/issues/4007)
+
 # [0.99.0](https://github.com/swagger-api/apidom/compare/v0.98.3...v0.99.0) (2024-04-03)
 
 ### Features

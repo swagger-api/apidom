@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-use-before-define */
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { mergeDeepLeft } from 'ramda';
 
 import { AnyObject } from '../../apidom-language-types';
 import { trace } from '../utils';
+import { getTree, RenderGraph, RenderGraphWithIndex } from './types';
+import { openapi31TypeSchema } from './openapi-3-1-type-schema';
 
 let delStart = '\\{{2,3}';
 let delEnd = '\\}{2,3}';
@@ -388,12 +391,10 @@ export function deepMergeValues(objNode: object): object {
     const keyNode = objNode[objKey];
     // @ts-ignore
     const previousNode = objNode[previousKey];
-    if (!result) {
-      if (typeof keyNode === 'object' && typeof previousNode === 'object') {
+    if (typeof keyNode === 'object' && typeof previousNode === 'object') {
+      if (!result) {
         result = mergeDeepLeft(keyNode, previousNode);
-      }
-    } else {
-      if (typeof keyNode === 'object' && typeof previousNode === 'object') {
+      } else {
         result = mergeDeepLeft(result, mergeDeepLeft(keyNode, previousNode));
       }
     }
@@ -490,7 +491,7 @@ export function sortTags(tags: MustacheTag[]): MustacheTag[] {
   });
 }
 
-export function findNode(bundle: AnyObject, path: string[]): AnyObject | AnyObject[]{
+export function findNode(bundle: AnyObject, path: string[]): AnyObject | AnyObject[] {
   let currentNode: AnyObject | undefined = bundle;
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < path.length - 1; i++) {
@@ -673,4 +674,218 @@ export class Context {
   public push(value: AnyObject): Context {
     return new Context(value, this);
   }
+}
+
+export function findTypeSchemaPropertyKeys(
+  tree: RenderGraphWithIndex,
+  path: string[],
+): string[] | string {
+  let currentNode: RenderGraph | undefined = tree.node;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < path.length - 1; i++) {
+    let key = path[i];
+    trace('findNestedPropertyKeys - key', key);
+    let inEach = false;
+    if (key.split(' ').length > 1) {
+      // eslint-disable-next-line prefer-destructuring
+      key = key.split(' ')[1];
+      inEach = true;
+    }
+    trace('findNestedPropertyKeys - inEach', inEach);
+    // If current node is an array, use the first element
+    // if (isCollectionSchemaNode(currentNode)) {
+    // currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+    // }
+    // Check if the key exists in the current node
+    if (keyExistInSchemaNode(currentNode, key)) {
+      const childSchemaNode = getChildSchemaNode(currentNode!, key);
+      trace('findNestedPropertyKeys - key in current node');
+      if (!isBooleanSchemaNode(childSchemaNode)) {
+        currentNode = childSchemaNode;
+        if (inEach && !isCollectionSchemaNode(currentNode)) {
+          trace('findNestedPropertyKeys - key in current node with each');
+          // deepMerge all properties of each key of currentNode
+          // @ts-ignore
+          if (currentNode.children.length > 0) {
+            // eslint-disable-next-line prefer-destructuring
+            currentNode = currentNode!.children[0];
+          }
+        }
+      }
+    } else {
+      // If the key doesn't exist, search in ancestors
+      let ancestor = tree.node;
+      // eslint-disable-next-line no-plusplus
+      for (let j = 0; j < i; j++) {
+        let ancestorKey = path[j];
+        let ancestorInEach = false;
+        if (ancestorKey.split(' ').length > 1) {
+          // eslint-disable-next-line prefer-destructuring
+          ancestorKey = ancestorKey.split(' ')[1];
+          ancestorInEach = true;
+        }
+        if (keyExistInSchemaNode(ancestor, ancestorKey)) {
+          ancestor = getChildSchemaNode(ancestor!, ancestorKey);
+          // if (Array.isArray(ancestor)) {
+          // ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+          // }
+          if (keyExistInSchemaNode(ancestor, key)) {
+            const childSchemaNode = getChildSchemaNode(ancestor!, key);
+            if (!isBooleanSchemaNode(childSchemaNode)) {
+              currentNode = childSchemaNode;
+              if (ancestorInEach && !isCollectionSchemaNode(currentNode)) {
+                // deepMerge all properties of each key of currentNode
+                // @ts-ignore
+                if (currentNode.children.length > 0) {
+                  // eslint-disable-next-line prefer-destructuring
+                  currentNode = currentNode!.children[0];
+                }
+              }
+            }
+            break;
+          }
+        }
+      }
+      // If the key is not found in any ancestor, return "not object"
+      if (!keyExistInSchemaNode(ancestor, key)) {
+        return 'not object';
+      }
+    }
+  }
+  // If the final node is an array, use the first element
+  // if (Array.isArray(currentNode)) {
+  // currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+  // }
+
+  // Check if the final node is an object and return its keys
+  if (currentNode) {
+    // return currentNode.name;
+    if (currentNode!.children.length === 1 && currentNode!.children[0].attributes.isPatternField) {
+      return ['replace_with_key'];
+    }
+    return Object.keys(currentNode!.childrenMap);
+  }
+  return 'not object';
+}
+
+export function getSchema(): AnyObject | string {
+  const path = ['components', 'each schemas', 'each properties', ''];
+  const tree = getTree(openapi31TypeSchema);
+  // tree.node.children
+  // console.log(tree.index, tree.exploreDefinition);
+
+  /*  tree.node.children.forEach((child) => {
+    console.log(child.name, child.attributes, child.types, child.parent?.name);
+  });
+  console.log(
+    tree.node.childrenMap.components.childrenMap.parameters.childrenMap.name.childrenMap.deprecated,
+  );
+  return {};
+  */
+  let currentNode: RenderGraph | undefined = tree.node;
+  // eslint-disable-next-line no-plusplus
+  for (let i = 0; i < path.length - 1; i++) {
+    let key = path[i];
+    trace('findNestedPropertyKeys - key', key);
+    let inEach = false;
+    if (key.split(' ').length > 1) {
+      // eslint-disable-next-line prefer-destructuring
+      key = key.split(' ')[1];
+      inEach = true;
+    }
+    trace('findNestedPropertyKeys - inEach', inEach);
+    // If current node is an array, use the first element
+    // if (isCollectionSchemaNode(currentNode)) {
+    // currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+    // }
+    // Check if the key exists in the current node
+    if (keyExistInSchemaNode(currentNode, key)) {
+      const childSchemaNode = getChildSchemaNode(currentNode!, key);
+      trace('findNestedPropertyKeys - key in current node');
+      if (!isBooleanSchemaNode(childSchemaNode)) {
+        currentNode = childSchemaNode;
+        if (inEach && !isCollectionSchemaNode(currentNode)) {
+          trace('findNestedPropertyKeys - key in current node with each');
+          // deepMerge all properties of each key of currentNode
+          // @ts-ignore
+          if (currentNode.children.length > 0) {
+            // eslint-disable-next-line prefer-destructuring
+            currentNode = currentNode!.children[0];
+          }
+        }
+      }
+    } else {
+      // If the key doesn't exist, search in ancestors
+      let ancestor = tree.node;
+      // eslint-disable-next-line no-plusplus
+      for (let j = 0; j < i; j++) {
+        let ancestorKey = path[j];
+        let ancestorInEach = false;
+        if (ancestorKey.split(' ').length > 1) {
+          // eslint-disable-next-line prefer-destructuring
+          ancestorKey = ancestorKey.split(' ')[1];
+          ancestorInEach = true;
+        }
+        if (keyExistInSchemaNode(ancestor, ancestorKey)) {
+          ancestor = getChildSchemaNode(ancestor!, ancestorKey);
+          // if (Array.isArray(ancestor)) {
+          // ancestor = ancestor.length > 0 ? ancestor[0] : undefined;
+          // }
+          if (keyExistInSchemaNode(ancestor, key)) {
+            const childSchemaNode = getChildSchemaNode(ancestor!, key);
+            if (!isBooleanSchemaNode(childSchemaNode)) {
+              currentNode = childSchemaNode;
+              if (ancestorInEach && !isCollectionSchemaNode(currentNode)) {
+                // deepMerge all properties of each key of currentNode
+                // @ts-ignore
+                if (currentNode.children.length > 0) {
+                  // eslint-disable-next-line prefer-destructuring
+                  currentNode = currentNode!.children[0];
+                }
+              }
+            }
+            break;
+          }
+        }
+      }
+      // If the key is not found in any ancestor, return "not object"
+      if (!keyExistInSchemaNode(ancestor, key)) {
+        return 'not object';
+      }
+    }
+  }
+  // If the final node is an array, use the first element
+  // if (Array.isArray(currentNode)) {
+  // currentNode = currentNode.length > 0 ? currentNode[0] : undefined;
+  // }
+
+  // Check if the final node is an object and return its keys
+  if (currentNode) {
+    // return currentNode.name;
+    if (currentNode!.children.length === 1 && currentNode!.children[0].attributes.isPatternField) {
+      return ['replace_with_key'];
+    }
+    return Object.keys(currentNode!.childrenMap);
+  }
+  return 'not object';
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function isCollectionSchemaNode(node: RenderGraph | undefined): boolean {
+  return node?.attributes?.collection !== undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function keyExistInSchemaNode(node: RenderGraph | undefined, key: string): boolean {
+  return node?.childrenMap[key] !== undefined;
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function getChildSchemaNode(node: RenderGraph, key: string): RenderGraph {
+  return node.childrenMap[key];
+}
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function isBooleanSchemaNode(node: RenderGraph): boolean {
+  return node.types.includes('boolean') && node.types.length === 1;
 }

@@ -13,6 +13,7 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
+import { getSchema} from '../src/utils/handlebars/utils';
 // import { getContext } from '../src/utils/handlebars/context-short';
 
 /*
@@ -365,5 +366,10 @@ describe('handlebars-ls-complete', function () {
     console.log(JSON.stringify(result, null, 2));
     // assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
     // console.log(JSON.stringify(getContext(false), null, 2));
+  });
+
+  it('handlebars markdown - test schema', async function () {
+    // eslint-disable-next-line no-console
+    console.log(getSchema());
   });
 });

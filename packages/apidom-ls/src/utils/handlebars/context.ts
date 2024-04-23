@@ -5,9 +5,11 @@ import mustache from 'mustache';
 import { AnyObject } from '../../apidom-language-types';
 
 // eslint-disable-next-line import/no-cycle
-import { defaultContext } from './default-context';
+import { defaultContext } from './default-context-openapi';
+import { openapi31TypeSchema } from './openapi-3-1-type-schema';
 import { defaultSchema } from './simple-schema';
 import { debug, trace } from '../utils';
+import parseTypeSchema, { ExploreSpec, getTree, RenderGraphWithIndex } from './types';
 
 interface CacheEntry {
   context: AnyObject;
@@ -61,9 +63,11 @@ function transformJson(input: AnyObject): AnyObject {
 let currentContext: AnyObject | undefined;
 let currentOriginalContext: AnyObject | undefined;
 let currentSchema: AnyObject | undefined;
+let currentTypeSchema: RenderGraphWithIndex | undefined;
 
 const cache: Record<string, CacheEntry> = {}; // replace with defaultContext
 const cacheSchema: Record<string, AnyObject> = {}; // replace with defaultContext
+const cacheTypeSchema: Record<string, RenderGraphWithIndex> = {}; // replace with defaultContext
 
 export function getContext(processed?: boolean): AnyObject {
   if (currentContext === undefined) {
@@ -83,8 +87,33 @@ export function getSchema(): AnyObject {
   return currentSchema!;
 }
 
+export function getTypeSchema(): RenderGraphWithIndex {
+  if (currentTypeSchema === undefined) {
+    debug('Context - USING defaultTypeSchema');
+    currentTypeSchema = getTree(openapi31TypeSchema);
+  }
+  return currentTypeSchema!;
+}
+
 export async function refreshContext(
   url: string | null,
+  mustacheContext?: AnyObject,
+): Promise<AnyObject | null> {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return processContext(url, true, mustacheContext);
+}
+
+export async function refreshContextWithGenerator(
+  url: string | null,
+  mustacheContext?: AnyObject,
+): Promise<AnyObject | null> {
+  // eslint-disable-next-line @typescript-eslint/no-use-before-define
+  return processContext(url, false, mustacheContext);
+}
+
+async function processContext(
+  url: string | null,
+  direct: boolean,
   mustacheContext?: AnyObject,
 ): Promise<AnyObject | null> {
   debug('Context - refreshContext', url, mustacheContext !== undefined, mustacheContext !== null);
@@ -104,7 +133,38 @@ export async function refreshContext(
       currentOriginalContext = cache[specUrl].context;
       return currentOriginalContext;
     }
-    let retrievedContext = {};
+    let retrievedContext: AnyObject | null = {};
+    if (direct) {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      retrievedContext = await refreshContextDirect(specUrl);
+    } else {
+      // eslint-disable-next-line @typescript-eslint/no-use-before-define
+      retrievedContext = await refreshContextFromGenerator(specUrl);
+    }
+    if (retrievedContext) {
+      const contextClone = JSON.parse(JSON.stringify(retrievedContext));
+      currentContext = transformJson(contextClone);
+      currentOriginalContext = retrievedContext;
+      cache[specUrl] = {
+        context: retrievedContext,
+        processedContext: currentContext,
+      };
+    }
+  } catch (err) {
+    console.error('error loading context', err);
+    // isParseFailure = true;
+  }
+  if (currentOriginalContext === undefined) {
+    debug('Context - orig undefined, USING defaultContext');
+    currentContext = transformJson(defaultContext);
+    currentOriginalContext = defaultContext;
+  }
+  trace('Context - currentOriginalContext', currentOriginalContext);
+  return currentOriginalContext;
+}
+
+async function refreshContextFromGenerator(specUrl: string): Promise<AnyObject | null> {
+  try {
     // use axios to call generator3.swagger.io and get intermediate model for given string
     const axiosData = {
       lang: 'java',
@@ -119,25 +179,28 @@ export async function refreshContext(
       },
     };
     const res = await axios.post(`${GENERATOR_SERVICE_HOST}/api/model`, axiosData, axiosConfig);
-    retrievedContext = res.data;
-    const contextClone = JSON.parse(JSON.stringify(retrievedContext));
-    currentContext = transformJson(contextClone);
-    currentOriginalContext = retrievedContext;
-    cache[specUrl] = {
-      context: retrievedContext,
-      processedContext: currentContext,
-    };
+    return res.data;
   } catch (err) {
     console.error('error loading context', err);
     // isParseFailure = true;
+    return {};
   }
-  if (currentOriginalContext === undefined) {
-    debug('Context - orig undefined, USING defaultContext');
-    currentContext = transformJson(defaultContext);
-    currentOriginalContext = defaultContext;
+}
+
+async function refreshContextDirect(specUrl: string): Promise<AnyObject | null> {
+  try {
+    const axiosConfig = {
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const res = await axios.get(specUrl, axiosConfig);
+    return res.data;
+  } catch (err) {
+    console.error('error loading context', err);
+    // isParseFailure = true;
+    return {};
   }
-  trace('Context - currentOriginalContext', currentOriginalContext);
-  return currentOriginalContext;
 }
 
 export async function refreshSchema(
@@ -174,6 +237,41 @@ export async function refreshSchema(
     currentSchema = defaultSchema;
   }
   return currentSchema;
+}
+
+export async function refreshTypeSchema(
+  url: string | null,
+  schema?: ExploreSpec,
+): Promise<RenderGraphWithIndex | null> {
+  const specUrl = url || 'typeschema://openapi31';
+  try {
+    if (schema) {
+      currentTypeSchema = parseTypeSchema(schema);
+      cacheTypeSchema[specUrl] = currentTypeSchema;
+    }
+    if (specUrl && cacheTypeSchema[specUrl]) {
+      currentTypeSchema = cacheTypeSchema[specUrl];
+      return currentTypeSchema;
+    }
+    // use axios to call url expecting a json schema
+    const axiosConfig = {
+      headers: {
+        Accept: 'application/json',
+      },
+    };
+    const res = await axios.get(specUrl, axiosConfig);
+    const retrievedSchema = res.data as ExploreSpec;
+    currentTypeSchema = parseTypeSchema(retrievedSchema);
+    cacheTypeSchema[specUrl] = currentTypeSchema;
+  } catch (err) {
+    console.error('error loading type schema', err);
+    // isParseFailure = true;
+  }
+  if (currentSchema === undefined) {
+    debug('Context - default undefined, USING defaultTypeSchema');
+    currentTypeSchema = getTree(openapi31TypeSchema);
+  }
+  return currentTypeSchema || null;
 }
 
 export function renderTemplate(template: string): string {

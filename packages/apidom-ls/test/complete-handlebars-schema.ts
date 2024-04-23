@@ -40,7 +40,7 @@ describe('handlebars-ls-complete-schema', function () {
     performanceLogs: logPerformance,
     logLevel,
     handlebarsJsonSchemaCompletion: true,
-    handlebarsJsonSchemaCompletionImplementation: 'library',
+    handlebarsJsonSchemaCompletionImplementation: 'type-explorer',
   };
   const languageService: LanguageService = getLanguageService(context);
 

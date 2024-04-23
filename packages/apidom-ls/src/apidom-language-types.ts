@@ -96,7 +96,11 @@ export interface LanguageServiceContext {
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
   handlebarsJsonSchemaCompletion?: boolean;
-  handlebarsJsonSchemaCompletionImplementation?: 'faker' | 'library' | 'refParser';
+  handlebarsJsonSchemaCompletionImplementation?:
+    | 'faker'
+    | 'library'
+    | 'refParser'
+    | 'type-explorer';
 }
 
 export interface NamespaceVersion {
@@ -273,7 +277,11 @@ export interface LanguageSettings {
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
   handlebarsJsonSchemaCompletion?: boolean;
-  handlebarsJsonSchemaCompletionImplementation?: 'faker' | 'library' | 'refParser';
+  handlebarsJsonSchemaCompletionImplementation?:
+    | 'faker'
+    | 'library'
+    | 'refParser'
+    | 'type-explorer';
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -298,7 +306,11 @@ export interface CompletionContext {
   enableLSPFilter?: boolean;
   includeIndirectRefs?: boolean;
   handlebarsJsonSchemaCompletion?: boolean;
-  handlebarsJsonSchemaCompletionImplementation?: 'faker' | 'library' | 'refParser';
+  handlebarsJsonSchemaCompletionImplementation?:
+    | 'faker'
+    | 'library'
+    | 'refParser'
+    | 'type-explorer';
 }
 
 export interface DerefContext {

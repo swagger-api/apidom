@@ -13,10 +13,11 @@ import {
 } from '../../../apidom-language-types';
 import { perfStart, perfEnd, findNamespace, debug } from '../../../utils/utils';
 import completeHandlebars from './handlebars-completion';
+import completeHandlebarsTypeExplorer from './handlebars-completion-type-explorer';
 import { HandlebarsCompletionServiceJsonSchema } from './handlebars-completion-service-jsonschema';
 // import { getContext } from '../../../utils/handlebars/context-openapi';
 // import { getSchema } from '../../../utils/handlebars/context';
-import { getContext, getSchema } from '../../../utils/handlebars/context';
+import { getContext, getSchema, getTypeSchema } from '../../../utils/handlebars/context';
 
 enum PerfLabels {
   START = 'doCompletion',
@@ -34,7 +35,8 @@ export class HandlebarsCompletionService implements CompletionService {
 
   private jsonSchemaCompletion: boolean = false;
 
-  private jsonSchemaCompletionLibrary: 'faker' | 'library' | 'refParser' = 'faker';
+  private jsonSchemaCompletionLibrary: 'faker' | 'library' | 'refParser' | 'type-explorer' =
+    'faker';
 
   public configure(settings?: LanguageSettings): void {
     this.settings = settings;
@@ -144,6 +146,19 @@ export class HandlebarsCompletionService implements CompletionService {
       const templateContext = JSONSchemaFaker.resolve(templateSchema);
       console.log('Faker templateContext', templateContext); */
       return completeHandlebars(textDocument, templateContext, position, enableFiltering);
+    }
+    if (
+      contentLanguage.namespace === 'handlebars' &&
+      jsonSchemaCompletion &&
+      jsonSchemaCompletionLibrary === 'type-explorer'
+    ) {
+      const templateContext = getTypeSchema();
+      return completeHandlebarsTypeExplorer(
+        textDocument,
+        templateContext,
+        position,
+        enableFiltering,
+      );
     }
     if (
       contentLanguage.namespace === 'handlebars' &&

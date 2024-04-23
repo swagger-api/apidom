@@ -785,7 +785,9 @@ export async function findNamespace(
   defaultContentLanguage?: ContentLanguage,
 ): Promise<ContentLanguage> {
   const text = getText(document, true);
-  if (/^{{!\s*mustache\s*}}/.test(text)) {
+  // const isMustache = /^{{!\s*mustache\s*}}/.test(text);
+  const isMustache = true; // hardcode for POC, only handles mustache
+  if (isMustache) {
     return {
       namespace: 'handlebars',
       version: '1.0',

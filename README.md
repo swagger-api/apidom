@@ -4,7 +4,7 @@
 [comment]: <> (SPDX-FileCopyrightText: Copyright &#40;c&#41; 2015 Apiary Inc.)
 [comment]: <> (SPDX-License-Identifier: MIT)
 
-# FApiDOM
+# ApiDOM
 
 [![Build Status](https://github.com/swagger-api/apidom/actions/workflows/build.yml/badge.svg)](https://github.com/swagger-api/apidom/actions)
 [![Dependabot enabled](https://badgen.net/badge/icon/dependabot?icon=dependabot&label)](https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically)
@@ -12,7 +12,7 @@
 
 The purpose of ApiDOM is to provide a single, unifying structure for describing APIs across
 API description language and serialization formats. There currently exists several API description languages one can choose
-when defining an API, from OpenAPI, RAML or API Blueprint.
+when defining an API, from OpenAPI, RAML, API Blueprint or others.
 There are also many serialization formats such as XML, YAML or JSON. Without a way to parse these formats
 to the same structure, developers are required to handle each format one-by-one, each in a different
 way and each translating to their internal domain model. This is tedious, time-consuming,

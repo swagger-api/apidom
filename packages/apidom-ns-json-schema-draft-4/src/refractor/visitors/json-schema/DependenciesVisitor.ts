@@ -1,22 +1,34 @@
-import stampit from 'stampit';
-import { ObjectElement, Element } from '@swagger-api/apidom-core';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
-import MapVisitor from '../generics/MapVisitor';
-import FallbackVisitor from '../FallbackVisitor';
-import ParentSchemaAwareVisitor from './ParentSchemaAwareVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import ParentSchemaAwareVisitor, {
+  ParentSchemaAwareVisitorOptions,
+} from './ParentSchemaAwareVisitor';
 import { isJSONReferenceLikeElement } from '../../predicates';
 
-const DependenciesVisitor = stampit(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor, {
-  props: {
-    specPath: (element: Element) =>
-      isJSONReferenceLikeElement(element)
-        ? ['document', 'objects', 'JSONReference']
-        : ['document', 'objects', 'JSONSchema'],
-  },
-  init() {
+export interface DependenciesVisitorOptions
+  extends MapVisitorOptions,
+    ParentSchemaAwareVisitorOptions,
+    FallbackVisitorOptions {}
+
+class DependenciesVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
+  public declare readonly element: ObjectElement;
+
+  protected declare readonly specPath: SpecPath<
+    ['document', 'objects', 'JSONReference'] | ['document', 'objects', 'JSONSchema']
+  >;
+
+  constructor(options: DependenciesVisitorOptions) {
+    super(options);
     this.element = new ObjectElement();
     this.element.classes.push('json-schema-dependencies');
-  },
-});
+    this.specPath = (element: unknown) =>
+      isJSONReferenceLikeElement(element)
+        ? ['document', 'objects', 'JSONReference']
+        : ['document', 'objects', 'JSONSchema'];
+  }
+}
 
 export default DependenciesVisitor;

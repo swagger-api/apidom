@@ -1,29 +1,42 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { ObjectElement, BooleanElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
-import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-json-schema-draft-6';
+import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
+import {
+  FixedFieldsVisitor,
+  FixedFieldsVisitorOptions,
+  FallbackVisitor,
+  FallbackVisitorOptions,
+  SpecPath,
+} from '@swagger-api/apidom-ns-json-schema-draft-6';
 
 import JSONSchemaElement from '../../../elements/JSONSchema';
 
-const JSONSchemaVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'JSONSchema']),
-  },
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      this.element = new JSONSchemaElement();
+export interface JSONSchemaVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
-      // @ts-ignore
-      return FixedFieldsVisitor.compose.methods.ObjectElement.call(this, objectElement);
-    },
+class JSONSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare element: JSONSchemaElement;
 
-    BooleanElement(booleanElement: BooleanElement) {
-      this.element = cloneDeep(booleanElement);
-      this.element.classes.push('boolean-json-schema');
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
-      return BREAK;
-    },
-  },
-});
+  constructor(options: JSONSchemaVisitorOptions) {
+    super(options);
+    this.specPath = always(['document', 'objects', 'JSONSchema']);
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    this.element = new JSONSchemaElement();
+
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+  }
+
+  BooleanElement(booleanElement: BooleanElement) {
+    const result = this.enter(booleanElement);
+    this.element.classes.push('boolean-json-schema');
+
+    return result;
+  }
+}
 
 export default JSONSchemaVisitor;

@@ -1,26 +1,29 @@
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import {
+  specificationObj as JSONSchemaDraft4Specification,
+  JSONReferenceElement,
+  SchemaOrReferenceVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import { isReferenceElement } from '../../../../predicates';
+import SchemaElement from '../../../../elements/Schema';
+
+export type { SchemaOrReferenceVisitorOptions };
 
 const { JSONSchemaOrJSONReferenceVisitor } = JSONSchemaDraft4Specification.visitors;
 
-const SchemaOrReferenceVisitor = JSONSchemaOrJSONReferenceVisitor.compose({
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = JSONSchemaOrJSONReferenceVisitor.compose.methods.enter.call(
-        this,
-        objectElement,
-      );
+class SchemaOrReferenceVisitor extends JSONSchemaOrJSONReferenceVisitor {
+  public declare element: SchemaElement | JSONReferenceElement;
 
-      if (isReferenceElement(this.element)) {
-        this.element.setMetaProperty('referenced-element', 'schema');
-      }
+  ObjectElement(objectElement: ObjectElement) {
+    const result = JSONSchemaOrJSONReferenceVisitor.prototype.enter.call(this, objectElement);
 
-      return result;
-    },
-  },
-});
+    if (isReferenceElement(this.element)) {
+      this.element.setMetaProperty('referenced-element', 'schema');
+    }
+
+    return result;
+  }
+}
 
 export default SchemaOrReferenceVisitor;

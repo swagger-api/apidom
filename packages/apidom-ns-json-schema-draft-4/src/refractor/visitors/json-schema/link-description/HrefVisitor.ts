@@ -1,5 +1,3 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const HrefVisitor = FallbackVisitor;
-
-export default HrefVisitor;
+export default FallbackVisitor;

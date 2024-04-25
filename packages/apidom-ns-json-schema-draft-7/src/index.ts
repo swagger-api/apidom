@@ -36,7 +36,37 @@ export {
   MapVisitor,
   AlternatingVisitor,
   ParentSchemaAwareVisitor,
+  Visitor,
 } from '@swagger-api/apidom-ns-json-schema-draft-6';
+export type {
+  SpecificationVisitorOptions,
+  FallbackVisitorOptions,
+  FixedFieldsVisitorOptions,
+  PatternedFieldsVisitorOptions,
+  MapVisitorOptions,
+  AlternatingVisitorOptions,
+  ParentSchemaAwareVisitorOptions,
+  VisitorOptions,
+  AllOfVisitorOptions,
+  AnyOfVisitorOptions,
+  DefinitionsVisitorOptions,
+  DependenciesVisitorOptions,
+  ItemsVisitorOptions,
+  OneOfVisitorOptions,
+  PatternPropertiesVisitorOptions,
+  PropertiesVisitorOptions,
+  SchemaOrReferenceVisitorOptions,
+  SpecPath,
+} from '@swagger-api/apidom-ns-json-schema-draft-6';
+
+export type {
+  default as JSONSchemaVisitor,
+  JSONSchemaVisitorOptions,
+} from './refractor/visitors/json-schema';
+export type {
+  default as LinkDescriptionVisitor,
+  LinkDescriptionVisitorOptions,
+} from './refractor/visitors/json-schema/link-description';
 
 export { keyMap, getNodeType } from './traversal/visitor';
 

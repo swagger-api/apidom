@@ -1,17 +1,18 @@
-import stampit from 'stampit';
-import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ArrayElement } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 
-const RequiredVisitor = stampit(FallbackVisitor, {
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = cloneDeep(arrayElement);
-      this.element.classes.push('json-schema-required');
+export type { FallbackVisitorOptions as RequiredVisitorOptions };
 
-      return BREAK;
-    },
-  },
-});
+class RequiredVisitor extends FallbackVisitor {
+  public declare readonly element: ArrayElement;
+
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = this.enter(arrayElement);
+    this.element.classes.push('json-schema-required');
+
+    return result;
+  }
+}
 
 export default RequiredVisitor;

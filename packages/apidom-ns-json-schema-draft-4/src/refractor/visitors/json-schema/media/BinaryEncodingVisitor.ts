@@ -1,5 +1,3 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const BinaryEncodingVisitor = FallbackVisitor;
-
-export default BinaryEncodingVisitor;
+export default FallbackVisitor;

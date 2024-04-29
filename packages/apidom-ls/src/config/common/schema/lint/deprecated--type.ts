@@ -7,7 +7,7 @@ import { OpenAPI3 } from '../../../openapi/target-specs';
 
 const deprecatedTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_READONLY,
-  source: 'deprecated',
+  source: 'apilint',
   message: 'deprecated must be a boolean',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',

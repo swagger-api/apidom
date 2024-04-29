@@ -50,12 +50,12 @@
     "classnames": "^2.3.2",
     "comlink": "^4.3.0",
     "prop-types": "^15.7.2",
-    "ramda": "^0.29.0",
-    "ramda-adjunct": "^4.1.1",
+    "ramda": "^0.30.0",
+    "ramda-adjunct": "^5.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
-    "swagger-adjust": "^0.7.0",
+    "swagger-adjust": "^0.7.1",
     "web-vitals": "^3.0.2"
   },
   "devDependencies": {

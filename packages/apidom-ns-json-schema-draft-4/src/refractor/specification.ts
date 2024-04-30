@@ -1,21 +1,6 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import JSONSchemaVisitor from './visitors/json-schema';
-import JSONSchemaIdVisitor from './visitors/json-schema/IdVisitor';
-import JSONSchema$schemaVisitor from './visitors/json-schema/$schemaVisitor';
-import JSONSchemaMultipleOfVisitor from './visitors/json-schema/MultipleOfVisitor';
-import JSONSchemaMaximumVisitor from './visitors/json-schema/MaximumVisitor';
-import JSONSchemaExclusiveMaximumVisitor from './visitors/json-schema/ExclusiveMaximumVisitor';
-import JSONSchemaMinimumVisitor from './visitors/json-schema/MinimumVisitor';
-import JSONSchemaExclusiveMinimumVisitor from './visitors/json-schema/ExclusiveMinimumVisitor';
-import JSONSchemaMaxLengthVisitor from './visitors/json-schema/MaxLengthVisitor';
-import JSONSchemaMinLengthVisitor from './visitors/json-schema/MinLengthVisitor';
-import JSONSchemaPatternVisitor from './visitors/json-schema/PatternVisitor';
 import JSONSchemaItemsVisitor from './visitors/json-schema/ItemsVisitor';
-import JSONSchemaMaxItemsVisitor from './visitors/json-schema/MaxItemsVisitor';
-import JSONSchemaMinItemsVisitor from './visitors/json-schema/MinItemsVisitor';
-import JSONSchemaUniqueItemsVisitor from './visitors/json-schema/UniqueItemsVisitor';
-import JSONSchemaMaxPropertiesVisitor from './visitors/json-schema/MaxPropertiesVisitor';
-import JSONSchemaMinPropertiesVisitor from './visitors/json-schema/MinPropertiesVisitor';
 import JSONSchemaRequiredVisitor from './visitors/json-schema/RequiredVisitor';
 import JSONSchemaPropertiesVisitor from './visitors/json-schema/PropertiesVisitor';
 import JSONSchemaPatternPropertiesVisitor from './visitors/json-schema/PatternPropertiesVisitor';
@@ -26,26 +11,12 @@ import JSONSchemaAllOfVisitor from './visitors/json-schema/AllOfVisitor';
 import JSONSchemaAnyOfVisitor from './visitors/json-schema/AnyOfVisitor';
 import JSONSchemaOneOfVisitor from './visitors/json-schema/OneOfVisitor';
 import JSONSchemaDefinitionsVisitor from './visitors/json-schema/DefinitionsVisitor';
-import JSONSchemaTitleVisitor from './visitors/json-schema/TitleVisitor';
-import JSONSchemaDescriptionVisitor from './visitors/json-schema/DescriptionVisitor';
-import JSONSchemaDefaultVisitor from './visitors/json-schema/DefaultVisitor';
-import JSONSchemaFormatVisitor from './visitors/json-schema/FormatVisitor';
-import JSONSchemaBaseVisitor from './visitors/json-schema/BaseVisitor';
 import JSONSchemaLinksVisitor from './visitors/json-schema/LinksVisitor';
-import JSONSchemaReadOnlyVisitor from './visitors/json-schema/ReadOnlyVisitor';
 import JSONReferenceVisitor from './visitors/json-schema/json-reference';
 import JSONReference$RefVisitor from './visitors/json-schema/json-reference/$RefVisitor';
 import JSONSchemaOrJSONReferenceVisitor from './visitors/json-schema/JSONSchemaOrJSONReferenceVisitor';
 import MediaVisitor from './visitors/json-schema/media';
-import MediaBinaryEncodingVisitor from './visitors/json-schema/media/BinaryEncodingVisitor';
-import MediaTypeVisitor from './visitors/json-schema/media/TypeVisitor';
 import LinkDescriptionVisitor from './visitors/json-schema/link-description';
-import LinkDescriptionHrefVisitor from './visitors/json-schema/link-description/HrefVisitor';
-import LinkDescriptionRelVisitor from './visitors/json-schema/link-description/RelVisitor';
-import LinkDescriptionTitleVisitor from './visitors/json-schema/link-description/TitleVisitor';
-import LinkDescriptionMediaTypeVisitor from './visitors/json-schema/link-description/MediaTypeVisitor';
-import LinkDescriptionMethodVisitor from './visitors/json-schema/link-description/MethodVisitor';
-import LinkDescriptionEncTypeVisitor from './visitors/json-schema/link-description/EncTypeVisitor';
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -65,28 +36,28 @@ const specification = {
           $visitor: JSONSchemaVisitor,
           fixedFields: {
             // core vocabulary
-            id: JSONSchemaIdVisitor,
-            $schema: JSONSchema$schemaVisitor,
+            id: { $ref: '#/visitors/value' },
+            $schema: { $ref: '#/visitors/value' },
             // validation vocabulary
             // validation keywords for numeric instances (number and integer)
-            multipleOf: JSONSchemaMultipleOfVisitor,
-            maximum: JSONSchemaMaximumVisitor,
-            exclusiveMaximum: JSONSchemaExclusiveMaximumVisitor,
-            minimum: JSONSchemaMinimumVisitor,
-            exclusiveMinimum: JSONSchemaExclusiveMinimumVisitor,
+            multipleOf: { $ref: '#/visitors/value' },
+            maximum: { $ref: '#/visitors/value' },
+            exclusiveMaximum: { $ref: '#/visitors/value' },
+            minimum: { $ref: '#/visitors/value' },
+            exclusiveMinimum: { $ref: '#/visitors/value' },
             // validation keywords for strings
-            maxLength: JSONSchemaMaxLengthVisitor,
-            minLength: JSONSchemaMinLengthVisitor,
-            pattern: JSONSchemaPatternVisitor,
+            maxLength: { $ref: '#/visitors/value' },
+            minLength: { $ref: '#/visitors/value' },
+            pattern: { $ref: '#/visitors/value' },
             // validation keywords for arrays
             additionalItems: JSONSchemaOrJSONReferenceVisitor,
             items: JSONSchemaItemsVisitor,
-            maxItems: JSONSchemaMaxItemsVisitor,
-            minItems: JSONSchemaMinItemsVisitor,
-            uniqueItems: JSONSchemaUniqueItemsVisitor,
+            maxItems: { $ref: '#/visitors/value' },
+            minItems: { $ref: '#/visitors/value' },
+            uniqueItems: { $ref: '#/visitors/value' },
             // validation keywords for objects
-            maxProperties: JSONSchemaMaxPropertiesVisitor,
-            minProperties: JSONSchemaMinPropertiesVisitor,
+            maxProperties: { $ref: '#/visitors/value' },
+            minProperties: { $ref: '#/visitors/value' },
             required: JSONSchemaRequiredVisitor,
             properties: JSONSchemaPropertiesVisitor,
             additionalProperties: JSONSchemaOrJSONReferenceVisitor,
@@ -101,18 +72,18 @@ const specification = {
             not: JSONSchemaOrJSONReferenceVisitor,
             definitions: JSONSchemaDefinitionsVisitor,
             // metadata keywords
-            title: JSONSchemaTitleVisitor,
-            description: JSONSchemaDescriptionVisitor,
-            default: JSONSchemaDefaultVisitor,
+            title: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            default: { $ref: '#/visitors/value' },
             // semantic validation with "format"
-            format: JSONSchemaFormatVisitor,
+            format: { $ref: '#/visitors/value' },
             // JSON Hyper-Schema
-            base: JSONSchemaBaseVisitor,
+            base: { $ref: '#/visitors/value' },
             links: JSONSchemaLinksVisitor,
             media: {
               $ref: '#/visitors/document/objects/Media',
             },
-            readOnly: JSONSchemaReadOnlyVisitor,
+            readOnly: { $ref: '#/visitors/value' },
           },
         },
         JSONReference: {
@@ -124,20 +95,20 @@ const specification = {
         Media: {
           $visitor: MediaVisitor,
           fixedFields: {
-            binaryEncoding: MediaBinaryEncodingVisitor,
-            type: MediaTypeVisitor,
+            binaryEncoding: { $ref: '#/visitors/value' },
+            type: { $ref: '#/visitors/value' },
           },
         },
         LinkDescription: {
           $visitor: LinkDescriptionVisitor,
           fixedFields: {
-            href: LinkDescriptionHrefVisitor,
-            rel: LinkDescriptionRelVisitor,
-            title: LinkDescriptionTitleVisitor,
+            href: { $ref: '#/visitors/value' },
+            rel: { $ref: '#/visitors/value' },
+            title: { $ref: '#/visitors/value' },
             targetSchema: JSONSchemaOrJSONReferenceVisitor,
-            mediaType: LinkDescriptionMediaTypeVisitor,
-            method: LinkDescriptionMethodVisitor,
-            encType: LinkDescriptionEncTypeVisitor,
+            mediaType: { $ref: '#/visitors/value' },
+            method: { $ref: '#/visitors/value' },
+            encType: { $ref: '#/visitors/value' },
             schema: JSONSchemaOrJSONReferenceVisitor,
           },
         },

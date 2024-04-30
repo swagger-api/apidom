@@ -1,5 +1,6 @@
 import FallbackVisitor from './visitors/FallbackVisitor';
 import JSONSchemaVisitor from './visitors/json-schema';
+import JSONSchemaItemsVisitor from './visitors/json-schema/ItemsVisitor';
 import JSONSchemaRequiredVisitor from './visitors/json-schema/RequiredVisitor';
 import JSONSchemaPropertiesVisitor from './visitors/json-schema/PropertiesVisitor';
 import JSONSchemaPatternPropertiesVisitor from './visitors/json-schema/PatternPropertiesVisitor';
@@ -50,7 +51,7 @@ const specification = {
             pattern: { $ref: '#/visitors/value' },
             // validation keywords for arrays
             additionalItems: JSONSchemaOrJSONReferenceVisitor,
-            items: { $ref: '#/visitors/value' },
+            items: JSONSchemaItemsVisitor,
             maxItems: { $ref: '#/visitors/value' },
             minItems: { $ref: '#/visitors/value' },
             uniqueItems: { $ref: '#/visitors/value' },

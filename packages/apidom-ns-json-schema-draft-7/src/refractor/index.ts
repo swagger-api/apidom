@@ -1,3 +1,4 @@
+import { path } from 'ramda';
 import {
   visit,
   Element,
@@ -6,7 +7,6 @@ import {
   dispatchRefractorPlugins,
 } from '@swagger-api/apidom-core';
 import type { Visitor as VisitorClass } from '@swagger-api/apidom-ns-json-schema-draft-6';
-import { path } from 'ramda';
 
 import specification from './specification';
 import { keyMap, getNodeType } from '../traversal/visitor';

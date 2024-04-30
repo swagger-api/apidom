@@ -9,11 +9,11 @@ export type { TypeVisitorOptions };
 const { type: JSONSchemaTypeVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-class ItemsVisitor extends JSONSchemaTypeVisitor {
+class TypeVisitor extends JSONSchemaTypeVisitor {
   ArrayElement(arrayElement: ArrayElement) {
     const result = this.enter(arrayElement);
     return result;
   }
 }
 
-export default ItemsVisitor;
+export default TypeVisitor;

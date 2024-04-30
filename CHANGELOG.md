@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.99.2](https://github.com/swagger-api/apidom/compare/v0.99.1...v0.99.2) (2024-04-30)
+
+### Bug Fixes
+
+- **ls:** fix JSON Schema deprecated--type lint rule ([#4060](https://github.com/swagger-api/apidom/issues/4060)) ([377b281](https://github.com/swagger-api/apidom/commit/377b281b7e08365d0853d85098038996e694df97))
+- **playground:** fix recurstion related to textarea sizing ([#4039](https://github.com/swagger-api/apidom/issues/4039)) ([f6f3919](https://github.com/swagger-api/apidom/commit/f6f3919c89a39f653b72e92dde7babefa886f747)), closes [#4027](https://github.com/swagger-api/apidom/issues/4027)
+
 ## [0.99.1](https://github.com/swagger-api/apidom/compare/v0.99.0...v0.99.1) (2024-04-05)
 
 ### Bug Fixes

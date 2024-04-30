@@ -1,7 +1,7 @@
 {
   "packages": ["packages/*"],
   "npmClient": "npm",
-  "version": "0.99.1",
+  "version": "0.99.2",
   "changelogPreset": "angular",
   "command": {
     "bootstrap": {

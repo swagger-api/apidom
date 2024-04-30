@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-json-path",
-  "version": "0.99.1",
+  "version": "0.99.2",
   "description": "Evaluate JSONPath expressions against ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -38,9 +38,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-core": "^0.99.1",
+    "@swagger-api/apidom-core": "^0.99.2",
     "@swagger-api/apidom-error": "^0.99.0",
-    "@swagger-api/apidom-json-pointer": "^0.99.1",
+    "@swagger-api/apidom-json-pointer": "^0.99.2",
     "jsonpath-plus": "^7.2.0"
   },
   "files": [

@@ -2,25 +2,14 @@ import { pipe, assocPath, dissocPath } from 'ramda';
 import { specificationObj } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
 import JSONSchemaVisitor from './visitors/json-schema';
-import JSONSchema$commentVisitor from './visitors/json-schema/$commentVisitor';
-import JsonSchemaContentEncodingVisitor from './visitors/json-schema/ContentEncodingVisitor';
-import JsonSchemaContentMediaTypeVisitor from './visitors/json-schema/ContentMediaTypeVisitor';
-import JsonSchemaWriteOnlyVisitor from './visitors/json-schema/WriteOnlyVisitor';
 import LinkDescriptionVisitor from './visitors/json-schema/link-description';
-import LinkDescriptionAnchorVisitor from './visitors/json-schema/link-description/AnchorVisitor';
-import LinkDescriptionAnchorPointerVisitor from './visitors/json-schema/link-description/AnchorPointerVisitor';
-import LinkDescriptionTargetMediaTypeVisitor from './visitors/json-schema/link-description/TargetMediaTypeVisitor';
-import LinkDescriptionTargetHintsVisitor from './visitors/json-schema/link-description/TargetHintsVisitor';
-import LinkDescriptionDescriptionVisitor from './visitors/json-schema/link-description/DescriptionVisitor';
-import LinkDescription$commentVisitor from './visitors/json-schema/link-description/$commentVisitor';
-import LinkDescriptionSubmissionMediaTypeVisitor from './visitors/json-schema/link-description/SubmissionMediaTypeVisitor';
 
 const specification = pipe(
   // JSON Schema object modifications
   assocPath(['visitors', 'document', 'objects', 'JSONSchema', '$visitor'], JSONSchemaVisitor),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', '$comment'],
-    JSONSchema$commentVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'if'],
@@ -37,15 +26,15 @@ const specification = pipe(
   dissocPath(['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'media']),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'contentEncoding'],
-    JsonSchemaContentEncodingVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'contentMediaType'],
-    JsonSchemaContentMediaTypeVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'writeOnly'],
-    JsonSchemaWriteOnlyVisitor,
+    specificationObj.visitors.value,
   ),
   // Link Description object modifications
   assocPath(
@@ -54,28 +43,28 @@ const specification = pipe(
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'anchor'],
-    LinkDescriptionAnchorVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'anchorPointer'],
-    LinkDescriptionAnchorPointerVisitor,
+    specificationObj.visitors.value,
   ),
   dissocPath(['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'mediaType']),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'targetMediaType'],
-    LinkDescriptionTargetMediaTypeVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'targetHints'],
-    LinkDescriptionTargetHintsVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'description'],
-    LinkDescriptionDescriptionVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', '$comment'],
-    LinkDescription$commentVisitor,
+    specificationObj.visitors.value,
   ),
   dissocPath([
     'visitors',
@@ -87,7 +76,7 @@ const specification = pipe(
   ]),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'submissionMediaType'],
-    LinkDescriptionSubmissionMediaTypeVisitor,
+    specificationObj.visitors.value,
   ),
 )(specificationObj);
 

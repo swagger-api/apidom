@@ -1,5 +1,3 @@
 import FallbackVisitor from '../FallbackVisitor';
 
-const ExclusiveMaximumVisitor = FallbackVisitor;
-
-export default ExclusiveMaximumVisitor;
+export default FallbackVisitor;

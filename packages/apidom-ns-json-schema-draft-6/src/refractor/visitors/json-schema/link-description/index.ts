@@ -1,16 +1,29 @@
-import stampit from 'stampit';
+import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { FixedFieldsVisitor, FallbackVisitor } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import {
+  FixedFieldsVisitor,
+  FixedFieldsVisitorOptions,
+  FallbackVisitor,
+  FallbackVisitorOptions,
+  SpecPath,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import LinkDescriptionElement from '../../../../elements/LinkDescription';
 
-const LinkDescriptionVisitor = stampit(FixedFieldsVisitor, FallbackVisitor, {
-  props: {
-    specPath: always(['document', 'objects', 'LinkDescription']),
-  },
-  init() {
+export interface LinkDescriptionVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
+
+class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+  public declare readonly element: LinkDescriptionElement;
+
+  protected declare readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;
+
+  constructor(options: LinkDescriptionVisitorOptions) {
+    super(options);
     this.element = new LinkDescriptionElement();
-  },
-});
+    this.specPath = always(['document', 'objects', 'LinkDescription']);
+  }
+}
 
 export default LinkDescriptionVisitor;

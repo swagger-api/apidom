@@ -47,7 +47,7 @@
     "@types/ramda": "~0.29.6",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
-    "stampit": "^4.3.2"
+    "ts-mixer": "^6.0.4"
   },
   "files": [
     "cjs/",

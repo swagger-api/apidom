@@ -1,5 +1,3 @@
 import FallbackVisitor from '../../FallbackVisitor';
 
-const TitleVisitor = FallbackVisitor;
-
-export default TitleVisitor;
+export default FallbackVisitor;

@@ -335,6 +335,34 @@ export type {
   SchemaVisitorOptions,
 } from './refractor/visitors/open-api-3-0/schema';
 export type {
+  default as SchemaAllOfVisitor,
+  AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/AllOfVisitor';
+export type {
+  default as SchemaAnyOfVisitor,
+  AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/AnyOfVisitor';
+export type {
+  default as SchemaItemsVisitor,
+  ItemsVisitorOptions as SchemaItemsVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/ItemsVisitor';
+export type {
+  default as SchemaOneOfVisitor,
+  OneOfVisitorOptions as SchemaOneOfVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/OneOfVisitor';
+export type {
+  default as SchemaPropertiesVisitor,
+  PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/PropertiesVisitor';
+export type {
+  default as SchemaOrReferenceVisitor,
+  SchemaOrReferenceVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/SchemaOrReferenceVisitor';
+export type {
+  default as SchemaTypeVisitor,
+  TypeVisitorOptions as SchemaTypeVisitorOptions,
+} from './refractor/visitors/open-api-3-0/schema/TypeVisitor';
+export type {
   default as SecurityRequirementVisitor,
   SecurityRequirementVisitorOptions,
 } from './refractor/visitors/open-api-3-0/security-requirement';

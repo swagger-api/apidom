@@ -3,36 +3,37 @@ import {
   specificationObj as JSONSchemaDraft4Specification,
   JSONReferenceElement,
   isJSONReferenceElement,
+  ItemsVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
+
+export type { ItemsVisitorOptions };
 
 const { items: JSONSchemaItemsVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const ItemsVisitor = JSONSchemaItemsVisitor.compose({
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
+class ItemsVisitor extends JSONSchemaItemsVisitor {
+  ObjectElement(objectElement: ObjectElement) {
+    const result = JSONSchemaItemsVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    if (isJSONReferenceElement(this.element)) {
+      this.element.setMetaProperty('referenced-element', 'schema');
+    }
+
+    return result;
+  }
+
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = JSONSchemaItemsVisitor.prototype.ArrayElement.call(this, arrayElement);
+
+    this.element
+      .filter(isJSONReferenceElement)
       // @ts-ignore
-      const result = JSONSchemaItemsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+      .forEach((referenceElement: JSONReferenceElement) => {
+        referenceElement.setMetaProperty('referenced-element', 'schema');
+      });
 
-      if (isJSONReferenceElement(this.element)) {
-        this.element.setMetaProperty('referenced-element', 'schema');
-      }
-
-      return result;
-    },
-    ArrayElement(arrayElement: ArrayElement) {
-      // @ts-ignore
-      const result = JSONSchemaItemsVisitor.compose.methods.ArrayElement.call(this, arrayElement);
-
-      this.element
-        .filter(isJSONReferenceElement)
-        .forEach((referenceElement: JSONReferenceElement) => {
-          referenceElement.setMetaProperty('referenced-element', 'schema');
-        });
-
-      return result;
-    },
-  },
-});
+    return result;
+  }
+}
 
 export default ItemsVisitor;

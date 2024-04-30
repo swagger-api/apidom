@@ -1,25 +1,28 @@
 import { ArrayElement } from '@swagger-api/apidom-core';
-import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import {
+  specificationObj as JSONSchemaDraft4Specification,
+  AllOfVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import ReferenceElement from '../../../../elements/Reference';
 import { isReferenceElement } from '../../../../predicates';
 
+export type { AllOfVisitorOptions };
+
 const { allOf: JSONSchemaAllOfVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const AllOfVisitor = JSONSchemaAllOfVisitor.compose({
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      // @ts-ignore
-      const result = JSONSchemaAllOfVisitor.compose.methods.ArrayElement.call(this, arrayElement);
+class AllOfVisitor extends JSONSchemaAllOfVisitor {
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = JSONSchemaAllOfVisitor.prototype.ArrayElement.call(this, arrayElement);
 
-      this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-        referenceElement.setMetaProperty('referenced-element', 'schema');
-      });
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'schema');
+    });
 
-      return result;
-    },
-  },
-});
+    return result;
+  }
+}
 
 export default AllOfVisitor;

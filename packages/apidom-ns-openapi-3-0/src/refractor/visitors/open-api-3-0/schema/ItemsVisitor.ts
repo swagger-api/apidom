@@ -1,28 +1,31 @@
-import { ArrayElement, ObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
-import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import { ArrayElement, ObjectElement } from '@swagger-api/apidom-core';
+import {
+  specificationObj as JSONSchemaDraft4Specification,
+  ItemsVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import { isReferenceElement } from '../../../../predicates';
+
+export type { ItemsVisitorOptions };
 
 const { items: JSONSchemaItemsVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const ItemsVisitor = JSONSchemaItemsVisitor.compose({
-  methods: {
-    ObjectElement(objectElement: ObjectElement) {
-      // @ts-ignore
-      const result = JSONSchemaItemsVisitor.compose.methods.ObjectElement.call(this, objectElement);
+class ItemsVisitor extends JSONSchemaItemsVisitor {
+  ObjectElement(objectElement: ObjectElement) {
+    const result = JSONSchemaItemsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      if (isReferenceElement(this.element)) {
-        this.element.setMetaProperty('referenced-element', 'schema');
-      }
+    if (isReferenceElement(this.element)) {
+      this.element.setMetaProperty('referenced-element', 'schema');
+    }
 
-      return result;
-    },
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = cloneDeep(arrayElement);
-      return BREAK;
-    },
-  },
-});
+    return result;
+  }
+
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = this.enter(arrayElement);
+    return result;
+  }
+}
 
 export default ItemsVisitor;

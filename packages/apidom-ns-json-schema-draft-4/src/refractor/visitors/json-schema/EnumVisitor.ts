@@ -1,18 +1,18 @@
-import stampit from 'stampit';
-import { BREAK } from '@swagger-api/apidom-ast';
-import { ArrayElement, cloneDeep } from '@swagger-api/apidom-core';
+import { ArrayElement } from '@swagger-api/apidom-core';
 
-import FallbackVisitor from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
 
-const EnumVisitor = stampit(FallbackVisitor, {
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = cloneDeep(arrayElement);
-      this.element.classes.push('json-schema-enum');
+export type { FallbackVisitorOptions as EnumVisitorOptions };
 
-      return BREAK;
-    },
-  },
-});
+class EnumVisitor extends FallbackVisitor {
+  public declare readonly element: ArrayElement;
+
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = this.enter(arrayElement);
+    this.element.classes.push('json-schema-enum');
+
+    return result;
+  }
+}
 
 export default EnumVisitor;

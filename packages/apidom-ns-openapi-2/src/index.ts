@@ -196,6 +196,22 @@ export type {
   SchemaVisitorOptions,
 } from './refractor/visitors/open-api-2/schema';
 export type {
+  default as SchemaAllOfVisitor,
+  AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+} from './refractor/visitors/open-api-2/schema/AllOfVisitor';
+export type {
+  default as SchemaItemsVisitor,
+  ItemsVisitorOptions as SchemaItemsVisitorOptions,
+} from './refractor/visitors/open-api-2/schema/ItemsVisitor';
+export type {
+  default as SchemaPropertiesVisitor,
+  PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+} from './refractor/visitors/open-api-2/schema/PropertiesVisitor';
+export type {
+  default as SchemaOrJSONReferenceVisitor,
+  SchemaOrReferenceVisitorOptions as SchemaOrJSONReferenceVisitorOptions,
+} from './refractor/visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor';
+export type {
   default as ScopesVisitor,
   ScopesVisitorOptions,
 } from './refractor/visitors/open-api-2/scopes';

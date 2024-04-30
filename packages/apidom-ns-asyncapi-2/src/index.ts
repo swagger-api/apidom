@@ -600,6 +600,42 @@ export type {
   SchemaVisitorOptions,
 } from './refractor/visitors/async-api-2/schema';
 export type {
+  default as SchemaAllOfVisitor,
+  AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/AllOfVisitor';
+export type {
+  default as SchemaAnyOfVisitor,
+  AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/AnyOfVisitor';
+export type {
+  default as SchemaDefinitionsVisitor,
+  DefinitionsVisitorOptions as SchemaDefinitionsVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/DefinitionsVisitor';
+export type {
+  default as SchemaDependenciesVisitor,
+  DependenciesVisitorOptions as SchemaDependenciesVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/DependenciesVisitor';
+export type {
+  default as SchemaItemsVisitor,
+  ItemsVisitorOptions as SchemaItemsVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/ItemsVisitor';
+export type {
+  default as SchemaOneOfVisitor,
+  OneOfVisitorOptions as SchemaOneOfVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/OneOfVisitor';
+export type {
+  default as SchemaPatternPropertiesVisitor,
+  PatternPropertiesVisitorOptions as SchemaPatternPropertiesVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/PatternPropertiesVisitor';
+export type {
+  default as SchemaPropertiesVisitor,
+  PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/PropertiesVisitor';
+export type {
+  default as SchemaOrReferenceVisitor,
+  SchemaOrReferenceVisitorOptions,
+} from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor';
+export type {
   default as SecurityRequirementVisitor,
   SecurityRequirementVisitorOptions,
 } from './refractor/visitors/async-api-2/security-requirement';

@@ -1,16 +1,19 @@
-import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
-import { specificationObj as JSONSchemaDraft4Specification } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import { ArrayElement } from '@swagger-api/apidom-core';
+import {
+  specificationObj as JSONSchemaDraft4Specification,
+  TypeVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
+
+export type { TypeVisitorOptions };
 
 const { type: JSONSchemaTypeVisitor } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
 
-const ItemsVisitor = JSONSchemaTypeVisitor.compose({
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = cloneDeep(arrayElement);
-      return BREAK;
-    },
-  },
-});
+class TypeVisitor extends JSONSchemaTypeVisitor {
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = this.enter(arrayElement);
+    return result;
+  }
+}
 
-export default ItemsVisitor;
+export default TypeVisitor;

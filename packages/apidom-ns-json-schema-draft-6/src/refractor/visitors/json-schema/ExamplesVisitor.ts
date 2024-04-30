@@ -1,16 +1,20 @@
-import stampit from 'stampit';
-import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
-import { FallbackVisitor } from '@swagger-api/apidom-ns-json-schema-draft-4';
+import { ArrayElement } from '@swagger-api/apidom-core';
+import {
+  FallbackVisitor,
+  FallbackVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-const ExamplesVisitor = stampit(FallbackVisitor, {
-  methods: {
-    ArrayElement(arrayElement: ArrayElement) {
-      this.element = cloneDeep(arrayElement);
-      this.element.classes.push('json-schema-examples');
+export type { FallbackVisitorOptions as ExamplesVisitorOptions };
 
-      return BREAK;
-    },
-  },
-});
+class ExamplesVisitor extends FallbackVisitor {
+  public declare readonly element: ArrayElement;
+
+  ArrayElement(arrayElement: ArrayElement) {
+    const result = this.enter(arrayElement);
+    this.element.classes.push('json-schema-examples');
+
+    return result;
+  }
+}
 
 export default ExamplesVisitor;

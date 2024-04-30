@@ -2,12 +2,9 @@ import { pipe, assocPath, dissocPath } from 'ramda';
 import { specificationObj } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import JSONSchemaVisitor from './visitors/json-schema';
-import JSONSchema$idVisitor from './visitors/json-schema/$idVisitor';
 import JSONSchemaItemsVisitor from './visitors/json-schema/ItemsVisitor';
-import JSONSchemaConstVisitor from './visitors/json-schema/ConstVisitor';
 import JSONSchemaExamplesVisitor from './visitors/json-schema/ExamplesVisitor';
 import LinkDescriptionVisitor from './visitors/json-schema/link-description';
-import LinkDescriptionSubmissionEncTypeVisitor from './visitors/json-schema/link-description/SubmissionEncTypeVisitor';
 
 const specification = pipe(
   // JSON Schema object modifications
@@ -15,7 +12,7 @@ const specification = pipe(
   dissocPath(['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'id']),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', '$id'],
-    JSONSchema$idVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'contains'],
@@ -31,7 +28,7 @@ const specification = pipe(
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'const'],
-    JSONSchemaConstVisitor,
+    specificationObj.visitors.value,
   ),
   assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'examples'],
@@ -55,7 +52,7 @@ const specification = pipe(
   dissocPath(['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'encType']),
   assocPath(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'submissionEncType'],
-    LinkDescriptionSubmissionEncTypeVisitor,
+    specificationObj.visitors.value,
   ),
 )(specificationObj);
 

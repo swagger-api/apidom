@@ -115,7 +115,7 @@
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^0.99.2",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^0.99.2",
     "@swagger-api/apidom-reference": "^0.99.2",
-    "@types/ramda": "~0.29.6",
+    "@types/ramda": "~0.30.0",
     "openapi-path-templating": "^1.4.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",

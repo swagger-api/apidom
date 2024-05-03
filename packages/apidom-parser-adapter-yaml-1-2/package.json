@@ -55,7 +55,7 @@
     "@swagger-api/apidom-ast": "^0.99.2",
     "@swagger-api/apidom-core": "^0.99.2",
     "@swagger-api/apidom-error": "^0.99.0",
-    "@types/ramda": "~0.29.6",
+    "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
     "tree-sitter": "=0.20.4",

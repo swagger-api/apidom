@@ -215,7 +215,7 @@ export const cwd = (): string => {
 
   const path = process.cwd();
 
-  const lastChar = last(path);
+  const lastChar = last(path)!;
   if (['/', '\\'].includes(lastChar)) {
     return path;
   }

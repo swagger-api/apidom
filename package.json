@@ -90,7 +90,7 @@
     "rimraf": "=5.0.5",
     "rollup": "=4.17.2",
     "rollup-plugin-dts": "=6.1.0",
-    "sinon": "=17.0.1",
+    "sinon": "=17.0.2",
     "terser-webpack-plugin": "=5.3.10",
     "ts-node": "=10.9.2",
     "typescript": "=5.4.5",

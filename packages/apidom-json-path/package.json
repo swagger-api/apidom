@@ -41,7 +41,7 @@
     "@swagger-api/apidom-core": "^0.99.2",
     "@swagger-api/apidom-error": "^0.99.0",
     "@swagger-api/apidom-json-pointer": "^0.99.2",
-    "jsonpath-plus": "^7.2.0"
+    "jsonpath-plus": "^9.0.0"
   },
   "files": [
     "cjs/",

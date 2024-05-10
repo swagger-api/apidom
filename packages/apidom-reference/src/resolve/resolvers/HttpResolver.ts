@@ -3,7 +3,8 @@ import { NotImplementedError } from '@swagger-api/apidom-error';
 
 import Resolver from './Resolver';
 import * as url from '../../util/url';
-import { HttpResolver as IHttpResolver, File as IFile } from '../../types';
+import { HttpResolver as IHttpResolver } from '../../types';
+import File from '../../File';
 
 interface HttpResolverConstructorParameters {
   timeout?: number;
@@ -30,7 +31,7 @@ const HttpResolver: stampit.Stamp<IHttpResolver> = stampit(Resolver, {
     this.withCredentials = withCredentials;
   },
   methods: {
-    canRead(file: IFile): boolean {
+    canRead(file: File): boolean {
       return url.isHttpUrl(file.uri);
     },
 

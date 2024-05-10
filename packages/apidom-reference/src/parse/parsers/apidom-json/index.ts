@@ -6,8 +6,9 @@ import {
 } from '@swagger-api/apidom-core';
 
 import ParserError from '../../../errors/ParserError';
-import { Parser as IParser, File as IFile } from '../../../types';
+import { Parser as IParser } from '../../../types';
 import Parser from '../Parser';
+import File from '../../../File';
 
 const ApiDOMJsonParser: stampit.Stamp<IParser> = stampit(Parser, {
   props: {
@@ -20,7 +21,7 @@ const ApiDOMJsonParser: stampit.Stamp<IParser> = stampit(Parser, {
     this.namespace = namespace ?? this.namespace;
   },
   methods: {
-    canParse(file: IFile): boolean {
+    canParse(file: File): boolean {
       const hasSupportedFileExtension =
         this.fileExtensions.length === 0 ? true : this.fileExtensions.includes(file.extension);
       const hasSupportedMediaType = this.mediaTypes.includes(file.mediaType);
@@ -36,7 +37,7 @@ const ApiDOMJsonParser: stampit.Stamp<IParser> = stampit(Parser, {
       }
       return false;
     },
-    parse(file: IFile): ParseResultElement {
+    parse(file: File): ParseResultElement {
       const source = file.toString();
       const namespace = this['apidom-json']?.namespace ?? this.namespace;
 

@@ -1,12 +1,6 @@
 import { Element, ParseResultElement, RefElement } from '@swagger-api/apidom-core';
 
-export interface File {
-  uri: string;
-  mediaType: string;
-  data: Buffer | DataView | ArrayBuffer | string;
-  parseResult: ParseResultElement;
-  readonly extension: string;
-}
+import type File from './File';
 
 export interface Resolver {
   // name: string; - causing issues with stamps

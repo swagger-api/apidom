@@ -4,8 +4,9 @@ import { ensureArray } from 'ramda-adjunct';
 import axios, { AxiosInstance } from 'axios';
 
 import ResolverError from '../../../errors/ResolverError';
-import { HttpResolver as IHttpResolver, File as IFile } from '../../../types';
+import { HttpResolver as IHttpResolver } from '../../../types';
 import HttpResolver from '../HttpResolver';
+import File from '../../../File';
 
 interface IHttpResolverAxios extends IHttpResolver {
   axiosConfig: { [key: string]: any };
@@ -65,7 +66,7 @@ const HttpResolverAxios: stampit.Stamp<IHttpResolverAxios> = stampit(HttpResolve
       return axiosInstance;
     };
 
-    this.read = async function read(file: IFile): Promise<Buffer> {
+    this.read = async function read(file: File): Promise<Buffer> {
       const client: AxiosInstance = this.getHttpClient();
 
       try {

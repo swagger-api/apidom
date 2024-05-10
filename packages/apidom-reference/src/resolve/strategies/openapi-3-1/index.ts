@@ -2,11 +2,11 @@ import stampit from 'stampit';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
-  File as IFile,
   ReferenceOptions as IReferenceOptions,
   ResolveStrategy as IResolveStrategy,
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
+import File from '../../../File';
 import { merge as mergeOptions } from '../../../options/util';
 import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
 
@@ -16,7 +16,7 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
     this.name = 'openapi-3-1';
   },
   methods: {
-    canResolve(file: IFile, options: IReferenceOptions): boolean {
+    canResolve(file: File, options: IReferenceOptions): boolean {
       const dereferenceStrategy = options.dereference.strategies.find(
         (strategy: any) => strategy.name === 'openapi-3-1',
       );
@@ -28,7 +28,7 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
       return dereferenceStrategy.canDereference(file, options);
     },
 
-    async resolve(file: IFile, options: IReferenceOptions) {
+    async resolve(file: File, options: IReferenceOptions) {
       const dereferenceStrategy = options.dereference.strategies.find(
         (strategy: any) => strategy.name === 'openapi-3-1',
       );

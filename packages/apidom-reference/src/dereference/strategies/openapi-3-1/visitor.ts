@@ -44,7 +44,7 @@ import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
-import File from '../../../util/File';
+import File from '../../../File';
 import { resolveSchema$refField, maybeRefractToSchemaElement } from './util';
 import { AncestorLineage } from '../../util';
 import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError';
@@ -697,7 +697,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       let { uri: retrievalURI } = reference;
       const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement)!;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
-      const file = File({ uri: $refBaseURIStrippedHash });
+      const file = new File({ uri: $refBaseURIStrippedHash });
       const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
       let isInternalReference = url.stripHash(this.reference.uri) === $refBaseURI;

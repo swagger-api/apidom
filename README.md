@@ -59,7 +59,7 @@ These prerequisites are required both for installing ApiDOM as a npm package and
 
 ### Installation
 
-Assuming [prerequisites](#prerequisites) are already installed, ApiDOM npm packages are installable and works with `Node.js >=12.22.0 <=20`.
+Assuming [prerequisites](#prerequisites) are already installed, ApiDOM npm packages are installable and works with `Node.js >=12.20.0 <=22`.
 
 You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
 

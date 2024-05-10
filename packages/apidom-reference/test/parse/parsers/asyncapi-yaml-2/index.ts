@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 
-import File from '../../../../src/util/File';
+import File from '../../../../src/File';
 import AsyncApiYaml2Parser from '../../../../src/parse/parsers/asyncapi-yaml-2';
 
 describe('parsers', function () {
@@ -13,11 +13,11 @@ describe('parsers', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
-            const file1 = File({
+            const file1 = new File({
               uri: '/path/to/asyncapi.yaml',
               mediaType: mediaTypes.latest('yaml'),
             });
-            const file2 = File({
+            const file2 = new File({
               uri: '/path/to/asyncapi.yaml',
               mediaType: mediaTypes.latest(),
             });
@@ -30,7 +30,7 @@ describe('parsers', function () {
 
         context('and with improper media type', function () {
           specify('should return false', async function () {
-            const file = File({
+            const file = new File({
               uri: '/path/to/asyncapi.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
@@ -44,11 +44,11 @@ describe('parsers', function () {
       context('given file with .yml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
-            const file1 = File({
+            const file1 = new File({
               uri: '/path/to/asyncapi.yml',
               mediaType: mediaTypes.latest('yaml'),
             });
-            const file2 = File({
+            const file2 = new File({
               uri: '/path/to/asyncapi.yml',
               mediaType: mediaTypes.latest(),
             });
@@ -61,7 +61,7 @@ describe('parsers', function () {
 
         context('and with improper media type', function () {
           specify('should return false', async function () {
-            const file = File({
+            const file = new File({
               uri: '/path/to/asyncapi.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
@@ -74,7 +74,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/asyncapi.txt',
             mediaType: mediaTypes.latest(),
           });
@@ -86,7 +86,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/asyncapi',
             mediaType: mediaTypes.latest(),
           });
@@ -100,7 +100,7 @@ describe('parsers', function () {
         context('and file data is buffer and can be detected as AsyncAPI 2.6.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
-            const file = File({
+            const file = new File({
               uri: '/path/to/async-api.yaml',
               data: fs.readFileSync(url),
             });
@@ -113,7 +113,7 @@ describe('parsers', function () {
         context('and file data is string and can be detected as AsyncAPI 2.6.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
-            const file = File({
+            const file = new File({
               uri: '/path/to/async-api.yaml',
               data: fs.readFileSync(url).toString(),
             });
@@ -130,7 +130,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(uri).toString();
-          const file = File({ uri, data, mediaType: mediaTypes.latest() });
+          const file = new File({ uri, data, mediaType: mediaTypes.latest() });
           const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
@@ -142,7 +142,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(uri);
-          const file = File({ uri, data, mediaType: mediaTypes.latest() });
+          const file = new File({ uri, data, mediaType: mediaTypes.latest() });
           const parser = AsyncApiYaml2Parser();
           const parseResult = await parser.parse(file);
 
@@ -152,9 +152,9 @@ describe('parsers', function () {
 
       context('given data that is not an AsyncApi 2.6.0 YAML data', function () {
         specify('should throw ParserError', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.yaml',
-            data: 1,
+            data: 1 as any,
             mediaType: mediaTypes.latest(),
           });
           const parser = AsyncApiYaml2Parser();
@@ -168,7 +168,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.yaml',
             data: '',
             mediaType: mediaTypes.latest(),
@@ -186,7 +186,7 @@ describe('parsers', function () {
           specify('should decorate ApiDOM with source maps', async function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(uri).toString();
-            const file = File({
+            const file = new File({
               uri,
               data,
               mediaType: mediaTypes.latest(),
@@ -202,7 +202,7 @@ describe('parsers', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(uri).toString();
-            const file = File({
+            const file = new File({
               uri,
               data,
               mediaType: mediaTypes.latest(),

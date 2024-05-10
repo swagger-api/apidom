@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-workflows-yaml-1';
 
-import File from '../../../../src/util/File';
+import File from '../../../../src/File';
 import WorkflowsYaml1Parser from '../../../../src/parse/parsers/workflows-yaml-1';
 
 describe('parsers', function () {
@@ -13,11 +13,11 @@ describe('parsers', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
-            const file1 = File({
+            const file1 = new File({
               uri: '/path/to/workflows.yaml',
               mediaType: mediaTypes.latest('yaml'),
             });
-            const file2 = File({
+            const file2 = new File({
               uri: '/path/to/worklfows.yaml',
               mediaType: mediaTypes.latest('generic'),
             });
@@ -30,7 +30,7 @@ describe('parsers', function () {
 
         context('and with improper media type', function () {
           specify('should return false', async function () {
-            const file = File({
+            const file = new File({
               uri: '/path/to/workflows.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
@@ -44,11 +44,11 @@ describe('parsers', function () {
       context('given file with .yml extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
-            const file1 = File({
+            const file1 = new File({
               uri: '/path/to/workflows.yml',
               mediaType: mediaTypes.latest('yaml'),
             });
-            const file2 = File({
+            const file2 = new File({
               uri: '/path/to/workflows.yml',
               mediaType: mediaTypes.latest('generic'),
             });
@@ -61,7 +61,7 @@ describe('parsers', function () {
 
         context('and with improper media type', function () {
           specify('should return false', async function () {
-            const file = File({
+            const file = new File({
               uri: '/path/to/workflows.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
@@ -74,7 +74,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/workflows.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
@@ -86,7 +86,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/worklfows',
             mediaType: mediaTypes.latest('yaml'),
           });
@@ -100,7 +100,7 @@ describe('parsers', function () {
         context('and file data is buffer and can be detected as Workflows 1.0.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
-            const file = File({
+            const file = new File({
               uri: '/path/to/workflows.yaml',
               data: fs.readFileSync(url),
             });
@@ -113,7 +113,7 @@ describe('parsers', function () {
         context('and file data is string and can be detected as Workflows 1.0.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
-            const file = File({
+            const file = new File({
               uri: '/path/to/workflows.yaml',
               data: fs.readFileSync(url).toString(),
             });
@@ -130,7 +130,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
           const data = fs.readFileSync(uri).toString();
-          const file = File({
+          const file = new File({
             uri,
             data,
             mediaType: mediaTypes.latest('yaml'),
@@ -146,7 +146,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
           const data = fs.readFileSync(uri);
-          const file = File({
+          const file = new File({
             uri,
             data,
             mediaType: mediaTypes.latest('yaml'),
@@ -160,9 +160,9 @@ describe('parsers', function () {
 
       context('given data that is not an Workflows YAML data', function () {
         specify('should coerce to string and parse', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.yaml',
-            data: 1,
+            data: 1 as any,
             mediaType: mediaTypes.latest('yaml'),
           });
           const parser = WorkflowsYaml1Parser();
@@ -176,7 +176,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.yaml',
             data: '',
             mediaType: mediaTypes.latest('yaml'),
@@ -194,7 +194,7 @@ describe('parsers', function () {
           specify('should decorate ApiDOM with source maps', async function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
             const data = fs.readFileSync(uri).toString();
-            const file = File({
+            const file = new File({
               uri,
               data,
               mediaType: mediaTypes.latest('yaml'),
@@ -210,7 +210,7 @@ describe('parsers', function () {
           specify('should not decorate ApiDOM with source maps', async function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
             const data = fs.readFileSync(uri).toString();
-            const file = File({ uri, data });
+            const file = new File({ uri, data });
             const parser = WorkflowsYaml1Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 

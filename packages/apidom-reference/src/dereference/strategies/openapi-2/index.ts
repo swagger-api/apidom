@@ -10,9 +10,9 @@ import openApi2Namespace, {
 import DereferenceStrategy from '../DereferenceStrategy';
 import {
   DereferenceStrategy as IDereferenceStrategy,
-  File as IFile,
   ReferenceOptions as IReferenceOptions,
 } from '../../../types';
+import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
 import OpenApi2DereferenceVisitor from './visitor';
@@ -27,7 +27,7 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
       this.name = 'openapi-2';
     },
     methods: {
-      canDereference(file: IFile): boolean {
+      canDereference(file: File): boolean {
         // assert by media type
         if (file.mediaType !== 'text/plain') {
           return mediaTypes.includes(file.mediaType);
@@ -37,7 +37,7 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
         return isSwaggerElement(file.parseResult?.api);
       },
 
-      async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
+      async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi2Namespace);
         const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
         const mutableRefsSet = ReferenceSet();

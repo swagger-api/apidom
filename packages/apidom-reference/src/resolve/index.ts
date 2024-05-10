@@ -10,7 +10,7 @@ import { merge as mergeOptions } from '../options/util';
 import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } from '../types';
 import parse from '../parse';
 import * as plugins from '../util/plugins';
-import File from '../util/File';
+import File from '../File';
 import ResolveError from '../errors/ResolverError';
 import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError';
 import * as url from '../util/url';
@@ -34,7 +34,7 @@ export const resolveApiDOM = async <T extends Element>(
   }
 
   const sanitizedURI = url.sanitize(url.stripHash(options.resolve.baseURI));
-  const file = File({
+  const file = new File({
     uri: sanitizedURI,
     parseResult,
     mediaType: options.parse.mediaType,

@@ -3,7 +3,8 @@ import { promisify } from '#util'; // eslint-disable-line import/order
 import stampit from 'stampit';
 import minimatch from 'minimatch';
 
-import { FileResolver as IFileResolver, File as IFile } from '../../../types';
+import { FileResolver as IFileResolver } from '../../../types';
+import File from '../../../File';
 import Resolver from '../Resolver';
 import * as url from '../../../util/url';
 import ResolverError from '../../../errors/ResolverError';
@@ -17,7 +18,7 @@ const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
     this.fileAllowList = fileAllowList;
   },
   methods: {
-    canRead(this: IFileResolver, file: IFile): boolean {
+    canRead(this: IFileResolver, file: File): boolean {
       return (
         url.isFileSystemPath(file.uri) &&
         this.fileAllowList.some((pattern) => {
@@ -27,7 +28,7 @@ const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
         })
       );
     },
-    async read(file: IFile): Promise<Buffer> {
+    async read(file: File): Promise<Buffer> {
       const fileSystemPath = url.toFileSystemPath(file.uri);
 
       try {

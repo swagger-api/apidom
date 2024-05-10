@@ -2,11 +2,11 @@ import stampit from 'stampit';
 
 import ResolveStrategy from '../ResolveStrategy';
 import {
-  File as IFile,
   ReferenceOptions as IReferenceOptions,
   ResolveStrategy as IResolveStrategy,
 } from '../../../types';
 import ReferenceSet from '../../../ReferenceSet';
+import File from '../../../File';
 import { merge as mergeOptions } from '../../../options/util';
 import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
 
@@ -15,7 +15,7 @@ const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveSt
     this.name = 'apidom';
   },
   methods: {
-    canResolve(file: IFile, options: IReferenceOptions): boolean {
+    canResolve(file: File, options: IReferenceOptions): boolean {
       const dereferenceStrategy = options.dereference.strategies.find(
         (strategy: any) => strategy.name === 'apidom',
       );
@@ -27,7 +27,7 @@ const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveSt
       return dereferenceStrategy.canDereference(file, options);
     },
 
-    async resolve(file: IFile, options: IReferenceOptions) {
+    async resolve(file: File, options: IReferenceOptions) {
       const dereferenceStrategy = options.dereference.strategies.find(
         (strategy: any) => strategy.name === 'apidom',
       );

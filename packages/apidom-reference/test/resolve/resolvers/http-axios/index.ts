@@ -7,7 +7,7 @@ import { identity } from 'ramda';
 
 import HttpResolverAxios from '../../../../src/resolve/resolvers/http-axios';
 import ResolverError from '../../../../src/errors/ResolverError';
-import File from '../../../../src/util/File';
+import File from '../../../../src/File';
 
 describe('resolve', function () {
   context('resolvers', function () {
@@ -21,26 +21,26 @@ describe('resolve', function () {
       context('canRead', function () {
         context('given valid http URL', function () {
           specify('should consider it a HTTP URL', function () {
-            assert.isTrue(resolver.canRead(File({ uri: 'http://swagger.io/file.txt' })));
+            assert.isTrue(resolver.canRead(new File({ uri: 'http://swagger.io/file.txt' })));
           });
         });
 
         context('given valid https URL', function () {
           specify('should consider it a https URL', function () {
-            assert.isTrue(resolver.canRead(File({ uri: 'https://swagger.io/file.txt' })));
+            assert.isTrue(resolver.canRead(new File({ uri: 'https://swagger.io/file.txt' })));
           });
         });
 
         context('given URIs with no protocol', function () {
           specify('should not consider it a http/https URL', function () {
-            assert.isFalse(resolver.canRead(File({ uri: '/home/user/file.txt' })));
-            assert.isFalse(resolver.canRead(File({ uri: 'C:\\home\\user\\file.txt' })));
+            assert.isFalse(resolver.canRead(new File({ uri: '/home/user/file.txt' })));
+            assert.isFalse(resolver.canRead(new File({ uri: 'C:\\home\\user\\file.txt' })));
           });
         });
 
         context('given URLs with other known protocols', function () {
           specify('should not consider it a http/https URL', function () {
-            assert.isFalse(resolver.canRead(File({ uri: 'ftp://swagger.io/' })));
+            assert.isFalse(resolver.canRead(new File({ uri: 'ftp://swagger.io/' })));
           });
         });
       });
@@ -59,7 +59,7 @@ describe('resolve', function () {
             const url = 'https://httpbin.org/anything';
 
             axiosMock.onGet(url).reply(200, Buffer.from('data'));
-            const content = await resolver.read(File({ uri: url }));
+            const content = await resolver.read(new File({ uri: url }));
 
             assert.isTrue(ArrayBuffer.isView(content));
             assert.strictEqual(content.toString(), 'data');
@@ -71,7 +71,7 @@ describe('resolve', function () {
             axiosMock.onGet(url).reply(400, Buffer.from('data'));
 
             try {
-              await resolver.read(File({ uri: url }));
+              await resolver.read(new File({ uri: url }));
               assert.fail('should throw ResolverError');
             } catch (e) {
               assert.instanceOf(e, ResolverError);
@@ -88,7 +88,7 @@ describe('resolve', function () {
             axiosMock.onGet(url).timeout();
 
             try {
-              await resolver.read(File({ uri: url }));
+              await resolver.read(new File({ uri: url }));
               assert.fail('should throw ResolverError');
             } catch (error: any) {
               assert.strictEqual(error.cause.message, 'timeout of 1ms exceeded');
@@ -107,7 +107,7 @@ describe('resolve', function () {
             axiosMock.onGet(url).networkError();
 
             try {
-              await resolver.read(File({ uri: url }));
+              await resolver.read(new File({ uri: url }));
               assert.fail('should throw ResolverError');
             } catch (error: any) {
               assert.strictEqual(error.cause.message, 'Network Error');
@@ -131,7 +131,7 @@ describe('resolve', function () {
                 assert.isTrue(config.withCredentials);
                 return [200, Buffer.from('data')];
               });
-              await resolver.read(File({ uri: url }));
+              await resolver.read(new File({ uri: url }));
             });
           });
 

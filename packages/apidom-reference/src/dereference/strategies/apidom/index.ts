@@ -4,9 +4,9 @@ import { Element, isElement, cloneDeep, visit } from '@swagger-api/apidom-core';
 import DereferenceStrategy from '../DereferenceStrategy';
 import {
   DereferenceStrategy as IDereferenceStrategy,
-  File as IFile,
   ReferenceOptions as IReferenceOptions,
 } from '../../../types';
+import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
 import ApiDOMDereferenceVisitor from './visitor';
@@ -21,13 +21,13 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
       this.name = 'apidom';
     },
     methods: {
-      canDereference(file: IFile) {
+      canDereference(file: File) {
         return (
           file.mediaType.startsWith('application/vnd.apidom') && isElement(file.parseResult?.result)
         );
       },
 
-      async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
+      async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
         const mutableRefsSet = ReferenceSet();
         let refSet = immutableRefSet;

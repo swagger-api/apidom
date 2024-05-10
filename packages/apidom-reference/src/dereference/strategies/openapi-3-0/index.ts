@@ -10,9 +10,9 @@ import openApi3_0Namespace, {
 import DereferenceStrategy from '../DereferenceStrategy';
 import {
   DereferenceStrategy as IDereferenceStrategy,
-  File as IFile,
   ReferenceOptions as IReferenceOptions,
 } from '../../../types';
+import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
 import OpenApi3_0DereferenceVisitor from './visitor';
@@ -28,7 +28,7 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
       this.name = 'openapi-3-0';
     },
     methods: {
-      canDereference(file: IFile): boolean {
+      canDereference(file: File): boolean {
         // assert by media type
         if (file.mediaType !== 'text/plain') {
           return mediaTypes.includes(file.mediaType);
@@ -38,7 +38,7 @@ const OpenApi3_0DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stamp
         return isOpenApi3_0Element(file.parseResult?.api);
       },
 
-      async dereference(file: IFile, options: IReferenceOptions): Promise<Element> {
+      async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi3_0Namespace);
         const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
         const mutableRefsSet = ReferenceSet();

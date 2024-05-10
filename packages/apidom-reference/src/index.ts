@@ -1,6 +1,6 @@
 import { ParseResultElement, Element } from '@swagger-api/apidom-core';
 
-import File from './util/File';
+import File from './File';
 import * as url from './util/url';
 import { ReferenceSet as IReferenceSet } from './types';
 import defaultOptions from './options';
@@ -53,7 +53,7 @@ export { default as UnmatchedResolverError } from './errors/UnmatchedResolverErr
 
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
-  const file = File({ uri: url.sanitize(uri) });
+  const file = new File({ uri: url.sanitize(uri) });
 
   return readFileFn(file, mergedOptions);
 };

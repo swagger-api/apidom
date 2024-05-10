@@ -12,7 +12,7 @@ export { ConvertError, UnmatchedConvertStrategyError };
  */
 export const convertApiDOM = async (element: ParseResultElement, options = {}) => {
   const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
-  const file = File({
+  const file = new File({
     uri: mergedOptions.resolve.baseURI,
     parseResult: element,
     mediaType: mergedOptions.convert.sourceMediaType || mergedOptions.parse.mediaType,

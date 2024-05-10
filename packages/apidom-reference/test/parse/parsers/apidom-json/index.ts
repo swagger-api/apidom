@@ -12,11 +12,11 @@ describe('parsers', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
           specify('should return true', async function () {
-            const file1 = File({
+            const file1 = new File({
               uri: '/path/to/apidom.json',
               mediaType: 'application/vnd.apidom',
             });
-            const file2 = File({
+            const file2 = new File({
               uri: '/path/to/apidom.json',
               mediaType: 'application/vnd.apidom+json',
             });
@@ -29,7 +29,7 @@ describe('parsers', function () {
 
         context('and with improper media type', function () {
           specify('should return false', async function () {
-            const file = File({
+            const file = new File({
               uri: '/path/to/apidom.json',
               mediaType: 'application/vnd.aai.asyncapi+json;version=2.6.0',
             });
@@ -42,7 +42,7 @@ describe('parsers', function () {
 
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/apidom.yaml',
             mediaType: 'application/vnd.apidom',
           });
@@ -54,7 +54,7 @@ describe('parsers', function () {
 
       context('given file with no extension', function () {
         specify('should return false', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/apidom',
             mediaType: 'application/vnd.apidom',
           });
@@ -68,7 +68,7 @@ describe('parsers', function () {
         context('and file data is buffer and can be detected as ApiDOM', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'apidom.json');
-            const file = File({
+            const file = new File({
               uri: '/path/to/apidom.json',
               data: fs.readFileSync(url),
             });
@@ -81,7 +81,7 @@ describe('parsers', function () {
         context('and file data is string and can be detected as ApiDOM', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'apidom.json');
-            const file = File({
+            const file = new File({
               uri: '/path/to/apidom.json',
               data: fs.readFileSync(url).toString(),
             });
@@ -98,7 +98,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'apidom.json');
           const data = fs.readFileSync(uri).toString();
-          const file = File({
+          const file = new File({
             uri,
             data,
             mediaType: 'application/vnd.apidom+json',
@@ -114,7 +114,7 @@ describe('parsers', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'apidom.json');
           const data = fs.readFileSync(uri);
-          const file = File({
+          const file = new File({
             uri,
             data,
             mediaType: 'application/vnd.apidom+json',
@@ -128,9 +128,9 @@ describe('parsers', function () {
 
       context('given data that is not an ApiDOM JSON data', function () {
         specify('should throw error', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.json',
-            data: 1,
+            data: 1 as any,
             mediaType: 'application/vnd.apidom+json',
           });
           const parser = ApiDOMJsonParser();
@@ -146,7 +146,7 @@ describe('parsers', function () {
 
       context('given empty file', function () {
         specify('should return empty parse result', async function () {
-          const file = File({
+          const file = new File({
             uri: '/path/to/file.json',
             data: '',
             mediaType: 'application/vnd.apidom+json',

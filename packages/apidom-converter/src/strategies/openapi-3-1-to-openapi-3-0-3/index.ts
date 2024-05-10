@@ -14,8 +14,9 @@ import {
   cloneDeep,
   dispatchRefractorPlugins as dispatchPlugins,
 } from '@swagger-api/apidom-core';
+import { File } from '@swagger-api/apidom-reference';
 
-import ConvertStrategy, { IFile } from '../ConvertStrategy';
+import ConvertStrategy from '../ConvertStrategy';
 import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version';
 import webhooksRefractorPlugin from './refractor-plugins/webhooks';
 import securitySchemeTypeRefractorPlugin from './refractor-plugins/security-scheme-type';
@@ -42,7 +43,7 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
     super({ name: 'openapi-3-1-to-openapi-3-0-3' });
   }
 
-  canConvert(file: IFile, options: ConverterOptions): boolean {
+  canConvert(file: File, options: ConverterOptions): boolean {
     let hasRecognizedSourceMediaType = false;
     const hasRecognizedTargetMediaType = openAPI3_0_3MediaTypes.includes(
       options.convert.targetMediaType,
@@ -60,10 +61,10 @@ class OpenAPI31ToOpenAPI30ConvertStrategy extends ConvertStrategy {
     return hasRecognizedSourceMediaType && hasRecognizedTargetMediaType;
   }
 
-  async convert(file: IFile): Promise<ParseResultElement> {
+  async convert(file: File): Promise<ParseResultElement> {
     const annotations: AnnotationElement[] = [];
     const parseResultElement: ParseResultElement = await dispatchPluginsAsync(
-      cloneDeep(file.parseResult),
+      cloneDeep(file.parseResult!),
       [
         openAPIVersionRefractorPlugin(),
         webhooksRefractorPlugin({ annotations }),

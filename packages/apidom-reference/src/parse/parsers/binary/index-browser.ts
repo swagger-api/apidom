@@ -2,8 +2,9 @@ import stampit from 'stampit';
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 
 import ParserError from '../../../errors/ParserError';
-import { Parser as IParser, File as IFile } from '../../../types';
+import { Parser as IParser } from '../../../types';
 import Parser from '../Parser';
+import File from '../../../File';
 
 /**
  * Everything that is not recognized by other parsers will be considered by this parser
@@ -15,13 +16,13 @@ const BinaryParser: stampit.Stamp<IParser> = stampit(Parser, {
     name: 'binary',
   },
   methods: {
-    async canParse(file: IFile): Promise<boolean> {
+    async canParse(file: File): Promise<boolean> {
       const hasSupportedFileExtension =
         this.fileExtensions.length === 0 ? true : this.fileExtensions.includes(file.extension);
 
       return hasSupportedFileExtension;
     },
-    async parse(file: IFile): Promise<ParseResultElement> {
+    async parse(file: File): Promise<ParseResultElement> {
       try {
         /**
          * More information about binary strings and btoa function in following link:

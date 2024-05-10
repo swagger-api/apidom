@@ -6,7 +6,7 @@ import {
   cloneShallow,
 } from '@swagger-api/apidom-core';
 
-import File from '../util/File';
+import File from '../File';
 import * as plugins from '../util/plugins';
 import UnmatchedDereferenceStrategyError from '../errors/UnmatchedDereferenceStrategyError';
 import DereferenceError from '../errors/DereferenceError';
@@ -34,7 +34,7 @@ export const dereferenceApiDOM = async <T extends Element>(
     surrogateWrapping = true;
   }
 
-  const file = File({
+  const file = new File({
     uri: options.resolve.baseURI,
     parseResult,
     mediaType: options.parse.mediaType,

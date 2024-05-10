@@ -1,7 +1,7 @@
 import { isEmpty, propEq } from 'ramda';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import File from '../util/File';
+import File from '../File';
 import * as plugins from '../util/plugins';
 import UnmatchedBundleStrategyError from '../errors/UnmatchedBundleStrategyError';
 import BundleError from '../errors/BundleError';
@@ -27,7 +27,7 @@ const bundle = async (uri: string, options: IReferenceOptions): Promise<ParseRes
     parseResult = await parse(uri, mergedOptions);
   }
 
-  const file = File({
+  const file = new File({
     uri: mergedOptions.resolve.baseURI,
     parseResult,
     mediaType: mergedOptions.parse.mediaType,

@@ -53,7 +53,7 @@ import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUr
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 // initialize element identity manager
-const identityManager = IdentityManager();
+const identityManager = new IdentityManager();
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const OpenApi3_1DereferenceVisitor = stampit({

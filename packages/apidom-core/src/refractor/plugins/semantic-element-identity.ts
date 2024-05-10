@@ -18,7 +18,7 @@ const plugin =
 
     return {
       pre() {
-        identityManager = IdentityManager({ length });
+        identityManager = new IdentityManager({ length });
       },
       visitor: {
         enter<T extends Element>(element: T) {

@@ -39,7 +39,7 @@ const OpenApi3_1ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resol
         );
       }
 
-      const refSet = ReferenceSet();
+      const refSet = new ReferenceSet();
       const mergedOptions = mergeOptions(options, {
         resolve: { internal: false },
         dereference: { refSet },

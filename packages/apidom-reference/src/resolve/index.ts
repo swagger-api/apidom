@@ -7,10 +7,11 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { merge as mergeOptions } from '../options/util';
-import { ReferenceOptions as IReferenceOptions, ReferenceSet as IReferenceSet } from '../types';
+import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
 import * as plugins from '../util/plugins';
 import File from '../File';
+import ReferenceSet from '../ReferenceSet';
 import ResolveError from '../errors/ResolverError';
 import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError';
 import * as url from '../util/url';
@@ -21,7 +22,7 @@ import * as url from '../util/url';
 export const resolveApiDOM = async <T extends Element>(
   element: T,
   options: IReferenceOptions,
-): Promise<IReferenceSet> => {
+): Promise<ReferenceSet> => {
   // @ts-ignore
   let parseResult: ParseResultElement = element;
 
@@ -62,7 +63,7 @@ export const resolveApiDOM = async <T extends Element>(
 /**
  * Resolves a file with all its external references.
  */
-const resolve = async (uri: string, options: IReferenceOptions): Promise<IReferenceSet> => {
+const resolve = async (uri: string, options: IReferenceOptions): Promise<ReferenceSet> => {
   const parseResult = await parse(uri, options);
   const mergedOptions = mergeOptions(options, { resolve: { baseURI: url.sanitize(uri) } });
 

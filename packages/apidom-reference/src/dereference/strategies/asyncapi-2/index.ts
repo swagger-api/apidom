@@ -39,8 +39,8 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
 
       async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(asyncApi2Namespace);
-        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
-        const mutableRefsSet = ReferenceSet();
+        const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
+        const mutableRefSet = new ReferenceSet();
         let refSet = immutableRefSet;
         let reference;
 
@@ -65,13 +65,13 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
                   value: cloneDeep(ref.value),
                 }),
             )
-            .forEach((ref) => mutableRefsSet.add(ref));
-          reference = mutableRefsSet.find((ref) => ref.uri === file.uri);
-          refSet = mutableRefsSet;
+            .forEach((ref) => mutableRefSet.add(ref));
+          reference = mutableRefSet.find((ref) => ref.uri === file.uri);
+          refSet = mutableRefSet;
         }
 
         const visitor = AsyncApi2DereferenceVisitor({ reference, namespace, options });
-        const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
+        const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
         });
@@ -80,7 +80,7 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
          * If immutable option is set, replay refs from the refSet.
          */
         if (options.dereference.immutable) {
-          mutableRefsSet.refs
+          mutableRefSet.refs
             .filter((ref) => ref.uri.startsWith('immutable://'))
             .map(
               (ref) =>
@@ -102,7 +102,7 @@ const AsyncApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampi
           immutableRefSet.clean();
         }
 
-        mutableRefsSet.clean();
+        mutableRefSet.clean();
 
         return dereferencedElement;
       },

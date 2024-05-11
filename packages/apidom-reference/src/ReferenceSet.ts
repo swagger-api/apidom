@@ -15,9 +15,9 @@ class ReferenceSet {
   public readonly circular: boolean;
 
   constructor({ refs = [], circular = false }: ReferenceSetOptions = {}) {
-    this.refs = refs;
+    this.refs = [];
     this.circular = circular;
-    refs.forEach((ref: Reference) => this.add(ref));
+    refs.forEach(this.add.bind(this));
   }
 
   get size(): number {

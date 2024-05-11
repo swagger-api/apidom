@@ -39,8 +39,8 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
 
       async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi2Namespace);
-        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
-        const mutableRefsSet = ReferenceSet();
+        const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
+        const mutableRefSet = new ReferenceSet();
         let refSet = immutableRefSet;
         let reference;
 
@@ -65,13 +65,13 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
                   value: cloneDeep(ref.value),
                 }),
             )
-            .forEach((ref) => mutableRefsSet.add(ref));
-          reference = mutableRefsSet.find((ref) => ref.uri === file.uri);
-          refSet = mutableRefsSet;
+            .forEach((ref) => mutableRefSet.add(ref));
+          reference = mutableRefSet.find((ref) => ref.uri === file.uri);
+          refSet = mutableRefSet;
         }
 
         const visitor = OpenApi2DereferenceVisitor({ reference, namespace, options });
-        const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
+        const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
         });
@@ -80,7 +80,7 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
          * If immutable option is set, replay refs from the refSet.
          */
         if (options.dereference.immutable) {
-          mutableRefsSet.refs
+          mutableRefSet.refs
             .filter((ref) => ref.uri.startsWith('immutable://'))
             .map(
               (ref) =>
@@ -102,7 +102,7 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
           immutableRefSet.clean();
         }
 
-        mutableRefsSet.clean();
+        mutableRefSet.clean();
 
         return dereferencedElement;
       },

@@ -242,7 +242,7 @@ export class DefaultValidationService implements ValidationService {
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });
-      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+      const refSet = new ReferenceSet({ refs: [referenceElementReference, apiReference] });
 
       try {
         const promise = dereferenceApiDOM(refEl, {
@@ -344,7 +344,7 @@ export class DefaultValidationService implements ValidationService {
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });
-      const refSet = ReferenceSet({ refs: [referenceElementReference, apiReference] });
+      const refSet = new ReferenceSet({ refs: [referenceElementReference, apiReference] });
 
       try {
         // eslint-disable-next-line no-await-in-loop

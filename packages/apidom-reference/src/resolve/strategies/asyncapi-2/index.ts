@@ -38,7 +38,7 @@ const AsyncApi2ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(Resolv
         );
       }
 
-      const refSet = ReferenceSet();
+      const refSet = new ReferenceSet();
       const mergedOptions = mergeOptions(options, {
         resolve: { internal: false },
         dereference: { refSet },

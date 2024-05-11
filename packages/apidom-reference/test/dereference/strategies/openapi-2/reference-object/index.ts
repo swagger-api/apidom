@@ -330,7 +330,7 @@ describe('dereference', function () {
             const ex3ParseResult = await parse(ex3URI, { mediaType: 'application/json' });
             const ex3Ref = new Reference({ uri: ex3URI, value: ex3ParseResult });
 
-            const refSet = ReferenceSet({ refs: [rootRef, ex1Ref, ex2Ref, ex3Ref] });
+            const refSet = new ReferenceSet({ refs: [rootRef, ex1Ref, ex2Ref, ex3Ref] });
 
             const actual = await dereference(rootURI, {
               dereference: { refSet },

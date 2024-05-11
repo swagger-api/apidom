@@ -28,8 +28,8 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
       },
 
       async dereference(file: File, options: IReferenceOptions): Promise<Element> {
-        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
-        const mutableRefsSet = ReferenceSet();
+        const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
+        const mutableRefsSet = new ReferenceSet();
         let refSet = immutableRefSet;
         let reference;
 
@@ -61,7 +61,7 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
         }
 
         const visitor = ApiDOMDereferenceVisitor({ reference, options });
-        const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor);
+        const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor);
 
         /**
          * If immutable option is set, replay refs from the refSet.

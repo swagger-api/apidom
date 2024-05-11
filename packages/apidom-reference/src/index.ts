@@ -1,8 +1,8 @@
 import { ParseResultElement, Element } from '@swagger-api/apidom-core';
 
 import File from './File';
+import ReferenceSet from './ReferenceSet';
 import * as url from './util/url';
-import { ReferenceSet as IReferenceSet } from './types';
 import defaultOptions from './options';
 import { merge as mergeOptions } from './options/util';
 import parseFn from './parse';
@@ -11,7 +11,7 @@ import { readFile as readFileFn } from './resolve/util';
 import dereferenceFn, { dereferenceApiDOM as dereferenceApiDOMFn } from './dereference';
 import bundleFn from './bundle';
 
-export { url, File };
+export { url };
 
 export { default as Parser } from './parse/parsers/Parser';
 
@@ -27,8 +27,12 @@ export { default as BundleStrategy } from './bundle/strategies/BundleStrategy';
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';
 
+export { File };
 export { default as Reference } from './Reference';
-export { default as ReferenceSet } from './ReferenceSet';
+export { ReferenceSet };
+export type { FileOptions } from './File';
+export type { ReferenceOptions } from './Reference';
+export type { ReferenceSetOptions } from './ReferenceSet';
 
 export { default as BundleError } from './errors/BundleError';
 export { default as MaximumBundleDepthError } from './errors/MaximumBundleDepthError';
@@ -63,7 +67,7 @@ export const parse = async (uri: string, options = {}): Promise<ParseResultEleme
   return parseFn(uri, mergedOptions);
 };
 
-export const resolve = async (uri: string, options = {}): Promise<IReferenceSet> => {
+export const resolve = async (uri: string, options = {}): Promise<ReferenceSet> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return resolveFn(uri, mergedOptions);
 };
@@ -71,7 +75,7 @@ export const resolve = async (uri: string, options = {}): Promise<IReferenceSet>
 export const resolveApiDOM = async <T extends Element>(
   element: T,
   options = {},
-): Promise<IReferenceSet> => {
+): Promise<ReferenceSet> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return resolveApiDOMFn(element, mergedOptions);
 };

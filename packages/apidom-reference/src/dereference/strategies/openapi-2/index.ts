@@ -39,8 +39,8 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
 
       async dereference(file: File, options: IReferenceOptions): Promise<Element> {
         const namespace = createNamespace(openApi2Namespace);
-        const immutableRefSet = options.dereference.refSet ?? ReferenceSet();
-        const mutableRefsSet = ReferenceSet();
+        const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
+        const mutableRefsSet = new ReferenceSet();
         let refSet = immutableRefSet;
         let reference;
 
@@ -71,7 +71,7 @@ const OpenApi2DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit
         }
 
         const visitor = OpenApi2DereferenceVisitor({ reference, namespace, options });
-        const dereferencedElement = await visitAsync(refSet.rootRef.value, visitor, {
+        const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
           keyMap,
           nodeTypeGetter: getNodeType,
         });

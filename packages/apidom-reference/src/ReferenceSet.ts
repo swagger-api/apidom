@@ -1,63 +1,67 @@
-import stampit from 'stampit';
-import { propEq } from 'ramda';
 import { isNotUndefined, isString } from 'ramda-adjunct';
 
-import { ReferenceSet as IReferenceSet } from './types';
 import type Reference from './Reference';
 
-const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
-  props: {
-    rootRef: null,
-    refs: [],
-    circular: false,
-  },
-  init({ refs = [] } = {}) {
-    this.refs = [];
+export interface ReferenceSetOptions {
+  readonly refs?: Reference[];
+  readonly circular?: boolean;
+}
+
+class ReferenceSet {
+  public rootRef?: Reference;
+
+  public readonly refs: Reference[];
+
+  public readonly circular: boolean;
+
+  constructor({ refs = [], circular = false }: ReferenceSetOptions = {}) {
+    this.refs = refs;
+    this.circular = circular;
     refs.forEach((ref: Reference) => this.add(ref));
-  },
-  methods: {
-    get size(): number {
-      // @ts-ignore
-      return this.refs.length;
-    },
+  }
 
-    add(reference: Reference): IReferenceSet {
-      if (!this.has(reference)) {
-        this.refs.push(reference);
-        this.rootRef = this.rootRef === null ? reference : this.rootRef;
-        reference.refSet = this; // eslint-disable-line no-param-reassign
-      }
-      return this;
-    },
+  get size(): number {
+    return this.refs.length;
+  }
 
-    merge(anotherRefSet: IReferenceSet): IReferenceSet {
-      for (const reference of anotherRefSet.values()) {
-        this.add(reference);
-      }
-      return this;
-    },
+  add(reference: Reference): this {
+    if (!this.has(reference)) {
+      this.refs.push(reference);
+      this.rootRef = this.rootRef === undefined ? reference : this.rootRef;
+      reference.refSet = this; // eslint-disable-line no-param-reassign
+    }
+    return this;
+  }
 
-    has(thing: string | Reference): boolean {
-      const uri = isString(thing) ? thing : thing.uri;
-      return isNotUndefined(this.find(propEq(uri, 'uri')));
-    },
+  merge(anotherRefSet: this): this {
+    for (const reference of anotherRefSet.values()) {
+      this.add(reference);
+    }
+    return this;
+  }
 
-    find(callback): Reference | undefined {
-      return this.refs.find(callback);
-    },
+  has(thing: string | Reference): boolean {
+    const uri = isString(thing) ? thing : thing.uri;
+    return isNotUndefined(this.find((ref: Reference) => ref.uri === uri));
+  }
 
-    *values() {
-      yield* this.refs;
-    },
+  find(
+    predicate: (value: Reference, index: number, obj: Reference[]) => boolean,
+  ): Reference | undefined {
+    return this.refs.find(predicate);
+  }
 
-    clean() {
-      this.refs.forEach((ref: Reference) => {
-        ref.refSet = undefined; // eslint-disable-line no-param-reassign
-      });
-      this.rootRef = null;
-      this.refs = [];
-    },
-  },
-});
+  *values() {
+    yield* this.refs;
+  }
+
+  clean() {
+    this.refs.forEach((ref: Reference) => {
+      ref.refSet = undefined; // eslint-disable-line no-param-reassign
+    });
+    this.rootRef = undefined;
+    this.refs.length = 0;
+  }
+}
 
 export default ReferenceSet;

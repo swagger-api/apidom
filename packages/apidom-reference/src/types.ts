@@ -1,7 +1,7 @@
 import { Element, ParseResultElement, RefElement } from '@swagger-api/apidom-core';
 
 import type File from './File';
-import type Reference from './Reference';
+import type ReferenceSet from './ReferenceSet';
 
 export interface Resolver {
   // name: string; - causing issues with stamps
@@ -51,20 +51,6 @@ export interface BundleStrategy {
 
 export interface ComposableResolveStrategy extends ResolveStrategy {
   readonly strategies: Array<ResolveStrategy>;
-}
-
-export interface ReferenceSet {
-  rootRef: Reference;
-  refs: Array<Reference>;
-  circular: boolean;
-  readonly size: number;
-
-  add(reference: Reference): ReferenceSet;
-  merge(anotherRefSet: ReferenceSet): ReferenceSet;
-  has(uri: string): boolean;
-  find(callback: (reference: Reference) => boolean): undefined | Reference;
-  values(): IterableIterator<Reference>;
-  clean(): void;
 }
 
 export interface ReferenceParseOptions {

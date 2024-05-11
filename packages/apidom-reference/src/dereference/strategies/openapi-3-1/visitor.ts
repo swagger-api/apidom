@@ -38,7 +38,7 @@ import {
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { evaluate as uriEvaluate } from './selectors/uri';
-import { Reference as IReference, Resolver as IResolver } from '../../../types';
+import { Resolver as IResolver } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import * as url from '../../../util/url';
@@ -85,7 +85,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
     },
 
-    async toReference(uri: string): Promise<IReference> {
+    async toReference(uri: string): Promise<Reference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
         throw new MaximumResolveDepthError(
@@ -107,7 +107,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       });
 
       // register new mutable reference with a refSet
-      const mutableReference = Reference({
+      const mutableReference = new Reference({
         uri: baseURI,
         value: cloneDeep(parseResult),
         depth: this.reference.depth + 1,
@@ -116,7 +116,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
 
       if (this.options.dereference.immutable) {
         // register new immutable reference with a refSet
-        const immutableReference = Reference({
+        const immutableReference = new Reference({
           uri: `immutable://${baseURI}`,
           value: parseResult,
           depth: this.reference.depth + 1,

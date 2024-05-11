@@ -1,25 +1,32 @@
-import stampit from 'stampit';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { Reference as IReference } from './types';
+import { ReferenceSet } from './types';
 
-const Reference: stampit.Stamp<IReference> = stampit({
-  props: {
-    uri: '',
-    value: null,
-    depth: 0,
-    refSet: null,
-    errors: [],
-  },
-  init(
-    this: IReference,
-    { depth = this.depth, refSet = this.refSet, uri = this.uri, value = this.value } = {},
-  ) {
+export interface ReferenceOptions {
+  readonly uri: string;
+  readonly depth?: number;
+  readonly refSet?: ReferenceSet;
+  readonly value: ParseResultElement;
+}
+
+class Reference {
+  public readonly uri: string;
+
+  public readonly depth: number;
+
+  public readonly value: ParseResultElement;
+
+  public refSet?: ReferenceSet;
+
+  public readonly errors: Array<Error>;
+
+  constructor({ uri, depth = 0, refSet, value }: ReferenceOptions) {
     this.uri = uri;
     this.value = value;
     this.depth = depth;
     this.refSet = refSet;
     this.errors = [];
-  },
-});
+  }
+}
 
 export default Reference;

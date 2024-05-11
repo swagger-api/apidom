@@ -35,7 +35,7 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
 
         // determine the initial reference
         if (!immutableRefSet.has(file.uri)) {
-          reference = Reference({ uri: file.uri, value: file.parseResult });
+          reference = new Reference({ uri: file.uri, value: file.parseResult! });
           immutableRefSet.add(reference);
         } else {
           // pre-computed refSet was provided as configuration option
@@ -48,11 +48,12 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
          */
         if (options.dereference.immutable) {
           immutableRefSet.refs
-            .map((ref) =>
-              Reference({
-                ...ref,
-                value: cloneDeep(ref.value),
-              }),
+            .map(
+              (ref) =>
+                new Reference({
+                  ...ref,
+                  value: cloneDeep(ref.value),
+                }),
             )
             .forEach((ref) => mutableRefsSet.add(ref));
           reference = mutableRefsSet.find((ref) => ref.uri === file.uri);
@@ -68,11 +69,12 @@ const ApiDOMDereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit(
         if (options.dereference.immutable) {
           mutableRefsSet.refs
             .filter((ref) => ref.uri.startsWith('immutable://'))
-            .map((ref) =>
-              Reference({
-                ...ref,
-                uri: ref.uri.replace(/^immutable:\/\//, ''),
-              }),
+            .map(
+              (ref) =>
+                new Reference({
+                  ...ref,
+                  uri: ref.uri.replace(/^immutable:\/\//, ''),
+                }),
             )
             .forEach((ref) => immutableRefSet.add(ref));
           reference = immutableRefSet.find((ref) => ref.uri === file.uri);

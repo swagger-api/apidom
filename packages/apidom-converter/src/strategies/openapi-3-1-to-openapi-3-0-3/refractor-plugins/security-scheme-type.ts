@@ -77,7 +77,7 @@ const securitySchemeTypeRefractorPlugin =
               uri: `${baseURI}#reference`,
               value: new ParseResultElement([referenceElement]),
             });
-            const refSet = ReferenceSet({ refs: [reference, rootReference] });
+            const refSet = new ReferenceSet({ refs: [reference, rootReference] });
             // eslint-disable-next-line no-await-in-loop
             const dereferenced = await dereferenceApiDOM(referenceElement, {
               resolve: { baseURI: reference.uri },

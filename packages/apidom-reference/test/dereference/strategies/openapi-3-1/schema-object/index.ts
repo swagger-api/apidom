@@ -563,7 +563,7 @@ describe('dereference', function () {
             });
             const uri = 'https://example.com/';
             const reference = new Reference({ uri, value: parseResult });
-            const refSet = ReferenceSet({ refs: [reference] });
+            const refSet = new ReferenceSet({ refs: [reference] });
 
             const actual = await dereference(uri, {
               dereference: { refSet },
@@ -707,7 +707,7 @@ describe('dereference', function () {
               });
               const uri = 'https://example.com/';
               const reference = new Reference({ uri, value: parseResult });
-              const refSet = ReferenceSet({ refs: [reference] });
+              const refSet = new ReferenceSet({ refs: [reference] });
 
               const actual = await dereference(uri, {
                 dereference: { refSet },

@@ -562,7 +562,7 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const uri = 'https://example.com/';
-            const reference = Reference({ uri, value: parseResult });
+            const reference = new Reference({ uri, value: parseResult });
             const refSet = ReferenceSet({ refs: [reference] });
 
             const actual = await dereference(uri, {
@@ -706,7 +706,7 @@ describe('dereference', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const uri = 'https://example.com/';
-              const reference = Reference({ uri, value: parseResult });
+              const reference = new Reference({ uri, value: parseResult });
               const refSet = ReferenceSet({ refs: [reference] });
 
               const actual = await dereference(uri, {

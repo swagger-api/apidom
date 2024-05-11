@@ -27,7 +27,6 @@ import {
   ReferenceElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import { Reference as IReference } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import { AncestorLineage } from '../../util';
@@ -70,7 +69,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
     },
 
-    async toReference(uri: string): Promise<IReference> {
+    async toReference(uri: string): Promise<Reference> {
       // detect maximum depth of resolution
       if (this.reference.depth >= this.options.resolve.maxDepth) {
         throw new MaximumResolveDepthError(
@@ -92,7 +91,7 @@ const AsyncApi2DereferenceVisitor = stampit({
       });
 
       // register new mutable reference with a refSet
-      const mutableReference = Reference({
+      const mutableReference = new Reference({
         uri: baseURI,
         value: cloneDeep(parseResult),
         depth: this.reference.depth + 1,
@@ -101,7 +100,7 @@ const AsyncApi2DereferenceVisitor = stampit({
 
       if (this.options.dereference.immutable) {
         // register new immutable reference with a refSet
-        const immutableReference = Reference({
+        const immutableReference = new Reference({
           uri: `immutable://${baseURI}`,
           value: parseResult,
           depth: this.reference.depth + 1,

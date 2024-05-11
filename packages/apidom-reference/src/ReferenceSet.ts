@@ -2,7 +2,8 @@ import stampit from 'stampit';
 import { propEq } from 'ramda';
 import { isNotUndefined, isString } from 'ramda-adjunct';
 
-import { Reference as IReference, ReferenceSet as IReferenceSet } from './types';
+import { ReferenceSet as IReferenceSet } from './types';
+import type Reference from './Reference';
 
 const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
   props: {
@@ -12,7 +13,7 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
   },
   init({ refs = [] } = {}) {
     this.refs = [];
-    refs.forEach((ref: IReference) => this.add(ref));
+    refs.forEach((ref: Reference) => this.add(ref));
   },
   methods: {
     get size(): number {
@@ -20,7 +21,7 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       return this.refs.length;
     },
 
-    add(reference: IReference): IReferenceSet {
+    add(reference: Reference): IReferenceSet {
       if (!this.has(reference)) {
         this.refs.push(reference);
         this.rootRef = this.rootRef === null ? reference : this.rootRef;
@@ -36,12 +37,12 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
       return this;
     },
 
-    has(thing: string | IReference): boolean {
+    has(thing: string | Reference): boolean {
       const uri = isString(thing) ? thing : thing.uri;
       return isNotUndefined(this.find(propEq(uri, 'uri')));
     },
 
-    find(callback): IReference | undefined {
+    find(callback): Reference | undefined {
       return this.refs.find(callback);
     },
 
@@ -50,8 +51,8 @@ const ReferenceSet: stampit.Stamp<IReferenceSet> = stampit({
     },
 
     clean() {
-      this.refs.forEach((ref: IReference) => {
-        ref.refSet = null; // eslint-disable-line no-param-reassign
+      this.refs.forEach((ref: Reference) => {
+        ref.refSet = undefined; // eslint-disable-line no-param-reassign
       });
       this.rootRef = null;
       this.refs = [];

@@ -234,11 +234,11 @@ export class DefaultValidationService implements ValidationService {
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-    const apiReference = Reference({ uri: baseURI, value: cloneDeep(result) });
+    const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result)! });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
-      const referenceElementReference = Reference({
+      const referenceElementReference = new Reference({
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });
@@ -336,11 +336,11 @@ export class DefaultValidationService implements ValidationService {
     const baseURI = validationContext?.baseURI
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
-    const apiReference = Reference({ uri: baseURI, value: cloneDeep(result) });
+    const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result) });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
 
     for (const [fragmentId, refEl] of refElements.entries()) {
-      const referenceElementReference = Reference({
+      const referenceElementReference = new Reference({
         uri: `${baseURI}#reference${fragmentId}`,
         value: refEl,
       });

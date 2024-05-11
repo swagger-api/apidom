@@ -316,19 +316,19 @@ describe('dereference', function () {
 
             const rootURI = path.join(fixturePath, 'root.json');
             const rootParseResult = await parse(rootURI, { mediaType: mediaTypes.latest('json') });
-            const rootRef = Reference({ uri: rootURI, value: rootParseResult });
+            const rootRef = new Reference({ uri: rootURI, value: rootParseResult });
 
             const ex1URI = path.join(fixturePath, 'ex1.json');
             const ex1ParseResult = await parse(ex1URI, { mediaType: 'application/json' });
-            const ex1Ref = Reference({ uri: ex1URI, value: ex1ParseResult });
+            const ex1Ref = new Reference({ uri: ex1URI, value: ex1ParseResult });
 
             const ex2URI = path.join(fixturePath, 'ex2.json');
             const ex2ParseResult = await parse(ex2URI, { mediaType: 'application/json' });
-            const ex2Ref = Reference({ uri: ex2URI, value: ex2ParseResult });
+            const ex2Ref = new Reference({ uri: ex2URI, value: ex2ParseResult });
 
             const ex3URI = path.join(fixturePath, 'ex3.json');
             const ex3ParseResult = await parse(ex3URI, { mediaType: 'application/json' });
-            const ex3Ref = Reference({ uri: ex3URI, value: ex3ParseResult });
+            const ex3Ref = new Reference({ uri: ex3URI, value: ex3ParseResult });
 
             const refSet = ReferenceSet({ refs: [rootRef, ex1Ref, ex2Ref, ex3Ref] });
 

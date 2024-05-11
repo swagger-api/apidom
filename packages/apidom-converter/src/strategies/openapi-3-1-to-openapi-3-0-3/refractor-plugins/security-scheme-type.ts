@@ -65,12 +65,15 @@ const securitySchemeTypeRefractorPlugin =
            * to Security Scheme Objects that are going to be removed.
            */
           const baseURI = url.cwd();
-          const rootReference = Reference({ uri: baseURI, value: cloneDeep(parseResultElement!) });
+          const rootReference = new Reference({
+            uri: baseURI,
+            value: cloneDeep(parseResultElement!),
+          });
           for (const memberElement of element.securitySchemes) {
             if (!isReferenceElement(memberElement.value)) continue; // eslint-disable-line no-continue
 
             const { value: referenceElement } = memberElement;
-            const reference = Reference({
+            const reference = new Reference({
               uri: `${baseURI}#reference`,
               value: new ParseResultElement([referenceElement]),
             });

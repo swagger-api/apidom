@@ -398,8 +398,8 @@ describe('dereference', function () {
             // @ts-ignore
             const referenceElement = parseResult.api?.components.parameters.get('externalRef');
             const refSet = ReferenceSet();
-            const rootFileReference = Reference({ uri, value: parseResult });
-            const referenceElementReference = Reference({
+            const rootFileReference = new Reference({ uri, value: parseResult });
+            const referenceElementReference = new Reference({
               uri: `${uri}#/single-reference-object`,
               value: new ParseResultElement([referenceElement]),
             });

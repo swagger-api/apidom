@@ -16,7 +16,7 @@ export { url };
 export { default as Parser } from './parse/parsers/Parser';
 
 export { default as Resolver } from './resolve/resolvers/Resolver';
-export { default as HttpResolver } from './resolve/resolvers/HttpResolver';
+export { default as HTTPResolver } from './resolve/resolvers/HTTPResolver';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';
 
 export { default as DereferenceStrategy } from './dereference/strategies/DereferenceStrategy';

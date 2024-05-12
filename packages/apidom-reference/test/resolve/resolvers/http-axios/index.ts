@@ -15,7 +15,7 @@ describe('resolve', function () {
       let resolver: any;
 
       beforeEach(function () {
-        resolver = HttpResolverAxios();
+        resolver = new HttpResolverAxios();
       });
 
       context('canRead', function () {
@@ -80,7 +80,7 @@ describe('resolve', function () {
           });
 
           specify('should throw on timeout', async function () {
-            resolver = HttpResolverAxios({ timeout: 1 });
+            resolver = new HttpResolverAxios({ timeout: 1 });
             axiosInstance = resolver.getHttpClient();
             axiosMock = new MockAdapter(resolver.getHttpClient());
             const url = 'https://httpbin.org/anything';
@@ -122,7 +122,7 @@ describe('resolve', function () {
 
           context('given withCredentials option', function () {
             specify('should allow cross-site Access-Control requests', async function () {
-              resolver = HttpResolverAxios({ withCredentials: true });
+              resolver = new HttpResolverAxios({ withCredentials: true });
               axiosInstance = resolver.getHttpClient();
               axiosMock = new MockAdapter(axiosInstance);
               const url = 'https://httpbin.org/anything';
@@ -137,7 +137,7 @@ describe('resolve', function () {
 
           context('given redirects options', function () {
             specify('should throw on exceeding redirects', function (done) {
-              resolver = HttpResolverAxios({ redirects: 0 });
+              resolver = new HttpResolverAxios({ redirects: 0 });
               axiosInstance = resolver.getHttpClient();
               const server = http.createServer((req, res) => {
                 res.setHeader('Location', '/foo');

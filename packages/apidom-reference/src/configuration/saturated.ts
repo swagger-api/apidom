@@ -1,5 +1,5 @@
 import FileResolver from '../resolve/resolvers/file/index-node';
-import HttpResolverAxios from '../resolve/resolvers/http-axios';
+import HTTPResolverAxios from '../resolve/resolvers/http-axios';
 import OpenApi2ResolveStrategy from '../resolve/strategies/openapi-2';
 import OpenApi3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
@@ -49,8 +49,8 @@ options.parse.parsers = [
 ];
 
 options.resolve.resolvers = [
-  FileResolver(),
-  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  new FileResolver(),
+  new HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
 ];
 
 options.resolve.strategies = [

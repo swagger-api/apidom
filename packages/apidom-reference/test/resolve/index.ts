@@ -154,7 +154,7 @@ describe('resolve', function () {
       const refSet = await resolve(uri, {
         parse: { mediaType: mediaTypes.latest('json') },
         resolve: {
-          resolvers: [FileResolver()],
+          resolvers: [new FileResolver()],
           resolverOpts: {
             fileAllowList: ['*'],
           },

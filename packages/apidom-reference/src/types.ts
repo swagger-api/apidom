@@ -2,25 +2,7 @@ import { Element, ParseResultElement, RefElement } from '@swagger-api/apidom-cor
 
 import type File from './File';
 import type ReferenceSet from './ReferenceSet';
-
-export interface Resolver {
-  // name: string; - causing issues with stamps
-
-  canRead(file: File): boolean;
-  read(file: File): Promise<Buffer>;
-}
-
-export interface FileResolver extends Resolver {
-  fileAllowList: (string | RegExp)[];
-}
-
-export interface HttpResolver extends Resolver {
-  timeout: number;
-  redirects: number;
-  withCredentials: boolean;
-
-  getHttpClient(): unknown;
-}
+import type Resolver from './resolve/resolvers/Resolver';
 
 export interface Parser {
   // name: string; - causing issues with stamps

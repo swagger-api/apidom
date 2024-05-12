@@ -1,20 +1,18 @@
-import stampit from 'stampit';
-import { NotImplementedError } from '@swagger-api/apidom-error';
+import File from '../../File';
 
-import { Resolver as IResolver } from '../../types';
+export interface ResolverOptions {
+  readonly name: string;
+}
 
-const Resolver: stampit.Stamp<IResolver> = stampit({
-  props: {
-    name: null,
-  },
-  methods: {
-    canRead() {
-      return false;
-    },
-    async read(): Promise<never> {
-      throw new NotImplementedError('read method in Resolver stamp is not yet implemented.');
-    },
-  },
-});
+abstract class Resolver {
+  public readonly name: string;
+
+  constructor({ name }: ResolverOptions) {
+    this.name = name;
+  }
+
+  public abstract canRead(file: File): boolean;
+  public abstract read(file: File): Promise<Buffer>;
+}
 
 export default Resolver;

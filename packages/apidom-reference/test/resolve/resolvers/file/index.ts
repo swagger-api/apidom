@@ -11,7 +11,7 @@ describe('resolve', function () {
       let resolver: any;
 
       beforeEach(function () {
-        resolver = FileResolver({ fileAllowList: ['*'] });
+        resolver = new FileResolver({ fileAllowList: ['*'] });
       });
 
       context('canRead', function () {
@@ -46,7 +46,7 @@ describe('resolve', function () {
 
         context('given paths covered by fileAllowList - glob pattern', function () {
           specify('should consider it a file system path', function () {
-            resolver = FileResolver({ fileAllowList: ['*.json', '*.yaml'] });
+            resolver = new FileResolver({ fileAllowList: ['*.json', '*.yaml'] });
 
             assert.isTrue(resolver.canRead(new File({ uri: '/home/user/file1.json' })));
             assert.isTrue(resolver.canRead(new File({ uri: '/home/user/file2.json' })));
@@ -58,7 +58,7 @@ describe('resolve', function () {
 
         context('given paths covered by fileAllowList - regular expression', function () {
           specify('should consider it a file system path', function () {
-            resolver = FileResolver({ fileAllowList: [/\.json$/, /\.yaml$/] });
+            resolver = new FileResolver({ fileAllowList: [/\.json$/, /\.yaml$/] });
 
             assert.isTrue(resolver.canRead(new File({ uri: '/home/user/file1.json' })));
             assert.isTrue(resolver.canRead(new File({ uri: '/home/user/file2.json' })));
@@ -70,7 +70,7 @@ describe('resolve', function () {
 
         context('given empty fileAllowList', function () {
           specify('should not consider anything a file system path', function () {
-            resolver = FileResolver({ fileAllowList: [] });
+            resolver = new FileResolver({ fileAllowList: [] });
 
             assert.isFalse(resolver.canRead(new File({ uri: '/home/user/file1.json' })));
             assert.isFalse(resolver.canRead(new File({ uri: '/home/user/file2.json' })));
@@ -82,7 +82,7 @@ describe('resolve', function () {
 
         context('given no fileAllowList provided', function () {
           specify('should not consider anything a file system path', function () {
-            resolver = FileResolver();
+            resolver = new FileResolver();
 
             assert.isFalse(resolver.canRead(new File({ uri: '/home/user/file1.json' })));
             assert.isFalse(resolver.canRead(new File({ uri: '/home/user/file2.json' })));

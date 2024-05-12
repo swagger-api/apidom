@@ -1,43 +1,47 @@
 import { readFile } from '#fs'; // eslint-disable-line import/order
 import { promisify } from '#util'; // eslint-disable-line import/order
-import stampit from 'stampit';
 import minimatch from 'minimatch';
 
-import { FileResolver as IFileResolver } from '../../../types';
 import File from '../../../File';
-import Resolver from '../Resolver';
+import Resolver, { ResolverOptions } from '../Resolver';
 import * as url from '../../../util/url';
 import ResolverError from '../../../errors/ResolverError';
 
-const FileResolver: stampit.Stamp<IFileResolver> = stampit(Resolver, {
-  props: {
-    name: 'file',
-    fileAllowList: [],
-  },
-  init(this: IFileResolver, { fileAllowList = this.fileAllowList }) {
-    this.fileAllowList = fileAllowList;
-  },
-  methods: {
-    canRead(this: IFileResolver, file: File): boolean {
-      return (
-        url.isFileSystemPath(file.uri) &&
-        this.fileAllowList.some((pattern) => {
-          return typeof pattern === 'string'
-            ? minimatch(file.uri, pattern, { matchBase: true })
-            : pattern.test(file.uri);
-        })
-      );
-    },
-    async read(file: File): Promise<Buffer> {
-      const fileSystemPath = url.toFileSystemPath(file.uri);
+export interface FileResolverOptions extends Omit<ResolverOptions, 'name'> {
+  readonly fileAllowList?: string[] | RegExp[];
+}
 
-      try {
-        return await promisify(readFile)(fileSystemPath);
-      } catch (error: any) {
-        throw new ResolverError(`Error opening file "${file.uri}"`, { cause: error });
-      }
-    },
-  },
-});
+class FileResolver extends Resolver {
+  public fileAllowList: string[] | RegExp[];
+
+  constructor(options?: FileResolverOptions) {
+    const { fileAllowList = [] } = options ?? {};
+
+    super({ name: 'file' });
+    this.fileAllowList = fileAllowList;
+  }
+
+  canRead(file: File): boolean {
+    return (
+      url.isFileSystemPath(file.uri) &&
+      this.fileAllowList.some((pattern) => {
+        return typeof pattern === 'string'
+          ? minimatch(file.uri, pattern, { matchBase: true })
+          : pattern.test(file.uri);
+      })
+    );
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async read(file: File): Promise<Buffer> {
+    const fileSystemPath = url.toFileSystemPath(file.uri);
+
+    try {
+      return await promisify(readFile)(fileSystemPath);
+    } catch (error: unknown) {
+      throw new ResolverError(`Error opening file "${file.uri}"`, { cause: error });
+    }
+  }
+}
 
 export default FileResolver;

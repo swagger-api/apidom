@@ -1,82 +1,76 @@
-import stampit from 'stampit';
-import { omit, pathOr } from 'ramda';
+import { omit } from 'ramda';
 import { ensureArray } from 'ramda-adjunct';
-import axios, { AxiosInstance } from 'axios';
+import axios, { Axios, AxiosInstance, CreateAxiosDefaults } from 'axios';
 
-import ResolverError from '../../../errors/ResolverError';
-import { HttpResolver as IHttpResolver } from '../../../types';
-import HttpResolver from '../HttpResolver';
+import HTTPResolver, { HTTPResolverOptions } from '../HTTPResolver';
 import File from '../../../File';
+import ResolverError from '../../../errors/ResolverError';
 
-interface IHttpResolverAxios extends IHttpResolver {
-  axiosConfig: { [key: string]: any };
-
-  getHttpClient(): AxiosInstance;
+interface HTTPResolverAxiosConfig extends CreateAxiosDefaults {
+  interceptors?: Axios['interceptors'];
 }
 
-const HttpResolverAxios: stampit.Stamp<IHttpResolverAxios> = stampit(HttpResolver).init(
-  function HttpResolverAxios() {
-    /**
-     * Private Api.
-     */
-    let axiosInstance: AxiosInstance;
-    let oldAxiosConfig: { [key: string]: any };
+export interface HTTPResolverAxiosOptions extends Omit<HTTPResolverOptions, 'name'> {
+  readonly axiosConfig?: HTTPResolverAxiosConfig;
+}
 
-    /**
-     * Public Api.
-     */
+class HTTPResolverAxios extends HTTPResolver {
+  public axiosConfig: HTTPResolverAxiosConfig = {};
 
-    this.name = 'http-axios';
-    this.axiosConfig = {};
+  protected axiosInstance!: AxiosInstance;
 
-    this.getHttpClient = function getHttpClient(): AxiosInstance {
-      if (typeof axiosInstance === 'undefined' || oldAxiosConfig !== this.axiosConfig) {
-        const config = omit(['interceptors'], this.axiosConfig);
-        const interceptors = pathOr(
-          { request: [], response: [] },
-          ['axiosConfig', 'interceptors'],
-          this,
-        );
+  protected previousAxiosConfig!: HTTPResolverAxiosConfig;
 
-        axiosInstance = axios.create({
-          timeout: this.timeout,
-          maxRedirects: this.redirects,
-          withCredentials: this.withCredentials,
-          responseType: 'arraybuffer',
-          ...config,
+  constructor(options?: HTTPResolverAxiosOptions) {
+    const { axiosConfig = {}, ...rest } = options ?? {};
+
+    super({ ...rest, name: 'http-axios' });
+    this.axiosConfig = axiosConfig;
+  }
+
+  getHttpClient(): AxiosInstance {
+    if (this.axiosInstance === undefined || this.previousAxiosConfig !== this.axiosConfig) {
+      const config = omit(['interceptors'], this.axiosConfig);
+      const { interceptors } = this.axiosConfig;
+
+      this.axiosInstance = axios.create({
+        timeout: this.timeout,
+        maxRedirects: this.redirects,
+        withCredentials: this.withCredentials,
+        responseType: 'arraybuffer',
+        ...config,
+      });
+
+      // settings up request interceptors
+      if (Array.isArray(interceptors?.request)) {
+        interceptors.request.forEach((requestInterceptor) => {
+          this.axiosInstance.interceptors.request.use(...ensureArray(requestInterceptor));
         });
-
-        // settings up request interceptors
-        if (Array.isArray(interceptors?.request)) {
-          interceptors.request.forEach((requestInterceptor: any) => {
-            axiosInstance.interceptors.request.use(...ensureArray(requestInterceptor));
-          });
-        }
-
-        // settings up response interceptors
-        if (Array.isArray(interceptors?.response)) {
-          interceptors.response.forEach((responseInterceptor: any) => {
-            axiosInstance.interceptors.response.use(...ensureArray(responseInterceptor));
-          });
-        }
-
-        oldAxiosConfig = this.axiosConfig;
       }
 
-      return axiosInstance;
-    };
-
-    this.read = async function read(file: File): Promise<Buffer> {
-      const client: AxiosInstance = this.getHttpClient();
-
-      try {
-        const response = await client.get<Buffer>(file.uri);
-        return response.data;
-      } catch (error: any) {
-        throw new ResolverError(`Error downloading "${file.uri}"`, { cause: error });
+      // settings up response interceptors
+      if (Array.isArray(interceptors?.response)) {
+        interceptors.response.forEach((responseInterceptor: any) => {
+          this.axiosInstance.interceptors.response.use(...ensureArray(responseInterceptor));
+        });
       }
-    };
-  },
-);
 
-export default HttpResolverAxios;
+      this.previousAxiosConfig = this.axiosConfig;
+    }
+
+    return this.axiosInstance;
+  }
+
+  async read(file: File): Promise<Buffer> {
+    const client: AxiosInstance = this.getHttpClient();
+
+    try {
+      const response = await client.get<Buffer>(file.uri);
+      return response.data;
+    } catch (error: unknown) {
+      throw new ResolverError(`Error downloading "${file.uri}"`, { cause: error });
+    }
+  }
+}
+
+export default HTTPResolverAxios;

@@ -38,13 +38,13 @@ import {
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
 import { evaluate as uriEvaluate } from './selectors/uri';
-import { Resolver as IResolver } from '../../../types';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
 import * as url from '../../../util/url';
 import parse from '../../../parse';
 import Reference from '../../../Reference';
 import File from '../../../File';
+import Resolver from '../../../resolve/resolvers/Resolver';
 import { resolveSchema$refField, maybeRefractToSchemaElement } from './util';
 import { AncestorLineage } from '../../util';
 import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError';
@@ -698,7 +698,7 @@ const OpenApi3_1DereferenceVisitor = stampit({
       const $refBaseURI = resolveSchema$refField(retrievalURI, referencingElement)!;
       const $refBaseURIStrippedHash = url.stripHash($refBaseURI);
       const file = new File({ uri: $refBaseURIStrippedHash });
-      const isUnknownURI = none((r: IResolver) => r.canRead(file), this.options.resolve.resolvers);
+      const isUnknownURI = none((r: Resolver) => r.canRead(file), this.options.resolve.resolvers);
       const isURL = !isUnknownURI;
       let isInternalReference = url.stripHash(this.reference.uri) === $refBaseURI;
       let isExternalReference = !isInternalReference;

@@ -1,54 +1,50 @@
-import stampit from 'stampit';
-
-import ResolveStrategy from '../ResolveStrategy';
-import {
-  ReferenceOptions as IReferenceOptions,
-  ResolveStrategy as IResolveStrategy,
-} from '../../../types';
+import ResolveStrategy, { ResolveStrategyOptions } from '../ResolveStrategy';
 import ReferenceSet from '../../../ReferenceSet';
 import File from '../../../File';
 import { merge as mergeOptions } from '../../../options/util';
 import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
+import type { ReferenceOptions } from '../../../options';
 
-const ApiDOMResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit(ResolveStrategy, {
-  init() {
-    this.name = 'apidom';
-  },
-  methods: {
-    canResolve(file: File, options: IReferenceOptions): boolean {
-      const dereferenceStrategy = options.dereference.strategies.find(
-        (strategy: any) => strategy.name === 'apidom',
+export interface ApiDOMResolveStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
+
+class ApiDOMResolveStrategy extends ResolveStrategy {
+  constructor(options?: ApiDOMResolveStrategyOptions) {
+    super({ ...(options ?? {}), name: 'apidom' });
+  }
+
+  canResolve(file: File, options: ReferenceOptions): boolean {
+    const dereferenceStrategy = options.dereference.strategies.find(
+      (strategy) => strategy.name === 'apidom',
+    );
+
+    if (dereferenceStrategy === undefined) {
+      return false;
+    }
+
+    return dereferenceStrategy.canDereference(file, options);
+  }
+
+  async resolve(file: File, options: ReferenceOptions) {
+    const dereferenceStrategy = options.dereference.strategies.find(
+      (strategy) => strategy.name === 'apidom',
+    );
+
+    if (dereferenceStrategy === undefined) {
+      throw new UnmatchedDereferenceStrategyError(
+        '"apidom" dereference strategy is not available.',
       );
+    }
 
-      if (dereferenceStrategy === undefined) {
-        return false;
-      }
+    const refSet = new ReferenceSet();
+    const mergedOptions = mergeOptions(options, {
+      resolve: { internal: false },
+      dereference: { refSet },
+    });
 
-      return dereferenceStrategy.canDereference(file, options);
-    },
+    await dereferenceStrategy.dereference(file, mergedOptions);
 
-    async resolve(file: File, options: IReferenceOptions) {
-      const dereferenceStrategy = options.dereference.strategies.find(
-        (strategy: any) => strategy.name === 'apidom',
-      );
-
-      if (dereferenceStrategy === undefined) {
-        throw new UnmatchedDereferenceStrategyError(
-          '"apidom" dereference strategy is not available.',
-        );
-      }
-
-      const refSet = new ReferenceSet();
-      const mergedOptions = mergeOptions(options, {
-        resolve: { internal: false },
-        dereference: { refSet },
-      });
-
-      await dereferenceStrategy.dereference(file, mergedOptions);
-
-      return refSet;
-    },
-  },
-});
+    return refSet;
+  }
+}
 
 export default ApiDOMResolveStrategy;

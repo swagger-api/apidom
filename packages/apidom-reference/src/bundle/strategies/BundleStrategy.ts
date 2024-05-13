@@ -1,23 +1,21 @@
-import stampit from 'stampit';
-import { NotImplementedError } from '@swagger-api/apidom-error';
+import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { BundleStrategy as IBundleStrategy } from '../../types';
+import File from '../../File';
+import type { ReferenceOptions } from '../../options';
 
-const BundleStrategy: stampit.Stamp<IBundleStrategy> = stampit({
-  props: {
-    name: null,
-  },
-  methods: {
-    canBundle() {
-      return false;
-    },
+export interface BundleStrategyOptions {
+  readonly name: string;
+}
 
-    async bundle(): Promise<never> {
-      throw new NotImplementedError(
-        'bundle method in BundleStrategy stamp is not yet implemented.',
-      );
-    },
-  },
-});
+abstract class BundleStrategy {
+  public readonly name: string;
+
+  constructor({ name }: BundleStrategyOptions) {
+    this.name = name;
+  }
+
+  abstract canBundle(file: File, options: ReferenceOptions): boolean;
+  abstract bundle(file: File, options: ReferenceOptions): Promise<ParseResultElement>;
+}
 
 export default BundleStrategy;

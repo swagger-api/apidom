@@ -1,22 +1,20 @@
-import stampit from 'stampit';
-import { NotImplementedError } from '@swagger-api/apidom-error';
+import File from '../../File';
+import ReferenceSet from '../../ReferenceSet';
+import type { ReferenceOptions } from '../../options';
 
-import { ResolveStrategy as IResolveStrategy } from '../../types';
+export interface ResolveStrategyOptions {
+  readonly name: string;
+}
 
-const ResolveStrategy: stampit.Stamp<IResolveStrategy> = stampit({
-  props: {
-    name: null,
-  },
-  methods: {
-    canResolve() {
-      return false;
-    },
-    async resolve(): Promise<never> {
-      throw new NotImplementedError(
-        'resolve method in ResolveStrategy stamp is not yet implemented.',
-      );
-    },
-  },
-});
+abstract class ResolveStrategy {
+  public readonly name: string;
+
+  constructor({ name }: ResolveStrategyOptions) {
+    this.name = name;
+  }
+
+  abstract canResolve(file: File, options: ReferenceOptions): boolean;
+  abstract resolve(file: File, options: ReferenceOptions): Promise<ReferenceSet>;
+}
 
 export default ResolveStrategy;

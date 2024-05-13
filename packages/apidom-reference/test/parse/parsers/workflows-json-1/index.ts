@@ -5,10 +5,10 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-workflows-json-1';
 
 import File from '../../../../src/File';
-import WorkflowsJson1Parser from '../../../../src/parse/parsers/workflows-json-1';
+import WorkflowsJSON1Parser from '../../../../src/parse/parsers/workflows-json-1';
 
 describe('parsers', function () {
-  context('WorkflowsJson1Parser', function () {
+  context('WorkflowsJSON1Parser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.json',
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = WorkflowsJson1Parser();
+            const parser = new WorkflowsJSON1Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.json',
               mediaType: 'application/vnd.aai.asyncapi+json;version=2.6.0',
             });
-            const parser = WorkflowsJson1Parser();
+            const parser = new WorkflowsJSON1Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows.yaml',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -59,7 +59,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -73,7 +73,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.json',
               data: fs.readFileSync(uri),
             });
-            const parser = WorkflowsJson1Parser();
+            const parser = new WorkflowsJSON1Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -86,7 +86,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.json',
               data: fs.readFileSync(uri).toString(),
             });
-            const parser = WorkflowsJson1Parser();
+            const parser = new WorkflowsJSON1Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -104,7 +104,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -120,7 +120,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -134,7 +134,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
           const parseResult = await parser.parse(file);
           const numberElement: NumberElement = parseResult.get(0);
 
@@ -150,7 +150,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = WorkflowsJson1Parser();
+          const parser = new WorkflowsJSON1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -168,7 +168,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = WorkflowsJson1Parser({ sourceMap: true });
+            const parser = new WorkflowsJSON1Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -184,7 +184,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('json'),
             });
-            const parser = WorkflowsJson1Parser();
+            const parser = new WorkflowsJSON1Parser();
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

@@ -5,10 +5,10 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-2';
 
 import File from '../../../../src/File';
-import OpenApiYaml2Parser from '../../../../src/parse/parsers/openapi-yaml-2';
+import OpenAPIYAML2Parser from '../../../../src/parse/parsers/openapi-yaml-2';
 
 describe('parsers', function () {
-  context('OpenApiYaml2Parser', function () {
+  context('OpenAPIYAML2Parser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.yaml',
               mediaType: mediaTypes.latest('generic'),
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -52,7 +52,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.yml',
               mediaType: mediaTypes.latest('generic'),
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -65,7 +65,7 @@ describe('parsers', function () {
               uri: '/path/to/openapi.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -104,7 +104,7 @@ describe('parsers', function () {
               uri: '/path/to/open-api.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -117,7 +117,7 @@ describe('parsers', function () {
               uri: '/path/to/open-api.yaml',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = OpenApiYaml2Parser();
+            const parser = new OpenAPIYAML2Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -135,7 +135,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -151,7 +151,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -165,7 +165,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
           const result = await parser.parse(file);
           const numberElement: NumberElement = result.get(0);
 
@@ -181,7 +181,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = OpenApiYaml2Parser();
+          const parser = new OpenAPIYAML2Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -199,7 +199,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('yaml'),
             });
-            const parser = OpenApiYaml2Parser({ sourceMap: true });
+            const parser = new OpenAPIYAML2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -211,7 +211,7 @@ describe('parsers', function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const data = fs.readFileSync(uri).toString();
             const file = new File({ uri, data });
-            const parser = OpenApiYaml2Parser({ sourceMap: false });
+            const parser = new OpenAPIYAML2Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

@@ -10,17 +10,17 @@ import File from '../File';
 import * as plugins from '../util/plugins';
 import UnmatchedDereferenceStrategyError from '../errors/UnmatchedDereferenceStrategyError';
 import DereferenceError from '../errors/DereferenceError';
-import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
 import { merge as mergeOptions } from '../options/util';
 import * as url from '../util/url';
+import type { ReferenceOptions } from '../options';
 
 /**
  * Dereferences ApiDOM with all its external references.
  */
 export const dereferenceApiDOM = async <T extends Element>(
   element: T,
-  options: IReferenceOptions,
+  options: ReferenceOptions,
 ): Promise<T> => {
   // @ts-ignore
   let parseResult: ParseResultElement = element;
@@ -63,10 +63,7 @@ export const dereferenceApiDOM = async <T extends Element>(
 /**
  * Dereferences a file with all its external references.
  */
-const dereference = async (
-  uri: string,
-  options: IReferenceOptions,
-): Promise<ParseResultElement> => {
+const dereference = async (uri: string, options: ReferenceOptions): Promise<ParseResultElement> => {
   const { refSet } = options.dereference;
   const sanitizedURI = url.sanitize(uri);
   let parseResult;

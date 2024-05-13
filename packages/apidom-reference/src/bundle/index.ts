@@ -5,15 +5,15 @@ import File from '../File';
 import * as plugins from '../util/plugins';
 import UnmatchedBundleStrategyError from '../errors/UnmatchedBundleStrategyError';
 import BundleError from '../errors/BundleError';
-import { ReferenceOptions as IReferenceOptions } from '../types';
 import parse from '../parse';
 import { merge as mergeOptions } from '../options/util';
 import * as url from '../util/url';
+import type { ReferenceOptions } from '../options';
 
 /**
  * Bundle a file with all its external references to a compound document.
  */
-const bundle = async (uri: string, options: IReferenceOptions): Promise<ParseResultElement> => {
+const bundle = async (uri: string, options: ReferenceOptions): Promise<ParseResultElement> => {
   const { refSet } = options.bundle;
   const sanitizedURI = url.sanitize(uri);
   const mergedOptions = mergeOptions(options, { resolve: { baseURI: sanitizedURI } });

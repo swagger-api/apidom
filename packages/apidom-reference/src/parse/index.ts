@@ -4,16 +4,16 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import * as url from '../util/url';
 import File from '../File';
 import * as plugins from '../util/plugins';
-import { ReferenceOptions as IReferenceOptions } from '../types';
 import Parser from './parsers/Parser';
 import ParseError from '../errors/ParseError';
 import UnmatchedResolverError from '../errors/UnmatchedResolverError';
 import { readFile } from '../resolve/util';
+import type { ReferenceOptions } from '../options';
 
 /**
  * Parses the given file's contents, using the configured parser plugins.
  */
-const parseFile = async (file: File, options: IReferenceOptions): Promise<ParseResultElement> => {
+const parseFile = async (file: File, options: ReferenceOptions): Promise<ParseResultElement> => {
   const optsBoundParsers = options.parse.parsers.map((parser) => {
     const clonedParser = Object.create(parser);
     return Object.assign(clonedParser, options.parse.parserOpts);
@@ -45,7 +45,7 @@ const parseFile = async (file: File, options: IReferenceOptions): Promise<ParseR
 /**
  * Parses a file into ApiDOM.
  */
-const parse = async (uri: string, options: IReferenceOptions): Promise<ParseResultElement> => {
+const parse = async (uri: string, options: ReferenceOptions): Promise<ParseResultElement> => {
   /**
    * If the path is a filesystem path, then convert it to a URL.
    *

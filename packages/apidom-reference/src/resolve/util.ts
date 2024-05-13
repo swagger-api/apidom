@@ -1,17 +1,17 @@
 import { isEmpty } from 'ramda';
 
-import { ReferenceOptions as IReferenceOptions } from '../types';
 import File from '../File';
 import Resolver from './resolvers/Resolver';
 import * as plugins from '../util/plugins';
 import ResolveError from '../errors/ResolveError';
 import UnmatchedResolverError from '../errors/UnmatchedResolverError';
+import type { ReferenceOptions } from '../options';
 
 /**
  * Reads the given file, using the configured resolver plugins.
  */
 // eslint-disable-next-line import/prefer-default-export
-export const readFile = async (file: File, options: IReferenceOptions): Promise<Buffer> => {
+export const readFile = async (file: File, options: ReferenceOptions): Promise<Buffer> => {
   const optsBoundResolvers: Resolver[] = options.resolve.resolvers.map((resolver) => {
     const clonedResolver = Object.create(resolver);
     return Object.assign(clonedResolver, options.resolve.resolverOpts);

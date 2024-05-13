@@ -1,0 +1,6 @@
+{
+  "rules": {
+    "class-methods-use-this": 0,
+    "@typescript-eslint/naming-convention": 0
+  }
+}

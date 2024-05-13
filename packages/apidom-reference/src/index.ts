@@ -14,15 +14,20 @@ import bundleFn from './bundle';
 export { url };
 
 export { default as Parser } from './parse/parsers/Parser';
+export type { ParserOptions } from './parse/parsers/Parser';
 
 export { default as Resolver } from './resolve/resolvers/Resolver';
 export { default as HTTPResolver } from './resolve/resolvers/HTTPResolver';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy';
+export type { ResolverOptions } from './resolve/resolvers/Resolver';
+export type { ResolveStrategyOptions } from './resolve/strategies/ResolveStrategy';
 
 export { default as DereferenceStrategy } from './dereference/strategies/DereferenceStrategy';
+export type { DereferenceStrategyOptions } from './dereference/strategies/DereferenceStrategy';
 export { AncestorLineage as DereferenceAncestorLineage } from './dereference/util';
 
 export { default as BundleStrategy } from './bundle/strategies/BundleStrategy';
+export type { BundleStrategyOptions } from './bundle/strategies/BundleStrategy';
 
 export { default as options } from './options';
 export { merge as mergeOptions } from './options/util';

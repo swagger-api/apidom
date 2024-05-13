@@ -25,12 +25,12 @@ This package has two main exports suitable for different use-cases. **Empty** co
 
 ```js
 import { parse } from '@swagger-api/apidom-reference/configuration/empty';
-import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: [OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false })]
+    parsers: [new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false })]
   }
 });
 ```
@@ -371,22 +371,22 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
 
 ```js
 [
-  OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
-  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
-  JsonParser({ allowEmpty: true, sourceMap: false }),
-  YamlParser({ allowEmpty: true, sourceMap: false }),
-  BinaryParser({ allowEmpty: true }),
+  new OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+  new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+  new JSONParser({ allowEmpty: true, sourceMap: false }),
+  new YAMLParser({ allowEmpty: true, sourceMap: false }),
+  new BinaryParser({ allowEmpty: true }),
 ]
 ```
 Most specific parser plugins are listed first, most generic are listed last.
@@ -395,40 +395,40 @@ It's possible to **change** the parser plugins **order globally** by mutating gl
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
-import OpenApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
-import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
-import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
-import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
-import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
-import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
-import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
-import ApiDOMJsonParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
-import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
-import YamlParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import OpenAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
+import OpenAPIJSON3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import OpenAPIYAML3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import WorkflowsJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import WorkflowsYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
+import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import JSONParser from '@swagger-api/apidom-reference/parse/parsers/json';
+import YAMLParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
 import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 
 options.parse.parsers = [
-  OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
-  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
-  YamlParser({ allowEmpty: true, sourceMap: false }),
-  JsonParser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+  OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+  APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+  APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+  YAMLParser({ allowEmpty: true, sourceMap: false }),
+  JSONParser({ allowEmpty: true, sourceMap: false }),
   BinaryParser({ allowEmpty: true }),
 ]
 ```
@@ -437,42 +437,42 @@ To **change** the parser plugins **order** on ad-hoc basis:
 
 ```js
 import { parse } from '@swagger-api/apidom-reference';
-import OpenApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
-import OpenApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
-import OpenApiJson3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
-import OpenApiYaml3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
-import OpenApiJson3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
-import OpenApiYaml3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
-import AsyncApiJson2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
-import AsyncApiYaml2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import WorkflowsJson1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import WorkflowsYaml1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
-import ApiDOMJsonParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
-import ApiDesignSystemsJsonParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import ApiDesignSystemsYamlParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
-import JsonParser from '@swagger-api/apidom-reference/parse/parsers/json';
-import YamlParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
+import OpenAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-2';
+import OpenAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-2';
+import OpenAPIJSON3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-0';
+import OpenAPIYAML3_0Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-0'
+import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
+import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
+import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import WorkflowsJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import WorkflowsYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
+import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
+import JSONParser from '@swagger-api/apidom-reference/parse/parsers/json';
+import YAMLParser from '@swagger-api/apidom-reference/parse/parsers/yaml';
 import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
     parsers: [
-      OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
-      OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-      WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
-      WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
-      ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
-      ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
-      ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
-      JsonParser({ allowEmpty: true, sourceMap: false }),
-      YamlParser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+      OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+      AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+      WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+      APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+      APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+      APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+      JSONParser({ allowEmpty: true, sourceMap: false }),
+      YAMLParser({ allowEmpty: true, sourceMap: false }),
       BinaryParser({ allowEmpty: true }),
     ],
   },
@@ -516,41 +516,47 @@ Parse component can be extended by additional parser plugins. Every parser plugi
 must conform to the following interface/shape:
 
 ```typescript
-{
+interface ParserPlugin {
   // uniquely identifies this parser plugin
-  name: string,
+  readonly name: string;
+  allowEmpty: boolean;
+  sourceMap: boolean;
+  fileExtensions: string[];
+  mediaTypes: string[];
 
   // this method is called to determine whether the parser plugin can parse the file
-  async canParse(file: IFile): Promise<boolean> {
-    // ...implementation...
-  },
+  canParse(file: File): boolean | Promise<boolean>;
 
   // this method actually parses the file
-  async parse(file: IFile): Promise<ParseResultElement> {
-    // ...implementation...
-  }
+  parse(file: File): ParseResultElement | Promise<ParseResultElement>;
 }
 ```
 
 New parser plugin is then provided as an option to a `parse` function:
 
-```js
-import { parse, options } from '@swagger-api/apidom-reference';
+```ts
+import { parse, options, File, Parser, ParserOptions } from '@swagger-api/apidom-reference';
 
-const myCustomParserPlugin = {
-  name: 'myCustomParserPlugin',
-  async canParse(file) {
-    return true;
-  },
-  async parse(file) {
-     // implementation of parsing
+interface MyCustomParserPluginOptions extends Omit<ParserOptions, 'name'> {}
+
+class MyCustomParserPlugin extends Parser {
+  constructor(options?: MyCustomParserPluginOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-parser' });
   }
-};
+
+  async canParse(file: File, options: typeof options) {
+    return true;
+  }
+
+  async parse(file: File, options: typeof options) {
+    // implementation of parsing
+  }
+}
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: [...options.parse.parsers, myCustomParserPlugin],
+    parsers: [...options.parse.parsers, new MyCustomParserPlugin()],
   }
 });
 ```
@@ -562,46 +568,59 @@ parses it and returns.
 
 If you want to force execution of your custom plugin, add it as a first parser plugin:
 
-```js
-import { parse, options } from '@swagger-api/apidom-reference';
+```ts
+import { parse, options, File, Parser, ParserOptions } from '@swagger-api/apidom-reference';
 
-const myCustomParserPlugin = {
-  name: 'myCustomParserPlugin',
-  async canParse(file) {
+interface MyCustomParserPluginOptions extends Omit<ParserOptions, 'name'> {}
+
+class MyCustomParserPlugin extends Parser {
+  constructor(options?: MyCustomParserPluginOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-parser' });
+  }
+
+  async canParse(file: File, options: typeof options) {
     return true;
-  },
-  async parse(file) {
+  }
+
+  async parse(file: File, options: typeof options) {
     // implementation of parsing
   }
-};
+}
+
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: [myCustomParserPlugin, ...options.parse.parsers],
+    parsers: [new MyCustomParserPlugin(), ...options.parse.parsers],
   }
 });
 ```
 
 To override the default parser plugins entirely, set `myCustomParserPlugin` plugin to be the only one available:
 
-```js
-import { parse } from '@swagger-api/apidom-reference';
+```ts
+import { parse, options, File, Parser, ParserOptions } from '@swagger-api/apidom-reference';
 
-const myCustomParserPlugin = {
-  name: 'myCustomParserPlugin',
-  async canParse(file) {
+interface MyCustomParserPluginOptions extends Omit<ParserOptions, 'name'> {}
+
+class MyCustomParserPlugin extends Parser {
+  constructor(options?: MyCustomParserPluginOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-parser' });
+  }
+
+  async canParse(file: File, options: typeof options) {
     return true;
-  },
-  async parse(file) {
+  }
+
+  async parse(file: File, options: typeof options) {
     // implementation of parsing
   }
-};
+}
 
 await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
-    parsers: [myCustomParserPlugin],
+    parsers: [new MyCustomParserPlugin()],
   }
 });
 ```
@@ -676,8 +695,8 @@ of array of *glob patterns* or *regular expressions*.
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
-import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
+import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
   FileResolver({
@@ -686,7 +705,7 @@ options.resolve.resolvers = [
       /\.json$/,
     ]
   }),
-  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
 ]
 ```
 
@@ -707,7 +726,7 @@ await resolve('/home/user/oas.json', {
 });
 ```
 
-##### [HttpResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/http-axios)
+##### [HTTPResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/http-axios)
 
 This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
 It detects if the provided URI represents an HTTP(s) URL and if so,
@@ -821,7 +840,7 @@ of the resolver plugins `canRead` method returns `true` or until entire list of 
 ```js
 [
   FileResolver(),
-  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
 ]
 ```
 
@@ -829,11 +848,11 @@ It's possible to **change** resolver plugins **order globally** by mutating glob
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
-import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
+import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
-  HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
   FileResolver(),
 ]
 ```
@@ -842,13 +861,13 @@ To **change** resolver plugins **order** on ad-hoc basis:
 
 ```js
 import { readFile } from '@swagger-api/apidom-reference';
-import { FileResolver } from '@swagger-api/apidom-reference/resolve/resolvers/file';
-import { HttpResolverAxios } from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
+import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
+import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 await readFile('/home/user/oas.json', {
   resolve: {
     resolvers: [
-      HttpResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+      HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
       FileResolver(),
     ],
   },
@@ -927,40 +946,41 @@ Resolve component can be extended by additional resolver plugins. Every resolver
 must conform to the following interface/shape:
 
 ```typescript
-{
+interface ResolverPlugin {
   // uniquely identifies this plugin
-  name: string,
+  readonly name: string;
 
   // this method is called to determine whether the resolver plugin can resolve the file
-  canRead(file: IFile): boolean {
-    // ...implementation...
-  },
-
+  canRead(file: File, options: ReferenceOptions): boolean;
   // this method actually resolves the file
-  async read(file: IFile): Promise<Buffer> {
-    // ...implementation...
-  }
+  read(file: File, options: ReferenceOptions): Promise<Buffer>;
 }
 ```
 
 New resolver plugin is then provided as an option to a `readFile` function:
 
-```js
-import { readFile, options } from '@swagger-api/apidom-reference';
+```ts
+import { readFile, options, File, Resolver, ResolverOptions } from '@swagger-api/apidom-reference';
 
-const myCustomResolverPlugin = {
-  name: 'myCustomResolverPlugin',
-  canRead(file) {
-    return true;
-  },
-  async read(file) {
-     // implementation of file resolution
+interface MyCustomResolverOptions extends Omit<ResolverOptions, 'name'> {}
+
+class MyCustomResolverPlugin extends Resolver {
+  constructor(options?: MyCustomResolverOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver' });
   }
-};
+
+  async canRead(file: File, options: typeof options) {
+    return true;
+  }
+
+  async read(file: File, options: typeof options) {
+    // implementation of file resolution
+  }
+}
 
 await readFile('/home/user/oas.json', {
   resolve: {
-    resolvers: [...options.resolve.resolvers, myCustomResolverPlugin],
+    resolvers: [...options.resolve.resolvers, new MyCustomResolverPlugin()],
   }
 });
 ```
@@ -972,48 +992,60 @@ resolves it and returns its content.
 
 If you want to force execution of your custom plugin, add it as a first resolver plugin:
 
-```js
-import { readFile, options } from '@swagger-api/apidom-reference';
+```ts
+import { readFile, options, File, Resolver, ResolverOptions } from '@swagger-api/apidom-reference';
 
-const myCustomResolverPlugin = {
-  name: 'myCustomResolverPlugin',
-  canRead(file) {
+interface MyCustomResolverOptions extends Omit<ResolverOptions, 'name'> {}
+
+class MyCustomResolverPlugin extends Resolver {
+  constructor(options?: MyCustomResolverOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver' });
+  }
+
+  async canRead(file: File, options: typeof options) {
     return true;
-  },
-  async read(file) {
+  }
+
+  async read(file: File, options: typeof options) {
     // implementation of file resolution
   }
-};
+}
 
 await readFile('/home/user/oas.json', {
   resolve: {
-    resolvers: [myCustomResolverPlugin, ...options.resolve.resolvers],
+    resolvers: [new MyCustomResolverPlugin(), ...options.resolve.resolvers],
   }
 });
 ```
 
 To override the default resolver plugins entirely, set `myCustomResolverPlugin` plugin to be the only one available:
 
-```js
-import { readFile } from '@swagger-api/apidom-reference';
+```ts
+import { readFile, options, File, Resolver, ResolverOptions } from '@swagger-api/apidom-reference';
 
-const myCustomResolverPlugin = {
-  name: 'myCustomResolverPlugin',
-  canRead(file) {
+interface MyCustomResolverOptions extends Omit<ResolverOptions, 'name'> {}
+
+class MyCustomResolverPlugin extends Resolver {
+  constructor(options?: MyCustomResolverOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver' });
+  }
+
+  async canRead(file: File, options: typeof options) {
     return true;
-  },
-  async read(file) {
+  }
+
+  async read(file: File, options: typeof options) {
     // implementation of file resolution
   }
-};
+}
 
 await readFile('/home/user/oas.json', {
   resolve: {
-    resolvers: [myCustomResolverPlugin],
+    resolvers: [new MyCustomResolverPlugin()],
   }
 });
 ```
-New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HttpResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
+New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HTTPResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
 
 ##### Manipulating resolver plugins
 
@@ -1202,10 +1234,10 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
-  OpenApi2ResolveStrategy(),
-  OpenApi3_0ResolveStrategy(),
-  OpenApi3_1ResolveStrategy(),
-  AsyncApi2ResolveStrategy(),
+  new OpenAPI2ResolveStrategy(),
+  new OpenAPI3_0ResolveStrategy(),
+  new OpenAPI3_1ResolveStrategy(),
+  new AsyncAPI2ResolveStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1214,16 +1246,16 @@ It's possible to **change** strategies **order globally** by mutating global `re
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
-import OpenApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
-import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
-import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
+import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
+import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import OpenAPI3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 options.resolve.strategies = [
-  OpenApi2ResolveStrategy(),
-  OpenApi3_0ResolveStrategy(),
-  OpenApi3_1ResolveStrategy(),
-  AsyncApi2ResolveStrategy(),
+  new OpenAPI2ResolveStrategy(),
+  new OpenAPI3_0ResolveStrategy(),
+  new OpenAPI3_1ResolveStrategy(),
+  new AsyncAPI2ResolveStrategy(),
 ];
 ```
 
@@ -1231,10 +1263,10 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
-import AsyncApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
-import OpenApi2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
-import OpenApi3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
-import OpenApi3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
+import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
+import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
+import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
+import OpenAPI3_1ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-1';
 
 
 await resolve('/home/user/oas.json', {
@@ -1243,10 +1275,10 @@ await resolve('/home/user/oas.json', {
   },
   resolve: {
     strategies: [
-      AsyncApi2ResolveStrategy(),
-      OpenApi2ResolveStrategy(),
-      OpenApi3_0ResolveStrategy(),
-      OpenApi3_1ResolveStrategy(),
+      new AsyncAPI2ResolveStrategy(),
+      new OpenAPI2ResolveStrategy(),
+      new OpenAPI3_0ResolveStrategy(),
+      new OpenAPI3_1ResolveStrategy(),
     ]
   }
 });
@@ -1257,43 +1289,44 @@ Resolve component can be extended by additional strategies. Every strategy is an
 must conform to the following interface/shape:
 
 ```typescript
-{
+interface ResolveStrategy {
   // uniquely identifies this plugin
-  name: string,
+  readonly name: string;
 
   // this method is called to determine whether the strategy can externally resolve the file
-  canResolve(file: IFile): boolean {
-    // ...implementation...
-  },
-
+  canResolve(file: File, options: ReferenceOptions): boolean;
   // this method actually externally resolves the file
-  async resolve(file: IFile): Promise<ReferenceSet> {
-    // ...implementation...
-  }
+  resolve(file: File, options: ReferenceOptions): Promise<ReferenceSet>;
 }
 ```
 
 New strategy is then provided as an option to a `resolve` function:
 
-```js
-import { resolve, options } from '@swagger-api/apidom-reference';
+```ts
+import { resolve, options, File, ResolveStrategy, ResolveStrategyOptions } from '@swagger-api/apidom-reference';
 
-const myCustomResolverStrategy = {
-  name: 'myCustomResolverStrategy',
-  canResolve(file) {
-    return true;
-  },
-  async resolve(file) {
-     // implementation of external resolution
+interface MyCustomResolverStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
+
+class MyCustomResolverStrategy extends ResolveStrategy {
+  constructor(options?: MyCustomResolverStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver-strategy' });
   }
-};
+
+  canResolve(file: File, options: typeof options) {
+    return true;
+  }
+
+  async resolve(file: File, options: typeof options) {
+    // implementation of external resolution
+  }
+}
 
 await resolve('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
   },
   resolve: {
-    strategies: [...options.resolve.strategies, myCustomResolverStrategy],
+    strategies: [...options.resolve.strategies, new MyCustomResolverStrategy()],
   }
 });
 ```
@@ -1305,51 +1338,62 @@ resolves it and returns `ReferenceSet` object.
 
 If you want to force execution of your strategy, add it as a first one:
 
-```js
-import { resolve, options } from '@swagger-api/apidom-reference';
+```ts
+import { resolve, options, File, ResolveStrategy, ResolveStrategyOptions } from '@swagger-api/apidom-reference';
 
+interface MyCustomResolverStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
 
-const myCustomResolverStrategy = {
-  name: 'myCustomResolverStrategy',
-  canResolve(file) {
+class MyCustomResolverStrategy extends ResolveStrategy {
+  constructor(options?: MyCustomResolverStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver-strategy' });
+  }
+
+  canResolve(file: File, options: typeof options) {
     return true;
-  },
-  async resolve(file) {
+  }
+
+  async resolve(file: File, options: typeof options) {
     // implementation of external resolution
   }
-};
+}
 
 await resolve('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
   },
   resolve: {
-    strategies: [myCustomResolverStrategy, ...options.resolve.strategies],
+    strategies: [new MyCustomResolverStrategy(), ...options.resolve.strategies],
   }
 });
 ```
 
-To override the default strategies entirely, set `myCustomResolverStrategy` strategy to be the only one available:
+To override the default strategies entirely, set `MyCustomResolverStrategy` strategy to be the only one available:
 
-```js
-import { resolve } from '@swagger-api/apidom-reference';
+```ts
+import { resolve, options, File, ResolveStrategy, ResolveStrategyOptions } from '@swagger-api/apidom-reference';
 
-const myCustomResolverStrategy = {
-  name: 'myCustomResolverStrategy',
-  canResolve(file) {
+interface MyCustomResolverStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
+
+class MyCustomResolverStrategy extends ResolveStrategy {
+  constructor(options?: MyCustomResolverStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-resolver-strategy' });
+  }
+
+  canResolve(file: File, options: typeof options) {
     return true;
-  },
-  async resolve(file) {
+  }
+
+  async resolve(file: File, options: typeof options) {
     // implementation of external resolution
   }
-};
+}
 
 await resolve('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
   },
   resolve: {
-    strategies: [myCustomResolverPlugin],
+    strategies: [new MyCustomResolverPlugin()],
   }
 });
 ```
@@ -1558,11 +1602,11 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
-  OpenApi2DereferenceStrategy(),
-  OpenApi3_0DereferenceStrategy(),
-  OpenApi3_1DereferenceStrategy(),
-  AsyncApi2DereferenceStrategy(),
-  ApiDOMDereferenceStrategy(),
+  new OpenAPI2DereferenceStrategy(),
+  new OpenAPI3_0DereferenceStrategy(),
+  new OpenAPI3_1DereferenceStrategy(),
+  new AsyncAPI2DereferenceStrategy(),
+  new ApiDOMDereferenceStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1571,18 +1615,18 @@ It's possible to **change** strategies **order globally** by mutating global `de
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
-import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
-import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
-import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
+import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
+import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
+import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
 import ApiDOMDereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/apidom';
 
 options.dereference.strategies = [
-  OpenApi2DereferenceStrategy(),
-  OpenApi3_0DereferenceStrategy(),
-  OpenApi3_1DereferenceStrategy(),
-  AsyncApi2DereferenceStrategy(),
-  ApiDOMDereferenceStrategy(),
+  new OpenAPI2DereferenceStrategy(),
+  new OpenAPI3_0DereferenceStrategy(),
+  new OpenAPI3_1DereferenceStrategy(),
+  new AsyncAPI2DereferenceStrategy(),
+  new ApiDOMDereferenceStrategy(),
 ];
 ```
 
@@ -1590,10 +1634,10 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
-import AsyncApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
-import OpenApi2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
-import OpenApi3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
-import OpenApi3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
+import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
+import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
+import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
 import ApiDOMDereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/apidom';
 
 
@@ -1603,11 +1647,11 @@ await dereference('/home/user/oas.json', {
   },
   dereference: {
     strategies: [
-      AsyncApi2DereferenceStrategy(),
-      OpenApi2DereferenceStrategy(),
-      OpenApi3_0DereferenceStrategy(),
-      OpenApi3_1DereferenceStrategy(),
-      ApiDOMDereferenceStrategy(),
+      new AsyncAPI2DereferenceStrategy(),
+      new OpenAPI2DereferenceStrategy(),
+      new OpenAPI3_0DereferenceStrategy(),
+      new OpenAPI3_1DereferenceStrategy(),
+      new ApiDOMDereferenceStrategy(),
     ]
   }
 });
@@ -1647,42 +1691,44 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
 Dereference component can be extended by additional strategies. Every strategy is an object that
 must conform to the following interface/shape:
 
-```typescript
-{
+```ts
+interface DereferenceStrategy {
   // uniquely identifies this plugin
-  name: string,
+  readonly name: string,
 
   // this method is called to determine whether the strategy can dereference the file
-  canDereference(file: IFile): boolean {
-    // ...implementation...
-  },
-
+  canDereference(file: File, options: ReferenceOptions): boolean;
   // this method actually dereferences the file
-  async dereference(file: IFile, options: IReferenceOptions): Promise<ParseResultElement> {
-    // ...implementation...
-  }
+  dereference(file: File, options: ReferenceOptions): Promise<Element>;
 }
 ```
 
 New strategy is then provided as an option to the `dereference` function:
 
-```js
-import { dereference, options } from '@swagger-api/apidom-reference';
+```ts
+import { dereference, options, File, DereferenceStrategy, DereferenceStrategyOptions } from '@swagger-api/apidom-reference';
 
-const myCustomDereferenceStrategy = {
-  name: 'myCustomDereferenceStrategy',
-  canDereference(file) {
+export interface MyCustomDereferenceStrategyOptions
+  extends Omit<DereferenceStrategyOptions, 'name'> {}
+
+class MyCustomDereferenceStrategy extends DereferenceStrategy {
+  constructor(options?: MyCustomDereferenceStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-dereference' });
+  }
+
+  canDereference(file: File, options: typeof options) {
     return true;
-  },
-  async dereference(file, options: IReferenceOptions) {
+  }
+
+  async dereference(file: File, options: typeof options) {
      // implementation of dereferenceing
   }
-};
+}
 
 await dereference('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   dereference: {
-    strategies: [...options.dereference.strategies, myCustomDereferenceStrategy],
+    strategies: [...options.dereference.strategies, new MyCustomDereferenceStrategy()],
   }
 });
 ```
@@ -1694,46 +1740,61 @@ dereferences it and returns a dereferenced element.
 
 If you want to force execution of your strategy, add it as a first one:
 
-```js
-import { dereference, options } from '@swagger-api/apidom-reference';
+```ts
+import { dereference, options, File, DereferenceStrategy, DereferenceStrategyOptions } from '@swagger-api/apidom-reference';
 
-const myCustomDereferenceStrategy = {
-  name: 'myCustomDereferenceStrategy',
-  canDereference(file) {
+export interface MyCustomDereferenceStrategyOptions
+extends Omit<DereferenceStrategyOptions, 'name'> {}
+
+class MyCustomDereferenceStrategy extends DereferenceStrategy {
+  constructor(options?: MyCustomDereferenceStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-dereference' });
+  }
+
+  canDereference(file: File, options: typeof options) {
     return true;
-  },
-  async dereference(file, options: IReferenceOptions) {
+  }
+
+  async dereference(file: File, options: typeof options) {
     // implementation of dereferenceing
   }
-};
+}
 
 await dereference('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   dereference: {
-    strategies: [myCustomDereferenceStrategy, ...options.dereference.strategies],
+    strategies: [new MyCustomDereferenceStrategy(), ...options.dereference.strategies],
   }
 });
 ```
 
-To override the default strategies entirely, set `myCustomDereferenceStrategy` strategy to be the only one available:
+To override the default strategies entirely, set `MyCustomDereferenceStrategy` strategy to be the only one available:
 
-```js
-import { dereference } from '@swagger-api/apidom-reference';
+```ts
+import { dereference, options, File, DereferenceStrategy, DereferenceStrategyOptions } from '@swagger-api/apidom-reference';
 
-const myCustomDereferenceStrategy = {
-  name: 'myCustomDereferenceStrategy',
-  canDereference(file) {
+export interface MyCustomDereferenceStrategyOptions
+extends Omit<DereferenceStrategyOptions, 'name'> {}
+
+class MyCustomDereferenceStrategy extends DereferenceStrategy {
+  constructor(options?: MyCustomDereferenceStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-dereference' });
+  }
+
+  canDereference(file: File, options: typeof options) {
     return true;
-  },
-  async dereference(file, options: IReferenceOptions) {
+  }
+
+  async dereference(file: File, options: typeof options) {
     // implementation of dereferenceing
   }
-};
+}
+
 
 await dereference('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   dereference: {
-    strategies: [myCustomDereferenceStrategy],
+    strategies: [new MyCustomDereferenceStrategy()],
   }
 });
 ```
@@ -1837,7 +1898,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
-  OpenApi3_1BundleStrategy(),
+  new OpenAPI3_1BundleStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1846,10 +1907,10 @@ It's possible to **change** strategies **order globally** by mutating global `bu
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import OpenApi3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
+import OpenAPI3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
 
 options.dereference.strategies = [
-  OpenApi3_1DereferenceStrategy(),
+  new OpenAPI3_1DereferenceStrategy(),
 ];
 ```
 
@@ -1857,7 +1918,7 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { bundle } from '@swagger-api/apidom-reference';
-import OpenApi3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
+import OpenAPI3_1BundleStrategy from '@swagger-api/apidom-reference/bundle/strategies/openapi-3-1'
 
 await bundle('/home/user/oas.json', {
   parse: {
@@ -1865,7 +1926,7 @@ await bundle('/home/user/oas.json', {
   },
   bundle: {
     strategies: [
-      OpenApi3_1BundleStrategy(),
+      new OpenAPI3_1BundleStrategy(),
     ]
   }
 });
@@ -1876,41 +1937,41 @@ Bundle component can be extended by additional strategies. Every strategy is an 
 must conform to the following interface/shape:
 
 ```typescript
-{
+interface BundleStrategy {
   // uniquely identifies this plugin
-  name: string,
+  readonly name: string;
 
   // this method is called to determine whether the strategy can bundle the file
-  canBundle(file: IFile): boolean {
-    // ...implementation...
-  },
-
+  canBundle(file: File, options: ReferenceOptions): boolean;
   // this method actually bundles the file
-  async bundle(file: IFile, options: IReferenceOptions): Promise<ParseResultElement> {
-    // ...implementation...
-  }
+  bundle(file: File, options: ReferenceOptions): Promise<ParseResultElement>;
 }
 ```
 
 New strategy is then provided as an option to the `bundle` function:
 
-```js
-import { bundle, options } from '@swagger-api/apidom-reference';
+```ts
+import { bundle, options, File, BundleStrategy } from '@swagger-api/apidom-reference';
 
-const myCustomBundleStrategy = {
-  name: 'myCustomByndleStrategy',
-  canBundle(file) {
+interface MyCustomBundleStrategyOptions extends Omit<BundleStrategyOptions, 'name'> {}
+
+class MyCustomBundleStrategy extends BundleStrategy {
+  constructor(options?: MyCustomBundleStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-bundle-strategy' });
+  }
+
+  canBundle(file: File, options: typeof options) {
     return true;
-  },
-  async bundle(file, options: IReferenceOptions) {
+  }
+  async bundle(file: File, options: typeof options) {
      // implementation of bundling
   }
-};
+}
 
 await bundle('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   bundle: {
-    strategies: [...options.bundle.strategies, myCustomBundleStrategy],
+    strategies: [...options.bundle.strategies, new MyCustomBundleStrategy()],
   }
 });
 ```
@@ -1922,47 +1983,56 @@ bundles it and returns a bundled element.
 
 If you want to force execution of your strategy, add it as a first one:
 
-```js
-import { bundle, options } from '@swagger-api/apidom-reference';
+```ts
+import { bundle, options, File, BundleStrategy } from '@swagger-api/apidom-reference';
 
-const myCustomBundleStrategy = {
-  name: 'myCustomBundleStrategy',
-  canBundle(file) {
+interface MyCustomBundleStrategyOptions extends Omit<BundleStrategyOptions, 'name'> {}
+
+class MyCustomBundleStrategy extends BundleStrategy {
+  constructor(options?: MyCustomBundleStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-bundle-strategy' });
+  }
+
+  canBundle(file: File, options: typeof options) {
     return true;
-  },
-  async bundle(file, options: IReferenceOptions) {
+  }
+  async bundle(file: File, options: typeof options) {
     // implementation of bundling
   }
-};
-
+}
 
 await bundle('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   bundle: {
-    strategies: [myCustomBundleStrategy, ...options.bundle.strategies],
+    strategies: [new MyCustomBundleStrategy(), ...options.bundle.strategies],
   }
 });
 ```
 
-To override the default strategies entirely, set `myCustomBundleStrategy` strategy to be the only one available:
+To override the default strategies entirely, set `MyCustomBundleStrategy` strategy to be the only one available:
 
-```js
-import { bundle } from '@swagger-api/apidom-reference';
+```ts
+import { bundle, options, File, BundleStrategy } from '@swagger-api/apidom-reference';
 
-const myCustomBundleStrategy = {
-  name: 'myCustomBundleStrategy',
-  canBundle(file) {
+interface MyCustomBundleStrategyOptions extends Omit<BundleStrategyOptions, 'name'> {}
+
+class MyCustomBundleStrategy extends BundleStrategy {
+  constructor(options?: MyCustomBundleStrategyOptions) {
+    super({ ...(options ?? {}), name: 'my-custom-bundle-strategy' });
+  }
+
+  canBundle(file: File, options: typeof options) {
     return true;
-  },
-  async bundle(file, options: IReferenceOptions) {
+  }
+  async bundle(file: File, options: typeof options) {
     // implementation of bundling
   }
-};
+}
 
 await bundle('/home/user/oas.json', {
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   bundle: {
-    strategies: [myCustomBundleStrategy],
+    strategies: [new MyCustomBundleStrategy()],
   }
 });
 ```

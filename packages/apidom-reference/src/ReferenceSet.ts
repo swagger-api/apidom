@@ -12,7 +12,7 @@ class ReferenceSet {
 
   public readonly refs: Reference[];
 
-  public readonly circular: boolean;
+  public circular: boolean;
 
   constructor({ refs = [], circular = false }: ReferenceSetOptions = {}) {
     this.refs = [];

@@ -10,7 +10,7 @@ import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceS
 import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
-import AsyncApi2DereferenceVisitor from './visitor';
+import AsyncAPI2DereferenceVisitor from './visitor';
 import type { ReferenceOptions } from '../../../options';
 
 // @ts-ignore
@@ -39,14 +39,14 @@ class AsyncAPI2DereferenceStrategy extends DereferenceStrategy {
     const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
     const mutableRefSet = new ReferenceSet();
     let refSet = immutableRefSet;
-    let reference;
+    let reference: Reference;
 
     if (!immutableRefSet.has(file.uri)) {
       reference = new Reference({ uri: file.uri, value: file.parseResult! });
       immutableRefSet.add(reference);
     } else {
       // pre-computed refSet was provided as configuration option
-      reference = immutableRefSet.find((ref) => ref.uri === file.uri);
+      reference = immutableRefSet.find((ref) => ref.uri === file.uri)!;
     }
 
     /**
@@ -63,11 +63,11 @@ class AsyncAPI2DereferenceStrategy extends DereferenceStrategy {
             }),
         )
         .forEach((ref) => mutableRefSet.add(ref));
-      reference = mutableRefSet.find((ref) => ref.uri === file.uri);
+      reference = mutableRefSet.find((ref) => ref.uri === file.uri)!;
       refSet = mutableRefSet;
     }
 
-    const visitor = AsyncApi2DereferenceVisitor({ reference, namespace, options });
+    const visitor = new AsyncAPI2DereferenceVisitor({ reference, namespace, options });
     const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
       keyMap,
       nodeTypeGetter: getNodeType,
@@ -87,8 +87,6 @@ class AsyncAPI2DereferenceStrategy extends DereferenceStrategy {
             }),
         )
         .forEach((ref) => immutableRefSet.add(ref));
-      reference = immutableRefSet.find((ref) => ref.uri === file.uri);
-      refSet = immutableRefSet;
     }
 
     /**
@@ -105,4 +103,5 @@ class AsyncAPI2DereferenceStrategy extends DereferenceStrategy {
   }
 }
 
+export { AsyncAPI2DereferenceVisitor };
 export default AsyncAPI2DereferenceStrategy;

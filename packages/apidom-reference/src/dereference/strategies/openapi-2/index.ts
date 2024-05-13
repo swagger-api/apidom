@@ -10,7 +10,7 @@ import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceS
 import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
-import OpenApi2DereferenceVisitor from './visitor';
+import OpenAPI2DereferenceVisitor from './visitor';
 import type { ReferenceOptions } from '../../../options';
 
 // @ts-ignore
@@ -67,7 +67,7 @@ class OpenAPI2DereferenceStrategy extends DereferenceStrategy {
       refSet = mutableRefSet;
     }
 
-    const visitor = OpenApi2DereferenceVisitor({ reference, namespace, options });
+    const visitor = new OpenAPI2DereferenceVisitor({ reference: reference!, namespace, options });
     const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
       keyMap,
       nodeTypeGetter: getNodeType,
@@ -105,4 +105,5 @@ class OpenAPI2DereferenceStrategy extends DereferenceStrategy {
   }
 }
 
+export { OpenAPI2DereferenceVisitor };
 export default OpenAPI2DereferenceStrategy;

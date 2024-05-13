@@ -57,7 +57,7 @@ class ApiDOMDereferenceStrategy extends DereferenceStrategy {
       refSet = mutableRefSet;
     }
 
-    const visitor = ApiDOMDereferenceVisitor({ reference, options });
+    const visitor = new ApiDOMDereferenceVisitor({ reference: reference!, options });
     const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor);
 
     /**
@@ -74,8 +74,6 @@ class ApiDOMDereferenceStrategy extends DereferenceStrategy {
             }),
         )
         .forEach((ref) => immutableRefSet.add(ref));
-      reference = immutableRefSet.find((ref) => ref.uri === file.uri);
-      refSet = immutableRefSet;
     }
 
     /**
@@ -92,4 +90,5 @@ class ApiDOMDereferenceStrategy extends DereferenceStrategy {
   }
 }
 
+export { ApiDOMDereferenceVisitor };
 export default ApiDOMDereferenceStrategy;

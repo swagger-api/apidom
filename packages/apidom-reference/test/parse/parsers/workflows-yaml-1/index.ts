@@ -5,10 +5,10 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-workflows-yaml-1';
 
 import File from '../../../../src/File';
-import WorkflowsYaml1Parser from '../../../../src/parse/parsers/workflows-yaml-1';
+import WorkflowsYAML1Parser from '../../../../src/parse/parsers/workflows-yaml-1';
 
 describe('parsers', function () {
-  context('WorkflowsYaml1Parser', function () {
+  context('new WorkflowsYAML1Parser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/worklfows.yaml',
               mediaType: mediaTypes.latest('generic'),
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -52,7 +52,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yml',
               mediaType: mediaTypes.latest('generic'),
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -65,7 +65,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yaml',
               mediaType: 'application/vnd.aai.asyncapi;version=2.6.0',
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/worklfows',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -104,7 +104,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -117,7 +117,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yaml',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = WorkflowsYaml1Parser();
+            const parser = new WorkflowsYAML1Parser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -135,7 +135,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -151,7 +151,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -165,7 +165,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
           const result = await parser.parse(file);
           const numberElement: NumberElement = result.get(0);
 
@@ -181,7 +181,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = WorkflowsYaml1Parser();
+          const parser = new WorkflowsYAML1Parser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -199,7 +199,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest('yaml'),
             });
-            const parser = WorkflowsYaml1Parser({ sourceMap: true });
+            const parser = new WorkflowsYAML1Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
@@ -211,7 +211,7 @@ describe('parsers', function () {
             const uri = path.join(__dirname, 'fixtures', 'sample-workflow.yaml');
             const data = fs.readFileSync(uri).toString();
             const file = new File({ uri, data });
-            const parser = WorkflowsYaml1Parser({ sourceMap: false });
+            const parser = new WorkflowsYAML1Parser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.api?.meta.get('sourceMap'));

@@ -5,10 +5,10 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 
 import File from '../../../../src/File';
-import ApiDesignSystemsYamlParser from '../../../../src/parse/parsers/api-design-systems-yaml';
+import APIDesignSystemsYAMLParser from '../../../../src/parse/parsers/api-design-systems-yaml';
 
 describe('parsers', function () {
-  context('ApiDesignSystemsYamlParser', function () {
+  context('APIDesignSystemsYAMLParser', function () {
     context('canParse', function () {
       context('given file with .yaml extension', function () {
         context('and with proper media type', function () {
@@ -21,7 +21,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yaml',
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -34,7 +34,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -52,7 +52,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yml',
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -65,7 +65,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yaml',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems.txt',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -104,7 +104,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -117,7 +117,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.yaml',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = ApiDesignSystemsYamlParser();
+            const parser = new APIDesignSystemsYAMLParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -131,7 +131,7 @@ describe('parsers', function () {
           const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
           const data = fs.readFileSync(uri).toString();
           const file = new File({ uri, data, mediaType: mediaTypes.latest() });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -143,7 +143,7 @@ describe('parsers', function () {
           const uri = path.join(__dirname, 'fixtures', 'api-design-systems.yaml');
           const data = fs.readFileSync(uri);
           const file = new File({ uri, data, mediaType: mediaTypes.latest() });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -157,7 +157,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
           const parseResult = await parser.parse(file);
           const numberElement: NumberElement = parseResult.get(0);
 
@@ -173,7 +173,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsYamlParser();
+          const parser = new APIDesignSystemsYAMLParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -191,7 +191,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsYamlParser({ sourceMap: true });
+            const parser = new APIDesignSystemsYAMLParser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.result?.meta.get('sourceMap')));
@@ -207,7 +207,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsYamlParser({ sourceMap: false });
+            const parser = new APIDesignSystemsYAMLParser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.result?.meta.get('sourceMap'));

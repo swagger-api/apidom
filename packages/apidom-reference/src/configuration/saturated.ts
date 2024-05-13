@@ -5,21 +5,21 @@ import OpenApi3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
 import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
 import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
 import ApiDOMResolveStrategy from '../resolve/strategies/apidom';
-import ApiDesignSystemsJsonParser from '../parse/parsers/api-design-systems-json';
-import ApiDesignSystemsYamlParser from '../parse/parsers/api-design-systems-yaml';
-import OpenApiJson2Parser from '../parse/parsers/openapi-json-2';
-import OpenApiYaml2Parser from '../parse/parsers/openapi-yaml-2';
-import OpenApiJson3_0Parser from '../parse/parsers/openapi-json-3-0';
-import OpenApiYaml3_0Parser from '../parse/parsers/openapi-yaml-3-0';
-import OpenApiJson3_1Parser from '../parse/parsers/openapi-json-3-1';
-import OpenApiYaml3_1Parser from '../parse/parsers/openapi-yaml-3-1';
-import AsyncApiJson2Parser from '../parse/parsers/asyncapi-json-2';
-import AsyncApiYaml2Parser from '../parse/parsers/asyncapi-yaml-2';
-import WorkflowsJson1Parser from '../parse/parsers/workflows-json-1';
-import WorkflowsYaml1Parser from '../parse/parsers/workflows-yaml-1';
-import ApiDOMJsonParser from '../parse/parsers/apidom-json';
-import JsonParser from '../parse/parsers/json';
-import YamlParser from '../parse/parsers/yaml-1-2';
+import APIDesignSystemsJSONParser from '../parse/parsers/api-design-systems-json';
+import APIDesignSystemsYAMLParser from '../parse/parsers/api-design-systems-yaml';
+import OpenAPIJSON2Parser from '../parse/parsers/openapi-json-2';
+import OpenAPIYAML2Parser from '../parse/parsers/openapi-yaml-2';
+import OpenAPIJSON3_0Parser from '../parse/parsers/openapi-json-3-0';
+import OpenAPIYAML3_0Parser from '../parse/parsers/openapi-yaml-3-0';
+import OpenAPIJSON3_1Parser from '../parse/parsers/openapi-json-3-1';
+import OpenAPIYAML3_1Parser from '../parse/parsers/openapi-yaml-3-1';
+import AsyncAPIJSON2Parser from '../parse/parsers/asyncapi-json-2';
+import AsyncAPIYAML2Parser from '../parse/parsers/asyncapi-yaml-2';
+import WorkflowsJSON1Parser from '../parse/parsers/workflows-json-1';
+import WorkflowsYAML1Parser from '../parse/parsers/workflows-yaml-1';
+import APIDOMJSONParser from '../parse/parsers/apidom-json';
+import JSONParser from '../parse/parsers/json';
+import YAMLParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
 import ApiDOMDereferenceStrategy from '../dereference/strategies/apidom';
 import OpenApi2DereferenceStrategy from '../dereference/strategies/openapi-2';
@@ -30,22 +30,22 @@ import OpenApi3_1BundleStrategy from '../bundle/strategies/openapi-3-1';
 import { options } from '../index';
 
 options.parse.parsers = [
-  OpenApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiJson3_1Parser({ allowEmpty: true, sourceMap: false }),
-  OpenApiYaml3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiJson2Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncApiYaml2Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsJson1Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsYaml1Parser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsJsonParser({ allowEmpty: true, sourceMap: false }),
-  ApiDesignSystemsYamlParser({ allowEmpty: true, sourceMap: false }),
-  ApiDOMJsonParser({ allowEmpty: true, sourceMap: false }),
-  JsonParser({ allowEmpty: true, sourceMap: false }),
-  YamlParser({ allowEmpty: true, sourceMap: false }),
-  BinaryParser({ allowEmpty: true }),
+  new OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+  new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+  new JSONParser({ allowEmpty: true, sourceMap: false }),
+  new YAMLParser({ allowEmpty: true, sourceMap: false }),
+  new BinaryParser({ allowEmpty: true }),
 ];
 
 options.resolve.resolvers = [

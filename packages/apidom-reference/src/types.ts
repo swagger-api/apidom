@@ -1,20 +1,9 @@
-import { Element, ParseResultElement, RefElement } from '@swagger-api/apidom-core';
+import { Element, RefElement } from '@swagger-api/apidom-core';
 
 import type File from './File';
 import type ReferenceSet from './ReferenceSet';
 import type Resolver from './resolve/resolvers/Resolver';
-
-export interface Parser {
-  // name: string; - causing issues with stamps
-  allowEmpty: boolean;
-  sourceMap: boolean;
-  fileExtensions: string[];
-  mediaTypes: string[];
-  decoder: TextDecoder;
-
-  canParse(file: File): boolean | Promise<boolean>;
-  parse(file: File): Promise<ParseResultElement>;
-}
+import type Parser from './parse/parsers/Parser';
 
 export interface ResolveStrategy {
   canResolve(file: File): boolean;

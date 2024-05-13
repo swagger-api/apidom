@@ -7,7 +7,7 @@ import FileResolver from '../../src/resolve/resolvers/file/index-node';
 import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStrategyError';
 import ResolveError from '../../src/errors/ResolveError';
 import ParseError from '../../src/errors/ParseError';
-import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 const fixturePath = path.join(
   __dirname,
@@ -171,7 +171,7 @@ describe('resolve', function () {
       const options = {
         parse: {
           mediaType: mediaTypes.latest('json'),
-          parsers: [OpenApiJson3_1Parser({ allowEmpty: false })],
+          parsers: [new OpenAPIJSON3_1Parser({ allowEmpty: false })],
         },
       };
 

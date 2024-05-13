@@ -1,52 +1,54 @@
-import stampit from 'stampit';
 import { ParseResultElement } from '@swagger-api/apidom-core';
-import { NotImplementedError } from '@swagger-api/apidom-error';
 
-import { Parser as IParser } from '../../types';
+import File from '../../File';
 
-const Parser: stampit.Stamp<IParser> = stampit({
-  props: {
-    name: '',
-    /**
-     * Whether to allow "empty" files. This includes zero-byte files.
-     */
-    allowEmpty: true,
+export interface ParserOptions {
+  readonly name: string;
+  readonly allowEmpty?: boolean;
+  readonly sourceMap?: boolean;
+  readonly fileExtensions?: string[];
+  readonly mediaTypes?: string[];
+}
 
-    /**
-     * Whether to generate source map during parsing.
-     */
-    sourceMap: false,
-    /**
-     * List of supported file extensions.
-     */
-    fileExtensions: [],
-    /**
-     * List of supported media types.
-     */
-    mediaTypes: [],
-  },
-  init(
-    this: IParser,
-    {
-      allowEmpty = this.allowEmpty,
-      sourceMap = this.sourceMap,
-      fileExtensions = this.fileExtensions,
-      mediaTypes = this.mediaTypes,
-    } = {},
-  ) {
+abstract class Parser {
+  public readonly name: string;
+
+  /**
+   * Whether to allow "empty" files. This includes zero-byte files.
+   */
+  public allowEmpty: boolean;
+
+  /**
+   * Whether to generate source map during parsing.
+   */
+  public sourceMap: boolean;
+
+  /**
+   * List of supported file extensions.
+   */
+  public fileExtensions: string[];
+
+  /**
+   * List of supported media types.
+   */
+  public mediaTypes: string[];
+
+  constructor({
+    name,
+    allowEmpty = true,
+    sourceMap = false,
+    fileExtensions = [],
+    mediaTypes = [],
+  }: ParserOptions) {
+    this.name = name;
     this.allowEmpty = allowEmpty;
     this.sourceMap = sourceMap;
     this.fileExtensions = fileExtensions;
     this.mediaTypes = mediaTypes;
-  },
-  methods: {
-    async canParse(): Promise<boolean> {
-      throw new NotImplementedError('canParse method in Parser stamp is not yet implemented.');
-    },
-    async parse(): Promise<ParseResultElement> {
-      throw new NotImplementedError('parse method in Parser stamp is not yet implemented.');
-    },
-  },
-});
+  }
+
+  abstract canParse(file: File): boolean | Promise<boolean>;
+  abstract parse(file: File): ParseResultElement | Promise<ParseResultElement>;
+}
 
 export default Parser;

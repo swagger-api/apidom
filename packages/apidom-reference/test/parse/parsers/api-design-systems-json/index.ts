@@ -5,10 +5,10 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 
 import File from '../../../../src/File';
-import ApiDesignSystemsJsonParser from '../../../../src/parse/parsers/api-design-systems-json';
+import APIDesignSystemsJSONParser from '../../../../src/parse/parsers/api-design-systems-json';
 
 describe('parsers', function () {
-  context('ApiDesignSystemsJsonParser', function () {
+  context('APIDesignSystemsJSONParser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
@@ -23,7 +23,7 @@ describe('parsers', function () {
               mediaType: mediaTypes.latest(),
               data: '{"version": "2021-05-07"}',
             });
-            const parser = ApiDesignSystemsJsonParser();
+            const parser = new APIDesignSystemsJSONParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -36,7 +36,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.json',
               mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
             });
-            const parser = ApiDesignSystemsJsonParser();
+            const parser = new APIDesignSystemsJSONParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -49,7 +49,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems.yaml',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -61,7 +61,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -75,7 +75,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.json',
               data: fs.readFileSync(url),
             });
-            const parser = ApiDesignSystemsJsonParser();
+            const parser = new APIDesignSystemsJSONParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -88,7 +88,7 @@ describe('parsers', function () {
               uri: '/path/to/api-design-systems.json',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = ApiDesignSystemsJsonParser();
+            const parser = new APIDesignSystemsJSONParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -106,7 +106,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -122,7 +122,7 @@ describe('parsers', function () {
             data,
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -136,7 +136,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
           const parseResult = await parser.parse(file);
           const numberElement: NumberElement = parseResult.get(0);
 
@@ -152,7 +152,7 @@ describe('parsers', function () {
             data: '',
             mediaType: mediaTypes.latest(),
           });
-          const parser = ApiDesignSystemsJsonParser();
+          const parser = new APIDesignSystemsJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -170,7 +170,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsJsonParser({ sourceMap: true });
+            const parser = new APIDesignSystemsJSONParser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
             assert.isTrue(isSourceMapElement(parseResult.result?.meta.get('sourceMap')));
@@ -186,7 +186,7 @@ describe('parsers', function () {
               data,
               mediaType: mediaTypes.latest(),
             });
-            const parser = ApiDesignSystemsJsonParser({ sourceMap: false });
+            const parser = new APIDesignSystemsJSONParser({ sourceMap: false });
             const parseResult = await parser.parse(file);
 
             assert.isUndefined(parseResult.meta.get('sourceMap'));

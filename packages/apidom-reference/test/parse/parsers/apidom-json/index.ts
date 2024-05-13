@@ -4,10 +4,10 @@ import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
 
 import { ParserError, File } from '../../../../src';
-import ApiDOMJsonParser from '../../../../src/parse/parsers/apidom-json';
+import ApiDOMJSONParser from '../../../../src/parse/parsers/apidom-json';
 
 describe('parsers', function () {
-  context('ApiDOMJsonParser', function () {
+  context('ApiDOMJSONParser', function () {
     context('canParse', function () {
       context('given file with .json extension', function () {
         context('and with proper media type', function () {
@@ -20,7 +20,7 @@ describe('parsers', function () {
               uri: '/path/to/apidom.json',
               mediaType: 'application/vnd.apidom+json',
             });
-            const parser = ApiDOMJsonParser();
+            const parser = new ApiDOMJSONParser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
@@ -33,7 +33,7 @@ describe('parsers', function () {
               uri: '/path/to/apidom.json',
               mediaType: 'application/vnd.aai.asyncapi+json;version=2.6.0',
             });
-            const parser = ApiDOMJsonParser();
+            const parser = new ApiDOMJSONParser();
 
             assert.isFalse(await parser.canParse(file));
           });
@@ -46,7 +46,7 @@ describe('parsers', function () {
             uri: '/path/to/apidom.yaml',
             mediaType: 'application/vnd.apidom',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -58,7 +58,7 @@ describe('parsers', function () {
             uri: '/path/to/apidom',
             mediaType: 'application/vnd.apidom',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -72,7 +72,7 @@ describe('parsers', function () {
               uri: '/path/to/apidom.json',
               data: fs.readFileSync(url),
             });
-            const parser = ApiDOMJsonParser();
+            const parser = new ApiDOMJSONParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -85,7 +85,7 @@ describe('parsers', function () {
               uri: '/path/to/apidom.json',
               data: fs.readFileSync(url).toString(),
             });
-            const parser = ApiDOMJsonParser();
+            const parser = new ApiDOMJSONParser();
 
             assert.isTrue(await parser.canParse(file));
           });
@@ -103,7 +103,7 @@ describe('parsers', function () {
             data,
             mediaType: 'application/vnd.apidom+json',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -119,7 +119,7 @@ describe('parsers', function () {
             data,
             mediaType: 'application/vnd.apidom+json',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));
@@ -133,7 +133,7 @@ describe('parsers', function () {
             data: 1 as any,
             mediaType: 'application/vnd.apidom+json',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
 
           try {
             await parser.parse(file);
@@ -151,7 +151,7 @@ describe('parsers', function () {
             data: '',
             mediaType: 'application/vnd.apidom+json',
           });
-          const parser = ApiDOMJsonParser();
+          const parser = new ApiDOMJSONParser();
           const parseResult = await parser.parse(file);
 
           assert.isTrue(isParseResultElement(parseResult));

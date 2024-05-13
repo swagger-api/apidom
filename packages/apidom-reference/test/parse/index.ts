@@ -10,7 +10,7 @@ import parse from '../../src/parse';
 import ParseError from '../../src/errors/ParseError';
 import ResolveError from '../../src/errors/ResolveError';
 import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError';
-import OpenApiJson3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
 
 describe('parse', function () {
   context('given URI with hash', function () {
@@ -108,7 +108,7 @@ describe('parse', function () {
       const options = mergeOptions(defaultOptions, {
         parse: {
           mediaType: mediaTypes.latest('json'),
-          parsers: [OpenApiJson3_1Parser({ allowEmpty: false })],
+          parsers: [new OpenAPIJSON3_1Parser({ allowEmpty: false })],
         },
       });
 

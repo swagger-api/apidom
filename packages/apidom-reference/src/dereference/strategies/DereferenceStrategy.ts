@@ -1,23 +1,21 @@
-import stampit from 'stampit';
-import { NotImplementedError } from '@swagger-api/apidom-error';
+import { Element } from 'minim';
 
-import { DereferenceStrategy as IDereferenceStrategy } from '../../types';
+import File from '../../File';
+import type { ReferenceOptions } from '../../options';
 
-const DereferenceStrategy: stampit.Stamp<IDereferenceStrategy> = stampit({
-  props: {
-    name: null,
-  },
-  methods: {
-    canDereference() {
-      return false;
-    },
+export interface DereferenceStrategyOptions {
+  readonly name: string;
+}
 
-    async dereference(): Promise<never> {
-      throw new NotImplementedError(
-        'dereference method in DereferenceStrategy stamp is not yet implemented.',
-      );
-    },
-  },
-});
+abstract class DereferenceStrategy {
+  public readonly name: string;
+
+  constructor({ name }: DereferenceStrategyOptions) {
+    this.name = name;
+  }
+
+  abstract canDereference(file: File, options: ReferenceOptions): boolean;
+  abstract dereference(file: File, options: ReferenceOptions): Promise<Element>;
+}
 
 export default DereferenceStrategy;

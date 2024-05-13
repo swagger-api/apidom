@@ -1,9 +1,9 @@
 import FileResolver from '../resolve/resolvers/file/index-node';
 import HTTPResolverAxios from '../resolve/resolvers/http-axios';
-import OpenApi2ResolveStrategy from '../resolve/strategies/openapi-2';
-import OpenApi3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
-import OpenApi3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
-import AsyncApi2ResolveStrategy from '../resolve/strategies/asyncapi-2';
+import OpenAPI2ResolveStrategy from '../resolve/strategies/openapi-2';
+import OpenAPI3_0ResolveStrategy from '../resolve/strategies/openapi-3-0';
+import OpenAPI3_1ResolveStrategy from '../resolve/strategies/openapi-3-1';
+import AsyncAPI2ResolveStrategy from '../resolve/strategies/asyncapi-2';
 import ApiDOMResolveStrategy from '../resolve/strategies/apidom';
 import APIDesignSystemsJSONParser from '../parse/parsers/api-design-systems-json';
 import APIDesignSystemsYAMLParser from '../parse/parsers/api-design-systems-yaml';
@@ -22,11 +22,11 @@ import JSONParser from '../parse/parsers/json';
 import YAMLParser from '../parse/parsers/yaml-1-2';
 import BinaryParser from '../parse/parsers/binary/index-node';
 import ApiDOMDereferenceStrategy from '../dereference/strategies/apidom';
-import OpenApi2DereferenceStrategy from '../dereference/strategies/openapi-2';
-import OpenApi3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
-import OpenApi3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
-import AsyncApi2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
-import OpenApi3_1BundleStrategy from '../bundle/strategies/openapi-3-1';
+import OpenAPI2DereferenceStrategy from '../dereference/strategies/openapi-2';
+import OpenAPI3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0';
+import OpenAPI3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1';
+import AsyncAPI2DereferenceStrategy from '../dereference/strategies/asyncapi-2';
+import OpenAPI3_1BundleStrategy from '../bundle/strategies/openapi-3-1';
 import { options } from '../index';
 
 options.parse.parsers = [
@@ -54,21 +54,21 @@ options.resolve.resolvers = [
 ];
 
 options.resolve.strategies = [
-  OpenApi2ResolveStrategy(),
-  OpenApi3_0ResolveStrategy(),
-  OpenApi3_1ResolveStrategy(),
-  AsyncApi2ResolveStrategy(),
-  ApiDOMResolveStrategy(),
+  new OpenAPI2ResolveStrategy(),
+  new OpenAPI3_0ResolveStrategy(),
+  new OpenAPI3_1ResolveStrategy(),
+  new AsyncAPI2ResolveStrategy(),
+  new ApiDOMResolveStrategy(),
 ];
 
 options.dereference.strategies = [
-  OpenApi2DereferenceStrategy(),
-  OpenApi3_0DereferenceStrategy(),
-  OpenApi3_1DereferenceStrategy(),
-  AsyncApi2DereferenceStrategy(),
-  ApiDOMDereferenceStrategy(),
+  new OpenAPI2DereferenceStrategy(),
+  new OpenAPI3_0DereferenceStrategy(),
+  new OpenAPI3_1DereferenceStrategy(),
+  new AsyncAPI2DereferenceStrategy(),
+  new ApiDOMDereferenceStrategy(),
 ];
 
-options.bundle.strategies = [OpenApi3_1BundleStrategy()];
+options.bundle.strategies = [new OpenAPI3_1BundleStrategy()];
 
 export * from '../index';

@@ -11,7 +11,7 @@ import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceS
 import File from '../../../File';
 import Reference from '../../../Reference';
 import ReferenceSet from '../../../ReferenceSet';
-import OpenApi3_1DereferenceVisitor from './visitor';
+import OpenAPI3_1DereferenceVisitor from './visitor';
 import type { ReferenceOptions } from '../../../options';
 
 // @ts-ignore
@@ -68,7 +68,7 @@ class OpenAPI3_1DereferenceStrategy extends DereferenceStrategy {
       refSet = mutableRefSet;
     }
 
-    const visitor = OpenApi3_1DereferenceVisitor({ reference, namespace, options });
+    const visitor = new OpenAPI3_1DereferenceVisitor({ reference: reference!, namespace, options });
     const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
       keyMap,
       nodeTypeGetter: getNodeType,
@@ -88,8 +88,6 @@ class OpenAPI3_1DereferenceStrategy extends DereferenceStrategy {
             }),
         )
         .forEach((ref) => immutableRefSet.add(ref));
-      reference = immutableRefSet.find((ref) => ref.uri === file.uri);
-      refSet = immutableRefSet;
     }
 
     /**
@@ -106,7 +104,7 @@ class OpenAPI3_1DereferenceStrategy extends DereferenceStrategy {
   }
 }
 
-export { OpenApi3_1DereferenceVisitor };
+export { OpenAPI3_1DereferenceVisitor };
 export { resolveSchema$refField, resolveSchema$idField, maybeRefractToSchemaElement } from './util';
 
 export default OpenAPI3_1DereferenceStrategy;

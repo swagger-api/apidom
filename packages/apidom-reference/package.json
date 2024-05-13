@@ -264,8 +264,7 @@
     "minimatch": "^7.4.3",
     "process": "^0.11.10",
     "ramda": "~0.30.0",
-    "ramda-adjunct": "^5.0.0",
-    "stampit": "^4.3.2"
+    "ramda-adjunct": "^5.0.0"
   },
   "optionalDependencies": {
     "@swagger-api/apidom-error": "^0.99.0",

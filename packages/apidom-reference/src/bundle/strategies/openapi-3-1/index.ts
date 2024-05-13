@@ -1,31 +1,29 @@
-import stampit from 'stampit';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { mediaTypes, isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import File from '../../../File';
-import BundleStrategy from '../BundleStrategy';
-import { BundleStrategy as IBundleStrategy } from '../../../types';
+import BundleStrategy, { BundleStrategyOptions } from '../BundleStrategy';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention
-const OpenApi3_1BundleStrategy: stampit.Stamp<IBundleStrategy> = stampit(BundleStrategy, {
-  init() {
-    this.name = 'openapi-3-1';
-  },
-  methods: {
-    canBundle(file: File): boolean {
-      // assert by media type
-      if (file.mediaType !== 'text/plain') {
-        return mediaTypes.includes(file.mediaType);
-      }
+export interface OpenAPI3_1BundleStrategyOptions extends Omit<BundleStrategyOptions, 'name'> {}
 
-      // assert by inspecting ApiDOM
-      return isOpenApi3_1Element(file.parseResult?.result);
-    },
+class OpenAPI3_1BundleStrategy extends BundleStrategy {
+  constructor(options?: OpenAPI3_1BundleStrategyOptions) {
+    super({ ...(options ?? {}), name: 'openapi-3-1' });
+  }
 
-    async bundle(file: File): Promise<ParseResultElement> {
-      return file.parseResult!;
-    },
-  },
-});
+  canBundle(file: File): boolean {
+    // assert by media type
+    if (file.mediaType !== 'text/plain') {
+      return mediaTypes.includes(file.mediaType);
+    }
 
-export default OpenApi3_1BundleStrategy;
+    // assert by inspecting ApiDOM
+    return isOpenApi3_1Element(file.parseResult?.result);
+  }
+
+  async bundle(file: File): Promise<ParseResultElement> {
+    return file.parseResult!;
+  }
+}
+
+export default OpenAPI3_1BundleStrategy;

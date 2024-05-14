@@ -56,7 +56,7 @@
     "react-dom": "^18.2.0",
     "react-redux": "^9.0.4",
     "swagger-adjust": "^0.7.1",
-    "web-vitals": "^3.0.2"
+    "web-vitals": "^4.0.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.0.0",

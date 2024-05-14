@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.0](https://github.com/swagger-api/apidom/compare/v0.99.2...v1.0.0-alpha.0) (2024-05-14)
+
+### Features
+
+- **reference:** change Reference from stamp to TypeScript class ([#4099](https://github.com/swagger-api/apidom/issues/4099)) ([88f859c](https://github.com/swagger-api/apidom/commit/88f859cfcc63b2f134b290358808fe2dbf82929f)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change ReferenceSet from stamp to TypeScript class ([#4100](https://github.com/swagger-api/apidom/issues/4100)) ([aeb195b](https://github.com/swagger-api/apidom/commit/aeb195be620f20aab2a7fe65e14873e9e7aff122)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+
+### BREAKING CHANGES
+
+- **reference:** ReferenceSet from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** Reference from apidom-reference package became a class and requires to be instantiated with new operator.
+
 ## [0.99.2](https://github.com/swagger-api/apidom/compare/v0.99.1...v0.99.2) (2024-04-30)
 
 ### Bug Fixes

@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.0](https://github.com/swagger-api/apidom/compare/v0.99.2...v1.0.0-alpha.0) (2024-05-14)
+
+### Features
+
+- **core:** change from stamps to TypeScript classes ([#4095](https://github.com/swagger-api/apidom/issues/4095)) ([3bb7131](https://github.com/swagger-api/apidom/commit/3bb71317420583b0b5e56ca9a6e55bbca9596bfc)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change all strategies from stamps to TypeScript classes ([#4103](https://github.com/swagger-api/apidom/issues/4103)) ([7e6dad4](https://github.com/swagger-api/apidom/commit/7e6dad4b3e076be1658b73d8c3e63245c65fd40a)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change dereference visitors from stamps to TypeScript classes ([#4104](https://github.com/swagger-api/apidom/issues/4104)) ([a0657fb](https://github.com/swagger-api/apidom/commit/a0657fb5f1b805fad0643ca442cb039a3de90c50)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change File from stamp to TypeScript class ([#4096](https://github.com/swagger-api/apidom/issues/4096)) ([cb4b90b](https://github.com/swagger-api/apidom/commit/cb4b90b63cfd358c2d40fecb162b21080b15b579)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change parsers from stamps to TypeScript classes ([#4102](https://github.com/swagger-api/apidom/issues/4102)) ([e3d195d](https://github.com/swagger-api/apidom/commit/e3d195db63b320a293ab5f1321580792f1dccf3e)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change Reference from stamp to TypeScript class ([#4099](https://github.com/swagger-api/apidom/issues/4099)) ([88f859c](https://github.com/swagger-api/apidom/commit/88f859cfcc63b2f134b290358808fe2dbf82929f)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change ReferenceSet from stamp to TypeScript class ([#4100](https://github.com/swagger-api/apidom/issues/4100)) ([aeb195b](https://github.com/swagger-api/apidom/commit/aeb195be620f20aab2a7fe65e14873e9e7aff122)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+- **reference:** change resolvers from stamps to TypeScript classes ([#4101](https://github.com/swagger-api/apidom/issues/4101)) ([468259e](https://github.com/swagger-api/apidom/commit/468259ee7f8dec57fd278a4499acaf2ab2dc31d4)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+
+### BREAKING CHANGES
+
+- **reference:** all visitors from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** all strategies from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** parsers from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** resolvers from apidom-reference package became a classes and requires to be instantiated with new operator.
+- **reference:** ReferenceSet from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** Reference from apidom-reference package became a class and requires to be instantiated with new operator.
+- **reference:** File from apidom-reference package became a class
+  and requires to be instantiated with new operator.
+- **core:** IdentityManager from apidom-core package became a class and requires to be instantiated with new operator.
+
 ## [0.99.2](https://github.com/swagger-api/apidom/compare/v0.99.1...v0.99.2) (2024-04-30)
 
 ### Bug Fixes

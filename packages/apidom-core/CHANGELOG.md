@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.0](https://github.com/swagger-api/apidom/compare/v0.99.2...v1.0.0-alpha.0) (2024-05-14)
+
+### Features
+
+- **core:** change from stamps to TypeScript classes ([#4095](https://github.com/swagger-api/apidom/issues/4095)) ([3bb7131](https://github.com/swagger-api/apidom/commit/3bb71317420583b0b5e56ca9a6e55bbca9596bfc)), closes [#3481](https://github.com/swagger-api/apidom/issues/3481)
+
+### BREAKING CHANGES
+
+- **core:** IdentityManager from apidom-core package became a class and requires to be instantiated with new operator.
+
 ## [0.99.2](https://github.com/swagger-api/apidom/compare/v0.99.1...v0.99.2) (2024-04-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-core

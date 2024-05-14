@@ -414,22 +414,22 @@ import BinaryParser from '@swagger-api/apidom-reference/parse/parsers/binary';
 
 
 options.parse.parsers = [
-  OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-  OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
-  OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
-  OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-  AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-  WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
-  APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
-  APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
-  APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
-  YAMLParser({ allowEmpty: true, sourceMap: false }),
-  JSONParser({ allowEmpty: true, sourceMap: false }),
-  BinaryParser({ allowEmpty: true }),
+  new OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+  new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+  new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+  new YAMLParser({ allowEmpty: true, sourceMap: false }),
+  new JSONParser({ allowEmpty: true, sourceMap: false }),
+  new BinaryParser({ allowEmpty: true }),
 ]
 ```
 
@@ -458,22 +458,22 @@ await parse('/home/user/oas.json', {
   parse: {
     mediaType: 'application/vnd.oai.openapi+json;version=3.1.0',
     parsers: [
-      OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-      OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-      OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
-      OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
-      OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
-      OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-      AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-      WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-      WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
-      APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
-      APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
-      APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
-      JSONParser({ allowEmpty: true, sourceMap: false }),
-      YAMLParser({ allowEmpty: true, sourceMap: false }),
-      BinaryParser({ allowEmpty: true }),
+      new OpenAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+      new OpenAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      new OpenAPIJSON3_0Parser({ allowEmpty: true, sourceMap: false }),
+      new OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
+      new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
+      new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+      new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+      new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
+      new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+      new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
+      new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
+      new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
+      new JSONParser({ allowEmpty: true, sourceMap: false }),
+      new YAMLParser({ allowEmpty: true, sourceMap: false }),
+      new BinaryParser({ allowEmpty: true }),
     ],
   },
 });
@@ -699,13 +699,13 @@ import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
 import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
-  FileResolver({
+  new FileResolver({
     fileAllowList: [
       '*.json',
       /\.json$/,
     ]
   }),
-  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  new HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
 ]
 ```
 
@@ -839,8 +839,8 @@ of the resolver plugins `canRead` method returns `true` or until entire list of 
 
 ```js
 [
-  FileResolver(),
-  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  new FileResolver(),
+  new HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
 ]
 ```
 
@@ -852,8 +852,8 @@ import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
 import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
 
 options.resolve.resolvers = [
-  HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
-  FileResolver(),
+  new HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+  new FileResolver(),
 ]
 ```
 
@@ -867,8 +867,8 @@ import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/h
 await readFile('/home/user/oas.json', {
   resolve: {
     resolvers: [
-      HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
-      FileResolver(),
+      new HTTPResolverAxios({ timeout: 5000, redirects: 5, withCredentials: false }),
+      new FileResolver(),
     ],
   },
 });

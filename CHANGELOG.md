@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.1](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2024-05-15)
+
+### Bug Fixes
+
+- **converter:** add apidom-error as dep to apidom-converter ([dd86b94](https://github.com/swagger-api/apidom/commit/dd86b94a5819d3553966c43ffde590125f865f34))
+- release apidom-error package as 1.0.0-alpha.\* ([51555d8](https://github.com/swagger-api/apidom/commit/51555d8314b92dda02525050522e4ce3be5cb610)), closes [#4115](https://github.com/swagger-api/apidom/issues/4115)
+
 # [1.0.0-alpha.0](https://github.com/swagger-api/apidom/compare/v0.99.2...v1.0.0-alpha.0) (2024-05-14)
 
 ### Features

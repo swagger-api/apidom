@@ -39,6 +39,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
+    "@swagger-api/apidom-error": "*",
     "@swagger-api/apidom-core": "*",
     "@swagger-api/apidom-ns-openapi-3-0": "*",
     "@swagger-api/apidom-ns-openapi-3-1": "*",

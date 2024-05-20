@@ -55,7 +55,7 @@ export const cloneNode = (node: any) =>
  * parallel. Each visitor will be visited for each node before moving on.
  *
  * If a prior visitor edits a node, no following visitors will see that node.
- * `exposeEdits=true` can be used to exoise the edited node from the previous visitors.
+ * `exposeEdits=true` can be used to expose the edited node from the previous visitors.
  */
 
 export interface MergeAllSync {
@@ -108,16 +108,32 @@ export const mergeAll: MergeAllSync = ((
   const skipping = new Array(visitors.length).fill(skipSymbol);
 
   return {
-    enter(node: any, ...rest: any[]) {
+    enter(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
       let currentNode = node;
       let hasChanged = false;
+
+      const linkProxy = {
+        ...link,
+        replaceWith(newNode: any, replacer?: any) {
+          link.replaceWith(newNode, replacer);
+          currentNode = newNode;
+        },
+      };
 
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] === skipSymbol) {
           const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(currentNode), false);
 
           if (typeof visitFn === 'function') {
-            const result: any = visitFn.call(visitors[i], currentNode, ...rest);
+            const result: any = visitFn.call(
+              visitors[i],
+              currentNode,
+              key,
+              parent,
+              path,
+              ancestors,
+              linkProxy,
+            );
 
             // check if the visitor is async
             if (typeof result?.then === 'function') {
@@ -128,7 +144,7 @@ export const mergeAll: MergeAllSync = ((
             }
 
             if (result === skipVisitingNodeSymbol) {
-              skipping[i] = node;
+              skipping[i] = currentNode;
             } else if (result === breakSymbol) {
               skipping[i] = breakSymbol;
             } else if (result === deleteNodeSymbol) {
@@ -147,13 +163,31 @@ export const mergeAll: MergeAllSync = ((
 
       return hasChanged ? currentNode : undefined;
     },
-    leave(node: any, ...rest: any[]) {
+    leave(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
+      let currentNode = node;
+
+      const linkProxy = {
+        ...link,
+        replaceWith(newNode: any, replacer?: any) {
+          link.replaceWith(newNode, replacer);
+          currentNode = newNode;
+        },
+      };
+
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] === skipSymbol) {
-          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(node), true);
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(currentNode), true);
 
           if (typeof visitFn === 'function') {
-            const result = visitFn.call(visitors[i], node, ...rest);
+            const result = visitFn.call(
+              visitors[i],
+              currentNode,
+              key,
+              parent,
+              path,
+              ancestors,
+              linkProxy,
+            );
 
             // check if the visitor is async
             if (typeof result?.then === 'function') {
@@ -169,7 +203,7 @@ export const mergeAll: MergeAllSync = ((
               return result;
             }
           }
-        } else if (skipping[i] === node) {
+        } else if (skipping[i] === currentNode) {
           skipping[i] = skipSymbol;
         }
       }
@@ -194,9 +228,17 @@ const mergeAllAsync: MergeAllAsync = (
   const skipping = new Array(visitors.length).fill(skipSymbol);
 
   return {
-    async enter(node: any, ...rest: any[]) {
+    async enter(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
       let currentNode = node;
       let hasChanged = false;
+
+      const linkProxy = {
+        ...link,
+        replaceWith(newNode: any, replacer?: any) {
+          link.replaceWith(newNode, replacer);
+          currentNode = newNode;
+        },
+      };
 
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] === skipSymbol) {
@@ -204,10 +246,18 @@ const mergeAllAsync: MergeAllAsync = (
 
           if (typeof visitFn === 'function') {
             // eslint-disable-next-line no-await-in-loop
-            const result: any = await visitFn.call(visitors[i], currentNode, ...rest);
+            const result: any = await visitFn.call(
+              visitors[i],
+              currentNode,
+              key,
+              parent,
+              path,
+              ancestors,
+              linkProxy,
+            );
 
             if (result === skipVisitingNodeSymbol) {
-              skipping[i] = node;
+              skipping[i] = currentNode;
             } else if (result === breakSymbol) {
               skipping[i] = breakSymbol;
             } else if (result === deleteNodeSymbol) {
@@ -226,21 +276,39 @@ const mergeAllAsync: MergeAllAsync = (
 
       return hasChanged ? currentNode : undefined;
     },
-    async leave(node: any, ...rest: any[]) {
+    async leave(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
+      let currentNode = node;
+
+      const linkProxy = {
+        ...link,
+        replaceWith(newNode: any, replacer?: any) {
+          link.replaceWith(newNode, replacer);
+          currentNode = newNode;
+        },
+      };
+
       for (let i = 0; i < visitors.length; i += 1) {
         if (skipping[i] === skipSymbol) {
-          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(node), true);
+          const visitFn = visitFnGetter(visitors[i], nodeTypeGetter(currentNode), true);
 
           if (typeof visitFn === 'function') {
             // eslint-disable-next-line no-await-in-loop
-            const result = await visitFn.call(visitors[i], node, ...rest);
+            const result = await visitFn.call(
+              visitors[i],
+              currentNode,
+              key,
+              parent,
+              path,
+              ancestors,
+              linkProxy,
+            );
             if (result === breakSymbol) {
               skipping[i] = breakSymbol;
             } else if (result !== undefined && result !== skipVisitingNodeSymbol) {
               return result;
             }
           }
-        } else if (skipping[i] === node) {
+        } else if (skipping[i] === currentNode) {
           skipping[i] = skipSymbol;
         }
       }
@@ -453,7 +521,10 @@ export const visit = (
             } else if (parent) {
               parent[key] = newNode;
             }
-            node = newNode;
+
+            if (!isLeaving) {
+              node = newNode;
+            }
           },
         };
 
@@ -631,7 +702,10 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
             } else if (parent) {
               parent[key] = newNode;
             }
-            node = newNode;
+
+            if (!isLeaving) {
+              node = newNode;
+            }
           },
         };
 

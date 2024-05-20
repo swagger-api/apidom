@@ -366,7 +366,7 @@ export const visit = (
   let inArray = Array.isArray(root);
   let keys = [root];
   let index = -1;
-  let parent: { [x: string]: any } | null | undefined;
+  let parent: any;
   let edits = [];
   let node = root;
   const path: any[] = [];
@@ -376,7 +376,7 @@ export const visit = (
   do {
     index += 1;
     const isLeaving = index === keys.length;
-    let key: string | number;
+    let key: any;
     const isEdited = isLeaving && edits.length !== 0;
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
@@ -544,7 +544,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   let inArray = Array.isArray(root);
   let keys = [root];
   let index = -1;
-  let parent;
+  let parent: any;
   let edits = [];
   let node: any = root;
   const path: any[] = [];
@@ -554,7 +554,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
   do {
     index += 1;
     const isLeaving = index === keys.length;
-    let key;
+    let key: any;
     const isEdited = isLeaving && edits.length !== 0;
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
@@ -623,8 +623,20 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
           visitor[stateKey] = stateValue;
         }
 
+        const link = {
+          // eslint-disable-next-line @typescript-eslint/no-loop-func
+          replaceWith(newNode: any, replacer?: any) {
+            if (typeof replacer === 'function') {
+              replacer(newNode, node, key, parent, path, ancestors);
+            } else if (parent) {
+              parent[key] = newNode;
+            }
+            node = newNode;
+          },
+        };
+
         // retrieve result
-        result = await visitFn.call(visitor, node, key, parent, path, ancestors); // eslint-disable-line no-await-in-loop
+        result = await visitFn.call(visitor, node, key, parent, path, ancestors, link); // eslint-disable-line no-await-in-loop
       }
 
       if (result === breakSymbol) {

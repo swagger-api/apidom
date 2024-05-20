@@ -221,7 +221,7 @@ describe('refractor', function () {
             plugins: [plugin1],
           });
 
-          assert.lengthOf(plugin1Spec.visitor.MediaElement.firstCall.args, 5);
+          assert.lengthOf(plugin1Spec.visitor.MediaElement.firstCall.args, 6);
         });
 
         specify('should receive node as first argument', function () {
@@ -266,7 +266,7 @@ describe('refractor', function () {
             plugins: [plugin1, plugin2],
           });
 
-          assert.lengthOf(plugin2Spec.visitor.MediaElement.firstCall.args, 5);
+          assert.lengthOf(plugin2Spec.visitor.MediaElement.firstCall.args, 6);
         });
 
         specify('should receive node as first argument', function () {

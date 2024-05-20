@@ -197,7 +197,7 @@ describe('refractor', function () {
             },
           );
 
-          assert.lengthOf(plugin1Spec.visitor.ObjectElement.firstCall.args, 5);
+          assert.lengthOf(plugin1Spec.visitor.ObjectElement.firstCall.args, 6);
         });
 
         specify('should receive node as first argument', function () {
@@ -232,7 +232,7 @@ describe('refractor', function () {
             },
           );
 
-          assert.lengthOf(plugin2Spec.visitor.ObjectElement.firstCall.args, 5);
+          assert.lengthOf(plugin2Spec.visitor.ObjectElement.firstCall.args, 6);
         });
 
         specify('should receive node as first argument', function () {

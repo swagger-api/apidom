@@ -44,6 +44,20 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 // initialize element identity manager
 const identityManager = new IdentityManager();
 
+// custom mutation replacer
+const mutationReplacer = (
+  newElement: Element,
+  oldElement: Element,
+  key: string | number,
+  parent: Element | undefined,
+) => {
+  if (isMemberElement(parent)) {
+    parent.value = newElement; // eslint-disable-line no-param-reassign
+  } else if (Array.isArray(parent)) {
+    parent[key] = newElement; // eslint-disable-line no-param-reassign
+  }
+};
+
 export interface OpenAPI2DereferenceVisitorOptions {
   readonly namespace: Namespace;
   readonly reference: Reference;
@@ -147,6 +161,7 @@ class OpenAPI2DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // skip current referencing element as it's already been access
     if (this.indirections.includes(referencingElement)) {
@@ -232,11 +247,7 @@ class OpenAPI2DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -304,11 +315,7 @@ class OpenAPI2DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = mergedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = mergedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(mergedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.
@@ -322,6 +329,7 @@ class OpenAPI2DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // ignore PathItemElement without $ref field
     if (!isStringElement(referencingElement.$ref)) {
@@ -404,11 +412,7 @@ class OpenAPI2DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -488,11 +492,7 @@ class OpenAPI2DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = referencedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = referencedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(referencedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.
@@ -506,6 +506,7 @@ class OpenAPI2DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // skip current referencing element as it's already been access
     if (this.indirections.includes(referencingElement)) {
@@ -576,6 +577,8 @@ class OpenAPI2DereferenceVisitor {
 
     // detect second deep dive into the same fragment and avoid it
     if (ancestorsLineage.includes(referencedElement)) {
+      reference.refSet!.circular = true;
+
       if (this.options.dereference.circular === 'error') {
         throw new ApiDOMError('Circular reference detected');
       } else if (this.options.dereference.circular === 'replace') {
@@ -589,13 +592,7 @@ class OpenAPI2DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
-
-        reference.refSet!.circular = true;
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -663,11 +660,7 @@ class OpenAPI2DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = mergedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = mergedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(mergedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.

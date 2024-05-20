@@ -57,6 +57,20 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 // initialize element identity manager
 const identityManager = new IdentityManager();
 
+// custom mutation replacer
+const mutationReplacer = (
+  newElement: Element,
+  oldElement: Element,
+  key: string | number,
+  parent: Element | undefined,
+) => {
+  if (isMemberElement(parent)) {
+    parent.value = newElement; // eslint-disable-line no-param-reassign
+  } else if (Array.isArray(parent)) {
+    parent[key] = newElement; // eslint-disable-line no-param-reassign
+  }
+};
+
 export interface OpenAPI3_1DereferenceVisitorOptions {
   readonly namespace: Namespace;
   readonly reference: Reference;
@@ -160,6 +174,7 @@ class OpenAPI3_1DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // skip current referencing element as it's already been access
     if (this.indirections.includes(referencingElement)) {
@@ -243,11 +258,7 @@ class OpenAPI3_1DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -330,11 +341,7 @@ class OpenAPI3_1DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = mergedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = mergedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(mergedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.
@@ -348,6 +355,7 @@ class OpenAPI3_1DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // ignore PathItemElement without $ref field
     if (!isStringElement(referencingElement.$ref)) {
@@ -430,11 +438,7 @@ class OpenAPI3_1DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -516,11 +520,7 @@ class OpenAPI3_1DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = referencedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = referencedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(referencedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.
@@ -532,6 +532,9 @@ class OpenAPI3_1DereferenceVisitor {
     linkElement: LinkElement,
     key: string | number,
     parent: Element | undefined,
+    path: (string | number)[],
+    ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // ignore LinkElement without operationRef or operationId field
     if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
@@ -590,11 +593,7 @@ class OpenAPI3_1DereferenceVisitor {
       /**
        * Transclude Link Object containing Operation Object in its meta.
        */
-      if (isMemberElement(parent)) {
-        parent.value = linkElementCopy; // eslint-disable-line no-param-reassign
-      } else if (Array.isArray(parent)) {
-        parent[key] = linkElementCopy; // eslint-disable-line no-param-reassign
-      }
+      link.replaceWith(linkElementCopy, mutationReplacer);
 
       /**
        * We're at the root of the tree, so we're just replacing the entire tree.
@@ -621,11 +620,7 @@ class OpenAPI3_1DereferenceVisitor {
       /**
        * Transclude Link Object containing Operation Object in its meta.
        */
-      if (isMemberElement(parent)) {
-        parent.value = linkElementCopy; // eslint-disable-line no-param-reassign
-      } else if (Array.isArray(parent)) {
-        parent[key] = linkElementCopy; // eslint-disable-line no-param-reassign
-      }
+      link.replaceWith(linkElementCopy, mutationReplacer);
 
       /**
        * We're at the root of the tree, so we're just replacing the entire tree.
@@ -640,6 +635,9 @@ class OpenAPI3_1DereferenceVisitor {
     exampleElement: ExampleElement,
     key: string | number,
     parent: Element | undefined,
+    path: (string | number)[],
+    ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // ignore ExampleElement without externalValue field
     if (!isStringElement(exampleElement.externalValue)) {
@@ -681,11 +679,7 @@ class OpenAPI3_1DereferenceVisitor {
     /**
      * Transclude Example Object containing external value.
      */
-    if (isMemberElement(parent)) {
-      parent.value = exampleElementCopy; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = exampleElementCopy; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(exampleElementCopy, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.
@@ -699,6 +693,7 @@ class OpenAPI3_1DereferenceVisitor {
     parent: Element | undefined,
     path: (string | number)[],
     ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
     // skip current referencing schema as $ref keyword was not defined
     if (!isStringElement(referencingElement.$ref)) {
@@ -858,11 +853,7 @@ class OpenAPI3_1DereferenceVisitor {
           this.options.dereference.circularReplacer;
         const replacement = replacer(refElement);
 
-        if (isMemberElement(parent)) {
-          parent.value = replacement; // eslint-disable-line no-param-reassign
-        } else if (Array.isArray(parent)) {
-          parent[key] = replacement; // eslint-disable-line no-param-reassign
-        }
+        link.replaceWith(replacement, mutationReplacer);
 
         return !parent ? replacement : false;
       }
@@ -925,11 +916,7 @@ class OpenAPI3_1DereferenceVisitor {
         cloneDeep(identityManager.identify(referencingElement)),
       );
 
-      if (isMemberElement(parent)) {
-        parent.value = booleanJsonSchemaElement; // eslint-disable-line no-param-reassign
-      } else if (Array.isArray(parent)) {
-        parent[key] = booleanJsonSchemaElement; // eslint-disable-line no-param-reassign
-      }
+      link.replaceWith(booleanJsonSchemaElement, mutationReplacer);
 
       return !parent ? booleanJsonSchemaElement : false;
     }
@@ -968,11 +955,7 @@ class OpenAPI3_1DereferenceVisitor {
     /**
      * Transclude referencing element with merged referenced element.
      */
-    if (isMemberElement(parent)) {
-      parent.value = referencedElement; // eslint-disable-line no-param-reassign
-    } else if (Array.isArray(parent)) {
-      parent[key] = referencedElement; // eslint-disable-line no-param-reassign
-    }
+    link.replaceWith(referencedElement, mutationReplacer);
 
     /**
      * We're at the root of the tree, so we're just replacing the entire tree.

@@ -52,6 +52,53 @@ describe('visitor', function () {
     });
   });
 
+  context('given node is replaced with mutation', function () {
+    let visitor: any;
+    let structure: any;
+
+    beforeEach(function () {
+      visitor = {
+        number(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
+          if (node.type === 'number') {
+            link.replaceWith({ type: 'foo', value: 'bar' });
+          }
+        },
+        foo: {
+          leave: sinon.spy(),
+        },
+      };
+      structure = {
+        type: 'object',
+        children: [
+          { type: 'number', value: 1 },
+          { type: 'string', value: 'test' },
+          { type: 'object', children: [] },
+        ],
+      };
+    });
+
+    specify('should replace node', function () {
+      // @ts-ignore
+      visit(structure, visitor, { keyMap: { object: ['children'] } });
+
+      assert.deepEqual(structure, {
+        type: 'object',
+        children: [
+          { type: 'foo', value: 'bar' },
+          { type: 'string', value: 'test' },
+          { type: 'object', children: [] },
+        ],
+      });
+    });
+
+    specify('should revisit replaced node', function () {
+      // @ts-ignore
+      visit(structure, visitor, { keyMap: { object: ['children'] } });
+
+      assert.isTrue(visitor.foo.leave.calledOnce);
+    });
+  });
+
   context('mergeAll', function () {
     context('given exposeEdits=true', function () {
       specify('should see edited node', function () {
@@ -136,6 +183,43 @@ describe('visitor', function () {
         string: {
           enter() {
             return { type: 'foo', value: 'bar' };
+          },
+        },
+      };
+      const visitor2 = {
+        foo: {
+          leave(node: any) {
+            node.value = 'foo'; // eslint-disable-line no-param-reassign
+          },
+        },
+      };
+      const structure = {
+        type: 'object',
+        children: [
+          { type: 'number', value: 1 },
+          { type: 'string', value: 2 },
+          { type: 'object', children: [] },
+        ],
+      };
+      const mergedVisitor = mergeAllVisitors([visitor1, visitor2]);
+      // @ts-ignore
+      const newStructure = visit(structure, mergedVisitor, { keyMap: { object: ['children'] } });
+
+      assert.deepEqual(newStructure, {
+        type: 'object',
+        children: [
+          { type: 'number', value: 1 },
+          { type: 'foo', value: 'foo' },
+          { type: 'object', children: [] },
+        ],
+      });
+    });
+
+    specify('should see replaced node by mutation in leave hook', function () {
+      const visitor1 = {
+        string: {
+          enter(node: any, key: any, parent: any, path: any, ancestors: any, link: any) {
+            link.replaceWith({ type: 'foo', value: 'bar' });
           },
         },
       };

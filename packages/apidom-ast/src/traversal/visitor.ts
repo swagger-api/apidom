@@ -366,7 +366,7 @@ export const visit = (
   let inArray = Array.isArray(root);
   let keys = [root];
   let index = -1;
-  let parent;
+  let parent: { [x: string]: any } | null | undefined;
   let edits = [];
   let node = root;
   const path: any[] = [];
@@ -376,7 +376,7 @@ export const visit = (
   do {
     index += 1;
     const isLeaving = index === keys.length;
-    let key;
+    let key: string | number;
     const isEdited = isLeaving && edits.length !== 0;
     if (isLeaving) {
       key = ancestors.length === 0 ? undefined : path.pop();
@@ -444,8 +444,21 @@ export const visit = (
         for (const [stateKey, stateValue] of Object.entries(state)) {
           visitor[stateKey] = stateValue;
         }
+
+        const link = {
+          // eslint-disable-next-line @typescript-eslint/no-loop-func
+          replaceWith(newNode: any, replacer?: any) {
+            if (typeof replacer === 'function') {
+              replacer(newNode, node, key, parent, path, ancestors);
+            } else if (parent) {
+              parent[key] = newNode;
+            }
+            node = newNode;
+          },
+        };
+
         // retrieve result
-        result = visitFn.call(visitor, node, key, parent, path, ancestors);
+        result = visitFn.call(visitor, node, key, parent, path, ancestors, link);
       }
 
       // check if the visitor is async

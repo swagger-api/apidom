@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.2](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2024-05-20)
+
+### Features
+
+- **ast:** add support for mutable node replacements ([#4121](https://github.com/swagger-api/apidom/issues/4121)) ([b37ecd2](https://github.com/swagger-api/apidom/commit/b37ecd2dba83aaa3813bb539ae64e98b290f0292)), closes [#4120](https://github.com/swagger-api/apidom/issues/4120)
+
 # [1.0.0-alpha.1](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.0...v1.0.0-alpha.1) (2024-05-15)
 
 ### Bug Fixes

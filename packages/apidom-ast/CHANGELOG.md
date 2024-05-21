@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.3](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2024-05-21)
+
+### Bug Fixes
+
+- **ast:** fix visitor merging when performing node replacements ([#4124](https://github.com/swagger-api/apidom/issues/4124)) ([c89cbad](https://github.com/swagger-api/apidom/commit/c89cbadb00a0dadb08daf39f5be949bff67457f8)), closes [#4120](https://github.com/swagger-api/apidom/issues/4120)
+
 # [1.0.0-alpha.2](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.1...v1.0.0-alpha.2) (2024-05-20)
 
 ### Features

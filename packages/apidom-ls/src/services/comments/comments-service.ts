@@ -83,12 +83,19 @@ export class DefaultCommentsService implements CommentsService {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,class-methods-use-this
   public async syncComments(textDocument: TextDocument, event: unknown): Promise<void> {
     console.log('syncComments');
-    // return this.syncCommentsJsonPointer(textDocument, event);
-    return this.syncCommentsNode(textDocument, event);
+    return this.syncCommentsJsonPointer(textDocument, event);
+    // return this.syncCommentsNode(textDocument, event);
   }
 
   public async syncCommentsJsonPointer(textDocument: TextDocument, event: unknown): Promise<void> {
-    console.log('syncComments', JSON.stringify(event));
+    // @ts-ignore
+    if (event && event.changes) {
+      // @ts-ignore
+      for (const change of event.changes) {
+        change.text = '';
+      }
+    }
+    console.log('syncCommentsJsonPointer event', JSON.stringify(event));
     this.lastDoc = this.currentDoc;
     if (!this.lastDoc) {
       this.lastDoc = textDocument;
@@ -104,7 +111,7 @@ export class DefaultCommentsService implements CommentsService {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     allComments.forEach(async (comments, key) => {
       const { jsonPointer } = comments;
-      console.log('jsonPointer', jsonPointer);
+      console.log('syncCommentsJsonPointer comment jsonPointer', jsonPointer);
       // const offset = textDocumentOld.offsetAt(pos);
       // console.log('offset', offset);
       const apiOld = await this.parseDoc(this.lastDoc!);
@@ -143,51 +150,55 @@ export class DefaultCommentsService implements CommentsService {
       );
 
       if (nodeChangeStart !== nodeChangeEnd) {
-        console.log('start and end different');
+        console.log('syncCommentsJsonPointer start and end different');
         console.log(nodeChangeStart!.toValue());
         console.log(nodeChangeEnd!.toValue());
         return;
       }
       if (nodeChangeStart !== existingCommentPointerEl) {
-        console.log('comment and change different');
-        console.log('nodeChangeStart', nodeChangeStart!.toValue());
-        console.log('nodeChangeEnd', nodeChangeEnd!.toValue());
-        console.log('existingCommentPointerEl', existingCommentPointerEl!.toValue());
+        console.log('syncCommentsJsonPointer comment and change different');
+        console.log('syncCommentsJsonPointer nodeChangeStart', nodeChangeStart!.toValue());
+        console.log('syncCommentsJsonPointer nodeChangeEnd', nodeChangeEnd!.toValue());
+        console.log(
+          'syncCommentsJsonPointer existingCommentPointerEl',
+          existingCommentPointerEl!.toValue(),
+        );
         const oldNodePath: string[] = [];
         DefaultCommentsService.buildPointer(nodeChangeStart!, oldNodePath);
         const oldPath = buildJsonPointer(oldNodePath, '');
-        console.log('oldPath', oldPath);
+        console.log('syncCommentsJsonPointer oldPath', oldPath);
 
         const nodePath: string[] = [];
         DefaultCommentsService.buildPointer(nodeChangeStartNew!, nodePath);
         const path = buildJsonPointer(nodePath, '');
-        console.log('path', path);
+        console.log('syncCommentsJsonPointer path', path);
         if (jsonPointer.includes(oldPath)) {
-          console.log('JSONPOINTER INCLUDES OLD PATH');
+          console.log('syncCommentsJsonPointer JSONPOINTER INCLUDES OLD PATH');
           // eslint-disable-next-line no-param-reassign
           comments.jsonPointer = jsonPointer.replace(oldPath, path);
           const storedComments = DefaultCommentsService.localStorage_getItem(
             `apidomComments-${jsonPointer}`,
           );
-          console.log('storedComments', storedComments);
+          console.log('syncCommentsJsonPointer storedComments', storedComments);
+          // TODO not updating range
+          DefaultCommentsService.localStorage_deleteItem(`apidomComments-${jsonPointer}`);
           DefaultCommentsService.localStorage_setItem(
             `apidomComments-${comments.jsonPointer}`,
             storedComments!,
-          ); // TODO not updating range
-          DefaultCommentsService.localStorage_deleteItem(`apidomComments-${jsonPointer}`);
+          );
         }
       } else {
-        console.log('same comment and change');
+        console.log('syncCommentsJsonPointer same comment and change');
         const nodePath: string[] = [];
         DefaultCommentsService.buildPointer(nodeChangeStartNew!, nodePath);
         const path = buildJsonPointer(nodePath, '');
-        console.log('path', path);
+        console.log('syncCommentsJsonPointer path', path);
         // eslint-disable-next-line no-param-reassign
         comments.jsonPointer = path;
         const storedComments = DefaultCommentsService.localStorage_getItem(
           `apidomComments-${jsonPointer}`,
         );
-        console.log('storedComments', storedComments);
+        console.log('syncCommentsJsonPointer toredComments', storedComments);
         DefaultCommentsService.localStorage_setItem(`apidomComments-${path}`, storedComments!); // TODO not updating range
         DefaultCommentsService.localStorage_deleteItem(`apidomComments-${jsonPointer}`);
       }
@@ -233,11 +244,12 @@ export class DefaultCommentsService implements CommentsService {
             `apidomCommentsNode-${offset}`,
           );
           console.log('storedComments', storedComments);
+          // TODO not updating range
+          DefaultCommentsService.localStorage_deleteItem(`apidomCommentsNode-${offset}`);
           DefaultCommentsService.localStorage_setItem(
             `apidomCommentsNode-${newOffset}`,
             storedComments!,
-          ); // TODO not updating range
-          DefaultCommentsService.localStorage_deleteItem(`apidomCommentsNode-${offset}`);
+          );
         } else {
           console.log('range end after comment offset');
         }
@@ -359,8 +371,8 @@ export class DefaultCommentsService implements CommentsService {
   }
 
   public loadCommentsSync(textDocument: TextDocument): Map<string, Comments> {
-    // return this.loadCommentsSyncJsonPointer(textDocument);
-    return this.loadCommentsSyncNode(textDocument);
+    return this.loadCommentsSyncJsonPointer(textDocument);
+    // return this.loadCommentsSyncNode(textDocument);
   }
 
   // TODO add range to saved comments, handle special chars
@@ -471,7 +483,9 @@ export class DefaultCommentsService implements CommentsService {
     };
     // const text: string = textDocument.getText();
     const offset = textDocument.offsetAt(position);
+    console.log('getNodeCommentsJsonPointer offset', offset);
     const allComments = await this.loadComments(textDocument);
+    console.log('getNodeCommentsJsonPointer allComments', allComments);
     const isJson = await isJsonDoc(textDocument);
     let processedText;
 
@@ -504,6 +518,7 @@ export class DefaultCommentsService implements CommentsService {
     if (!node) {
       return errorComments;
     }
+    console.log('getNodeCommentsJsonPointer node', node.toValue());
     let nodeType: 'key' | 'value' | 'unknown' = 'value';
     let sm: SourceMap | undefined;
     if (node) {
@@ -530,7 +545,9 @@ export class DefaultCommentsService implements CommentsService {
       }
     }
     const nodePath: string[] = [];
+
     DefaultCommentsService.buildPointer(el, nodePath);
+    console.log('getNodeCommentsJsonPointer nodePath', nodePath);
     const path = buildJsonPointer(nodePath, '');
     let storedComments = allComments.get(path);
     if (!storedComments) {
@@ -540,6 +557,7 @@ export class DefaultCommentsService implements CommentsService {
     }
     storedComments.nodeType = nodeType;
     storedComments.range = range;
+    console.log('getNodeCommentsJsonPointer storedComments', JSON.stringify(storedComments));
     return storedComments;
     // let elementValue = el.element;
 
@@ -626,8 +644,8 @@ export class DefaultCommentsService implements CommentsService {
   }
 
   public hasNodeComments(node: Element, textDocument: TextDocument): boolean {
-    // return this.hasNodeCommentsJsonPointer(node, textDocument);
-    return this.hasNodeCommentsNode(node, textDocument);
+    return this.hasNodeCommentsJsonPointer(node, textDocument);
+    // return this.hasNodeCommentsNode(node, textDocument);
   }
 
   public hasNodeCommentsJsonPointer(node: Element, textDocument: TextDocument): boolean {
@@ -690,8 +708,8 @@ export class DefaultCommentsService implements CommentsService {
     position: Position,
     value: string,
   ): Promise<void> {
-    // return this.addNodeCommentJsonPointer(textDocument, position, value);
-    return this.addNodeCommentNode(textDocument, position, value);
+    return this.addNodeCommentJsonPointer(textDocument, position, value);
+    // return this.addNodeCommentNode(textDocument, position, value);
   }
 
   // eslint-disable-next-line class-methods-use-this

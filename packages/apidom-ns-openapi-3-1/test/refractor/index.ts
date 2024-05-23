@@ -71,7 +71,12 @@ describe('refractor', function () {
           plugins: [plugin1],
         });
 
-        assert.hasAllKeys(plugin1.firstCall.args[0], ['predicates', 'namespace']);
+        assert.hasAllKeys(plugin1.firstCall.args[0], [
+          'predicates',
+          'namespace',
+          'ancestorLineageToJSONPointer',
+          'compileJSONPointerTokens',
+        ]);
       });
 
       specify('should have predicates in toolbox object', function () {

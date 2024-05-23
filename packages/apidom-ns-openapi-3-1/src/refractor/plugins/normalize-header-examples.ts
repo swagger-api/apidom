@@ -1,8 +1,9 @@
-import { cloneDeep } from '@swagger-api/apidom-core';
+import { Element, ArrayElement, toValue, cloneDeep } from '@swagger-api/apidom-core';
 
 import HeaderElement from '../../elements/Header';
 import ExampleElement from '../../elements/Example';
-import { Predicates } from '../toolbox';
+import type { Toolbox } from '../toolbox';
+import OpenApi3_1Element from '../../elements/OpenApi3-1';
 
 /**
  * Override of Schema.example and Schema.examples field inside the Header Objects.
@@ -15,15 +16,51 @@ import { Predicates } from '../toolbox';
  *
  * The example value SHALL override the example provided by the schema.
  * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema.
+ *
+ * NOTE: this plugin is idempotent
  */
+type JSONPointer = string;
+type JSONPointerTokens = string[];
+
+interface PluginOptions {
+  scope?: JSONPointer | JSONPointerTokens;
+  storageField?: string;
+}
+
 /* eslint-disable no-param-reassign */
 const plugin =
-  () =>
-  ({ predicates }: { predicates: Predicates }) => {
+  ({ scope = '/', storageField = 'x-normalized-header-examples' }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { predicates, ancestorLineageToJSONPointer, compileJSONPointerTokens } = toolbox;
+    const scopeJSONPointer = Array.isArray(scope) ? compileJSONPointerTokens(scope) : scope;
+    let storage: ArrayElement | undefined;
+
     return {
       visitor: {
+        OpenApi3_1Element: {
+          enter(element: OpenApi3_1Element) {
+            // initialize the normalized storage
+            storage = element.get(storageField);
+            if (!predicates.isArrayElement(storage)) {
+              storage = new ArrayElement();
+              element.set(storageField, storage);
+            }
+          },
+          leave(element: OpenApi3_1Element) {
+            // make items in storage unique and release it
+            storage = new ArrayElement(Array.from(new Set(toValue(storage))));
+            element.set(storageField, storage);
+            storage = undefined;
+          },
+        },
         HeaderElement: {
-          leave(headerElement: HeaderElement, key: any, parent: any, path: any, ancestors: any[]) {
+          leave(
+            headerElement: HeaderElement,
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
+          ) {
             // skip visiting this Header Object
             if (ancestors.some(predicates.isComponentsElement)) {
               return;
@@ -44,6 +81,22 @@ const plugin =
               return;
             }
 
+            const headerJSONPointer = ancestorLineageToJSONPointer([
+              ...ancestors,
+              parent!,
+              headerElement,
+            ]);
+
+            // skip visiting this Header Object if it's already normalized
+            if (storage!.includes(headerJSONPointer)) {
+              return;
+            }
+
+            // skip visiting this Header Object if we're outside the assigned scope
+            if (!headerJSONPointer.startsWith(scopeJSONPointer)) {
+              return;
+            }
+
             /**
              * Header.examples and Schema.examples have preferences over the older
              * and deprected `example` field.
@@ -59,9 +112,11 @@ const plugin =
 
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', examples);
+                storage!.push(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
-                headerElement.schema.set('example', examples);
+                headerElement.schema.set('example', examples[0]);
+                storage!.push(headerJSONPointer);
               }
               return;
             }
@@ -72,9 +127,11 @@ const plugin =
             if (typeof headerElement.example !== 'undefined') {
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', [cloneDeep(headerElement.example)]);
+                storage!.push(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
                 headerElement.schema.set('example', cloneDeep(headerElement.example));
+                storage!.push(headerJSONPointer);
               }
             }
           },

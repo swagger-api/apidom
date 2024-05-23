@@ -34,8 +34,8 @@ describe('refractor', function () {
             ],
           }) as OpenApi3_1Element;
 
-          assert.deepEqual(toValue(openApiElement.get('x-normalized')), [
-            '/paths/~1/get/responses/200',
+          assert.deepEqual(toValue(openApiElement.get('x-normalized-header-examples')), [
+            '/paths/~1/get/responses/200/headers/content-type',
           ]);
         },
       );
@@ -69,7 +69,7 @@ describe('refractor', function () {
           }) as OpenApi3_1Element;
 
           assert.deepEqual(toValue(openApiElement.get('$$normalized-header-examples')), [
-            '/paths/~1/get/responses/200',
+            '/paths/~1/get/responses/200/headers/content-type',
           ]);
         });
       });

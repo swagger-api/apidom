@@ -1,9 +1,10 @@
-import { Element, ArrayElement, toValue, cloneDeep } from '@swagger-api/apidom-core';
+import { Element, cloneDeep } from '@swagger-api/apidom-core';
 
-import HeaderElement from '../../elements/Header';
-import ExampleElement from '../../elements/Example';
-import type { Toolbox } from '../toolbox';
-import OpenApi3_1Element from '../../elements/OpenApi3-1';
+import HeaderElement from '../../../elements/Header';
+import ExampleElement from '../../../elements/Example';
+import type { Toolbox } from '../../toolbox';
+import OpenApi3_1Element from '../../../elements/OpenApi3-1';
+import NormalizeStorage from './NormalizeStorage';
 
 /**
  * Override of Schema.example and Schema.examples field inside the Header Objects.
@@ -19,37 +20,24 @@ import OpenApi3_1Element from '../../elements/OpenApi3-1';
  *
  * NOTE: this plugin is idempotent
  */
+
 interface PluginOptions {
   storageField?: string;
 }
 
-/* eslint-disable no-param-reassign */
 const plugin =
-  ({ storageField = 'x-normalized-header-examples' }: PluginOptions = {}) =>
+  ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {
     const { predicates, ancestorLineageToJSONPointer } = toolbox;
-    let storage: ArrayElement | undefined;
+    let storage: NormalizeStorage | undefined;
 
     return {
       visitor: {
         OpenApi3_1Element: {
           enter(element: OpenApi3_1Element) {
-            // initialize the normalized storage
-            storage = element.get(storageField);
-            if (!predicates.isArrayElement(storage)) {
-              storage = new ArrayElement();
-              element.set(storageField, storage);
-            }
+            storage = new NormalizeStorage(element, storageField, 'header-examples');
           },
-          leave(element: OpenApi3_1Element) {
-            // make items in storage unique and release it
-            storage = new ArrayElement(Array.from(new Set(toValue(storage))));
-            if (!storage.isEmpty) {
-              element.set(storageField, storage);
-            } else {
-              element.remove(storageField);
-            }
-
+          leave() {
             storage = undefined;
           },
         },
@@ -107,11 +95,11 @@ const plugin =
 
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', examples);
-                storage!.push(headerJSONPointer);
+                storage!.append(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
                 headerElement.schema.set('example', examples[0]);
-                storage!.push(headerJSONPointer);
+                storage!.append(headerJSONPointer);
               }
               return;
             }
@@ -122,11 +110,11 @@ const plugin =
             if (typeof headerElement.example !== 'undefined') {
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', [cloneDeep(headerElement.example)]);
-                storage!.push(headerJSONPointer);
+                storage!.append(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
                 headerElement.schema.set('example', cloneDeep(headerElement.example));
-                storage!.push(headerJSONPointer);
+                storage!.append(headerJSONPointer);
               }
             }
           },
@@ -134,6 +122,5 @@ const plugin =
       },
     };
   };
-/* eslint-enable */
 
 export default plugin;

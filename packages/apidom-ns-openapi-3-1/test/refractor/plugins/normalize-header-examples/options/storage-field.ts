@@ -29,14 +29,12 @@ describe('refractor', function () {
         `;
           const apiDOM = await parse(yamlDefinition);
           const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
-            plugins: [
-              refractorPluginNormalizeHeaderExamples({ scope: '/paths/~1/get/responses/200' }),
-            ],
+            plugins: [refractorPluginNormalizeHeaderExamples()],
           }) as OpenApi3_1Element;
 
-          assert.deepEqual(toValue(openApiElement.get('x-normalized-header-examples')), [
-            '/paths/~1/get/responses/200/headers/content-type',
-          ]);
+          assert.deepEqual(toValue(openApiElement.get('x-normalized')), {
+            'header-examples': ['/paths/~1/get/responses/200/headers/content-type'],
+          });
         },
       );
 
@@ -62,15 +60,14 @@ describe('refractor', function () {
           const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
             plugins: [
               refractorPluginNormalizeHeaderExamples({
-                scope: '/paths/~1/get/responses/200',
-                storageField: '$$normalized-header-examples',
+                storageField: '$$normalized',
               }),
             ],
           }) as OpenApi3_1Element;
 
-          assert.deepEqual(toValue(openApiElement.get('$$normalized-header-examples')), [
-            '/paths/~1/get/responses/200/headers/content-type',
-          ]);
+          assert.deepEqual(toValue(openApiElement.get('$$normalized')), {
+            'header-examples': ['/paths/~1/get/responses/200/headers/content-type'],
+          });
         });
       });
     });

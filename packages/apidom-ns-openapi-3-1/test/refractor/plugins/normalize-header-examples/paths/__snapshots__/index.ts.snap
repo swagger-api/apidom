@@ -30,9 +30,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -63,9 +65,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -98,9 +102,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -129,9 +135,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -157,9 +165,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -187,9 +197,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -222,9 +234,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -254,9 +268,11 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -288,8 +304,10 @@ Object {
       },
     },
   },
-  x-normalized-header-examples: Array [
-    /paths/~1/get/responses/200/headers/content-type,
-  ],
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;

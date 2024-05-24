@@ -77,6 +77,7 @@ const plugin =
 
             // skip visiting this Header Object if it's already normalized
             if (storage!.includes(headerJSONPointer)) {
+              console.dir('idempotent');
               return;
             }
 

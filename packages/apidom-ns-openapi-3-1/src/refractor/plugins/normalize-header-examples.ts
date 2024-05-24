@@ -19,20 +19,15 @@ import OpenApi3_1Element from '../../elements/OpenApi3-1';
  *
  * NOTE: this plugin is idempotent
  */
-type JSONPointer = string;
-type JSONPointerTokens = string[];
-
 interface PluginOptions {
-  scope?: JSONPointer | JSONPointerTokens;
   storageField?: string;
 }
 
 /* eslint-disable no-param-reassign */
 const plugin =
-  ({ scope = '/', storageField = 'x-normalized-header-examples' }: PluginOptions = {}) =>
+  ({ storageField = 'x-normalized-header-examples' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {
-    const { predicates, ancestorLineageToJSONPointer, compileJSONPointerTokens } = toolbox;
-    const scopeJSONPointer = Array.isArray(scope) ? compileJSONPointerTokens(scope) : scope;
+    const { predicates, ancestorLineageToJSONPointer } = toolbox;
     let storage: ArrayElement | undefined;
 
     return {
@@ -49,7 +44,12 @@ const plugin =
           leave(element: OpenApi3_1Element) {
             // make items in storage unique and release it
             storage = new ArrayElement(Array.from(new Set(toValue(storage))));
-            element.set(storageField, storage);
+            if (!storage.isEmpty) {
+              element.set(storageField, storage);
+            } else {
+              element.remove(storageField);
+            }
+
             storage = undefined;
           },
         },
@@ -89,11 +89,6 @@ const plugin =
 
             // skip visiting this Header Object if it's already normalized
             if (storage!.includes(headerJSONPointer)) {
-              return;
-            }
-
-            // skip visiting this Header Object if we're outside the assigned scope
-            if (!headerJSONPointer.startsWith(scopeJSONPointer)) {
               return;
             }
 

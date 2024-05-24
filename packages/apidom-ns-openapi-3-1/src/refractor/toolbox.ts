@@ -31,7 +31,6 @@ export type Predicates = typeof openApi3_1Predicates & {
 
 export interface Toolbox {
   predicates: Predicates;
-  compileJSONPointerTokens: typeof compileJSONPointerTokens;
   ancestorLineageToJSONPointer: typeof ancestorLineageToJSONPointer;
   namespace: Namespace;
 }
@@ -74,7 +73,7 @@ const createToolbox = (): Toolbox => {
     hasElementSourceMap,
   };
 
-  return { predicates, ancestorLineageToJSONPointer, compileJSONPointerTokens, namespace };
+  return { predicates, ancestorLineageToJSONPointer, namespace };
 };
 
 export default createToolbox;

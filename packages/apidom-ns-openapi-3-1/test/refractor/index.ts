@@ -75,7 +75,6 @@ describe('refractor', function () {
           'predicates',
           'namespace',
           'ancestorLineageToJSONPointer',
-          'compileJSONPointerTokens',
         ]);
       });
 

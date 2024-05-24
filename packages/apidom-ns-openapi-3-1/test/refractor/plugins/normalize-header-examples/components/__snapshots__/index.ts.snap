@@ -14,7 +14,6 @@ Object {
     },
   },
   openapi: 3.1.0,
-  x-normalized-header-examples: Array [],
 }
 `;
 
@@ -40,6 +39,5 @@ Object {
     },
   },
   openapi: 3.1.0,
-  x-normalized-header-examples: Array [],
 }
 `;

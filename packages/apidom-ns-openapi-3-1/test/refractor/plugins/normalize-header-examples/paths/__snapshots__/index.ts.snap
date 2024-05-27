@@ -17,9 +17,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: Array [
-                    3,
-                  ],
+                  example: 3,
                   examples: Array [
                     3,
                   ],
@@ -31,6 +29,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -52,9 +55,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: Array [
-                    2,
-                  ],
+                  example: 2,
                   type: number,
                 },
               },
@@ -63,6 +64,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -96,6 +102,11 @@ Object {
       },
     },
   },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -124,6 +135,11 @@ Object {
       },
     },
   },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -148,6 +164,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -176,6 +197,11 @@ Object {
       },
     },
   },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
+  },
 }
 `;
 
@@ -195,9 +221,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: Array [
-                    3,
-                  ],
+                  example: 3,
                   examples: Array [
                     3,
                   ],
@@ -209,6 +233,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -229,9 +258,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: Array [
-                    2,
-                  ],
+                  example: 2,
                   type: number,
                 },
               },
@@ -240,6 +267,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -271,6 +303,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;

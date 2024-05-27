@@ -1,8 +1,10 @@
-import { cloneDeep } from '@swagger-api/apidom-core';
+import { Element, cloneDeep } from '@swagger-api/apidom-core';
 
-import HeaderElement from '../../elements/Header';
-import ExampleElement from '../../elements/Example';
-import { Predicates } from '../toolbox';
+import HeaderElement from '../../../elements/Header';
+import ExampleElement from '../../../elements/Example';
+import type { Toolbox } from '../../toolbox';
+import OpenApi3_1Element from '../../../elements/OpenApi3-1';
+import NormalizeStorage from './NormalizeStorage';
 
 /**
  * Override of Schema.example and Schema.examples field inside the Header Objects.
@@ -15,15 +17,38 @@ import { Predicates } from '../toolbox';
  *
  * The example value SHALL override the example provided by the schema.
  * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema.
+ *
+ * NOTE: this plugin is idempotent
  */
-/* eslint-disable no-param-reassign */
+
+interface PluginOptions {
+  storageField?: string;
+}
+
 const plugin =
-  () =>
-  ({ predicates }: { predicates: Predicates }) => {
+  ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { predicates, ancestorLineageToJSONPointer } = toolbox;
+    let storage: NormalizeStorage | undefined;
+
     return {
       visitor: {
+        OpenApi3_1Element: {
+          enter(element: OpenApi3_1Element) {
+            storage = new NormalizeStorage(element, storageField, 'header-examples');
+          },
+          leave() {
+            storage = undefined;
+          },
+        },
         HeaderElement: {
-          leave(headerElement: HeaderElement, key: any, parent: any, path: any, ancestors: any[]) {
+          leave(
+            headerElement: HeaderElement,
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
+          ) {
             // skip visiting this Header Object
             if (ancestors.some(predicates.isComponentsElement)) {
               return;
@@ -44,6 +69,18 @@ const plugin =
               return;
             }
 
+            const headerJSONPointer = ancestorLineageToJSONPointer([
+              ...ancestors,
+              parent!,
+              headerElement,
+            ]);
+
+            // skip visiting this Header Object if it's already normalized
+            if (storage!.includes(headerJSONPointer)) {
+              console.dir('idempotent');
+              return;
+            }
+
             /**
              * Header.examples and Schema.examples have preferences over the older
              * and deprected `example` field.
@@ -59,9 +96,11 @@ const plugin =
 
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', examples);
+                storage!.append(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
-                headerElement.schema.set('example', examples);
+                headerElement.schema.set('example', examples[0]);
+                storage!.append(headerJSONPointer);
               }
               return;
             }
@@ -72,9 +111,11 @@ const plugin =
             if (typeof headerElement.example !== 'undefined') {
               if (typeof headerElement.schema.examples !== 'undefined') {
                 headerElement.schema.set('examples', [cloneDeep(headerElement.example)]);
+                storage!.append(headerJSONPointer);
               }
               if (typeof headerElement.schema.example !== 'undefined') {
                 headerElement.schema.set('example', cloneDeep(headerElement.example));
+                storage!.append(headerJSONPointer);
               }
             }
           },
@@ -82,6 +123,5 @@ const plugin =
       },
     };
   };
-/* eslint-enable */
 
 export default plugin;

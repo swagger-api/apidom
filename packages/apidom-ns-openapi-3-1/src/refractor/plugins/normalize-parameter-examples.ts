@@ -1,8 +1,10 @@
-import { cloneDeep } from '@swagger-api/apidom-core';
+import { Element, cloneDeep } from '@swagger-api/apidom-core';
 
 import ParameterElement from '../../elements/Parameter';
 import ExampleElement from '../../elements/Example';
-import { Predicates } from '../toolbox';
+import type { Toolbox } from '../toolbox';
+import OpenApi3_1Element from '../../elements/OpenApi3-1';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
 
 /**
  * Override of Schema.example and Schema.examples field inside the Parameter Objects.
@@ -15,20 +17,37 @@ import { Predicates } from '../toolbox';
  *
  * The example value SHALL override the example provided by the schema.
  * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema.
+ *
+ * NOTE: this plugin is idempotent
  */
-/* eslint-disable no-param-reassign */
+
+interface PluginOptions {
+  storageField?: string;
+}
+
 const plugin =
-  () =>
-  ({ predicates }: { predicates: Predicates }) => {
+  ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { predicates, ancestorLineageToJSONPointer } = toolbox;
+    let storage: NormalizeStorage | undefined;
+
     return {
       visitor: {
+        OpenApi3_1Element: {
+          enter(element: OpenApi3_1Element) {
+            storage = new NormalizeStorage(element, storageField, 'parameter-examples');
+          },
+          leave() {
+            storage = undefined;
+          },
+        },
         ParameterElement: {
           leave(
             parameterElement: ParameterElement,
-            key: any,
-            parent: any,
-            path: any,
-            ancestors: any[],
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
           ) {
             // skip visiting this Parameter Object
             if (ancestors.some(predicates.isComponentsElement)) {
@@ -50,6 +69,18 @@ const plugin =
               return;
             }
 
+            const parameterJSONPointer = ancestorLineageToJSONPointer([
+              ...ancestors,
+              parent!,
+              parameterElement,
+            ]);
+
+            // skip visiting this Parameter Object if it's already normalized
+            if (storage!.includes(parameterJSONPointer)) {
+              console.dir('idempotent');
+              return;
+            }
+
             /**
              * Parameter.examples and Schema.examples have preferences over the older
              * and deprected `example` field.
@@ -65,9 +96,11 @@ const plugin =
 
               if (typeof parameterElement.schema.examples !== 'undefined') {
                 parameterElement.schema.set('examples', examples);
+                storage!.append(parameterJSONPointer);
               }
               if (typeof parameterElement.schema.example !== 'undefined') {
                 parameterElement.schema.set('example', examples);
+                storage!.append(parameterJSONPointer);
               }
               return;
             }
@@ -78,9 +111,11 @@ const plugin =
             if (typeof parameterElement.example !== 'undefined') {
               if (typeof parameterElement.schema.examples !== 'undefined') {
                 parameterElement.schema.set('examples', [cloneDeep(parameterElement.example)]);
+                storage!.append(parameterJSONPointer);
               }
               if (typeof parameterElement.schema.example !== 'undefined') {
                 parameterElement.schema.set('example', cloneDeep(parameterElement.example));
+                storage!.append(parameterJSONPointer);
               }
             }
           },
@@ -88,6 +123,5 @@ const plugin =
       },
     };
   };
-/* eslint-enable */
 
 export default plugin;

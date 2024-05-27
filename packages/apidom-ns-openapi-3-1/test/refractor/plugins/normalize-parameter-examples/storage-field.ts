@@ -35,7 +35,7 @@ describe('refractor', function () {
       });
 
       context('given custom storage field', function () {
-        specify('should use custom sub-field to store normalized scopes', async function () {
+        specify('should use custom storage field to store normalized scopes', async function () {
           const yamlDefinition = dedent`
                 openapi: 3.1.0
                 paths:

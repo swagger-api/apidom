@@ -77,7 +77,6 @@ const plugin =
 
             // skip visiting this Parameter Object if it's already normalized
             if (storage!.includes(parameterJSONPointer)) {
-              console.dir('idempotent');
               return;
             }
 

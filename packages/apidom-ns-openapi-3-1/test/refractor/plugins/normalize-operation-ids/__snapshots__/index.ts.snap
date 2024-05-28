@@ -375,6 +375,32 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with n
           ]
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array"
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -595,6 +621,38 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
           ]
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1path~1to~1resource/get"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -807,6 +865,38 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                           ]
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1path~1to~1resource/get"
                     }
                   ]
                 }
@@ -1173,6 +1263,38 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
           ]
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -1385,6 +1507,38 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                           ]
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
                     }
                   ]
                 }
@@ -1677,6 +1831,42 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                           ]
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "operation-ids"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
+                    },
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/post"
                     }
                   ]
                 }

@@ -1,10 +1,12 @@
 import { last, defaultTo, groupBy } from 'ramda';
-import { toValue, StringElement, Namespace, cloneDeep } from '@swagger-api/apidom-core';
+import { toValue, Element, StringElement, cloneDeep } from '@swagger-api/apidom-core';
 
 import LinkElement from '../../elements/Link';
 import PathItemElement from '../../elements/PathItem';
 import OperationElement from '../../elements/Operation';
-import { Predicates } from '../toolbox';
+import type { Toolbox } from '../toolbox';
+import OpenApi3_1Element from '../../elements/OpenApi3-1';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
 
 const removeSpaces = (operationId: string) => {
   return operationId.replace(/\s/g, '');
@@ -45,19 +47,33 @@ const normalizeOperationId = (operationId: string, path: string, method: string)
  * This plugin also guarantees the uniqueness of all defined Operation.operationId fields,
  * and make sure Link.operationId fields are pointing to correct and normalized Operation.operationId fields.
  *
+ * NOTE: this plugin is idempotent
  */
-/* eslint-disable no-param-reassign */
 
+interface PluginOptions {
+  storageField?: string;
+  operationIdNormalizer?: (operationId: string, path: string, method: string) => string;
+}
+
+/* eslint-disable no-param-reassign */
 const plugin =
-  ({ operationIdNormalizer = normalizeOperationId } = {}) =>
-  ({ predicates, namespace }: { predicates: Predicates; namespace: Namespace }) => {
-    const paths: string[] = [];
+  ({
+    storageField = 'x-normalized',
+    operationIdNormalizer = normalizeOperationId,
+  }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { predicates, ancestorLineageToJSONPointer, namespace } = toolbox;
+    const pathTemplates: string[] = [];
     const normalizedOperations: OperationElement[] = [];
     const links: LinkElement[] = [];
+    let storage: NormalizeStorage | undefined;
 
     return {
       visitor: {
         OpenApi3_1Element: {
+          enter(element: OpenApi3_1Element) {
+            storage = new NormalizeStorage(element, storageField, 'operation-ids');
+          },
           leave() {
             // group normalized operations by normalized operationId
             const normalizedOperationGroups = groupBy((operationElement: OperationElement) => {
@@ -103,33 +119,55 @@ const plugin =
             // cleanup the references
             normalizedOperations.length = 0;
             links.length = 0;
+            storage = undefined;
           },
         },
         PathItemElement: {
           enter(pathItemElement: PathItemElement) {
             // `path` meta may not be always available, e.g. in Callback Object or Components Object
-            const path = defaultTo('path', toValue(pathItemElement.meta.get('path')));
-            paths.push(path);
+            const pathTemplate = defaultTo('path', toValue(pathItemElement.meta.get('path')));
+            pathTemplates.push(pathTemplate);
           },
           leave() {
-            paths.pop();
+            pathTemplates.pop();
           },
         },
         OperationElement: {
-          enter(operationElement: OperationElement) {
+          enter(
+            operationElement: OperationElement,
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
+          ) {
             // operationId field is undefined, needs no normalization
             if (typeof operationElement.operationId === 'undefined') return;
+
+            const operationJSONPointer = ancestorLineageToJSONPointer([
+              ...ancestors,
+              parent!,
+              operationElement,
+            ]);
+
+            // skip visiting this Operation Object if it's already normalized
+            if (storage!.includes(operationJSONPointer)) {
+              return;
+            }
 
             // cast operationId to string type
             const originalOperationId = String(toValue(operationElement.operationId));
             // perform operationId normalization
-            const path = last(paths) as string;
+            const pathTemplate = last(pathTemplates) as string;
             // `http-method` meta may not be always available, e.g. in Callback Object or Components Object
             const method = defaultTo(
               'method',
               toValue(operationElement.meta.get('http-method')),
             ) as string;
-            const normalizedOperationId = operationIdNormalizer(originalOperationId, path, method);
+            const normalizedOperationId = operationIdNormalizer(
+              originalOperationId,
+              pathTemplate,
+              method,
+            );
 
             // normalization is not necessary
             if (originalOperationId === normalizedOperationId) return;
@@ -140,6 +178,7 @@ const plugin =
             operationElement.meta.set('originalOperationId', originalOperationId);
 
             normalizedOperations.push(operationElement);
+            storage!.append(operationJSONPointer);
           },
         },
         LinkElement: {

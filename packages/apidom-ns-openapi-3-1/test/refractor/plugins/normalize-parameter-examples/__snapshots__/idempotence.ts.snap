@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-parameter-examples should have idempotent characteristics 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      get: Object {
+        parameters: Array [
+          Object {
+            examples: Object {
+              example1: Object {
+                value: 2,
+              },
+            },
+            in: query,
+            name: idempotent,
+            schema: Object {
+              example: 1,
+              type: number,
+            },
+          },
+        ],
+      },
+    },
+  },
+}
+`;

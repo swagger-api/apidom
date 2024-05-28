@@ -28,6 +28,11 @@ Object {
       ],
     },
   },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
+  },
 }
 `;
 
@@ -55,6 +60,11 @@ Object {
         },
       ],
     },
+  },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
   },
 }
 `;
@@ -84,6 +94,11 @@ Object {
       ],
     },
   },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
+  },
 }
 `;
 
@@ -108,6 +123,11 @@ Object {
       ],
     },
   },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
+  },
 }
 `;
 
@@ -128,6 +148,11 @@ Object {
         },
       ],
     },
+  },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
   },
 }
 `;
@@ -151,6 +176,11 @@ Object {
         },
       ],
     },
+  },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
   },
 }
 `;
@@ -182,6 +212,11 @@ Object {
       ],
     },
   },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
+  },
 }
 `;
 
@@ -209,6 +244,11 @@ Object {
       ],
     },
   },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
+  },
 }
 `;
 
@@ -235,6 +275,11 @@ Object {
         },
       ],
     },
+  },
+  x-normalized: Object {
+    parameter-examples: Array [
+      /paths/~1/parameters/0,
+    ],
   },
 }
 `;

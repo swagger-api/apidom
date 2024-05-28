@@ -1,11 +1,13 @@
 import { uniqWith, pathOr, last } from 'ramda';
-import { StringElement, toValue } from '@swagger-api/apidom-core';
+import { Element, StringElement, toValue } from '@swagger-api/apidom-core';
 import { OperationParametersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ParameterElement from '../../elements/Parameter';
 import PathItemElement from '../../elements/PathItem';
 import OperationElement from '../../elements/Operation';
-import { Predicates } from '../toolbox';
+import type { Toolbox } from '../toolbox';
+import OpenApi3_1Element from '../../elements/OpenApi3-1';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
 
 /**
  * Inheritance of Parameter Objects.
@@ -15,11 +17,19 @@ import { Predicates } from '../toolbox';
  * A list of parameters that are applicable for this operation. If a parameter is already defined at the Path Item,
  * the new definition will override it but can never remove it. The list MUST NOT include duplicated parameters.
  * A unique parameter is defined by a combination of a name and location.
+ *
+ * NOTE: this plugin is idempotent
  */
+
+interface PluginOptions {
+  storageField?: string;
+}
+
 /* eslint-disable no-param-reassign */
 const plugin =
-  () =>
-  ({ predicates }: { predicates: Predicates }) => {
+  ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { predicates, ancestorLineageToJSONPointer } = toolbox;
     /**
      * Establishes identity between two Parameter Objects.
      *
@@ -40,16 +50,25 @@ const plugin =
     };
 
     const pathItemParameters: ParameterElement[][] = [];
+    let storage: NormalizeStorage | undefined;
 
     return {
       visitor: {
+        OpenApi3_1Element: {
+          enter(element: OpenApi3_1Element) {
+            storage = new NormalizeStorage(element, storageField, 'parameters');
+          },
+          leave() {
+            storage = undefined;
+          },
+        },
         PathItemElement: {
           enter(
             pathItemElement: PathItemElement,
-            key: any,
-            parent: any,
-            path: any,
-            ancestors: any[],
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
           ) {
             // skip visiting this Path Item
             if (ancestors.some(predicates.isComponentsElement)) {
@@ -69,11 +88,28 @@ const plugin =
           },
         },
         OperationElement: {
-          leave(operationElement: OperationElement) {
+          leave(
+            operationElement: OperationElement,
+            key: string | number,
+            parent: Element | undefined,
+            path: (string | number)[],
+            ancestors: [Element | Element[]],
+          ) {
             const parentPathItemParameters = last(pathItemParameters);
 
             // no Path Item Object parameters to inherit from
             if (!Array.isArray(parentPathItemParameters) || parentPathItemParameters.length === 0) {
+              return;
+            }
+
+            const operationJSONPointer = ancestorLineageToJSONPointer([
+              ...ancestors,
+              parent!,
+              operationElement,
+            ]);
+
+            // skip visiting this Operation Object if it's already normalized
+            if (storage!.includes(operationJSONPointer)) {
               return;
             }
 
@@ -90,6 +126,7 @@ const plugin =
             ]);
 
             operationElement.parameters = new OperationParametersElement(mergedParameters);
+            storage!.append(operationJSONPointer);
           },
         },
       },

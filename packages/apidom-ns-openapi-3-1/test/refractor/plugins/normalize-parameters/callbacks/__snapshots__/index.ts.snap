@@ -86,7 +86,15 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                       (StringElement))
                     (MemberElement
                       (StringElement)
-                      (StringElement))))))))))))
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines identical parameter should replace parameter from closes Path Item 1`] = `
@@ -983,6 +991,42 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
           ]
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "parameters"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get/callbacks/myCallback/%7B%24url%7D/get"
+                    },
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -1067,7 +1111,15 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                       (StringElement))
                     (MemberElement
                       (StringElement)
-                      (StringElement))))))))))))
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object doesn't defines empty parameters should inherit all parameters from closest Path Item 1`] = `
@@ -1149,5 +1201,13 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                       (StringElement))
                     (MemberElement
                       (StringElement)
-                      (StringElement))))))))))))
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;

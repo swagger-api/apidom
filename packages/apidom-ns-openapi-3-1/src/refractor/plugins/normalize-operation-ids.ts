@@ -63,7 +63,7 @@ const plugin =
   }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {
     const { predicates, ancestorLineageToJSONPointer, namespace } = toolbox;
-    const paths: string[] = [];
+    const pathTemplates: string[] = [];
     const normalizedOperations: OperationElement[] = [];
     const links: LinkElement[] = [];
     let storage: NormalizeStorage | undefined;
@@ -125,11 +125,11 @@ const plugin =
         PathItemElement: {
           enter(pathItemElement: PathItemElement) {
             // `path` meta may not be always available, e.g. in Callback Object or Components Object
-            const path = defaultTo('path', toValue(pathItemElement.meta.get('path')));
-            paths.push(path);
+            const pathTemplate = defaultTo('path', toValue(pathItemElement.meta.get('path')));
+            pathTemplates.push(pathTemplate);
           },
           leave() {
-            paths.pop();
+            pathTemplates.pop();
           },
         },
         OperationElement: {
@@ -137,7 +137,7 @@ const plugin =
             operationElement: OperationElement,
             key: string | number,
             parent: Element | undefined,
-            elementPath: (string | number)[],
+            path: (string | number)[],
             ancestors: [Element | Element[]],
           ) {
             // operationId field is undefined, needs no normalization
@@ -157,13 +157,17 @@ const plugin =
             // cast operationId to string type
             const originalOperationId = String(toValue(operationElement.operationId));
             // perform operationId normalization
-            const path = last(paths) as string;
+            const pathTemplate = last(pathTemplates) as string;
             // `http-method` meta may not be always available, e.g. in Callback Object or Components Object
             const method = defaultTo(
               'method',
               toValue(operationElement.meta.get('http-method')),
             ) as string;
-            const normalizedOperationId = operationIdNormalizer(originalOperationId, path, method);
+            const normalizedOperationId = operationIdNormalizer(
+              originalOperationId,
+              pathTemplate,
+              method,
+            );
 
             // normalization is not necessary
             if (originalOperationId === normalizedOperationId) return;

@@ -43,7 +43,15 @@ exports[`refractor plugins normalize-servers given OpenAPI.server defined should
                   (StringElement))
                 (MemberElement
                   (StringElement)
-                  (StringElement))))))))))
+                  (StringElement)))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-servers given OpenAPI.servers defined and PathItem.servers defined should duplicate Server Objects from PathItem.servers 1`] = `
@@ -517,6 +525,42 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
           ]
         }
       }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "servers"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1"
+                    },
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
     }
   ]
 }
@@ -562,6 +606,14 @@ exports[`refractor plugins normalize-servers given PathItem.servers defined shou
       (ServerElement
         (MemberElement
           (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
           (StringElement))))))
 `;
 
@@ -598,6 +650,14 @@ exports[`refractor plugins normalize-servers given no servers field is defined s
     (ArrayElement
       (ServerElement
         (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
           (StringElement)
           (StringElement))))))
 `;

@@ -28,7 +28,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --engine-strict=false
       - name: Lint commit message
         if: github.ref != 'refs/heads/main' && github.actor != 'dependabot[bot]'
         run: |
@@ -46,7 +46,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --engine-strict=false
       - name: Generate typescript declarations
         run: npm run typescript:declaration
         working-directory: ./packages/apidom-error
@@ -65,7 +65,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --engine-strict=false
       - name: Generate typescript declarations
         run: npm run typescript:declaration
       - name: Check TypeScript types
@@ -83,7 +83,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --engine-strict=false
       - name: Build monorepo for testing
         run: |
           npm run prebuild
@@ -103,7 +103,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'package-lock.json'
     - name: Install dependencies
-      run: npm ci
+      run: npm ci --engine-strict=false
     - name: Build monorepo
       run: npm run build:es
     - name: Build ApiDOM Playground

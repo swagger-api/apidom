@@ -1,4 +1,4 @@
-import type { Namespace } from '@swagger-api/apidom-core';
+import { Element } from '@swagger-api/apidom-core';
 import {
   PathItemServersElement,
   OperationServersElement,
@@ -9,7 +9,8 @@ import type OpenApi3_1Element from '../../elements/OpenApi3-1';
 import type PathItemElement from '../../elements/PathItem';
 import type ServerElement from '../../elements/Server';
 import type OperationElement from '../../elements/Operation';
-import type { Predicates } from '../toolbox';
+import type { Toolbox } from '../toolbox';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
 
 /**
  * Override of Server Objects.
@@ -24,35 +25,59 @@ import type { Predicates } from '../toolbox';
  * If an alternative server object is specified at the Operation Object level, it will override PathItem.servers and OpenAPI.servers respectively.
  */
 
+interface PluginOptions {
+  storageField?: string;
+}
+
 /* eslint-disable no-param-reassign */
 const plugin =
-  () =>
-  ({ predicates, namespace }: { predicates: Predicates; namespace: Namespace }) => {
+  ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
+  (toolbox: Toolbox) => {
+    const { namespace, ancestorLineageToJSONPointer, predicates } = toolbox;
+    let storage: NormalizeStorage | undefined;
+
     return {
       visitor: {
-        OpenApi3_1Element(openapiElement: OpenApi3_1Element) {
-          const isServersUndefined = typeof openapiElement.servers === 'undefined';
-          const isServersArrayElement = predicates.isArrayElement(openapiElement.servers);
-          const isServersEmpty = isServersArrayElement && openapiElement.servers!.length === 0;
-          // @ts-ignore
-          const defaultServer = namespace.elements.Server.refract({ url: '/' });
+        OpenApi3_1Element: {
+          enter(openapiElement: OpenApi3_1Element) {
+            const isServersUndefined = typeof openapiElement.servers === 'undefined';
+            const isServersArrayElement = predicates.isArrayElement(openapiElement.servers);
+            const isServersEmpty = isServersArrayElement && openapiElement.servers!.length === 0;
+            // @ts-ignore
+            const defaultServer = namespace.elements.Server.refract({ url: '/' });
 
-          if (isServersUndefined || !isServersArrayElement) {
-            openapiElement.servers = new ServersElement([defaultServer]);
-          } else if (isServersArrayElement && isServersEmpty) {
-            openapiElement.servers!.push(defaultServer);
-          }
+            if (isServersUndefined || !isServersArrayElement) {
+              openapiElement.servers = new ServersElement([defaultServer]);
+            } else if (isServersArrayElement && isServersEmpty) {
+              openapiElement.servers!.push(defaultServer);
+            }
+            storage = new NormalizeStorage(openapiElement, storageField, 'servers');
+          },
+          leave() {
+            storage = undefined;
+          },
         },
         PathItemElement(
           pathItemElement: PathItemElement,
-          key: any,
-          parent: any,
-          path: any,
-          ancestors: any[],
+          key: string | number,
+          parent: Element | undefined,
+          path: (string | number)[],
+          ancestors: [Element | Element[]],
         ) {
           // skip visiting this Path Item
           if (ancestors.some(predicates.isComponentsElement)) return;
           if (!ancestors.some(predicates.isOpenApi3_1Element)) return;
+
+          const pathItemJSONPointer = ancestorLineageToJSONPointer([
+            ...ancestors,
+            parent!,
+            pathItemElement,
+          ]);
+
+          // skip visiting this Path Item Object if it's already normalized
+          if (storage!.includes(pathItemJSONPointer)) {
+            return;
+          }
 
           const parentOpenapiElement = ancestors.find(predicates.isOpenApi3_1Element);
           const isServersUndefined = typeof pathItemElement.servers === 'undefined';
@@ -71,18 +96,30 @@ const plugin =
                 pathItemElement.servers!.push(server);
               });
             }
+            storage!.append(pathItemJSONPointer);
           }
         },
         OperationElement(
           operationElement: OperationElement,
-          key: any,
-          parent: any,
-          path: any,
-          ancestors: any[],
+          key: string | number,
+          parent: Element | undefined,
+          path: (string | number)[],
+          ancestors: [Element | Element[]],
         ) {
           // skip visiting this Operation
           if (ancestors.some(predicates.isComponentsElement)) return;
           if (!ancestors.some(predicates.isOpenApi3_1Element)) return;
+
+          const operationJSONPointer = ancestorLineageToJSONPointer([
+            ...ancestors,
+            parent!,
+            operationElement,
+          ]);
+
+          // skip visiting this Operation Object if it's already normalized
+          if (storage!.includes(operationJSONPointer)) {
+            return;
+          }
 
           // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.findLast in future
           const parentPathItemElement = [...ancestors].reverse().find(predicates.isPathItemElement);
@@ -102,6 +139,7 @@ const plugin =
                 operationElement.servers!.push(server);
               });
             }
+            storage!.append(operationJSONPointer);
           }
         },
       },

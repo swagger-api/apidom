@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.4](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.3...v1.0.0-alpha.4) (2024-05-29)
+
+### Features
+
+- **ns-openapi-3-1:** add idempotence to parameter examples refractor plugin ([#4142](https://github.com/swagger-api/apidom/issues/4142)) ([7cee6e9](https://github.com/swagger-api/apidom/commit/7cee6e9a74746338e60480a764485c7ec31a206f)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+- **ns-openapi-3-1:** make header example refractor plugin idempotent ([#4135](https://github.com/swagger-api/apidom/issues/4135)) ([524cce2](https://github.com/swagger-api/apidom/commit/524cce246b3919bed92aa197ce189dfc2792fb26)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+- **ns-openapi-3-1:** make operation ids refractor plugin idempotent ([#4151](https://github.com/swagger-api/apidom/issues/4151)) ([858cec6](https://github.com/swagger-api/apidom/commit/858cec60259ca74f00f90456dcdcebcdefbef288)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+- **ns-openapi-3-1:** make parameters plugin idempotent ([#4150](https://github.com/swagger-api/apidom/issues/4150)) ([7fdf6b5](https://github.com/swagger-api/apidom/commit/7fdf6b50263fb658e6fe62c54d91de746e73dc4e)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+- **ns-openapi-3-1:** make security requirements refractor plugin idempotent ([#4149](https://github.com/swagger-api/apidom/issues/4149)) ([e28f053](https://github.com/swagger-api/apidom/commit/e28f0533e32760f4a4ea5bf92351066327bff4dc)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+- **ns-openapi-3-1:** make servers refractor plugin idempotent ([#4152](https://github.com/swagger-api/apidom/issues/4152)) ([93e2d0f](https://github.com/swagger-api/apidom/commit/93e2d0f7f08add82309843abe991a3013440e5e2)), closes [#4134](https://github.com/swagger-api/apidom/issues/4134)
+
 # [1.0.0-alpha.3](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.2...v1.0.0-alpha.3) (2024-05-21)
 
 ### Bug Fixes

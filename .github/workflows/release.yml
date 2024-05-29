@@ -28,7 +28,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install monorepo dependencies
-        run: npm ci
+        run: npm ci --engine-strict=false
       - name: Build monorepo
         run: npm run build
       - name: Check TypeScript types

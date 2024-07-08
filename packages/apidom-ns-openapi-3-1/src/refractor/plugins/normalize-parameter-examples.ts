@@ -98,7 +98,7 @@ const plugin =
                 storage!.append(parameterJSONPointer);
               }
               if (typeof parameterElement.schema.example !== 'undefined') {
-                parameterElement.schema.set('example', examples);
+                parameterElement.schema.set('example', examples[0]);
                 storage!.append(parameterJSONPointer);
               }
               return;

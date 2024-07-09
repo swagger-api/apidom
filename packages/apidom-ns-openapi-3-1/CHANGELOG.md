@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.6](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2024-07-09)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** set example to first element of examples in parameter examples refractor plugin ([#4230](https://github.com/swagger-api/apidom/issues/4230)) ([d85f72a](https://github.com/swagger-api/apidom/commit/d85f72ae327d521ae63e6096824ae994b9e486ca)), closes [#4229](https://github.com/swagger-api/apidom/issues/4229)
+
 # [1.0.0-alpha.5](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.4...v1.0.0-alpha.5) (2024-05-29)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

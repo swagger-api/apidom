@@ -52,7 +52,7 @@ and allows tool builders to consume one structure for all formats.
 
 These prerequisites are required both for installing ApiDOM as a npm package and local development setup.
 
-- [node-gyp](https://www.npmjs.com/package/node-gyp) with [Python 3.x](https://www.python.org/downloads/)
+- [node-gyp](https://www.npmjs.com/package/node-gyp) `>=10` with [Python 3.x](https://www.python.org/downloads/)
 - [GLIBC](https://www.gnu.org/software/libc/) `>=2.29`
 - [GCC compiler](https://gcc.gnu.org/)
 - [emscripten](https://emscripten.org/docs/getting_started/downloads.html) or [docker](https://www.docker.com/) needs to be installed, we recommend going with a docker option

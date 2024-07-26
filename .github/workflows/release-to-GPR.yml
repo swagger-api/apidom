@@ -1,0 +1,42 @@
+name: Release monorepo packages to GitHub Package Registry
+on:
+  workflow_dispatch:
+    branches:
+      - main
+
+env:
+  CPU_CORES: 2
+
+jobs:
+  release:
+    name: Release to GitHub Package Registry
+    runs-on: ubuntu-latest
+    env:
+      HUSKY: 0 # disabled husky and lint staged; https://typicode.github.io/husky/#/?id=with-env-variables
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://npm.pkg.github.com/
+          scope: "@swagger-api"
+          cache: 'npm'
+          cache-dependency-path: 'package-lock.json'
+      - name: Install monorepo dependencies
+        run: npm ci --engine-strict=false
+      - name: Build monorepo
+        run: npm run build
+      - name: Check TypeScript types
+        run: npm run typescript:check-types
+      - name: Execute tests in monorepo
+        run: npm run test
+      - name: Publish monorepo npm packages
+        run: npx lerna publish from-package --no-private --yes --no-git-reset --registry=https://npm.pkg.github.com
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

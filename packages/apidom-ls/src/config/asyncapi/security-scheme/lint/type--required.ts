@@ -11,6 +11,12 @@ const typeRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['type'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

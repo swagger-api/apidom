@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.7](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2024-08-05)
+
+### Bug Fixes
+
+- **ls:** fix linting referenced AsyncAPI 2.x Security Scheme Object ([#4290](https://github.com/swagger-api/apidom/issues/4290)) ([88368be](https://github.com/swagger-api/apidom/commit/88368bebddcabb7af3b1f11eaa027b2d0c42ca59)), closes [#4172](https://github.com/swagger-api/apidom/issues/4172)
+
 # [1.0.0-alpha.6](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.5...v1.0.0-alpha.6) (2024-07-09)
 
 ### Bug Fixes

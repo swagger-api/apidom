@@ -10,7 +10,17 @@ const allowedFieldsLint: LinterMeta = {
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['type', 'description', 'name', 'in', 'scheme', 'bearerFormat', 'flows', 'openIdConnectUrl'],
+    [
+      'type',
+      'description',
+      'name',
+      'in',
+      'scheme',
+      'bearerFormat',
+      'flows',
+      'openIdConnectUrl',
+      '$ref',
+    ],
     'x-',
   ],
   marker: 'key',

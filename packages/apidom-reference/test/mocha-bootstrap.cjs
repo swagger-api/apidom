@@ -19,8 +19,8 @@ fileResolver.fileAllowList = ['*'];
 // setup allowed file extensions
 options.parse.parsers.forEach((parser) => {
   if (parser.name.includes('yaml')) {
-    parser.fileExtensions = ['.yaml', '.yml'];
+    parser.fileExtensions = ['.yaml', '.yml']; // eslint-disable-line  no-param-reassign
   } else if (parser.name.includes('json')) {
-    parser.fileExtensions = ['.json'];
+    parser.fileExtensions = ['.json']; // eslint-disable-line  no-param-reassign
   }
-})
+});

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.8](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2024-08-08)
+
+### Features
+
+- **reference:** loosen requirement for file extensions in parser plugins ([#4299](https://github.com/swagger-api/apidom/issues/4299)) ([e4ddc6d](https://github.com/swagger-api/apidom/commit/e4ddc6d4b45c4be213c7b3e89ae0d21ae2085067)), closes [#4298](https://github.com/swagger-api/apidom/issues/4298)
+
 # [1.0.0-alpha.7](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.6...v1.0.0-alpha.7) (2024-08-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

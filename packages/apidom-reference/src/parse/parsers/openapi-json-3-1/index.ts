@@ -19,11 +19,7 @@ class OpenAPIJSON3_1Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: OpenAPIJSON3_1ParserOptions) {
-    const {
-      fileExtensions = ['.json'],
-      mediaTypes = OpenAPI3_1MediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = OpenAPI3_1MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'openapi-json-3-1', fileExtensions, mediaTypes });
   }

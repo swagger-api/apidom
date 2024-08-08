@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = new OpenAPIYAML2Parser();
+          const parser = new OpenAPIYAML2Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = new OpenAPIYAML2Parser();
+          const parser = new OpenAPIYAML2Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });

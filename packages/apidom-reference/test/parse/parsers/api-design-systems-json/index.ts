@@ -49,7 +49,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems.yaml',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new APIDesignSystemsJSONParser();
+          const parser = new APIDesignSystemsJSONParser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -61,7 +61,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new APIDesignSystemsJSONParser();
+          const parser = new APIDesignSystemsJSONParser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });

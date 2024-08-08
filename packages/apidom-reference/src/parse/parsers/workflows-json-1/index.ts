@@ -18,11 +18,7 @@ class WorkflowsJSON1Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: WorkflowsJSON1ParserOptions) {
-    const {
-      fileExtensions = ['.json'],
-      mediaTypes = Workflows1MediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = Workflows1MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'workflows-json-1', fileExtensions, mediaTypes });
   }

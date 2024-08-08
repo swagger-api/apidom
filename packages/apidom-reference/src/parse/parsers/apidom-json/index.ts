@@ -20,7 +20,7 @@ class ApiDOMJSONParser extends Parser {
 
   constructor(options?: ApiDOMJSONParserOptions) {
     const {
-      fileExtensions = ['.json'],
+      fileExtensions = [],
       mediaTypes = ['application/vnd.apidom', 'application/vnd.apidom+json'],
       namespace = baseNamespace,
       ...rest

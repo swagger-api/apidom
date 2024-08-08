@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi.yaml',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = new OpenAPIJSON3_1Parser();
+          const parser = new OpenAPIJSON3_1Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -59,7 +59,7 @@ describe('parsers', function () {
             uri: '/path/to/openapi',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = new OpenAPIJSON3_1Parser();
+          const parser = new OpenAPIJSON3_1Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });

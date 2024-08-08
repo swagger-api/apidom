@@ -18,7 +18,7 @@ class OpenAPIJSON2Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: OpenAPIJSON2ParserOptions) {
-    const { fileExtensions = ['.json'], mediaTypes = OpenAPI2MediaTypes, ...rest } = options ?? {};
+    const { fileExtensions = [], mediaTypes = OpenAPI2MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'openapi-json-2', fileExtensions, mediaTypes });
   }

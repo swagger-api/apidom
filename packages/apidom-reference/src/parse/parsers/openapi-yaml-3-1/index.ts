@@ -17,11 +17,7 @@ class OpenAPIYAML3_1Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: OpenAPIYAML3_1ParserOptions) {
-    const {
-      fileExtensions = ['.yaml', '.yml'],
-      mediaTypes = OpenAPIYAML3_1MediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = OpenAPIYAML3_1MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'openapi-yaml-3-1', fileExtensions, mediaTypes });
   }

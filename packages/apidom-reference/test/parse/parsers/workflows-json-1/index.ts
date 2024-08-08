@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows.yaml',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = new WorkflowsJSON1Parser();
+          const parser = new WorkflowsJSON1Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -59,7 +59,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows',
             mediaType: mediaTypes.latest('json'),
           });
-          const parser = new WorkflowsJSON1Parser();
+          const parser = new WorkflowsJSON1Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });

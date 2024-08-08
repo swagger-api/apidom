@@ -47,7 +47,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi.yaml',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new AsyncAPIJSON2Parser();
+          const parser = new AsyncAPIJSON2Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -59,7 +59,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new AsyncAPIJSON2Parser();
+          const parser = new AsyncAPIJSON2Parser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });

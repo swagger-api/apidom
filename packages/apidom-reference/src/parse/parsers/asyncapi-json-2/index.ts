@@ -18,7 +18,7 @@ class AsyncAPIJSON2Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: AsyncAPIJSON2ParserOptions) {
-    const { fileExtensions = ['.json'], mediaTypes = AsyncAPI2MediaTypes, ...rest } = options ?? {};
+    const { fileExtensions = [], mediaTypes = AsyncAPI2MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'asyncapi-json-2', fileExtensions, mediaTypes });
   }

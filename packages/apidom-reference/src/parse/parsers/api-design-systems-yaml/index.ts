@@ -16,11 +16,7 @@ class APIDesignSystemsYAMLParser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: APIDesignSystemsYAMLParserOptions) {
-    const {
-      fileExtensions = ['.yaml', '.yml'],
-      mediaTypes = ADSMediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = ADSMediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'api-design-systems-yaml', fileExtensions, mediaTypes });
   }

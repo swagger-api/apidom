@@ -18,7 +18,7 @@ class APIDesignSystemsJSONParser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: APIDesignSystemsJSONParserOptions) {
-    const { fileExtensions = ['.json'], mediaTypes = ADSMediaTypes, ...rest } = options ?? {};
+    const { fileExtensions = [], mediaTypes = ADSMediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'api-design-systems-json', fileExtensions, mediaTypes });
   }

@@ -16,11 +16,7 @@ class AsyncAPIYAML2Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: AsyncAPIYAML2ParserOptions) {
-    const {
-      fileExtensions = ['.yaml', '.yml'],
-      mediaTypes = AsyncAPI2MediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = AsyncAPI2MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'asyncapi-yaml-2', fileExtensions, mediaTypes });
   }

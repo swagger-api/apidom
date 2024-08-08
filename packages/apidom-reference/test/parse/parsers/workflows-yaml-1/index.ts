@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/workflows.txt',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = new WorkflowsYAML1Parser();
+          const parser = new WorkflowsYAML1Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/worklfows',
             mediaType: mediaTypes.latest('yaml'),
           });
-          const parser = new WorkflowsYAML1Parser();
+          const parser = new WorkflowsYAML1Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -104,7 +104,7 @@ describe('parsers', function () {
               uri: '/path/to/workflows.yaml',
               data: fs.readFileSync(url),
             });
-            const parser = new WorkflowsYAML1Parser();
+            const parser = new WorkflowsYAML1Parser({ fileExtensions: ['.yaml', '.yml'] });
 
             assert.isTrue(await parser.canParse(file));
           });

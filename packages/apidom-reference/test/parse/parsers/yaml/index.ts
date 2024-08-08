@@ -34,7 +34,7 @@ describe('parsers', function () {
       context('given file with unknown extension', function () {
         specify('should return false', async function () {
           const file = new File({ uri: '/path/to/file.txt' });
-          const parser = new YAMLParser();
+          const parser = new YAMLParser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -43,7 +43,7 @@ describe('parsers', function () {
       context('given file with no extension', function () {
         specify('should return false', async function () {
           const file = new File({ uri: '/path/to/file' });
-          const parser = new YAMLParser();
+          const parser = new YAMLParser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });

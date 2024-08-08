@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems.txt',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new APIDesignSystemsYAMLParser();
+          const parser = new APIDesignSystemsYAMLParser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/api-design-systems',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new APIDesignSystemsYAMLParser();
+          const parser = new APIDesignSystemsYAMLParser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });

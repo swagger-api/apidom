@@ -16,7 +16,7 @@ class JSONParser extends Parser {
   public syntacticAnalysis?: 'direct' | 'indirect';
 
   constructor(options?: JSONParserOptions) {
-    const { fileExtensions = ['.json'], mediaTypes = JSONMediaTypes, ...rest } = options ?? {};
+    const { fileExtensions = [], mediaTypes = JSONMediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'json', fileExtensions, mediaTypes });
   }

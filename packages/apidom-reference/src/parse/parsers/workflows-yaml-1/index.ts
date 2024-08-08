@@ -16,11 +16,7 @@ class WorkflowsYAML1Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: WorkflowsYAML1ParserOptions) {
-    const {
-      fileExtensions = ['.yaml', '.yml'],
-      mediaTypes = WorkflowsYAML1MediaTypes,
-      ...rest
-    } = options ?? {};
+    const { fileExtensions = [], mediaTypes = WorkflowsYAML1MediaTypes, ...rest } = options ?? {};
 
     super({ ...rest, name: 'workflows-yaml-1', fileExtensions, mediaTypes });
   }

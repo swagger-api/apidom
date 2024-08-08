@@ -15,3 +15,12 @@ addSerializer(jestStringSerializer);
 // setup allow list for file resolution
 const [fileResolver] = options.resolve.resolvers;
 fileResolver.fileAllowList = ['*'];
+
+// setup allowed file extensions
+options.parse.parsers.forEach((parser) => {
+  if (parser.name.includes('yaml')) {
+    parser.fileExtensions = ['.yaml', '.yml'];
+  } else if (parser.name.includes('json')) {
+    parser.fileExtensions = ['.json'];
+  }
+})

@@ -46,7 +46,7 @@ describe('parsers', function () {
             uri: '/path/to/apidom.yaml',
             mediaType: 'application/vnd.apidom',
           });
-          const parser = new ApiDOMJSONParser();
+          const parser = new ApiDOMJSONParser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -58,7 +58,7 @@ describe('parsers', function () {
             uri: '/path/to/apidom',
             mediaType: 'application/vnd.apidom',
           });
-          const parser = new ApiDOMJSONParser();
+          const parser = new ApiDOMJSONParser({ fileExtensions: ['.json'] });
 
           assert.isFalse(await parser.canParse(file));
         });

@@ -78,7 +78,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi.txt',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new AsyncAPIYAML2Parser();
+          const parser = new AsyncAPIYAML2Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });
@@ -90,7 +90,7 @@ describe('parsers', function () {
             uri: '/path/to/asyncapi',
             mediaType: mediaTypes.latest(),
           });
-          const parser = new AsyncAPIYAML2Parser();
+          const parser = new AsyncAPIYAML2Parser({ fileExtensions: ['.yaml', '.yml'] });
 
           assert.isFalse(await parser.canParse(file));
         });

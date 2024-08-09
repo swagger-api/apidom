@@ -312,7 +312,7 @@
     "@swagger-api/apidom-parser-adapter-workflows-json-1": "*",
     "@swagger-api/apidom-parser-adapter-workflows-yaml-1": "*",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "*",
-    "axios-mock-adapter": "^1.21.4"
+    "axios-mock-adapter": "^2.0.0"
   },
   "files": [
     "cjs/",

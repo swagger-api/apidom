@@ -570,7 +570,7 @@ export const visit = (
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
       // @ts-ignore
-      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
+      keys = inArray ? node : (visitorKeys[nodeTypeGetter(node)] ?? []);
       index = -1;
       edits = [];
       if (parent !== deleteNodeSymbol && parent !== undefined) {
@@ -743,7 +743,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
       stack = { inArray, index, keys, edits, prev: stack };
       inArray = Array.isArray(node);
       // @ts-ignore
-      keys = inArray ? node : visitorKeys[nodeTypeGetter(node)] ?? [];
+      keys = inArray ? node : (visitorKeys[nodeTypeGetter(node)] ?? []);
       index = -1;
       edits = [];
       if (parent !== deleteNodeSymbol && parent !== undefined) {

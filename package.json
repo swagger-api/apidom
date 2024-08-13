@@ -80,7 +80,7 @@
     "jsdom": "=24.1.1",
     "jsdom-global": "=3.0.2",
     "lerna": "=8.1.8",
-    "lint-staged": "=15.2.8",
+    "lint-staged": "=15.2.9",
     "microtime": "=3.1.1",
     "mocha": "=10.7.3",
     "mocha-chai-jest-snapshot": "=1.1.3",

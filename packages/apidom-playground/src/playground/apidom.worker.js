@@ -18,6 +18,7 @@ import {
   readFile,
   resolveApiDOM as resolveApiDOMReferences,
   dereferenceApiDOM as derefereceApiDOMReferences,
+  File,
 } from '@swagger-api/apidom-reference';
 
 const parser = new ApiDOMParser()
@@ -44,11 +45,9 @@ const service = {
     return JSON.stringify(refract, undefined, 2);
   },
 
-  async readFile(url) {
-    const buffer = await readFile(url, {});
-    const decoder = new TextDecoder();
-
-    return decoder.decode(buffer);
+  async readFile(uri) {
+    const buffer = await readFile(uri, {});
+    return new File({ uri, data: buffer }).toString();
   },
 
   async resolveApiDOM(apiDOM, { source, mediaType, baseURI }) {

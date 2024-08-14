@@ -46,7 +46,9 @@ const service = {
 
   async readFile(url) {
     const buffer = await readFile(url, {});
-    return buffer.toString();
+    const decoder = new TextDecoder();
+
+    return decoder.decode(buffer);
   },
 
   async resolveApiDOM(apiDOM, { source, mediaType, baseURI }) {

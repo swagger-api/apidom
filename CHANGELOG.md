@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.9](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2024-08-14)
+
+### Bug Fixes
+
+- **security:** update axios to address CVE-2024-39338 ([acee5c6](https://github.com/swagger-api/apidom/commit/acee5c6026e94b68b039a15cf474d0c980a1f22e)), closes [#4316](https://github.com/swagger-api/apidom/issues/4316)
+
 # [1.0.0-alpha.8](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.7...v1.0.0-alpha.8) (2024-08-08)
 
 ### Features

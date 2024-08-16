@@ -79,6 +79,7 @@ describe('adapter', function () {
       assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.1.0"'));
       assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.01.0"'));
       assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.01"'));
+      assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.1-rc1"'));
     });
   });
 });

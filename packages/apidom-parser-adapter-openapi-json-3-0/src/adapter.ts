@@ -6,7 +6,7 @@ import openApiNamespace, { OpenApi3_0Element } from '@swagger-api/apidom-ns-open
 
 export { default as mediaTypes } from './media-types';
 
-export const detectionRegExp = /"openapi"\s*:\s*"(?<version_json>3\.0\.([0123])(?:-rc[012])?)"/;
+export const detectionRegExp = /"openapi"\s*:\s*"(?<version_json>3\.0\.([0123]))"/;
 
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectJSON(source));

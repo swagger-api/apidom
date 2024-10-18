@@ -1,3 +1,5 @@
+import './polyfills';
+
 export { default as EvaluationJsonPathError } from './errors/EvaluationJsonPathError';
 export type { EvaluationJsonPathErrorOptions } from './errors/EvaluationJsonPathError';
 export { default as MultiEvaluationJsonPathError } from './errors/MultiEvaluationJsonPathError';

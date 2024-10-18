@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/apidom/static/css/main.e6c13ad2.css",
-    "main.js": "/apidom/static/js/main.01e5c48a.js",
-    "static/js/506.2aa22bc8.chunk.js": "/apidom/static/js/506.2aa22bc8.chunk.js",
+    "main.js": "/apidom/static/js/main.d81611d9.js",
+    "static/js/506.3162f365.chunk.js": "/apidom/static/js/506.3162f365.chunk.js",
     "static/js/878.f7f3c6fe.chunk.js": "/apidom/static/js/878.f7f3c6fe.chunk.js",
-    "static/js/859.524169aa.chunk.js": "/apidom/static/js/859.524169aa.chunk.js",
+    "static/js/859.db2cb70a.chunk.js": "/apidom/static/js/859.db2cb70a.chunk.js",
     "static/media/tree-sitter-yaml.wasm": "/apidom/static/media/tree-sitter-yaml.d396281e11774e0afa7a.wasm",
     "static/media/tree-sitter.wasm": "/apidom/static/media/tree-sitter.23aac571c96605dc2521.wasm",
     "static/media/tree-sitter-json.wasm": "/apidom/static/media/tree-sitter-json.64a30dfa8a51b6a090eb.wasm",
     "index.html": "/apidom/index.html",
     "main.e6c13ad2.css.map": "/apidom/static/css/main.e6c13ad2.css.map",
-    "main.01e5c48a.js.map": "/apidom/static/js/main.01e5c48a.js.map",
-    "506.2aa22bc8.chunk.js.map": "/apidom/static/js/506.2aa22bc8.chunk.js.map",
+    "main.d81611d9.js.map": "/apidom/static/js/main.d81611d9.js.map",
+    "506.3162f365.chunk.js.map": "/apidom/static/js/506.3162f365.chunk.js.map",
     "878.f7f3c6fe.chunk.js.map": "/apidom/static/js/878.f7f3c6fe.chunk.js.map",
-    "859.524169aa.chunk.js.map": "/apidom/static/js/859.524169aa.chunk.js.map"
+    "859.db2cb70a.chunk.js.map": "/apidom/static/js/859.db2cb70a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.01e5c48a.js"
+    "static/js/main.d81611d9.js"
   ]
 }

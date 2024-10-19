@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { expect, assert } from 'chai';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
@@ -10,6 +11,8 @@ import {
 } from '@swagger-api/apidom-core';
 
 import convert from '../../../../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('converter', function () {
   context('strategies', function () {

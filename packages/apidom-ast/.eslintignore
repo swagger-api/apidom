@@ -1,8 +1,8 @@
 /dist
-/es
-/cjs
 /types
 /config
 /.nyc_output
 /node_modules
 /**/*.js
+/**/*.mjs
+/**/*.cjs

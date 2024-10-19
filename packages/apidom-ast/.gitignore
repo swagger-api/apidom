@@ -1,7 +1,8 @@
 /dist
-/es
-/cjs
 /types
 /LICENSES
 /NOTICE
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
 /swagger-api-apidom-ast-*.tgz

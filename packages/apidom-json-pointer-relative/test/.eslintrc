@@ -27,14 +27,5 @@
     "mocha/no-nested-tests": 2,
     "mocha/no-exclusive-tests": 2,
     "max-classes-per-file": 0
-  },
-  "overrides": [{
-    "files": ["mocha-bootstrap.cjs"],
-    "parserOptions": {
-      "sourceType": "script"
-    },
-    "rules": {
-      "@typescript-eslint/no-var-requires": 0
-    }
-  }]
+  }
 }

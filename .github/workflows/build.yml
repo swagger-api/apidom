@@ -87,7 +87,7 @@ jobs:
       - name: Build monorepo for testing
         run: |
           npm run prebuild
-          npm run build:cjs
+          npm run build:es
       - name: Execute tests in monorepo
         run: npm run test
 

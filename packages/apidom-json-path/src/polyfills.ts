@@ -1,7 +1,9 @@
+/* eslint-disable import/extensions */
+
 // @ts-ignore
-import hasOwnPonyfill from 'core-js-pure/actual/object/has-own';
+import hasOwnPonyfill from 'core-js-pure/actual/object/has-own.js';
 // @ts-ignore
-import replaceAllPonyfill from 'core-js-pure/actual/string/replace-all';
+import replaceAllPonyfill from 'core-js-pure/actual/string/replace-all.js';
 
 /**
  * These polyfills do maintain compatibility with Node.js >= 12.20.0

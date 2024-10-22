@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2024-10-21)
+
+### Bug Fixes
+
+- **apidom-parser-adapter-openapi-json-3-0:** drop rc version support ([#4320](https://github.com/swagger-api/apidom/issues/4320)) ([b8afa76](https://github.com/swagger-api/apidom/commit/b8afa766c9cef5f98bbfd2f0bfd784956600dd54)), closes [#2265](https://github.com/swagger-api/apidom/issues/2265)
+- **playground:** fix importing definition from URL ([#4318](https://github.com/swagger-api/apidom/issues/4318)) ([3d32525](https://github.com/swagger-api/apidom/commit/3d325257bd07ad195ff02b23151223bbbef5727f))
+- **security:** fix security issue in jsonpath-plus prod dependency ([54c291f](https://github.com/swagger-api/apidom/commit/54c291fc672fe6185c5aa7af01b362a6dd1425b4)), closes [#4380](https://github.com/swagger-api/apidom/issues/4380) [#4386](https://github.com/swagger-api/apidom/issues/4386)
+
 # [1.0.0-alpha.9](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2024-08-14)
 
 ### Bug Fixes

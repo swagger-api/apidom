@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-alpha.10](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2024-10-21)
+
+### Bug Fixes
+
+- **apidom-parser-adapter-openapi-json-3-0:** drop rc version support ([#4320](https://github.com/swagger-api/apidom/issues/4320)) ([b8afa76](https://github.com/swagger-api/apidom/commit/b8afa766c9cef5f98bbfd2f0bfd784956600dd54)), closes [#2265](https://github.com/swagger-api/apidom/issues/2265)
+
 # [1.0.0-alpha.9](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.8...v1.0.0-alpha.9) (2024-08-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-json-3-0

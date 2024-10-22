@@ -60,7 +60,7 @@ describe('apidom-converter', function () {
             },
           });
           assert.fail('should throw ConvertError');
-        } catch (error: any) {
+        } catch (error: unknown) {
           assert.instanceOf(error, ConvertError);
           assert.strictEqual(((error as ConvertError).cause as Error).message, 'test');
         }

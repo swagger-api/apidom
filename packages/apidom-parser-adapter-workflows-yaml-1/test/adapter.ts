@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import dedent from 'dedent';
 import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
@@ -7,6 +8,7 @@ import { isWorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflo
 
 import * as adapter from '../src/adapter';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const jsonSpec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-workflow.json'))
   .toString();

@@ -66,9 +66,9 @@
     "tree-sitter-cli": "=0.20.4"
   },
   "files": [
-    "cjs/",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
     "dist/",
-    "es/",
     "types/dist.d.ts",
     "wasm/",
     "LICENSES",

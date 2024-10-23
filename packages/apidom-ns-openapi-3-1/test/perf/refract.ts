@@ -1,9 +1,8 @@
-require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
+import Benchmark from 'benchmark';
+import type { Event } from 'benchmark';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
-const Benchmark = require('benchmark');
-const { ObjectElement } = require('@swagger-api/apidom-core');
-
-const { OpenApi3_1Element } = require('../../src');
+import { OpenApi3_1Element } from '../../src';
 
 const genericObjectElement = new ObjectElement({
   openapi: '3.1.0',
@@ -419,16 +418,16 @@ const options = {
   },
 };
 
-module.exports = options;
+export default options;
 
 // we're running as a script
-if (module.parent === null) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const bench = new Benchmark({
     ...options,
-    onComplete(event) {
+    onComplete(event: Event) {
       console.info(String(event.target));
     },
-    onError(event) {
+    onError(event: Event) {
       console.error(event);
     },
   });

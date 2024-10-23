@@ -1,10 +1,11 @@
-require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
+import fs from 'node:fs';
+import path from 'node:path';
+import Benchmark from 'benchmark';
+import type { Deferred, Event } from 'benchmark';
+import { lexicalAnalysis } from '@swagger-api/apidom-parser-adapter-json';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const Benchmark = require('benchmark');
-const { lexicalAnalysis } = require('@swagger-api/apidom-parser-adapter-json');
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/openapi.json');
 const source = fs.readFileSync(fixturePath).toString();
 
@@ -13,22 +14,22 @@ const options = {
   defer: true,
   minSamples: 1400,
   expected: '780 ops/sec ±1.18% (1474 runs sampled)',
-  async fn(deferred) {
+  async fn(deferred: Deferred) {
     await lexicalAnalysis(source);
     deferred.resolve();
   },
 };
 
-module.exports = options;
+export default options;
 
 // we're running as a script
-if (module.parent === null) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const bench = new Benchmark({
     ...options,
-    onComplete(event) {
+    onComplete(event: Event) {
       console.info(String(event.target));
     },
-    onError(event) {
+    onError(event: Event) {
       console.error(event);
     },
   });

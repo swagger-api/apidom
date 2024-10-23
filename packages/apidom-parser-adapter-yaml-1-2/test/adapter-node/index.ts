@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import { YamlTagError } from '@swagger-api/apidom-ast';
 import {
@@ -12,6 +13,7 @@ import {
 
 import * as adapter from '../../src/adapter-node';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const spec = fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sample-data.yaml')).toString();
 
 describe('adapter-node', function () {
@@ -134,8 +136,8 @@ describe('adapter-node', function () {
           tagKind: 'Scalar',
           nodeCanonicalContent: undefined,
         });
-        assert.include(error.tagPosition.start, { type: 'point', row: 0, column: 6, char: 6 });
-        assert.include(error.tagPosition.end, { type: 'point', row: 0, column: 18, char: 18 });
+        assert.include(error.tagPosition?.start, { type: 'point', row: 0, column: 6, char: 6 });
+        assert.include(error.tagPosition?.end, { type: 'point', row: 0, column: 18, char: 18 });
       }
     });
   });
@@ -156,8 +158,8 @@ describe('adapter-node', function () {
           tagKind: 'Scalar',
           nodeCanonicalContent: 'value',
         });
-        assert.include(error.tagPosition.start, { type: 'point', row: 0, column: 6, char: 6 });
-        assert.include(error.tagPosition.end, { type: 'point', row: 0, column: 11, char: 11 });
+        assert.include(error.tagPosition?.start, { type: 'point', row: 0, column: 6, char: 6 });
+        assert.include(error.tagPosition?.end, { type: 'point', row: 0, column: 11, char: 11 });
       }
     });
   });

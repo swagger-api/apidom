@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import {
   toValue,
@@ -11,6 +12,7 @@ import {
 
 import * as adapter from '../src/adapter-browser';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.yaml')).toString();
 
 describe('adapter-browser', function () {

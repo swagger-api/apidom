@@ -1,11 +1,12 @@
-require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
+import fs from 'node:fs';
+import path from 'node:path';
+import Benchmark from 'benchmark';
+import type { Event } from 'benchmark';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { fileURLToPath } from 'node:url';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const Benchmark = require('benchmark');
-const { ObjectElement } = require('@swagger-api/apidom-core');
-const { OpenApi3_1Element } = require('@swagger-api/apidom-ns-openapi-3-1');
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/openapi.json');
 const source = fs.readFileSync(fixturePath).toString();
 const pojo = JSON.parse(source);
@@ -20,16 +21,16 @@ const options = {
   },
 };
 
-module.exports = options;
+export default options;
 
 // we're running as a script
-if (module.parent === null) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const bench = new Benchmark({
     ...options,
-    onComplete(event) {
+    onComplete(event: Event) {
       console.info(String(event.target));
     },
-    onError(event) {
+    onError(event: Event) {
       console.error(event);
     },
   });

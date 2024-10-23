@@ -1,11 +1,12 @@
-require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import Benchmark from 'benchmark';
+import type { Deferred, Event } from 'benchmark';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const Benchmark = require('benchmark');
+import { parse } from '../../src/adapter';
 
-const { parse } = require('../../src/adapter');
-
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/openapi.yaml');
 const source = fs.readFileSync(fixturePath).toString();
 
@@ -14,7 +15,7 @@ const options = {
   defer: true,
   minSamples: 600,
   expected: '4.25 ops/sec ±0.72% (620 runs sampled)',
-  async fn(deferred) {
+  async fn(deferred: Deferred) {
     await parse(source);
     deferred.resolve();
   },
@@ -29,16 +30,16 @@ const options = {
  * Refract stage: 18,18 ms
  */
 
-module.exports = options;
+export default options;
 
 // we're running as a script
-if (module.parent === null) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   const bench = new Benchmark({
     ...options,
-    onComplete(event) {
+    onComplete(event: Event) {
       console.info(String(event.target));
     },
-    onError(event) {
+    onError(event: Event) {
       console.error(event);
     },
   });

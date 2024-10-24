@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { dereference, parse, Reference, ReferenceSet } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
@@ -14,6 +15,7 @@ import EvaluationJsonSchema$anchorError from '../../../../../src/errors/Evaluati
 import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
 import { loadFile, loadJsonFile } from '../../../../helpers';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
@@ -485,7 +487,9 @@ describe('dereference', function () {
               assert.fail('should throw DereferenceError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, ResolveError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
             }
           });
@@ -602,6 +606,7 @@ describe('dereference', function () {
               assert.fail('should throw DereferenceError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, ResolveError);
             }
           });
@@ -672,6 +677,7 @@ describe('dereference', function () {
                 assert.fail('should throw DereferenceError');
               } catch (error: any) {
                 assert.instanceOf(error, DereferenceError);
+                // @ts-ignore
                 assert.instanceOf(error.cause.cause, EvaluationJsonSchemaUriError);
               }
             });
@@ -764,6 +770,7 @@ describe('dereference', function () {
               assert.fail('should throw DereferenceError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, EvaluationJsonSchema$anchorError);
             }
           });
@@ -797,7 +804,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });
@@ -817,7 +826,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

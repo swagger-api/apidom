@@ -1,10 +1,13 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { dereferenceApiDOM, parse } from '../../src';
 import { loadJsonFile } from '../helpers';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('dereferenceApiDOM', function () {
   const fixturePath = path.join(

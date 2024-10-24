@@ -1,8 +1,11 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { ObjectElement, StringElement, RefElement } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import { resolve, resolveApiDOM } from '../../../../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('resolve', function () {
   context('strategies', function () {

@@ -1,12 +1,14 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
+import { fileURLToPath } from 'node:url';
 
 import { resolve } from '../../../../../src';
 import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import ResolverError from '../../../../../src/errors/ResolverError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('resolve', function () {

@@ -1,15 +1,14 @@
-require('@babel/register')({ extensions: ['.js', '.ts'], rootMode: 'upward' });
+import Benchmark from 'benchmark';
+import type { Event } from 'benchmark';
 
-const Benchmark = require('benchmark');
-
-const openapi31Dereference = require('./openapi-3-1-dereference.cjs');
+import openapi31Dereference from './openapi-3-1-dereference';
 
 const suite = new Benchmark.Suite();
 
 suite
   .add(openapi31Dereference)
   // add listeners
-  .on('cycle', function (event) {
+  .on('cycle', function (event: Event) {
     console.info(String(event.target));
   })
   .on('complete', function () {

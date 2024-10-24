@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { fileURLToPath } from 'node:url';
 
 import { resolve } from '../../../../../src';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
@@ -9,6 +10,7 @@ import ResolveError from '../../../../../src/errors/ResolveError';
 import ResolverError from '../../../../../src/errors/ResolverError';
 import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('resolve', function () {
@@ -256,7 +258,9 @@ describe('resolve', function () {
               assert.fail('should throw ResolveError');
             } catch (error: any) {
               assert.instanceOf(error, ResolveError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, ResolveError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /\/schemas\/nested\/ex\.json"$/);
             }
           });
@@ -380,6 +384,7 @@ describe('resolve', function () {
               assert.fail('should throw ResolverError');
             } catch (error: any) {
               assert.instanceOf(error, ResolverError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, EvaluationJsonSchema$anchorError);
             }
           });
@@ -399,7 +404,9 @@ describe('resolve', function () {
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
               assert.instanceOf(error, ResolverError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });
@@ -419,7 +426,9 @@ describe('resolve', function () {
               assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
               assert.instanceOf(error, ResolverError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

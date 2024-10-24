@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
@@ -6,6 +7,7 @@ import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
 import { loadJsonFile } from '../../../../../helpers';
 import { dereference } from '../../../../../../src';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {

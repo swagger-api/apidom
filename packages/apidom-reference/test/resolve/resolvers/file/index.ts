@@ -1,9 +1,12 @@
 import path from 'node:path';
 import { assert } from 'chai';
+import { fileURLToPath } from 'node:url';
 
 import FileResolver from '../../../../src/resolve/resolvers/file/index-node';
 import ResolverError from '../../../../src/errors/ResolverError';
 import File from '../../../../src/File';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('resolve', function () {
   context('resolvers', function () {

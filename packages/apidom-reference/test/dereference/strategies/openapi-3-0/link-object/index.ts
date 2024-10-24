@@ -3,11 +3,13 @@ import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isOperationElement, LinkElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {

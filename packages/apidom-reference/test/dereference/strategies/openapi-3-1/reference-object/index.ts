@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import { ParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, dereferenceApiDOM, resolve, parse } from '../../../../../src';
@@ -12,6 +13,7 @@ import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDe
 import Reference from '../../../../../src/Reference';
 import ReferenceSet from '../../../../../src/ReferenceSet';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {

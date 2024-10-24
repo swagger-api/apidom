@@ -3,8 +3,11 @@ import { assert } from 'chai';
 import { mediaTypes, isPathItemElement, SwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
 import { toValue } from '@swagger-api/apidom-core';
 import { evaluate, compile } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('dereference', function () {
   context('strategies', function () {

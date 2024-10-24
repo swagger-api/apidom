@@ -3,6 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { isParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { fileURLToPath } from 'node:url';
 
 import defaultOptions from '../../src/options';
 import { merge as mergeOptions } from '../../src/options/util';
@@ -11,6 +12,8 @@ import ParseError from '../../src/errors/ParseError';
 import ResolveError from '../../src/errors/ResolveError';
 import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError';
 import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('parse', function () {
   context('given URI with hash', function () {

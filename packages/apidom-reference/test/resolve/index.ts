@@ -1,6 +1,7 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
+import { fileURLToPath } from 'node:url';
 
 import { resolve, resolveApiDOM, parse } from '../../src';
 import FileResolver from '../../src/resolve/resolvers/file/index-node';
@@ -8,6 +9,8 @@ import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStra
 import ResolveError from '../../src/errors/ResolveError';
 import ParseError from '../../src/errors/ParseError';
 import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const fixturePath = path.join(
   __dirname,

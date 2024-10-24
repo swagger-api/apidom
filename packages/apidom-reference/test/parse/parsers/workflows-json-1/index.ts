@@ -3,9 +3,12 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-workflows-json-1';
+import { fileURLToPath } from 'node:url';
 
 import File from '../../../../src/File';
 import WorkflowsJSON1Parser from '../../../../src/parse/parsers/workflows-json-1';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('parsers', function () {
   context('WorkflowsJSON1Parser', function () {

@@ -2,12 +2,14 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
+import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
@@ -143,9 +145,11 @@ describe('dereference', function () {
                   dereference: { maxDepth: 1 },
                 });
                 assert.fail('should throw MaximumDereferenceDepthError');
-              } catch (error: any) {
+              } catch (error: unknown) {
                 assert.instanceOf(error, DereferenceError);
+                // @ts-ignore
                 assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+                // @ts-ignore
                 assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex1.json"$/);
               }
             });

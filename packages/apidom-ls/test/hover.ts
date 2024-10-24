@@ -3,10 +3,13 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Position, Range } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types';
 import { logPerformance, logLevel } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specPathYaml: string = path.join(__dirname, 'fixtures', 'deref/hover/root.yaml');
 const specYaml = fs.readFileSync(specPathYaml).toString();

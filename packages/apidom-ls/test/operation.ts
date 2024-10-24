@@ -1,10 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 
 // @ts-ignore
+
 import getLanguageService from '../src/apidom-language-service';
 import {
   LanguageService,
@@ -14,6 +16,8 @@ import {
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
 import operationLintExpected from './fixtures/async/operation/operation-lint-expected';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specOperationLint = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'operation', 'operation-lint.yaml'))

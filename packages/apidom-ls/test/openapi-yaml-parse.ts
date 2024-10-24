@@ -18,9 +18,12 @@ import {
   traverse,
   toValue,
 } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

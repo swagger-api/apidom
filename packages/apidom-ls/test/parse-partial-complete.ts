@@ -3,9 +3,12 @@ import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 // @ts-ignore
 import { traverse, Element } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import { parse } from '../src/parser-factory';
 import { getSourceMap, SourceMap } from '../src/utils/utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'async-info.yaml')).toString();
 

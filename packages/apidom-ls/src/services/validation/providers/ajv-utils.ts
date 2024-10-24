@@ -1,12 +1,12 @@
 import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020.js'; // eslint-disable-line import/extensions
 import Ajv, * as AjvNs from 'ajv';
-import * as draft7MetaSchema from 'ajv/dist/refs/json-schema-draft-07.json';
 import AjvErrors from 'ajv-errors';
 import addFormats from 'ajv-formats';
 
-import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json';
-import openapiSchemaJson31Meta from '../json-schema/open-api-31/openapi-schema-31-meta.json';
-import openapiSchemaJson31Dialect from '../json-schema/open-api-31/openapi-schema-31-dialect.json';
+import draft7MetaSchema from '../json-schema/json-schema-draft-07';
+import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv';
+import openapiSchemaJson31Meta from '../json-schema/open-api-31/openapi-schema-31-meta';
+import openapiSchemaJson31Dialect from '../json-schema/open-api-31/openapi-schema-31-dialect';
 
 let ajvInstance: Ajv;
 let ajv2020Instance: Ajv2020;

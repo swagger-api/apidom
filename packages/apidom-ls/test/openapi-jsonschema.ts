@@ -4,8 +4,11 @@ import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic } from 'vscode-languageserver-types';
 import { Element, toValue, traverse } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import { parse } from '../src/parser-factory';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const spec = fs

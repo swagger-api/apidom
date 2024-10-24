@@ -3,6 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionList, Position } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -16,6 +17,8 @@ import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validati
 import { OpenAPI31, OpenAPI3, OpenAPI2 } from '../src/config/openapi/target-specs';
 import { AsyncAPI2 } from '../src/config/asyncapi/target-specs';
 import { logPerformance, logLevel } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specCompletion = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async.yaml'))

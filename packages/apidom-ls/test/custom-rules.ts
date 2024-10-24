@@ -3,6 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -13,6 +14,8 @@ import {
 import { metadata } from './custom-metadata';
 import { metadata as metadataJsonpath } from './custom-metadata-jsonpath';
 import { logPerformance, logLevel } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'custom-rules-simple.yaml'))

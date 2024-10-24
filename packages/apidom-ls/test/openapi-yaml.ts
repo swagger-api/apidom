@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import {
@@ -23,6 +24,8 @@ import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validatio
 import { logLevel, logPerformance } from './test-utils';
 import testTokens from './test-tokens';
 import { OpenAPI31, OpenAPI3 } from '../src/config/openapi/target-specs';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // eslint-disable-next-line import/prefer-default-export
 export function logj(e: unknown, label?: string): void {

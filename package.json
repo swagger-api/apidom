@@ -63,6 +63,7 @@
     "@typescript-eslint/eslint-plugin": "=7.17.0",
     "@typescript-eslint/parser": "=7.18.0",
     "babel-loader": "=9.1.3",
+    "babel-plugin-inline-json-import": "^0.3.2",
     "benchmark": "=2.1.4",
     "chai": "^5.1.1",
     "copyfiles": "=2.4.1",

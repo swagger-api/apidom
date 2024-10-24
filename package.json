@@ -48,7 +48,7 @@
     "@babel/cli": "=7.25.6",
     "@babel/core": "=7.25.2",
     "@babel/plugin-transform-runtime": "=7.25.4",
-    "@babel/preset-env": "=7.25.4",
+    "@babel/preset-env": "=7.25.9",
     "@babel/preset-typescript": "=7.24.7",
     "@babel/register": "=7.25.7",
     "@commitlint/cli": "=19.4.1",
@@ -58,7 +58,7 @@
     "@types/dedent": "=0.7.2",
     "@types/jsdom-global": "^3.0.7",
     "@types/mocha": "=10.0.9",
-    "@types/node": "=22.7.7",
+    "@types/node": "=22.7.8",
     "@types/sinon": "=17.0.3",
     "@typescript-eslint/eslint-plugin": "=7.17.0",
     "@typescript-eslint/parser": "=7.18.0",
@@ -91,13 +91,13 @@
     "npm-run-all": "=4.1.5",
     "prettier": "=3.3.3",
     "rimraf": "=6.0.1",
-    "rollup": "=4.22.4",
+    "rollup": "=4.24.0",
     "rollup-plugin-dts": "=6.1.1",
     "sinon": "=18.0.0",
     "terser-webpack-plugin": "=5.3.10",
     "ts-node": "=10.9.2",
     "typescript": "=5.5.4",
-    "webpack": "=5.94.0",
+    "webpack": "=5.95.0",
     "webpack-cli": "=5.1.4"
   }
 }

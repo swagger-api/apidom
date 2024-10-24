@@ -1,4 +1,4 @@
-import ApiDOMError from './ApiDOMError';
+import ApiDOMError from './ApiDOMError.ts';
 
 class UnsupportedOperationError extends ApiDOMError {}
 

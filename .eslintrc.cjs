@@ -7,13 +7,6 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
-  settings: {
-    'import/resolver': {
-      typescript: {
-        project: ['./tsconfig.json', './packages/*/tsconfig.json'],
-      },
-    },
-  },
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-return-await': 'off',

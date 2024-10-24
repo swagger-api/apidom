@@ -1,11 +1,14 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
 
 import * as predicates from '../../src/predicates';
 import { AsyncApi2Element, AsyncApiVersionElement, isAsyncApiVersionElement } from '../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('refractor', function () {
   context('given generic ApiDOM object in AsyncApi 2.0.0 shape', function () {

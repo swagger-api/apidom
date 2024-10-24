@@ -1,4 +1,4 @@
-import UnsupportedOperationError from './UnsupportedOperationError';
+import UnsupportedOperationError from './UnsupportedOperationError.ts';
 
 class NotImplementedError extends UnsupportedOperationError {}
 

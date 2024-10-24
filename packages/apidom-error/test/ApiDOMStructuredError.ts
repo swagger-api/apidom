@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { ApiDOMStructuredError, ApiDOMError } from '../src';
+import { ApiDOMStructuredError, ApiDOMError } from '../src/index.ts';
 
 describe('apidom-error', function () {
   context('ApiDOMStructuredError', function () {

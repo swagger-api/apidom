@@ -1,5 +1,5 @@
-import ApiDOMAggregateError from './ApiDOMAggregateError';
-import type ApiDOMErrorOptions from './ApiDOMErrorOptions';
+import ApiDOMAggregateError from './ApiDOMAggregateError.ts';
+import type ApiDOMErrorOptions from './ApiDOMErrorOptions.ts';
 
 class ApiDOMError extends Error {
   public static [Symbol.hasInstance](instance: unknown) {

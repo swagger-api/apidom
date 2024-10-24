@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { ApiDOMError, ApiDOMErrorOptions } from '../src';
+import { ApiDOMError, ApiDOMErrorOptions } from '../src/index.ts';
 
 describe('apidom-error', function () {
   context('ApiDOMError', function () {

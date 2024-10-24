@@ -1,7 +1,8 @@
 // eslint-disable-next-line max-classes-per-file
 import fs from 'node:fs';
-import { assert } from 'chai';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-types';
 import { toValue, Element } from '@swagger-api/apidom-core';
@@ -23,6 +24,8 @@ import {
 import { metadata } from './metadata';
 import { logLevel, logPerformance } from './test-utils';
 import { getSourceMap } from '../src/utils/utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-ref.yaml'))

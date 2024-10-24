@@ -3,6 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -12,6 +13,8 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logPerformance, logLevel } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('apidom-ls-validate', function () {
   const context: LanguageServiceContext = {

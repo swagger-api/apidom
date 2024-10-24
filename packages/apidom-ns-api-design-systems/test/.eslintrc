@@ -27,15 +27,31 @@
     "mocha/no-nested-tests": 2,
     "mocha/no-exclusive-tests": 2,
     "max-classes-per-file": 0,
-    "@typescript-eslint/no-unused-expressions": 0
-  },
-  "overrides": [{
-    "files": ["mocha-bootstrap.cjs"],
-    "parserOptions": {
-      "sourceType": "script"
-    },
-    "rules": {
-      "@typescript-eslint/no-var-requires": 0
-    }
-  }]
+    "@typescript-eslint/no-unused-expressions": 0,
+    "import/no-relative-packages": 0,
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+        "leadingUnderscore": "forbid"
+      },
+      {
+        "selector": "variable",
+        "format": null,
+        "filter": {
+          "regex": "^__dirname$",
+          "match": true
+        }
+      },
+      {
+        "selector": "variable",
+        "format": null,
+        "filter": {
+          "regex": "^__filename$",
+          "match": true
+        }
+      }
+    ]
+  }
 }

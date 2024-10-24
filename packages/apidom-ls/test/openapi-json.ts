@@ -12,6 +12,7 @@ import {
   SymbolInformation,
 } from 'vscode-languageserver-types';
 import { Element, traverse, toValue } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -28,6 +29,8 @@ import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validatio
 import { logPerformance, logLevel } from './test-utils';
 import testTokens from './test-tokens';
 import { OpenAPI31 } from '../src/config/openapi/target-specs';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
 /* const specAjvSimple = fs

@@ -1,6 +1,7 @@
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
 /dist
-/es
-/cjs
 /types
 /NOTICE
 /swagger-api-apidom-parser-adapter-openapi-yaml-3-1-*.tgz

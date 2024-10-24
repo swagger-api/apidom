@@ -4,6 +4,7 @@ import { assert } from 'chai';
 import path from 'node:path';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import { AdsValidationProvider } from '../src/services/validation/providers/ads-validation-provider';
 import getLanguageService from '../src/apidom-language-service';
@@ -15,6 +16,7 @@ import {
 import { metadata } from './metadata';
 import { logLevel, logPerformance } from './test-utils';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'ads', 'openapi-3-1.json'))
   .toString();

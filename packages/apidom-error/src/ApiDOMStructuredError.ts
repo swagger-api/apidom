@@ -1,5 +1,5 @@
 import ApiDOMError from './ApiDOMError';
-import ApiDOMErrorOptions from './ApiDOMErrorOptions';
+import type ApiDOMErrorOptions from './ApiDOMErrorOptions';
 
 class ApiDOMStructuredError extends ApiDOMError {
   constructor(message?: string, structuredOptions?: ApiDOMErrorOptions) {

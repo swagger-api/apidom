@@ -5,12 +5,14 @@ import { identity } from 'ramda';
 import { isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers';
 import { dereference, resolve } from '../../../../../src';
 import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
@@ -323,7 +325,9 @@ describe('dereference', function () {
                 assert.fail('should throw MaximumDereferenceDepthError');
               } catch (error: any) {
                 assert.instanceOf(error, DereferenceError);
+                // @ts-ignore
                 assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+                // @ts-ignore
                 assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex1.json"$/);
               }
             });

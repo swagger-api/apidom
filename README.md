@@ -235,17 +235,18 @@ All the packages have identical build system and expose build artifacts in ident
 After building artifacts, every package will contain five (5) additional directories.
 All the build artifacts are polymorphic - they can run in different environments like [Web Browser](https://en.wikipedia.org/wiki/Web_browser), [Node.js](https://nodejs.org/) or [Web Worker](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API).
 
-**cjs/**
+***.cjs**
 
-This directory mirrors the structure of the codebase in `src/`.
-Contains ES5 compatible code with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) style imports.
-Build fragments in this directory are ideal for [Node.js](https://nodejs.org/) and similar environments.
+These files are generated inside `src/` directory.
+Contain ES5 compatible code with [CommonJS](https://en.wikipedia.org/wiki/CommonJS) style imports.
+These build fragments are ideal for legacy [Node.js](https://nodejs.org/) and similar environments.
 
-**es/**
+***.mjs**
 
-This directory mirrors the structure of the codebase in `src/`.
-Contains ES5 compatible code with [ES6 imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
-Build fragments in this directory are ideal for bundling with [Webpack](https://webpack.js.org/) or similar bundlers.
+These files are generated inside `src/` directory.
+Contain ES5 compatible code with [ES6 imports](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/import).
+These build fragments are ideal for modern [Node.js](https://nodejs.org/),
+bundling with [Webpack](https://webpack.js.org/) or similar bundlers.
 
 **dist/**
 

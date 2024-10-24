@@ -2,9 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import { ParserError, File } from '../../../../src';
 import ApiDOMJSONParser from '../../../../src/parse/parsers/apidom-json';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('parsers', function () {
   context('ApiDOMJSONParser', function () {

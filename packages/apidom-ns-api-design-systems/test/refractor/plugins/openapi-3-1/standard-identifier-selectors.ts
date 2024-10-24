@@ -1,10 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { expect } from 'chai';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { refractPluginOpenApi3_1StandardIdentifierSelectors } from '../../../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('given OpenAPI 3.1 definition', function () {
   it('should decorate with API Design Systems Standard Identifiers', async function () {

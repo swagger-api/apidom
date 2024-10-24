@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers';
 import { parse, dereference, Reference, ReferenceSet } from '../../../../../src';
@@ -10,6 +11,7 @@ import DereferenceError from '../../../../../src/errors/DereferenceError';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
 import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
@@ -284,7 +286,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });
@@ -304,7 +308,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumResolverDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

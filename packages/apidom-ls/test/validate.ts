@@ -3,6 +3,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, CodeAction } from 'vscode-languageserver-types';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -17,6 +18,8 @@ import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validati
 import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
 import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
 import { logPerformance, logLevel } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specOpenapiSimple = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'ajv-simple-api.json'))

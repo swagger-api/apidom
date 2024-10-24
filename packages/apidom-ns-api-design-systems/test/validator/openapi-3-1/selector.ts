@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 import {
@@ -14,6 +15,7 @@ import {
 } from '../../../src';
 import select from '../../../src/validator/openapi-3-1/selector';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const definition = fs.readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-1.json')).toString();
 
 describe('given OpenAPI 3.1 definition with Standard Identifier plugin applied', function () {

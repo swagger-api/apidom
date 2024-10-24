@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import { toJSON } from '@swagger-api/apidom-core';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
@@ -6,6 +7,8 @@ import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-parser-ad
 import { parse } from '@swagger-api/apidom-reference';
 
 import convert, { convertApiDOM, ConvertError } from '../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('apidom-converter', function () {
   context('convert', function () {
@@ -57,9 +60,9 @@ describe('apidom-converter', function () {
             },
           });
           assert.fail('should throw ConvertError');
-        } catch (error: any) {
+        } catch (error: unknown) {
           assert.instanceOf(error, ConvertError);
-          assert.strictEqual(error.cause.message, 'test');
+          assert.strictEqual(((error as ConvertError).cause as Error).message, 'test');
         }
       });
     });

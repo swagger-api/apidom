@@ -1,10 +1,13 @@
 import path from 'node:path';
 import { assert } from 'chai';
+import { fileURLToPath } from 'node:url';
 
 import File from '../../src/File';
 import { filter, run } from '../../src/util/plugins';
 import PluginError from '../../src/errors/PluginError';
 import defaultOptions from '../../src/options';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('util', function () {
   context('plugins', function () {

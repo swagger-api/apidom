@@ -3,9 +3,12 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
+import { fileURLToPath } from 'node:url';
 
 import File from '../../../../src/File';
 import APIDesignSystemsYAMLParser from '../../../../src/parse/parsers/api-design-systems-yaml';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('parsers', function () {
   context('APIDesignSystemsYAMLParser', function () {

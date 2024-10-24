@@ -18,74 +18,74 @@
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "type": "module",
   "unpkg": "./dist/apidom-ls.browser.min.js",
-  "main": "./cjs/index.cjs",
+  "main": "./src/index.cjs",
   "exports": {
     ".": {
       "types": "./types/dist.d.ts",
-      "import": "./es/index.mjs",
-      "require": "./cjs/index.cjs"
+      "import": "./src/index.mjs",
+      "require": "./src/index.cjs"
     },
     "./services/validation/providers/json-schema": {
-      "import": "./es/services/validation/providers/json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/json-schema-validation-provider.cjs",
+      "import": "./srcservices/validation/providers/json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-20-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-20-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-20-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-20-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-20-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-20-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-21-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-21-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-21-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-21-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-21-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-22-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-22-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-22-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-22-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-22-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-22-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-22-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-23-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-23-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-23-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-23-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-23-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-23-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-24-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-24-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-24-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-24-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-24-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-24-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-25-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-25-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-25-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-25-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-25-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-25-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/asyncapi-26-json-schema": {
-      "import": "./es/services/validation/providers/asyncapi-26-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/asyncapi-26-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/asyncapi-26-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/asyncapi-26-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/asyncapi-26-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/openapi-31-json-schema": {
-      "import": "./es/services/validation/providers/openapi-31-json-schema-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/openapi-31-json-schema-validation-provider.cjs",
+      "import": "./src/services/validation/providers/openapi-31-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/openapi-31-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/openapi-31-json-schema-validation-provider.d.ts"
     },
     "./services/validation/providers/ads": {
-      "import": "./es/services/validation/providers/ads-validation-provider.mjs",
-      "require": "./cjs/services/validation/providers/ads-validation-provider.cjs",
+      "import": "./src/services/validation/providers/ads-validation-provider.mjs",
+      "require": "./src/services/validation/providers/ads-validation-provider.cjs",
       "types": "./types/services/validation/providers/ads-validation-provider.d.ts"
     }
   },
   "types": "./types/",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir es --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && copyfiles -u 1 ./src/**/*.json es",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir cjs --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward' && copyfiles -u 1 ./src/**/*.json cjs",
+    "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
+    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir src --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
     "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf ./es ./cjs ./dist ./types",
-    "test": "cross-env NODE_ENV=test BABEL_ENV=cjs mocha",
+    "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' 'test/**/*.mjs' ./dist ./types",
+    "test": "npm run build:es && cross-env BABEL_ENV=es babel test --out-dir test --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && cross-env NODE_ENV=test mocha",
     "typescript:check-types": "tsc --noEmit",
     "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
@@ -131,9 +131,9 @@
     "yaml-js": "^0.3.0"
   },
   "files": [
-    "cjs/",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
     "dist/",
-    "es/",
     "types/dist.d.ts",
     "LICENSES",
     "NOTICE",

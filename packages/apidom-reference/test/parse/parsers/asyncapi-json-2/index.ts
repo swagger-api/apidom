@@ -3,9 +3,12 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import { fileURLToPath } from 'node:url';
 
 import File from '../../../../src/File';
 import AsyncAPIJSON2Parser from '../../../../src/parse/parsers/asyncapi-json-2';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('parsers', function () {
   context('AsyncAPIJSON2Parser', function () {

@@ -1,10 +1,13 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import { isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 import { isMainElement } from '@swagger-api/apidom-ns-api-design-systems';
 
 import * as adapter from '../src/adapter';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const yamlSpec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'api-design-systems.yaml'))

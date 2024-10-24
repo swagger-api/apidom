@@ -2,10 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
+import { fileURLToPath } from 'node:url';
 
 import { parse } from '../src/parser-factory';
 import { findNamespace } from '../src/utils/utils';
 import { ContentLanguage } from '../src/apidom-language-types';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const oasJson = fs.readFileSync(path.join(__dirname, 'fixtures', 'detect', 'oas.json')).toString();
 const oasYaml = fs.readFileSync(path.join(__dirname, 'fixtures', 'detect', 'oas.yaml')).toString();

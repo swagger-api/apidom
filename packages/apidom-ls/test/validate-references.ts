@@ -3,6 +3,7 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 import fs from 'node:fs';
+import { fileURLToPath } from 'node:url';
 
 import { createHTTPServer, ServerTerminable } from './helpers';
 import getLanguageService from '../src/apidom-language-service';
@@ -14,6 +15,8 @@ import {
 } from '../src/apidom-language-types';
 import { metadata } from './metadata';
 import { logLevel, logPerformance } from './test-utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'deref', 'invalid.json')).toString();
 const specValid = fs

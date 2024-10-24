@@ -1,6 +1,7 @@
+/**/*.js
+/**/*.mjs
+/**/*.cjs
 /dist
-/es
-/cjs
 /types
 /config
 /.nyc_output

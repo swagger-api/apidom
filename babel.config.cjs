@@ -2,18 +2,16 @@ const path = require('node:path');
 
 module.exports = {
   babelrcRoots: ['packages/*'],
-  ignore: [
-    '**/*.d.ts',
-  ],
+  ignore: ['**/*.d.ts'],
   env: {
     cjs: {
-      browserslistEnv: "isomorphic-production",
+      browserslistEnv: 'isomorphic-production',
       presets: [
         [
           '@babel/preset-env',
           {
             debug: false,
-            modules: "commonjs",
+            modules: 'commonjs',
             loose: true,
             useBuiltIns: false,
             forceAllTransforms: false,
@@ -25,7 +23,7 @@ module.exports = {
           '@babel/preset-typescript',
           {
             allowDeclareFields: true,
-          }
+          },
         ],
       ],
       plugins: [
@@ -40,12 +38,15 @@ module.exports = {
           },
         ],
         process.env.NODE_ENV !== 'test'
-          ? [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'cjs' }]
-          : false
+          ? [
+              path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'),
+              { extension: 'cjs' },
+            ]
+          : false,
       ].filter(Boolean),
     },
     es: {
-      browserslistEnv: "isomorphic-production",
+      browserslistEnv: 'isomorphic-production',
       presets: [
         [
           '@babel/preset-env',
@@ -62,7 +63,7 @@ module.exports = {
           '@babel/preset-typescript',
           {
             allowDeclareFields: true,
-          }
+          },
         ],
       ],
       plugins: [
@@ -77,11 +78,14 @@ module.exports = {
             version: '^7.22.15',
           },
         ],
-        [path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'), { extension: 'mjs' }],
+        [
+          path.join(__dirname, './scripts/babel-plugin-add-import-extension.cjs'),
+          { extension: 'mjs' },
+        ],
       ],
     },
     browser: {
-      browserslistEnv: "browser-production",
+      browserslistEnv: 'browser-production',
       presets: [
         [
           '@babel/preset-env',
@@ -98,7 +102,7 @@ module.exports = {
           '@babel/preset-typescript',
           {
             allowDeclareFields: true,
-          }
+          },
         ],
       ],
       plugins: [
@@ -112,7 +116,7 @@ module.exports = {
             version: '^7.22.15',
           },
         ],
-      ]
+      ],
     },
   },
 };

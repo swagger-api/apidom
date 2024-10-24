@@ -1,4 +1,5 @@
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import {
   ObjectElement,
@@ -10,6 +11,8 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { dereference, dereferenceApiDOM, DereferenceError } from '../../../../../src';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('dereference', function () {
   context('strategies', function () {

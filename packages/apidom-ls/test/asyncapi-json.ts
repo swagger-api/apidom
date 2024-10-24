@@ -11,6 +11,7 @@ import {
   SymbolInformation,
 } from 'vscode-languageserver-types';
 import { Element, traverse, toValue } from '@swagger-api/apidom-core';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -26,6 +27,8 @@ import { getSourceMap, SourceMap } from '../src/utils/utils';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
 import { logPerformance, logLevel } from './test-utils';
 import testTokens from './test-tokens';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const spec = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-async-validation-2.0.0.json'))

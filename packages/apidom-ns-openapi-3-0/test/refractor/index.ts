@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
@@ -15,6 +16,8 @@ import {
   isOpenapiElement,
 } from '../../src';
 import * as predicates from '../../src/predicates';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('refractor', function () {
   context('given generic ApiDOM object in OpenApi 3.0.3 shape', function () {

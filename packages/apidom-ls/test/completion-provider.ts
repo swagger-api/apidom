@@ -6,6 +6,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionItem, Position } from 'vscode-languageserver-types';
 import { toValue, Element } from '@swagger-api/apidom-core';
 import { CompletionParams } from 'vscode-languageserver-protocol';
+import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service';
 import {
@@ -22,6 +23,8 @@ import {
 import { metadata } from './metadata';
 import { logLevel, logPerformance } from './test-utils';
 import { isJsonDoc, isJsonDocSync } from '../src/utils/utils';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specOpenapi = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-ref-completion.yaml'))

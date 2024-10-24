@@ -1,6 +1,7 @@
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
 /dist
-/es
-/cjs
 /types
 /NOTICE
 /swagger-api-apidom-ns-json-schema-draft-4*.tgz

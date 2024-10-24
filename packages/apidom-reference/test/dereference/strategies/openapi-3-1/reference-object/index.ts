@@ -349,7 +349,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });
@@ -369,7 +371,9 @@ describe('dereference', function () {
               assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
               assert.instanceOf(error, DereferenceError);
+              // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumResolveDepthError);
+              // @ts-ignore
               assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
             }
           });

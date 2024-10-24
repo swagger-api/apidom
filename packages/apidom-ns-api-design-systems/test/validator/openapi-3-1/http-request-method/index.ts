@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { AnnotationElement, toValue } from '@swagger-api/apidom-core';
 import { parse as parseJSON } from '@swagger-api/apidom-parser-adapter-json';
@@ -13,6 +14,7 @@ import {
   validateOpenAPI3_1,
 } from '../../../../src';
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const apiDesignSystemsDefinition = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'api-design-systems.yaml'))
   .toString();

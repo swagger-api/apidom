@@ -1,4 +1,4 @@
-import type ApiDOMErrorOptions from './ApiDOMErrorOptions';
+import type ApiDOMErrorOptions from './ApiDOMErrorOptions.ts';
 
 class ApiDOMAggregateError extends AggregateError {
   constructor(errors: Iterable<unknown>, message?: string, options?: ApiDOMErrorOptions) {

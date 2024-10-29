@@ -1,6 +1,9 @@
 import ApiDOMAggregateError from './ApiDOMAggregateError.ts';
 import type ApiDOMErrorOptions from './ApiDOMErrorOptions.ts';
 
+/**
+ * @public
+ */
 class ApiDOMError extends Error {
   public static [Symbol.hasInstance](instance: unknown) {
     // we want to ApiDOMAggregateError to act as if ApiDOMError was its superclass

@@ -86,6 +86,7 @@
     "lerna": "=8.1.8",
     "lint-staged": "=15.2.10",
     "microtime": "=3.1.1",
+    "@microsoft/api-extractor": "^7.47.11",
     "mocha": "=10.7.3",
     "mocha-chai-jest-snapshot": "^1.1.6",
     "node-gyp": "=10.2.0",

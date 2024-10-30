@@ -58,7 +58,7 @@
     "@types/dedent": "=0.7.2",
     "@types/jsdom-global": "^3.0.7",
     "@types/mocha": "=10.0.9",
-    "@types/node": "=22.8.2",
+    "@types/node": "=22.8.4",
     "@types/sinon": "=17.0.3",
     "@typescript-eslint/eslint-plugin": "=7.17.0",
     "@typescript-eslint/parser": "=7.18.0",

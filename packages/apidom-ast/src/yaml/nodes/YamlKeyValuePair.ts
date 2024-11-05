@@ -1,8 +1,8 @@
-import Node from '../../Node';
-import type { NodeOptions } from '../../Node';
-import YamlScalar from './YamlScalar';
-import type { YamlStyleGroup } from './YamlStyle';
-import { isScalar, isMapping, isSequence, isAlias } from './predicates';
+import Node from '../../Node.ts';
+import type { NodeOptions } from '../../Node.ts';
+import YamlScalar from './YamlScalar.ts';
+import type { YamlStyleGroup } from './YamlStyle.ts';
+import { isScalar, isMapping, isSequence, isAlias } from './predicates.ts';
 
 export interface YamlKeyValuePairOptions extends NodeOptions {
   readonly styleGroup: YamlStyleGroup;

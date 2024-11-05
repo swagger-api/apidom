@@ -1,6 +1,6 @@
 import { head } from 'ramda';
 
-import Node from './Node';
+import Node from './Node.ts';
 
 class ParseResult extends Node {
   public static readonly type: string = 'parseResult';

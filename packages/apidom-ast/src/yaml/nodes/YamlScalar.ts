@@ -1,5 +1,5 @@
-import YamlNode from './YamlNode';
-import type { YamlNodeOptions } from './YamlNode';
+import YamlNode from './YamlNode.ts';
+import type { YamlNodeOptions } from './YamlNode.ts';
 
 export interface YamlScalarOptions extends YamlNodeOptions {
   readonly content: string;

@@ -1,6 +1,6 @@
 import { head } from 'ramda';
 
-import JsonNode from './JsonNode';
+import JsonNode from './JsonNode.ts';
 
 class JsonDocument extends JsonNode {
   public static readonly type = 'document';

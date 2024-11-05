@@ -1,4 +1,4 @@
-import Tag from '../Tag';
+import Tag from '../Tag.ts';
 
 /* eslint-disable class-methods-use-this */
 class Null extends Tag {

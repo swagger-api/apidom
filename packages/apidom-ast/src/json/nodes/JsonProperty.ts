@@ -1,5 +1,5 @@
-import JsonNode from './JsonNode';
-import JsonKey from './JsonKey';
+import JsonNode from './JsonNode.ts';
+import JsonKey from './JsonKey.ts';
 import {
   isArray,
   isFalse,
@@ -9,14 +9,14 @@ import {
   isObject,
   isString,
   isTrue,
-} from './predicates';
-import type JsonString from './JsonString';
-import type JsonFalse from './JsonFalse';
-import type JsonTrue from './JsonTrue';
-import type JsonNull from './JsonNull';
-import type JsonNumber from './JsonNumber';
-import type JsonArray from './JsonArray';
-import type JsonObject from './JsonObject';
+} from './predicates.ts';
+import type JsonString from './JsonString.ts';
+import type JsonFalse from './JsonFalse.ts';
+import type JsonTrue from './JsonTrue.ts';
+import type JsonNull from './JsonNull.ts';
+import type JsonNumber from './JsonNumber.ts';
+import type JsonArray from './JsonArray.ts';
+import type JsonObject from './JsonObject.ts';
 
 type JsonValue = JsonFalse | JsonTrue | JsonNull | JsonNumber | JsonString | JsonArray | JsonObject;
 

@@ -1,4 +1,4 @@
-import Node from '../../Node';
+import Node from '../../Node.ts';
 
 class YamlDocument extends Node {
   public static readonly type = 'document';

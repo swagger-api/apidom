@@ -1,8 +1,8 @@
-import YamlCollection from './YamlCollection';
-import YamlMapping from './YamlMapping';
-import YamlScalar from './YamlScalar';
-import YamlAlias from './YamlAlias';
-import { isMapping, isScalar, isSequence, isAlias } from './predicates';
+import YamlCollection from './YamlCollection.ts';
+import YamlMapping from './YamlMapping.ts';
+import YamlScalar from './YamlScalar.ts';
+import YamlAlias from './YamlAlias.ts';
+import { isMapping, isScalar, isSequence, isAlias } from './predicates.ts';
 
 class YamlSequence extends YamlCollection {
   public static readonly type = 'sequence';

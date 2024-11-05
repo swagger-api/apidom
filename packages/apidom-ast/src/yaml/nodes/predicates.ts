@@ -1,15 +1,15 @@
-import YamlAnchor from './YamlAnchor';
-import type YamlStream from './YamlStream';
-import type YamlDocument from './YamlDocument';
-import type YamlMapping from './YamlMapping';
-import type YamlSequence from './YamlSequence';
-import type YamlKeyValuePair from './YamlKeyValuePair';
-import type YamlTag from './YamlTag';
-import type YamlScalar from './YamlScalar';
-import type YamlAlias from './YamlAlias';
-import type YamlDirective from './YamlDirective';
-import type YamlComment from './YamlComment';
-import { isNodeType } from '../../predicates';
+import YamlAnchor from './YamlAnchor.ts';
+import type YamlStream from './YamlStream.ts';
+import type YamlDocument from './YamlDocument.ts';
+import type YamlMapping from './YamlMapping.ts';
+import type YamlSequence from './YamlSequence.ts';
+import type YamlKeyValuePair from './YamlKeyValuePair.ts';
+import type YamlTag from './YamlTag.ts';
+import type YamlScalar from './YamlScalar.ts';
+import type YamlAlias from './YamlAlias.ts';
+import type YamlDirective from './YamlDirective.ts';
+import type YamlComment from './YamlComment.ts';
+import { isNodeType } from '../../predicates.ts';
 
 export const isStream = (node: unknown): node is YamlStream => isNodeType('stream', node);
 

@@ -1,8 +1,8 @@
 import type { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-import YamlSchemaError from './YamlSchemaError';
-import Position from '../../Position';
-import Node from '../../Node';
+import YamlSchemaError from './YamlSchemaError.ts';
+import Position from '../../Position.ts';
+import Node from '../../Node.ts';
 
 export interface YamlTagErrorOptions<T extends Node = Node> extends ApiDOMErrorOptions {
   readonly specificTagName: string;

@@ -7,8 +7,8 @@ import {
   ObjectElement,
 } from 'minim';
 
-import { visit } from '../../traversal/visitor';
-import serializeValue from './value';
+import { visit } from '../../traversal/visitor.ts';
+import serializeValue from './value/index.ts';
 
 interface YamlVisitorOptions {
   readonly directive?: boolean;

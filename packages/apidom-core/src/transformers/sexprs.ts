@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import { visit } from '../traversal/visitor';
+import { visit } from '../traversal/visitor.ts';
 
 class SymbolicExpressionsVisitor {
   public result: string = '';

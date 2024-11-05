@@ -9,8 +9,8 @@ import {
   ArrayElement,
   RefElement,
   LinkElement,
-} from '../../../src';
-import serializer from '../../../src/transformers/serializers/value';
+} from '../../../src/index.ts';
+import serializer from '../../../src/transformers/serializers/value/index.ts';
 
 describe('serializers', function () {
   context('value', function () {

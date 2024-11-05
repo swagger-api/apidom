@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import Transcluder from './Transcluder';
+import Transcluder from './Transcluder.ts';
 
 /**
  * This is a mutating function. If you don't want your Element to be mutated,

@@ -1,7 +1,7 @@
 import { ArrayElement, Element, MemberElement, ObjectElement } from 'minim';
 import { isUndefined } from 'ramda-adjunct';
 
-import { isObjectElement, isArrayElement, isMemberElement } from '../predicates';
+import { isObjectElement, isArrayElement, isMemberElement } from '../predicates/index.ts';
 
 const computeEdges = (element: Element, edges = new WeakMap()): WeakMap<Element, any> => {
   if (isMemberElement(element)) {

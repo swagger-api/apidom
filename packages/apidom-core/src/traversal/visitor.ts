@@ -19,8 +19,8 @@ import {
   isObjectElement,
   isNullElement,
   isNumberElement,
-} from '../predicates';
-import { cloneShallow } from '../clone';
+} from '../predicates/index.ts';
+import { cloneShallow } from '../clone/index.ts';
 
 export { BREAK, mergeAllVisitors };
 

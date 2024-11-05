@@ -1,10 +1,10 @@
 import { Element } from 'minim';
 
-import { dispatchPluginsSync } from './plugins/dispatcher';
-import { getNodeType } from '../traversal/visitor';
-import { cloneDeep } from '../clone';
-import { isElement } from '../predicates';
-import createToolbox from './toolbox';
+import { dispatchPluginsSync } from './plugins/dispatcher/index.ts';
+import { getNodeType } from '../traversal/visitor.ts';
+import { cloneDeep } from '../clone/index.ts';
+import { isElement } from '../predicates/index.ts';
+import createToolbox from './toolbox.ts';
 
 type RefractOptions = {
   Type: new (value: any, meta?: unknown, attributes?: unknown) => any;

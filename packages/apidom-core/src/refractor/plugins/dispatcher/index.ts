@@ -2,8 +2,8 @@ import { Element } from 'minim';
 import { mergeDeepRight, propOr } from 'ramda';
 import { invokeArgs } from 'ramda-adjunct';
 
-import createToolbox from '../../toolbox';
-import { getNodeType, mergeAllVisitors, visit } from '../../../traversal/visitor';
+import createToolbox from '../../toolbox.ts';
+import { getNodeType, mergeAllVisitors, visit } from '../../../traversal/visitor.ts';
 
 export interface DispatchPluginsOptions {
   toolboxCreator: typeof createToolbox;

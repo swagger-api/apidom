@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 
-import { NumberElement, StringElement } from '../../src';
-import { transclude } from '../../src/transcluder';
+import { NumberElement, StringElement } from '../../src/index.ts';
+import { transclude } from '../../src/transcluder/index.ts';
 
 describe('transclude', function () {
   context('shorcuts', function () {

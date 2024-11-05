@@ -15,7 +15,7 @@ import {
   ShallowCloneError,
   DeepCloneError,
   toValue,
-} from '../../src';
+} from '../../src/index.ts';
 
 describe('clone', function () {
   context('cloneShallow', function () {

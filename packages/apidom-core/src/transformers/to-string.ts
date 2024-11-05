@@ -1,7 +1,7 @@
 import { Element, Namespace as INamespace } from 'minim';
 
-import defaultNamespaceInstance from '../namespace';
-import dehydrate from './dehydrate';
+import defaultNamespaceInstance from '../namespace.ts';
+import dehydrate from './dehydrate.ts';
 
 /**
  * Create a refracted string representation of an Element.

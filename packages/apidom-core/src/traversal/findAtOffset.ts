@@ -2,9 +2,9 @@ import { last, pathOr } from 'ramda';
 import { isNumber } from 'ramda-adjunct';
 import { Element } from 'minim';
 
-import { hasElementSourceMap } from '../predicates';
-import { visit } from './visitor';
-import toValue from '../transformers/serializers/value';
+import { hasElementSourceMap } from '../predicates/index.ts';
+import { visit } from './visitor.ts';
+import toValue from '../transformers/serializers/value/index.ts';
 
 interface VisitorOptions {
   readonly offset?: number;

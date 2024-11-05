@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { toValue, ObjectElement, mergeLeft } from '../../src';
+import { toValue, ObjectElement, mergeLeft } from '../../src/index.ts';
 
 /**
  * mergeLeft is just a specialization of mergeRight. We don't need tests here

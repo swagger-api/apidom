@@ -1,11 +1,11 @@
-import FailsafeSchema from '../failsafe/index';
-import BooleanTag from './Boolean';
-import FloatingPointTag from './FloatingPoint';
-import IntegerTag from './Integer';
-import NullTag from './Null';
-import { YamlNodeKind } from '../../nodes/YamlTag';
-import GenericSequence from '../failsafe/GenericSequence';
-import GenericMapping from '../failsafe/GenericMapping';
+import FailsafeSchema from '../failsafe/index.ts';
+import BooleanTag from './Boolean.ts';
+import FloatingPointTag from './FloatingPoint.ts';
+import IntegerTag from './Integer.ts';
+import NullTag from './Null.ts';
+import { YamlNodeKind } from '../../nodes/YamlTag.ts';
+import GenericSequence from '../failsafe/GenericSequence.ts';
+import GenericMapping from '../failsafe/GenericMapping.ts';
 
 class JsonSchema extends FailsafeSchema {
   constructor() {

@@ -1,12 +1,12 @@
 import { clone } from 'ramda';
 
-import YamlTagError from '../../errors/YamlTagError';
-import YamlDirective from '../../nodes/YamlDirective';
-import { YamlNodeKind } from '../../nodes/YamlTag';
-import GenericMappingTag from './GenericMapping';
-import GenericSequenceTag from './GenericSequence';
-import GenericStringTag from './GenericString';
-import ScalarTag from '../ScalarTag';
+import YamlTagError from '../../errors/YamlTagError.ts';
+import YamlDirective from '../../nodes/YamlDirective.ts';
+import { YamlNodeKind } from '../../nodes/YamlTag.ts';
+import GenericMappingTag from './GenericMapping.ts';
+import GenericSequenceTag from './GenericSequence.ts';
+import GenericStringTag from './GenericString.ts';
+import ScalarTag from '../ScalarTag.ts';
 
 class FailsafeSchema {
   public tags: any[];

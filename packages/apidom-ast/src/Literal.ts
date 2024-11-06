@@ -1,5 +1,5 @@
-import Node from './Node';
-import type { NodeOptions } from './Node';
+import Node from './Node.ts';
+import type { NodeOptions } from './Node.ts';
 
 export interface LiteralOptions extends NodeOptions {
   readonly value?: unknown;

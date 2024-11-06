@@ -1,5 +1,5 @@
-import Tag from '../Tag';
-import { YamlNodeKind } from '../../nodes/YamlTag';
+import Tag from '../Tag.ts';
+import { YamlNodeKind } from '../../nodes/YamlTag.ts';
 
 /* eslint-disable class-methods-use-this */
 class GenericMapping extends Tag {

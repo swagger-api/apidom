@@ -4,9 +4,9 @@ import { always } from 'ramda';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import JSONSchemaElement from '../../../elements/JSONSchema';
+} from '../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
 export interface JSONSchemaVisitorOptions
   extends FixedFieldsVisitorOptions,

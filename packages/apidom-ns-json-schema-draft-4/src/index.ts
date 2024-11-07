@@ -11,118 +11,118 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as mediaTypes, JSONSchemaDraft4MediaTypes } from './media-types';
+export { default as mediaTypes, JSONSchemaDraft4MediaTypes } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
-export { default } from './namespace';
+export { default } from './namespace.ts';
 
-export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
-export { default as refract, createRefractor } from './refractor';
-export { default as specificationObj } from './refractor/specification';
+export { default as refract, createRefractor } from './refractor/index.ts';
+export { default as specificationObj } from './refractor/specification.ts';
 
 export {
   isJSONReferenceElement,
   isJSONSchemaElement,
   isLinkDescriptionElement,
   isMediaElement,
-} from './predicates';
+} from './predicates.ts';
 
-export { isJSONReferenceLikeElement } from './refractor/predicates';
+export { isJSONReferenceLikeElement } from './refractor/predicates.ts';
 
-export { default as Visitor } from './refractor/visitors/Visitor';
-export type { VisitorOptions } from './refractor/visitors/Visitor';
-export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
-export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
-export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
-export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
-export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
-export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor';
-export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor';
-export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor';
-export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
-export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor';
-export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor';
-export { default as ParentSchemaAwareVisitor } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor';
-export type { ParentSchemaAwareVisitorOptions } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor';
+export { default as Visitor } from './refractor/visitors/Visitor.ts';
+export type { VisitorOptions } from './refractor/visitors/Visitor.ts';
+export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor.ts';
+export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor.ts';
+export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor.ts';
+export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor.ts';
+export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
+export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
+export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
+export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor.ts';
+export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export { default as ParentSchemaAwareVisitor } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor.ts';
+export type { ParentSchemaAwareVisitorOptions } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor.ts';
 
 export type {
   default as JSONReferenceVisitor,
   JSONReferenceVisitorOptions,
-} from './refractor/visitors/json-schema/json-reference';
+} from './refractor/visitors/json-schema/json-reference/index.ts';
 export type {
   default as JSONReference$RefVisitor,
   $RefVisitorOptions as JSONReference$RefVisitorOptions,
-} from './refractor/visitors/json-schema/json-reference/$RefVisitor';
+} from './refractor/visitors/json-schema/json-reference/$RefVisitor.ts';
 export type {
   default as LinkDescriptionVisitor,
   LinkDescriptionVisitorOptions,
-} from './refractor/visitors/json-schema/link-description';
+} from './refractor/visitors/json-schema/link-description/index.ts';
 export type {
   default as MediaVisitor,
   MediaVisitorOptions,
-} from './refractor/visitors/json-schema/media';
+} from './refractor/visitors/json-schema/media/index.ts';
 export type {
   default as AllOfVisitor,
   AllOfVisitorOptions,
-} from './refractor/visitors/json-schema/AllOfVisitor';
+} from './refractor/visitors/json-schema/AllOfVisitor.ts';
 export type {
   default as AnyOfVisitor,
   AnyOfVisitorOptions,
-} from './refractor/visitors/json-schema/AnyOfVisitor';
+} from './refractor/visitors/json-schema/AnyOfVisitor.ts';
 export type {
   default as DefinitionsVisitor,
   DefinitionsVisitorOptions,
-} from './refractor/visitors/json-schema/DefinitionsVisitor';
+} from './refractor/visitors/json-schema/DefinitionsVisitor.ts';
 export type {
   default as DependenciesVisitor,
   DependenciesVisitorOptions,
-} from './refractor/visitors/json-schema/DependenciesVisitor';
+} from './refractor/visitors/json-schema/DependenciesVisitor.ts';
 export type {
   default as EnumVisitor,
   EnumVisitorOptions,
-} from './refractor/visitors/json-schema/EnumVisitor';
+} from './refractor/visitors/json-schema/EnumVisitor.ts';
 export type {
   default as JSONSchemaVisitor,
   JSONSchemaVisitorOptions,
-} from './refractor/visitors/json-schema';
+} from './refractor/visitors/json-schema/index.ts';
 export type {
   default as ItemsVisitor,
   ItemsVisitorOptions,
-} from './refractor/visitors/json-schema/ItemsVisitor';
+} from './refractor/visitors/json-schema/ItemsVisitor.ts';
 export type {
   default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,
-} from './refractor/visitors/json-schema/JSONSchemaOrJSONReferenceVisitor';
+} from './refractor/visitors/json-schema/JSONSchemaOrJSONReferenceVisitor.ts';
 export type {
   default as LinksVisitor,
   LinksVisitorOptions,
-} from './refractor/visitors/json-schema/LinksVisitor';
+} from './refractor/visitors/json-schema/LinksVisitor.ts';
 export type {
   default as OneOfVisitor,
   OneOfVisitorOptions,
-} from './refractor/visitors/json-schema/OneOfVisitor';
+} from './refractor/visitors/json-schema/OneOfVisitor.ts';
 export type {
   default as PatternPropertiesVisitor,
   PatternPropertiesVisitorOptions,
-} from './refractor/visitors/json-schema/PatternPropertiesVisitor';
+} from './refractor/visitors/json-schema/PatternPropertiesVisitor.ts';
 export type {
   default as PropertiesVisitor,
   PropertiesVisitorOptions,
-} from './refractor/visitors/json-schema/PropertiesVisitor';
+} from './refractor/visitors/json-schema/PropertiesVisitor.ts';
 export type {
   default as RequiredVisitor,
   RequiredVisitorOptions,
-} from './refractor/visitors/json-schema/RequiredVisitor';
+} from './refractor/visitors/json-schema/RequiredVisitor.ts';
 export type {
   default as TypeVisitor,
   TypeVisitorOptions,
-} from './refractor/visitors/json-schema/TypeVisitor';
+} from './refractor/visitors/json-schema/TypeVisitor.ts';
 
-export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor';
+export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 
-export { keyMap, getNodeType } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 /**
  * JSON Schema Draft 4 specification elements.
@@ -132,4 +132,4 @@ export {
   JSONReferenceElement,
   MediaElement,
   LinkDescriptionElement,
-} from './refractor/registration';
+} from './refractor/registration.ts';

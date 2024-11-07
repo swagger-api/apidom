@@ -1,4 +1,4 @@
-import YamlError from './YamlError';
+import YamlError from './YamlError.ts';
 
 class YamlReferenceError extends YamlError {}
 

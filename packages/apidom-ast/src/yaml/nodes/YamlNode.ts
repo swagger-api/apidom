@@ -1,8 +1,8 @@
-import Node from '../../Node';
-import type { NodeOptions } from '../../Node';
-import YamlTag from './YamlTag';
-import YamlAnchor from './YamlAnchor';
-import { YamlStyle, YamlStyleGroup } from './YamlStyle';
+import Node from '../../Node.ts';
+import type { NodeOptions } from '../../Node.ts';
+import YamlTag from './YamlTag.ts';
+import YamlAnchor from './YamlAnchor.ts';
+import { YamlStyle, YamlStyleGroup } from './YamlStyle.ts';
 
 export interface YamlNodeOptions extends NodeOptions {
   readonly anchor?: YamlAnchor;

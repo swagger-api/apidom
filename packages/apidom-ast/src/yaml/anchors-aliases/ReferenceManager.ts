@@ -1,9 +1,9 @@
-import YamlAlias from '../nodes/YamlAlias';
-import YamlNode from '../nodes/YamlNode';
-import YamlScalar from '../nodes/YamlScalar';
-import YamlReferenceError from '../errors/YamlReferenceError';
-import { isAnchor } from '../nodes/predicates';
-import { YamlStyle, YamlStyleGroup } from '../nodes/YamlStyle';
+import YamlAlias from '../nodes/YamlAlias.ts';
+import YamlNode from '../nodes/YamlNode.ts';
+import YamlScalar from '../nodes/YamlScalar.ts';
+import YamlReferenceError from '../errors/YamlReferenceError.ts';
+import { isAnchor } from '../nodes/predicates.ts';
+import { YamlStyle, YamlStyleGroup } from '../nodes/YamlStyle.ts';
 
 /* eslint-disable class-methods-use-this */
 class ReferenceManager {

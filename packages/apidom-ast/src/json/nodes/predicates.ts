@@ -1,16 +1,16 @@
-import { isNodeType } from '../../predicates';
-import type JsonDocument from './JsonDocument';
-import type JsonString from './JsonString';
-import type JsonFalse from './JsonFalse';
-import type JsonTrue from './JsonTrue';
-import type JsonNull from './JsonNull';
-import type JsonNumber from './JsonNumber';
-import type JsonArray from './JsonArray';
-import type JsonObject from './JsonObject';
-import type JsonStringContent from './JsonStringContent';
-import type JsonEscapeSequence from './JsonEscapeSequence';
-import type JsonProperty from './JsonProperty';
-import type JsonKey from './JsonKey';
+import { isNodeType } from '../../predicates.ts';
+import type JsonDocument from './JsonDocument.ts';
+import type JsonString from './JsonString.ts';
+import type JsonFalse from './JsonFalse.ts';
+import type JsonTrue from './JsonTrue.ts';
+import type JsonNull from './JsonNull.ts';
+import type JsonNumber from './JsonNumber.ts';
+import type JsonArray from './JsonArray.ts';
+import type JsonObject from './JsonObject.ts';
+import type JsonStringContent from './JsonStringContent.ts';
+import type JsonEscapeSequence from './JsonEscapeSequence.ts';
+import type JsonProperty from './JsonProperty.ts';
+import type JsonKey from './JsonKey.ts';
 
 export const isDocument = (node: unknown): node is JsonDocument => isNodeType('document', node);
 

@@ -1,7 +1,7 @@
-import JsonNode from './JsonNode';
-import JsonStringContent from './JsonStringContent';
-import JsonEscapeSequence from './JsonEscapeSequence';
-import { isEscapeSequence, isStringContent } from './predicates';
+import JsonNode from './JsonNode.ts';
+import JsonStringContent from './JsonStringContent.ts';
+import JsonEscapeSequence from './JsonEscapeSequence.ts';
+import { isEscapeSequence, isStringContent } from './predicates.ts';
 
 type JsonStringLike = JsonStringContent | JsonEscapeSequence;
 

@@ -1,10 +1,10 @@
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import { isReferenceElement } from '../../../../predicates';
-import { isReferenceLikeElement } from '../../../predicates';
-import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
-import { FallbackVisitorOptions } from '../../FallbackVisitor';
+import { isReferenceElement } from '../../../../predicates.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
+import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor.ts';
+import { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface RequestBodyVisitorOptions
   extends AlternatingVisitorOptions,

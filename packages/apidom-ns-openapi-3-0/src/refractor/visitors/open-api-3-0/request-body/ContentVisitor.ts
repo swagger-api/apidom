@@ -1,5 +1,5 @@
-import RequestBodyContentElement from '../../../../elements/nces/RequestBodyContent';
-import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
+import RequestBodyContentElement from '../../../../elements/nces/RequestBodyContent.ts';
+import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor.ts';
 
 export type { ContentVisitorOptions };
 

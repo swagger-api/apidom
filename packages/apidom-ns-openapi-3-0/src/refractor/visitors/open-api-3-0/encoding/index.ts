@@ -2,14 +2,14 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { isObjectElement, ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
-import EncodingElement from '../../../../elements/Encoding';
-import HeaderElement from '../../../../elements/Header';
+import EncodingElement from '../../../../elements/Encoding.ts';
+import HeaderElement from '../../../../elements/Header.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isHeaderElement } from '../../../../predicates';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isHeaderElement } from '../../../../predicates.ts';
 
 export interface EncodingVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 class EncodingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {

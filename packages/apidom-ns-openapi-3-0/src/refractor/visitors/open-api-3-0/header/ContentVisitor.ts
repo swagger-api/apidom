@@ -1,5 +1,5 @@
-import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
-import HeaderContentElement from '../../../../elements/nces/HeaderContent';
+import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor.ts';
+import HeaderContentElement from '../../../../elements/nces/HeaderContent.ts';
 
 export type { ContentVisitorOptions };
 

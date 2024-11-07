@@ -5,9 +5,9 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import OpenApi3_0Element from '../../../elements/OpenApi3-0';
+} from '../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import OpenApi3_0Element from '../../../elements/OpenApi3-0.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface OpenApi3_0VisitorOptions

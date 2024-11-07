@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import DiscriminatorMappingElement from '../../../../elements/nces/DiscriminatorMapping';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import DiscriminatorMappingElement from '../../../../elements/nces/DiscriminatorMapping.ts';
 
 export interface MappingVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

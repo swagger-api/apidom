@@ -1,8 +1,8 @@
 import { Element, StringElement } from 'minim';
 import ShortUniqueId from 'short-unique-id';
 
-import ElementIdentityError from './errors/ElementIdentityError';
-import { isElement, isStringElement } from '../predicates';
+import ElementIdentityError from './errors/ElementIdentityError.ts';
+import { isElement, isStringElement } from '../predicates/index.ts';
 
 export class IdentityManager {
   protected readonly uuid: ShortUniqueId;

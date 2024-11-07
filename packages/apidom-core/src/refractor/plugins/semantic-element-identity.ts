@@ -1,7 +1,7 @@
 import { Element } from 'minim';
 
-import { IdentityManager } from '../../identity';
-import { isPrimitiveElement } from '../../predicates';
+import { IdentityManager } from '../../identity/index.ts';
+import { isPrimitiveElement } from '../../predicates/index.ts';
 
 /**
  * Plugin for decorating every semantic element in ApiDOM tree with UUID.

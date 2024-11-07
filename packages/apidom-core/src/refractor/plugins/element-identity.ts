@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import { IdentityManager } from '../../identity';
+import { IdentityManager } from '../../identity/index.ts';
 
 /**
  * Plugin for decorating every element in ApiDOM tree with UUID.

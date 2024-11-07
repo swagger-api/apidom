@@ -7,8 +7,8 @@ import {
   MemberElement,
   ArrayElement,
   StringElement,
-} from '../../src';
-import Transcluder from '../../src/transcluder';
+} from '../../src/index.ts';
+import Transcluder from '../../src/transcluder/index.ts';
 
 describe('transcluder', function () {
   context('Transcluder', function () {

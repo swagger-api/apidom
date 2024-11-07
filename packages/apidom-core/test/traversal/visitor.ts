@@ -10,7 +10,7 @@ import {
   LinkElement,
   visit,
   toValue,
-} from '../../src';
+} from '../../src/index.ts';
 
 describe('traversal', function () {
   context('visitor', function () {

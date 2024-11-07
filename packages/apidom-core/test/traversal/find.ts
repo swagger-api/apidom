@@ -1,7 +1,13 @@
 import { assert } from 'chai';
 import { F as stubFalse } from 'ramda';
 
-import { createNamespace, find, isMemberElement, isElement, MemberElement } from '../../src';
+import {
+  createNamespace,
+  find,
+  isMemberElement,
+  isElement,
+  MemberElement,
+} from '../../src/index.ts';
 
 const namespace = createNamespace();
 

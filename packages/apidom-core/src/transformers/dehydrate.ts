@@ -1,6 +1,6 @@
 import { Element, Namespace as INamespace } from 'minim';
 
-import defaultNamespaceInstance from '../namespace';
+import defaultNamespaceInstance from '../namespace.ts';
 
 /**
  * Creates a refract representation of an Element.

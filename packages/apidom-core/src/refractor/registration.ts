@@ -9,11 +9,11 @@ import {
   RefElement,
 } from 'minim';
 
-import AnnotationElement from '../elements/Annotation';
-import CommentElement from '../elements/Comment';
-import ParseResultElement from '../elements/ParseResult';
-import SourceMapElement from '../elements/SourceMap';
-import { createRefractor } from './index';
+import AnnotationElement from '../elements/Annotation.ts';
+import CommentElement from '../elements/Comment.ts';
+import ParseResultElement from '../elements/ParseResult.ts';
+import SourceMapElement from '../elements/SourceMap.ts';
+import { createRefractor } from './index.ts';
 
 ObjectElement.refract = createRefractor(ObjectElement);
 ArrayElement.refract = createRefractor(ArrayElement);

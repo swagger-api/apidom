@@ -1,6 +1,6 @@
 import { assert, expect } from 'chai';
 
-import { CommentElement, StringElement, sexprs } from '../../../../src';
+import { CommentElement, StringElement, sexprs } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

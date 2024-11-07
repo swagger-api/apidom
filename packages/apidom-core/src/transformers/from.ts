@@ -2,7 +2,7 @@ import { has } from 'ramda';
 import { isPlainObject, isString } from 'ramda-adjunct';
 import { Element, Namespace as INamespace } from 'minim';
 
-import defaultNamespaceInstance from '../namespace';
+import defaultNamespaceInstance from '../namespace.ts';
 
 /**
  * Transforms data to an Element from a particular namespace.

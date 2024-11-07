@@ -1,8 +1,8 @@
 import { ArraySlice, ObjectSlice, KeyValuePair, Element } from 'minim';
 
-import { isElement } from '../predicates';
-import DeepCloneError from './errors/DeepCloneError';
-import ShallowCloneError from './errors/ShallowCloneError';
+import { isElement } from '../predicates/index.ts';
+import DeepCloneError from './errors/DeepCloneError.ts';
+import ShallowCloneError from './errors/ShallowCloneError.ts';
 
 type FinalCloneTypes = KeyValuePair | ArraySlice | ObjectSlice;
 

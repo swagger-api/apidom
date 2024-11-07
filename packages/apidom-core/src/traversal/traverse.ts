@@ -2,9 +2,9 @@ import { Element } from 'minim';
 import { pathOr } from 'ramda';
 import { isFunction, noop } from 'ramda-adjunct';
 
-import { visit, PredicateVisitor } from './visitor';
-import type { PredicateVisitorOptions } from './visitor';
-import { isElement } from '../predicates';
+import { visit, PredicateVisitor } from './visitor.ts';
+import type { PredicateVisitorOptions } from './visitor.ts';
+import { isElement } from '../predicates/index.ts';
 
 type Callback = <T extends Element>(element: T) => void;
 interface TraverseOptions {

@@ -1,7 +1,7 @@
 import { pathOr } from 'ramda';
 import { Element } from 'minim';
 
-import { PredicateVisitor, BREAK, visit } from './visitor';
+import { PredicateVisitor, BREAK, visit } from './visitor.ts';
 
 // find first element that satisfies the provided predicate
 const find = <T extends Element>(

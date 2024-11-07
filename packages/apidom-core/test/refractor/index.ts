@@ -2,8 +2,8 @@ import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { Namespace } from 'minim';
 
-import * as predicates from '../../src/predicates';
-import { ObjectElement, isObjectElement, toValue } from '../../src';
+import * as predicates from '../../src/predicates/index.ts';
+import { ObjectElement, isObjectElement, toValue } from '../../src/index.ts';
 
 describe('refractor', function () {
   context('given POJO in object literal shape', function () {

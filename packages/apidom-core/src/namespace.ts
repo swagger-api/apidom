@@ -1,10 +1,10 @@
 import { Namespace as MinimNamespace, NamespacePlugin } from 'minim';
 import { isPlainObject } from 'ramda-adjunct';
 
-import AnnotationElement from './elements/Annotation';
-import CommentElement from './elements/Comment';
-import ParseResultElement from './elements/ParseResult';
-import SourceMapElement from './elements/SourceMap';
+import AnnotationElement from './elements/Annotation.ts';
+import CommentElement from './elements/Comment.ts';
+import ParseResultElement from './elements/ParseResult.ts';
+import SourceMapElement from './elements/SourceMap.ts';
 
 export class Namespace extends MinimNamespace {
   constructor() {

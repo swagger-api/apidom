@@ -1,5 +1,5 @@
-import * as basePredicates from '../predicates';
-import defaultNamespaceInstance from '../namespace';
+import * as basePredicates from '../predicates/index.ts';
+import defaultNamespaceInstance from '../namespace.ts';
 
 const createToolbox = () => {
   const predicates = { ...basePredicates };

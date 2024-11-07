@@ -7,7 +7,7 @@ import {
   isStringElement,
   StringElement,
   ArraySlice,
-} from '../../src';
+} from '../../src/index.ts';
 
 const namespace = createNamespace();
 

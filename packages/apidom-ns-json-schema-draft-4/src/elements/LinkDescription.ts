@@ -1,7 +1,7 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import JSONSchema from './JSONSchema';
-import JSONReferenceElement from './JSONReference';
+import JSONSchema from './JSONSchema.ts';
+import JSONReferenceElement from './JSONReference.ts';
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-5

@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement, ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor';
-import { isJSONReferenceLikeElement } from '../../predicates';
+} from './ParentSchemaAwareVisitor.ts';
+import { isJSONReferenceLikeElement } from '../../predicates.ts';
 
 export interface ItemsVisitorOptions
   extends SpecificationVisitorOptions,

@@ -1,9 +1,9 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import lexicalAnalysis from './lexical-analysis/node';
-import syntacticAnalysis from './syntactic-analysis/indirect/index';
+import lexicalAnalysis from './lexical-analysis/node.ts';
+import syntacticAnalysis from './syntactic-analysis/indirect/index.ts';
 
-export { mediaTypes, namespace } from './adapter';
+export { mediaTypes, namespace } from './adapter.ts';
 export { lexicalAnalysis, syntacticAnalysis };
 
 export const detect = async (source: string): Promise<boolean> => {

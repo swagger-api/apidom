@@ -3,7 +3,7 @@ import {
   RequestBodyVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import RequestBodyElement from '../../../../elements/RequestBody';
+import RequestBodyElement from '../../../../elements/RequestBody.ts';
 
 const {
   visitors: {

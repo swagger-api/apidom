@@ -9,10 +9,10 @@ import {
   SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ReferenceElement from '../../../elements/Reference';
-import PathItemElement from '../../../elements/PathItem';
-import WebhooksElement from '../../../elements/nces/Webhooks';
-import { isPathItemElement, isReferenceElement } from '../../../predicates';
+import ReferenceElement from '../../../elements/Reference.ts';
+import PathItemElement from '../../../elements/PathItem.ts';
+import WebhooksElement from '../../../elements/nces/Webhooks.ts';
+import { isPathItemElement, isReferenceElement } from '../../../predicates.ts';
 
 export interface WebhooksVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

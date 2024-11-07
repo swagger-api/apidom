@@ -7,7 +7,7 @@ import {
   JsonSchemaDialectElement,
   OpenApi3_1Element,
   SchemaElement,
-} from '../../../../src';
+} from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

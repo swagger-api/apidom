@@ -1,6 +1,6 @@
 import { MediaTypeElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import SchemaElement from './Schema';
+import SchemaElement from './Schema.ts';
 
 class MediaType extends MediaTypeElement {
   get schema(): SchemaElement | undefined {

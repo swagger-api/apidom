@@ -3,7 +3,7 @@ import {
   ServerVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ServerElement from '../../../../elements/Server';
+import ServerElement from '../../../../elements/Server.ts';
 
 const {
   visitors: {

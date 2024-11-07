@@ -1,7 +1,7 @@
 import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
 
-import * as jsonSchemaDraft4Predicates from '../predicates';
-import jsonSchemaDraft4Namespace from '../namespace';
+import * as jsonSchemaDraft4Predicates from '../predicates.ts';
+import jsonSchemaDraft4Namespace from '../namespace.ts';
 
 const createToolbox = () => {
   const namespace = createNamespace(jsonSchemaDraft4Namespace);

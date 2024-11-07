@@ -1,11 +1,11 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor';
+} from './ParentSchemaAwareVisitor.ts';
 
 export interface LinksVisitorOptions
   extends SpecificationVisitorOptions,

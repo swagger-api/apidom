@@ -3,7 +3,9 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 
 import { isReferenceElement } from '../../../../predicates.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
-import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor.ts';
+import AlternatingVisitor, {
+  AlternatingVisitorOptions,
+} from '../../generics/AlternatingVisitor.ts';
 import { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface RequestBodyVisitorOptions

@@ -16,9 +16,9 @@ import {
 } from '@swagger-api/apidom-json-pointer';
 import { last } from 'ramda';
 
-import EvaluationRelativeJsonPointerError from './errors/EvaluationRelativeJsonPointerError';
-import parse from './parse';
-import { RelativeJsonPointer } from './types';
+import EvaluationRelativeJsonPointerError from './errors/EvaluationRelativeJsonPointerError.ts';
+import parse from './parse.ts';
+import { RelativeJsonPointer } from './types.ts';
 
 // evaluates Relative JSON Pointer against ApiDOM fragment
 const evaluate = <T extends Element, U extends Element>(

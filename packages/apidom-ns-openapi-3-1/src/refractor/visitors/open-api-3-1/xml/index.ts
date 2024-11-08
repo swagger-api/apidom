@@ -3,7 +3,7 @@ import {
   XmlVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import XmlElement from '../../../../elements/Xml';
+import XmlElement from '../../../../elements/Xml.ts';
 
 const {
   visitors: {

@@ -7,7 +7,7 @@ import {
   SpecificationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect';
+import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect.ts';
 
 export interface JsonSchemaDialectVisitorOptions
   extends SpecificationVisitorOptions,

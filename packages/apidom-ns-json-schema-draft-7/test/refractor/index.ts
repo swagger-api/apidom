@@ -5,8 +5,12 @@ import { assert, expect } from 'chai';
 import sinon from 'sinon';
 import { ObjectElement, toValue, Namespace } from '@swagger-api/apidom-core';
 
-import { JSONSchemaElement, LinkDescriptionElement, isLinkDescriptionElement } from '../../src';
-import * as predicates from '../../src/predicates';
+import {
+  JSONSchemaElement,
+  LinkDescriptionElement,
+  isLinkDescriptionElement,
+} from '../../src/index.ts';
+import * as predicates from '../../src/predicates.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

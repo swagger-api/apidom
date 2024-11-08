@@ -1,8 +1,8 @@
 import { pipe, assocPath, dissocPath } from 'ramda';
 import { specificationObj } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
-import JSONSchemaVisitor from './visitors/json-schema';
-import LinkDescriptionVisitor from './visitors/json-schema/link-description';
+import JSONSchemaVisitor from './visitors/json-schema/index.ts';
+import LinkDescriptionVisitor from './visitors/json-schema/link-description/index.ts';
 
 const specification = pipe(
   // JSON Schema object modifications

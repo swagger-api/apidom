@@ -1,8 +1,8 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 import { JSONReferenceElement } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
-import JSONSchemaElement from './elements/JSONSchema';
-import LinkDescriptionElement from './elements/LinkDescription';
+import JSONSchemaElement from './elements/JSONSchema.ts';
+import LinkDescriptionElement from './elements/LinkDescription.ts';
 
 const jsonSchemaDraft7 = {
   namespace: (options: NamespacePluginOptions) => {

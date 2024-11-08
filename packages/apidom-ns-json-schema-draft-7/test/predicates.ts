@@ -7,7 +7,7 @@ import {
   JSONSchemaElement,
   JSONReferenceElement,
   LinkDescriptionElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isJSONSchemaElement', function () {

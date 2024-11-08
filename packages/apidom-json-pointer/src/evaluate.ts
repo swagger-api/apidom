@@ -1,8 +1,8 @@
 import { isInteger } from 'ramda-adjunct';
 import { Element, isObjectElement, isArrayElement, cloneDeep } from '@swagger-api/apidom-core';
 
-import parse from './parse';
-import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError';
+import parse from './parse.ts';
+import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError.ts';
 
 // evaluates JSON Pointer against ApiDOM fragment
 const evaluate = <T extends Element>(pointer: string, element: T): Element => {

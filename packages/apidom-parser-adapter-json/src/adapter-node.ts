@@ -1,11 +1,11 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import lexicalAnalysis from './lexical-analysis/node';
-import syntacticAnalysisDirect from './syntactic-analysis/direct';
-import syntacticAnalysisIndirect from './syntactic-analysis/indirect';
-import { detectionRegExp } from './adapter';
+import lexicalAnalysis from './lexical-analysis/node.ts';
+import syntacticAnalysisDirect from './syntactic-analysis/direct/index.ts';
+import syntacticAnalysisIndirect from './syntactic-analysis/indirect/index.ts';
+import { detectionRegExp } from './adapter.ts';
 
-export { mediaTypes, namespace } from './adapter';
+export { mediaTypes, namespace } from './adapter.ts';
 export { detectionRegExp };
 
 export {

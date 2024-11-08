@@ -11,7 +11,7 @@ import {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-import * as adapter from '../../src/adapter-node';
+import * as adapter from '../../src/adapter-node.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const spec = fs.readFileSync(path.join(__dirname, '..', 'fixtures', 'sample-data.yaml')).toString();

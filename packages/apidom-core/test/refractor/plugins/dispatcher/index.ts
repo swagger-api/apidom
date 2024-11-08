@@ -7,7 +7,7 @@ import {
   ObjectElement,
   toValue,
   dispatchRefractorPlugins as dispatchPluginsSync,
-} from '../../../../src';
+} from '../../../../src/index.ts';
 
 const dispatchPluginsAsync = dispatchPluginsSync[Symbol.for('nodejs.util.promisify.custom')];
 

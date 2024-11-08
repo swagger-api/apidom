@@ -13,12 +13,12 @@ import {
 import { all } from 'ramda';
 import { included } from 'ramda-adjunct';
 
-import AnnotationElement from '../elements/Annotation';
-import CommentElement from '../elements/Comment';
-import ParserResultElement from '../elements/ParseResult';
-import SourceMapElement from '../elements/SourceMap';
-import createPredicate, { isElementType as isElementTypeHelper } from './helpers';
-import type { ElementPredicate } from './helpers';
+import AnnotationElement from '../elements/Annotation.ts';
+import CommentElement from '../elements/Comment.ts';
+import ParserResultElement from '../elements/ParseResult.ts';
+import SourceMapElement from '../elements/SourceMap.ts';
+import createPredicate, { isElementType as isElementTypeHelper } from './helpers.ts';
+import type { ElementPredicate } from './helpers.ts';
 
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is Element =>

@@ -3,7 +3,7 @@ import ApiDOMParser from '@swagger-api/apidom-parser';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import * as openapi3_1Adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 
-import { findAtOffset } from '../../src';
+import { findAtOffset } from '../../src/index.ts';
 
 const parser = new ApiDOMParser().use(openapi3_1Adapter);
 

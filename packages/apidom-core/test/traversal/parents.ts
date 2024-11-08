@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { parents, ObjectElement } from '../../src';
+import { parents, ObjectElement } from '../../src/index.ts';
 
 describe('traversal', function () {
   context('parents', function () {

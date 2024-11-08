@@ -4,9 +4,9 @@ import {
   formatFlowDoubleQuoted,
   formatBlockLiteral,
   formatBlockFolded,
-} from './canonical-format';
-import { YamlStyle } from '../nodes/YamlStyle';
-import { YamlNodeKind } from '../nodes/YamlTag';
+} from './canonical-format.ts';
+import { YamlStyle } from '../nodes/YamlStyle.ts';
+import { YamlNodeKind } from '../nodes/YamlTag.ts';
 
 class ScalarTag {
   public static test(node: any): boolean {

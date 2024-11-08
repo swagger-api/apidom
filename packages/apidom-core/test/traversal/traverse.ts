@@ -1,7 +1,13 @@
 import { assert } from 'chai';
 import sinon from 'sinon';
 
-import { ArrayElement, ObjectElement, traverse, createNamespace, isStringElement } from '../../src';
+import {
+  ArrayElement,
+  ObjectElement,
+  traverse,
+  createNamespace,
+  isStringElement,
+} from '../../src/index.ts';
 
 const namespace = createNamespace();
 

@@ -3,7 +3,7 @@ import dedent from 'dedent';
 import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { refractorPluginReplaceEmptyElement, JSONSchemaElement } from '../../../../src';
+import { refractorPluginReplaceEmptyElement, JSONSchemaElement } from '../../../../src/index.ts';
 
 describe('given empty value for field additionalItems', function () {
   it('should replace empty value with semantic element', async function () {

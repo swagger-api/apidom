@@ -1,4 +1,4 @@
-import YamlNode from './YamlNode';
+import YamlNode from './YamlNode.ts';
 
 class YamlCollection extends YamlNode {}
 

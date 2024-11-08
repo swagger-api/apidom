@@ -11,16 +11,16 @@ import {
   LinkElement,
 } from 'minim';
 
-import { visit } from './visitor';
-import EphemeralArray from './ast/ephemeral-array';
-import EphemeralObject from './ast/ephemeral-object';
+import { visit } from './visitor.ts';
+import EphemeralArray from './ast/ephemeral-array.ts';
+import EphemeralObject from './ast/ephemeral-object.ts';
 import {
   isElement,
   isBooleanElement,
   isNumberElement,
   isStringElement,
   isNullElement,
-} from '../../../predicates';
+} from '../../../predicates/index.ts';
 
 /* eslint-disable class-methods-use-this */
 

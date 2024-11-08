@@ -1,5 +1,5 @@
-import JsonNode from './JsonNode';
-import { isFalse, isTrue, isNull, isNumber, isString, isArray, isObject } from './predicates';
+import JsonNode from './JsonNode.ts';
+import { isFalse, isTrue, isNull, isNumber, isString, isArray, isObject } from './predicates.ts';
 
 class JsonArray extends JsonNode {
   public static readonly type = 'array';

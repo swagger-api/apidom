@@ -1,6 +1,6 @@
 import { ArraySlice, Element } from 'minim';
 
-import { PredicateVisitor, visit } from './visitor';
+import { PredicateVisitor, visit } from './visitor.ts';
 
 // finds all elements matching the predicate
 const filter = <T extends Element>(

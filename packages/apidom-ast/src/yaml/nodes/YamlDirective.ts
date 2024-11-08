@@ -1,7 +1,7 @@
 import { mergeRight } from 'ramda';
 
-import Node from '../../Node';
-import type { NodeOptions } from '../../Node';
+import Node from '../../Node.ts';
+import type { NodeOptions } from '../../Node.ts';
 
 interface YamlDirectiveParameters {
   readonly version?: string;

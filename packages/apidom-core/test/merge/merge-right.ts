@@ -8,7 +8,7 @@ import {
   StringElement,
   isObjectElement,
   mergeRight,
-} from '../../src';
+} from '../../src/index.ts';
 
 describe('mergeRight', function () {
   it('should add keys in target that do not exist at the root', function () {

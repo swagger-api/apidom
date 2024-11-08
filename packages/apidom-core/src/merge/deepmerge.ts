@@ -1,8 +1,8 @@
 import { ObjectElement, ArrayElement, MemberElement, Element } from 'minim';
 
-import { isObjectElement, isArrayElement } from '../predicates';
-import { cloneDeep, cloneShallow } from '../clone';
-import toValue from '../transformers/serializers/value';
+import { isObjectElement, isArrayElement } from '../predicates/index.ts';
+import { cloneDeep, cloneShallow } from '../clone/index.ts';
+import toValue from '../transformers/serializers/value/index.ts';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 

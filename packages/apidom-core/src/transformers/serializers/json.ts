@@ -1,6 +1,6 @@
 import { Element } from 'minim';
 
-import serializeValue from './value';
+import serializeValue from './value/index.ts';
 
 const serializer = (
   element: Element,

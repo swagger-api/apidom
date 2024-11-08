@@ -30,7 +30,7 @@ import {
   hasElementSourceMap,
   includesSymbols,
   includesClasses,
-} from '../../src';
+} from '../../src/index.ts';
 
 describe('predicates', function () {
   context('isElement', function () {

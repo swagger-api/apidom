@@ -1,6 +1,6 @@
 import { Element, ObjectElement, ArrayElement, MemberElement } from 'minim';
 
-import { visit } from './visitor';
+import { visit } from './visitor.ts';
 
 class Visitor {
   public parentEdges: WeakMap<Element, Element | undefined>;

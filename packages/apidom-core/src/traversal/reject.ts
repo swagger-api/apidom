@@ -1,7 +1,7 @@
 import { complement } from 'ramda';
 import { ArraySlice, Element } from 'minim';
 
-import filter from './filter';
+import filter from './filter.ts';
 
 // complement of filter
 const reject = <T extends Element>(

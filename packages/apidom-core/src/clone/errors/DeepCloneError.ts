@@ -1,4 +1,4 @@
-import CloneError from './CloneError';
+import CloneError from './CloneError.ts';
 
 class DeepCloneError extends CloneError {}
 

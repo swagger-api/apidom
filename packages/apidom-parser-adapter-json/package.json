@@ -64,7 +64,7 @@
     "web-tree-sitter": "=0.24.3"
   },
   "devDependencies": {
-    "tree-sitter-cli": "^0.24.3"
+    "tree-sitter-cli": "=0.24.3"
   },
   "files": [
     "src/**/*.mjs",

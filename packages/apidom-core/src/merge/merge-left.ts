@@ -1,4 +1,4 @@
-import mergeRight from './merge-right';
+import mergeRight from './merge-right.ts';
 
 const mergeLeft = (...[sourceElement, targetElement, options]: Parameters<typeof mergeRight>) => {
   return mergeRight(targetElement, sourceElement, options);

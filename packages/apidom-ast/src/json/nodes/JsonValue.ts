@@ -1,5 +1,5 @@
-import JsonNode from './JsonNode';
-import type { NodeOptions } from '../../Node';
+import JsonNode from './JsonNode.ts';
+import type { NodeOptions } from '../../Node.ts';
 
 export interface JsonValueOptions extends NodeOptions {
   value: string;

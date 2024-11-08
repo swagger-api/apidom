@@ -6,8 +6,8 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import StandardIdentifierElement from './StandardIdentifier';
-import RequirementLevelElement from './RequirementLevel';
+import StandardIdentifierElement from './StandardIdentifier.ts';
+import RequirementLevelElement from './RequirementLevel.ts';
 
 class Requirement extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

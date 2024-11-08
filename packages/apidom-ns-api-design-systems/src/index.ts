@@ -11,14 +11,14 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as mediaTypes, ApiDesignSystemsMediaTypes } from './media-types';
+export { default as mediaTypes, ApiDesignSystemsMediaTypes } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
-export { default } from './namespace';
+export { default } from './namespace.ts';
 
-export { default as refractPluginOpenApi3_1StandardIdentifierSelectors } from './refractor/plugins/openapi-3-1/standard-identifier-selectors';
-export { default as refractPluginOpenApi3_1StandardIdentifierAccessors } from './refractor/plugins/openapi-3-1/standard-identifier-accessors';
-export { default as validateOpenAPI3_1 } from './validator/openapi-3-1/validator';
+export { default as refractPluginOpenApi3_1StandardIdentifierSelectors } from './refractor/plugins/openapi-3-1/standard-identifier-selectors.ts';
+export { default as refractPluginOpenApi3_1StandardIdentifierAccessors } from './refractor/plugins/openapi-3-1/standard-identifier-accessors.ts';
+export { default as validateOpenAPI3_1 } from './validator/openapi-3-1/validator.ts';
 export {
   isInfoElement,
   isMainElement,
@@ -28,69 +28,69 @@ export {
   isScenarioElement,
   isStandardElement,
   isStandardIdentifierElement,
-} from './predicates';
+} from './predicates.ts';
 
-export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
-export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor';
-export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
-export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
-export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
-export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
-export { default as Visitor } from './refractor/visitors/Visitor';
-export type { VisitorOptions } from './refractor/visitors/Visitor';
+export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor.ts';
+export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor.ts';
+export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor.ts';
+export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor.ts';
+export { default as Visitor } from './refractor/visitors/Visitor.ts';
+export type { VisitorOptions } from './refractor/visitors/Visitor.ts';
 
 export type {
   default as InfoVisitor,
   InfoVisitorOptions,
-} from './refractor/visitors/api-design-systems/info';
+} from './refractor/visitors/api-design-systems/info/index.ts';
 export type {
   default as MainVisitor,
   MainVisitorOptions,
-} from './refractor/visitors/api-design-systems/main';
+} from './refractor/visitors/api-design-systems/main/index.ts';
 export type {
   default as MainPrinciplesVisitor,
   PrinciplesVisitorOptions as MainPrinciplesVisitorOptions,
-} from './refractor/visitors/api-design-systems/main/PrinciplesVisitor';
+} from './refractor/visitors/api-design-systems/main/PrinciplesVisitor.ts';
 export type {
   default as MainScenariosVisitor,
   ScenariosVisitorOptions as MainScenariosVisitorOptions,
-} from './refractor/visitors/api-design-systems/main/ScenariosVisitor';
+} from './refractor/visitors/api-design-systems/main/ScenariosVisitor.ts';
 export type {
   default as MainStandardsVisitor,
   StandardsVisitorOptions as MainStandardsVisitorOptions,
-} from './refractor/visitors/api-design-systems/main/StandardsVisitor';
+} from './refractor/visitors/api-design-systems/main/StandardsVisitor.ts';
 export type {
   default as PrincipleVisitor,
   PrincipleVisitorOptions,
-} from './refractor/visitors/api-design-systems/principle';
+} from './refractor/visitors/api-design-systems/principle/index.ts';
 export type {
   default as RequirementVisitor,
   RequirementVisitorOptions,
-} from './refractor/visitors/api-design-systems/requirement';
+} from './refractor/visitors/api-design-systems/requirement/index.ts';
 export type {
   default as RequirementLevelVisitor,
   RequirementLevelVisitorOptions,
-} from './refractor/visitors/api-design-systems/requirement-level';
+} from './refractor/visitors/api-design-systems/requirement-level/index.ts';
 export type {
   default as ScenarioVisitor,
   ScenarioVisitorOptions,
-} from './refractor/visitors/api-design-systems/scenario';
+} from './refractor/visitors/api-design-systems/scenario/index.ts';
 export type {
   default as ScenarioThenVisitor,
   ThenVisitorOptions as ScenarioThenVisitorOptions,
-} from './refractor/visitors/api-design-systems/scenario/ThenVisitor';
+} from './refractor/visitors/api-design-systems/scenario/ThenVisitor.ts';
 export type {
   default as StandardVisitor,
   StandardVisitorOptions,
-} from './refractor/visitors/api-design-systems/standard';
+} from './refractor/visitors/api-design-systems/standard/index.ts';
 export type {
   default as StandardIdentifierVisitor,
   StandardIdentifierVisitorOptions,
-} from './refractor/visitors/api-design-systems/standard-identifier';
+} from './refractor/visitors/api-design-systems/standard-identifier/index.ts';
 
-export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor';
+export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 
-export { keyMap, getNodeType } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 /**
  * API Design Systems 2021-05-07 specification elements.
@@ -104,4 +104,4 @@ export {
   ScenarioElement,
   StandardElement,
   StandardIdentifierElement,
-} from './refractor/registration';
+} from './refractor/registration.ts';

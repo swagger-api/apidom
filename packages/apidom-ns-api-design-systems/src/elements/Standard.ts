@@ -1,6 +1,6 @@
 import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import RequirementLevelElement from './RequirementLevel';
+import RequirementLevelElement from './RequirementLevel.ts';
 
 class Standard extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

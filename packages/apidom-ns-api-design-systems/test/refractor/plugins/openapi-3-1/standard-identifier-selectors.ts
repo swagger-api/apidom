@@ -5,7 +5,7 @@ import { expect } from 'chai';
 import { parse } from '@swagger-api/apidom-parser-adapter-json';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { refractPluginOpenApi3_1StandardIdentifierSelectors } from '../../../../src';
+import { refractPluginOpenApi3_1StandardIdentifierSelectors } from '../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -1,7 +1,7 @@
 import { T as stubTrue } from 'ramda';
 
-import { isJSONReferenceLikeElement } from '../../predicates';
-import AlternatingVisitor, { AlternatingVisitorOptions } from '../generics/AlternatingVisitor';
+import { isJSONReferenceLikeElement } from '../../predicates.ts';
+import AlternatingVisitor, { AlternatingVisitorOptions } from '../generics/AlternatingVisitor.ts';
 
 export type { AlternatingVisitorOptions as SchemaOrReferenceVisitorOptions };
 

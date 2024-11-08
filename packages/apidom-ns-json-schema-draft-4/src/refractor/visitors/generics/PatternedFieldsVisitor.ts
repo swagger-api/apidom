@@ -8,8 +8,8 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import { SpecPath } from './FixedFieldsVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import { SpecPath } from './FixedFieldsVisitor.ts';
 
 export type { SpecPath };
 

@@ -1,6 +1,6 @@
 import { ArrayElement } from '@swagger-api/apidom-core';
 
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as EnumVisitorOptions };
 

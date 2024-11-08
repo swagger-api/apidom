@@ -14,10 +14,10 @@ import {
 /**
  * JSON Schema Draft 4 specification elements.
  */
-import JSONSchemaElement from '../../elements/JSONSchema';
-import LinkDescriptionElement from '../../elements/LinkDescription';
-import MediaElement from '../../elements/Media';
-import { getNodeType } from '../../traversal/visitor';
+import JSONSchemaElement from '../../elements/JSONSchema.ts';
+import LinkDescriptionElement from '../../elements/LinkDescription.ts';
+import MediaElement from '../../elements/Media.ts';
+import { getNodeType } from '../../traversal/visitor.ts';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs

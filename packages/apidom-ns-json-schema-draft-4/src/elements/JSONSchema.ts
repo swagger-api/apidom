@@ -9,8 +9,8 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import JSONReferenceElement from './JSONReference';
-import MediaElement from './Media';
+import JSONReferenceElement from './JSONReference.ts';
+import MediaElement from './Media.ts';
 
 class JSONSchema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

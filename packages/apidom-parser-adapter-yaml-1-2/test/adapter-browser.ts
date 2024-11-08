@@ -40,7 +40,17 @@ describe('adapter-browser', function () {
 
   context('given non YAML 1.2', function () {
     specify('should detect proper media type', async function () {
-      assert.isFalse(await adapter.detect('test : test : test'));
+      assert.isFalse(
+        await adapter.detect(`
+      !!Invalid yaml:
+         "some: key" :
+        - "no quotes here: value"
+        - list without separator
+        another_key: "value" other_key: value
+      [no_key]
+      :another_invalid_struct!
+      `),
+      );
     });
   });
 
@@ -130,7 +140,7 @@ describe('adapter-browser', function () {
       `;
       const parseResult = await adapter.parse(syntaxErrorSpec, { sourceMap: true });
 
-      assert.isFalse(parseResult.isEmpty);
+      assert.isTrue(parseResult.isEmpty);
       assert.strictEqual(toValue(parseResult.errors.get(0)), '(Error YAML syntax error)');
     });
   });

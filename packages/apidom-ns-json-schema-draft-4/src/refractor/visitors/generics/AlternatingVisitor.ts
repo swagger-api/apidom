@@ -2,7 +2,7 @@ import { ifElse, always } from 'ramda';
 import { dispatch, stubUndefined } from 'ramda-adjunct';
 import { Element, BREAK } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 
 export type Alternator = { predicate: (element: unknown) => boolean; specPath: string[] };
 

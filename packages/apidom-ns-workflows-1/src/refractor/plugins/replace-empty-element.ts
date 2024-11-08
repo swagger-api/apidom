@@ -12,8 +12,8 @@ import {
 /**
  * Workflows 1.0.0 specification elements.
  */
-import InfoElement from '../../elements/Info';
-import { getNodeType } from '../../traversal/visitor';
+import InfoElement from '../../elements/Info.ts';
+import { getNodeType } from '../../traversal/visitor.ts';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs

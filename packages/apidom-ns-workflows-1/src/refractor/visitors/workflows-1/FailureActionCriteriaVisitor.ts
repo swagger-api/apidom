@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import FailureActionCriteriaElement from '../../../elements/nces/FailureActionCriteria';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import FailureActionCriteriaElement from '../../../elements/nces/FailureActionCriteria.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export interface FailureActionCriteriaVisitorOptions
   extends SpecificationVisitorOptions,

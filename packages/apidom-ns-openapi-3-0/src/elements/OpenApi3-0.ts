@@ -1,10 +1,10 @@
 import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import OpenapiElement from './Openapi';
-import InfoElement from './Info';
-import ComponentsElement from './Components';
-import PathsElement from './Paths';
-import ExternalDocumentationElement from './ExternalDocumentation';
+import OpenapiElement from './Openapi.ts';
+import InfoElement from './Info.ts';
+import ComponentsElement from './Components.ts';
+import PathsElement from './Paths.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 class OpenApi3_0 extends ObjectElement {

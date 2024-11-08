@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { includesClasses, toValue, SourceMapElement } from '@swagger-api/apidom-core';
 
-import * as adapter from '../../../../../src/adapter-node';
+import * as adapter from '../../../../../src/adapter-node.ts';
 
 const setupEmptyElement = async () => {
   const yamlSource = '{!str &anchor : value}';

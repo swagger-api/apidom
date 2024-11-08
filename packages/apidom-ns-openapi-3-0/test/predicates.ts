@@ -30,7 +30,7 @@ import {
   OperationElement,
   ReferenceElement,
   isReferenceElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isOpenApiApi3_0Element', function () {

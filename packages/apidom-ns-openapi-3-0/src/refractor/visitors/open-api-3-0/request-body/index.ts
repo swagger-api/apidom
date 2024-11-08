@@ -2,14 +2,14 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { StringElement, ObjectElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
-import RequestBodyElement from '../../../../elements/RequestBody';
-import MediaTypeElement from '../../../../elements/MediaType';
+import RequestBodyElement from '../../../../elements/RequestBody.ts';
+import MediaTypeElement from '../../../../elements/MediaType.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isMediaTypeElement } from '../../../../predicates';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isMediaTypeElement } from '../../../../predicates.ts';
 
 export interface RequestBodyVisitorOptions
   extends FixedFieldsVisitorOptions,

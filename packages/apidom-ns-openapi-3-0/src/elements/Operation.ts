@@ -7,10 +7,10 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import ReferenceElement from './Reference';
-import ExternalDocumentationElement from './ExternalDocumentation';
-import RequestBodyElement from './RequestBody';
-import ResponsesElement from './Responses';
+import ReferenceElement from './Reference.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
+import RequestBodyElement from './RequestBody.ts';
+import ResponsesElement from './Responses.ts';
 
 class Operation extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

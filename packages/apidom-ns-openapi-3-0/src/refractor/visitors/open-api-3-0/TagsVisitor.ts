@@ -1,10 +1,10 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import TagsElement from '../../../elements/nces/Tags';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import { isTagLikeElement } from '../../predicates';
+import TagsElement from '../../../elements/nces/Tags.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import { isTagLikeElement } from '../../predicates.ts';
 
 export interface TagsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 

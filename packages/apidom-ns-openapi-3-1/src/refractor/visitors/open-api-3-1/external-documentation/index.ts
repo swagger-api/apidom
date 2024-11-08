@@ -3,7 +3,7 @@ import {
   ExternalDocumentationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ExternalDocumentationElement from '../../../../elements/ExternalDocumentation';
+import ExternalDocumentationElement from '../../../../elements/ExternalDocumentation.ts';
 
 const {
   visitors: {

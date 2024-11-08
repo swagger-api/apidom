@@ -1,5 +1,5 @@
-import OperationServersElement from '../../../../elements/nces/OperationServers';
-import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor';
+import OperationServersElement from '../../../../elements/nces/OperationServers.ts';
+import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor.ts';
 
 export type { ServersVisitorOptions };
 

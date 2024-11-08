@@ -1,7 +1,7 @@
 import { StringElement } from '@swagger-api/apidom-core';
 import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import LicenseElement from './License';
+import LicenseElement from './License.ts';
 
 class Info extends InfoElement {
   get license(): LicenseElement | undefined {

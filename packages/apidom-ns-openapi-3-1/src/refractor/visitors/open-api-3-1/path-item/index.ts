@@ -3,7 +3,7 @@ import {
   PathItemVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import PathItemElement from '../../../../elements/PathItem';
+import PathItemElement from '../../../../elements/PathItem.ts';
 
 const {
   visitors: {

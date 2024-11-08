@@ -15,8 +15,8 @@ import {
 import { compile as compileJSONPointerTokens } from '@swagger-api/apidom-json-pointer';
 import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import * as openApi3_1Predicates from '../predicates';
-import openApi3_1Namespace from '../namespace';
+import * as openApi3_1Predicates from '../predicates.ts';
+import openApi3_1Namespace from '../namespace.ts';
 
 export type Predicates = typeof openApi3_1Predicates & {
   isElement: typeof isElement;

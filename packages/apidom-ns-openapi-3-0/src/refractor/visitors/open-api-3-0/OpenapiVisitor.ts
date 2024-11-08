@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { StringElement, BREAK, toValue } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import OpenapiElement from '../../../elements/Openapi';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import OpenapiElement from '../../../elements/Openapi.ts';
 
 export interface OpenapiVisitorOptions
   extends SpecificationVisitorOptions,

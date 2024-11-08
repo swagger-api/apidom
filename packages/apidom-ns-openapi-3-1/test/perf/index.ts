@@ -1,8 +1,8 @@
 import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 
-import refractBench from './refract';
-import visitorShortcutBench from './visitor-shortcut';
+import refractBench from './refract.ts';
+import visitorShortcutBench from './visitor-shortcut.ts';
 
 const suite = new Benchmark.Suite();
 

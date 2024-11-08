@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import dedent from 'dedent';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { OpenApi3_1Element, refractorPluginNormalizeOperationIds } from '../../../../src';
+import { OpenApi3_1Element, refractorPluginNormalizeOperationIds } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('plugins', function () {

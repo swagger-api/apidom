@@ -3,7 +3,7 @@ import {
   ContactVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ContactElement from '../../../../elements/Contact';
+import ContactElement from '../../../../elements/Contact.ts';
 
 const {
   visitors: {

@@ -3,7 +3,7 @@ import {
   EncodingVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import EncodingElement from '../../../../elements/Encoding';
+import EncodingElement from '../../../../elements/Encoding.ts';
 
 const {
   visitors: {

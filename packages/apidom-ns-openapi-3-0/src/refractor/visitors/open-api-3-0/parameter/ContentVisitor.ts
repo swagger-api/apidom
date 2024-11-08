@@ -1,5 +1,5 @@
-import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
-import ParameterContentElement from '../../../../elements/nces/ParameterContent';
+import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor.ts';
+import ParameterContentElement from '../../../../elements/nces/ParameterContent.ts';
 
 export type { ContentVisitorOptions };
 

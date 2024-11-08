@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import MediaTypeEncodingElement from '../../../../elements/nces/MediaTypeEncoding';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import MediaTypeEncodingElement from '../../../../elements/nces/MediaTypeEncoding.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface EncodingVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

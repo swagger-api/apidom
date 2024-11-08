@@ -3,7 +3,7 @@ import {
   LinkVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import LinkElement from '../../../../elements/Link';
+import LinkElement from '../../../../elements/Link.ts';
 
 const {
   visitors: {

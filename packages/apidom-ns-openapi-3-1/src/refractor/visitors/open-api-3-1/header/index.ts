@@ -3,7 +3,7 @@ import {
   HeaderVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import HeaderElement from '../../../../elements/Header';
+import HeaderElement from '../../../../elements/Header.ts';
 
 const {
   visitors: {

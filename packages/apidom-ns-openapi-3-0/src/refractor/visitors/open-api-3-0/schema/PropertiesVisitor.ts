@@ -4,8 +4,8 @@ import {
   PropertiesVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import ReferenceElement from '../../../../elements/Reference';
-import { isReferenceElement } from '../../../../predicates';
+import ReferenceElement from '../../../../elements/Reference.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 export type { PropertiesVisitorOptions };
 

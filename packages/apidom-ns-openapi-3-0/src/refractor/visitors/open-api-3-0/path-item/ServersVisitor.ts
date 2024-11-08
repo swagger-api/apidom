@@ -1,5 +1,5 @@
-import PathItemServersElement from '../../../../elements/nces/PathItemServers';
-import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor';
+import PathItemServersElement from '../../../../elements/nces/PathItemServers.ts';
+import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor.ts';
 
 export type { ServersVisitorOptions };
 

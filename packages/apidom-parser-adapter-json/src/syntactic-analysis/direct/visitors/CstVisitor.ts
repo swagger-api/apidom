@@ -13,7 +13,7 @@ import {
   isPrimitiveElement,
 } from '@swagger-api/apidom-core';
 
-import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
+import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode.ts';
 
 /* eslint-disable no-underscore-dangle */
 

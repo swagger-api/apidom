@@ -44,39 +44,39 @@ import {
 /**
  * OpenAPI 3.1.0 specification elements.
  */
-import InfoElement from '../../elements/Info';
-import ContactElement from '../../elements/Contact';
-import LicenseElement from '../../elements/License';
-import PathsElement from '../../elements/Paths';
-import PathItemElement from '../../elements/PathItem';
-import ComponentsElement from '../../elements/Components';
-import ExternalDocumentationElement from '../../elements/ExternalDocumentation';
-import OperationElement from '../../elements/Operation';
-import SchemaElement from '../../elements/Schema';
-import RequestBodyElement from '../../elements/RequestBody';
-import ResponsesElement from '../../elements/Responses';
-import ResponseElement from '../../elements/Response';
-import ServerElement from '../../elements/Server';
-import DiscriminatorElement from '../../elements/Discriminator';
-import XmlElement from '../../elements/Xml';
-import OAuthFlowsElement from '../../elements/OAuthFlows';
-import OAuthFlowElement from '../../elements/OAuthFlow';
-import ServerVariableElement from '../../elements/ServerVariable';
-import ParameterElement from '../../elements/Parameter';
-import ExampleElement from '../../elements/Example';
-import HeaderElement from '../../elements/Header';
-import SecuritySchemeElement from '../../elements/SecurityScheme';
-import LinkElement from '../../elements/Link';
-import CallbackElement from '../../elements/Callback';
-import MediaTypeElement from '../../elements/MediaType';
-import EncodingElement from '../../elements/Encoding';
-import SecurityRequirementElement from '../../elements/SecurityRequirement';
-import TagElement from '../../elements/Tag';
+import InfoElement from '../../elements/Info.ts';
+import ContactElement from '../../elements/Contact.ts';
+import LicenseElement from '../../elements/License.ts';
+import PathsElement from '../../elements/Paths.ts';
+import PathItemElement from '../../elements/PathItem.ts';
+import ComponentsElement from '../../elements/Components.ts';
+import ExternalDocumentationElement from '../../elements/ExternalDocumentation.ts';
+import OperationElement from '../../elements/Operation.ts';
+import SchemaElement from '../../elements/Schema.ts';
+import RequestBodyElement from '../../elements/RequestBody.ts';
+import ResponsesElement from '../../elements/Responses.ts';
+import ResponseElement from '../../elements/Response.ts';
+import ServerElement from '../../elements/Server.ts';
+import DiscriminatorElement from '../../elements/Discriminator.ts';
+import XmlElement from '../../elements/Xml.ts';
+import OAuthFlowsElement from '../../elements/OAuthFlows.ts';
+import OAuthFlowElement from '../../elements/OAuthFlow.ts';
+import ServerVariableElement from '../../elements/ServerVariable.ts';
+import ParameterElement from '../../elements/Parameter.ts';
+import ExampleElement from '../../elements/Example.ts';
+import HeaderElement from '../../elements/Header.ts';
+import SecuritySchemeElement from '../../elements/SecurityScheme.ts';
+import LinkElement from '../../elements/Link.ts';
+import CallbackElement from '../../elements/Callback.ts';
+import MediaTypeElement from '../../elements/MediaType.ts';
+import EncodingElement from '../../elements/Encoding.ts';
+import SecurityRequirementElement from '../../elements/SecurityRequirement.ts';
+import TagElement from '../../elements/Tag.ts';
 // non-concrete Elements (NCEs)
-import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems';
-import WebhooksElement from '../../elements/nces/Webhooks';
-import { getNodeType } from '../../traversal/visitor';
-import { Predicates } from '../toolbox';
+import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems.ts';
+import WebhooksElement from '../../elements/nces/Webhooks.ts';
+import { getNodeType } from '../../traversal/visitor.ts';
+import { Predicates } from '../toolbox.ts';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs

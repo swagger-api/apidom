@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { DiscriminatorElement } from '../../../../src';
+import { DiscriminatorElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

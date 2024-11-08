@@ -3,7 +3,7 @@ import {
   DiscriminatorVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import DiscriminatorElement from '../../../../elements/Discriminator';
+import DiscriminatorElement from '../../../../elements/Discriminator.ts';
 
 const {
   visitors: {

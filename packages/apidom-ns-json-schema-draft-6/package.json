@@ -29,8 +29,8 @@
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' 'test/**/*.mjs' ./dist ./types",
     "test": "npm run build:es && cross-env BABEL_ENV=es babel test --out-dir test --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && cross-env NODE_ENV=test mocha",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 mocha",
-    "typescript:check-types": "tsc -p check-types.tsconfig.json --noEmit && tsc -p check-types-test.tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
+    "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },

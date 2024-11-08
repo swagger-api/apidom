@@ -2,10 +2,12 @@ import { Mixin } from 'ts-mixer';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement, isResponseElement } from '../../../../predicates';
-import AlternatingVisitor, { AlternatingVisitorOptions } from '../../generics/AlternatingVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import { isReferenceLikeElement } from '../../../predicates.ts';
+import { isReferenceElement, isResponseElement } from '../../../../predicates.ts';
+import AlternatingVisitor, {
+  AlternatingVisitorOptions,
+} from '../../generics/AlternatingVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface DefaultVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 

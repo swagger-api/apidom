@@ -6,7 +6,7 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import OperationElement from './Operation';
+import OperationElement from './Operation.ts';
 
 class PathItem extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

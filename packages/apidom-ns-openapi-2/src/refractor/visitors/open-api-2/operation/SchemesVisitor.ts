@@ -1,7 +1,7 @@
 import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import OperationSchemesElement from '../../../../elements/nces/OperationSchemes';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import OperationSchemesElement from '../../../../elements/nces/OperationSchemes.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as SchemesVisitorOptions };
 

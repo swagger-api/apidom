@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 import { sexprs, toValue } from '@swagger-api/apidom-core';
 
-import { SchemaElement } from '../../../../src';
+import { SchemaElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

@@ -3,7 +3,7 @@ import {
   OAuthFlowVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OAuthFlowElement from '../../../../elements/OAuthFlow';
+import OAuthFlowElement from '../../../../elements/OAuthFlow.ts';
 
 const {
   visitors: {

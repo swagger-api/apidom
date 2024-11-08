@@ -6,9 +6,9 @@ import {
   CallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import CallbackElement from '../../../../elements/Callback';
-import ReferenceElement from '../../../../elements/Reference';
-import { isReferenceElement } from '../../../../predicates';
+import CallbackElement from '../../../../elements/Callback.ts';
+import ReferenceElement from '../../../../elements/Reference.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 const {
   visitors: {

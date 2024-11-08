@@ -2,8 +2,8 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export interface ContentVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

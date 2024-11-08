@@ -1,5 +1,5 @@
-import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
-import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples';
+import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor.ts';
+import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples.ts';
 
 export type { ExamplesVisitorOptions };
 

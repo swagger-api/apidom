@@ -1,10 +1,10 @@
 import { Element, cloneDeep } from '@swagger-api/apidom-core';
 
-import HeaderElement from '../../../elements/Header';
-import ExampleElement from '../../../elements/Example';
-import type { Toolbox } from '../../toolbox';
-import OpenApi3_1Element from '../../../elements/OpenApi3-1';
-import NormalizeStorage from './NormalizeStorage';
+import HeaderElement from '../../../elements/Header.ts';
+import ExampleElement from '../../../elements/Example.ts';
+import type { Toolbox } from '../../toolbox.ts';
+import OpenApi3_1Element from '../../../elements/OpenApi3-1.ts';
+import NormalizeStorage from './NormalizeStorage.ts';
 
 /**
  * Override of Schema.example and Schema.examples field inside the Header Objects.

@@ -1,8 +1,8 @@
 import { map, pipe, split, startsWith, tail } from 'ramda';
 import { isEmptyString, trimCharsStart } from 'ramda-adjunct';
 
-import unescape from './unescape';
-import InvalidJsonPointerError from './errors/InvalidJsonPointerError';
+import unescape from './unescape.ts';
+import InvalidJsonPointerError from './errors/InvalidJsonPointerError.ts';
 
 // parse :: String -> String[]
 const parse = (pointer: string): string[] => {

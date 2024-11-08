@@ -3,7 +3,7 @@ import dedent from 'dedent';
 import { sexprs } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { OpenApi3_1Element, refractorPluginNormalizeServers } from '../../../../src';
+import { OpenApi3_1Element, refractorPluginNormalizeServers } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('plugins', function () {

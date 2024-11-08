@@ -3,7 +3,7 @@ import {
   TagVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import TagElement from '../../../../elements/Tag';
+import TagElement from '../../../../elements/Tag.ts';
 
 const {
   visitors: {

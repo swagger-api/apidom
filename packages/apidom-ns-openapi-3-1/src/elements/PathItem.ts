@@ -1,6 +1,6 @@
 import { PathItemElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OperationElement from './Operation';
+import OperationElement from './Operation.ts';
 
 class PathItem extends PathItemElement {
   get GET(): OperationElement {

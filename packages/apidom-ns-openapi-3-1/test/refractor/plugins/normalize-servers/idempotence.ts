@@ -9,7 +9,7 @@ import {
   refractorPluginNormalizeServers,
   keyMap,
   getNodeType,
-} from '../../../../src';
+} from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('plugins', function () {

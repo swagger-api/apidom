@@ -3,13 +3,13 @@ import { Tree as WebTree } from 'web-tree-sitter';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { visit } from '@swagger-api/apidom-ast';
 
-import TreeCursorIterator from '../TreeCursorIterator';
-import CstVisitor, { keyMap as cstKeyMap } from './visitors/CstVisitor';
+import TreeCursorIterator from '../TreeCursorIterator.ts';
+import CstVisitor, { keyMap as cstKeyMap } from './visitors/CstVisitor.ts';
 import JsonAstVisitor, {
   keyMap as astKeyMap,
   isNode,
   getNodeType,
-} from './visitors/JsonAstVisitor';
+} from './visitors/JsonAstVisitor.ts';
 
 type Tree = WebTree | NodeTree;
 

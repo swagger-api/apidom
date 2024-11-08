@@ -4,7 +4,7 @@ import {
   ItemsVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import { isReferenceElement } from '../../../../predicates';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 export type { ItemsVisitorOptions };
 

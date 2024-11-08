@@ -1,10 +1,10 @@
 import { Element, ArrayElement } from '@swagger-api/apidom-core';
 import { OperationSecurityElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OpenApi3_1Element from '../../elements/OpenApi3-1';
-import OperationElement from '../../elements/Operation';
-import type { Toolbox } from '../toolbox';
-import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
+import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import OperationElement from '../../elements/Operation.ts';
+import type { Toolbox } from '../toolbox.ts';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 /**
  * Override of Security Requirement Objects.
  *

@@ -8,14 +8,14 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import PathItemElement from '../../../../elements/PathItem';
-import OperationElement from '../../../../elements/Operation';
-import { isOperationElement } from '../../../../predicates';
+import PathItemElement from '../../../../elements/PathItem.ts';
+import OperationElement from '../../../../elements/Operation.ts';
+import { isOperationElement } from '../../../../predicates.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface PathItemVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

@@ -8,15 +8,15 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import ReferenceElement from '../../../../elements/Reference';
-import ResponsesElement from '../../../../elements/Responses';
+import ReferenceElement from '../../../../elements/Reference.ts';
+import ResponsesElement from '../../../../elements/Responses.ts';
 import MixedFieldsVisitor, {
   MixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/MixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement, isResponseElement } from '../../../../predicates';
+} from '../../generics/MixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
+import { isReferenceElement, isResponseElement } from '../../../../predicates.ts';
 
 export interface ResponsesVisitorOptions
   extends MixedFieldsVisitorOptions,

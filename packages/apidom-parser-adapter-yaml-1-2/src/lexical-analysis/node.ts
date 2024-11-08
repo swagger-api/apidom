@@ -1,6 +1,6 @@
 import Parser, { Tree } from 'tree-sitter';
 // @ts-ignore
-import YAMLLanguage from 'tree-sitter-yaml';
+import YAMLLanguage from '@tree-sitter-grammars/tree-sitter-yaml';
 
 const parser = new Parser();
 parser.setLanguage(YAMLLanguage);

@@ -1,5 +1,5 @@
-import escape from './escape';
-import CompilationJsonPointerError from './errors/CompilationJsonPointerError';
+import escape from './escape.ts';
+import CompilationJsonPointerError from './errors/CompilationJsonPointerError.ts';
 
 // compile :: String[] -> String
 const compile = (tokens: string[]): string => {

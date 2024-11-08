@@ -3,7 +3,7 @@ import {
   SecuritySchemeVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import SecuritySchemeElement from '../../../../elements/SecurityScheme';
+import SecuritySchemeElement from '../../../../elements/SecurityScheme.ts';
 
 const {
   visitors: {

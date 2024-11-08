@@ -1,7 +1,7 @@
 import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import ContactElement from './Contact';
-import LicenseElement from './License';
+import ContactElement from './Contact.ts';
+import LicenseElement from './License.ts';
 
 class Info extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

@@ -18,7 +18,7 @@
     }
   },
   "scripts": {
-    "prebuild": "cd ./node_modules/tree-sitter && node-gyp rebuild && cd ../tree-sitter-json && tree-sitter generate --abi=13 ./grammar.js && tree-sitter build-wasm && node-gyp rebuild && cd ../tree-sitter-yaml && cross-env BABEL_ENV=cjs NODE_OPTIONS='-r core-js/stable @babel/register' tree-sitter generate --abi=13 ./grammar.js && tree-sitter build-wasm && node-gyp rebuild",
+    "prebuild": "cd ./node_modules/tree-sitter && node-gyp rebuild && cd ../tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild && cd ../@tree-sitter-grammars/tree-sitter-yaml && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild",
     "build": "lerna run build",
     "build:es": "lerna run build:es",
     "build:cjs": "lerna run build:cjs",
@@ -50,7 +50,6 @@
     "@babel/plugin-transform-runtime": "=7.25.9",
     "@babel/preset-env": "=7.26.0",
     "@babel/preset-typescript": "=7.26.0",
-    "@babel/register": "=7.25.9",
     "@commitlint/cli": "=19.5.0",
     "@commitlint/config-conventional": "=19.5.0",
     "@types/benchmark": "^2.1.5",

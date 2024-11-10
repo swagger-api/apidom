@@ -3,13 +3,13 @@ import { Tree as WebTree } from 'web-tree-sitter';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { visit, YamlJsonSchema as JsonSchema, YamlReferenceManager } from '@swagger-api/apidom-ast';
 
-import CstVisitor, { keyMap as cstKeyMap, isNode as isCstNode } from './visitors/CstVisitor';
+import CstVisitor, { keyMap as cstKeyMap, isNode as isCstNode } from './visitors/CstVisitor.ts';
 import YamlAstVisitor, {
   keyMap as astKeyMap,
   isNode as isAstNode,
   getNodeType as getAstNodeType,
-} from './visitors/YamlAstVisitor';
-import TreeCursorIterator from '../TreeCursorIterator';
+} from './visitors/YamlAstVisitor.ts';
+import TreeCursorIterator from '../TreeCursorIterator.ts';
 
 type Tree = WebTree | NodeTree;
 

@@ -9,7 +9,7 @@ import {
   SpecPath,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OpenApi3_1Element from '../../../elements/OpenApi3-1';
+import OpenApi3_1Element from '../../../elements/OpenApi3-1.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 export interface OpenApi3_1VisitorOptions

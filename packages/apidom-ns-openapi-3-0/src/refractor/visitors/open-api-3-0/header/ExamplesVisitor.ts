@@ -1,5 +1,5 @@
-import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
-import HeaderExamplesElement from '../../../../elements/nces/HeaderExamples';
+import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor.ts';
+import HeaderExamplesElement from '../../../../elements/nces/HeaderExamples.ts';
 
 export type { ExamplesVisitorOptions };
 

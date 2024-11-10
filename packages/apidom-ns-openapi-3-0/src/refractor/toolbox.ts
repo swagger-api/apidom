@@ -9,8 +9,8 @@ import {
   hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 
-import * as openApi3_0Predicates from '../predicates';
-import openApi3_0Namespace from '../namespace';
+import * as openApi3_0Predicates from '../predicates.ts';
+import openApi3_0Namespace from '../namespace.ts';
 
 export type Predicates = typeof openApi3_0Predicates & {
   isElement: typeof isElement;

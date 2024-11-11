@@ -1,0 +1,22 @@
+{
+  "settings": {
+    "import/resolver": {
+      "typescript": {
+        "project": ["./tsconfig.json"]
+      }
+    }
+  },
+  "rules": {
+    "import/extensions": [
+      "error",
+      "always",
+      {
+        "ts": "always",
+        "tsx": "always",
+        "js": "always",
+        "jsx": "never",
+        "ignorePackages": true
+      }
+    ]
+  }
+}

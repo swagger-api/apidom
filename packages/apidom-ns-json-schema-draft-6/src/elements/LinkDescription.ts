@@ -5,7 +5,7 @@ import {
   JSONReferenceElement,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import JSONSchema from './JSONSchema';
+import JSONSchema from './JSONSchema.ts';
 
 /* eslint-disable class-methods-use-this */
 

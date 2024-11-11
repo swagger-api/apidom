@@ -1,7 +1,7 @@
 import { ArrayElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import SwaggerProducesElement from '../../../elements/nces/SwaggerProduces';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import SwaggerProducesElement from '../../../elements/nces/SwaggerProduces.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as ProducesVisitorOptions };
 

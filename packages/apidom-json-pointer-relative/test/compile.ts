@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { compile } from '../src';
+import { compile } from '../src/index.ts';
 
 describe('apidom-json-pointer-relative', function () {
   context('compile', function () {

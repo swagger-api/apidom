@@ -6,7 +6,7 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import JSONSchemaElement from './JSONSchema';
+import JSONSchemaElement from './JSONSchema.ts';
 
 class Workflow extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

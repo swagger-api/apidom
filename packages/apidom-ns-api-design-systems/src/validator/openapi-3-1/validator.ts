@@ -12,14 +12,14 @@ import {
   ResponseElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import MainElement from '../../elements/Main';
-import ScenarioElement from '../../elements/Scenario';
-import RequirementElement from '../../elements/Requirement';
-import RequirementLevelElement from '../../elements/RequirementLevel';
-import StandardIdentifier from '../../elements/StandardIdentifier';
-import select from './selector';
-import access from './accessor';
-import { may } from './requirement-level';
+import MainElement from '../../elements/Main.ts';
+import ScenarioElement from '../../elements/Scenario.ts';
+import RequirementElement from '../../elements/Requirement.ts';
+import RequirementLevelElement from '../../elements/RequirementLevel.ts';
+import StandardIdentifier from '../../elements/StandardIdentifier.ts';
+import select from './selector.ts';
+import access from './accessor.ts';
+import { may } from './requirement-level.ts';
 
 const makeMessage = (
   value: Element,

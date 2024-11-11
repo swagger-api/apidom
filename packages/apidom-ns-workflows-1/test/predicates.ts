@@ -48,7 +48,7 @@ import {
   ComponentsElement,
   CriterionElement,
   ReferenceElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isWorkflowsSpecificationElement', function () {

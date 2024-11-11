@@ -5,8 +5,8 @@ import {
   SchemaVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import JSONSchemaElement from '../../../../elements/JSONSchema';
-import { SpecPath } from '../../generics/FixedFieldsVisitor';
+import JSONSchemaElement from '../../../../elements/JSONSchema.ts';
+import { SpecPath } from '../../generics/FixedFieldsVisitor.ts';
 
 const { $visitor: SchemaVisitor } = OpenApi3_1Specification.visitors.document.objects.Schema;
 

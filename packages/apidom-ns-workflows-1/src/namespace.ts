@@ -1,18 +1,18 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 
-import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
-import WorkflowsSpecElement from './elements/WorkflowsSpec';
-import InfoElement from './elements/Info';
-import SourceDescriptionElement from './elements/SourceDescription';
-import WorkflowElement from './elements/Workflow';
-import StepElement from './elements/Step';
-import ParameterElement from './elements/Parameter';
-import SuccessActionElement from './elements/SuccessAction';
-import FailureActionElement from './elements/FailureAction';
-import ComponentsElement from './elements/Components';
-import CriterionElement from './elements/Criterion';
-import ReferenceElement from './elements/Reference';
-import JSONSchemaElement from './elements/JSONSchema';
+import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1.ts';
+import WorkflowsSpecElement from './elements/WorkflowsSpec.ts';
+import InfoElement from './elements/Info.ts';
+import SourceDescriptionElement from './elements/SourceDescription.ts';
+import WorkflowElement from './elements/Workflow.ts';
+import StepElement from './elements/Step.ts';
+import ParameterElement from './elements/Parameter.ts';
+import SuccessActionElement from './elements/SuccessAction.ts';
+import FailureActionElement from './elements/FailureAction.ts';
+import ComponentsElement from './elements/Components.ts';
+import CriterionElement from './elements/Criterion.ts';
+import ReferenceElement from './elements/Reference.ts';
+import JSONSchemaElement from './elements/JSONSchema.ts';
 
 const workflows1 = {
   namespace: (options: NamespacePluginOptions) => {

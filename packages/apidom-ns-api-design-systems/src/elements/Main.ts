@@ -6,7 +6,7 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import InfoElement from './Info';
+import InfoElement from './Info.ts';
 
 class Main extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

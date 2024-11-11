@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { WorkflowsSpecification1Element } from '../../../../src';
+import { WorkflowsSpecification1Element } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

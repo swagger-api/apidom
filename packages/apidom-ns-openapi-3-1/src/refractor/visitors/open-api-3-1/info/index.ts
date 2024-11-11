@@ -3,7 +3,7 @@ import {
   InfoVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import InfoElement from '../../../../elements/Info';
+import InfoElement from '../../../../elements/Info.ts';
 
 const {
   visitors: {

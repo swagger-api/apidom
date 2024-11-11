@@ -2,15 +2,15 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
-import CallbackElement from '../../../../elements/Callback';
-import PathItemElement from '../../../../elements/PathItem';
+import CallbackElement from '../../../../elements/Callback.ts';
+import PathItemElement from '../../../../elements/PathItem.ts';
 import PatternedFieldsVisitor, {
   PatternedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import MapVisitor from '../../generics/MapVisitor';
-import { isPathItemElement } from '../../../../predicates';
+} from '../../generics/PatternedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import MapVisitor from '../../generics/MapVisitor.ts';
+import { isPathItemElement } from '../../../../predicates.ts';
 
 export interface CallbackVisitorOptions
   extends PatternedFieldsVisitorOptions,

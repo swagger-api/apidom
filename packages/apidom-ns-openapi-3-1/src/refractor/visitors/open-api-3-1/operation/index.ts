@@ -3,7 +3,7 @@ import {
   OperationVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OperationElement from '../../../../elements/Operation';
+import OperationElement from '../../../../elements/Operation.ts';
 
 const {
   visitors: {

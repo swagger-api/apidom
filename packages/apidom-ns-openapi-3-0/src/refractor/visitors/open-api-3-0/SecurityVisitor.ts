@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, isObjectElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import SecurityElement from '../../../elements/nces/Security';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import SecurityElement from '../../../elements/nces/Security.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export interface SecurityVisitorOptions
   extends SpecificationVisitorOptions,

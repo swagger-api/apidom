@@ -1,5 +1,5 @@
-import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor';
-import ParameterExamplesElement from '../../../../elements/nces/ParameterExamples';
+import BaseExamplesVisitor, { ExamplesVisitorOptions } from '../ExamplesVisitor.ts';
+import ParameterExamplesElement from '../../../../elements/nces/ParameterExamples.ts';
 
 export type { ExamplesVisitorOptions };
 

@@ -5,7 +5,7 @@ import {
   isArrayElement,
 } from '@swagger-api/apidom-core';
 
-import OpenApi3_1Element from '../../../elements/OpenApi3-1';
+import OpenApi3_1Element from '../../../elements/OpenApi3-1.ts';
 
 type JSONPointer = string;
 

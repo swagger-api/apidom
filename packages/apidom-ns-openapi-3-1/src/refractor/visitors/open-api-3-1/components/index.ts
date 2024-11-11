@@ -3,7 +3,7 @@ import {
   ComponentsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ComponentsElement from '../../../../elements/Components';
+import ComponentsElement from '../../../../elements/Components.ts';
 
 const {
   visitors: {

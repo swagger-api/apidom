@@ -10,10 +10,10 @@ import {
 } from '@swagger-api/apidom-core';
 import { JSONSchemaElement, MediaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import ReferenceElement from './Reference';
-import DiscriminatorElement from './Discriminator';
-import XmlElement from './Xml';
-import ExternalDocumentationElement from './ExternalDocumentation';
+import ReferenceElement from './Reference.ts';
+import DiscriminatorElement from './Discriminator.ts';
+import XmlElement from './Xml.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 /* eslint-disable class-methods-use-this */
 class Schema extends JSONSchemaElement {

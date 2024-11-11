@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { parse, InvalidRelativeJsonPointerError } from '../src';
+import { parse, InvalidRelativeJsonPointerError } from '../src/index.ts';
 
 describe('apidom-json-pointer-relative', function () {
   context('parse', function () {

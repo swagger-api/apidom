@@ -7,8 +7,8 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import ServerElement from './Server';
-import OperationElement from './Operation';
+import ServerElement from './Server.ts';
+import OperationElement from './Operation.ts';
 
 class Link extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

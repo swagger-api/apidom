@@ -7,32 +7,32 @@ import {
 } from '@swagger-api/apidom-core';
 import type { ElementPredicate } from '@swagger-api/apidom-core';
 
-import CallbackElement from './elements/Callback';
-import ComponentsElement from './elements/Components';
-import ContactElement from './elements/Contact';
-import ExampleElement from './elements/Example';
-import ExternalDocumentationElement from './elements/ExternalDocumentation';
-import HeaderElement from './elements/Header';
-import InfoElement from './elements/Info';
-import JsonSchemaDialectElement from './elements/JsonSchemaDialect';
-import LicenseElement from './elements/License';
-import LinkElement from './elements/Link';
-import OpenapiElement from './elements/Openapi';
-import OpenApi3_1Element from './elements/OpenApi3-1';
-import OperationElement from './elements/Operation';
-import ParameterElement from './elements/Parameter';
-import PathItemElement from './elements/PathItem';
-import PathsElement from './elements/Paths';
-import ReferenceElement from './elements/Reference';
-import RequestBodyElement from './elements/RequestBody';
-import ResponseElement from './elements/Response';
-import ResponsesElement from './elements/Responses';
-import SchemaElement from './elements/Schema';
-import SecurityRequirementElement from './elements/SecurityRequirement';
-import SecuritySchemeElement from './elements/SecurityScheme';
-import ServerElement from './elements/Server';
-import ServerVariableElement from './elements/ServerVariable';
-import MediaTypeElement from './elements/MediaType';
+import CallbackElement from './elements/Callback.ts';
+import ComponentsElement from './elements/Components.ts';
+import ContactElement from './elements/Contact.ts';
+import ExampleElement from './elements/Example.ts';
+import ExternalDocumentationElement from './elements/ExternalDocumentation.ts';
+import HeaderElement from './elements/Header.ts';
+import InfoElement from './elements/Info.ts';
+import JsonSchemaDialectElement from './elements/JsonSchemaDialect.ts';
+import LicenseElement from './elements/License.ts';
+import LinkElement from './elements/Link.ts';
+import OpenapiElement from './elements/Openapi.ts';
+import OpenApi3_1Element from './elements/OpenApi3-1.ts';
+import OperationElement from './elements/Operation.ts';
+import ParameterElement from './elements/Parameter.ts';
+import PathItemElement from './elements/PathItem.ts';
+import PathsElement from './elements/Paths.ts';
+import ReferenceElement from './elements/Reference.ts';
+import RequestBodyElement from './elements/RequestBody.ts';
+import ResponseElement from './elements/Response.ts';
+import ResponsesElement from './elements/Responses.ts';
+import SchemaElement from './elements/Schema.ts';
+import SecurityRequirementElement from './elements/SecurityRequirement.ts';
+import SecuritySchemeElement from './elements/SecurityScheme.ts';
+import ServerElement from './elements/Server.ts';
+import ServerVariableElement from './elements/ServerVariable.ts';
+import MediaTypeElement from './elements/MediaType.ts';
 
 export const isCallbackElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

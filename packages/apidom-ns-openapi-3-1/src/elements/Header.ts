@@ -1,6 +1,6 @@
 import { HeaderElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import SchemaElement from './Schema';
+import SchemaElement from './Schema.ts';
 
 class Header extends HeaderElement {
   get schema(): SchemaElement | undefined {

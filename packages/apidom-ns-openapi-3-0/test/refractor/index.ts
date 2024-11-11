@@ -14,8 +14,8 @@ import {
   OpenapiElement,
   InfoElement as Info30Element,
   isOpenapiElement,
-} from '../../src';
-import * as predicates from '../../src/predicates';
+} from '../../src/index.ts';
+import * as predicates from '../../src/predicates.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 
-import { evaluate, EvaluationRelativeJsonPointerError } from '../src';
+import { evaluate, EvaluationRelativeJsonPointerError } from '../src/index.ts';
 
 describe('apidom-json-pointer-relative', function () {
   context('evaluate', function () {

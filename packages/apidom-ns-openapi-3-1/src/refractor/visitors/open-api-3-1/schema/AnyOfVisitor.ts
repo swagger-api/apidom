@@ -9,7 +9,7 @@ import {
 
 import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor';
+} from './ParentSchemaAwareVisitor.ts';
 
 export interface AnyOfVisitorOptions
   extends SpecificationVisitorOptions,

@@ -5,9 +5,9 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1';
+} from '../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1.ts';
 
 export interface WorkflowsSpecificationVisitorOptions
   extends FixedFieldsVisitorOptions,

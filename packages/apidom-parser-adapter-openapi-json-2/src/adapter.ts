@@ -4,7 +4,7 @@ import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
 import openApiNamespace, { SwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
 
-export { default as mediaTypes } from './media-types';
+export { default as mediaTypes } from './media-types.ts';
 
 export const detectionRegExp = /"swagger"\s*:\s*"(?<version_json>2\.0)"/;
 

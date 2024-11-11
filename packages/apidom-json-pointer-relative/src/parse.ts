@@ -1,7 +1,7 @@
 import { parse as parseJsonPointer } from '@swagger-api/apidom-json-pointer';
 
-import InvalidRelativeJsonPointerError from './errors/InvalidRelativeJsonPointerError';
-import { RelativeJsonPointer } from './types';
+import InvalidRelativeJsonPointerError from './errors/InvalidRelativeJsonPointerError.ts';
+import { RelativeJsonPointer } from './types.ts';
 
 const nonNegativeIntegerPrefixRegExp = '(?<nonNegativeIntegerPrefix>[1-9]\\d*|0)';
 const indexManipulationRegExp = '(?<indexManipulation>[+-][1-9]\\d*|0)';

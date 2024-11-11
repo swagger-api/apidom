@@ -1,8 +1,8 @@
 import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import WorkflowsSpecElement from './WorkflowsSpec';
-import InfoElement from './Info';
-import ComponentsElement from './Components';
+import WorkflowsSpecElement from './WorkflowsSpec.ts';
+import InfoElement from './Info.ts';
+import ComponentsElement from './Components.ts';
 
 class WorkflowsSpecification1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

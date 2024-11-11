@@ -3,7 +3,7 @@ import { isNonEmptyString } from 'ramda-adjunct';
 import PatternedFieldsVisitor, {
   SpecPath,
   PatternedFieldsVisitorOptions,
-} from './PatternedFieldsVisitor';
+} from './PatternedFieldsVisitor.ts';
 
 export type { SpecPath };
 export interface MapVisitorOptions extends PatternedFieldsVisitorOptions {}

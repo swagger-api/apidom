@@ -8,7 +8,7 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 
 export type SpecPath<T = string[]> = (element: unknown) => T;
 

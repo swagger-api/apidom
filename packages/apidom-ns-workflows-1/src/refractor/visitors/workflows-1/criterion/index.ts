@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import CriterionElement from '../../../../elements/Criterion';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import CriterionElement from '../../../../elements/Criterion.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface CriterionVisitorOptions
   extends FixedFieldsVisitorOptions,

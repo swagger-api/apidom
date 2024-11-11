@@ -1,6 +1,6 @@
 import { MemberElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from './SpecificationVisitor';
+import SpecificationVisitor, { SpecificationVisitorOptions } from './SpecificationVisitor.ts';
 
 export type { SpecificationVisitorOptions as SpecificationExtensionVisitorOptions };
 

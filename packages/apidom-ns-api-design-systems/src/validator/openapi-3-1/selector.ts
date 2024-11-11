@@ -8,7 +8,7 @@ import {
   keyMap,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import StandardIdentifierElement from '../../elements/StandardIdentifier';
+import StandardIdentifierElement from '../../elements/StandardIdentifier.ts';
 
 /**
  * This file contains logic for translating Standard Identifier to list of Operation Elements.

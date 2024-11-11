@@ -1,7 +1,7 @@
 import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
 
-import * as apiDesignSystemsPredicates from '../predicates';
-import apiDesignSystemNamespace from '../namespace';
+import * as apiDesignSystemsPredicates from '../predicates.ts';
+import apiDesignSystemNamespace from '../namespace.ts';
 
 const createToolbox = () => {
   const namespace = createNamespace(apiDesignSystemNamespace);

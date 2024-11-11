@@ -12,8 +12,8 @@ import {
 import {
   refractPluginOpenApi3_1StandardIdentifierSelectors,
   StandardIdentifierElement,
-} from '../../../src';
-import select from '../../../src/validator/openapi-3-1/selector';
+} from '../../../src/index.ts';
+import select from '../../../src/validator/openapi-3-1/selector.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const definition = fs.readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-1.json')).toString();

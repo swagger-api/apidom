@@ -2,7 +2,7 @@ import { JSONPath } from 'jsonpath-plus';
 import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
-import EvaluationJsonPathError from './errors/EvaluationJsonPathError';
+import EvaluationJsonPathError from './errors/EvaluationJsonPathError.ts';
 
 type Evaluate = {
   <T extends Element>(path: string, element: T): Element[];

@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import ComponentsParametersElement from '../../../../elements/nces/ComponentsParameters';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
+import ComponentsParametersElement from '../../../../elements/nces/ComponentsParameters.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 
 export interface ParametersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

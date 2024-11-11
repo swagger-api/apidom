@@ -12,7 +12,7 @@ import {
   refractPluginOpenApi3_1StandardIdentifierAccessors,
   MainElement,
   validateOpenAPI3_1,
-} from '../../../../src';
+} from '../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const apiDesignSystemsDefinition = fs

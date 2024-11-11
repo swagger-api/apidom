@@ -1,19 +1,19 @@
-import FallbackVisitor from './visitors/FallbackVisitor';
+import FallbackVisitor from './visitors/FallbackVisitor.ts';
 /**
  * API Design Systems 2021-05-07 specification elements.
  */
-import RequirementLevelVisitor from './visitors/api-design-systems/requirement-level';
-import StandardIdentifierVisitor from './visitors/api-design-systems/standard-identifier';
-import RequirementVisitor from './visitors/api-design-systems/requirement';
-import ScenarioVisitor from './visitors/api-design-systems/scenario';
-import ScenarioThenVisitor from './visitors/api-design-systems/scenario/ThenVisitor';
-import StandardVisitor from './visitors/api-design-systems/standard';
-import PrincipleVisitor from './visitors/api-design-systems/principle';
-import InfoVisitor from './visitors/api-design-systems/info';
-import MainVisitor from './visitors/api-design-systems/main';
-import MainPrinciplesVisitor from './visitors/api-design-systems/main/PrinciplesVisitor';
-import MainStandardsVisitor from './visitors/api-design-systems/main/StandardsVisitor';
-import MainScenariosVisitor from './visitors/api-design-systems/main/ScenariosVisitor';
+import RequirementLevelVisitor from './visitors/api-design-systems/requirement-level/index.ts';
+import StandardIdentifierVisitor from './visitors/api-design-systems/standard-identifier/index.ts';
+import RequirementVisitor from './visitors/api-design-systems/requirement/index.ts';
+import ScenarioVisitor from './visitors/api-design-systems/scenario/index.ts';
+import ScenarioThenVisitor from './visitors/api-design-systems/scenario/ThenVisitor.ts';
+import StandardVisitor from './visitors/api-design-systems/standard/index.ts';
+import PrincipleVisitor from './visitors/api-design-systems/principle/index.ts';
+import InfoVisitor from './visitors/api-design-systems/info/index.ts';
+import MainVisitor from './visitors/api-design-systems/main/index.ts';
+import MainPrinciplesVisitor from './visitors/api-design-systems/main/PrinciplesVisitor.ts';
+import MainStandardsVisitor from './visitors/api-design-systems/main/StandardsVisitor.ts';
+import MainScenariosVisitor from './visitors/api-design-systems/main/ScenariosVisitor.ts';
 
 /**
  * Specification object allows us to have complete control over visitors

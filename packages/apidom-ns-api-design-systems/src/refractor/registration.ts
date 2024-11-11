@@ -1,15 +1,15 @@
-import { createRefractor } from './index';
+import { createRefractor } from './index.ts';
 /**
  * API Design Systems 2021-05-07 specification elements.
  */
-import MainElement from '../elements/Main';
-import InfoElement from '../elements/Info';
-import PrincipleElement from '../elements/Principle';
-import RequirementElement from '../elements/Requirement';
-import RequirementLevelElement from '../elements/RequirementLevel';
-import ScenarioElement from '../elements/Scenario';
-import StandardElement from '../elements/Standard';
-import StandardIdentifierElement from '../elements/StandardIdentifier';
+import MainElement from '../elements/Main.ts';
+import InfoElement from '../elements/Info.ts';
+import PrincipleElement from '../elements/Principle.ts';
+import RequirementElement from '../elements/Requirement.ts';
+import RequirementLevelElement from '../elements/RequirementLevel.ts';
+import ScenarioElement from '../elements/Scenario.ts';
+import StandardElement from '../elements/Standard.ts';
+import StandardIdentifierElement from '../elements/StandardIdentifier.ts';
 
 /**
  * API Design Systems 2021-05-07 specification elements.

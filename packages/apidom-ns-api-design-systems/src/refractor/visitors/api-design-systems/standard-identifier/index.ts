@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, BREAK, Element } from '@swagger-api/apidom-core';
 
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import StandardIdentifierElement from '../../../../elements/StandardIdentifier';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
+import StandardIdentifierElement from '../../../../elements/StandardIdentifier.ts';
 
 export interface StandardIdentifierVisitorOptions
   extends SpecificationVisitorOptions,

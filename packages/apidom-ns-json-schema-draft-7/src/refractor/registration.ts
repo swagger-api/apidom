@@ -1,6 +1,6 @@
-import JSONSchemaElement from '../elements/JSONSchema';
-import LinkDescriptionElement from '../elements/LinkDescription';
-import { createRefractor } from './index';
+import JSONSchemaElement from '../elements/JSONSchema.ts';
+import LinkDescriptionElement from '../elements/LinkDescription.ts';
+import { createRefractor } from './index.ts';
 
 // register refractors specific to element types
 

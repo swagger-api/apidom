@@ -9,7 +9,7 @@ import {
   SpecPath,
 } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
-import JSONSchemaElement from '../../../elements/JSONSchema';
+import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
 export interface JSONSchemaVisitorOptions
   extends FixedFieldsVisitorOptions,

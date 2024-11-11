@@ -1,7 +1,7 @@
 import { expect, assert } from 'chai';
 import { sexprs, includesClasses } from '@swagger-api/apidom-core';
 
-import { SecuritySchemeElement } from '../../../../src';
+import { SecuritySchemeElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

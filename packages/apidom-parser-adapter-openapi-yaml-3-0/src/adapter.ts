@@ -7,7 +7,7 @@ import {
 } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import openApiNamespace, { OpenApi3_0Element } from '@swagger-api/apidom-ns-openapi-3-0';
 
-export { default as mediaTypes } from './media-types';
+export { default as mediaTypes } from './media-types.ts';
 
 export const detectionRegExp =
   /(?<YAML>^(["']?)openapi\2\s*:\s*(["']?)(?<version_yaml>3\.0\.[0123](?:-rc[012])?)\3(?:\s+|$))|(?<JSON>"openapi"\s*:\s*"(?<version_json>3\.0\.[0123](?:-rc[012])?)")/m;

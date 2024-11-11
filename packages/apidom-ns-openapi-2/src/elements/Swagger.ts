@@ -6,14 +6,14 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import SwaggerVersionElement from './SwaggerVersion';
-import InfoElement from './Info';
-import PathsElement from './Paths';
-import DefinitionsElement from './Definitions';
-import ParametersDefinitionsElement from './ParametersDefinitions';
-import ResponsesDefinitionsElement from './ResponsesDefinitions';
-import SecurityDefinitionsElement from './SecurityDefinitions';
-import ExternalDocumentationElement from './ExternalDocumentation';
+import SwaggerVersionElement from './SwaggerVersion.ts';
+import InfoElement from './Info.ts';
+import PathsElement from './Paths.ts';
+import DefinitionsElement from './Definitions.ts';
+import ParametersDefinitionsElement from './ParametersDefinitions.ts';
+import ResponsesDefinitionsElement from './ResponsesDefinitions.ts';
+import SecurityDefinitionsElement from './SecurityDefinitions.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 class Swagger extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

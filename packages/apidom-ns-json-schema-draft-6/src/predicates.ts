@@ -1,7 +1,7 @@
 import { createPredicate } from '@swagger-api/apidom-core';
 
-import JSONSchemaElement from './elements/JSONSchema';
-import LinkDescriptionElement from './elements/LinkDescription';
+import JSONSchemaElement from './elements/JSONSchema.ts';
+import LinkDescriptionElement from './elements/LinkDescription.ts';
 
 export { isJSONReferenceElement, isMediaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';
 

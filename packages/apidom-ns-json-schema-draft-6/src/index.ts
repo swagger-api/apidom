@@ -11,22 +11,22 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as mediaTypes, JSONSchemaDraft6MediaTypes } from './media-types';
+export { default as mediaTypes, JSONSchemaDraft6MediaTypes } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
-export { default } from './namespace';
+export { default } from './namespace.ts';
 
-export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
-export { default as refract, createRefractor } from './refractor';
-export { default as specificationObj } from './refractor/specification';
+export { default as refract, createRefractor } from './refractor/index.ts';
+export { default as specificationObj } from './refractor/specification.ts';
 
 export {
   isJSONReferenceElement,
   isJSONSchemaElement,
   isLinkDescriptionElement,
   isMediaElement,
-} from './predicates';
+} from './predicates.ts';
 
 export {
   isJSONReferenceLikeElement,
@@ -62,24 +62,24 @@ export type {
 export type {
   default as LinkDescriptionVisitor,
   LinkDescriptionVisitorOptions,
-} from './refractor/visitors/json-schema/link-description';
+} from './refractor/visitors/json-schema/link-description/index.ts';
 export type {
   default as JSONSchemaVisitor,
   JSONSchemaVisitorOptions,
-} from './refractor/visitors/json-schema';
+} from './refractor/visitors/json-schema/index.ts';
 export type {
   default as ExamplesVisitor,
   ExamplesVisitorOptions,
-} from './refractor/visitors/json-schema/ExamplesVisitor';
+} from './refractor/visitors/json-schema/ExamplesVisitor.ts';
 export type {
   default as ItemsVisitor,
   ItemsVisitorOptions,
-} from './refractor/visitors/json-schema/ItemsVisitor';
+} from './refractor/visitors/json-schema/ItemsVisitor.ts';
 
-export { keyMap, getNodeType } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 /**
  * JSON Schema Draft 6 specification elements.
  */
-export { JSONSchemaElement, LinkDescriptionElement } from './refractor/registration';
+export { JSONSchemaElement, LinkDescriptionElement } from './refractor/registration.ts';
 export { JSONReferenceElement, MediaElement } from '@swagger-api/apidom-ns-json-schema-draft-4';

@@ -851,6 +851,7 @@ describe('apidom-ls-yaml', function () {
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
   });
+
   it('test validate invalid YAML indent', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -871,8 +872,8 @@ describe('apidom-ls-yaml', function () {
       {
         range: {
           start: {
-            line: 3,
-            character: 4,
+            line: 2,
+            character: 18,
           },
           end: {
             line: 3,
@@ -883,6 +884,32 @@ describe('apidom-ls-yaml', function () {
         severity: 1,
         code: 0,
         source: 'syntax',
+      },
+      {
+        range: {
+          start: {
+            line: 1,
+            character: 0,
+          },
+          end: {
+            line: 1,
+            character: 4,
+          },
+        },
+        message: "should always have a 'title'",
+        severity: 1,
+        code: 70101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'title' field",
+              action: 'addChild',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
+            },
+          ],
+        },
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

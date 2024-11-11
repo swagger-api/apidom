@@ -3,7 +3,7 @@ import {
   ParameterVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ParameterElement from '../../../../elements/Parameter';
+import ParameterElement from '../../../../elements/Parameter.ts';
 
 const {
   visitors: {

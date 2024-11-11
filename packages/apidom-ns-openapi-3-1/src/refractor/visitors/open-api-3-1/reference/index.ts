@@ -3,7 +3,7 @@ import {
   ReferenceVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ReferenceElement from '../../../../elements/Reference';
+import ReferenceElement from '../../../../elements/Reference.ts';
 
 const {
   visitors: {

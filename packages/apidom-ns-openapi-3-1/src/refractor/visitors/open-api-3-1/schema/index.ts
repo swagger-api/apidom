@@ -16,12 +16,12 @@ import {
   FixedFieldsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates';
-import SchemaElement from '../../../../elements/Schema';
-import JsonSchemaDialectElement from '../../../../elements/JsonSchemaDialect';
+import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates.ts';
+import SchemaElement from '../../../../elements/Schema.ts';
+import JsonSchemaDialectElement from '../../../../elements/JsonSchemaDialect.ts';
 import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor';
+} from './ParentSchemaAwareVisitor.ts';
 
 export interface SchemaVisitorOptions
   extends FixedFieldsVisitorOptions,

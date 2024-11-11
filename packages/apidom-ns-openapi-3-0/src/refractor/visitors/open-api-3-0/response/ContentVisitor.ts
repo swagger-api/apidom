@@ -1,5 +1,5 @@
-import ResponseContentElement from '../../../../elements/nces/ResponseContent';
-import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor';
+import ResponseContentElement from '../../../../elements/nces/ResponseContent.ts';
+import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor.ts';
 
 export type { ContentVisitorOptions };
 

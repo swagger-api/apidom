@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { expect, assert } from 'chai';
 import { sexprs, toJSON, isObjectElement, isParseResultElement } from '@swagger-api/apidom-core';
 
-import * as adapter from '../src/adapter-node';
+import * as adapter from '../src/adapter-node.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const spec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-data.json')).toString();

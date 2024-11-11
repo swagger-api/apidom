@@ -55,7 +55,7 @@ import {
   isSecuritySchemeElement,
   isScopesElement,
   isSecurityRequirementElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isSwaggerElement', function () {

@@ -9,9 +9,9 @@ import {
   FallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ReferenceElement from '../../../../elements/Reference';
-import ComponentsPathItemsElement from '../../../../elements/nces/ComponentsPathItems';
-import { isReferenceElement } from '../../../../predicates';
+import ReferenceElement from '../../../../elements/Reference.ts';
+import ComponentsPathItemsElement from '../../../../elements/nces/ComponentsPathItems.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 export interface PathItemsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

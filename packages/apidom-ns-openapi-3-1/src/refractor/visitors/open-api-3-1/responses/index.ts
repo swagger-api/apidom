@@ -3,7 +3,7 @@ import {
   ResponsesVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import ResponsesElement from '../../../../elements/Responses';
+import ResponsesElement from '../../../../elements/Responses.ts';
 
 const {
   visitors: {

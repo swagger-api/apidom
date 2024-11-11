@@ -14,7 +14,7 @@ import {
   MediaElement,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import SchemaElement from './Schema';
+import SchemaElement from './Schema.ts';
 
 /* eslint-disable class-methods-use-this */
 class Parameter extends JSONSchemaElement {

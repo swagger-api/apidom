@@ -2,9 +2,9 @@
 import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 
-import lexicalAnalysisBench from './lexical-analysis';
-import parseSyntacticAnalysisDirectBench from './parse-syntactic-analysis-direct';
-import parseSyntacticAnalysisIndirectBench from './parse-syntactic-analysis-indirect';
+import lexicalAnalysisBench from './lexical-analysis.ts';
+import parseSyntacticAnalysisDirectBench from './parse-syntactic-analysis-direct.ts';
+import parseSyntacticAnalysisIndirectBench from './parse-syntactic-analysis-indirect.ts';
 
 const suite = new Benchmark.Suite();
 

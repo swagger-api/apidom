@@ -1,5 +1,5 @@
-import PathItemParametersElement from '../../../../elements/nces/PathItemParameters';
-import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
+import PathItemParametersElement from '../../../../elements/nces/PathItemParameters.ts';
+import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor.ts';
 
 export type { ParametersVisitorOptions };
 

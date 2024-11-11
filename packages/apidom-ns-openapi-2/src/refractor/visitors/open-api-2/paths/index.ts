@@ -2,14 +2,14 @@ import { Mixin } from 'ts-mixer';
 import { T as stubTrue, always } from 'ramda';
 import { ObjectElement, StringElement, cloneDeep } from '@swagger-api/apidom-core';
 
-import PathsElement from '../../../../elements/Paths';
-import PathItemElement from '../../../../elements/PathItem';
+import PathsElement from '../../../../elements/Paths.ts';
+import PathItemElement from '../../../../elements/PathItem.ts';
 import PatternedFieldsVisitor, {
   PatternedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isPathItemElement } from '../../../../predicates';
+} from '../../generics/PatternedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isPathItemElement } from '../../../../predicates.ts';
 
 export interface PathsVisitorOptions
   extends PatternedFieldsVisitorOptions,

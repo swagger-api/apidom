@@ -2,7 +2,7 @@ import { JSONPath } from 'jsonpath-plus';
 import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
-import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError';
+import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError.ts';
 
 type JSONPathEvalTuple = [string, Element[]];
 

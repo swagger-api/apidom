@@ -1,7 +1,7 @@
 import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-import { RelativeJsonPointer } from '../types';
-import RelativeJsonPointerError from './RelativeJsonPointerError';
+import { RelativeJsonPointer } from '../types.ts';
+import RelativeJsonPointerError from './RelativeJsonPointerError.ts';
 
 export interface CompilationRelativeJsonPointerErrorOptions extends ApiDOMErrorOptions {
   readonly relativePointer: RelativeJsonPointer;

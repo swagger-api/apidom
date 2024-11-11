@@ -14,44 +14,44 @@ import {
 /**
  * OpenAPI 2.0 specification elements.
  */
-import InfoElement from '../../elements/Info';
-import ContactElement from '../../elements/Contact';
-import LicenseElement from '../../elements/License';
-import PathsElement from '../../elements/Paths';
-import PathItemElement from '../../elements/PathItem';
-import OperationElement from '../../elements/Operation';
-import ExternalDocumentationElement from '../../elements/ExternalDocumentation';
-import ParameterElement from '../../elements/Parameter';
-import ItemsElement from '../../elements/Items';
-import ResponsesElement from '../../elements/Responses';
-import ResponseElement from '../../elements/Response';
-import HeadersElement from '../../elements/Headers';
-import ExampleElement from '../../elements/Example';
-import HeaderElement from '../../elements/Header';
-import TagElement from '../../elements/Tag';
-import SchemaElement from '../../elements/Schema';
-import XmlElement from '../../elements/Xml';
-import DefinitionsElement from '../../elements/Definitions';
-import ParametersDefinitionsElement from '../../elements/ParametersDefinitions';
-import ResponsesDefinitionsElement from '../../elements/ResponsesDefinitions';
-import SecurityDefinitionsElement from '../../elements/SecurityDefinitions';
-import SecuritySchemeElement from '../../elements/SecurityScheme';
-import ScopesElement from '../../elements/Scopes';
-import SecurityRequirementElement from '../../elements/SecurityRequirement';
+import InfoElement from '../../elements/Info.ts';
+import ContactElement from '../../elements/Contact.ts';
+import LicenseElement from '../../elements/License.ts';
+import PathsElement from '../../elements/Paths.ts';
+import PathItemElement from '../../elements/PathItem.ts';
+import OperationElement from '../../elements/Operation.ts';
+import ExternalDocumentationElement from '../../elements/ExternalDocumentation.ts';
+import ParameterElement from '../../elements/Parameter.ts';
+import ItemsElement from '../../elements/Items.ts';
+import ResponsesElement from '../../elements/Responses.ts';
+import ResponseElement from '../../elements/Response.ts';
+import HeadersElement from '../../elements/Headers.ts';
+import ExampleElement from '../../elements/Example.ts';
+import HeaderElement from '../../elements/Header.ts';
+import TagElement from '../../elements/Tag.ts';
+import SchemaElement from '../../elements/Schema.ts';
+import XmlElement from '../../elements/Xml.ts';
+import DefinitionsElement from '../../elements/Definitions.ts';
+import ParametersDefinitionsElement from '../../elements/ParametersDefinitions.ts';
+import ResponsesDefinitionsElement from '../../elements/ResponsesDefinitions.ts';
+import SecurityDefinitionsElement from '../../elements/SecurityDefinitions.ts';
+import SecuritySchemeElement from '../../elements/SecurityScheme.ts';
+import ScopesElement from '../../elements/Scopes.ts';
+import SecurityRequirementElement from '../../elements/SecurityRequirement.ts';
 // non-concrete Elements (NCEs)
-import OperationConsumesElement from '../../elements/nces/OperationConsumes';
-import OperationParametersElement from '../../elements/nces/OperationParameters';
-import OperationProducesElement from '../../elements/nces/OperationProduces';
-import OperationSchemesElement from '../../elements/nces/OperationSchemes';
-import OperationSecurityElement from '../../elements/nces/OperationSecurity';
-import OperationTagsElement from '../../elements/nces/OperationTags';
-import PathItemParametersElement from '../../elements/nces/PathItemParameters';
-import SwaggerSchemesElement from '../../elements/nces/SwaggerSchemes';
-import SwaggerConsumesElement from '../../elements/nces/SwaggerConsumes';
-import SwaggerProducesElement from '../../elements/nces/SwaggerProduces';
-import SwaggerSecurityElement from '../../elements/nces/SwaggerSecurity';
-import SwaggerTagsElement from '../../elements/nces/SwaggerTags';
-import { getNodeType } from '../../traversal/visitor';
+import OperationConsumesElement from '../../elements/nces/OperationConsumes.ts';
+import OperationParametersElement from '../../elements/nces/OperationParameters.ts';
+import OperationProducesElement from '../../elements/nces/OperationProduces.ts';
+import OperationSchemesElement from '../../elements/nces/OperationSchemes.ts';
+import OperationSecurityElement from '../../elements/nces/OperationSecurity.ts';
+import OperationTagsElement from '../../elements/nces/OperationTags.ts';
+import PathItemParametersElement from '../../elements/nces/PathItemParameters.ts';
+import SwaggerSchemesElement from '../../elements/nces/SwaggerSchemes.ts';
+import SwaggerConsumesElement from '../../elements/nces/SwaggerConsumes.ts';
+import SwaggerProducesElement from '../../elements/nces/SwaggerProduces.ts';
+import SwaggerSecurityElement from '../../elements/nces/SwaggerSecurity.ts';
+import SwaggerTagsElement from '../../elements/nces/SwaggerTags.ts';
+import { getNodeType } from '../../traversal/visitor.ts';
 
 /**
  * This plugin is specific to YAML 1.2 format, which allows defining key-value pairs

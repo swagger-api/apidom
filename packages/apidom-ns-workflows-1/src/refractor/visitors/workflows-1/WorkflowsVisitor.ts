@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import WorkflowsElement from '../../../elements/nces/Workflows';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
+import WorkflowsElement from '../../../elements/nces/Workflows.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export interface WorkflowsVisitorOptions
   extends SpecificationVisitorOptions,

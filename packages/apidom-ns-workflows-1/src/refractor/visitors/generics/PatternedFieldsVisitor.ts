@@ -8,9 +8,9 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import type { SpecPath } from './FixedFieldsVisitor';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import { isWorkflowsSpecificationExtension } from '../../predicates';
+import type { SpecPath } from './FixedFieldsVisitor.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import { isWorkflowsSpecificationExtension } from '../../predicates.ts';
 
 export type { SpecPath };
 

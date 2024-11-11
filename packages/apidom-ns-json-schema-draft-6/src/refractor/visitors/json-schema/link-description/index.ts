@@ -8,7 +8,7 @@ import {
   SpecPath,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import LinkDescriptionElement from '../../../../elements/LinkDescription';
+import LinkDescriptionElement from '../../../../elements/LinkDescription.ts';
 
 export interface LinkDescriptionVisitorOptions
   extends FixedFieldsVisitorOptions,

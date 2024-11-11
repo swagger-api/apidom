@@ -23,7 +23,7 @@ import {
   YamlTag,
 } from '@swagger-api/apidom-ast';
 
-import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode';
+import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode.ts';
 
 export const keyMap = {
   stream: ['children'],

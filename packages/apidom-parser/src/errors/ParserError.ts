@@ -1,6 +1,6 @@
 import { ApiDOMStructuredError, ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-import { ApiDOMParserOptions } from '../types';
+import type { ApiDOMParserOptions } from '../types.d.ts';
 
 interface ParserErrorOptions extends ApiDOMErrorOptions {
   readonly source: string;

@@ -1,7 +1,7 @@
 import { Element } from '@swagger-api/apidom-core';
 import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-import JsonPathError from './JsonPathError';
+import JsonPathError from './JsonPathError.ts';
 
 export interface MultiEvaluationJsonPathErrorOptions<T extends Element> extends ApiDOMErrorOptions {
   paths: string[] | string[][];

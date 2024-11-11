@@ -76,20 +76,12 @@ class TreeCursorSyntaxNode {
   }
 
   setFieldName(cursor: NodeTreeCursor | WebTreeCursor) {
-    if (typeof cursor.currentFieldName === 'function') {
-      this.fieldName = cursor.currentFieldName();
-    } else {
-      this.fieldName = cursor.currentFieldName;
-    }
+    this.fieldName = cursor.currentFieldName;
     return this;
   }
 
   setHasError(cursor: NodeTreeCursor | WebTreeCursor) {
-    if (typeof cursor.currentNode === 'function') {
-      this.hasError = cursor.currentNode().hasError();
-    } else {
-      this.hasError = cursor.currentNode.hasError();
-    }
+    this.hasError = cursor.currentNode.hasError;
     return this;
   }
 

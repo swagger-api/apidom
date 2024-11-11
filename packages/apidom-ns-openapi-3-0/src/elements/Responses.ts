@@ -1,7 +1,7 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import ResponseElement from './Response';
-import ReferenceElement from './Reference';
+import ResponseElement from './Response.ts';
+import ReferenceElement from './Reference.ts';
 
 class Responses extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

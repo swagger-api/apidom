@@ -2,15 +2,15 @@ import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 import { isObjectElement, ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 
-import ResponseElement from '../../../../elements/Response';
-import MediaTypeElement from '../../../../elements/MediaType';
-import HeaderElement from '../../../../elements/Header';
+import ResponseElement from '../../../../elements/Response.ts';
+import MediaTypeElement from '../../../../elements/MediaType.ts';
+import HeaderElement from '../../../../elements/Header.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isHeaderElement, isMediaTypeElement } from '../../../../predicates';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isHeaderElement, isMediaTypeElement } from '../../../../predicates.ts';
 
 export interface ResponseVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

@@ -3,7 +3,7 @@ import {
   LicenseVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import LicenseElement from '../../../../elements/License';
+import LicenseElement from '../../../../elements/License.ts';
 
 const {
   visitors: {

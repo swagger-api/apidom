@@ -3,7 +3,7 @@ import dedent from 'dedent';
 import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { refractorPluginReplaceEmptyElement, SwaggerElement } from '../../../../src';
+import { refractorPluginReplaceEmptyElement, SwaggerElement } from '../../../../src/index.ts';
 
 describe('given empty value instead of InfoElement', function () {
   it('should replace empty value with semantic element', async function () {

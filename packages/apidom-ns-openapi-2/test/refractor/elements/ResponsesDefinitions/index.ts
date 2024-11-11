@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { ResponsesDefinitionsElement } from '../../../../src';
+import { ResponsesDefinitionsElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

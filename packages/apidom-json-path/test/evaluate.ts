@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement, NumberElement } from '@swagger-api/apidom-core';
 
-import { evaluate } from '../src';
+import { evaluate } from '../src/index.ts';
 
 describe('apidom-json-path', function () {
   context('evaluate', function () {

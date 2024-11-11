@@ -1,8 +1,8 @@
 import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import SchemaElement from './Schema';
-import HeadersElement from './Headers';
-import ExampleElement from './Example';
+import SchemaElement from './Schema.ts';
+import HeadersElement from './Headers.ts';
+import ExampleElement from './Example.ts';
 
 class Response extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

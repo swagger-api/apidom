@@ -6,7 +6,7 @@ import {
   SchemaOrReferenceVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import SchemaElement from '../../../../elements/Schema';
+import SchemaElement from '../../../../elements/Schema.ts';
 
 export type { SchemaOrReferenceVisitorOptions };
 

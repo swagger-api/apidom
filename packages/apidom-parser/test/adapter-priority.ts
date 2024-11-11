@@ -4,7 +4,7 @@ import * as asyncApiJsonAdapterModule from '@swagger-api/apidom-parser-adapter-a
 import * as asyncApiYamlAdapterModule from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import ApiDOMParser from '../src/parser';
+import ApiDOMParser from '../src/parser.ts';
 
 const parser = new ApiDOMParser();
 const asyncApiJsonAdapter = { ...asyncApiJsonAdapterModule };

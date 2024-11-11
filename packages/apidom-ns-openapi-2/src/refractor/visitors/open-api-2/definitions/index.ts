@@ -6,9 +6,9 @@ import {
   JSONReferenceElement,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-import DefinitionsElement from '../../../../elements/Definitions';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import DefinitionsElement from '../../../../elements/Definitions.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface DefinitionsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

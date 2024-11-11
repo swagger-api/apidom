@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import WorkflowElement from '../../../../elements/Workflow';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import WorkflowElement from '../../../../elements/Workflow.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface WorkflowVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

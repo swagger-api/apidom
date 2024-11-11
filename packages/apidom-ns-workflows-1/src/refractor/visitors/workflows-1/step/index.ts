@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import StepElement from '../../../../elements/Step';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import StepElement from '../../../../elements/Step.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface StepVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { find, toValue, isElement } from '@swagger-api/apidom-core';
 
-import { isJSONSchemaElement, JSONSchemaElement } from '../../../../src';
+import { isJSONSchemaElement, JSONSchemaElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

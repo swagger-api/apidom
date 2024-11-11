@@ -9,7 +9,7 @@ import {
   JSONReferenceElement,
   LinkDescriptionElement,
   MediaElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isJSONSchemaElement', function () {

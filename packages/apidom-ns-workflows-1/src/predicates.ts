@@ -1,31 +1,31 @@
 import { createPredicate } from '@swagger-api/apidom-core';
 
-import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1';
-import WorkflowsSpecElement from './elements/WorkflowsSpec';
-import InfoElement from './elements/Info';
-import SourceDescriptionElement from './elements/SourceDescription';
-import WorkflowElement from './elements/Workflow';
-import StepElement from './elements/Step';
-import ParameterElement from './elements/Parameter';
-import SuccessActionElement from './elements/SuccessAction';
-import FailureActionElement from './elements/FailureAction';
-import ComponentsElement from './elements/Components';
-import CriterionElement from './elements/Criterion';
-import ReferenceElement from './elements/Reference';
-import JSONSchemaElement from './elements/JSONSchema';
+import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1.ts';
+import WorkflowsSpecElement from './elements/WorkflowsSpec.ts';
+import InfoElement from './elements/Info.ts';
+import SourceDescriptionElement from './elements/SourceDescription.ts';
+import WorkflowElement from './elements/Workflow.ts';
+import StepElement from './elements/Step.ts';
+import ParameterElement from './elements/Parameter.ts';
+import SuccessActionElement from './elements/SuccessAction.ts';
+import FailureActionElement from './elements/FailureAction.ts';
+import ComponentsElement from './elements/Components.ts';
+import CriterionElement from './elements/Criterion.ts';
+import ReferenceElement from './elements/Reference.ts';
+import JSONSchemaElement from './elements/JSONSchema.ts';
 // NCE types
-import WorkflowsElement from './elements/nces/Workflows';
-import SourceDescriptionsElement from './elements/nces/SourceDescriptions';
-import WorkflowStepsElement from './elements/nces/WorkflowSteps';
-import WorkflowOutputsElement from './elements/nces/WorkflowOutputs';
-import StepParametersElement from './elements/nces/StepParameters';
-import StepDependsOnElement from './elements/nces/StepDependsOn';
-import StepSuccessCriteriaElement from './elements/nces/StepSuccessCriteria';
-import StepOnSuccessElement from './elements/nces/StepOnSuccess';
-import StepOnFailureElement from './elements/nces/StepOnFailure';
-import StepOutputsElement from './elements/nces/StepOutputs';
-import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria';
-import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria';
+import WorkflowsElement from './elements/nces/Workflows.ts';
+import SourceDescriptionsElement from './elements/nces/SourceDescriptions.ts';
+import WorkflowStepsElement from './elements/nces/WorkflowSteps.ts';
+import WorkflowOutputsElement from './elements/nces/WorkflowOutputs.ts';
+import StepParametersElement from './elements/nces/StepParameters.ts';
+import StepDependsOnElement from './elements/nces/StepDependsOn.ts';
+import StepSuccessCriteriaElement from './elements/nces/StepSuccessCriteria.ts';
+import StepOnSuccessElement from './elements/nces/StepOnSuccess.ts';
+import StepOnFailureElement from './elements/nces/StepOnFailure.ts';
+import StepOutputsElement from './elements/nces/StepOutputs.ts';
+import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria.ts';
+import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria.ts';
 
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {

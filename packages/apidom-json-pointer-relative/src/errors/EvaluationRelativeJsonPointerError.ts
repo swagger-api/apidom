@@ -1,7 +1,7 @@
 import { Element } from '@swagger-api/apidom-core';
 import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-import RelativeJsonPointerError from './RelativeJsonPointerError';
+import RelativeJsonPointerError from './RelativeJsonPointerError.ts';
 
 export interface EvaluationRelativeJsonPointerErrorOptions<
   T extends Element,

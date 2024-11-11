@@ -2,9 +2,9 @@ import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep } from '@swagger-api/apidom-core';
 
-import Visitor, { VisitorOptions } from './Visitor';
-import FallbackVisitor from './FallbackVisitor';
-import type specification from '../specification';
+import Visitor, { VisitorOptions } from './Visitor.ts';
+import FallbackVisitor from './FallbackVisitor.ts';
+import type specification from '../specification.ts';
 
 /**
  * This is a base Type for every visitor that does

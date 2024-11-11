@@ -8,8 +8,8 @@ import {
   ObjectElement,
 } from '@swagger-api/apidom-core';
 
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor';
-import { isSwaggerExtension } from '../../predicates';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import { isSwaggerExtension } from '../../predicates.ts';
 
 export type SpecPath<T = string[]> = (element: unknown) => T;
 

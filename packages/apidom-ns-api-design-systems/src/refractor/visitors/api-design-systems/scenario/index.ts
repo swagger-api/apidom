@@ -1,12 +1,12 @@
 import { always } from 'ramda';
 import { Mixin } from 'ts-mixer';
 
-import ScenarioElement from '../../../../elements/Scenario';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import ScenarioElement from '../../../../elements/Scenario.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface ScenarioVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

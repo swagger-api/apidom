@@ -1,5 +1,5 @@
-import OperationParametersElement from '../../../../elements/nces/OperationParameters';
-import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor';
+import OperationParametersElement from '../../../../elements/nces/OperationParameters.ts';
+import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVisitor.ts';
 
 export type { ParametersVisitorOptions };
 

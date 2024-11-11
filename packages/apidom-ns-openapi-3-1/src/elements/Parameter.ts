@@ -1,6 +1,6 @@
 import { ParameterElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import SchemaElement from './Schema';
+import SchemaElement from './Schema.ts';
 
 class Parameter extends ParameterElement {
   get schema(): SchemaElement | undefined {

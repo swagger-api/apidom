@@ -2,7 +2,7 @@ import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import { OpenApi3_1Element } from '../../src';
+import { OpenApi3_1Element } from '../../src/index.ts';
 
 const genericObjectElement = new ObjectElement({
   openapi: '3.1.0',

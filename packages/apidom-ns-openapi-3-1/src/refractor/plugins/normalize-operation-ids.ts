@@ -1,12 +1,12 @@
 import { last, defaultTo, groupBy } from 'ramda';
 import { toValue, Element, StringElement, cloneDeep } from '@swagger-api/apidom-core';
 
-import LinkElement from '../../elements/Link';
-import PathItemElement from '../../elements/PathItem';
-import OperationElement from '../../elements/Operation';
-import type { Toolbox } from '../toolbox';
-import OpenApi3_1Element from '../../elements/OpenApi3-1';
-import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
+import LinkElement from '../../elements/Link.ts';
+import PathItemElement from '../../elements/PathItem.ts';
+import OperationElement from '../../elements/Operation.ts';
+import type { Toolbox } from '../toolbox.ts';
+import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 
 const removeSpaces = (operationId: string) => {
   return operationId.replace(/\s/g, '');

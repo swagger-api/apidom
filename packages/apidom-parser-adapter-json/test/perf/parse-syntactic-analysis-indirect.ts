@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import Benchmark from 'benchmark';
 import type { Event, Deferred } from 'benchmark';
 
-import { parse } from '../../src/adapter-node';
+import { parse } from '../../src/adapter-node.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/data.json');

@@ -1,4 +1,4 @@
-import './browser-patch';
+import './browser-patch.ts';
 
 import Parser, { Tree } from 'web-tree-sitter';
 import { ApiDOMError } from '@swagger-api/apidom-error';

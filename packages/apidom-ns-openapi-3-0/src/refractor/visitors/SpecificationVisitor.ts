@@ -2,10 +2,10 @@ import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
 import { visit, cloneDeep, ObjectElement } from '@swagger-api/apidom-core';
 
-import OpenApi3_0Element from '../../elements/OpenApi3-0';
-import Visitor, { VisitorOptions } from './Visitor';
-import type specification from '../specification';
-import FallbackVisitor from './FallbackVisitor';
+import OpenApi3_0Element from '../../elements/OpenApi3-0.ts';
+import Visitor, { VisitorOptions } from './Visitor.ts';
+import type specification from '../specification.ts';
+import FallbackVisitor from './FallbackVisitor.ts';
 
 /**
  * This is a base Type for every visitor that does

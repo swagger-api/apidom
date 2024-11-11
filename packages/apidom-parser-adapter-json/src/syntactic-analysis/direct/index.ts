@@ -9,8 +9,8 @@ import {
   getNodeType as getNodeTypeApiDOM,
 } from '@swagger-api/apidom-core';
 
-import CstVisitor from './visitors/CstVisitor';
-import TreeCursorIterator from '../TreeCursorIterator';
+import CstVisitor from './visitors/CstVisitor.ts';
+import TreeCursorIterator from '../TreeCursorIterator.ts';
 
 const keyMap = {
   document: ['children'],

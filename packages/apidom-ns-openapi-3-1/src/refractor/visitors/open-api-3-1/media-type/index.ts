@@ -3,7 +3,7 @@ import {
   MediaTypeVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import MediaTypeElement from '../../../../elements/MediaType';
+import MediaTypeElement from '../../../../elements/MediaType.ts';
 
 const {
   visitors: {

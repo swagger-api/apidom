@@ -5,12 +5,12 @@ import {
   ServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import type OpenApi3_1Element from '../../elements/OpenApi3-1';
-import type PathItemElement from '../../elements/PathItem';
-import type ServerElement from '../../elements/Server';
-import type OperationElement from '../../elements/Operation';
-import type { Toolbox } from '../toolbox';
-import NormalizeStorage from './normalize-header-examples/NormalizeStorage';
+import type OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import type PathItemElement from '../../elements/PathItem.ts';
+import type ServerElement from '../../elements/Server.ts';
+import type OperationElement from '../../elements/Operation.ts';
+import type { Toolbox } from '../toolbox.ts';
+import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 
 /**
  * Override of Server Objects.

@@ -6,7 +6,7 @@ import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import {
   refractorPluginReplaceEmptyElement,
   WorkflowsSpecification1Element,
-} from '../../../../src';
+} from '../../../../src/index.ts';
 
 describe('given empty value instead of InfoElement', function () {
   it('should replace empty value with semantic element', async function () {

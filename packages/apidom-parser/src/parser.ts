@@ -2,10 +2,10 @@ import { head } from 'ramda';
 import { isArray, isFunction, isString, isUndefined } from 'ramda-adjunct';
 import { MediaTypes, Namespace, ParseResultElement } from '@swagger-api/apidom-core';
 
-import ParserError from './errors/ParserError';
-import { ApiDOMParserOptions, ApiDOMParserAdapter } from './types';
+import ParserError from './errors/ParserError.ts';
+import type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types.d.ts';
 
-export type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types';
+export type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types.d.ts';
 
 export { ParserError };
 

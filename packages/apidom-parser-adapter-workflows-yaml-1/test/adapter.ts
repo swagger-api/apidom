@@ -6,7 +6,7 @@ import dedent from 'dedent';
 import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
 import { isWorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflows-1';
 
-import * as adapter from '../src/adapter';
+import * as adapter from '../src/adapter.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const jsonSpec = fs

@@ -7,7 +7,7 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-1';
 import { AnnotationElement, toValue, isObjectElement, Element } from '@swagger-api/apidom-core';
 
-import type { Toolbox } from '../toolbox';
+import type { Toolbox } from '../toolbox.ts';
 
 type SecurityRequirementsArrayPluginOptions = {
   annotations: AnnotationElement[];

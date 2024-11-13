@@ -1,7 +1,7 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { File } from '@swagger-api/apidom-reference';
 
-import type { ConverterOptions } from '../options';
+import type { ConverterOptions } from '../options/index.ts';
 
 export interface ConvertStrategyOptions {
   readonly name: string;

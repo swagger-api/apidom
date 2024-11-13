@@ -1,9 +1,9 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { mergeOptions, bundle, File } from '@swagger-api/apidom-reference';
 
-import defaultOptions, { ConverterOptions } from './options';
-import ConvertError from './errors/ConvertError';
-import UnmatchedConvertStrategyError from './errors/UnmatchedConvertStrategyError';
+import defaultOptions, { ConverterOptions } from './options/index.ts';
+import ConvertError from './errors/ConvertError.ts';
+import UnmatchedConvertStrategyError from './errors/UnmatchedConvertStrategyError.ts';
 
 export { ConvertError, UnmatchedConvertStrategyError };
 

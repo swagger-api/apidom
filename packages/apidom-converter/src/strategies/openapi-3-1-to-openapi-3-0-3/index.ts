@@ -16,17 +16,17 @@ import {
 } from '@swagger-api/apidom-core';
 import { File } from '@swagger-api/apidom-reference';
 
-import ConvertStrategy from '../ConvertStrategy';
-import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version';
-import webhooksRefractorPlugin from './refractor-plugins/webhooks';
-import securitySchemeTypeRefractorPlugin from './refractor-plugins/security-scheme-type';
-import securityRequirementsEmptyRolesRefractorPlugin from './refractor-plugins/security-requirements-empty-roles';
-import type { ConverterOptions } from '../../options';
-import createToolbox from './toolbox';
-import infoSummaryRefractorPlugin from './refractor-plugins/info-summary';
-import licenseIdentifierRefractorPlugin from './refractor-plugins/license-identifier';
-import referenceDescriptionRefractorPlugin from './refractor-plugins/reference-description';
-import referenceSummaryRefractorPlugin from './refractor-plugins/reference-summary';
+import ConvertStrategy from '../ConvertStrategy.ts';
+import openAPIVersionRefractorPlugin from './refractor-plugins/openapi-version.ts';
+import webhooksRefractorPlugin from './refractor-plugins/webhooks.ts';
+import securitySchemeTypeRefractorPlugin from './refractor-plugins/security-scheme-type.ts';
+import securityRequirementsEmptyRolesRefractorPlugin from './refractor-plugins/security-requirements-empty-roles.ts';
+import type { ConverterOptions } from '../../options/index.ts';
+import createToolbox from './toolbox.ts';
+import infoSummaryRefractorPlugin from './refractor-plugins/info-summary.ts';
+import licenseIdentifierRefractorPlugin from './refractor-plugins/license-identifier.ts';
+import referenceDescriptionRefractorPlugin from './refractor-plugins/reference-description.ts';
+import referenceSummaryRefractorPlugin from './refractor-plugins/reference-summary.ts';
 
 const dispatchPluginsAsync = dispatchPlugins[Symbol.for('nodejs.util.promisify.custom')];
 

@@ -1,10 +1,10 @@
 import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 
-import lexicalAnalysisBench from './lexical-analysis';
-import syntacticAnalysisBench from './syntactic-analysis';
-import refractBench from './refract';
-import parseBench from './parse';
+import lexicalAnalysisBench from './lexical-analysis.ts';
+import syntacticAnalysisBench from './syntactic-analysis.ts';
+import refractBench from './refract.ts';
+import parseBench from './parse.ts';
 
 const suite = new Benchmark.Suite();
 

@@ -1,26 +1,26 @@
 import { BooleanElement, createPredicate, isBooleanElement } from '@swagger-api/apidom-core';
 import type { ElementPredicate } from '@swagger-api/apidom-core';
 
-import AsyncApi2Element from './elements/AsyncApi2';
-import AsyncApiVersionElement from './elements/AsyncApiVersion';
-import ChannelBindingsElement from './elements/ChannelBindings';
-import ChannelItemElement from './elements/ChannelItem';
-import ChannelsElement from './elements/Channels';
-import ComponentsElement from './elements/Components';
-import ContactElement from './elements/Contact';
-import IdentifierElement from './elements/Identifier';
-import InfoElement from './elements/Info';
-import LicenseElement from './elements/License';
-import OperationElement from './elements/Operation';
-import ParameterElement from './elements/Parameter';
-import ParametersElement from './elements/Parameters';
-import ReferenceElement from './elements/Reference';
-import SchemaElement from './elements/Schema';
-import SecurityRequirementElement from './elements/SecurityRequirement';
-import ServerElement from './elements/Server';
-import ServerBindingsElement from './elements/ServerBindings';
-import ServersElement from './elements/Servers';
-import ServerVariableElement from './elements/ServerVariable';
+import AsyncApi2Element from './elements/AsyncApi2.ts';
+import AsyncApiVersionElement from './elements/AsyncApiVersion.ts';
+import ChannelBindingsElement from './elements/ChannelBindings.ts';
+import ChannelItemElement from './elements/ChannelItem.ts';
+import ChannelsElement from './elements/Channels.ts';
+import ComponentsElement from './elements/Components.ts';
+import ContactElement from './elements/Contact.ts';
+import IdentifierElement from './elements/Identifier.ts';
+import InfoElement from './elements/Info.ts';
+import LicenseElement from './elements/License.ts';
+import OperationElement from './elements/Operation.ts';
+import ParameterElement from './elements/Parameter.ts';
+import ParametersElement from './elements/Parameters.ts';
+import ReferenceElement from './elements/Reference.ts';
+import SchemaElement from './elements/Schema.ts';
+import SecurityRequirementElement from './elements/SecurityRequirement.ts';
+import ServerElement from './elements/Server.ts';
+import ServerBindingsElement from './elements/ServerBindings.ts';
+import ServersElement from './elements/Servers.ts';
+import ServerVariableElement from './elements/ServerVariable.ts';
 
 export const isAsyncApi2Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {

@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import ApiDOMParser from '@swagger-api/apidom-parser';
 
-import * as apiDesignSystemsJsonAdapter from '../src/adapter';
+import * as apiDesignSystemsJsonAdapter from '../src/adapter.ts';
 
 describe('given adapter is used in parser', function () {
   const parser = new ApiDOMParser().use(apiDesignSystemsJsonAdapter);

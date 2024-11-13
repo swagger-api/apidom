@@ -1,23 +1,23 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import HttpServerBindingElement from './bindings/http/HttpServerBinding';
-import WebSocketServerBindingElement from './bindings/ws/WebSocketServerBinding';
-import KafkaServerBindingElement from './bindings/kafka/KafkaServerBinding';
-import AnypointmqServerBindingElement from './bindings/anypointmq/AnypointmqServerBinding';
-import AmqpServerBindingElement from './bindings/amqp/AmqpServerBinding';
-import Amqp1ServerBindingElement from './bindings/amqp1/Amqp1ServerBinding';
-import MqttServerBindingElement from './bindings/mqtt/MqttServerBinding';
-import Mqtt5ServerBindingElement from './bindings/mqtt5/Mqtt5ServerBinding';
-import NatsServerBindingElement from './bindings/nats/NatsServerBinding';
-import JmsServerBindingElement from './bindings/jms/JmsServerBinding';
-import SnsServerBindingElement from './bindings/sns/SnsServerBinding';
-import SolaceServerBindingElement from './bindings/solace/SolaceServerBinding';
-import SqsServerBindingElement from './bindings/sqs/SqsServerBinding';
-import StompServerBindingElement from './bindings/stomp/StompServerBinding';
-import RedisServerBindingElement from './bindings/redis/RedisServerBinding';
-import MercureServerBindingElement from './bindings/mercure/MercureServerBinding';
-import IbmmqServerBindingElement from './bindings/ibmmq/IbmmqServerBinding';
-import GooglepubsubServerBindingElement from './bindings/googlepubsub/GooglepubsubServerBinding';
+import HttpServerBindingElement from './bindings/http/HttpServerBinding.ts';
+import WebSocketServerBindingElement from './bindings/ws/WebSocketServerBinding.ts';
+import KafkaServerBindingElement from './bindings/kafka/KafkaServerBinding.ts';
+import AnypointmqServerBindingElement from './bindings/anypointmq/AnypointmqServerBinding.ts';
+import AmqpServerBindingElement from './bindings/amqp/AmqpServerBinding.ts';
+import Amqp1ServerBindingElement from './bindings/amqp1/Amqp1ServerBinding.ts';
+import MqttServerBindingElement from './bindings/mqtt/MqttServerBinding.ts';
+import Mqtt5ServerBindingElement from './bindings/mqtt5/Mqtt5ServerBinding.ts';
+import NatsServerBindingElement from './bindings/nats/NatsServerBinding.ts';
+import JmsServerBindingElement from './bindings/jms/JmsServerBinding.ts';
+import SnsServerBindingElement from './bindings/sns/SnsServerBinding.ts';
+import SolaceServerBindingElement from './bindings/solace/SolaceServerBinding.ts';
+import SqsServerBindingElement from './bindings/sqs/SqsServerBinding.ts';
+import StompServerBindingElement from './bindings/stomp/StompServerBinding.ts';
+import RedisServerBindingElement from './bindings/redis/RedisServerBinding.ts';
+import MercureServerBindingElement from './bindings/mercure/MercureServerBinding.ts';
+import IbmmqServerBindingElement from './bindings/ibmmq/IbmmqServerBinding.ts';
+import GooglepubsubServerBindingElement from './bindings/googlepubsub/GooglepubsubServerBinding.ts';
 
 class ServerBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

@@ -4,9 +4,9 @@ import {
   SchemaOrReferenceVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
-import { isReferenceElement } from '../../../../predicates';
-import SchemaElement from '../../../../elements/Schema';
-import JSONReferenceElement from '../../../../elements/Reference';
+import { isReferenceElement } from '../../../../predicates.ts';
+import SchemaElement from '../../../../elements/Schema.ts';
+import JSONReferenceElement from '../../../../elements/Reference.ts';
 
 export type { SchemaOrReferenceVisitorOptions };
 

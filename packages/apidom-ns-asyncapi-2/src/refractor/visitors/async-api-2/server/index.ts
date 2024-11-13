@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import ServerElement from '../../../../elements/Server';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import ServerElement from '../../../../elements/Server.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface ServerVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 

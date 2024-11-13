@@ -2,7 +2,7 @@ import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import { AsyncApi2Element } from '../../src';
+import { AsyncApi2Element } from '../../src/index.ts';
 
 const genericObjectElement = new ObjectElement({
   asyncapi: '2.6.0',

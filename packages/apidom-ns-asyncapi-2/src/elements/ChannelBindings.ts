@@ -1,23 +1,23 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import HttpChannelBindingElement from './bindings/http/HttpChannelBinding';
-import WebSocketChannelBindingElement from './bindings/ws/WebSocketChannelBinding';
-import KafkaChannelBindingElement from './bindings/kafka/KafkaChannelBinding';
-import AnypointmqChannelBindingElement from './bindings/anypointmq/AnypointmqChannelBinding';
-import AmqpChannelBindingElement from './bindings/amqp/AmqpChannelBinding';
-import Amqp1ChannelBindingElement from './bindings/amqp1/Amqp1ChannelBinding';
-import MqttChannelBindingElement from './bindings/mqtt/MqttChannelBinding';
-import Mqtt5ChannelBindingElement from './bindings/mqtt5/Mqtt5ChannelBinding';
-import NatsChannelBindingElement from './bindings/nats/NatsChannelBinding';
-import JmsChannelBindingElement from './bindings/jms/JmsChannelBinding';
-import SnsChannelBindingElement from './bindings/sns/SnsChannelBinding';
-import SolaceChannelBindingElement from './bindings/solace/SolaceChannelBinding';
-import SqsChannelBindingElement from './bindings/sqs/SqsChannelBinding';
-import StompChannelBindingElement from './bindings/stomp/StompChannelBinding';
-import RedisChannelBindingElement from './bindings/redis/RedisChannelBinding';
-import MercureChannelBindingElement from './bindings/mercure/MercureChannelBinding';
-import IbmmqChannelBindingElement from './bindings/ibmmq/IbmmqChannelBinding';
-import GooglepubsubChannelBindingElement from './bindings/googlepubsub/GooglepubsubChannelBinding';
+import HttpChannelBindingElement from './bindings/http/HttpChannelBinding.ts';
+import WebSocketChannelBindingElement from './bindings/ws/WebSocketChannelBinding.ts';
+import KafkaChannelBindingElement from './bindings/kafka/KafkaChannelBinding.ts';
+import AnypointmqChannelBindingElement from './bindings/anypointmq/AnypointmqChannelBinding.ts';
+import AmqpChannelBindingElement from './bindings/amqp/AmqpChannelBinding.ts';
+import Amqp1ChannelBindingElement from './bindings/amqp1/Amqp1ChannelBinding.ts';
+import MqttChannelBindingElement from './bindings/mqtt/MqttChannelBinding.ts';
+import Mqtt5ChannelBindingElement from './bindings/mqtt5/Mqtt5ChannelBinding.ts';
+import NatsChannelBindingElement from './bindings/nats/NatsChannelBinding.ts';
+import JmsChannelBindingElement from './bindings/jms/JmsChannelBinding.ts';
+import SnsChannelBindingElement from './bindings/sns/SnsChannelBinding.ts';
+import SolaceChannelBindingElement from './bindings/solace/SolaceChannelBinding.ts';
+import SqsChannelBindingElement from './bindings/sqs/SqsChannelBinding.ts';
+import StompChannelBindingElement from './bindings/stomp/StompChannelBinding.ts';
+import RedisChannelBindingElement from './bindings/redis/RedisChannelBinding.ts';
+import MercureChannelBindingElement from './bindings/mercure/MercureChannelBinding.ts';
+import IbmmqChannelBindingElement from './bindings/ibmmq/IbmmqChannelBinding.ts';
+import GooglepubsubChannelBindingElement from './bindings/googlepubsub/GooglepubsubChannelBinding.ts';
 
 class ChannelBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

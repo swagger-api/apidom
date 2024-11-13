@@ -3,7 +3,10 @@ import { sexprs } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import dedent from 'dedent';
 
-import { MessageBindingsElement, refractorPluginReplaceEmptyElement } from '../../../../../../src';
+import {
+  MessageBindingsElement,
+  refractorPluginReplaceEmptyElement,
+} from '../../../../../../src/index.ts';
 
 it('should refract to semantic ApiDOM tree', async function () {
   const yamlDefinition = dedent`

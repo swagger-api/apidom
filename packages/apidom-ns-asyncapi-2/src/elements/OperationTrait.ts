@@ -6,10 +6,10 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import TagsElement from './Tags';
-import ExternalDocumentationElement from './ExternalDocumentation';
-import OperationBindingsElement from './OperationBindings';
-import ReferenceElement from './Reference';
+import TagsElement from './Tags.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
+import OperationBindingsElement from './OperationBindings.ts';
+import ReferenceElement from './Reference.ts';
 
 class OperationTrait extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

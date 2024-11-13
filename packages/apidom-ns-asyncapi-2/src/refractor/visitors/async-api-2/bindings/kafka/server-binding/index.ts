@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import KafkaServerBindingElement from '../../../../../../elements/bindings/kafka/KafkaServerBinding';
+import KafkaServerBindingElement from '../../../../../../elements/bindings/kafka/KafkaServerBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface KafkaServerBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

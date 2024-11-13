@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import MqttChannelBindingElement from '../../../../../../elements/bindings/mqtt/MqttChannelBinding';
+import MqttChannelBindingElement from '../../../../../../elements/bindings/mqtt/MqttChannelBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface MqttChannelBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

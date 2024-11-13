@@ -1,7 +1,7 @@
 import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 
-import visitorShortcutBench from './visitor-shortcut';
+import visitorShortcutBench from './visitor-shortcut.ts';
 
 const suite = new Benchmark.Suite();
 

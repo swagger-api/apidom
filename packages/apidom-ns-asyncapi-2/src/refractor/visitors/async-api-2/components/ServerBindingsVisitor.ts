@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import ReferenceElement from '../../../../elements/Reference';
-import ComponentsServerBindingsElement from '../../../../elements/nces/ComponentsServerBindings';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
+import ReferenceElement from '../../../../elements/Reference.ts';
+import ComponentsServerBindingsElement from '../../../../elements/nces/ComponentsServerBindings.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 export interface ServerBindingsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

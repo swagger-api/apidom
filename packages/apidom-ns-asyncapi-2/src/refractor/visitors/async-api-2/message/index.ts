@@ -2,14 +2,14 @@ import { Mixin } from 'ts-mixer';
 import { always, defaultTo } from 'ramda';
 import { ObjectElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 
-import mediaTypes from '../../../../media-types';
-import MessageElement from '../../../../elements/Message';
+import mediaTypes from '../../../../media-types.ts';
+import MessageElement from '../../../../elements/Message.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * Implementation of refracting according `schemaFormat` fixed field is now limited,

@@ -7,8 +7,8 @@ import {
 } from '@swagger-api/apidom-core';
 import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
-import ReferenceElement from './Reference';
-import ExternalDocumentationElement from './ExternalDocumentation';
+import ReferenceElement from './Reference.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 class Schema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

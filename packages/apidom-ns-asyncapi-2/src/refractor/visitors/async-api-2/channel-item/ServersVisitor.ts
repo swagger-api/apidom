@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, isStringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
 
-import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsServers';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsServers.ts';
+import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface ServersVisitorOptions
   extends SpecificationVisitorOptions,

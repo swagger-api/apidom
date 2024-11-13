@@ -7,10 +7,10 @@ import {
 } from '@swagger-api/apidom-core';
 import { path } from 'ramda';
 
-import type VisitorClass from './visitors/Visitor';
-import specification from './specification';
-import { keyMap, getNodeType } from '../traversal/visitor';
-import createToolbox from './toolbox';
+import type VisitorClass from './visitors/Visitor.ts';
+import specification from './specification.ts';
+import { keyMap, getNodeType } from '../traversal/visitor.ts';
+import createToolbox from './toolbox.ts';
 
 const refract = <T extends Element>(
   value: unknown,

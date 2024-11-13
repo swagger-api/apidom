@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import OperationTraitElement from '../../../../elements/OperationTrait';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import OperationTraitElement from '../../../../elements/OperationTrait.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface OperationTraitVisitorOptions
   extends FixedFieldsVisitorOptions,

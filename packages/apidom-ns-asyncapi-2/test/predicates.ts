@@ -32,7 +32,7 @@ import {
   ServerElement,
   ServersElement,
   ServerVariableElement,
-} from '../src';
+} from '../src/index.ts';
 
 describe('predicates', function () {
   context('isAsyncApi2Element', function () {

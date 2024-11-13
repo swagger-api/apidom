@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import OAuthFlowScopesElement from '../../../../elements/nces/OAuthFlowScopes';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import OAuthFlowScopesElement from '../../../../elements/nces/OAuthFlowScopes.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
 export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

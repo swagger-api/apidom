@@ -6,7 +6,7 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import ServerBindingsElement from './ServerBindings';
+import ServerBindingsElement from './ServerBindings.ts';
 
 class Server extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

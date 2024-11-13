@@ -4,9 +4,9 @@ import { always } from 'ramda';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor';
-import AsyncApi2Element from '../../../elements/AsyncApi2';
+} from '../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
+import AsyncApi2Element from '../../../elements/AsyncApi2.ts';
 
 export interface AsyncApi2VisitorOptions
   extends FixedFieldsVisitorOptions,

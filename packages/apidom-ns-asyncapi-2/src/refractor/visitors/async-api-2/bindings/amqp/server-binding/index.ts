@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import AmqpServerBindingElement from '../../../../../../elements/bindings/amqp/AmqpServerBinding';
+import AmqpServerBindingElement from '../../../../../../elements/bindings/amqp/AmqpServerBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface AmqpServerBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import IbmmqServerBindingElement from '../../../../../../elements/bindings/ibmmq/IbmmqServerBinding';
+import IbmmqServerBindingElement from '../../../../../../elements/bindings/ibmmq/IbmmqServerBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface IbmmqServerBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { MqttOperationBindingElement } from '../../../../../../src';
+import { MqttOperationBindingElement } from '../../../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

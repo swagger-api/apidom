@@ -3,7 +3,7 @@ import dedent from 'dedent';
 import { sexprs } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
-import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '../../../../src';
+import { refractorPluginReplaceEmptyElement, AsyncApi2Element } from '../../../../src/index.ts';
 
 describe('given empty value instead of SecurityRequirementElement', function () {
   it('should replace empty value with semantic element', async function () {

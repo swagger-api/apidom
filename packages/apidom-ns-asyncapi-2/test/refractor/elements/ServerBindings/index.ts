@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { ServerBindingsElement } from '../../../../src';
+import { ServerBindingsElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

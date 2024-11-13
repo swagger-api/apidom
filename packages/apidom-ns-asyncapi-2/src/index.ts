@@ -11,12 +11,12 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as mediaTypes, AsyncAPIMediaTypes } from './media-types';
+export { default as mediaTypes, AsyncAPIMediaTypes } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
-export { default } from './namespace';
+export { default } from './namespace.ts';
 
-export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element';
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
 export {
   isAsyncApi2Element,
@@ -40,669 +40,669 @@ export {
   isServerBindingsElement,
   isServersElement,
   isServerVariableElement,
-} from './predicates';
+} from './predicates.ts';
 
-export { isReferenceLikeElement, isAsyncApiExtension } from './refractor/predicates';
+export { isReferenceLikeElement, isAsyncApiExtension } from './refractor/predicates.ts';
 
-export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor';
-export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor';
-export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor';
-export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor';
-export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor';
-export { default as MixedFieldsVisitor } from './refractor/visitors/generics/MixedFieldsVisitor';
-export type { MixedFieldsVisitorOptions } from './refractor/visitors/generics/MixedFieldsVisitor';
-export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor';
-export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor';
-export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor';
-export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor';
-export { default as SpecificationExtensionVisitor } from './refractor/visitors/SpecificationExtensionVisitor';
-export type { SpecificationExtensionVisitorOptions } from './refractor/visitors/SpecificationExtensionVisitor';
-export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor';
-export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor';
-export { default as Visitor } from './refractor/visitors/Visitor';
-export type { VisitorOptions } from './refractor/visitors/Visitor';
+export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
+export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor.ts';
+export { default as MixedFieldsVisitor } from './refractor/visitors/generics/MixedFieldsVisitor.ts';
+export type { MixedFieldsVisitorOptions } from './refractor/visitors/generics/MixedFieldsVisitor.ts';
+export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
+export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
+export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor.ts';
+export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor.ts';
+export { default as SpecificationExtensionVisitor } from './refractor/visitors/SpecificationExtensionVisitor.ts';
+export type { SpecificationExtensionVisitorOptions } from './refractor/visitors/SpecificationExtensionVisitor.ts';
+export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor.ts';
+export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor.ts';
+export { default as Visitor } from './refractor/visitors/Visitor.ts';
+export type { VisitorOptions } from './refractor/visitors/Visitor.ts';
 
 export type {
   default as AmqpChannelBindingVisitor,
   AmqpChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp/channel-binding/index.ts';
 export type {
   default as AmqpMessageBindingVisitor,
   AmqpMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp/message-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp/message-binding/index.ts';
 export type {
   default as AmqpOperationBindingVisitor,
   AmqpOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp/operation-binding/index.ts';
 export type {
   default as AmqpServerBindingVisitor,
   AmqpServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp/server-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp/server-binding/index.ts';
 export type {
   default as Amqp1ChannelBindingVisitor,
   Amqp1ChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp1/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp1/channel-binding/index.ts';
 export type {
   default as Amqp1MessageBindingVisitor,
   Amqp1MessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp1/message-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp1/message-binding/index.ts';
 export type {
   default as Amqp1OperationBindingVisitor,
   Amqp1OperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp1/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp1/operation-binding/index.ts';
 export type {
   default as Amqp1ServerBindingVisitor,
   Amqp1ServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/amqp1/server-binding';
+} from './refractor/visitors/async-api-2/bindings/amqp1/server-binding/index.ts';
 export type {
   default as AnypointmqChannelBindingVisitor,
   AnypointmqChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/anypointmq/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/anypointmq/channel-binding/index.ts';
 export type {
   default as AnypointmqMessageBindingVisitor,
   AnypointmqMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/anypointmq/message-binding';
+} from './refractor/visitors/async-api-2/bindings/anypointmq/message-binding/index.ts';
 export type {
   default as AnypointmqOperationBindingVisitor,
   AnypointmqOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/anypointmq/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/anypointmq/operation-binding/index.ts';
 export type {
   default as AnypointmqServerBindingVisitor,
   AnypointmqServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/anypointmq/server-binding';
+} from './refractor/visitors/async-api-2/bindings/anypointmq/server-binding/index.ts';
 export type {
   default as GooglepubsubChannelBindingVisitor,
   GooglepubsubChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/googlepubsub/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/googlepubsub/channel-binding/index.ts';
 export type {
   default as GooglepubsubMessageBindingVisitor,
   GooglepubsubMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/googlepubsub/message-binding';
+} from './refractor/visitors/async-api-2/bindings/googlepubsub/message-binding/index.ts';
 export type {
   default as GooglepubsubOperationBindingVisitor,
   GooglepubsubOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/googlepubsub/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/googlepubsub/operation-binding/index.ts';
 export type {
   default as GooglepubsubServerBindingVisitor,
   GooglepubsubServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/googlepubsub/server-binding';
+} from './refractor/visitors/async-api-2/bindings/googlepubsub/server-binding/index.ts';
 export type {
   default as HttpChannelBindingVisitor,
   HttpChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/http/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/http/channel-binding/index.ts';
 export type {
   default as HttpMessageBindingVisitor,
   HttpMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/http/message-binding';
+} from './refractor/visitors/async-api-2/bindings/http/message-binding/index.ts';
 export type {
   default as HttpOperationBindingVisitor,
   HttpOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/http/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/http/operation-binding/index.ts';
 export type {
   default as HttpServerBindingVisitor,
   HttpServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/http/server-binding';
+} from './refractor/visitors/async-api-2/bindings/http/server-binding/index.ts';
 export type {
   default as IbmmqChannelBindingVisitor,
   IbmmqChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ibmmq/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/ibmmq/channel-binding/index.ts';
 export type {
   default as IbmmqMessageBindingVisitor,
   IbmmqMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ibmmq/message-binding';
+} from './refractor/visitors/async-api-2/bindings/ibmmq/message-binding/index.ts';
 export type {
   default as IbmmqOperationBindingVisitor,
   IbmmqOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ibmmq/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/ibmmq/operation-binding/index.ts';
 export type {
   default as IbmmqServerBindingVisitor,
   IbmmqServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ibmmq/server-binding';
+} from './refractor/visitors/async-api-2/bindings/ibmmq/server-binding/index.ts';
 export type {
   default as JmsChannelBindingVisitor,
   JmsChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/jms/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/jms/channel-binding/index.ts';
 export type {
   default as JmsMessageBindingVisitor,
   JmsMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/jms/message-binding';
+} from './refractor/visitors/async-api-2/bindings/jms/message-binding/index.ts';
 export type {
   default as JmsOperationBindingVisitor,
   JmsOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/jms/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/jms/operation-binding/index.ts';
 export type {
   default as JmsServerBindingVisitor,
   JmsServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/jms/server-binding';
+} from './refractor/visitors/async-api-2/bindings/jms/server-binding/index.ts';
 export type {
   default as KafkaChannelBindingVisitor,
   KafkaChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/kafka/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/kafka/channel-binding/index.ts';
 export type {
   default as KafkaMessageBindingVisitor,
   KafkaMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/kafka/message-binding';
+} from './refractor/visitors/async-api-2/bindings/kafka/message-binding/index.ts';
 export type {
   default as KafkaOperationBindingVisitor,
   KafkaOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/kafka/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/kafka/operation-binding/index.ts';
 export type {
   default as KafkaServerBindingVisitor,
   KafkaServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/kafka/server-binding';
+} from './refractor/visitors/async-api-2/bindings/kafka/server-binding/index.ts';
 export type {
   default as MercureChannelBindingVisitor,
   MercureChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mercure/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/mercure/channel-binding/index.ts';
 export type {
   default as MercureMessageBindingVisitor,
   MercureMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mercure/message-binding';
+} from './refractor/visitors/async-api-2/bindings/mercure/message-binding/index.ts';
 export type {
   default as MercureOperationBindingVisitor,
   MercureOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mercure/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/mercure/operation-binding/index.ts';
 export type {
   default as MercureServerBindingVisitor,
   MercureServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mercure/server-binding';
+} from './refractor/visitors/async-api-2/bindings/mercure/server-binding/index.ts';
 export type {
   default as MqttChannelBindingVisitor,
   MqttChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt/channel-binding/index.ts';
 export type {
   default as MqttMessageBindingVisitor,
   MqttMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt/message-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt/message-binding/index.ts';
 export type {
   default as MqttOperationBindingVisitor,
   MqttOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt/operation-binding/index.ts';
 export type {
   default as MqttServerBindingVisitor,
   MqttServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt/server-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt/server-binding/index.ts';
 export type {
   default as Mqtt5ChannelBindingVisitor,
   Mqtt5ChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt5/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt5/channel-binding/index.ts';
 export type {
   default as Mqtt5MessageBindingVisitor,
   Mqtt5MessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt5/message-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt5/message-binding/index.ts';
 export type {
   default as Mqtt5OperationBindingVisitor,
   Mqtt5OperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt5/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt5/operation-binding/index.ts';
 export type {
   default as Mqtt5ServerBindingVisitor,
   Mqtt5ServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/mqtt5/server-binding';
+} from './refractor/visitors/async-api-2/bindings/mqtt5/server-binding/index.ts';
 export type {
   default as NatsChannelBindingVisitor,
   NatsChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/nats/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/nats/channel-binding/index.ts';
 export type {
   default as NatsMessageBindingVisitor,
   NatsMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/nats/message-binding';
+} from './refractor/visitors/async-api-2/bindings/nats/message-binding/index.ts';
 export type {
   default as NatsOperationBindingVisitor,
   NatsOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/nats/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/nats/operation-binding/index.ts';
 export type {
   default as NatsServerBindingVisitor,
   NatsServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/nats/server-binding';
+} from './refractor/visitors/async-api-2/bindings/nats/server-binding/index.ts';
 export type {
   default as PulsarChannelBindingVisitor,
   PulsarChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/pulsar/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/pulsar/channel-binding/index.ts';
 export type {
   default as PulsarMessageBindingVisitor,
   PulsarMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/pulsar/message-binding';
+} from './refractor/visitors/async-api-2/bindings/pulsar/message-binding/index.ts';
 export type {
   default as PulsarOperationBindingVisitor,
   PulsarOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/pulsar/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/pulsar/operation-binding/index.ts';
 export type {
   default as PulsarServerBindingVisitor,
   PulsarServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/pulsar/server-binding';
+} from './refractor/visitors/async-api-2/bindings/pulsar/server-binding/index.ts';
 export type {
   default as RedisChannelBindingVisitor,
   RedisChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/redis/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/redis/channel-binding/index.ts';
 export type {
   default as RedisMessageBindingVisitor,
   RedisMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/redis/message-binding';
+} from './refractor/visitors/async-api-2/bindings/redis/message-binding/index.ts';
 export type {
   default as RedisOperationBindingVisitor,
   RedisOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/redis/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/redis/operation-binding/index.ts';
 export type {
   default as RedisServerBindingVisitor,
   RedisServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/redis/server-binding';
+} from './refractor/visitors/async-api-2/bindings/redis/server-binding/index.ts';
 export type {
   default as SnsChannelBindingVisitor,
   SnsChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sns/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/sns/channel-binding/index.ts';
 export type {
   default as SnsMessageBindingVisitor,
   SnsMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sns/message-binding';
+} from './refractor/visitors/async-api-2/bindings/sns/message-binding/index.ts';
 export type {
   default as SnsOperationBindingVisitor,
   SnsOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sns/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/sns/operation-binding/index.ts';
 export type {
   default as SnsServerBindingVisitor,
   SnsServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sns/server-binding';
+} from './refractor/visitors/async-api-2/bindings/sns/server-binding/index.ts';
 export type {
   default as SolaceChannelBindingVisitor,
   SolaceChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/solace/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/solace/channel-binding/index.ts';
 export type {
   default as SolaceMessageBindingVisitor,
   SolaceMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/solace/message-binding';
+} from './refractor/visitors/async-api-2/bindings/solace/message-binding/index.ts';
 export type {
   default as SolaceOperationBindingVisitor,
   SolaceOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/solace/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/solace/operation-binding/index.ts';
 export type {
   default as SolaceServerBindingVisitor,
   SolaceServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/solace/server-binding';
+} from './refractor/visitors/async-api-2/bindings/solace/server-binding/index.ts';
 export type {
   default as SqsChannelBindingVisitor,
   SqsChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sqs/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/sqs/channel-binding/index.ts';
 export type {
   default as SqsMessageBindingVisitor,
   SqsMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sqs/message-binding';
+} from './refractor/visitors/async-api-2/bindings/sqs/message-binding/index.ts';
 export type {
   default as SqsOperationBindingVisitor,
   SqsOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sqs/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/sqs/operation-binding/index.ts';
 export type {
   default as SqsServerBindingVisitor,
   SqsServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/sqs/server-binding';
+} from './refractor/visitors/async-api-2/bindings/sqs/server-binding/index.ts';
 export type {
   default as StompChannelBindingVisitor,
   StompChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/stomp/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/stomp/channel-binding/index.ts';
 export type {
   default as StompMessageBindingVisitor,
   StompMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/stomp/message-binding';
+} from './refractor/visitors/async-api-2/bindings/stomp/message-binding/index.ts';
 export type {
   default as StompOperationBindingVisitor,
   StompOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/stomp/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/stomp/operation-binding/index.ts';
 export type {
   default as StompServerBindingVisitor,
   StompServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/stomp/server-binding';
+} from './refractor/visitors/async-api-2/bindings/stomp/server-binding/index.ts';
 export type {
   default as WebSocketChannelBindingVisitor,
   WebSocketChannelBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ws/channel-binding';
+} from './refractor/visitors/async-api-2/bindings/ws/channel-binding/index.ts';
 export type {
   default as WebSocketMessageBindingVisitor,
   WebSocketMessageBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ws/message-binding';
+} from './refractor/visitors/async-api-2/bindings/ws/message-binding/index.ts';
 export type {
   default as WebSocketOperationBindingVisitor,
   WebSocketOperationBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ws/operation-binding';
+} from './refractor/visitors/async-api-2/bindings/ws/operation-binding/index.ts';
 export type {
   default as WebSocketServerBindingVisitor,
   WebSocketServerBindingVisitorOptions,
-} from './refractor/visitors/async-api-2/bindings/ws/server-binding';
+} from './refractor/visitors/async-api-2/bindings/ws/server-binding/index.ts';
 export type {
   default as ChannelBindingsVisitor,
   ChannelBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/channel-bindings';
+} from './refractor/visitors/async-api-2/channel-bindings/index.ts';
 export type {
   default as ChannelItemVisitor,
   ChannelItemVisitorOptions,
-} from './refractor/visitors/async-api-2/channel-item';
+} from './refractor/visitors/async-api-2/channel-item/index.ts';
 export type {
   default as ChannelItem$RefVisitor,
   $RefVisitorOptions as ChannelItem$RefVisitorOptions,
-} from './refractor/visitors/async-api-2/channel-item/$RefVisitor';
+} from './refractor/visitors/async-api-2/channel-item/$RefVisitor.ts';
 export type {
   default as ChannelItemBindingsVisitor,
   BindingsVisitorOptions as ChannelItemBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/channel-item/BindingsVisitor';
+} from './refractor/visitors/async-api-2/channel-item/BindingsVisitor.ts';
 export type {
   default as ChannelItemServersVisitor,
   ServersVisitorOptions as ChannelItemServersVisitorOptions,
-} from './refractor/visitors/async-api-2/channel-item/ServersVisitor';
+} from './refractor/visitors/async-api-2/channel-item/ServersVisitor.ts';
 export type {
   default as ChannelsVisitor,
   ChannelsVisitorOptions,
-} from './refractor/visitors/async-api-2/channels';
+} from './refractor/visitors/async-api-2/channels/index.ts';
 export type {
   default as ComponentsVisitor,
   ComponentsVisitorOptions,
-} from './refractor/visitors/async-api-2/components';
+} from './refractor/visitors/async-api-2/components/index.ts';
 export type {
   default as ComponentsChannelBindingsVisitor,
   ChannelBindingsVisitorOptions as ComponentsChannelBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ChannelBindingsVisitor';
+} from './refractor/visitors/async-api-2/components/ChannelBindingsVisitor.ts';
 export type {
   default as ComponentsChannelsVisitor,
   ChannelsVisitorOptions as ComponentsChannelsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ChannelsVisitor';
+} from './refractor/visitors/async-api-2/components/ChannelsVisitor.ts';
 export type {
   default as ComponentsCorrelationIdsVisitor,
   CorrelationIdsVisitorOptions as ComponentsCorrelationIdsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/CorrelationIdsVisitor';
+} from './refractor/visitors/async-api-2/components/CorrelationIdsVisitor.ts';
 export type {
   default as ComponentsMessageBindingsVisitor,
   MessageBindingsVisitorOptions as ComponentsMessageBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/MessageBindingsVisitor';
+} from './refractor/visitors/async-api-2/components/MessageBindingsVisitor.ts';
 export type {
   default as ComponentsMessagesVisitor,
   MessagesVisitorOptions as ComponentsMessagesVisitorOptions,
-} from './refractor/visitors/async-api-2/components/MessagesVisitor';
+} from './refractor/visitors/async-api-2/components/MessagesVisitor.ts';
 export type {
   default as ComponentsMessageTraitsVisitor,
   MessageTraitsVisitorOptions as ComponentsMessageTraitsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/MessageTraitsVisitor';
+} from './refractor/visitors/async-api-2/components/MessageTraitsVisitor.ts';
 export type {
   default as ComponentsOperationBindingsVisitor,
   OperationBindingsVisitorOptions as ComponentsOperationBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/OperationBindingsVisitor';
+} from './refractor/visitors/async-api-2/components/OperationBindingsVisitor.ts';
 export type {
   default as ComponentsOperationTraitsVisitor,
   OperationTraitsVisitorOptions as ComponentsOperationTraitsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/OperationTraitsVisitor';
+} from './refractor/visitors/async-api-2/components/OperationTraitsVisitor.ts';
 export type {
   default as ComponentsParametersVisitor,
   ParametersVisitorOptions as ComponentsParametersVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ParametersVisitor';
+} from './refractor/visitors/async-api-2/components/ParametersVisitor.ts';
 export type {
   default as ComponentsSchemasVisitor,
   SchemasVisitorOptions as ComponentsSchemasVisitorOptions,
-} from './refractor/visitors/async-api-2/components/SchemasVisitor';
+} from './refractor/visitors/async-api-2/components/SchemasVisitor.ts';
 export type {
   default as ComponentsSecuritySchemesVisitor,
   SecuritySchemesVisitorOptions as ComponentsSecuritySchemesVisitorOptions,
-} from './refractor/visitors/async-api-2/components/SecuritySchemesVisitor';
+} from './refractor/visitors/async-api-2/components/SecuritySchemesVisitor.ts';
 export type {
   default as ComponentsServerBindingsVisitor,
   ServerBindingsVisitorOptions as ComponentsServerBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ServerBindingsVisitor';
+} from './refractor/visitors/async-api-2/components/ServerBindingsVisitor.ts';
 export type {
   default as ComponentsServersVisitor,
   ServersVisitorOptions as ComponentsServersVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ServersVisitor';
+} from './refractor/visitors/async-api-2/components/ServersVisitor.ts';
 export type {
   default as ComponentsServerVariablesVisitor,
   ServerVariablesVisitorOptions as ComponentsServerVariablesVisitorOptions,
-} from './refractor/visitors/async-api-2/components/ServerVariablesVisitor';
+} from './refractor/visitors/async-api-2/components/ServerVariablesVisitor.ts';
 export type {
   default as ContactVisitor,
   ContactVisitorOptions,
-} from './refractor/visitors/async-api-2/contact';
+} from './refractor/visitors/async-api-2/contact/index.ts';
 export type {
   default as CorrelationIDVisitor,
   CorrelationIDVisitorOptions,
-} from './refractor/visitors/async-api-2/correlation-id';
+} from './refractor/visitors/async-api-2/correlation-id/index.ts';
 export type {
   default as ExternalDocumentationVisitor,
   ExternalDocumentationVisitorOptions,
-} from './refractor/visitors/async-api-2/external-documentation';
+} from './refractor/visitors/async-api-2/external-documentation/index.ts';
 export type {
   default as InfoVisitor,
   InfoVisitorOptions,
-} from './refractor/visitors/async-api-2/info';
+} from './refractor/visitors/async-api-2/info/index.ts';
 export type {
   default as InfoVersionVisitor,
   VersionVisitorOptions as InfoVersionVisitorOptions,
-} from './refractor/visitors/async-api-2/info/VersionVisitor';
+} from './refractor/visitors/async-api-2/info/VersionVisitor.ts';
 export type {
   default as LicenseVisitor,
   LicenseVisitorOptions,
-} from './refractor/visitors/async-api-2/license';
+} from './refractor/visitors/async-api-2/license/index.ts';
 export type {
   default as MessageVisitor,
   MessageVisitorOptions,
-} from './refractor/visitors/async-api-2/message';
+} from './refractor/visitors/async-api-2/message/index.ts';
 export type {
   default as MessageBindingsFieldVisitor,
   BindingsVisitorOptions as MessageBindingsFieldVisitorOptions,
-} from './refractor/visitors/async-api-2/message/BindingsVisitor';
+} from './refractor/visitors/async-api-2/message/BindingsVisitor.ts';
 export type {
   default as MessageCorrelationIdVisitor,
   CorrelationIdVisitorOptions as MessageCorrelationIdVisitorOptions,
-} from './refractor/visitors/async-api-2/message/CorrelationIdVisitor';
+} from './refractor/visitors/async-api-2/message/CorrelationIdVisitor.ts';
 export type {
   default as MessageExamplesVisitor,
   ExamplesVisitorOptions as MessageExamplesVisitorOptions,
-} from './refractor/visitors/async-api-2/message/ExamplesVisitor';
+} from './refractor/visitors/async-api-2/message/ExamplesVisitor.ts';
 export type {
   default as MessageHeadersVisitor,
   HeadersVisitorOptions as MessageHeadersVisitorOptions,
-} from './refractor/visitors/async-api-2/message/HeadersVisitor';
+} from './refractor/visitors/async-api-2/message/HeadersVisitor.ts';
 export type {
   default as MessageTraitsVisitor,
   TraitsVisitorOptions as MessageTraitsVisitorOptions,
-} from './refractor/visitors/async-api-2/message/TraitsVisitor';
+} from './refractor/visitors/async-api-2/message/TraitsVisitor.ts';
 export type {
   default as MessageBindingsVisitor,
   MessageBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/message-bindings';
+} from './refractor/visitors/async-api-2/message-bindings/index.ts';
 export type {
   default as MessageExampleVisitor,
   MessageExampleVisitorOptions,
-} from './refractor/visitors/async-api-2/message-example';
+} from './refractor/visitors/async-api-2/message-example/index.ts';
 export type {
   default as MessageTraitVisitor,
   MessageTraitVisitorOptions,
-} from './refractor/visitors/async-api-2/message-trait';
+} from './refractor/visitors/async-api-2/message-trait/index.ts';
 export type {
   default as MessageTraitBindingsVisitor,
   BindingsVisitorOptions as MessageTraitBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/message-trait/BindingsVisitor';
+} from './refractor/visitors/async-api-2/message-trait/BindingsVisitor.ts';
 export type {
   default as MessageTraitCorrelationIdVisitor,
   CorrelationIdVisitorOptions as MessageTraitCorrelationIdVisitorOptions,
-} from './refractor/visitors/async-api-2/message-trait/CorrelationIdVisitor';
+} from './refractor/visitors/async-api-2/message-trait/CorrelationIdVisitor.ts';
 export type {
   default as MessageTraitExamplesVisitor,
   ExamplesVisitorOptions as MessageTraitExamplesVisitorOptions,
-} from './refractor/visitors/async-api-2/message-trait/ExamplesVisitor';
+} from './refractor/visitors/async-api-2/message-trait/ExamplesVisitor.ts';
 export type {
   default as MessageTraitHeadersVisitor,
   DefaultVisitorOptions as MessageTraitHeadersVisitorOptions,
-} from './refractor/visitors/async-api-2/message-trait/HeadersVisitor';
+} from './refractor/visitors/async-api-2/message-trait/HeadersVisitor.ts';
 export type {
   default as OAuthFlowVisitor,
   OAuthFlowVisitorOptions,
-} from './refractor/visitors/async-api-2/oauth-flow';
+} from './refractor/visitors/async-api-2/oauth-flow/index.ts';
 export type {
   default as OAuthFlowScopesVisitor,
   ScopesVisitorOptions as OAuthFlowScopesVisitorOptions,
-} from './refractor/visitors/async-api-2/oauth-flow/ScopesVisitor';
+} from './refractor/visitors/async-api-2/oauth-flow/ScopesVisitor.ts';
 export type {
   default as OAuthFlowsVisitor,
   OAuthFlowsVisitorOptions,
-} from './refractor/visitors/async-api-2/oauth-flows';
+} from './refractor/visitors/async-api-2/oauth-flows/index.ts';
 export type {
   default as OperationVisitor,
   OperationVisitorOptions,
-} from './refractor/visitors/async-api-2/operation';
+} from './refractor/visitors/async-api-2/operation/index.ts';
 export type {
   default as OperationBindingsFieldVisitor,
   BindingsVisitorOptions as OperationBindingsFieldVisitorOptions,
-} from './refractor/visitors/async-api-2/operation/BindingsVisitor';
+} from './refractor/visitors/async-api-2/operation/BindingsVisitor.ts';
 export type {
   default as OperationMessageVisitor,
   MessageVisitorOptions as OperationMessageVisitorOptions,
-} from './refractor/visitors/async-api-2/operation/MessageVisitor';
+} from './refractor/visitors/async-api-2/operation/MessageVisitor.ts';
 export type {
   default as OperationSecurityVisitor,
   SecurityVisitorOptions as OperationSecurityVisitorOptions,
-} from './refractor/visitors/async-api-2/operation/SecurityVisitor';
+} from './refractor/visitors/async-api-2/operation/SecurityVisitor.ts';
 export type {
   default as OperationTraitsVisitor,
   TraitsVisitorOptions as OperationTraitsVisitorOptions,
-} from './refractor/visitors/async-api-2/operation/TraitsVisitor';
+} from './refractor/visitors/async-api-2/operation/TraitsVisitor.ts';
 export type {
   default as OperationBindingsVisitor,
   OperationBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/operation-bindings';
+} from './refractor/visitors/async-api-2/operation-bindings/index.ts';
 export type {
   default as OperationTraitVisitor,
   OperationTraitVisitorOptions,
-} from './refractor/visitors/async-api-2/operation-trait';
+} from './refractor/visitors/async-api-2/operation-trait/index.ts';
 export type {
   default as OperationTraitBindingsVisitor,
   BindingsVisitorOptions as OperationTraitBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/operation-trait/BindingsVisitor';
+} from './refractor/visitors/async-api-2/operation-trait/BindingsVisitor.ts';
 export type {
   default as OperationTraitSecurityVisitor,
   SecurityVisitorOptions as OperationTraitSecurityVisitorOptions,
-} from './refractor/visitors/async-api-2/operation-trait/SecurityVisitor';
+} from './refractor/visitors/async-api-2/operation-trait/SecurityVisitor.ts';
 export type {
   default as ParameterVisitor,
   ParameterVisitorOptions,
-} from './refractor/visitors/async-api-2/parameter';
+} from './refractor/visitors/async-api-2/parameter/index.ts';
 export type {
   default as ParameterSchemaVisitor,
   SchemaVisitorOptions as ParameterSchemaVisitorOptions,
-} from './refractor/visitors/async-api-2/parameter/SchemaVisitor';
+} from './refractor/visitors/async-api-2/parameter/SchemaVisitor.ts';
 export type {
   default as ParametersVisitor,
   ParametersVisitorOptions,
-} from './refractor/visitors/async-api-2/parameters';
+} from './refractor/visitors/async-api-2/parameters/index.ts';
 export type {
   default as ReferenceVisitor,
   ReferenceVisitorOptions,
-} from './refractor/visitors/async-api-2/reference';
+} from './refractor/visitors/async-api-2/reference/index.ts';
 export type {
   default as Reference$RefVisitor,
   $RefVisitorOptions as Reference$RefVisitorOptions,
-} from './refractor/visitors/async-api-2/reference/$RefVisitor';
+} from './refractor/visitors/async-api-2/reference/$RefVisitor.ts';
 export type {
   default as SchemaVisitor,
   SchemaVisitorOptions,
-} from './refractor/visitors/async-api-2/schema';
+} from './refractor/visitors/async-api-2/schema/index.ts';
 export type {
   default as SchemaAllOfVisitor,
   AllOfVisitorOptions as SchemaAllOfVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/AllOfVisitor';
+} from './refractor/visitors/async-api-2/schema/AllOfVisitor.ts';
 export type {
   default as SchemaAnyOfVisitor,
   AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/AnyOfVisitor';
+} from './refractor/visitors/async-api-2/schema/AnyOfVisitor.ts';
 export type {
   default as SchemaDefinitionsVisitor,
   DefinitionsVisitorOptions as SchemaDefinitionsVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/DefinitionsVisitor';
+} from './refractor/visitors/async-api-2/schema/DefinitionsVisitor.ts';
 export type {
   default as SchemaDependenciesVisitor,
   DependenciesVisitorOptions as SchemaDependenciesVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/DependenciesVisitor';
+} from './refractor/visitors/async-api-2/schema/DependenciesVisitor.ts';
 export type {
   default as SchemaItemsVisitor,
   ItemsVisitorOptions as SchemaItemsVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/ItemsVisitor';
+} from './refractor/visitors/async-api-2/schema/ItemsVisitor.ts';
 export type {
   default as SchemaOneOfVisitor,
   OneOfVisitorOptions as SchemaOneOfVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/OneOfVisitor';
+} from './refractor/visitors/async-api-2/schema/OneOfVisitor.ts';
 export type {
   default as SchemaPatternPropertiesVisitor,
   PatternPropertiesVisitorOptions as SchemaPatternPropertiesVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/PatternPropertiesVisitor';
+} from './refractor/visitors/async-api-2/schema/PatternPropertiesVisitor.ts';
 export type {
   default as SchemaPropertiesVisitor,
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/PropertiesVisitor';
+} from './refractor/visitors/async-api-2/schema/PropertiesVisitor.ts';
 export type {
   default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,
-} from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor';
+} from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor.ts';
 export type {
   default as SecurityRequirementVisitor,
   SecurityRequirementVisitorOptions,
-} from './refractor/visitors/async-api-2/security-requirement';
+} from './refractor/visitors/async-api-2/security-requirement/index.ts';
 export type {
   default as SecuritySchemeVisitor,
   SecuritySchemeVisitorOptions,
-} from './refractor/visitors/async-api-2/security-scheme';
+} from './refractor/visitors/async-api-2/security-scheme/index.ts';
 export type {
   default as ServerVisitor,
   ServerVisitorOptions,
-} from './refractor/visitors/async-api-2/server';
+} from './refractor/visitors/async-api-2/server/index.ts';
 export type {
   default as ServerBindingsFieldVisitor,
   BindingsVisitorOptions as ServerBindingsFieldVisitorOptions,
-} from './refractor/visitors/async-api-2/server/BindingsVisitor';
+} from './refractor/visitors/async-api-2/server/BindingsVisitor.ts';
 export type {
   default as ServerSecurityVisitor,
   SecurityVisitorOptions as ServerSecurityVisitorOptions,
-} from './refractor/visitors/async-api-2/server/SecurityVisitor';
+} from './refractor/visitors/async-api-2/server/SecurityVisitor.ts';
 export type {
   default as ServerUrlVisitor,
   UrlVisitorOptions as ServerUrlVisitorOptions,
-} from './refractor/visitors/async-api-2/server/UrlVisitor';
+} from './refractor/visitors/async-api-2/server/UrlVisitor.ts';
 export type {
   default as ServerVariablesVisitor,
   VariablesVisitorOptions as ServerVariablesVisitorOptions,
-} from './refractor/visitors/async-api-2/server/VariablesVisitor';
+} from './refractor/visitors/async-api-2/server/VariablesVisitor.ts';
 export type {
   default as ServerBindingsVisitor,
   ServerBindingsVisitorOptions,
-} from './refractor/visitors/async-api-2/server-bindings';
+} from './refractor/visitors/async-api-2/server-bindings/index.ts';
 export type {
   default as ServerVariableVisitor,
   ServerVariableVisitorOptions,
-} from './refractor/visitors/async-api-2/server-variable';
+} from './refractor/visitors/async-api-2/server-variable/index.ts';
 export type {
   default as ServersVisitor,
   ServersVisitorOptions,
-} from './refractor/visitors/async-api-2/servers';
+} from './refractor/visitors/async-api-2/servers/index.ts';
 export type {
   default as TagVisitor,
   TagVisitorOptions,
-} from './refractor/visitors/async-api-2/tag';
+} from './refractor/visitors/async-api-2/tag/index.ts';
 export type {
   default as TagsVisitor,
   TagsVisitorOptions,
-} from './refractor/visitors/async-api-2/tags';
+} from './refractor/visitors/async-api-2/tags/index.ts';
 export type {
   default as AsyncApi2Visitor,
   AsyncApi2VisitorOptions,
-} from './refractor/visitors/async-api-2';
+} from './refractor/visitors/async-api-2/index.ts';
 export type {
   default as AsyncApiVersionVisitor,
   AsyncApiVersionVisitorOptions,
-} from './refractor/visitors/async-api-2/AsyncApiVersionVisitor';
+} from './refractor/visitors/async-api-2/AsyncApiVersionVisitor.ts';
 export type {
   default as DefaultContentTypeVisitor,
   DefaultContentTypeVisitorOptions,
-} from './refractor/visitors/async-api-2/DefaultContentTypeVisitor';
+} from './refractor/visitors/async-api-2/DefaultContentTypeVisitor.ts';
 export type {
   default as IdentifierVisitor,
   IdentifierVisitorOptions,
-} from './refractor/visitors/async-api-2/IdentifierVisitor';
+} from './refractor/visitors/async-api-2/IdentifierVisitor.ts';
 
-export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor';
+export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 
-export { keyMap, getNodeType } from './traversal/visitor';
+export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 export {
   /**
@@ -841,4 +841,4 @@ export {
   WebSocketMessageBindingElement,
   WebSocketOperationBindingElement,
   WebSocketServerBindingElement,
-} from './refractor/registration';
+} from './refractor/registration.ts';

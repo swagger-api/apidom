@@ -4,12 +4,12 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import PatternedFieldsVisitor, {
   PatternedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/PatternedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import ParametersElement from '../../../../elements/Parameters';
-import { isReferenceLikeElement } from '../../../predicates';
-import { isReferenceElement } from '../../../../predicates';
-import ReferenceElement from '../../../../elements/Reference';
+} from '../../generics/PatternedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import ParametersElement from '../../../../elements/Parameters.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
+import ReferenceElement from '../../../../elements/Reference.ts';
 
 export interface ParametersVisitorOptions
   extends PatternedFieldsVisitorOptions,

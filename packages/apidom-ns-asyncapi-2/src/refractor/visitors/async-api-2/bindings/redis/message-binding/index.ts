@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import RedisMessageBindingElement from '../../../../../../elements/bindings/redis/RedisMessageBinding';
+import RedisMessageBindingElement from '../../../../../../elements/bindings/redis/RedisMessageBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface RedisMessageBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

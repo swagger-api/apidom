@@ -1,23 +1,23 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import HttpOperationBindingElement from './bindings/http/HttpOperationBinding';
-import WebSocketOperationBindingElement from './bindings/ws/WebSocketOperationBinding';
-import KafkaOperationBindingElement from './bindings/kafka/KafkaOperationBinding';
-import AnypointmqOperationBindingElement from './bindings/anypointmq/AnypointmqOperationBinding';
-import AmqpOperationBindingElement from './bindings/amqp/AmqpOperationBinding';
-import Amqp1OperationBindingElement from './bindings/amqp1/Amqp1OperationBinding';
-import MqttOperationBindingElement from './bindings/mqtt/MqttOperationBinding';
-import Mqtt5OperationBindingElement from './bindings/mqtt5/Mqtt5OperationBinding';
-import NatsOperationBindingElement from './bindings/nats/NatsOperationBinding';
-import JmsOperationBindingElement from './bindings/jms/JmsOperationBinding';
-import SnsOperationBindingElement from './bindings/sns/SnsOperationBinding';
-import SolaceOperationBindingElement from './bindings/solace/SolaceOperationBinding';
-import SqsOperationBindingElement from './bindings/sqs/SqsOperationBinding';
-import StompOperationBindingElement from './bindings/stomp/StompOperationBinding';
-import RedisOperationBindingElement from './bindings/redis/RedisOperationBinding';
-import MercureOperationBindingElement from './bindings/mercure/MercureOperationBinding';
-import IbmmqOperationBindingElement from './bindings/ibmmq/IbmmqOperationBinding';
-import GooglepubsubOperationBindingElement from './bindings/googlepubsub/GooglepubsubOperationBinding';
+import HttpOperationBindingElement from './bindings/http/HttpOperationBinding.ts';
+import WebSocketOperationBindingElement from './bindings/ws/WebSocketOperationBinding.ts';
+import KafkaOperationBindingElement from './bindings/kafka/KafkaOperationBinding.ts';
+import AnypointmqOperationBindingElement from './bindings/anypointmq/AnypointmqOperationBinding.ts';
+import AmqpOperationBindingElement from './bindings/amqp/AmqpOperationBinding.ts';
+import Amqp1OperationBindingElement from './bindings/amqp1/Amqp1OperationBinding.ts';
+import MqttOperationBindingElement from './bindings/mqtt/MqttOperationBinding.ts';
+import Mqtt5OperationBindingElement from './bindings/mqtt5/Mqtt5OperationBinding.ts';
+import NatsOperationBindingElement from './bindings/nats/NatsOperationBinding.ts';
+import JmsOperationBindingElement from './bindings/jms/JmsOperationBinding.ts';
+import SnsOperationBindingElement from './bindings/sns/SnsOperationBinding.ts';
+import SolaceOperationBindingElement from './bindings/solace/SolaceOperationBinding.ts';
+import SqsOperationBindingElement from './bindings/sqs/SqsOperationBinding.ts';
+import StompOperationBindingElement from './bindings/stomp/StompOperationBinding.ts';
+import RedisOperationBindingElement from './bindings/redis/RedisOperationBinding.ts';
+import MercureOperationBindingElement from './bindings/mercure/MercureOperationBinding.ts';
+import IbmmqOperationBindingElement from './bindings/ibmmq/IbmmqOperationBinding.ts';
+import GooglepubsubOperationBindingElement from './bindings/googlepubsub/GooglepubsubOperationBinding.ts';
 
 class OperationBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

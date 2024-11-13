@@ -6,9 +6,9 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import OperationElement from './Operation';
-import ParametersElement from './Parameters';
-import ChannelBindingsElement from './ChannelBindings';
+import OperationElement from './Operation.ts';
+import ParametersElement from './Parameters.ts';
+import ChannelBindingsElement from './ChannelBindings.ts';
 
 class ChannelItem extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

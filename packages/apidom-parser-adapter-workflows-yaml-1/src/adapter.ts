@@ -9,7 +9,7 @@ import workflowsNamespace, {
   WorkflowsSpecification1Element,
 } from '@swagger-api/apidom-ns-workflows-1';
 
-export { default as mediaTypes } from './media-types';
+export { default as mediaTypes } from './media-types.ts';
 
 export const detectionRegExp =
   /(?<YAML>^(["']?)workflowsSpec\2\s*:\s*(["']?)(?<version_yaml>1\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))\3(?:\s+|$))|(?<JSON>"workflowsSpec"\s*:\s*"(?<version_json>1\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))")/m;

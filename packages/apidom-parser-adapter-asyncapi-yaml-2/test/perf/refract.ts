@@ -6,7 +6,7 @@ import type { Event } from 'benchmark';
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 import { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import { parse } from '../../src/adapter';
+import { parse } from '../../src/adapter.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/asyncapi.yaml');

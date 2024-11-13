@@ -5,8 +5,8 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-workflows-yaml-1';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../../../src/File';
-import WorkflowsYAML1Parser from '../../../../src/parse/parsers/workflows-yaml-1';
+import File from '../../../../src/File.ts';
+import WorkflowsYAML1Parser from '../../../../src/parse/parsers/workflows-yaml-1/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

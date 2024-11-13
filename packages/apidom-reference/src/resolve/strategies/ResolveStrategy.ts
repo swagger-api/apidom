@@ -1,6 +1,6 @@
-import File from '../../File';
-import ReferenceSet from '../../ReferenceSet';
-import type { ReferenceOptions } from '../../options';
+import File from '../../File.ts';
+import ReferenceSet from '../../ReferenceSet.ts';
+import type { ReferenceOptions } from '../../options/index.ts';
 
 export interface ResolveStrategyOptions {
   readonly name: string;

@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { parse, resolve, resolveApiDOM } from '../src';
+import { parse, resolve, resolveApiDOM } from '../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

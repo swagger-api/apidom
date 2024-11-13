@@ -5,13 +5,13 @@ import { isParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { fileURLToPath } from 'node:url';
 
-import defaultOptions from '../../src/options';
-import { merge as mergeOptions } from '../../src/options/util';
-import parse from '../../src/parse';
-import ParseError from '../../src/errors/ParseError';
-import ResolveError from '../../src/errors/ResolveError';
-import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError';
-import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+import defaultOptions from '../../src/options/index.ts';
+import { merge as mergeOptions } from '../../src/options/util.ts';
+import parse from '../../src/parse/index.ts';
+import ParseError from '../../src/errors/ParseError.ts';
+import ResolveError from '../../src/errors/ResolveError.ts';
+import UnmatchedResolverError from '../../src/errors/UnmatchedResolverError.ts';
+import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

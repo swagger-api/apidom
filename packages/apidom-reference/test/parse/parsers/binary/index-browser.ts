@@ -2,8 +2,8 @@ import { Buffer } from 'node:buffer';
 import { assert } from 'chai';
 import { StringElement, isParseResultElement, isStringElement } from '@swagger-api/apidom-core';
 
-import File from '../../../../src/File';
-import BinaryParser from '../../../../src/parse/parsers/binary/index-browser';
+import File from '../../../../src/File.ts';
+import BinaryParser from '../../../../src/parse/parsers/binary/index-browser.ts';
 
 const textEncoder = new TextEncoder();
 

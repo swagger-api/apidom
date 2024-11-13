@@ -2,9 +2,9 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { fileURLToPath } from 'node:url';
 
-import FileResolver from '../../../../src/resolve/resolvers/file/index-node';
-import ResolverError from '../../../../src/errors/ResolverError';
-import File from '../../../../src/File';
+import FileResolver from '../../../../src/resolve/resolvers/file/index-node.ts';
+import ResolverError from '../../../../src/errors/ResolverError.ts';
+import File from '../../../../src/File.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

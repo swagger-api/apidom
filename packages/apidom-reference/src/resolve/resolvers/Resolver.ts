@@ -1,4 +1,4 @@
-import File from '../../File';
+import File from '../../File.ts';
 
 export interface ResolverOptions {
   readonly name: string;

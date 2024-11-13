@@ -5,7 +5,7 @@ import Benchmark from 'benchmark';
 import type { Deferred, Event } from 'benchmark';
 import { OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { dereferenceApiDOM } from '../../src/configuration/saturated';
+import { dereferenceApiDOM } from '../../src/configuration/saturated.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/openapi-3-1.json');

@@ -10,7 +10,7 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { dereference, dereferenceApiDOM, DereferenceError } from '../../../../../src';
+import { dereference, dereferenceApiDOM, DereferenceError } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -5,8 +5,8 @@ import { toValue } from '@swagger-api/apidom-core';
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 import { fileURLToPath } from 'node:url';
 
-import { parse, dereferenceApiDOM } from '../../../../../src';
-import { ServerTerminable, createHTTPServer } from '../../../../helpers';
+import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
+import { ServerTerminable, createHTTPServer } from '../../../../helpers.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

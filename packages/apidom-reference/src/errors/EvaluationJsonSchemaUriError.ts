@@ -1,4 +1,4 @@
-import JsonSchemaUriError from './JsonSchemaUriError';
+import JsonSchemaUriError from './JsonSchemaUriError.ts';
 
 class EvaluationJsonSchemaUriError extends JsonSchemaUriError {}
 

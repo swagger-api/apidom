@@ -1,4 +1,4 @@
-import ParseError from './ParseError';
+import ParseError from './ParseError.ts';
 
 class ParserError extends ParseError {}
 

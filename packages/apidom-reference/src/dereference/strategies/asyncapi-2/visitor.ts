@@ -27,14 +27,14 @@ import {
   ReferenceElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
-import { AncestorLineage } from '../../util';
-import * as url from '../../../util/url';
-import parse from '../../../parse';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import type { ReferenceOptions } from '../../../options';
+import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
+import { AncestorLineage } from '../../util.ts';
+import * as url from '../../../util/url.ts';
+import parse from '../../../parse/index.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

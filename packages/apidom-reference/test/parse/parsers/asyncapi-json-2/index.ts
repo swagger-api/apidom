@@ -5,8 +5,8 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../../../src/File';
-import AsyncAPIJSON2Parser from '../../../../src/parse/parsers/asyncapi-json-2';
+import File from '../../../../src/File.ts';
+import AsyncAPIJSON2Parser from '../../../../src/parse/parsers/asyncapi-json-2/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

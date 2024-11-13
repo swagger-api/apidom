@@ -5,8 +5,8 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-2';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../../../src/File';
-import OpenAPIYAML2Parser from '../../../../src/parse/parsers/openapi-yaml-2';
+import File from '../../../../src/File.ts';
+import OpenAPIYAML2Parser from '../../../../src/parse/parsers/openapi-yaml-2/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -9,7 +9,7 @@ import { toValue } from '@swagger-api/apidom-core';
 import { evaluate, compile } from '@swagger-api/apidom-json-pointer';
 import { fileURLToPath } from 'node:url';
 
-import { parse, dereferenceApiDOM } from '../../../../../src';
+import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

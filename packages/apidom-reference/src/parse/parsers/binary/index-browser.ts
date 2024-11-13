@@ -1,8 +1,8 @@
 import { ParseResultElement, StringElement } from '@swagger-api/apidom-core';
 
-import ParserError from '../../../errors/ParserError';
-import Parser, { ParserOptions } from '../Parser';
-import File from '../../../File';
+import ParserError from '../../../errors/ParserError.ts';
+import Parser, { ParserOptions } from '../Parser.ts';
+import File from '../../../File.ts';
 
 /**
  * Everything that is not recognized by other parsers will be considered by this parser

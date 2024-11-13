@@ -2,10 +2,10 @@ import { readFile } from '#fs'; // eslint-disable-line import/order
 import { promisify } from '#util'; // eslint-disable-line import/order
 import minimatch from 'minimatch';
 
-import File from '../../../File';
-import Resolver, { ResolverOptions } from '../Resolver';
-import * as url from '../../../util/url';
-import ResolverError from '../../../errors/ResolverError';
+import File from '../../../File.ts';
+import Resolver, { ResolverOptions } from '../Resolver.ts';
+import * as url from '../../../util/url.ts';
+import ResolverError from '../../../errors/ResolverError.ts';
 
 export interface FileResolverOptions extends Omit<ResolverOptions, 'name'> {
   readonly fileAllowList?: string[] | RegExp[];

@@ -1,14 +1,14 @@
 import { isEmpty } from 'ramda';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import * as url from '../util/url';
-import File from '../File';
-import * as plugins from '../util/plugins';
-import Parser from './parsers/Parser';
-import ParseError from '../errors/ParseError';
-import UnmatchedResolverError from '../errors/UnmatchedResolverError';
-import { readFile } from '../resolve/util';
-import type { ReferenceOptions } from '../options';
+import * as url from '../util/url.ts';
+import File from '../File.ts';
+import * as plugins from '../util/plugins.ts';
+import Parser from './parsers/Parser.ts';
+import ParseError from '../errors/ParseError.ts';
+import UnmatchedResolverError from '../errors/UnmatchedResolverError.ts';
+import { readFile } from '../resolve/util.ts';
+import type { ReferenceOptions } from '../options/index.ts';
 
 /**
  * Parses the given file's contents, using the configured parser plugins.

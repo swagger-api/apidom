@@ -1,9 +1,9 @@
 import { Mixin } from 'ts-mixer';
 
-import ServerVariablesElement from '../../../../elements/nces/ServerVariables';
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import { isReferenceLikeElement } from '../../../predicates';
+import ServerVariablesElement from '../../../../elements/nces/ServerVariables.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 export interface VariablesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 

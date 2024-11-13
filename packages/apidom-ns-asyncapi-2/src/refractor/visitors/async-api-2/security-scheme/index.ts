@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import SecuritySchemeElement from '../../../../elements/SecurityScheme';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
+import SecuritySchemeElement from '../../../../elements/SecurityScheme.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
+} from '../../generics/FixedFieldsVisitor.ts';
 
 export interface SecuritySchemeVisitorOptions
   extends FixedFieldsVisitorOptions,

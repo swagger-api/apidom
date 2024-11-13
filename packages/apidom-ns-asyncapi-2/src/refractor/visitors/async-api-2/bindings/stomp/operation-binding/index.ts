@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import StompOperationBindingElement from '../../../../../../elements/bindings/stomp/StompOperationBinding';
+import StompOperationBindingElement from '../../../../../../elements/bindings/stomp/StompOperationBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface StompOperationBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

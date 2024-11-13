@@ -6,7 +6,7 @@ import dedent from 'dedent';
 import {
   OperationBindingsElement,
   refractorPluginReplaceEmptyElement,
-} from '../../../../../../src';
+} from '../../../../../../src/index.ts';
 
 it('should refract to semantic ApiDOM tree', async function () {
   const yamlDefinition = dedent`

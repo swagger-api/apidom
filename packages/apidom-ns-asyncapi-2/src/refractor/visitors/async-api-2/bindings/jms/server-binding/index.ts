@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import JmsServerBindingElement from '../../../../../../elements/bindings/jms/JmsServerBinding';
+import JmsServerBindingElement from '../../../../../../elements/bindings/jms/JmsServerBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface JmsServerBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import HttpChannelBindingElement from '../../../../../../elements/bindings/http/HttpChannelBinding';
+import HttpChannelBindingElement from '../../../../../../elements/bindings/http/HttpChannelBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface HttpChannelBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

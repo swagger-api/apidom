@@ -1,14 +1,14 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import AsyncApiVersionElement from './AsyncApiVersion';
-import DefaultContentTypeElement from './DefaultContentType';
-import IdentifierElement from './Identifier';
-import ComponentsElement from './Components';
-import InfoElement from './Info';
-import ChannelsElement from './Channels';
-import ServersElement from './Servers';
-import TagsElement from './Tags';
-import ExternalDocumentationElement from './ExternalDocumentation';
+import AsyncApiVersionElement from './AsyncApiVersion.ts';
+import DefaultContentTypeElement from './DefaultContentType.ts';
+import IdentifierElement from './Identifier.ts';
+import ComponentsElement from './Components.ts';
+import InfoElement from './Info.ts';
+import ChannelsElement from './Channels.ts';
+import ServersElement from './Servers.ts';
+import TagsElement from './Tags.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 class AsyncApi2 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import MercureServerBindingElement from '../../../../../../elements/bindings/mercure/MercureServerBinding';
+import MercureServerBindingElement from '../../../../../../elements/bindings/mercure/MercureServerBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface MercureServerBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

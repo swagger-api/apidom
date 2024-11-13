@@ -1,7 +1,7 @@
 import { createNamespace, isStringElement } from '@swagger-api/apidom-core';
 
-import * as asyncApi2Predicates from '../predicates';
-import asyncApi2Namespace from '../namespace';
+import * as asyncApi2Predicates from '../predicates.ts';
+import asyncApi2Namespace from '../namespace.ts';
 
 const createToolbox = () => {
   const namespace = createNamespace(asyncApi2Namespace);

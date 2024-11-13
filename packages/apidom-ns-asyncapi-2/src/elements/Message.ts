@@ -6,12 +6,12 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
-import CorrelationIDElement from './CorrelationID';
-import ReferenceElement from './Reference';
-import SchemaElement from './Schema';
-import TagsElement from './Tags';
-import ExternalDocumentationElement from './ExternalDocumentation';
-import MessageBindingsElement from './MessageBindings';
+import CorrelationIDElement from './CorrelationID.ts';
+import ReferenceElement from './Reference.ts';
+import SchemaElement from './Schema.ts';
+import TagsElement from './Tags.ts';
+import ExternalDocumentationElement from './ExternalDocumentation.ts';
+import MessageBindingsElement from './MessageBindings.ts';
 
 class Message extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

@@ -1,23 +1,23 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
-import HttpMessageBindingElement from './bindings/http/HttpMessageBinding';
-import WebSocketMessageBindingElement from './bindings/ws/WebSocketMessageBinding';
-import KafkaMessageBindingElement from './bindings/kafka/KafkaMessageBinding';
-import AnypointmqMessageBindingElement from './bindings/anypointmq/AnypointmqMessageBinding';
-import AmqpMessageBindingElement from './bindings/amqp/AmqpMessageBinding';
-import Amqp1MessageBindingElement from './bindings/amqp1/Amqp1MessageBinding';
-import MqttMessageBindingElement from './bindings/mqtt/MqttMessageBinding';
-import Mqtt5MessageBindingElement from './bindings/mqtt5/Mqtt5MessageBinding';
-import NatsMessageBindingElement from './bindings/nats/NatsMessageBinding';
-import JmsMessageBindingElement from './bindings/jms/JmsMessageBinding';
-import SnsMessageBindingElement from './bindings/sns/SnsMessageBinding';
-import SolaceMessageBindingElement from './bindings/solace/SolaceMessageBinding';
-import SqsMessageBindingElement from './bindings/sqs/SqsMessageBinding';
-import StompMessageBindingElement from './bindings/stomp/StompMessageBinding';
-import RedisMessageBindingElement from './bindings/redis/RedisMessageBinding';
-import MercureMessageBindingElement from './bindings/mercure/MercureMessageBinding';
-import IbmmqMessageBindingElement from './bindings/ibmmq/IbmmqMessageBinding';
-import GooglepubsubMessageBindingElement from './bindings/googlepubsub/GooglepubsubMessageBinding';
+import HttpMessageBindingElement from './bindings/http/HttpMessageBinding.ts';
+import WebSocketMessageBindingElement from './bindings/ws/WebSocketMessageBinding.ts';
+import KafkaMessageBindingElement from './bindings/kafka/KafkaMessageBinding.ts';
+import AnypointmqMessageBindingElement from './bindings/anypointmq/AnypointmqMessageBinding.ts';
+import AmqpMessageBindingElement from './bindings/amqp/AmqpMessageBinding.ts';
+import Amqp1MessageBindingElement from './bindings/amqp1/Amqp1MessageBinding.ts';
+import MqttMessageBindingElement from './bindings/mqtt/MqttMessageBinding.ts';
+import Mqtt5MessageBindingElement from './bindings/mqtt5/Mqtt5MessageBinding.ts';
+import NatsMessageBindingElement from './bindings/nats/NatsMessageBinding.ts';
+import JmsMessageBindingElement from './bindings/jms/JmsMessageBinding.ts';
+import SnsMessageBindingElement from './bindings/sns/SnsMessageBinding.ts';
+import SolaceMessageBindingElement from './bindings/solace/SolaceMessageBinding.ts';
+import SqsMessageBindingElement from './bindings/sqs/SqsMessageBinding.ts';
+import StompMessageBindingElement from './bindings/stomp/StompMessageBinding.ts';
+import RedisMessageBindingElement from './bindings/redis/RedisMessageBinding.ts';
+import MercureMessageBindingElement from './bindings/mercure/MercureMessageBinding.ts';
+import IbmmqMessageBindingElement from './bindings/ibmmq/IbmmqMessageBinding.ts';
+import GooglepubsubMessageBindingElement from './bindings/googlepubsub/GooglepubsubMessageBinding.ts';
 
 class MessageBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {

@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import { sexprs } from '@swagger-api/apidom-core';
 
-import { SolaceServerBindingElement } from '../../../../../../src';
+import { SolaceServerBindingElement } from '../../../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {

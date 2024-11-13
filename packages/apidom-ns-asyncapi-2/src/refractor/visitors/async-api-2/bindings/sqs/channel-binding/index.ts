@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import SqsChannelBindingElement from '../../../../../../elements/bindings/sqs/SqsChannelBinding';
+import SqsChannelBindingElement from '../../../../../../elements/bindings/sqs/SqsChannelBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface SqsChannelBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

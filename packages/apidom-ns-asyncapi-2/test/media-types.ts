@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import { mediaTypes } from '../src';
+import { mediaTypes } from '../src/index.ts';
 
 describe('media-types', function () {
   context('findBy', function () {

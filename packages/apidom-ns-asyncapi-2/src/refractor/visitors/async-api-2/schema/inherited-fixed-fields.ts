@@ -1,7 +1,7 @@
 import { map } from 'ramda';
 import { specificationObj as JSONSchemaDraft7Specification } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
-import SchemaOrReferenceVisitor from './SchemaOrReferenceVisitor';
+import SchemaOrReferenceVisitor from './SchemaOrReferenceVisitor.ts';
 
 // @ts-ignore
 const inheritedFixedFields = map((visitor) => {

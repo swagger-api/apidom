@@ -1,12 +1,12 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
 
-import SolaceOperationBindingElement from '../../../../../../elements/bindings/solace/SolaceOperationBinding';
+import SolaceOperationBindingElement from '../../../../../../elements/bindings/solace/SolaceOperationBinding.ts';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor';
+} from '../../../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
 export interface SolaceOperationBindingVisitorOptions
   extends FixedFieldsVisitorOptions,

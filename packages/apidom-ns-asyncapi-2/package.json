@@ -31,8 +31,8 @@
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:visitor-shortcut": "cross-env BABEL_ENV=es babel ./test/perf/visitor-shortcut.ts --out-file ./test/perf/visitor-shortcut.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/visitor-shortcut.mjs",
-    "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p declaration.tsconfig.json && rollup -c config/rollup/types.dist.js",
+    "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },

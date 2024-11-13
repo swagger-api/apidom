@@ -4,9 +4,9 @@ import { always } from 'ramda';
 import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
-} from '../../generics/FixedFieldsVisitor';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor';
-import ServerBindingsElement from '../../../../elements/ServerBindings';
+} from '../../generics/FixedFieldsVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import ServerBindingsElement from '../../../../elements/ServerBindings.ts';
 
 export interface ServerBindingsVisitorOptions
   extends FixedFieldsVisitorOptions,

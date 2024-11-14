@@ -11,7 +11,7 @@ import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protoco
 import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
-import { LanguageSettings } from '../../apidom-language-types';
+import { LanguageSettings } from '../../apidom-language-types.ts';
 import {
   findNamespace,
   getSourceMap,
@@ -20,7 +20,7 @@ import {
   isMember,
   isObject,
   debug,
-} from '../../utils/utils';
+} from '../../utils/utils.ts';
 
 export interface DefinitionService {
   doProvideDefinition(

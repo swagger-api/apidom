@@ -8,7 +8,7 @@ import {
   LinksProvider,
   MergeStrategy,
   ProviderMode,
-} from '../../apidom-language-types';
+} from '../../apidom-language-types.ts';
 import {
   debug,
   trace,
@@ -18,7 +18,7 @@ import {
   isMember,
   perfEnd,
   perfStart,
-} from '../../utils/utils';
+} from '../../utils/utils.ts';
 
 enum PerfLabels {
   START = 'doLinks',

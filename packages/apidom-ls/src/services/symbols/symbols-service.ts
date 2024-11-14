@@ -3,8 +3,8 @@ import { Range, SymbolInformation } from 'vscode-languageserver-protocol';
 import { ArraySlice, Element, filter, toValue, MemberElement } from '@swagger-api/apidom-core';
 import { SymbolKind } from 'vscode-languageserver-types';
 
-import { buildPath, getSourceMap, isMember, SourceMap } from '../../utils/utils';
-import { LanguageSettings, SymbolsContext } from '../../apidom-language-types';
+import { buildPath, getSourceMap, isMember, SourceMap } from '../../utils/utils.ts';
+import { LanguageSettings, SymbolsContext } from '../../apidom-language-types.ts';
 
 export interface SymbolsService {
   doFindDocumentSymbols(

@@ -14,7 +14,7 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { LanguageSettings } from '../../apidom-language-types';
+import { LanguageSettings } from '../../apidom-language-types.ts';
 import {
   SourceMap,
   getSourceMap,
@@ -23,7 +23,7 @@ import {
   perfEnd,
   perfStart,
   isJsonDoc,
-} from '../../utils/utils';
+} from '../../utils/utils.ts';
 
 enum PerfLabels {
   START = 'computeSemanticTokens',

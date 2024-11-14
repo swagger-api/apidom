@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI30 } from '../../../openapi/target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const missingCoreFieldsOpenAPI3_0Lint: LinterMeta = {

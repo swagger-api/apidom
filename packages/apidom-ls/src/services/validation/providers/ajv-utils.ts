@@ -1,5 +1,7 @@
-import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020.js'; // eslint-disable-line import/extensions
+import Ajv2020, * as Ajv2020Ns from 'ajv/dist/2020.js';
+import type { Ajv2020 as Ajv2020Type } from 'ajv/dist/2020.d.ts';
 import Ajv, * as AjvNs from 'ajv';
+import type { Ajv as AjvType } from 'ajv';
 import AjvErrors from 'ajv-errors';
 import addFormats from 'ajv-formats';
 
@@ -9,22 +11,26 @@ import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31
 import openapiSchemaJson31Meta from '../json-schema/open-api-31/openapi-schema-31-meta.json';
 import openapiSchemaJson31Dialect from '../json-schema/open-api-31/openapi-schema-31-dialect.json';
 
-let ajvInstance: Ajv;
-let ajv2020Instance: Ajv2020;
+let ajvInstance: AjvType;
+let ajv2020Instance: Ajv2020Type;
 
-export function ajv(ajv2020: boolean): Ajv2020 | Ajv {
+export function ajv(ajv2020: boolean): Ajv2020Type | AjvType {
   if (!ajv2020Instance && ajv2020) {
+    // @ts-ignore
     ajv2020Instance = new Ajv2020({
       strict: false,
       allErrors: true,
       schemas: [openapiSchemaJson31Ajv, openapiSchemaJson31Meta, openapiSchemaJson31Dialect],
     });
     ajv2020Instance.addMetaSchema(draft7MetaSchema);
+    // @ts-ignore
     addFormats(ajv2020Instance);
     ajv2020Instance.addFormat('media-range', true);
 
+    // @ts-ignore
     AjvErrors(ajv2020Instance);
   } else if (!ajvInstance && !ajv2020) {
+    // @ts-ignore
     ajvInstance = new Ajv({
       strict: false,
       meta: true,
@@ -32,6 +38,7 @@ export function ajv(ajv2020: boolean): Ajv2020 | Ajv {
       validateFormats: false,
       unicodeRegExp: false,
     });
+    // @ts-ignore
     AjvErrors(ajvInstance);
   }
 

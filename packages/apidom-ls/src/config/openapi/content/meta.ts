@@ -1,5 +1,5 @@
-import completion from './completion';
-import { FormatMeta } from '../../../apidom-language-types';
+import completion from './completion.ts';
+import { FormatMeta } from '../../../apidom-language-types.ts';
 
 const meta: FormatMeta = {
   completion,

@@ -1,5 +1,5 @@
-import documentation from './documentation';
-import { FormatMeta } from '../../../apidom-language-types';
+import documentation from './documentation.ts';
+import { FormatMeta } from '../../../apidom-language-types.ts';
 
 const meta: FormatMeta = {
   documentation,

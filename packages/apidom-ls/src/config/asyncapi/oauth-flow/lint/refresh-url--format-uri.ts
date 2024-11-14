@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 const refreshUrlFormatURILint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_OAUTH_FLOW_FIELD_REFRESH_URL_FORMAT_URI,

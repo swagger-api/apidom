@@ -1,10 +1,10 @@
-import allowedFields2_0__3_0Lint from './allowed-fields-2-0--3-0';
-import allowedFields3_1Lint from './allowed-fields-3-1';
-import nameTypeLint from './name--type';
-import nameRequiredLint from './name--required';
-import identifierTypeLint from './identifier--type';
-import identifierMutuallyExclusiveLint from './identifier--mutually-exclusive';
-import urlFormatURILint from './url--format-uri';
+import allowedFields2_0__3_0Lint from './allowed-fields-2-0--3-0.ts';
+import allowedFields3_1Lint from './allowed-fields-3-1.ts';
+import nameTypeLint from './name--type.ts';
+import nameRequiredLint from './name--required.ts';
+import identifierTypeLint from './identifier--type.ts';
+import identifierMutuallyExclusiveLint from './identifier--mutually-exclusive.ts';
+import urlFormatURILint from './url--format-uri.ts';
 
 const lints = [
   nameTypeLint,

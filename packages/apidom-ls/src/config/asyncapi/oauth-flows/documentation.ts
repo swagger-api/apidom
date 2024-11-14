@@ -1,6 +1,6 @@
 import { last } from 'ramda';
 
-import oauthFlowDocumentation from '../oauth-flow/documentation';
+import oauthFlowDocumentation from '../oauth-flow/documentation.ts';
 
 const oAuthFlowDocs = last(oauthFlowDocumentation)?.docs || 'Configuration for the OAuth flow.';
 

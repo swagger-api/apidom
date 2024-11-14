@@ -18,7 +18,7 @@ import {
   MetadataMap,
   ProviderMode,
   MergeStrategy,
-} from '../../apidom-language-types';
+} from '../../apidom-language-types.ts';
 import {
   getSourceMap,
   isMember,
@@ -29,7 +29,7 @@ import {
   isJsonDoc,
   findNamespace,
   debug,
-} from '../../utils/utils';
+} from '../../utils/utils.ts';
 
 const CONTROL_CODES = '\\u0000-\\u0020\\u007f-\\u009f';
 const WEB_LINK_REGEX = new RegExp(

@@ -5,9 +5,9 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Position, Range } from 'vscode-languageserver-types';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
-import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types';
-import { logPerformance, logLevel } from './test-utils';
+import getLanguageService from '../src/apidom-language-service.ts';
+import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types.ts';
+import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

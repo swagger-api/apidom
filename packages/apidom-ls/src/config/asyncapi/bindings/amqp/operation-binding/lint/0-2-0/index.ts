@@ -1,14 +1,14 @@
-import allowedFieldsLint from './allowed-fields';
-import expirationTypeLint from './expiration--type';
-import userIdTypeLint from './user-id--type';
-import ccTypeLint from './cc--type';
-import priorityTypeLint from './priority--type';
-import deliveryModeEqualsLint from './delivery-mode--equals';
-import mandatoryTypeLint from './mandatory--type';
-import bccTypeLint from './bcc--type';
-import replyToTypeLint from './reply-to--type';
-import timestampTypeLint from './timestamp--type';
-import ackTypeLint from './act--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import expirationTypeLint from './expiration--type.ts';
+import userIdTypeLint from './user-id--type.ts';
+import ccTypeLint from './cc--type.ts';
+import priorityTypeLint from './priority--type.ts';
+import deliveryModeEqualsLint from './delivery-mode--equals.ts';
+import mandatoryTypeLint from './mandatory--type.ts';
+import bccTypeLint from './bcc--type.ts';
+import replyToTypeLint from './reply-to--type.ts';
+import timestampTypeLint from './timestamp--type.ts';
+import ackTypeLint from './act--type.ts';
 
 const lints = [
   expirationTypeLint,

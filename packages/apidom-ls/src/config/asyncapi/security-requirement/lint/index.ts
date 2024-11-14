@@ -1,4 +1,4 @@
-import keysDefinedLint from './keys--defined';
+import keysDefinedLint from './keys--defined.ts';
 
 const lints = [keysDefinedLint];
 

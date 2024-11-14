@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI3 } from '../../target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI3 } from '../../target-specs.ts';
 
 const pathItemsValuesTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_COMPONENTS_FIELD_PATH_ITEMS_VALUES_TYPE,

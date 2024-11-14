@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 const keysDefinedLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_REQUIREMENT_KEYS_DEFINED,

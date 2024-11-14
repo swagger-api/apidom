@@ -12,9 +12,9 @@ import {
 } from '@swagger-api/apidom-core';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
-import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types';
-import { parse } from '../../parser-factory';
-import { isJsonDoc } from '../../utils/utils';
+import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types.ts';
+import { parse } from '../../parser-factory.ts';
+import { isJsonDoc } from '../../utils/utils.ts';
 
 export interface DerefService {
   doDeref(textDocument: TextDocument, derefContext: DerefContext): Promise<string>;

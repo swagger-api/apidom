@@ -6,15 +6,15 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 import { fileURLToPath } from 'node:url';
 
-import { AdsValidationProvider } from '../src/services/validation/providers/ads-validation-provider';
-import getLanguageService from '../src/apidom-language-service';
+import { AdsValidationProvider } from '../src/services/validation/providers/ads-validation-provider.ts';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logLevel, logPerformance } from './test-utils';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const specOpenapi = fs

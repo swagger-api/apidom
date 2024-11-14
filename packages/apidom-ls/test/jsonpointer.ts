@@ -4,10 +4,10 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
-import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logPerformance, logLevel } from './test-utils';
+import getLanguageService from '../src/apidom-language-service.ts';
+import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

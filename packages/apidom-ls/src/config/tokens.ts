@@ -1,6 +1,6 @@
-import adsTokens from './ads/tokens';
-import asyncapiTokens from './asyncapi/tokens';
-import openapiTokens from './openapi/tokens';
+import adsTokens from './ads/tokens.ts';
+import asyncapiTokens from './asyncapi/tokens.ts';
+import openapiTokens from './openapi/tokens.ts';
 
 // creating list of unique tokens
 const tokens = Array.from(

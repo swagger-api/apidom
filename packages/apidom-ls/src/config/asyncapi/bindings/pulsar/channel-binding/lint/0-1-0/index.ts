@@ -1,13 +1,13 @@
-import allowedFieldsLint from './allowed-fields';
-import namespaceTypeLint from './namespace--type';
-import namespaceRequiredLint from './namespace--required';
-import persistenceEqualsLint from './persistence--equals';
-import persistenceRequiredLint from './persistence--required';
-import compactionTypeLint from './compaction--type';
-import geoReplicationTypeLint from './geo-replication--type';
-import retentionTypeLint from './retention--type';
-import ttlTypeLint from './ttl--type';
-import deduplicationTypeLint from './deduplication--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import namespaceTypeLint from './namespace--type.ts';
+import namespaceRequiredLint from './namespace--required.ts';
+import persistenceEqualsLint from './persistence--equals.ts';
+import persistenceRequiredLint from './persistence--required.ts';
+import compactionTypeLint from './compaction--type.ts';
+import geoReplicationTypeLint from './geo-replication--type.ts';
+import retentionTypeLint from './retention--type.ts';
+import ttlTypeLint from './ttl--type.ts';
+import deduplicationTypeLint from './deduplication--type.ts';
 
 const lints = [
   namespaceTypeLint,

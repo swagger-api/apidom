@@ -1,6 +1,6 @@
-import lint from './lint';
-import completion from './completion';
-import { FormatMeta } from '../../../apidom-language-types';
+import lint from './lint/index.ts';
+import completion from './completion.ts';
+import { FormatMeta } from '../../../apidom-language-types.ts';
 
 const meta: FormatMeta = {
   lint,

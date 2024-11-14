@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2 } from '../../target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI2 } from '../../target-specs.ts';
 
 const minLengthTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_ITEMS_FIELD_MIN_LENGTH_TYPE,

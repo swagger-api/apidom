@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs.ts';
 
 const descriptionTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_RESPONSE_FIELD_DESCRIPTION_TYPE,

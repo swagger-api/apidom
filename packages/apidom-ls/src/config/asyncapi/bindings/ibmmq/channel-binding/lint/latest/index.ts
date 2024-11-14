@@ -1,10 +1,10 @@
-import allowedFieldsLint from './allowed-fields';
-import destinationTypeEqualsLint from './destination-type--equals';
-import queueTypeLint from './queue--type';
-import queueRequiredLint from './queue--required';
-import queueTopicMutuallyExclusiveLint from './queue-topic--mutually-exclusive';
-import topicTypeLint from './topic--type';
-import maxMsgLengthTypeLint from './max-msg-length--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import destinationTypeEqualsLint from './destination-type--equals.ts';
+import queueTypeLint from './queue--type.ts';
+import queueRequiredLint from './queue--required.ts';
+import queueTopicMutuallyExclusiveLint from './queue-topic--mutually-exclusive.ts';
+import topicTypeLint from './topic--type.ts';
+import maxMsgLengthTypeLint from './max-msg-length--type.ts';
 
 const lints = [
   destinationTypeEqualsLint,

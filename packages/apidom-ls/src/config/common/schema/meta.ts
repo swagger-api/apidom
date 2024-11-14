@@ -1,6 +1,6 @@
-import completion from './completion';
-import documentation from './documentation';
-import lint from './lint';
+import completion from './completion.ts';
+import documentation from './documentation.ts';
+import lint from './lint/index.ts';
 
 const meta = {
   documentation,

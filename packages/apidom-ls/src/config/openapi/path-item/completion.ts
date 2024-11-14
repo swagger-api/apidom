@@ -2,8 +2,8 @@ import {
   ApidomCompletionItem,
   CompletionFormat,
   CompletionType,
-} from '../../../apidom-language-types';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+} from '../../../apidom-language-types.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {

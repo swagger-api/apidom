@@ -2,7 +2,7 @@ import {
   ApidomCompletionItem,
   CompletionFormat,
   CompletionType,
-} from '../../../../../apidom-language-types';
+} from '../../../../../apidom-language-types.ts';
 
 const completion: ApidomCompletionItem[] = [
   {

@@ -1,8 +1,8 @@
-import allowedFieldsLint from './allowed-fields';
-import clientIdTypeLint from './client-id--type';
-import cleanSessionTypeLint from './clean-session--type';
-import lastWillTypeLint from './last-will--type';
-import keepAliveTypeLint from './keep-alive--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import clientIdTypeLint from './client-id--type.ts';
+import cleanSessionTypeLint from './clean-session--type.ts';
+import lastWillTypeLint from './last-will--type.ts';
+import keepAliveTypeLint from './keep-alive--type.ts';
 
 const lints = [
   allowedFieldsLint,

@@ -1,5 +1,5 @@
-import allowedFieldsLint from './allowed-fields';
-import headersTypeLint from './headers--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import headersTypeLint from './headers--type.ts';
 
 const lints = [headersTypeLint, allowedFieldsLint];
 

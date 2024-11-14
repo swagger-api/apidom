@@ -1,4 +1,4 @@
-import allowedFieldsLint from './allowed-fields';
+import allowedFieldsLint from './allowed-fields.ts';
 
 const lints = [allowedFieldsLint];
 

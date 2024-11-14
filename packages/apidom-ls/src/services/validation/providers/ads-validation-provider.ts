@@ -18,8 +18,8 @@ import {
   ValidationContext,
   ValidationProvider,
   ValidationProviderResult,
-} from '../../../apidom-language-types';
-import { isJsonDoc, getSourceMap } from '../../../utils/utils';
+} from '../../../apidom-language-types.ts';
+import { isJsonDoc, getSourceMap } from '../../../utils/utils.ts';
 
 // eslint-disable-next-line import/prefer-default-export
 export class AdsValidationProvider implements ValidationProvider {

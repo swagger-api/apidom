@@ -1,11 +1,11 @@
-import Ajv2020 from 'ajv/dist/2020';
-import Ajv from 'ajv';
+import type { Ajv2020 } from 'ajv/dist/2020.d.ts';
+import type { Ajv } from 'ajv';
 import { Diagnostic, DiagnosticSeverity, Position, Range } from 'vscode-languageserver-types';
 import jsonSourceMap from 'json-source-map';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { toValue, Element } from '@swagger-api/apidom-core';
 
-import { positionRangeForPath } from '../utils/ast';
+import { positionRangeForPath } from '../utils/ast.ts';
 import {
   LanguageSettings,
   MergeStrategy,
@@ -13,9 +13,9 @@ import {
   ValidationContext,
   ValidationProvider,
   ValidationProviderResult,
-} from '../../../apidom-language-types';
-import * as AjvUtils from './ajv-utils';
-import { isJsonDoc } from '../../../utils/utils';
+} from '../../../apidom-language-types.ts';
+import * as AjvUtils from './ajv-utils.ts';
+import { isJsonDoc } from '../../../utils/utils.ts';
 
 // eslint-disable-next-line import/prefer-default-export
 export abstract class JsonSchemaValidationProvider implements ValidationProvider {

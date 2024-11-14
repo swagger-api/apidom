@@ -1,8 +1,8 @@
-import allowedFieldsLint from './allowed-fields';
-import urlFormatURILint from './url--format-uri';
-import urlRequiredLint from './url--required';
-import descriptionTypeLint from './description--type';
-import variablesValuesTypeLint from './variables--values-type';
+import allowedFieldsLint from './allowed-fields.ts';
+import urlFormatURILint from './url--format-uri.ts';
+import urlRequiredLint from './url--required.ts';
+import descriptionTypeLint from './description--type.ts';
+import variablesValuesTypeLint from './variables--values-type.ts';
 
 const lints = [
   urlFormatURILint,

@@ -1,9 +1,9 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs';
-import { OpenAPI31 } from '../../../openapi/target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
+import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {

@@ -1,4 +1,4 @@
-import itemsTypeLint from './items--type';
+import itemsTypeLint from './items--type.ts';
 
 const lints = [itemsTypeLint];
 

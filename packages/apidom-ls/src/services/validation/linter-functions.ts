@@ -23,8 +23,8 @@ import {
   isBoolean,
   isMember,
   processPath,
-} from '../../utils/utils';
-import { FunctionItem } from '../../apidom-language-types';
+} from '../../utils/utils.ts';
+import { FunctionItem } from '../../apidom-language-types.ts';
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];

@@ -13,17 +13,17 @@ import {
 } from 'vscode-languageserver-types';
 
 // @ts-ignore
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
-import { logPerformance, logLevel } from './test-utils';
-import testTokens from './test-tokens';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider.ts';
+import { logPerformance, logLevel } from './test-utils.ts';
+import testTokens from './test-tokens.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

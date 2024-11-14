@@ -1,5 +1,5 @@
-import { DocumentationMeta } from '../../../apidom-language-types';
-import { OpenAPI2 } from '../target-specs';
+import { DocumentationMeta } from '../../../apidom-language-types.ts';
+import { OpenAPI2 } from '../target-specs.ts';
 
 /**
  * Omitted fixed fields:

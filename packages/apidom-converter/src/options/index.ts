@@ -1,7 +1,7 @@
 import { options as referenceOptions } from '@swagger-api/apidom-reference';
 
-import ConvertStrategy from '../strategies/ConvertStrategy';
-import OpenAPI31ToOpenAPI30ConvertStrategy from '../strategies/openapi-3-1-to-openapi-3-0-3';
+import ConvertStrategy from '../strategies/ConvertStrategy.ts';
+import OpenAPI31ToOpenAPI30ConvertStrategy from '../strategies/openapi-3-1-to-openapi-3-0-3/index.ts';
 
 type ReferenceOptions = typeof referenceOptions;
 

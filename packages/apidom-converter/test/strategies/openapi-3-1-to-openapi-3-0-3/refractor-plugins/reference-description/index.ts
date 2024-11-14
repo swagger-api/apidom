@@ -10,7 +10,7 @@ import {
   includesClasses,
 } from '@swagger-api/apidom-core';
 
-import convert from '../../../../../src';
+import convert from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

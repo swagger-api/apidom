@@ -1,4 +1,4 @@
-import ConvertError from './ConvertError';
+import ConvertError from './ConvertError.ts';
 
 class UnmatchedConvertStrategyError extends ConvertError {}
 

@@ -18,7 +18,7 @@ import {
 } from '@swagger-api/apidom-core';
 import { dereferenceApiDOM, ReferenceSet, Reference, url } from '@swagger-api/apidom-reference';
 
-import type { Toolbox } from '../toolbox';
+import type { Toolbox } from '../toolbox.ts';
 
 type SecuritySchemeTypePluginOptions = {
   annotations: AnnotationElement[];

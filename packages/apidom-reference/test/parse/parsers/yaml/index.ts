@@ -7,8 +7,8 @@ import {
   isSourceMapElement,
 } from '@swagger-api/apidom-core';
 
-import File from '../../../../src/File';
-import YAMLParser from '../../../../src/parse/parsers/yaml-1-2';
+import File from '../../../../src/File.ts';
+import YAMLParser from '../../../../src/parse/parsers/yaml-1-2/index.ts';
 
 describe('parsers', function () {
   context('YamlParser', function () {

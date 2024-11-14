@@ -3,12 +3,12 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { fileURLToPath } from 'node:url';
 
-import { resolve } from '../../../../../src';
-import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
-import ResolveError from '../../../../../src/errors/ResolveError';
-import ResolverError from '../../../../../src/errors/ResolverError';
-import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
+import { resolve } from '../../../../../src/index.ts';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError.ts';
+import ResolveError from '../../../../../src/errors/ResolveError.ts';
+import ResolverError from '../../../../../src/errors/ResolverError.ts';
+import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

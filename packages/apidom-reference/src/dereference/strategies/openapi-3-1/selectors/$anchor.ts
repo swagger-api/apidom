@@ -2,9 +2,9 @@ import { trimCharsStart, isUndefined } from 'ramda-adjunct';
 import { Element, find, toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { getHash } from '../../../../util/url';
-import EvaluationJsonSchema$anchorError from '../../../../errors/EvaluationJsonSchema$anchorError';
-import InvalidJsonSchema$anchorError from '../../../../errors/InvalidJsonSchema$anchorError';
+import { getHash } from '../../../../util/url.ts';
+import EvaluationJsonSchema$anchorError from '../../../../errors/EvaluationJsonSchema$anchorError.ts';
+import InvalidJsonSchema$anchorError from '../../../../errors/InvalidJsonSchema$anchorError.ts';
 
 // isAnchor :: String -> Boolean
 export const isAnchor = (uri: string) => {
@@ -48,4 +48,4 @@ export const evaluate = <T extends Element>(anchor: string, element: T): Element
 };
 
 export { EvaluationJsonSchema$anchorError, InvalidJsonSchema$anchorError };
-export { default as JsonSchema$anchorError } from '../../../../errors/JsonSchema$anchorError';
+export { default as JsonSchema$anchorError } from '../../../../errors/JsonSchema$anchorError.ts';

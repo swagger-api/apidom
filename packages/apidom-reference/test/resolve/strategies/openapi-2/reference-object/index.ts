@@ -3,10 +3,10 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 import { fileURLToPath } from 'node:url';
 
-import { resolve } from '../../../../../src';
-import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
-import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import ResolveError from '../../../../../src/errors/ResolveError';
+import { resolve } from '../../../../../src/index.ts';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError.ts';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError.ts';
+import ResolveError from '../../../../../src/errors/ResolveError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

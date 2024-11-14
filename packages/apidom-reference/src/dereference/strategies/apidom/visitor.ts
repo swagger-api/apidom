@@ -15,13 +15,13 @@ import {
 } from '@swagger-api/apidom-core';
 import { uriToPointer as uriToElementID } from '@swagger-api/apidom-json-pointer';
 
-import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
-import * as url from '../../../util/url';
-import parse from '../../../parse';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import { evaluate } from './selectors/element-id';
-import type { ReferenceOptions } from '../../../options';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
+import * as url from '../../../util/url.ts';
+import parse from '../../../parse/index.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import { evaluate } from './selectors/element-id.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

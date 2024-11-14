@@ -1,6 +1,6 @@
 import { Element } from '@swagger-api/apidom-core';
 
-import ReferenceSet from './ReferenceSet';
+import ReferenceSet from './ReferenceSet.ts';
 
 export interface ReferenceOptions<T = Element> {
   readonly uri: string;

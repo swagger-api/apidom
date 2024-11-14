@@ -6,14 +6,14 @@ import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1'
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 import { fileURLToPath } from 'node:url';
 
-import { dereference, parse, Reference, ReferenceSet } from '../../../../../src';
-import DereferenceError from '../../../../../src/errors/DereferenceError';
-import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
-import ResolveError from '../../../../../src/errors/ResolveError';
-import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError';
-import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError';
-import { loadFile, loadJsonFile } from '../../../../helpers';
+import { dereference, parse, Reference, ReferenceSet } from '../../../../../src/index.ts';
+import DereferenceError from '../../../../../src/errors/DereferenceError.ts';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError.ts';
+import ResolveError from '../../../../../src/errors/ResolveError.ts';
+import EvaluationJsonSchema$anchorError from '../../../../../src/errors/EvaluationJsonSchema$anchorError.ts';
+import EvaluationJsonSchemaUriError from '../../../../../src/errors/EvaluationJsonSchemaUriError.ts';
+import { loadFile, loadJsonFile } from '../../../../helpers.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

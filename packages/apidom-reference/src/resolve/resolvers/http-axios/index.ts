@@ -2,9 +2,9 @@ import { omit } from 'ramda';
 import { ensureArray } from 'ramda-adjunct';
 import axios, { Axios, AxiosInstance, CreateAxiosDefaults } from 'axios';
 
-import HTTPResolver, { HTTPResolverOptions } from '../HTTPResolver';
-import File from '../../../File';
-import ResolverError from '../../../errors/ResolverError';
+import HTTPResolver, { HTTPResolverOptions } from '../HTTPResolver.ts';
+import File from '../../../File.ts';
+import ResolverError from '../../../errors/ResolverError.ts';
 
 interface HTTPResolverAxiosConfig extends CreateAxiosDefaults {
   interceptors?: Axios['interceptors'];

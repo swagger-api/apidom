@@ -1,6 +1,6 @@
 import { invokeArgs } from 'ramda-adjunct';
 
-import PluginError from '../errors/PluginError';
+import PluginError from '../errors/PluginError.ts';
 
 /**
  * Filters the given plugins, returning only the ones return `true` for the given method.

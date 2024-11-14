@@ -36,20 +36,20 @@ import {
   isBooleanJsonSchemaElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor';
-import { evaluate as uriEvaluate } from './selectors/uri';
-import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
-import * as url from '../../../util/url';
-import parse from '../../../parse';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import File from '../../../File';
-import Resolver from '../../../resolve/resolvers/Resolver';
-import { resolveSchema$refField, maybeRefractToSchemaElement } from './util';
-import { AncestorLineage } from '../../util';
-import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError';
-import type { ReferenceOptions } from '../../../options';
+import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor.ts';
+import { evaluate as uriEvaluate } from './selectors/uri.ts';
+import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
+import * as url from '../../../util/url.ts';
+import parse from '../../../parse/index.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import File from '../../../File.ts';
+import Resolver from '../../../resolve/resolvers/Resolver.ts';
+import { resolveSchema$refField, maybeRefractToSchemaElement } from './util.ts';
+import { AncestorLineage } from '../../util.ts';
+import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

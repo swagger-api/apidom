@@ -3,7 +3,7 @@ import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 
-import { dereference } from '../../../../../src';
+import { dereference } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -1,6 +1,6 @@
-import Resolver, { ResolverOptions } from './Resolver';
-import * as url from '../../util/url';
-import File from '../../File';
+import Resolver, { ResolverOptions } from './Resolver.ts';
+import * as url from '../../util/url.ts';
+import File from '../../File.ts';
 
 export interface HTTPResolverOptions extends ResolverOptions {
   readonly timeout?: number;

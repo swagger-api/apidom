@@ -7,12 +7,12 @@ import openApi3_1Namespace, {
   mediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy';
-import File from '../../../File';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import OpenAPI3_1DereferenceVisitor from './visitor';
-import type { ReferenceOptions } from '../../../options';
+import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy.ts';
+import File from '../../../File.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import OpenAPI3_1DereferenceVisitor from './visitor.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
@@ -105,6 +105,10 @@ class OpenAPI3_1DereferenceStrategy extends DereferenceStrategy {
 }
 
 export { OpenAPI3_1DereferenceVisitor };
-export { resolveSchema$refField, resolveSchema$idField, maybeRefractToSchemaElement } from './util';
+export {
+  resolveSchema$refField,
+  resolveSchema$idField,
+  maybeRefractToSchemaElement,
+} from './util.ts';
 
 export default OpenAPI3_1DereferenceStrategy;

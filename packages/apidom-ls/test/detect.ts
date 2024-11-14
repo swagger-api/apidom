@@ -4,9 +4,9 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { fileURLToPath } from 'node:url';
 
-import { parse } from '../src/parser-factory';
-import { findNamespace } from '../src/utils/utils';
-import { ContentLanguage } from '../src/apidom-language-types';
+import { parse } from '../src/parser-factory.ts';
+import { findNamespace } from '../src/utils/utils.ts';
+import { ContentLanguage } from '../src/apidom-language-types.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

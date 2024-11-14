@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
 
 const discriminatorExistInRequiredLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_DISCRIMINATOR_EXIST,

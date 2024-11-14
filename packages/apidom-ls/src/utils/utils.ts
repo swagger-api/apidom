@@ -42,9 +42,9 @@ import {
   Metadata,
   MetadataMaps,
   Pointer,
-} from '../apidom-language-types';
+} from '../apidom-language-types.ts';
 // eslint-disable-next-line import/no-cycle
-import { standardLinterfunctions } from '../services/validation/linter-functions';
+import { standardLinterfunctions } from '../services/validation/linter-functions.ts';
 
 let performanceLogs = false;
 let logLevel = LogLevel.WARN;

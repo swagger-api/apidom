@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 const amqp1TypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_OPERATION_BINDINGS_FIELD_AMQP1_TYPE,

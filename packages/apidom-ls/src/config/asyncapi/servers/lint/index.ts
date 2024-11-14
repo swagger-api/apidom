@@ -1,5 +1,5 @@
-import keysPatternLint from './keys--pattern';
-import valuesTypeLint from './values--type';
+import keysPatternLint from './keys--pattern.ts';
+import valuesTypeLint from './values--type.ts';
 
 const lints = [keysPatternLint, valuesTypeLint];
 

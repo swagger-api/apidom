@@ -1,6 +1,6 @@
 import asyncapiSchemaJson from '../json-schema/async-api-23/asyncapi-schema.json';
-import { JsonSchemaValidationProvider } from './json-schema-validation-provider';
-import { NamespaceVersion } from '../../../apidom-language-types';
+import { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
+import { NamespaceVersion } from '../../../apidom-language-types.ts';
 
 // eslint-disable-next-line import/prefer-default-export
 export class Asyncapi23JsonSchemaValidationProvider extends JsonSchemaValidationProvider {

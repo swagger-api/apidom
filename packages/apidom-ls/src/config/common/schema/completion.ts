@@ -2,9 +2,9 @@ import {
   ApidomCompletionItem,
   CompletionFormat,
   CompletionType,
-} from '../../../apidom-language-types';
-import { AsyncAPI2 } from '../../asyncapi/target-specs';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../../openapi/target-specs';
+} from '../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../asyncapi/target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../../openapi/target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {

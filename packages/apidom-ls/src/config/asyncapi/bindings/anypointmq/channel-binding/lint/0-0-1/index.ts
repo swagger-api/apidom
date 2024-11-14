@@ -1,6 +1,6 @@
-import allowedFieldsLint from './allowed-fields';
-import destinationTypeLint from './destination--type';
-import destinationTypeTypeLint from './destination-type--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import destinationTypeLint from './destination--type.ts';
+import destinationTypeTypeLint from './destination-type--type.ts';
 
 const lints = [destinationTypeLint, destinationTypeTypeLint, allowedFieldsLint];
 

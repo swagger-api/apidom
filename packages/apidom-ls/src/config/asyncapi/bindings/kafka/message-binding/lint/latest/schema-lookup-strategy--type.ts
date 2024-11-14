@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../../../../codes';
-import { LinterMeta } from '../../../../../../../apidom-language-types';
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
 const schemaLookupStrategyTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_KAFKA_MESSAGE_BINDING_FIELD_SCHEMA_LOOKUP_STRATEGY_TYPE,

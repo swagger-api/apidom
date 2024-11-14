@@ -1,8 +1,8 @@
-import allowedFieldsLint from './allowed-fields';
-import nameTypeLint from './name--type';
-import nameRequiredLint from './name--required';
-import descriptionTypeLint from './description--type';
-import externalDocsTypeLint from './external-docs--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import nameTypeLint from './name--type.ts';
+import nameRequiredLint from './name--required.ts';
+import descriptionTypeLint from './description--type.ts';
+import externalDocsTypeLint from './external-docs--type.ts';
 
 const lints = [
   allowedFieldsLint,

@@ -1,9 +1,9 @@
-import allowedFieldsLint from './allowed-fields';
-import allowedFieldsTypeBinaryLint from './allowed-fields--type-binary';
-import typeEqualsLint from './type--equals';
-import headersTypeLint from './headers--type';
-import descriptionTypeLint from './description--type';
-import expiryTypeLint from './expiry--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import allowedFieldsTypeBinaryLint from './allowed-fields--type-binary.ts';
+import typeEqualsLint from './type--equals.ts';
+import headersTypeLint from './headers--type.ts';
+import descriptionTypeLint from './description--type.ts';
+import expiryTypeLint from './expiry--type.ts';
 
 const lints = [
   typeEqualsLint,

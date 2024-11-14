@@ -7,15 +7,15 @@ import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 
 // @ts-ignore
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logPerformance, logLevel } from './test-utils';
-import operationLintExpected from './fixtures/async/operation/operation-lint-expected';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logPerformance, logLevel } from './test-utils.ts';
+import operationLintExpected from './fixtures/async/operation/operation-lint-expected.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

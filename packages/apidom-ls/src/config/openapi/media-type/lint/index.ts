@@ -1,9 +1,9 @@
-import allowedFieldsLint from './allowed-fields';
-import schemaTypeLint from './schema--type';
-import schemaTypeOpenAPI3_1Lint from './schema--type-openapi-3-1';
-import examplesValuesTypeLint from './examples--values-type';
-import encodingValuesTypeLint from './encoding--values-type';
-import examplesMutuallyExclusiveLint from './examples--mutually-exclusive';
+import allowedFieldsLint from './allowed-fields.ts';
+import schemaTypeLint from './schema--type.ts';
+import schemaTypeOpenAPI3_1Lint from './schema--type-openapi-3-1.ts';
+import examplesValuesTypeLint from './examples--values-type.ts';
+import encodingValuesTypeLint from './encoding--values-type.ts';
+import examplesMutuallyExclusiveLint from './examples--mutually-exclusive.ts';
 
 const lints = [
   schemaTypeLint,

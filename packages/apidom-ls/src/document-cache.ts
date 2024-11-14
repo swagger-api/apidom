@@ -1,8 +1,8 @@
 import { TextDocument } from 'vscode-languageserver-textdocument';
 
 // eslint-disable-next-line import/no-cycle
-import { debug, perfEnd, perfStart } from './utils/utils';
-import { DocumentCache } from './apidom-language-types';
+import { debug, perfEnd, perfStart } from './utils/utils.ts';
+import { DocumentCache } from './apidom-language-types.ts';
 
 /*
  Adapted from https://github.com/microsoft/vscode/blob/main/extensions/json-language-features/server/src/languageModelCache.ts

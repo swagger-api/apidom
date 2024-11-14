@@ -7,7 +7,7 @@ import { Position } from 'vscode-languageserver-types';
 import { toValue, Element } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
@@ -17,9 +17,9 @@ import {
   ProviderMode,
   HoverProvider,
   HoverProviderResult,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logLevel, logPerformance } from './test-utils';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

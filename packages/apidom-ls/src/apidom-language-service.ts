@@ -17,19 +17,19 @@ import {
   LanguageService,
   LanguageServiceContext,
   LanguageSettings,
-} from './apidom-language-types';
-import { DefaultValidationService } from './services/validation/validation-service';
-import { DefaultCompletionService } from './services/completion/completion-service';
-import { DefaultSymbolsService } from './services/symbols/symbols-service';
-import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service';
-import { DefaultHoverService } from './services/hover/hover-service';
-import { DefaultDerefService } from './services/deref/deref-service';
-import { DefaultDefinitionService } from './services/definition/definition-service';
-import { getDocumentCache } from './document-cache';
-import { parse } from './parser-factory';
-import { config } from './config/config';
-import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils';
-import { DefaultLinksService } from './services/links/links-service';
+} from './apidom-language-types.ts';
+import { DefaultValidationService } from './services/validation/validation-service.ts';
+import { DefaultCompletionService } from './services/completion/completion-service.ts';
+import { DefaultSymbolsService } from './services/symbols/symbols-service.ts';
+import { DefaultSemanticTokensService } from './services/semantic-tokens/semantic-tokens-service.ts';
+import { DefaultHoverService } from './services/hover/hover-service.ts';
+import { DefaultDerefService } from './services/deref/deref-service.ts';
+import { DefaultDefinitionService } from './services/definition/definition-service.ts';
+import { getDocumentCache } from './document-cache.ts';
+import { parse } from './parser-factory.ts';
+import { config } from './config/config.ts';
+import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils.ts';
+import { DefaultLinksService } from './services/links/links-service.ts';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {

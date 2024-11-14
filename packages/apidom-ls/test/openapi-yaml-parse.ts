@@ -20,8 +20,8 @@ import {
 } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import { parse } from '../src/parser-factory';
-import { getSourceMap, SourceMap } from '../src/utils/utils';
+import { parse } from '../src/parser-factory.ts';
+import { getSourceMap, SourceMap } from '../src/utils/utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

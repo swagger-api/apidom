@@ -32,7 +32,7 @@ import {
   LanguageSettings,
   MergeStrategy,
   ProviderMode,
-} from '../../apidom-language-types';
+} from '../../apidom-language-types.ts';
 import {
   checkConditions,
   getSourceMap,
@@ -58,8 +58,8 @@ import {
   debug,
   trace,
   findNamespace,
-} from '../../utils/utils';
-import { standardLinterfunctions } from '../validation/linter-functions';
+} from '../../utils/utils.ts';
+import { standardLinterfunctions } from '../validation/linter-functions.ts';
 
 export interface CompletionsCollector {
   add(suggestion: unknown): void;

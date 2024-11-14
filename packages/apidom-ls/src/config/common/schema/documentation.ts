@@ -1,5 +1,5 @@
-import { AsyncAPI2 } from '../../asyncapi/target-specs';
-import { OpenAPI2, OpenAPI31, OpenAPI30, OpenAPI3 } from '../../openapi/target-specs';
+import { AsyncAPI2 } from '../../asyncapi/target-specs.ts';
+import { OpenAPI2, OpenAPI31, OpenAPI30, OpenAPI3 } from '../../openapi/target-specs.ts';
 
 const documentation = [
   {

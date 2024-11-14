@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../../../../codes';
-import { LinterMeta } from '../../../../../../../apidom-language-types';
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
 const cleanSessionTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MQTT_SERVER_BINDING_FIELD_CLEAN_SESSION_TYPE,

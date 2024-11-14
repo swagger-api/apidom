@@ -5,19 +5,19 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, CodeAction } from 'vscode-languageserver-types';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
-import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider';
-import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider';
-import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider.ts';
+import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider.ts';
+import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider.ts';
+import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider.ts';
 import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
-import { logPerformance, logLevel } from './test-utils';
+import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

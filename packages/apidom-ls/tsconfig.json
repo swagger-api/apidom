@@ -5,8 +5,11 @@
     "test/**/*"
   ],
   "compilerOptions": {
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
-    "isolatedModules": false
+    "isolatedModules": false,
   },
   "ts-node": {
     "files": true

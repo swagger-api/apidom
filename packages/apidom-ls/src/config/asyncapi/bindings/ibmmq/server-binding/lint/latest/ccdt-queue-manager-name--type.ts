@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../../../../codes';
-import { LinterMeta } from '../../../../../../../apidom-language-types';
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
 const ccdtQueueManagerNameTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_IBMMQ_SERVER_BINDING_FIELD_CCDT_QUEUE_MANAGER_NAME_TYPE,

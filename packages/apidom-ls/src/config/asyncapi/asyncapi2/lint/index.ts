@@ -1,15 +1,15 @@
-import allowedFieldsLint from './allowed-fields';
-import asyncapiRequiredLint from './asyncapi--required';
-import channelsRequiredLint from './channels--required';
-import channelsTypeLint from './channels--type';
-import componentsTypeLint from './components--type';
-import defaultContentTypeTypeLint from './default-content-type--type';
-import externalDocsTypeLint from './external-docs--type';
-import idFormatURILint from './id--format-uri';
-import infoRequiredLint from './info--required';
-import infoTypeLint from './info--type';
-import serversTypeLint from './servers--type';
-import tagsTypeLint from './tags--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import asyncapiRequiredLint from './asyncapi--required.ts';
+import channelsRequiredLint from './channels--required.ts';
+import channelsTypeLint from './channels--type.ts';
+import componentsTypeLint from './components--type.ts';
+import defaultContentTypeTypeLint from './default-content-type--type.ts';
+import externalDocsTypeLint from './external-docs--type.ts';
+import idFormatURILint from './id--format-uri.ts';
+import infoRequiredLint from './info--required.ts';
+import infoTypeLint from './info--type.ts';
+import serversTypeLint from './servers--type.ts';
+import tagsTypeLint from './tags--type.ts';
 
 const lints = [
   allowedFieldsLint,

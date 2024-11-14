@@ -1,9 +1,9 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI31 } from '../../../openapi/target-specs';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI31 } from '../../../openapi/target-specs.ts';
+import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
 
 const propertyNamesTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PROPERTYNAMES,

@@ -1,4 +1,4 @@
-import { OpenAPI2 } from '../target-specs';
+import { OpenAPI2 } from '../target-specs.ts';
 
 const documentation = [
   {

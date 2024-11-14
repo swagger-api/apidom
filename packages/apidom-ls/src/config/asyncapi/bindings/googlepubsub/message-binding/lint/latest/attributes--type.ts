@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../../../../codes';
-import { LinterMeta } from '../../../../../../../apidom-language-types';
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
 const attributesTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_MESSAGE_BINDING_FIELD_ATTRIBUTES_TYPE,

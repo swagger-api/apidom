@@ -1,4 +1,4 @@
-import { OpenAPI30, OpenAPI31 } from '../target-specs';
+import { OpenAPI30, OpenAPI31 } from '../target-specs.ts';
 
 const documentation = [
   {

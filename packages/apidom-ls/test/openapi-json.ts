@@ -14,21 +14,21 @@ import {
 import { Element, traverse, toValue } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
   Format,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { parse } from '../src/parser-factory';
-import { getSourceMap, SourceMap } from '../src/utils/utils';
-import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
-import { logPerformance, logLevel } from './test-utils';
-import testTokens from './test-tokens';
-import { OpenAPI31 } from '../src/config/openapi/target-specs';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { parse } from '../src/parser-factory.ts';
+import { getSourceMap, SourceMap } from '../src/utils/utils.ts';
+import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider.ts';
+import { logPerformance, logLevel } from './test-utils.ts';
+import testTokens from './test-tokens.ts';
+import { OpenAPI31 } from '../src/config/openapi/target-specs.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

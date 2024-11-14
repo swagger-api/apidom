@@ -28,7 +28,7 @@ import {
   ValidationProvider,
   ContentLanguage,
   ReferenceValidationMode,
-} from '../../apidom-language-types';
+} from '../../apidom-language-types.ts';
 import {
   checkConditions,
   correctPartialKeys,
@@ -43,8 +43,8 @@ import {
   perfStart,
   processPath,
   SourceMap,
-} from '../../utils/utils';
-import { standardLinterfunctions } from './linter-functions';
+} from '../../utils/utils.ts';
+import { standardLinterfunctions } from './linter-functions.ts';
 
 enum PerfLabels {
   START = 'doValidation',

@@ -1,6 +1,6 @@
-import { config } from '../src/config/config';
+import { config } from '../src/config/config.ts';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { Metadata, MetadataMap } from '../src/apidom-language-types';
+import { Metadata, MetadataMap } from '../src/apidom-language-types.ts';
 
 // eslint-disable-next-line import/prefer-default-export
 export function metadata(): Metadata {

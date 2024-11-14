@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const valuePattern2_5_0Lint: LinterMeta = {

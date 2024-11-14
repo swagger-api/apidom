@@ -8,7 +8,7 @@ import { toValue, Element } from '@swagger-api/apidom-core';
 import { CompletionParams } from 'vscode-languageserver-protocol';
 import { fileURLToPath } from 'node:url';
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
@@ -19,10 +19,10 @@ import {
   CompletionContext,
   CompletionProvider,
   CompletionProviderResult,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logLevel, logPerformance } from './test-utils';
-import { isJsonDoc, isJsonDocSync } from '../src/utils/utils';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
+import { isJsonDoc, isJsonDocSync } from '../src/utils/utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

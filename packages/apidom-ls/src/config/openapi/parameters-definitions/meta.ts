@@ -1,6 +1,6 @@
-import lint from './lint';
-import documentation from './documentation';
-import { FormatMeta } from '../../../apidom-language-types';
+import lint from './lint/index.ts';
+import documentation from './documentation.ts';
+import { FormatMeta } from '../../../apidom-language-types.ts';
 
 const meta: FormatMeta = {
   lint,

@@ -17,8 +17,8 @@ import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElemen
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import { setMetadataMap, findNamespace } from './utils/utils';
-import { ContentLanguage, MetadataMaps } from './apidom-language-types';
+import { setMetadataMap, findNamespace } from './utils/utils.ts';
+import { ContentLanguage, MetadataMaps } from './apidom-language-types.ts';
 
 export interface ParserOptions {
   sourceMap?: boolean;

@@ -1,8 +1,8 @@
-import authorizationUrlFormatURILint from './authorization-url--format-uri';
-import tokenUrlFormatURILint from './token-url--format-uri';
-import refreshUrlFormatURILint from './refresh-url--format-uri';
-import scopesTypeLint from './scopes--type';
-import allowedFieldsLint from './allowed-fields';
+import authorizationUrlFormatURILint from './authorization-url--format-uri.ts';
+import tokenUrlFormatURILint from './token-url--format-uri.ts';
+import refreshUrlFormatURILint from './refresh-url--format-uri.ts';
+import scopesTypeLint from './scopes--type.ts';
+import allowedFieldsLint from './allowed-fields.ts';
 
 const lints = [
   authorizationUrlFormatURILint,

@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 const $refNoSiblingsLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MESSAGE_TRAIT_FIELD_$REF_NO_SIBLINGS,

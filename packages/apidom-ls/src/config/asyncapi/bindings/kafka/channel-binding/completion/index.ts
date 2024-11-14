@@ -1,10 +1,10 @@
-import completion0_3_0Items from './0-3-0';
-import completionLatestItems from './latest';
+import completion0_3_0Items from './0-3-0.ts';
+import completionLatestItems from './latest.ts';
 import {
   ApidomCompletionItem,
   CompletionFormat,
   CompletionType,
-} from '../../../../../../apidom-language-types';
+} from '../../../../../../apidom-language-types.ts';
 
 const completion: ApidomCompletionItem[] = [
   ...completion0_3_0Items,

@@ -1,4 +1,4 @@
-import valuesTypeLint from './values--type';
+import valuesTypeLint from './values--type.ts';
 
 const lints = [valuesTypeLint];
 

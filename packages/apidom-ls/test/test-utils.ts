@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-import { LogLevel } from '../src/apidom-language-types';
+import { LogLevel } from '../src/apidom-language-types.ts';
 
 export function printJson(json: unknown) {
   console.log(JSON.stringify(json, null, 2));

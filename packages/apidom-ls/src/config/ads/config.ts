@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import infoMeta from './info/meta';
-import mainMeta from './main/meta';
-import ApilintCodes from '../codes';
+import infoMeta from './info/meta.ts';
+import mainMeta from './main/meta.ts';
+import ApilintCodes from '../codes.ts';
 
 export default {
   '*': {

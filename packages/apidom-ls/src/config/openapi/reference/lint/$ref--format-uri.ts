@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs.ts';
 
 const $refFormatURILint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_REFERENCE_FIELD_$REF_FORMAT_URI,

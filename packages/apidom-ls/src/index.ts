@@ -11,7 +11,7 @@ export {
   isStringElement,
 } from '@swagger-api/apidom-core';
 
-export { default as getLanguageService } from './apidom-language-service';
+export { default as getLanguageService } from './apidom-language-service.ts';
 
 export {
   perfStart,
@@ -21,7 +21,7 @@ export {
   isYamlDoc,
   getText,
   findNamespace,
-} from './utils/utils';
+} from './utils/utils.ts';
 
 export type {
   LanguageService,
@@ -49,7 +49,7 @@ export type {
   HoverProviderResult,
   LinksProviderResult,
   ContentLanguage,
-} from './apidom-language-types';
+} from './apidom-language-types.ts';
 
 export {
   SupportedLanguages,
@@ -60,6 +60,6 @@ export {
   LogLevel,
   MergeStrategy,
   ProviderMode,
-} from './apidom-language-types';
+} from './apidom-language-types.ts';
 
-export { config } from './config/config';
+export { config } from './config/config.ts';

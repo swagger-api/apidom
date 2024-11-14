@@ -8,7 +8,7 @@ import { Diagnostic, DiagnosticSeverity, Range } from 'vscode-languageserver-typ
 import { toValue, Element } from '@swagger-api/apidom-core';
 import { isOpenApi3_1Element, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
@@ -20,10 +20,10 @@ import {
   ValidationContext,
   ValidationProvider,
   ValidationProviderResult,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logLevel, logPerformance } from './test-utils';
-import { getSourceMap } from '../src/utils/utils';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
+import { getSourceMap } from '../src/utils/utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

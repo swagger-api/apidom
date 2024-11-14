@@ -1,8 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import ApilintCodes from '../../../codes';
-import { LinterMeta } from '../../../../apidom-language-types';
-import { OpenAPI2, OpenAPI3 } from '../../target-specs';
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI2, OpenAPI3 } from '../../target-specs.ts';
 
 const nameRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_SECURITY_SCHEME_FIELD_NAME_REQUIRED,

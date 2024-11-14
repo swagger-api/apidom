@@ -5,16 +5,16 @@ import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { createHTTPServer, ServerTerminable } from './helpers';
-import getLanguageService from '../src/apidom-language-service';
+import { createHTTPServer, ServerTerminable } from './helpers.ts';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   LanguageService,
   LanguageServiceContext,
   ReferenceValidationMode,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { logLevel, logPerformance } from './test-utils';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

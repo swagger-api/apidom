@@ -6,7 +6,7 @@ import { Diagnostic } from 'vscode-languageserver-types';
 import { Element, toValue, traverse } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import { parse } from '../src/parser-factory';
+import { parse } from '../src/parser-factory.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

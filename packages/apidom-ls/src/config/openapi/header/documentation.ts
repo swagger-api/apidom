@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
 
 /**
  * Omitted fixed fields for OpenAPI 3.1.0:

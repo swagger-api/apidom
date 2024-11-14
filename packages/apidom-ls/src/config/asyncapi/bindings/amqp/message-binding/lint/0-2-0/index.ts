@@ -1,6 +1,6 @@
-import allowedFieldsLint from './allowed-fields';
-import contentEncodingTypeLint from './content-encoding--type';
-import messageTypeTypeLint from './message-type--type';
+import allowedFieldsLint from './allowed-fields.ts';
+import contentEncodingTypeLint from './content-encoding--type.ts';
+import messageTypeTypeLint from './message-type--type.ts';
 
 const lints = [contentEncodingTypeLint, messageTypeTypeLint, allowedFieldsLint];
 

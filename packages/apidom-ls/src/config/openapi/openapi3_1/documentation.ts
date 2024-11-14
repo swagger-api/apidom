@@ -1,4 +1,4 @@
-import { OpenAPI31 } from '../target-specs';
+import { OpenAPI31 } from '../target-specs.ts';
 
 /**
  * Omitted fixed fields:

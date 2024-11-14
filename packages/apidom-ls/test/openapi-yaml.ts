@@ -12,18 +12,18 @@ import {
 } from 'vscode-languageserver-types';
 
 // @ts-ignore
-import getLanguageService from '../src/apidom-language-service';
+import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
   ValidationContext,
-} from '../src/apidom-language-types';
-import { metadata } from './metadata';
-import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider';
-import { logLevel, logPerformance } from './test-utils';
-import testTokens from './test-tokens';
-import { OpenAPI31, OpenAPI3 } from '../src/config/openapi/target-specs';
+} from '../src/apidom-language-types.ts';
+import { metadata } from './metadata.ts';
+import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider.ts';
+import { logLevel, logPerformance } from './test-utils.ts';
+import testTokens from './test-tokens.ts';
+import { OpenAPI31, OpenAPI3 } from '../src/config/openapi/target-specs.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

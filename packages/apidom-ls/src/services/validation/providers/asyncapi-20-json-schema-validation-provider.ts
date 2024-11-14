@@ -1,6 +1,6 @@
 import asyncapiSchemaJson from '../json-schema/async-api-20/asyncapi-schema.json';
-import { JsonSchemaValidationProvider } from './json-schema-validation-provider';
-import { NamespaceVersion } from '../../../apidom-language-types';
+import { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
+import { NamespaceVersion } from '../../../apidom-language-types.ts';
 
 // TODO separate providers for OAS 3.1 and 3.0
 // eslint-disable-next-line import/prefer-default-export

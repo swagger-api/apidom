@@ -1,7 +1,7 @@
-import allowedFieldsLint from './allowed-fields';
-import nameTypeLint from './name--type';
-import emailFormatEmailLint from './email--format-email';
-import urlFormatURILint from './url--format-uri';
+import allowedFieldsLint from './allowed-fields.ts';
+import nameTypeLint from './name--type.ts';
+import emailFormatEmailLint from './email--format-email.ts';
+import urlFormatURILint from './url--format-uri.ts';
 
 const lints = [nameTypeLint, emailFormatEmailLint, urlFormatURILint, allowedFieldsLint];
 

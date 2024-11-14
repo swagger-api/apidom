@@ -1,8 +1,8 @@
-import implicitLintTypeLint from './implicit--type';
-import passwordTypeLint from './password--type';
-import clientCredentialsTypeLint from './client-credentials--type';
-import authorizationCodeTypeLint from './authorization-code--type';
-import allowedFieldsLint from './allowed-fields';
+import implicitLintTypeLint from './implicit--type.ts';
+import passwordTypeLint from './password--type.ts';
+import clientCredentialsTypeLint from './client-credentials--type.ts';
+import authorizationCodeTypeLint from './authorization-code--type.ts';
+import allowedFieldsLint from './allowed-fields.ts';
 
 const lints = [
   implicitLintTypeLint,

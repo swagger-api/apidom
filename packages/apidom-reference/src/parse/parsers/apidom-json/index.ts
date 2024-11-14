@@ -5,9 +5,9 @@ import {
   namespace as baseNamespace,
 } from '@swagger-api/apidom-core';
 
-import ParserError from '../../../errors/ParserError';
-import Parser, { ParserOptions } from '../Parser';
-import File from '../../../File';
+import ParserError from '../../../errors/ParserError.ts';
+import Parser, { ParserOptions } from '../Parser.ts';
+import File from '../../../File.ts';
 
 export interface ApiDOMJSONParserOptions extends Omit<ParserOptions, 'name'> {
   readonly namespace?: Namespace;

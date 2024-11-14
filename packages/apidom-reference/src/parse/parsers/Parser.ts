@@ -1,6 +1,6 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import File from '../../File';
+import File from '../../File.ts';
 
 export interface ParserOptions {
   readonly name: string;

@@ -5,8 +5,8 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../../../src/File';
-import OpenAPIJSON3_1Parser from '../../../../src/parse/parsers/openapi-json-3-1';
+import File from '../../../../src/File.ts';
+import OpenAPIJSON3_1Parser from '../../../../src/parse/parsers/openapi-json-3-1/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

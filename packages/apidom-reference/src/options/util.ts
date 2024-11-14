@@ -1,8 +1,8 @@
 import { mergeDeepRight, lens, path, assocPath, over } from 'ramda';
 import { isEmptyString } from 'ramda-adjunct';
 
-import { cwd } from '../util/url';
-import type { ReferenceOptions } from './index';
+import { cwd } from '../util/url.ts';
+import type { ReferenceOptions } from './index.ts';
 
 /**
  * Algorithm for deep merging options.

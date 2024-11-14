@@ -1,9 +1,9 @@
-import ResolveStrategy, { ResolveStrategyOptions } from '../ResolveStrategy';
-import ReferenceSet from '../../../ReferenceSet';
-import File from '../../../File';
-import { merge as mergeOptions } from '../../../options/util';
-import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError';
-import type { ReferenceOptions } from '../../../options';
+import ResolveStrategy, { ResolveStrategyOptions } from '../ResolveStrategy.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import File from '../../../File.ts';
+import { merge as mergeOptions } from '../../../options/util.ts';
+import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 export interface AsyncAPI2ResolveStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
 

@@ -1,4 +1,4 @@
-import JsonSchema$anchorError from './JsonSchema$anchorError';
+import JsonSchema$anchorError from './JsonSchema$anchorError.ts';
 
 class EvaluationJsonSchema$anchorError extends JsonSchema$anchorError {}
 

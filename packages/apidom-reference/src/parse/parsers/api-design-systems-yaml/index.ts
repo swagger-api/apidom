@@ -6,9 +6,9 @@ import {
   detect,
 } from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 
-import ParserError from '../../../errors/ParserError';
-import Parser, { ParserOptions } from '../Parser';
-import File from '../../../File';
+import ParserError from '../../../errors/ParserError.ts';
+import Parser, { ParserOptions } from '../Parser.ts';
+import File from '../../../File.ts';
 
 export interface APIDesignSystemsYAMLParserOptions extends Omit<ParserOptions, 'name'> {}
 

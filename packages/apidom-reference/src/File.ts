@@ -2,7 +2,7 @@ import { type } from 'ramda';
 import { isString } from 'ramda-adjunct';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import * as url from './util/url';
+import * as url from './util/url.ts';
 
 /**
  * This class represents a File object with url and data.

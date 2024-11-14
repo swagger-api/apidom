@@ -5,7 +5,7 @@ import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-parser-ad
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
 import { toJSON } from '@swagger-api/apidom-core';
 
-import convert from '../../../../../src';
+import convert from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

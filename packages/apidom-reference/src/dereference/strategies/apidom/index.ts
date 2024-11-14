@@ -1,11 +1,11 @@
 import { Element, isElement, cloneDeep, visit } from '@swagger-api/apidom-core';
 
-import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy';
-import File from '../../../File';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import ApiDOMDereferenceVisitor from './visitor';
-import type { ReferenceOptions } from '../../../options';
+import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy.ts';
+import File from '../../../File.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import ApiDOMDereferenceVisitor from './visitor.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

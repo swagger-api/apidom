@@ -1,4 +1,4 @@
-import ResolverError from './ResolverError';
+import ResolverError from './ResolverError.ts';
 
 class UnmatchedResolverError extends ResolverError {}
 

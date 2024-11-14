@@ -1,4 +1,4 @@
-import BundleError from './BundleError';
+import BundleError from './BundleError.ts';
 
 class MaximumBundleDepthError extends BundleError {}
 

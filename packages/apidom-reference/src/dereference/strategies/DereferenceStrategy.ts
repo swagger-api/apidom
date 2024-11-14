@@ -1,7 +1,7 @@
 import { Element } from 'minim';
 
-import File from '../../File';
-import type { ReferenceOptions } from '../../options';
+import File from '../../File.ts';
+import type { ReferenceOptions } from '../../options/index.ts';
 
 export interface DereferenceStrategyOptions {
   readonly name: string;

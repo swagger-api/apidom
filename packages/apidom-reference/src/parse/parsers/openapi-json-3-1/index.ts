@@ -6,9 +6,9 @@ import {
   detect,
 } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 
-import ParserError from '../../../errors/ParserError';
-import Parser, { ParserOptions } from '../Parser';
-import File from '../../../File';
+import ParserError from '../../../errors/ParserError.ts';
+import Parser, { ParserOptions } from '../Parser.ts';
+import File from '../../../File.ts';
 
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface OpenAPIJSON3_1ParserOptions extends Omit<ParserOptions, 'name'> {}

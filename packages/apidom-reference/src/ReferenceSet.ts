@@ -1,6 +1,6 @@
 import { isNotUndefined, isString } from 'ramda-adjunct';
 
-import type Reference from './Reference';
+import type Reference from './Reference.ts';
 
 export interface ReferenceSetOptions {
   readonly refs?: Reference[];

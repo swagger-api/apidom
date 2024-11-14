@@ -1,12 +1,12 @@
 import { identity } from 'ramda';
 import { RefElement } from 'minim';
 
-import type Parser from '../parse/parsers/Parser';
-import type Resolver from '../resolve/resolvers/Resolver';
-import type ResolveStrategy from '../resolve/strategies/ResolveStrategy';
-import type DereferenceStrategy from '../dereference/strategies/DereferenceStrategy';
-import type ReferenceSet from '../ReferenceSet';
-import type BundleStrategy from '../bundle/strategies/BundleStrategy';
+import type Parser from '../parse/parsers/Parser.ts';
+import type Resolver from '../resolve/resolvers/Resolver.ts';
+import type ResolveStrategy from '../resolve/strategies/ResolveStrategy.ts';
+import type DereferenceStrategy from '../dereference/strategies/DereferenceStrategy.ts';
+import type ReferenceSet from '../ReferenceSet.ts';
+import type BundleStrategy from '../bundle/strategies/BundleStrategy.ts';
 
 interface ReferenceParseOptions {
   mediaType: string;

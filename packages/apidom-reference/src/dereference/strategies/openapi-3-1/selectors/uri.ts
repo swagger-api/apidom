@@ -3,10 +3,10 @@ import { Element, filter } from '@swagger-api/apidom-core';
 import { isSchemaElement, SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 import { uriToPointer, evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
-import * as url from '../../../../util/url';
-import EvaluationJsonSchemaUriError from '../../../../errors/EvaluationJsonSchemaUriError';
-import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './$anchor';
-import { resolveSchema$idField } from '../util';
+import * as url from '../../../../util/url.ts';
+import EvaluationJsonSchemaUriError from '../../../../errors/EvaluationJsonSchemaUriError.ts';
+import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './$anchor.ts';
+import { resolveSchema$idField } from '../util.ts';
 
 /**
  * Evaluates JSON Schema $ref containing unknown URI against ApiDOM fragment.
@@ -50,4 +50,4 @@ export const evaluate = <T extends Element>(uri: string, element: T): Element | 
 evaluate.cache = new WeakMap();
 
 export { EvaluationJsonSchemaUriError };
-export { default as JsonSchemaUriError } from '../../../../errors/JsonSchemaUriError';
+export { default as JsonSchemaUriError } from '../../../../errors/JsonSchemaUriError.ts';

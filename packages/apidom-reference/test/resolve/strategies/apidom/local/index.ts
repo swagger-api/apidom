@@ -3,7 +3,7 @@ import { assert } from 'chai';
 import { ObjectElement, StringElement, RefElement } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import { resolve, resolveApiDOM } from '../../../../../src';
+import { resolve, resolveApiDOM } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

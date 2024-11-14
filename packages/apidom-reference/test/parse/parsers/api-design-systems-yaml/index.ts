@@ -5,8 +5,8 @@ import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagge
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../../../src/File';
-import APIDesignSystemsYAMLParser from '../../../../src/parse/parsers/api-design-systems-yaml';
+import File from '../../../../src/File.ts';
+import APIDesignSystemsYAMLParser from '../../../../src/parse/parsers/api-design-systems-yaml/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

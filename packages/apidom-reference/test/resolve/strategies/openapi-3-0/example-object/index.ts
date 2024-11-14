@@ -3,8 +3,8 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { fileURLToPath } from 'node:url';
 
-import { resolve } from '../../../../../src';
-import ResolverError from '../../../../../src/errors/ResolverError';
+import { resolve } from '../../../../../src/index.ts';
+import ResolverError from '../../../../../src/errors/ResolverError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

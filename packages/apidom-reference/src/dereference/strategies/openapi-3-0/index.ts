@@ -6,12 +6,12 @@ import openApi3_0Namespace, {
   mediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy';
-import File from '../../../File';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import OpenAPI3_0DereferenceVisitor from './visitor';
-import type { ReferenceOptions } from '../../../options';
+import DereferenceStrategy, { DereferenceStrategyOptions } from '../DereferenceStrategy.ts';
+import File from '../../../File.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import OpenAPI3_0DereferenceVisitor from './visitor.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

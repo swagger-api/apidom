@@ -1,14 +1,14 @@
 import { isEmpty, propEq } from 'ramda';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
-import File from '../File';
-import * as plugins from '../util/plugins';
-import UnmatchedBundleStrategyError from '../errors/UnmatchedBundleStrategyError';
-import BundleError from '../errors/BundleError';
-import parse from '../parse';
-import { merge as mergeOptions } from '../options/util';
-import * as url from '../util/url';
-import type { ReferenceOptions } from '../options';
+import File from '../File.ts';
+import * as plugins from '../util/plugins.ts';
+import UnmatchedBundleStrategyError from '../errors/UnmatchedBundleStrategyError.ts';
+import BundleError from '../errors/BundleError.ts';
+import parse from '../parse/index.ts';
+import { merge as mergeOptions } from '../options/util.ts';
+import * as url from '../util/url.ts';
+import type { ReferenceOptions } from '../options/index.ts';
 
 /**
  * Bundle a file with all its external references to a compound document.

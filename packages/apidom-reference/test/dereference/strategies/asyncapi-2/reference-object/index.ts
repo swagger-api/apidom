@@ -7,11 +7,11 @@ import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-asyncapi-
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 import { fileURLToPath } from 'node:url';
 
-import { loadJsonFile } from '../../../../helpers';
-import { dereference, resolve } from '../../../../../src';
-import DereferenceError from '../../../../../src/errors/DereferenceError';
-import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError';
+import { loadJsonFile } from '../../../../helpers.ts';
+import { dereference, resolve } from '../../../../../src/index.ts';
+import DereferenceError from '../../../../../src/errors/DereferenceError.ts';
+import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../../../src/errors/MaximumResolveDepthError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

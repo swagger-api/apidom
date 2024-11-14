@@ -4,8 +4,8 @@ import { assert } from 'chai';
 import { isParseResultElement } from '@swagger-api/apidom-core';
 import { fileURLToPath } from 'node:url';
 
-import { ParserError, File } from '../../../../src';
-import ApiDOMJSONParser from '../../../../src/parse/parsers/apidom-json';
+import { ParserError, File } from '../../../../src/index.ts';
+import ApiDOMJSONParser from '../../../../src/parse/parsers/apidom-json/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

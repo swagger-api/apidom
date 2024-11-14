@@ -1,8 +1,8 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import { mediaTypes, isOpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import File from '../../../File';
-import BundleStrategy, { BundleStrategyOptions } from '../BundleStrategy';
+import File from '../../../File.ts';
+import BundleStrategy, { BundleStrategyOptions } from '../BundleStrategy.ts';
 
 export interface OpenAPI3_1BundleStrategyOptions extends Omit<BundleStrategyOptions, 'name'> {}
 

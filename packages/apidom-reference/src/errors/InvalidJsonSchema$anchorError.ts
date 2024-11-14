@@ -1,4 +1,4 @@
-import JsonSchema$anchorError from './JsonSchema$anchorError';
+import JsonSchema$anchorError from './JsonSchema$anchorError.ts';
 
 class InvalidJsonSchema$anchorError extends JsonSchema$anchorError {
   constructor(anchor: string) {

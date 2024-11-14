@@ -10,7 +10,7 @@ import {
   stripHash,
   sanitize,
   unsanitize,
-} from '../../src/util/url';
+} from '../../src/util/url.ts';
 
 describe('util', function () {
   context('url', function () {

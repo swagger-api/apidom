@@ -4,8 +4,8 @@ import { toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
 import { fileURLToPath } from 'node:url';
 
-import { loadJsonFile } from '../../../../helpers';
-import { dereference } from '../../../../../src';
+import { loadJsonFile } from '../../../../helpers.ts';
+import { dereference } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootFixturePath = path.join(__dirname, 'fixtures');

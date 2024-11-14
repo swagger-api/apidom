@@ -1,4 +1,4 @@
-import ResolveError from './ResolveError';
+import ResolveError from './ResolveError.ts';
 
 class MaximumResolveDepthError extends ResolveError {}
 

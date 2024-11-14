@@ -1,7 +1,7 @@
 import { isUndefined } from 'ramda-adjunct';
 import { Element, filter, toValue } from '@swagger-api/apidom-core';
 
-import EvaluationElementIdError from '../../../../errors/EvaluationElementIdError';
+import EvaluationElementIdError from '../../../../errors/EvaluationElementIdError.ts';
 
 const hasElementID = (element: Element): boolean => !!element.id;
 

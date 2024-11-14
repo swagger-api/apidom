@@ -3,12 +3,12 @@ import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { fileURLToPath } from 'node:url';
 
-import { resolve, resolveApiDOM, parse } from '../../src';
-import FileResolver from '../../src/resolve/resolvers/file/index-node';
-import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStrategyError';
-import ResolveError from '../../src/errors/ResolveError';
-import ParseError from '../../src/errors/ParseError';
-import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1';
+import { resolve, resolveApiDOM, parse } from '../../src/index.ts';
+import FileResolver from '../../src/resolve/resolvers/file/index-node.ts';
+import UnmatchedResolveStrategyError from '../../src/errors/UnmatchedResolveStrategyError.ts';
+import ResolveError from '../../src/errors/ResolveError.ts';
+import ParseError from '../../src/errors/ParseError.ts';
+import OpenAPIJSON3_1Parser from '../../src/parse/parsers/openapi-json-3-1/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

@@ -6,7 +6,7 @@ import dedent from 'dedent';
 import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
 import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import * as adapter from '../src/adapter';
+import * as adapter from '../src/adapter.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const yamlSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();

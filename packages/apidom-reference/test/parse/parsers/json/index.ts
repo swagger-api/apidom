@@ -7,8 +7,8 @@ import {
   isSourceMapElement,
 } from '@swagger-api/apidom-core';
 
-import File from '../../../../src/File';
-import JSONParser from '../../../../src/parse/parsers/json';
+import File from '../../../../src/File.ts';
+import JSONParser from '../../../../src/parse/parsers/json/index.ts';
 
 describe('parsers', function () {
   context('JSONParser', function () {

@@ -5,7 +5,7 @@ import { mediaTypes, isSchemaElement, OpenApi3_1Element } from '@swagger-api/api
 import { evaluate } from '@swagger-api/apidom-json-pointer';
 import { fileURLToPath } from 'node:url';
 
-import { parse, dereferenceApiDOM } from '../../../../../src';
+import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

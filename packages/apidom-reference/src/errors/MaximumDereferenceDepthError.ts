@@ -1,4 +1,4 @@
-import DereferenceError from './DereferenceError';
+import DereferenceError from './DereferenceError.ts';
 
 class MaximumDereferenceDepthError extends DereferenceError {}
 

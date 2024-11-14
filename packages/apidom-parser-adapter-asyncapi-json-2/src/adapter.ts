@@ -4,7 +4,7 @@ import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
 import asyncApiNamespace, { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
-export { default as mediaTypes } from './media-types';
+export { default as mediaTypes } from './media-types.ts';
 
 export const detectionRegExp =
   /"asyncapi"\s*:\s*"(?<version_json>2\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))"/;

@@ -1,11 +1,11 @@
 import { isEmpty } from 'ramda';
 
-import File from '../File';
-import Resolver from './resolvers/Resolver';
-import * as plugins from '../util/plugins';
-import ResolveError from '../errors/ResolveError';
-import UnmatchedResolverError from '../errors/UnmatchedResolverError';
-import type { ReferenceOptions } from '../options';
+import File from '../File.ts';
+import Resolver from './resolvers/Resolver.ts';
+import * as plugins from '../util/plugins.ts';
+import ResolveError from '../errors/ResolveError.ts';
+import UnmatchedResolverError from '../errors/UnmatchedResolverError.ts';
+import type { ReferenceOptions } from '../options/index.ts';
 
 /**
  * Reads the given file, using the configured resolver plugins.

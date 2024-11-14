@@ -1,5 +1,5 @@
-import Resolver from '../Resolver';
-import ResolverError from '../../../errors/ResolverError';
+import Resolver from '../Resolver.ts';
+import ResolverError from '../../../errors/ResolverError.ts';
 
 class FileResolver extends Resolver {
   constructor() {

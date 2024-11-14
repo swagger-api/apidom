@@ -2,7 +2,7 @@ import { reduce } from 'ramda';
 import { Element, isPrimitiveElement, toValue } from '@swagger-api/apidom-core';
 import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
-import * as url from '../../../util/url';
+import * as url from '../../../util/url.ts';
 
 export const resolveSchema$refField = (retrievalURI: string, schemaElement: SchemaElement) => {
   if (typeof schemaElement.$ref === 'undefined') {

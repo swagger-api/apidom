@@ -6,15 +6,15 @@ import {
   cloneShallow,
 } from '@swagger-api/apidom-core';
 
-import { merge as mergeOptions } from '../options/util';
-import parse from '../parse';
-import * as plugins from '../util/plugins';
-import File from '../File';
-import ReferenceSet from '../ReferenceSet';
-import ResolveError from '../errors/ResolverError';
-import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError';
-import * as url from '../util/url';
-import type { ReferenceOptions } from '../options';
+import { merge as mergeOptions } from '../options/util.ts';
+import parse from '../parse/index.ts';
+import * as plugins from '../util/plugins.ts';
+import File from '../File.ts';
+import ReferenceSet from '../ReferenceSet.ts';
+import ResolveError from '../errors/ResolverError.ts';
+import UnmatchedResolveStrategyError from '../errors/UnmatchedResolveStrategyError.ts';
+import * as url from '../util/url.ts';
+import type { ReferenceOptions } from '../options/index.ts';
 
 /**
  * Resolves ApiDOM with all its external references.

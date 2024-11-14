@@ -2,10 +2,10 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { fileURLToPath } from 'node:url';
 
-import File from '../../src/File';
-import { filter, run } from '../../src/util/plugins';
-import PluginError from '../../src/errors/PluginError';
-import defaultOptions from '../../src/options';
+import File from '../../src/File.ts';
+import { filter, run } from '../../src/util/plugins.ts';
+import PluginError from '../../src/errors/PluginError.ts';
+import defaultOptions from '../../src/options/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

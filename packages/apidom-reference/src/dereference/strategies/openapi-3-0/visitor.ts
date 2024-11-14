@@ -31,14 +31,14 @@ import {
   isReferenceLikeElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError';
-import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError';
-import * as url from '../../../util/url';
-import parse from '../../../parse';
-import Reference from '../../../Reference';
-import ReferenceSet from '../../../ReferenceSet';
-import { AncestorLineage } from '../../util';
-import type { ReferenceOptions } from '../../../options';
+import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
+import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
+import * as url from '../../../util/url.ts';
+import parse from '../../../parse/index.ts';
+import Reference from '../../../Reference.ts';
+import ReferenceSet from '../../../ReferenceSet.ts';
+import { AncestorLineage } from '../../util.ts';
+import type { ReferenceOptions } from '../../../options/index.ts';
 
 // @ts-ignore
 const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];

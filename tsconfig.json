@@ -2,9 +2,9 @@
   "compilerOptions": {
     // Target latest version of ECMAScript.
     "target": "esnext",
-    "module": "esnext",
-    // Search under node_modules for non-relative imports.
-    "moduleResolution": "node",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "allowImportingTsExtensions": true,
     // Process & infer types from .js files.
     "allowJs": false,
     // Don't emit; allow Babel to transform files.

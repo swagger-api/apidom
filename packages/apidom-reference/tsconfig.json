@@ -1,9 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
-    "allowImportingTsExtensions": true,
     "baseUrl": ".",
     "paths": {
       "#buffer": ["./src/util/polyfills/buffer/protocol-import.ts"],

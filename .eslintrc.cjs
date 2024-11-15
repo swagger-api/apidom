@@ -7,10 +7,28 @@ module.exports = {
     tsconfigRootDir: __dirname,
     project: ['./tsconfig.json'],
   },
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project: ['./tsconfig.json'],
+      },
+    },
+  },
   rules: {
     quotes: ['error', 'single', { avoidEscape: true }],
     'no-return-await': 'off',
     'no-unused-vars': 'off',
+    'import/extensions': [
+      'error',
+      'always',
+      {
+        ts: 'always',
+        tsx: 'always',
+        js: 'always',
+        jsx: 'never',
+        ignorePackages: true,
+      },
+    ],
     'import/no-extraneous-dependencies': 'off', // ['error', { devDependencies: true }],
     'import/no-mutable-exports': 'off',
     'import/order': [

@@ -1,10 +1,16 @@
 import JsonNode from './JsonNode.ts';
 import type { NodeOptions } from '../../Node.ts';
 
+/**
+ * @public
+ */
 export interface JsonValueOptions extends NodeOptions {
   value: string;
 }
 
+/**
+ * @public
+ */
 class JsonValue extends JsonNode {
   public static readonly type: string = 'value';
 

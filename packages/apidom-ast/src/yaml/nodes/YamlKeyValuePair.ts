@@ -4,10 +4,16 @@ import YamlScalar from './YamlScalar.ts';
 import type { YamlStyleGroup } from './YamlStyle.ts';
 import { isScalar, isMapping, isSequence, isAlias } from './predicates.ts';
 
+/**
+ * @public
+ */
 export interface YamlKeyValuePairOptions extends NodeOptions {
   readonly styleGroup: YamlStyleGroup;
 }
 
+/**
+ * @public
+ */
 class YamlKeyValuePair extends Node {
   public static readonly type = 'keyValuePair';
 

@@ -4,6 +4,9 @@ import YamlSchemaError from './YamlSchemaError.ts';
 import Position from '../../Position.ts';
 import Node from '../../Node.ts';
 
+/**
+ * @public
+ */
 export interface YamlTagErrorOptions<T extends Node = Node> extends ApiDOMErrorOptions {
   readonly specificTagName: string;
   readonly explicitTagName: string;
@@ -13,6 +16,9 @@ export interface YamlTagErrorOptions<T extends Node = Node> extends ApiDOMErrorO
   readonly node?: T;
 }
 
+/**
+ * @public
+ */
 class YamlTagError extends YamlSchemaError {
   public readonly specificTagName!: string;
 

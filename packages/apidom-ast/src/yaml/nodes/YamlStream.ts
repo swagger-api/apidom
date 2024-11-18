@@ -3,6 +3,9 @@ import YamlDocument from './YamlDocument.ts';
 import YamlComment from './YamlComment.ts';
 import { isComment, isDocument } from './predicates.ts';
 
+/**
+ * @public
+ */
 class YamlStream extends Node {
   public static readonly type = 'stream';
 }

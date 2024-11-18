@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export enum YamlStyle {
   Plain = 'Plain',
   SingleQuoted = 'SingleQuoted',
@@ -10,6 +13,9 @@ export enum YamlStyle {
   InLine = 'InLine',
 }
 
+/**
+ * @public
+ */
 export enum YamlStyleGroup {
   Flow = 'Flow',
   Block = 'Block',

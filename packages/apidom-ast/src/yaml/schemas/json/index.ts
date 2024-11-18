@@ -7,6 +7,9 @@ import { YamlNodeKind } from '../../nodes/YamlTag.ts';
 import GenericSequence from '../failsafe/GenericSequence.ts';
 import GenericMapping from '../failsafe/GenericMapping.ts';
 
+/**
+ * @public
+ */
 class JsonSchema extends FailsafeSchema {
   constructor() {
     super();

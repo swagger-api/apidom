@@ -4,6 +4,9 @@ import YamlScalar from './YamlScalar.ts';
 import YamlAlias from './YamlAlias.ts';
 import { isMapping, isScalar, isSequence, isAlias } from './predicates.ts';
 
+/**
+ * @public
+ */
 class YamlSequence extends YamlCollection {
   public static readonly type = 'sequence';
 }

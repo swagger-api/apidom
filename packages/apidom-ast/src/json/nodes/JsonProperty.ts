@@ -18,8 +18,21 @@ import type JsonNumber from './JsonNumber.ts';
 import type JsonArray from './JsonArray.ts';
 import type JsonObject from './JsonObject.ts';
 
-type JsonValue = JsonFalse | JsonTrue | JsonNull | JsonNumber | JsonString | JsonArray | JsonObject;
+/**
+ * @public
+ */
+export type JsonValue =
+  | JsonFalse
+  | JsonTrue
+  | JsonNull
+  | JsonNumber
+  | JsonString
+  | JsonArray
+  | JsonObject;
 
+/**
+ * @public
+ */
 class JsonProperty extends JsonNode {
   public static readonly type = 'property';
 

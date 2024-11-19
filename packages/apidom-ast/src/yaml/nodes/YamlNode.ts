@@ -4,6 +4,9 @@ import YamlTag from './YamlTag.ts';
 import YamlAnchor from './YamlAnchor.ts';
 import { YamlStyle, YamlStyleGroup } from './YamlStyle.ts';
 
+/**
+ * @public
+ */
 export interface YamlNodeOptions extends NodeOptions {
   readonly anchor?: YamlAnchor;
   readonly tag?: YamlTag;
@@ -11,6 +14,9 @@ export interface YamlNodeOptions extends NodeOptions {
   readonly styleGroup: YamlStyleGroup;
 }
 
+/**
+ * @public
+ */
 class YamlNode extends Node {
   public readonly anchor?: YamlAnchor;
 

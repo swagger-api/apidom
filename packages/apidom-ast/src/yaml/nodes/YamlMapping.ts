@@ -2,6 +2,9 @@ import YamlCollection from './YamlCollection.ts';
 import { isKeyValuePair } from './predicates.ts';
 import YamlKeyValuePair from './YamlKeyValuePair.ts';
 
+/**
+ * @public
+ */
 class YamlMapping extends YamlCollection {
   public static readonly type = 'mapping';
 }

@@ -6,8 +6,15 @@ import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
  * SPDX-License-Identifier: MIT
  */
 
-// getVisitFn :: (Visitor, String, Boolean) -> Function
-export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
+/**
+ * @public
+ */
+export const getVisitFn = (
+  visitor: any,
+  type: string | undefined,
+  isLeaving: boolean,
+): ((...args: any[]) => any) | null => {
+  // @ts-ignore
   const typeVisitor = visitor[type];
 
   if (typeVisitor != null) {
@@ -27,6 +34,7 @@ export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
         // { enter() {}, leave() {} }
         return specificVisitor;
       }
+      // @ts-ignore
       const specificTypeVisitor = specificVisitor[type];
       if (typeof specificTypeVisitor === 'function') {
         // { enter: { Type() {} }, leave: { Type() {} } }
@@ -38,15 +46,24 @@ export const getVisitFn = (visitor: any, type: string, isLeaving: boolean) => {
   return null;
 };
 
+/**
+ * @public
+ */
 export const BREAK = {};
 
-// getNodeType :: Node -> String
-export const getNodeType = (node: any) => node?.type;
+/**
+ * @public
+ */
+export const getNodeType = (node: any): string | undefined => node?.type;
 
-// isNode :: Node -> Boolean
+/**
+ * @public
+ */
 export const isNode = (node: any) => typeof getNodeType(node) === 'string';
 
-// cloneNode :: a -> a
+/**
+ * @public
+ */
 export const cloneNode = (node: any) =>
   Object.create(Object.getPrototypeOf(node), Object.getOwnPropertyDescriptors(node));
 
@@ -56,6 +73,7 @@ export const cloneNode = (node: any) =>
  *
  * If a prior visitor edits a node, no following visitors will see that node.
  * `exposeEdits=true` can be used to expose the edited node from the previous visitors.
+ * @public
  */
 
 export interface MergeAllSync {
@@ -76,6 +94,9 @@ export interface MergeAllSync {
   [key: symbol]: MergeAllAsync;
 }
 
+/**
+ * @public
+ */
 export interface MergeAllAsync {
   (
     visitors: any[],
@@ -93,6 +114,9 @@ export interface MergeAllAsync {
   };
 }
 
+/**
+ * @public
+ */
 export const mergeAll: MergeAllSync = ((
   visitors: any[],
   {
@@ -335,9 +359,11 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  * a new version of the AST with the changes applied will be returned from the
  * visit function.
  *
+ * @example
+ * ```
  *     const editedAST = visit(ast, {
  *       enter(node, key, parent, path, ancestors) {
- *         // @return
+ *         // return
  *         //   undefined: no action
  *         //   false: skip visiting this node
  *         //   BREAK: stop visiting altogether
@@ -345,7 +371,7 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  *         //   any value: replace this node with the returned value
  *       },
  *       leave(node, key, parent, path, ancestors) {
- *         // @return
+ *         // return
  *         //   undefined: no action
  *         //   false: no action
  *         //   BREAK: stop visiting altogether
@@ -353,23 +379,23 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  *         //   any value: replace this node with the returned value
  *       }
  *     });
- *
+ *```
  * Alternatively to providing enter() and leave() functions, a visitor can
  * instead provide functions named the same as the kinds of AST nodes, or
  * enter/leave visitors at a named key, leading to four permutations of
  * visitor API:
  *
  * 1) Named visitors triggered when entering a node a specific kind.
- *
+ * ```
  *     visit(ast, {
  *       Kind(node) {
  *         // enter the "Kind" node
  *       }
  *     })
- *
+ * ```
  * 2) Named visitors that trigger upon entering and leaving a node of
  *    a specific kind.
- *
+ * ```
  *     visit(ast, {
  *       Kind: {
  *         enter(node) {
@@ -380,9 +406,9 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  *         }
  *       }
  *     })
- *
+ * ```
  * 3) Generic visitors that trigger upon entering and leaving any node.
- *
+ * ```
  *     visit(ast, {
  *       enter(node) {
  *         // enter any node
@@ -391,9 +417,9 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  *         // leave any node
  *       }
  *     })
- *
+ * ```
  * 4) Parallel visitors for entering and leaving nodes of a specific kind.
- *
+ * ```
  *     visit(ast, {
  *       enter: {
  *         Kind(node) {
@@ -406,9 +432,12 @@ mergeAll[Symbol.for('nodejs.util.promisify.custom')] = mergeAllAsync;
  *         }
  *       }
  *     })
+ * ```
+ *  sig `visit :: (Node, Visitor, Options)`
  *
- *  @sig visit :: (Node, Visitor, Options)
- *  @sig      Options = { keyMap: Object, state: Object }
+ *  sig `Options = { keyMap: Object, state: Object }`
+ *
+ *  @public
  */
 export const visit = (
   // @ts-ignore

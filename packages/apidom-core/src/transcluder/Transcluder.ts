@@ -94,6 +94,7 @@ const transcludeChildOfArrayElement = (
 /**
  * This is a mutating stamp. If you don't want your Element to be mutated,
  * clone in before passing it to initializer of this stamp.
+ * @public
  */
 
 class Transcluder {

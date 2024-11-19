@@ -1,10 +1,16 @@
 import { ApiDOMStructuredError } from '@swagger-api/apidom-error';
 import type { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
-interface CloneErrorOptions extends ApiDOMErrorOptions {
+/**
+ * @public
+ */
+export interface CloneErrorOptions extends ApiDOMErrorOptions {
   readonly value: unknown;
 }
 
+/**
+ * @public
+ */
 class CloneError extends ApiDOMStructuredError {
   public readonly value: unknown;
 

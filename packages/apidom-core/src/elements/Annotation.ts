@@ -1,5 +1,8 @@
 import { Attributes, Meta, StringElement } from 'minim';
 
+/**
+ * @public
+ */
 class Annotation extends StringElement {
   // classes: warning | error
 

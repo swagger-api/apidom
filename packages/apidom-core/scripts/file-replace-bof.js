@@ -8,7 +8,6 @@ const filePath = path.join(cwd, fileName);
 const fileContent = fs.readFileSync(filePath).toString();
 const lines = fileContent.split('\n');
 
-lines.shift();
 lines.unshift(bofContent);
 
 const newFileContent = lines.join('\n');

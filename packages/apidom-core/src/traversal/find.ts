@@ -3,7 +3,10 @@ import { Element } from 'minim';
 
 import { PredicateVisitor, BREAK, visit } from './visitor.ts';
 
-// find first element that satisfies the provided predicate
+/**
+ * Find first element that satisfies the provided predicate.
+ * @public
+ */
 const find = <T extends Element>(
   predicate: (element: any) => boolean,
   element: T,

@@ -4,6 +4,7 @@ import { IdentityManager } from '../../identity/index.ts';
 
 /**
  * Plugin for decorating every element in ApiDOM tree with UUID.
+ * @public
  */
 
 const plugin =

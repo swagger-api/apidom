@@ -4,6 +4,9 @@ import ShortUniqueId from 'short-unique-id';
 import ElementIdentityError from './errors/ElementIdentityError.ts';
 import { isElement, isStringElement } from '../predicates/index.ts';
 
+/**
+ * @public
+ */
 export class IdentityManager {
   protected readonly uuid: ShortUniqueId;
 
@@ -57,4 +60,7 @@ export class IdentityManager {
   }
 }
 
+/**
+ * @public
+ */
 export const defaultIdentityManager = new IdentityManager();

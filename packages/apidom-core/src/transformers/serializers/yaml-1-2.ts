@@ -91,6 +91,9 @@ class YamlVisitor {
   }
 }
 
+/**
+ * @public
+ */
 const serializer = (element: Element, { directive = false } = {}): string => {
   const visitor = new YamlVisitor({ directive });
 

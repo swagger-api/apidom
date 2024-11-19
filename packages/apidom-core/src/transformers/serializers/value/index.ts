@@ -105,6 +105,9 @@ class Visitor {
 
 type ShortCutElementTypes = StringElement | NumberElement | BooleanElement | NullElement;
 
+/**
+ * @public
+ */
 const serializer = <T extends Element | unknown>(element: T): any => {
   if (!isElement(element)) return element;
 

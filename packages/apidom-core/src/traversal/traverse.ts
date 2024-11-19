@@ -6,8 +6,15 @@ import { visit, PredicateVisitor } from './visitor.ts';
 import type { PredicateVisitorOptions } from './visitor.ts';
 import { isElement } from '../predicates/index.ts';
 
-type Callback = <T extends Element>(element: T) => void;
-interface TraverseOptions {
+/**
+ * @public
+ */
+export type Callback = <T extends Element>(element: T) => void;
+
+/**
+ * @public
+ */
+export interface TraverseOptions {
   callback?: Callback;
   predicate?: (element: any) => boolean;
 }
@@ -33,7 +40,10 @@ export class CallbackVisitor extends PredicateVisitor {
   }
 }
 
-// executes the callback on this element and all descendants
+/**
+ * Executes the callback on this element and all descendants.
+ * @public
+ */
 const traverse = <T extends Element>(options: Callback | TraverseOptions, element: T): void => {
   let callback;
   let predicate;

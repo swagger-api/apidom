@@ -6,6 +6,9 @@ import { isAnchor } from '../nodes/predicates.ts';
 import { YamlStyle, YamlStyleGroup } from '../nodes/YamlStyle.ts';
 
 /* eslint-disable class-methods-use-this */
+/**
+ * @public
+ */
 class ReferenceManager {
   addAnchor(node: YamlNode): void {
     if (!isAnchor(node.anchor)) {

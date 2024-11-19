@@ -1,11 +1,17 @@
 import Position from './Position.ts';
 
+/**
+ * @public
+ */
 export interface NodeOptions {
   readonly children?: unknown[];
   readonly position?: Position;
   readonly isMissing?: boolean;
 }
 
+/**
+ * @public
+ */
 class Node {
   public static readonly type: string = 'node';
 

@@ -8,6 +8,9 @@ import GenericSequenceTag from './GenericSequence.ts';
 import GenericStringTag from './GenericString.ts';
 import ScalarTag from '../ScalarTag.ts';
 
+/**
+ * @public
+ */
 class FailsafeSchema {
   public tags: any[];
 

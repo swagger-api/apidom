@@ -1,10 +1,16 @@
 import YamlNode from './YamlNode.ts';
 import type { YamlNodeOptions } from './YamlNode.ts';
 
+/**
+ * @public
+ */
 export interface YamlScalarOptions extends YamlNodeOptions {
   readonly content: string;
 }
 
+/**
+ * @public
+ */
 class YamlScalar extends YamlNode {
   public static readonly type = 'scalar';
 

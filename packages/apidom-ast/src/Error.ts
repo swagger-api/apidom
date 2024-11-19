@@ -1,11 +1,17 @@
 import Node from './Node.ts';
 import type { NodeOptions } from './Node.ts';
 
+/**
+ * @public
+ */
 export interface ErrorOptions extends NodeOptions {
   readonly value?: unknown;
   readonly isUnexpected?: boolean;
 }
 
+/**
+ * @public
+ */
 class Error extends Node {
   public static readonly type: string = 'error';
 

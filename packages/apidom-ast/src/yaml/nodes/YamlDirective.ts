@@ -3,17 +3,26 @@ import { mergeRight } from 'ramda';
 import Node from '../../Node.ts';
 import type { NodeOptions } from '../../Node.ts';
 
-interface YamlDirectiveParameters {
+/**
+ * @public
+ */
+export interface YamlDirectiveParameters {
   readonly version?: string;
   readonly handle?: string;
   readonly prefix?: string;
 }
 
+/**
+ * @public
+ */
 export interface YamlDirectiveOptions extends NodeOptions {
   readonly name?: string;
   readonly parameters: YamlDirectiveParameters;
 }
 
+/**
+ * @public
+ */
 class YamlDirective extends Node {
   public static readonly type = 'directive';
 

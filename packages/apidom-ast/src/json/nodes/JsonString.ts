@@ -5,6 +5,9 @@ import { isEscapeSequence, isStringContent } from './predicates.ts';
 
 type JsonStringLike = JsonStringContent | JsonEscapeSequence;
 
+/**
+ * @public
+ */
 class JsonString extends JsonNode {
   public static readonly type: string = 'string';
 

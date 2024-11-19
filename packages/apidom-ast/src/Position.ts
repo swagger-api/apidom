@@ -1,11 +1,17 @@
 /* eslint-disable max-classes-per-file */
 
-interface PointOptions {
+/**
+ * @public
+ */
+export interface PointOptions {
   readonly row: number;
   readonly column: number;
   readonly char: number;
 }
 
+/**
+ * @public
+ */
 export class Point {
   public static readonly type: string = 'point';
 
@@ -24,11 +30,17 @@ export class Point {
   }
 }
 
-interface PositionOptions {
+/**
+ * @public
+ */
+export interface PositionOptions {
   readonly start: Point;
   readonly end: Point;
 }
 
+/**
+ * @public
+ */
 class Position {
   public static readonly type: string = 'position';
 

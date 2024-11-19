@@ -2,10 +2,16 @@ import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
 import JsonPointerError from './JsonPointerError.ts';
 
+/**
+ * @public
+ */
 export interface InvalidJsonPointerErrorOptions extends ApiDOMErrorOptions {
   readonly pointer: string;
 }
 
+/**
+ * @public
+ */
 class InvalidJsonPointerError extends JsonPointerError {
   public readonly pointer!: string;
 

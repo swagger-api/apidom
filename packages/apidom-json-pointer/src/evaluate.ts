@@ -4,7 +4,10 @@ import { Element, isObjectElement, isArrayElement, cloneDeep } from '@swagger-ap
 import parse from './parse.ts';
 import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError.ts';
 
-// evaluates JSON Pointer against ApiDOM fragment
+/**
+ * Evaluates JSON Pointer against ApiDOM fragment.
+ * @public
+ */
 const evaluate = <T extends Element>(pointer: string, element: T): Element => {
   let tokens: string[];
 

@@ -3,7 +3,7 @@ export { default as JsonNode } from './json/nodes/JsonNode.ts';
 export { default as JsonDocument } from './json/nodes/JsonDocument.ts';
 export { default as JsonObject } from './json/nodes/JsonObject.ts';
 export { default as JsonProperty } from './json/nodes/JsonProperty.ts';
-export type { JsonValue as JsonValueType } from './json/nodes/JsonProperty.ts';
+export type { JsonValue as JsonPropertyValue } from './json/nodes/JsonProperty.ts';
 export { default as JsonArray } from './json/nodes/JsonArray.ts';
 export { default as JsonValue } from './json/nodes/JsonValue.ts';
 export type { JsonValueOptions } from './json/nodes/JsonValue.ts';

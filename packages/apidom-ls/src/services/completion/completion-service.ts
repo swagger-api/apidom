@@ -269,7 +269,7 @@ export class DefaultCompletionService implements CompletionService {
 
     const text: string = textDocument.getText();
     let contentLanguage = await findNamespace(textDocument, this.settings?.defaultContentLanguage);
-
+    debug('contentLanguage unprocessed', contentLanguage);
     const schema = false;
 
     // commit chars for yaml
@@ -292,52 +292,6 @@ export class DefaultCompletionService implements CompletionService {
     const offset = textDocument.offsetAt(position);
     debug('doCompletion - position and offset', position, offset);
     trace('doCompletion - text', text);
-
-    // if no spec version has been set, provide completion for it anyway
-    // TODO handle also JSON, must identify offset
-    // TODO move to adapter
-    if (
-      contentLanguage.namespace === 'apidom' &&
-      contentLanguage.format !== 'JSON' &&
-      textDocument.positionAt(offset).character === 0
-    ) {
-      const isEmpty = isEmptyLine(textDocument, offset);
-      trace('doCompletion - no version', { isEmpty });
-      const asyncItem = CompletionItem.create('asyncapi');
-      asyncItem.insertText = `asyncapi: '2.6.0$1'${isEmpty ? '' : '\n'}`;
-      asyncItem.documentation = {
-        kind: 'markdown',
-        value:
-          'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version.\nThe patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
-      };
-      asyncItem.kind = CompletionItemKind.Keyword;
-      asyncItem.insertTextFormat = 2;
-      asyncItem.insertTextMode = 2;
-      completionList.items.push(asyncItem);
-      const oasItem = CompletionItem.create('openapi');
-      oasItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
-      oasItem.documentation = {
-        kind: 'markdown',
-        value:
-          '**REQUIRED**. This string MUST be the [version number](#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](#infoVersion) string.',
-      };
-      oasItem.kind = CompletionItemKind.Keyword;
-      oasItem.insertTextFormat = 2;
-      oasItem.insertTextMode = 2;
-      completionList.items.push(oasItem);
-      const swaggerItem = CompletionItem.create('swagger');
-      swaggerItem.insertText = `swagger: '2.0'${isEmpty ? '$1' : '\n$1'}`;
-      swaggerItem.documentation = {
-        kind: 'markdown',
-        value:
-          '**REQUIRED**. Specifies the Swagger Specification version being used. It can be used by the Swagger UI and other clients to interpret the API listing. The value MUST be "2.0".',
-      };
-      swaggerItem.kind = CompletionItemKind.Keyword;
-      swaggerItem.insertTextFormat = 2;
-      swaggerItem.insertTextMode = 2;
-      completionList.items.push(swaggerItem);
-      trace('doCompletion - no version', `completionList: ${JSON.stringify(completionList)}`);
-    }
 
     /*
      process errored YAML input badly handled by YAML parser (see https://github.com/swagger-api/apidom/issues/194)
@@ -391,6 +345,53 @@ export class DefaultCompletionService implements CompletionService {
       perfEnd(PerfLabels.PARSE_SECOND);
       textModified = true;
     }
+    debug('contentLanguage processed', contentLanguage);
+    // if no spec version has been set, provide completion for it anyway
+    // TODO handle also JSON, must identify offset
+    // TODO move to adapter
+    if (
+      contentLanguage.namespace === 'apidom' &&
+      contentLanguage.format !== 'JSON' &&
+      textDocument.positionAt(offset).character === 0
+    ) {
+      const isEmpty = isEmptyLine(textDocument, offset);
+      trace('doCompletion - no version', { isEmpty });
+      const asyncItem = CompletionItem.create('asyncapi');
+      asyncItem.insertText = `asyncapi: '2.6.0$1'${isEmpty ? '' : '\n'}`;
+      asyncItem.documentation = {
+        kind: 'markdown',
+        value:
+          'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version.\nThe patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
+      };
+      asyncItem.kind = CompletionItemKind.Keyword;
+      asyncItem.insertTextFormat = 2;
+      asyncItem.insertTextMode = 2;
+      completionList.items.push(asyncItem);
+      const oasItem = CompletionItem.create('openapi');
+      oasItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
+      oasItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. This string MUST be the [version number](#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](#infoVersion) string.',
+      };
+      oasItem.kind = CompletionItemKind.Keyword;
+      oasItem.insertTextFormat = 2;
+      oasItem.insertTextMode = 2;
+      completionList.items.push(oasItem);
+      const swaggerItem = CompletionItem.create('swagger');
+      swaggerItem.insertText = `swagger: '2.0'${isEmpty ? '$1' : '\n$1'}`;
+      swaggerItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. Specifies the Swagger Specification version being used. It can be used by the Swagger UI and other clients to interpret the API listing. The value MUST be "2.0".',
+      };
+      swaggerItem.kind = CompletionItemKind.Keyword;
+      swaggerItem.insertTextFormat = 2;
+      swaggerItem.insertTextMode = 2;
+      completionList.items.push(swaggerItem);
+      trace('doCompletion - no version', `completionList: ${JSON.stringify(completionList)}`);
+    }
+
     if (!result) return completionList;
 
     const { api } = result;
@@ -474,7 +475,7 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
       }
-
+      debug('targetOffset first', targetOffset);
       /*
       This is a hack to handle empty nodes in YAML, e.g in a situation like:
 
@@ -496,6 +497,7 @@ export class DefaultCompletionService implements CompletionService {
           }
         }
       }
+      debug('targetOffset second', targetOffset);
     } else if (contentLanguage.format === 'JSON' && position.character > 0) {
       /*
         This is a hack to handle empty nodes in JSON, e.g in a situation like:
@@ -538,6 +540,7 @@ export class DefaultCompletionService implements CompletionService {
         }
       }
     }
+    debug('targetOffset third', targetOffset);
     // check if we are at the end of text, get root node if that's the case
     const endOfText =
       contentLanguage.format !== 'JSON' &&
@@ -550,13 +553,28 @@ export class DefaultCompletionService implements CompletionService {
     if (endOfText) {
       targetOffset = 0;
     }
+    debug('doCompletion - text length', textDocument.getText().length);
+    debug('doCompletion - trimmed text length', textDocument.getText().trimEnd().length);
+    let endOfTrimmedText = false;
+    if (!endOfText) {
+      endOfTrimmedText =
+        contentLanguage.format !== 'JSON' &&
+        textDocument.getText().length > 0 &&
+        position.character === 0 &&
+        offset - 1 === textDocument.getText().trimEnd().length;
+
+      if (endOfTrimmedText) {
+        targetOffset = 0;
+      }
+    }
     trace('doCompletion - text', textDocument.getText());
     debug('doCompletion - offset', offset, textDocument.positionAt(offset));
     debug('doCompletion - targetOffset', targetOffset, textDocument.positionAt(targetOffset));
     // find the current node
-    const node = endOfText
-      ? api
-      : findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
+    const node =
+      endOfText || endOfTrimmedText
+        ? api
+        : findAtOffset({ offset: targetOffset, includeRightBound: true }, api);
     // only if we have a node
     let completionNode: Element | undefined;
     if (node) {

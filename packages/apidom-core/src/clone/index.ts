@@ -4,12 +4,21 @@ import { isElement } from '../predicates/index.ts';
 import DeepCloneError from './errors/DeepCloneError.ts';
 import ShallowCloneError from './errors/ShallowCloneError.ts';
 
-type FinalCloneTypes = KeyValuePair | ArraySlice | ObjectSlice;
+/**
+ * @public
+ */
+export type FinalCloneTypes = KeyValuePair | ArraySlice | ObjectSlice;
 
-type DeepCloneOptions<T extends Element | FinalCloneTypes> = {
+/**
+ * @public
+ */
+export type DeepCloneOptions<T extends Element | FinalCloneTypes> = {
   visited?: WeakMap<T, T>;
 };
 
+/**
+ * @public
+ */
 export const cloneDeep = <T extends Element | FinalCloneTypes>(
   value: T,
   options: DeepCloneOptions<T> = {},
@@ -137,6 +146,9 @@ const cloneShallowElement = <T extends Element>(element: T): T => {
 };
 /* eslint-enable */
 
+/**
+ * @public
+ */
 export const cloneShallow = <T extends Element | FinalCloneTypes>(value: T): T => {
   if (value instanceof KeyValuePair) {
     return cloneShallowKeyValuePair(value) as T;

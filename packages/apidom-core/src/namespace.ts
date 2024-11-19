@@ -6,6 +6,9 @@ import CommentElement from './elements/Comment.ts';
 import ParseResultElement from './elements/ParseResult.ts';
 import SourceMapElement from './elements/SourceMap.ts';
 
+/**
+ * @public
+ */
 export class Namespace extends MinimNamespace {
   constructor() {
     super();
@@ -17,8 +20,14 @@ export class Namespace extends MinimNamespace {
   }
 }
 
+/**
+ * @public
+ */
 const namespace = new Namespace();
 
+/**
+ * @public
+ */
 export const createNamespace = (namespacePlugin?: NamespacePlugin): Namespace => {
   const namespaceInstance = new Namespace();
 

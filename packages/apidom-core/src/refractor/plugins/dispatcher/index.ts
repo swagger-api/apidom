@@ -5,6 +5,9 @@ import { invokeArgs } from 'ramda-adjunct';
 import createToolbox from '../../toolbox.ts';
 import { getNodeType, mergeAllVisitors, visit } from '../../../traversal/visitor.ts';
 
+/**
+ * @public
+ */
 export interface DispatchPluginsOptions {
   toolboxCreator: typeof createToolbox;
   visitorOptions: {
@@ -13,6 +16,9 @@ export interface DispatchPluginsOptions {
   };
 }
 
+/**
+ * @public
+ */
 export interface DispatchPluginsSync {
   <T extends Element, U extends Element = Element>(
     element: T,
@@ -22,6 +28,9 @@ export interface DispatchPluginsSync {
   [key: symbol]: DispatchPluginsAsync;
 }
 
+/**
+ * @public
+ */
 export interface DispatchPluginsAsync {
   <T extends Element, U extends Element = Element>(
     element: T,
@@ -38,6 +47,9 @@ const defaultDispatchPluginsOptions: DispatchPluginsOptions = {
   },
 };
 
+/**
+ * @public
+ */
 export const dispatchPluginsSync: DispatchPluginsSync = ((element, plugins, options = {}) => {
   if (plugins.length === 0) return element;
 

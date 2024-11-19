@@ -20,36 +20,54 @@ import SourceMapElement from '../elements/SourceMap.ts';
 import createPredicate, { isElementType as isElementTypeHelper } from './helpers.ts';
 import type { ElementPredicate } from './helpers.ts';
 
+/**
+ * @public
+ */
 export const isElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is Element =>
     element instanceof Element ||
     (hasBasicElementProps(element) && primitiveEq(undefined, element));
 });
 
+/**
+ * @public
+ */
 export const isStringElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is StringElement =>
     element instanceof StringElement ||
     (hasBasicElementProps(element) && primitiveEq('string', element));
 });
 
+/**
+ * @public
+ */
 export const isNumberElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is NumberElement =>
     element instanceof NumberElement ||
     (hasBasicElementProps(element) && primitiveEq('number', element));
 });
 
+/**
+ * @public
+ */
 export const isNullElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is NullElement =>
     element instanceof NullElement ||
     (hasBasicElementProps(element) && primitiveEq('null', element));
 });
 
+/**
+ * @public
+ */
 export const isBooleanElement = createPredicate(({ hasBasicElementProps, primitiveEq }) => {
   return (element: unknown): element is BooleanElement =>
     element instanceof BooleanElement ||
     (hasBasicElementProps(element) && primitiveEq('boolean', element));
 });
 
+/**
+ * @public
+ */
 export const isObjectElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
     return (element: unknown): element is ObjectElement =>
@@ -62,6 +80,9 @@ export const isObjectElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isArrayElement = createPredicate(
   ({ hasBasicElementProps, primitiveEq, hasMethod }) => {
     return (element: unknown): element is ArrayElement =>
@@ -75,6 +96,9 @@ export const isArrayElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isMemberElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is MemberElement =>
@@ -85,6 +109,9 @@ export const isMemberElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isLinkElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is LinkElement =>
@@ -95,6 +122,9 @@ export const isLinkElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isRefElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is RefElement =>
@@ -105,6 +135,9 @@ export const isRefElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isAnnotationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is AnnotationElement =>
@@ -115,6 +148,9 @@ export const isAnnotationElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isCommentElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is CommentElement =>
@@ -125,6 +161,9 @@ export const isCommentElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isParseResultElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ParserResultElement =>
@@ -135,6 +174,9 @@ export const isParseResultElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSourceMapElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SourceMapElement =>
@@ -145,7 +187,10 @@ export const isSourceMapElement = createPredicate(
   },
 );
 
-type PrimitiveElement =
+/**
+ * @public
+ */
+export type PrimitiveElement =
   | ObjectElement
   | ArrayElement
   | BooleanElement
@@ -154,6 +199,9 @@ type PrimitiveElement =
   | NullElement
   | MemberElement;
 
+/**
+ * @public
+ */
 export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
   element: unknown,
 ): element is PrimitiveElement => {
@@ -168,10 +216,16 @@ export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
   );
 };
 
+/**
+ * @public
+ */
 export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
   return isSourceMapElement(element.meta.get('sourceMap'));
 };
 
+/**
+ * @public
+ */
 export const includesSymbols = <T extends Element>(symbols: string[], element: T): boolean => {
   if (symbols.length === 0) {
     return true;
@@ -186,6 +240,9 @@ export const includesSymbols = <T extends Element>(symbols: string[], element: T
   return all(included(elementSymbols.toValue()), symbols);
 };
 
+/**
+ * @public
+ */
 export const includesClasses = <T extends Element>(classes: string[], element: T): boolean => {
   if (classes.length === 0) {
     return true;

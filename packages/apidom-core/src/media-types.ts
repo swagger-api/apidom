@@ -1,5 +1,8 @@
 import { NotImplementedError } from '@swagger-api/apidom-error';
 
+/**
+ * @public
+ */
 class MediaTypes<T> extends Array<T> {
   unknownMediaType = 'application/octet-stream';
 

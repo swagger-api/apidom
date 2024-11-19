@@ -1,15 +1,21 @@
 import { ObjectElement } from 'minim';
 
 import deepmerge, { defaultOptions as defaultDeepmergeOptions, emptyElement } from './deepmerge.ts';
-import type { ObjectOrArrayElement, DeepMergeUserOptions } from './deepmerge.ts';
+import type { ObjectOrArrayElement, DeepMergeUserOptions, AnyElement } from './deepmerge.ts';
 
+/**
+ * @public
+ */
 export type MergeRightOptions = Omit<DeepMergeUserOptions, 'customMerge' | 'clone'>;
 
+/**
+ * @public
+ */
 const mergeRight = (
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
   options?: MergeRightOptions,
-) => {
+): AnyElement => {
   const mergedOptions = {
     ...defaultDeepmergeOptions,
     ...options,

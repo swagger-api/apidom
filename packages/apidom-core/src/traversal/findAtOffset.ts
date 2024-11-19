@@ -45,14 +45,19 @@ class Visitor<T> {
   }
 }
 
-interface FindAtOffsetOptions {
+/**
+ * @public
+ */
+export interface FindAtOffsetOptions {
   offset: number;
   includeRightBound?: boolean;
 }
 
-// Finds the most inner node at the given offset.
-// If includeRightBound is set, also finds nodes that end at the given offset.
-// findAtOffset :: Number -> Element -> Element | Undefined
+/**
+ * Finds the most inner node at the given offset.
+ * If includeRightBound is set, also finds nodes that end at the given offset.
+ * @public
+ */
 const findAtOffset = <T extends Element>(
   options: number | FindAtOffsetOptions,
   element: T,

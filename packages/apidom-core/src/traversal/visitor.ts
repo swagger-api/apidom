@@ -24,7 +24,9 @@ import { cloneShallow } from '../clone/index.ts';
 
 export { BREAK, mergeAllVisitors };
 
-// getNodeType :: Node -> String
+/**
+ * @public
+ */
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   /*
    * We're translating every possible higher element type to primitive minim type here.
@@ -54,7 +56,9 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
                     : undefined;
 };
 
-// cloneNode :: a -> a
+/**
+ * @public
+ */
 export const cloneNode = <T>(node: T): T => {
   if (isElement(node)) {
     return cloneShallow(node as Element) as T;
@@ -65,6 +69,9 @@ export const cloneNode = <T>(node: T): T => {
 // isNode :: Node -> Boolean
 export const isNode = pipe(getNodeType, isString);
 
+/**
+ * @public
+ */
 export const keyMapDefault = {
   ObjectElement: ['content'],
   ArrayElement: ['content'],
@@ -116,6 +123,9 @@ export class PredicateVisitor {
   }
 }
 
+/**
+ * @public
+ */
 export const visit = (
   root: Element,
   // @ts-ignore

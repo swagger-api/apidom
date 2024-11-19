@@ -1,6 +1,9 @@
 import { ArrayElement, ArraySlice, Attributes, Element, Meta } from 'minim';
 import { isUndefined } from 'ramda-adjunct';
 
+/**
+ * @public
+ */
 class ParseResult extends ArrayElement {
   constructor(content?: Array<any>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

@@ -5,6 +5,7 @@ import dehydrate from './dehydrate.ts';
 
 /**
  * Create a refracted string representation of an Element.
+ * @public
  */
 const toString = (element: Element, namespace: INamespace = defaultNamespaceInstance): string => {
   const refractStructure = dehydrate(element, namespace);

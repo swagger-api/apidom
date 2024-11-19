@@ -22,7 +22,10 @@ class SymbolicExpressionsVisitor {
   }
 }
 
-// transforms ApiDOM into S-expressions (Symbolic Expressions)
+/**
+ * Transforms ApiDOM into S-expressions (Symbolic Expressions).
+ * @public
+ */
 const sexprs = (element: Element): string => {
   const visitor = new SymbolicExpressionsVisitor();
   visit(element, visitor);

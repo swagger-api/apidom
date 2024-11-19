@@ -12,6 +12,7 @@ import defaultNamespaceInstance from '../namespace.ts';
  *
  * - https://github.com/parcel-bundler/parcel/issues/9473
  * - https://github.com/swagger-api/swagger-ui/issues/9466#issuecomment-1881053410
+ * @public
  */
 const fromFn = (data: any, namespace: INamespace = defaultNamespaceInstance): Element => {
   if (isString(data)) {

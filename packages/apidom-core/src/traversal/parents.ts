@@ -31,7 +31,10 @@ class Visitor {
   }
 }
 
-// computes upwards edges from every child to its parent
+/**
+ * Computes upwards edges from every child to its parent.
+ * @public
+ */
 const parents = <T extends Element>(element: T): WeakMap<Element, Element | undefined> => {
   const visitor = new Visitor();
 

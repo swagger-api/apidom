@@ -1,16 +1,25 @@
 import { ArrayElement, Element, Attributes, Meta } from 'minim';
 
+/**
+ * @public
+ */
 export interface Position {
   row: number;
   column: number;
   char: number;
 }
 
+/**
+ * @public
+ */
 export interface PositionRange {
   start: Position;
   end: Position;
 }
 
+/**
+ * @public
+ */
 class SourceMap extends ArrayElement {
   constructor(content?: Array<any>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

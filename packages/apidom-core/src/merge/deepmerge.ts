@@ -6,32 +6,67 @@ import toValue from '../transformers/serializers/value/index.ts';
 
 /* eslint-disable @typescript-eslint/no-use-before-define */
 
+/**
+ * @public
+ */
 export type ObjectOrArrayElement = ObjectElement | ArrayElement;
-type AnyElement = ObjectElement | ArrayElement | Element;
-type DeepMerge = (
+
+/**
+ * @public
+ */
+export type AnyElement = ObjectElement | ArrayElement | Element;
+
+/**
+ * @public
+ */
+export type DeepMerge = (
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
   options?: DeepMergeOptions,
 ) => AnyElement;
-type CustomMerge = (keyElement: Element, options: DeepMergeOptions) => DeepMerge;
-type CustomMetaMerge = (
+
+/**
+ * @public
+ */
+export type CustomMerge = (keyElement: Element, options: DeepMergeOptions) => DeepMerge;
+
+/**
+ * @public
+ */
+export type CustomMetaMerge = (
   targetElementMeta: ObjectElement,
   sourceElementMeta: ObjectElement,
 ) => ObjectElement;
-type CustomAttributesMerge = (
+
+/**
+ * @public
+ */
+export type CustomAttributesMerge = (
   targetElementAttributes: ObjectElement,
   sourceElementAttributes: ObjectElement,
 ) => ObjectElement;
-type ArrayElementMerge = (
+
+/**
+ * @public
+ */
+export type ArrayElementMerge = (
   targetElement: ArrayElement,
   sourceElement: ArrayElement,
   options: DeepMergeOptions,
 ) => ArrayElement;
-type ObjectElementMerge = (
+
+/**
+ * @public
+ */
+export type ObjectElementMerge = (
   targetElement: ObjectElement,
   source: ObjectElement,
   options: DeepMergeOptions,
 ) => ObjectElement;
+
+/**
+ * @public
+ */
 export type DeepMergeUserOptions = {
   clone?: boolean;
   isMergeableElement?: (element: Element) => boolean;
@@ -42,7 +77,10 @@ export type DeepMergeUserOptions = {
   customAttributesMerge?: CustomAttributesMerge;
 };
 
-type DeepMergeOptions = DeepMergeUserOptions & {
+/**
+ * @public
+ */
+export type DeepMergeOptions = DeepMergeUserOptions & {
   clone: boolean;
   isMergeableElement: (element: Element) => boolean;
   arrayElementMerge: ArrayElementMerge;
@@ -149,11 +187,14 @@ export const defaultOptions: DeepMergeOptions = {
   customAttributesMerge: undefined,
 };
 
-export default function deepmerge(
+/**
+ * @public
+ */
+const deepmerge = (
   targetElement: ObjectOrArrayElement,
   sourceElement: ObjectOrArrayElement,
   options?: DeepMergeUserOptions,
-): AnyElement {
+): AnyElement => {
   const mergedOptions: DeepMergeOptions = { ...defaultOptions, ...options };
   mergedOptions.isMergeableElement =
     mergedOptions.isMergeableElement ?? defaultOptions.isMergeableElement;
@@ -192,7 +233,7 @@ export default function deepmerge(
   );
 
   return mergedElement;
-}
+};
 
 deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeUserOptions) => {
   if (!Array.isArray(list)) {
@@ -206,4 +247,6 @@ deepmerge.all = (list: ObjectOrArrayElement[], options?: DeepMergeUserOptions) =
     return deepmerge(target, source, options);
   }, emptyElement(list[0]));
 };
+
+export default deepmerge;
 /* eslint-enable @typescript-eslint/no-use-before-define */

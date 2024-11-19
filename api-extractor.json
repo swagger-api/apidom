@@ -419,6 +419,9 @@
       "default": {
         "logLevel": "warning"
         // "addToApiReportFile": false
+      },
+      "ae-missing-getter": {
+        "logLevel": "none"
       }
 
       // "ae-extra-release-tag": {

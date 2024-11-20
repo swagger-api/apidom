@@ -15,6 +15,7 @@ let parserInitLock: Promise<Parser> | null = null;
  *
  * Given JavaScript doesn't support true parallelism, this
  * code should be as lazy as possible and temporal safety should be fine.
+ * @public
  */
 const analyze = async (source: string): Promise<Tree> => {
   if (parser === null && parserInitLock === null) {

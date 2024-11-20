@@ -4,7 +4,9 @@ import { isEmptyString, trimCharsStart } from 'ramda-adjunct';
 import unescape from './unescape.ts';
 import InvalidJsonPointerError from './errors/InvalidJsonPointerError.ts';
 
-// parse :: String -> String[]
+/**
+ * @public
+ */
 const parse = (pointer: string): string[] => {
   if (isEmptyString(pointer)) {
     return [];
@@ -45,7 +47,9 @@ const getHash = (uri: string): string => {
   return '#';
 };
 
-// uriToPointer :: String -> String
+/**
+ * @public
+ */
 export const uriToPointer = (uri: string): string => {
   const hash = getHash(uri);
   return trimCharsStart('#', hash);

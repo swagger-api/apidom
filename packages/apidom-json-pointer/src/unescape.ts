@@ -14,7 +14,9 @@ const safeDecodeURIComponent = (encodedURIComponent: string): string => {
   }
 };
 
-// unescape :: String -> String
+/**
+ * @public
+ */
 const unescape = pipe(replace(/~1/g, '/'), replace(/~0/g, '~'), safeDecodeURIComponent);
 
 export default unescape;

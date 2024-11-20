@@ -4,15 +4,22 @@ import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointe
 
 import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError.ts';
 
-type JSONPathEvalTuple = [string, Element[]];
+/**
+ * @public
+ */
+export type JSONPathEvalTuple = [string, Element[]];
 
-type EvaluateMulti = {
+/**
+ * @public
+ */
+export type EvaluateMulti = {
   <T extends Element>(paths: string[], element: T): JSONPathEvalTuple[];
   <T extends Element>(paths: string[][], element: T): JSONPathEvalTuple[];
 };
 
 /**
  * Evaluates multiple JSONPaths on ApiDOM element.
+ * @public
  */
 const evaluateMulti: EvaluateMulti = (paths, element) => {
   try {

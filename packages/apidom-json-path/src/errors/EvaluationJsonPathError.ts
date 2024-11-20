@@ -3,11 +3,17 @@ import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
 import JsonPathError from './JsonPathError.ts';
 
+/**
+ * @public
+ */
 export interface EvaluationJsonPathErrorOptions<T extends Element> extends ApiDOMErrorOptions {
   path: string | string[];
   element: T;
 }
 
+/**
+ * @public
+ */
 class EvaluationJsonPathError<T extends Element> extends JsonPathError {
   public readonly path!: string | string[];
 

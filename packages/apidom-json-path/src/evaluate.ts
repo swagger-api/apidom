@@ -4,13 +4,17 @@ import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointe
 
 import EvaluationJsonPathError from './errors/EvaluationJsonPathError.ts';
 
-type Evaluate = {
+/**
+ * @public
+ */
+export type Evaluate = {
   <T extends Element>(path: string, element: T): Element[];
   <T extends Element>(path: string[], element: T): Element[];
 };
 
 /**
  * Evaluates single JSONPath on ApiDOM element.
+ * @public
  */
 const evaluate: Evaluate = (path, element) => {
   try {

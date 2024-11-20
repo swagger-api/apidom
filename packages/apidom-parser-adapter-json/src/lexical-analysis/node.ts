@@ -8,6 +8,7 @@ parser.setLanguage(JSONLanguage);
 /**
  * Lexical Analysis of source string using TreeSitter.
  * This is Node.js version of TreeSitters Lexical Analysis.
+ * @public
  */
 const analyze = async (source: string): Promise<Tree> => {
   return parser.parse(source);

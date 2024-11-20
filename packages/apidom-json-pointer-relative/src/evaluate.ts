@@ -20,7 +20,10 @@ import EvaluationRelativeJsonPointerError from './errors/EvaluationRelativeJsonP
 import parse from './parse.ts';
 import { RelativeJsonPointer } from './types.ts';
 
-// evaluates Relative JSON Pointer against ApiDOM fragment
+/**
+ * Evaluates Relative JSON Pointer against ApiDOM fragment.
+ * @public
+ */
 const evaluate = <T extends Element, U extends Element>(
   relativePointer: string,
   currentElement: T,

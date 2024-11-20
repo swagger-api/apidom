@@ -8,11 +8,22 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
+/**
+ * @public
+ */
 export interface JSONSchemaVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
-class JSONSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const JSONSchemaVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
+
+/**
+ * @public
+ */
+class JSONSchemaVisitor extends JSONSchemaVisitorBase {
   public declare element: JSONSchemaElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;

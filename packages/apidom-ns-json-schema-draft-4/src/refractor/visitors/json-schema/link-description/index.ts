@@ -8,11 +8,22 @@ import FixedFieldsVisitor, {
 } from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface LinkDescriptionVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
-class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const LinkDescriptionVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
+
+/**
+ * @public
+ */
+class LinkDescriptionVisitor extends LinkDescriptionVisitorBase {
   public declare readonly element: LinkDescriptionElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;

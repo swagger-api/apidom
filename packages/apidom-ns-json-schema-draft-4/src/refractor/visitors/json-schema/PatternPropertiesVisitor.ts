@@ -8,16 +8,27 @@ import ParentSchemaAwareVisitor, {
 } from './ParentSchemaAwareVisitor.ts';
 import { isJSONReferenceLikeElement } from '../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface PatternPropertiesVisitorOptions
   extends MapVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
-class PatternPropertiesVisitor extends Mixin(
+/**
+ * @public
+ */
+export const PatternPropertiesVisitorBase = Mixin(
   MapVisitor,
   ParentSchemaAwareVisitor,
   FallbackVisitor,
-) {
+);
+
+/**
+ * @public
+ */
+class PatternPropertiesVisitor extends PatternPropertiesVisitorBase {
   public declare readonly element: ObjectElement;
 
   protected declare readonly specPath: SpecPath<

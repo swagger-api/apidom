@@ -9,11 +9,22 @@ import FixedFieldsVisitor, {
 } from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface JSONReferenceVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
-class JSONReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const JSONReferenceVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
+
+/**
+ * @public
+ */
+class JSONReferenceVisitor extends JSONReferenceVisitorBase {
   public declare readonly element: JSONReferenceElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONReference']>;

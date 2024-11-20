@@ -8,9 +8,20 @@ import FixedFieldsVisitor, {
 } from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface MediaVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
-class MediaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const MediaVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
+
+/**
+ * @public
+ */
+class MediaVisitor extends MediaVisitorBase {
   public declare readonly element: MediaElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'Media']>;

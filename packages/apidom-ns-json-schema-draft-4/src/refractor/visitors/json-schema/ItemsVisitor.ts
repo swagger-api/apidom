@@ -8,12 +8,27 @@ import ParentSchemaAwareVisitor, {
 } from './ParentSchemaAwareVisitor.ts';
 import { isJSONReferenceLikeElement } from '../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface ItemsVisitorOptions
   extends SpecificationVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
-class ItemsVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const ItemsVisitorBase = Mixin(
+  SpecificationVisitor,
+  ParentSchemaAwareVisitor,
+  FallbackVisitor,
+);
+
+/**
+ * @public
+ */
+class ItemsVisitor extends ItemsVisitorBase {
   public declare element: ArrayElement | ObjectElement;
 
   ObjectElement(objectElement: ObjectElement) {

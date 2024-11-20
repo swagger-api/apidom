@@ -7,12 +7,27 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor.ts';
 
+/**
+ * @public
+ */
 export interface LinksVisitorOptions
   extends SpecificationVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
-class LinksVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
+/**
+ * @public
+ */
+export const LinksVisitorBase = Mixin(
+  SpecificationVisitor,
+  ParentSchemaAwareVisitor,
+  FallbackVisitor,
+);
+
+/**
+ * @public
+ */
+class LinksVisitor extends LinksVisitorBase {
   public declare readonly element: ArrayElement;
 
   constructor(options: LinksVisitorOptions) {

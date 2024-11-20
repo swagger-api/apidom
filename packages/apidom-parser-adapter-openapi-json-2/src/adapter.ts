@@ -6,11 +6,20 @@ import openApiNamespace, { SwaggerElement } from '@swagger-api/apidom-ns-openapi
 
 export { default as mediaTypes } from './media-types.ts';
 
+/**
+ * @public
+ */
 export const detectionRegExp = /"swagger"\s*:\s*"(?<version_json>2\.0)"/;
 
+/**
+ * @public
+ */
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectJSON(source));
 
+/**
+ * @public
+ */
 export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
@@ -29,4 +38,7 @@ export const parse = async (
   return parseResultElement;
 };
 
+/**
+ * @public
+ */
 export const namespace = createNamespace(openApiNamespace);

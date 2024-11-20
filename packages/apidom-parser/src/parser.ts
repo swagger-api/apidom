@@ -5,10 +5,13 @@ import { MediaTypes, Namespace, ParseResultElement } from '@swagger-api/apidom-c
 import ParserError from './errors/ParserError.ts';
 import type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types.d.ts';
 
-export type { ApiDOMParserOptions, ApiDOMParserAdapter } from './types.d.ts';
-
+export type { ApiDOMParserOptions, ApiDOMParserAdapter, Detect, Parse } from './types.d.ts';
+export type { ParserErrorOptions } from './errors/ParserError.ts';
 export { ParserError };
 
+/**
+ * @public
+ */
 class ApiDOMParser {
   private adapters: ApiDOMParserAdapter[] = [];
 

@@ -11,12 +11,16 @@ import YamlAstVisitor, {
 } from './visitors/YamlAstVisitor.ts';
 import TreeCursorIterator from '../TreeCursorIterator.ts';
 
-type Tree = WebTree | NodeTree;
+/**
+ * @public
+ */
+export type Tree = WebTree | NodeTree;
 
 /**
  * This version of syntactic analysis does following transformations:
- *   TreeSitter CST -> YAML AST -> ApiDOM
+ *   `TreeSitter CST -> YAML AST -> ApiDOM`
  * Two traversals passes are needed to get from CST to ApiDOM.
+ * @public
  */
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();

@@ -11,11 +11,14 @@ import JsonAstVisitor, {
   getNodeType,
 } from './visitors/JsonAstVisitor.ts';
 
-type Tree = WebTree | NodeTree;
+/**
+ * @public
+ */
+export type Tree = WebTree | NodeTree;
 
 /**
  * This version of syntactic analysis does following transformations:
- *   TreeSitter CST -> JSON AST -> ApiDOM
+ *   `TreeSitter CST -> JSON AST -> ApiDOM`
  *
  * Transient transformation of TreeSitter CST is performed
  * using TreeSitter cursor. TreeSitter cursor is a stateful object
@@ -27,6 +30,7 @@ type Tree = WebTree | NodeTree;
  * Two traversals passes are needed to get from CST to ApiDOM.
  * This analysis is much slower than the direct one, but allows
  * to do additional analysis magic on JSON AST.
+ * @public
  */
 const analyze = (cst: Tree, { sourceMap = false } = {}): ParseResultElement => {
   const cursor = cst.walk();

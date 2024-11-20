@@ -6,6 +6,8 @@ import syntacticAnalysisIndirect from './syntactic-analysis/indirect/index.ts';
 import { detectionRegExp } from './adapter.ts';
 
 export { mediaTypes, namespace } from './adapter.ts';
+export type { JSONMediaTypes } from './media-types.ts';
+export type { Tree } from './syntactic-analysis/indirect/index.ts';
 export { detectionRegExp };
 
 export {
@@ -15,6 +17,9 @@ export {
   syntacticAnalysisIndirect,
 };
 
+/**
+ * @public
+ */
 export const detect = async (source: string): Promise<boolean> => {
   if (!detectionRegExp.test(source)) {
     return false;
@@ -28,16 +33,25 @@ export const detect = async (source: string): Promise<boolean> => {
   }
 };
 
-interface ParseFunctionOptions {
+/**
+ * @public
+ */
+export interface ParseFunctionOptions {
   sourceMap?: boolean;
   syntacticAnalysis?: 'direct' | 'indirect';
 }
 
-type ParseFunction = (
+/**
+ * @public
+ */
+export type ParseFunction = (
   source: string,
   options?: ParseFunctionOptions,
 ) => Promise<ParseResultElement>;
 
+/**
+ * @public
+ */
 export const parse: ParseFunction = async (
   source,
   { sourceMap = false, syntacticAnalysis = 'direct' } = {},

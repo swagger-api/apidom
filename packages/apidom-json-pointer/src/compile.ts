@@ -1,7 +1,9 @@
 import escape from './escape.ts';
 import CompilationJsonPointerError from './errors/CompilationJsonPointerError.ts';
 
-// compile :: String[] -> String
+/**
+ * @public
+ */
 const compile = (tokens: string[]): string => {
   try {
     if (tokens.length === 0) {

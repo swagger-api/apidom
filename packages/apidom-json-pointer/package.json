@@ -11,11 +11,11 @@
   "unpkg": "./dist/apidom-json-pointer.browser.min.js",
   "main": "./src/index.cjs",
   "exports": {
-    "types": "./types/dist.d.ts",
+    "types": "./types/apidom-json-pointer.d.ts",
     "import": "./src/index.mjs",
     "require": "./src/index.cjs"
   },
-  "types": "./types/dist.d.ts",
+  "types": "./types/apidom-json-pointer.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
@@ -25,7 +25,7 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' 'test/**/*.mjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "test": "npm run build:es && cross-env BABEL_ENV=es babel test --out-dir test --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && cross-env NODE_ENV=test mocha",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
@@ -48,7 +48,7 @@
     "cjs/",
     "dist/",
     "es/",
-    "types/dist.d.ts",
+    "types/apidom-json-pointer.d.ts",
     "LICENSES",
     "NOTICE",
     "README.md",

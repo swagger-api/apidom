@@ -3,6 +3,9 @@ import { Element } from '@swagger-api/apidom-core';
 
 import JsonPointerError from './JsonPointerError.ts';
 
+/**
+ * @public
+ */
 export interface EvaluationJsonPointerErrorOptions<T extends Element> extends ApiDOMErrorOptions {
   readonly pointer: string;
   readonly tokens?: string[];
@@ -11,6 +14,9 @@ export interface EvaluationJsonPointerErrorOptions<T extends Element> extends Ap
   readonly element: T;
 }
 
+/**
+ * @public
+ */
 class EvaluationJsonPointerError<T extends Element> extends JsonPointerError {
   public readonly pointer!: string;
 

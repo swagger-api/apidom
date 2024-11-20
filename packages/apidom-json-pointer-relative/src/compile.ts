@@ -3,7 +3,9 @@ import { compile as compileJsonPointer } from '@swagger-api/apidom-json-pointer'
 import { RelativeJsonPointer } from './types.ts';
 import CompilationRelativeJsonPointerError from './errors/CompilationRelativeJsonPointerError.ts';
 
-// compile :: RelativeJSONPointer -> String
+/**
+ * @public
+ */
 const compile = (relativeJsonPointer: RelativeJsonPointer): string => {
   try {
     let relativePointer = '';

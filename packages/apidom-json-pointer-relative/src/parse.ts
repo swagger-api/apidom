@@ -11,11 +11,16 @@ const relativeJsonPointerRegExp = new RegExp(
   `^${nonNegativeIntegerPrefixRegExp}${indexManipulationRegExp}?(${hashCharacterRegExp}|${jsonPointerRegExp})?$`,
 );
 
+/**
+ * @public
+ */
 export const isRelativeJsonPointer = (value: any) => {
   return typeof value === 'string' && relativeJsonPointerRegExp.test(value);
 };
 
-// parse :: String -> RelativeJsonPointer
+/**
+ * @public
+ */
 const parse = (relativePointer: string): RelativeJsonPointer => {
   const match = relativePointer.match(relativeJsonPointerRegExp);
   if (match === null || typeof match.groups === 'undefined') {

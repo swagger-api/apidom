@@ -3,10 +3,16 @@ import { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 import { RelativeJsonPointer } from '../types.ts';
 import RelativeJsonPointerError from './RelativeJsonPointerError.ts';
 
+/**
+ * @public
+ */
 export interface CompilationRelativeJsonPointerErrorOptions extends ApiDOMErrorOptions {
   readonly relativePointer: RelativeJsonPointer;
 }
 
+/**
+ * @public
+ */
 class CompilationRelativeJsonPointerError extends RelativeJsonPointerError {
   public readonly nonNegativeIntegerPrefix!: number;
 

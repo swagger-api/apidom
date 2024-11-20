@@ -1,3 +1,6 @@
+/**
+ * @public
+ */
 export type RelativeJsonPointer = {
   readonly nonNegativeIntegerPrefix: number;
   readonly indexManipulation?: number;

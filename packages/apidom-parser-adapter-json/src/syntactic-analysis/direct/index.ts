@@ -48,6 +48,7 @@ const isNode = (element: any) => isElement(element) || isCSTNode(element);
  * CST into ApiDOM.
  *
  * Single traversal pass is needed to get from CST to ApiDOM.
+ * @public
  */
 const analyze = (cst: NodeTree | WebTree, { sourceMap = false } = {}): ParseResultElement => {
   const visitor = new CstVisitor();

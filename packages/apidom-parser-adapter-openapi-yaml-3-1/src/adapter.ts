@@ -9,12 +9,21 @@ import openApiNamespace, { OpenApi3_1Element } from '@swagger-api/apidom-ns-open
 
 export { default as mediaTypes } from './media-types.ts';
 
+/**
+ * @public
+ */
 export const detectionRegExp =
   /(?<YAML>^(["']?)openapi\2\s*:\s*(["']?)(?<version_yaml>3\.1\.(?:[1-9]\d*|0))\3(?:\s+|$))|(?<JSON>"openapi"\s*:\s*"(?<version_json>3\.1\.(?:[1-9]\d*|0))")/m;
 
+/**
+ * @public
+ */
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectYAML(source));
 
+/**
+ * @public
+ */
 export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
@@ -33,4 +42,7 @@ export const parse = async (
   return parseResultElement;
 };
 
+/**
+ * @public
+ */
 export const namespace = createNamespace(openApiNamespace);

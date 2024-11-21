@@ -18,12 +18,7 @@ export interface JSONSchemaVisitorOptions
 /**
  * @public
  */
-export const JSONSchemaVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
-
-/**
- * @public
- */
-class JSONSchemaVisitor extends JSONSchemaVisitorBase {
+class JSONSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare element: JSONSchemaElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;

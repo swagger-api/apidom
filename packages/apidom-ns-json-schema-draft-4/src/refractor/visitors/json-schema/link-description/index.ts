@@ -18,12 +18,7 @@ export interface LinkDescriptionVisitorOptions
 /**
  * @public
  */
-export const LinkDescriptionVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
-
-/**
- * @public
- */
-class LinkDescriptionVisitor extends LinkDescriptionVisitorBase {
+class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: LinkDescriptionElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;

@@ -18,16 +18,7 @@ export interface LinksVisitorOptions
 /**
  * @public
  */
-export const LinksVisitorBase = Mixin(
-  SpecificationVisitor,
-  ParentSchemaAwareVisitor,
-  FallbackVisitor,
-);
-
-/**
- * @public
- */
-class LinksVisitor extends LinksVisitorBase {
+class LinksVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ArrayElement;
 
   constructor(options: LinksVisitorOptions) {

@@ -19,12 +19,7 @@ export interface JSONReferenceVisitorOptions
 /**
  * @public
  */
-export const JSONReferenceVisitorBase = Mixin(FixedFieldsVisitor, FallbackVisitor);
-
-/**
- * @public
- */
-class JSONReferenceVisitor extends JSONReferenceVisitorBase {
+class JSONReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: JSONReferenceElement;
 
   protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONReference']>;

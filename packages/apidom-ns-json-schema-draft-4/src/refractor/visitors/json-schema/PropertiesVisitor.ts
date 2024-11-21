@@ -19,12 +19,7 @@ export interface PropertiesVisitorOptions
 /**
  * @public
  */
-export const PropertiesVisitorBase = Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor);
-
-/**
- * @public
- */
-class PropertiesVisitor extends PropertiesVisitorBase {
+class PropertiesVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 
   protected declare readonly specPath: SpecPath<

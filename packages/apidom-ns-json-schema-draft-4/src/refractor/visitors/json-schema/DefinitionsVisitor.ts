@@ -19,12 +19,7 @@ export interface DefinitionsVisitorOptions
 /**
  * @public
  */
-export const DefinitionsVisitorBase = Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor);
-
-/**
- * @public
- */
-class DefinitionsVisitor extends DefinitionsVisitorBase {
+class DefinitionsVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 
   protected declare readonly specPath: SpecPath<

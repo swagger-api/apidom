@@ -19,16 +19,7 @@ export interface AnyOfVisitorOptions
 /**
  * @public
  */
-export const AnyOfVisitorBase = Mixin(
-  SpecificationVisitor,
-  ParentSchemaAwareVisitor,
-  FallbackVisitor,
-);
-
-/**
- * @public
- */
-class AnyOfVisitor extends AnyOfVisitorBase {
+class AnyOfVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ArrayElement;
 
   constructor(options: AnyOfVisitorOptions) {

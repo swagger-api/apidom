@@ -19,16 +19,7 @@ export interface ItemsVisitorOptions
 /**
  * @public
  */
-export const ItemsVisitorBase = Mixin(
-  SpecificationVisitor,
-  ParentSchemaAwareVisitor,
-  FallbackVisitor,
-);
-
-/**
- * @public
- */
-class ItemsVisitor extends ItemsVisitorBase {
+class ItemsVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare element: ArrayElement | ObjectElement;
 
   ObjectElement(objectElement: ObjectElement) {

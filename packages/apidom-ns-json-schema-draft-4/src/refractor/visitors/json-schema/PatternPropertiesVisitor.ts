@@ -19,16 +19,11 @@ export interface PatternPropertiesVisitorOptions
 /**
  * @public
  */
-export const PatternPropertiesVisitorBase = Mixin(
+class PatternPropertiesVisitor extends Mixin(
   MapVisitor,
   ParentSchemaAwareVisitor,
   FallbackVisitor,
-);
-
-/**
- * @public
- */
-class PatternPropertiesVisitor extends PatternPropertiesVisitorBase {
+) {
   public declare readonly element: ObjectElement;
 
   protected declare readonly specPath: SpecPath<

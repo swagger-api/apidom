@@ -118,9 +118,4 @@ const specification = {
   },
 };
 
-/**
- * @public
- */
-export type Specification = typeof specification;
-
 export default specification;

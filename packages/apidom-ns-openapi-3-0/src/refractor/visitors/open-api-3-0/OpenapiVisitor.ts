@@ -5,10 +5,16 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../Specificat
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import OpenapiElement from '../../../elements/Openapi.ts';
 
+/**
+ * @public
+ */
 export interface OpenapiVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OpenapiVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: OpenapiElement;
 

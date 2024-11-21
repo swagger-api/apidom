@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class MediaTypeExamples extends ObjectElement {
   static primaryClass = 'media-type-examples';
 

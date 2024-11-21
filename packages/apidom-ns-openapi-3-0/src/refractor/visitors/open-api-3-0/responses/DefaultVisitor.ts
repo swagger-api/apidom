@@ -9,8 +9,14 @@ import AlternatingVisitor, {
 } from '../../generics/AlternatingVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface DefaultVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class DefaultVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
   constructor(options: DefaultVisitorOptions) {
     super(options);

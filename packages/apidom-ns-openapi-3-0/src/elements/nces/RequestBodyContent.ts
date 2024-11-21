@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class RequestBodyContent extends ObjectElement {
   static primaryClass = 'request-body-content';
 

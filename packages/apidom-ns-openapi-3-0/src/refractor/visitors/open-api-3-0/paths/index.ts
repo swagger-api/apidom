@@ -11,10 +11,16 @@ import PatternedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isPathItemElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface PathsVisitorOptions
   extends PatternedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class PathsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: PathsElement;
 

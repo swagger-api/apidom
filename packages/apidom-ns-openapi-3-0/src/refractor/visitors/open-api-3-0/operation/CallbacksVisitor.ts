@@ -8,8 +8,14 @@ import OperationCallbacksElement from '../../../../elements/nces/OperationCallba
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface CallbacksVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class CallbacksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: OperationCallbacksElement;
 

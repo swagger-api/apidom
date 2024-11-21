@@ -16,6 +16,9 @@ import XmlElement from './Xml.ts';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
 /* eslint-disable class-methods-use-this */
+/**
+ * @public
+ */
 class Schema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

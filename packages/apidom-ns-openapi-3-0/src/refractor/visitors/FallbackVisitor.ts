@@ -10,6 +10,9 @@ import Visitor, { VisitorOptions } from './Visitor.ts';
  */
 export type { VisitorOptions as FallbackVisitorOptions };
 
+/**
+ * @public
+ */
 class FallbackVisitor extends Visitor {
   enter(element: Element) {
     this.element = cloneDeep(element);

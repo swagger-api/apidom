@@ -3,6 +3,9 @@ import ParameterExamplesElement from '../../../../elements/nces/ParameterExample
 
 export type { ExamplesVisitorOptions };
 
+/**
+ * @public
+ */
 class ExamplesVisitor extends BaseExamplesVisitor {
   public declare readonly element: ParameterExamplesElement;
 

@@ -3,6 +3,9 @@ import BaseParametersVisitor, { ParametersVisitorOptions } from '../ParametersVi
 
 export type { ParametersVisitorOptions };
 
+/**
+ * @public
+ */
 class ParametersVisitor extends BaseParametersVisitor {
   public declare readonly element: PathItemParametersElement;
 

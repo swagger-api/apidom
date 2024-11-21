@@ -5,8 +5,14 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import DiscriminatorMappingElement from '../../../../elements/nces/DiscriminatorMapping.ts';
 
+/**
+ * @public
+ */
 export interface MappingVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class MappingVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: DiscriminatorMappingElement;
 

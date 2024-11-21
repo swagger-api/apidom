@@ -3,6 +3,9 @@ import { ObjectElement, Element, Attributes, Meta } from '@swagger-api/apidom-co
 import SchemaElement from './Schema.ts';
 import ReferenceElement from './Reference.ts';
 
+/**
+ * @public
+ */
 class MediaType extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

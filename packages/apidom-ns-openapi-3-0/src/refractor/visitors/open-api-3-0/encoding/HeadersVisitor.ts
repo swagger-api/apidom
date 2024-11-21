@@ -8,8 +8,14 @@ import { isHeaderElement, isReferenceElement } from '../../../../predicates.ts';
 import EncodingHeadersElement from '../../../../elements/nces/EncodingHeaders.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
 
+/**
+ * @public
+ */
 export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: EncodingHeadersElement;
 

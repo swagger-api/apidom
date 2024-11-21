@@ -2,6 +2,9 @@ import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import OAuthFlowElement from './OAuthFlow.ts';
 
+/**
+ * @public
+ */
 class OAuthFlows extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

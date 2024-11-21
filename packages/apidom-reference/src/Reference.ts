@@ -2,6 +2,9 @@ import { Element } from '@swagger-api/apidom-core';
 
 import ReferenceSet from './ReferenceSet.ts';
 
+/**
+ * @public
+ */
 export interface ReferenceOptions<T = Element> {
   readonly uri: string;
   readonly depth?: number;
@@ -9,6 +12,9 @@ export interface ReferenceOptions<T = Element> {
   readonly value: T;
 }
 
+/**
+ * @public
+ */
 class Reference<T = Element> {
   public readonly uri: string;
 

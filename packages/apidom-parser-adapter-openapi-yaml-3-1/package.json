@@ -11,11 +11,11 @@
   "unpkg": "./dist/apidom-parser-apdater-openapi-yaml-3-1.browser.min.js",
   "main": "./src/adapter.cjs",
   "exports": {
-    "types": "./types/dist.d.ts",
+    "types": "./types/apidom-parser-adapter-openapi-yaml-3-1.d.ts",
     "import": "./src/adapter.mjs",
     "require": "./src/adapter.cjs"
   },
-  "types": "./types/dist.d.ts",
+  "types": "./types/apidom-parser-adapter-openapi-yaml-3-1.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
@@ -25,7 +25,7 @@
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' 'test/**/*.mjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "test": "npm run build:es && cross-env BABEL_ENV=es babel test --out-dir test --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && cross-env NODE_ENV=test mocha",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:lexical-analysis": "cross-env BABEL_ENV=es babel ./test/perf/lexical-analysis.ts --out-file ./test/perf/lexical-analysis.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/lexical-analysis.mjs",
@@ -54,7 +54,7 @@
     "src/**/*.mjs",
     "src/**/*.cjs",
     "dist/",
-    "types/dist.d.ts",
+    "types/apidom-parser-adapter-openapi-yaml-3-1.d.ts",
     "LICENSES",
     "NOTICE",
     "README.md",

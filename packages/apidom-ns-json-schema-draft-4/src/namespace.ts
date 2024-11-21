@@ -5,6 +5,9 @@ import JSONReferenceElement from './elements/JSONReference.ts';
 import MediaElement from './elements/Media.ts';
 import LinkDescriptionElement from './elements/LinkDescription.ts';
 
+/**
+ * @public
+ */
 const jsonSchemaDraft4 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

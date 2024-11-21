@@ -4,6 +4,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as RequiredVisitorOptions };
 
+/**
+ * @public
+ */
 class RequiredVisitor extends FallbackVisitor {
   public declare readonly element: ArrayElement;
 

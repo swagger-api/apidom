@@ -7,9 +7,13 @@ import Visitor, { VisitorOptions } from './Visitor.ts';
  * Given JSONSchemaVisitor expects ObjectElement to be traversed. If
  * different Element is provided FallBackVisitor is responsible to assigning
  * this Element as current element.
+ * @public
  */
 export type { VisitorOptions as FallbackVisitorOptions };
 
+/**
+ * @public
+ */
 class FallbackVisitor extends Visitor {
   enter(element: Element) {
     this.element = cloneDeep(element);

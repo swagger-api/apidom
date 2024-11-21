@@ -25,6 +25,7 @@ import LinkDescriptionVisitor from './visitors/json-schema/link-description/inde
  * existing ones by manipulating it.
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
+ * @public
  */
 const specification = {
   visitors: {
@@ -116,5 +117,10 @@ const specification = {
     },
   },
 };
+
+/**
+ * @public
+ */
+export type Specification = typeof specification;
 
 export default specification;

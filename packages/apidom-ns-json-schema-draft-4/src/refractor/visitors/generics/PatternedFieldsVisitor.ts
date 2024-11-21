@@ -13,12 +13,18 @@ import { SpecPath } from './FixedFieldsVisitor.ts';
 
 export type { SpecPath };
 
+/**
+ * @public
+ */
 export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptions {
   readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
   readonly fieldPatternPredicate?: (...args: unknown[]) => boolean;
 }
 
+/**
+ * @public
+ */
 class PatternedFieldsVisitor extends SpecificationVisitor {
   protected specPath: SpecPath;
 

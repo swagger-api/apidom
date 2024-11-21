@@ -12,6 +12,9 @@ import {
 import JSONReferenceElement from './JSONReference.ts';
 import MediaElement from './Media.ts';
 
+/**
+ * @public
+ */
 class JSONSchema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

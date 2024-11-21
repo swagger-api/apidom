@@ -2,6 +2,7 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-4.3
+ * @public
  */
 
 class Media extends ObjectElement {

@@ -5,6 +5,9 @@ import AlternatingVisitor, { AlternatingVisitorOptions } from '../generics/Alter
 
 export type { AlternatingVisitorOptions as SchemaOrReferenceVisitorOptions };
 
+/**
+ * @public
+ */
 class SchemaOrReferenceVisitor extends AlternatingVisitor {
   constructor(options: AlternatingVisitorOptions) {
     super(options);

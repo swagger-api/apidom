@@ -6,11 +6,20 @@ import apiDesignSystemsNamespace, { MainElement } from '@swagger-api/apidom-ns-a
 
 export { default as mediaTypes } from './media-types.ts';
 
+/**
+ * @public
+ */
 export const detectionRegExp = /"version"\s*:\s*"(?<version_json>2021-05-07)"/;
 
+/**
+ * @public
+ */
 export const detect = async (source: string): Promise<boolean> =>
   detectionRegExp.test(source) && (await detectJSON(source));
 
+/**
+ * @public
+ */
 export const parse = async (
   source: string,
   options: Record<string, unknown> = {},
@@ -29,4 +38,7 @@ export const parse = async (
   return parseResultElement;
 };
 
+/**
+ * @public
+ */
 export const namespace = createNamespace(apiDesignSystemsNamespace);

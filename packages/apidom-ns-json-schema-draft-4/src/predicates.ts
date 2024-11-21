@@ -5,6 +5,9 @@ import JSONReferenceElement from './elements/JSONReference.ts';
 import MediaElement from './elements/Media.ts';
 import LinkDescriptionElement from './elements/LinkDescription.ts';
 
+/**
+ * @public
+ */
 export const isJSONSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is JSONSchemaElement =>
@@ -15,6 +18,9 @@ export const isJSONSchemaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isJSONReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is JSONReferenceElement =>
@@ -25,6 +31,9 @@ export const isJSONReferenceElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isMediaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is MediaElement =>
@@ -35,6 +44,9 @@ export const isMediaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isLinkDescriptionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is LinkDescriptionElement =>

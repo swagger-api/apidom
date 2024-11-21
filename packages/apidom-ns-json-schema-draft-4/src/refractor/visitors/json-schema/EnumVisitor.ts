@@ -4,6 +4,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as EnumVisitorOptions };
 
+/**
+ * @public
+ */
 class EnumVisitor extends FallbackVisitor {
   public declare readonly element: ArrayElement;
 

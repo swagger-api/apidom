@@ -5,6 +5,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 
 export type { FallbackVisitorOptions as TagsVisitorOptions };
 
+/**
+ * @public
+ */
 class TagsVisitor extends FallbackVisitor {
   public declare element: OperationTagsElement;
 

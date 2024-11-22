@@ -18,6 +18,7 @@ export type { ParserOptions } from './parse/parsers/Parser.ts';
 
 export { default as Resolver } from './resolve/resolvers/Resolver.ts';
 export { default as HTTPResolver } from './resolve/resolvers/HTTPResolver.ts';
+export type { HTTPResolverOptions } from './resolve/resolvers/HTTPResolver.ts';
 export { default as ResolveStrategy } from './resolve/strategies/ResolveStrategy.ts';
 export type { ResolverOptions } from './resolve/resolvers/Resolver.ts';
 export type { ResolveStrategyOptions } from './resolve/strategies/ResolveStrategy.ts';
@@ -31,6 +32,13 @@ export type { BundleStrategyOptions } from './bundle/strategies/BundleStrategy.t
 
 export { default as options } from './options/index.ts';
 export { merge as mergeOptions } from './options/util.ts';
+export type {
+  ReferenceOptions as ApiDOMReferenceOptions,
+  ReferenceBundleOptions as ApiDOMReferenceBundleOptions,
+  ReferenceDereferenceOptions as ApiDOMReferenceDereferenceOptions,
+  ReferenceParseOptions as ApiDOMReferenceParseOptions,
+  ReferenceResolveOptions as ApiDOMReferenceResolveOptions,
+} from './options/index.ts';
 
 export { File };
 export { default as Reference } from './Reference.ts';
@@ -60,6 +68,9 @@ export { default as UnmatchedDereferenceStrategyError } from './errors/Unmatched
 export { default as UnmatchedResolveStrategyError } from './errors/UnmatchedResolveStrategyError.ts';
 export { default as UnmatchedResolverError } from './errors/UnmatchedResolverError.ts';
 
+/**
+ * @public
+ */
 export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   const file = new File({ uri: url.sanitize(uri) });
@@ -67,16 +78,25 @@ export const readFile = async (uri: string, options = {}): Promise<Buffer> => {
   return readFileFn(file, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const parse = async (uri: string, options = {}): Promise<ParseResultElement> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return parseFn(uri, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const resolve = async (uri: string, options = {}): Promise<ReferenceSet> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return resolveFn(uri, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const resolveApiDOM = async <T extends Element>(
   element: T,
   options = {},
@@ -85,11 +105,17 @@ export const resolveApiDOM = async <T extends Element>(
   return resolveApiDOMFn(element, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const dereference = async (uri: string, options = {}): Promise<ParseResultElement> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return dereferenceFn(uri, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const dereferenceApiDOM = async <T extends Element>(
   element: T,
   options = {},
@@ -98,6 +124,9 @@ export const dereferenceApiDOM = async <T extends Element>(
   return dereferenceApiDOMFn(element, mergedOptions);
 };
 
+/**
+ * @public
+ */
 export const bundle = async (uri: string, options = {}): Promise<ParseResultElement> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   return bundleFn(uri, mergedOptions);

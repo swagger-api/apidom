@@ -4,12 +4,21 @@ import { Element, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 
+/**
+ * @public
+ */
 export type Alternator = { predicate: (element: unknown) => boolean; specPath: string[] };
 
+/**
+ * @public
+ */
 export interface AlternatingVisitorOptions extends SpecificationVisitorOptions {
   readonly alternator?: Alternator[];
 }
 
+/**
+ * @public
+ */
 class AlternatingVisitor extends SpecificationVisitor {
   protected alternator: Alternator[];
 

@@ -22,6 +22,7 @@ import MainScenariosVisitor from './visitors/api-design-systems/main/ScenariosVi
  * existing ones by manipulating it.
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
+ * @public
  */
 const specification = {
   visitors: {

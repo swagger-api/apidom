@@ -4,8 +4,14 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ThenVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ThenVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ArrayElement;
 

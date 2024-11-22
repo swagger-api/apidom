@@ -9,6 +9,9 @@ import ScenarioElement from './elements/Scenario.ts';
 import StandardElement from './elements/Standard.ts';
 import StandardIdentifierElement from './elements/StandardIdentifier.ts';
 
+/**
+ * @public
+ */
 export const isMainElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is MainElement =>
@@ -19,6 +22,9 @@ export const isMainElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is InfoElement =>
@@ -29,6 +35,9 @@ export const isInfoElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isPrincipleElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is PrincipleElement =>
@@ -39,6 +48,9 @@ export const isPrincipleElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is RequirementElement =>
@@ -49,6 +61,9 @@ export const isRequirementElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isRequirementLevelElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is RequirementLevelElement =>
@@ -59,6 +74,9 @@ export const isRequirementLevelElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isScenarioElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ScenarioElement =>
@@ -69,6 +87,9 @@ export const isScenarioElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStandardElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is StandardElement =>
@@ -79,6 +100,9 @@ export const isStandardElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStandardIdentifierElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is StandardIdentifierElement =>

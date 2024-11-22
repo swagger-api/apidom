@@ -5,10 +5,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import StandardIdentifierElement from '../../../../elements/StandardIdentifier.ts';
 
+/**
+ * @public
+ */
 export interface StandardIdentifierVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class StandardIdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StandardIdentifierElement;
 

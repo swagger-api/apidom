@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class SuccessActionCriteria extends ArrayElement {
   static primaryClass = 'success-action-criteria';
 

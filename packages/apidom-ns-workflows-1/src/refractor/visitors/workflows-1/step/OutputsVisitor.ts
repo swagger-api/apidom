@@ -5,8 +5,14 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import StepOutputsElement from '../../../../elements/nces/StepOutputs.ts';
 
+/**
+ * @public
+ */
 export interface OutputsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OutputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: StepOutputsElement;
 

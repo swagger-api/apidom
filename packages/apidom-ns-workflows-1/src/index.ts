@@ -12,6 +12,7 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, WorkflowsMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
@@ -22,7 +23,10 @@ export { default as refract, createRefractor } from './refractor/index.ts';
 export { default as specificationObj } from './refractor/specification.ts';
 
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
-export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
+export type {
+  FixedFieldsVisitorOptions,
+  SpecPath,
+} from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
 export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor.ts';
 export { default as PatternedFieldsVisitor } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
@@ -67,6 +71,7 @@ export type {
 export type {
   default as JSONSchemaVisitor,
   JSONSchemaVisitorOptions,
+  SchemaVisitor,
 } from './refractor/visitors/workflows-1/json-schema/index.ts';
 export type {
   default as ParameterVisitor,

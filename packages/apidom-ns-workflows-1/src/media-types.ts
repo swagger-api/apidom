@@ -1,8 +1,14 @@
 import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-type Format = 'generic' | 'json' | 'yaml';
+/**
+ * @public
+ */
+export type Format = 'generic' | 'json' | 'yaml';
 
+/**
+ * @public
+ */
 export class WorkflowsMediaTypes extends MediaTypes<string> {
   filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'workflows;version' : format;
@@ -24,6 +30,9 @@ export class WorkflowsMediaTypes extends MediaTypes<string> {
   }
 }
 
+/**
+ * @public
+ */
 const mediaTypes = new WorkflowsMediaTypes(
   'application/vnd.oai.workflows;version=1.0.0',
   'application/vnd.oai.workflows+json;version=1.0.0',

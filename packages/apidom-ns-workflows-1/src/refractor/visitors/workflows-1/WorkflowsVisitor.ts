@@ -5,10 +5,16 @@ import WorkflowsElement from '../../../elements/nces/Workflows.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface WorkflowsVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class WorkflowsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: WorkflowsElement;
 

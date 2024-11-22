@@ -4,6 +4,9 @@ import WorkflowsSpecElement from './WorkflowsSpec.ts';
 import InfoElement from './Info.ts';
 import ComponentsElement from './Components.ts';
 
+/**
+ * @public
+ */
 class WorkflowsSpecification1 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

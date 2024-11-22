@@ -49,6 +49,9 @@ const jsonSchemaFixedFields = omit(
   schemaFixedFields,
 ); // getting rid of OAS base dialect keywords
 
+/**
+ * @public
+ */
 const specification = {
   visitors: {
     value: FallbackVisitor,

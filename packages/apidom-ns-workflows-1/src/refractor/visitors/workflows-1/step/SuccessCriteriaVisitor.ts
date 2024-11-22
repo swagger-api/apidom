@@ -5,10 +5,16 @@ import StepSuccessCriteriaElement from '../../../../elements/nces/StepSuccessCri
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SuccessCriteriaVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SuccessCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepSuccessCriteriaElement;
 

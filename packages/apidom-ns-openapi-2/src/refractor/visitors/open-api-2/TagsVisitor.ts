@@ -5,8 +5,14 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../Specificat
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import SwaggerTagsElement from '../../../elements/nces/SwaggerTags.ts';
 
+/**
+ * @public
+ */
 export interface TagsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class TagsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: SwaggerTagsElement;
 

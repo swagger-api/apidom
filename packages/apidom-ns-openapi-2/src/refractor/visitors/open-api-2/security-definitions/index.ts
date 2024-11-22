@@ -5,10 +5,16 @@ import SecurityDefinitionsElement from '../../../../elements/SecurityDefinitions
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SecurityDefinitionsVisitorOptions
   extends MapVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SecurityDefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public readonly element: SecurityDefinitionsElement;
 

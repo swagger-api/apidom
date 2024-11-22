@@ -5,6 +5,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as ConsumesVisitorOptions };
 
+/**
+ * @public
+ */
 class ConsumesVisitor extends FallbackVisitor {
   public declare element: SwaggerConsumesElement;
 

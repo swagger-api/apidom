@@ -8,8 +8,14 @@ import FixedFieldsVisitor, {
 } from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ItemsVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ItemsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ItemsElement;
 

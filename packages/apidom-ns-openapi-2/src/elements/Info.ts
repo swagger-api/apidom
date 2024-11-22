@@ -3,6 +3,9 @@ import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/api
 import ContactElement from './Contact.ts';
 import LicenseElement from './License.ts';
 
+/**
+ * @public
+ */
 class Info extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

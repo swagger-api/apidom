@@ -4,6 +4,9 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from './Specificati
 
 export type { SpecificationVisitorOptions as SpecificationExtensionVisitorOptions };
 
+/**
+ * @public
+ */
 class SpecificationExtensionVisitor extends SpecificationVisitor {
   public declare element: MemberElement;
 

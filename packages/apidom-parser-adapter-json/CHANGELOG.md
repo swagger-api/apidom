@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.1](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2024-11-22)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json
+
+# [1.0.0-beta.0](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.10...v1.0.0-beta.0) (2024-11-21)
+
+### Features
+
+- **parser-adapter-yaml-1-2:** use new @tree-sitter-grammars/tree-sitter-yaml grammar ([#4429](https://github.com/swagger-api/apidom/issues/4429)) ([5988bce](https://github.com/swagger-api/apidom/commit/5988bce6bc7015275659eebd8c48ae97fcbc7746)), closes [#4033](https://github.com/swagger-api/apidom/issues/4033)
+
 # [1.0.0-alpha.10](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.9...v1.0.0-alpha.10) (2024-10-21)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

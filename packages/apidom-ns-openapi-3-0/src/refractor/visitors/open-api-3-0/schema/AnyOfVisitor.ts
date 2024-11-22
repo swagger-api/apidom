@@ -2,6 +2,7 @@ import { ArrayElement } from '@swagger-api/apidom-core';
 import {
   specificationObj as JSONSchemaDraft4Specification,
   AnyOfVisitorOptions,
+  AnyOfVisitor as AnyOfVisitorType,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import ReferenceElement from '../../../../elements/Reference.ts';
@@ -9,9 +10,15 @@ import { isReferenceElement } from '../../../../predicates.ts';
 
 export type { AnyOfVisitorOptions };
 
-const { anyOf: JSONSchemaAnyOfVisitor } =
-  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
+/**
+ * @public
+ */
+export const JSONSchemaAnyOfVisitor: typeof AnyOfVisitorType =
+  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields.anyOf;
 
+/**
+ * @public
+ */
 class AnyOfVisitor extends JSONSchemaAnyOfVisitor {
   ArrayElement(arrayElement: ArrayElement) {
     const result = JSONSchemaAnyOfVisitor.prototype.ArrayElement.call(this, arrayElement);

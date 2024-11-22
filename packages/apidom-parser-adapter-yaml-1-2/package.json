@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-yaml-1-2",
-  "version": "1.0.0-alpha.10",
+  "version": "1.0.0-beta.1",
   "description": "Parser adapter for parsing YAML documents into base namespace.",
   "publishConfig": {
     "access": "public",
@@ -52,14 +52,14 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-ast": "^1.0.0-alpha.10",
-    "@swagger-api/apidom-core": "^1.0.0-alpha.10",
-    "@swagger-api/apidom-error": "^1.0.0-alpha.10",
+    "@swagger-api/apidom-ast": "^1.0.0-beta.1",
+    "@swagger-api/apidom-core": "^1.0.0-beta.1",
+    "@swagger-api/apidom-error": "^1.0.0-beta.1",
+    "@tree-sitter-grammars/tree-sitter-yaml": "=0.6.1",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
     "tree-sitter": "=0.21.1",
-    "@tree-sitter-grammars/tree-sitter-yaml": "=0.6.1",
     "web-tree-sitter": "=0.24.3"
   },
   "devDependencies": {

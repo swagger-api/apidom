@@ -3,6 +3,9 @@ import MediaTypeExamples from '../../../../elements/nces/MediaTypeExamples.ts';
 
 export type { ExamplesVisitorOptions };
 
+/**
+ * @public
+ */
 class ExamplesVisitor extends BaseExamplesVisitor {
   public declare readonly element: MediaTypeExamples;
 

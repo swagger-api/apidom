@@ -5,6 +5,7 @@ import JSONReferenceElement from './JSONReference.ts';
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-00#section-5
+ * @public
  */
 
 class LinkDescription extends ObjectElement {

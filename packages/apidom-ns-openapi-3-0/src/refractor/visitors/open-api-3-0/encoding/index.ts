@@ -11,7 +11,14 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isHeaderElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface EncodingVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
+
+/**
+ * @public
+ */
 class EncodingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: EncodingElement;
 

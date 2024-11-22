@@ -12,6 +12,7 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, JSONSchemaDraft4MediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
@@ -29,6 +30,7 @@ export {
 } from './predicates.ts';
 
 export { isJSONReferenceLikeElement } from './refractor/predicates.ts';
+export type { JSONReferenceLikeElement } from './refractor/predicates.ts';
 
 export { default as Visitor } from './refractor/visitors/Visitor.ts';
 export type { VisitorOptions } from './refractor/visitors/Visitor.ts';
@@ -43,7 +45,10 @@ export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generic
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
 export type { MapVisitorOptions } from './refractor/visitors/generics/MapVisitor.ts';
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type {
+  AlternatingVisitorOptions,
+  Alternator,
+} from './refractor/visitors/generics/AlternatingVisitor.ts';
 export { default as ParentSchemaAwareVisitor } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor.ts';
 export type { ParentSchemaAwareVisitorOptions } from './refractor/visitors/json-schema/ParentSchemaAwareVisitor.ts';
 

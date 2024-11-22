@@ -12,6 +12,7 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, OpenAPIMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
@@ -20,7 +21,7 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 
 export { default as refract, createRefractor } from './refractor/index.ts';
 export { default as createToolbox } from './refractor/toolbox.ts';
-export type { Predicates as ToolboxPredicates } from './refractor/toolbox.ts';
+export type { Predicates as ToolboxPredicates, openApi3_0Predicates } from './refractor/toolbox.ts';
 export { default as specificationObj } from './refractor/specification.ts';
 
 export {
@@ -58,9 +59,13 @@ export {
   isTagLikeElement,
   isOpenApiExtension,
 } from './refractor/predicates.ts';
+export type { ReferenceLikeElement } from './refractor/predicates.ts';
 
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type {
+  AlternatingVisitorOptions,
+  Alternator,
+} from './refractor/visitors/generics/AlternatingVisitor.ts';
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
@@ -337,30 +342,37 @@ export type {
 export type {
   default as SchemaAllOfVisitor,
   AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+  JSONSchemaAllOfVisitor,
 } from './refractor/visitors/open-api-3-0/schema/AllOfVisitor.ts';
 export type {
   default as SchemaAnyOfVisitor,
   AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
+  JSONSchemaAnyOfVisitor,
 } from './refractor/visitors/open-api-3-0/schema/AnyOfVisitor.ts';
 export type {
   default as SchemaItemsVisitor,
   ItemsVisitorOptions as SchemaItemsVisitorOptions,
+  JSONSchemaItemsVisitor,
 } from './refractor/visitors/open-api-3-0/schema/ItemsVisitor.ts';
 export type {
   default as SchemaOneOfVisitor,
   OneOfVisitorOptions as SchemaOneOfVisitorOptions,
+  JSONSchemaOneOfVisitor,
 } from './refractor/visitors/open-api-3-0/schema/OneOfVisitor.ts';
 export type {
   default as SchemaPropertiesVisitor,
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+  JSONSchemaPropertiesVisitor,
 } from './refractor/visitors/open-api-3-0/schema/PropertiesVisitor.ts';
 export type {
   default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,
+  JSONSchemaOrJSONReferenceVisitor,
 } from './refractor/visitors/open-api-3-0/schema/SchemaOrReferenceVisitor.ts';
 export type {
   default as SchemaTypeVisitor,
   TypeVisitorOptions as SchemaTypeVisitorOptions,
+  JSONSchemaTypeVisitor,
 } from './refractor/visitors/open-api-3-0/schema/TypeVisitor.ts';
 export type {
   default as SecurityRequirementVisitor,

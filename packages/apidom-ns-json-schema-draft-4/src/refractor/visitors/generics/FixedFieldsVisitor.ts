@@ -10,13 +10,22 @@ import {
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 
+/**
+ * @public
+ */
 export type SpecPath<T = string[]> = (element: unknown) => T;
 
+/**
+ * @public
+ */
 export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
   readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
 }
 
+/**
+ * @public
+ */
 class FixedFieldsVisitor extends SpecificationVisitor {
   protected specPath: SpecPath;
 

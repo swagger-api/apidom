@@ -7,6 +7,7 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
  * $ref can only be used where a schema is expected.
  *
  * URI: https://json-schema.org/understanding-json-schema/structuring.html?highlight=ref#id18
+ * @public
  */
 
 class JSONReference extends ObjectElement {

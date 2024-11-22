@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class OAuthFlowScopes extends ObjectElement {
   static primaryClass = 'oauth-flow-scopes';
 

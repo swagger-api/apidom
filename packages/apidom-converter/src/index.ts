@@ -9,6 +9,7 @@ export { ConvertError, UnmatchedConvertStrategyError };
 
 /**
  * `convertApiDOM` already assumes that the ApiDOM is bundled.
+ * @public
  */
 export const convertApiDOM = async (element: ParseResultElement, options = {}) => {
   const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
@@ -30,6 +31,9 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
   }
 };
 
+/**
+ * @public
+ */
 const convert = async (uri: string, options = {}) => {
   const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
   const parseResult = await bundle(uri, mergedOptions);

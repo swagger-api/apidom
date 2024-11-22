@@ -5,8 +5,14 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import LinkParametersElement from '../../../../elements/nces/LinkParameters.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: LinkParametersElement;
 

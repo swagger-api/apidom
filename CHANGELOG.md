@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.1](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2024-11-22)
+
+### Bug Fixes
+
+- **reference:** fix mismatch in optional deps ([#4546](https://github.com/swagger-api/apidom/issues/4546)) ([39d970f](https://github.com/swagger-api/apidom/commit/39d970fbeda1a051f98acb55163102d5fc274ecf))
+
 # [1.0.0-beta.0](https://github.com/swagger-api/apidom/compare/v1.0.0-alpha.10...v1.0.0-beta.0) (2024-11-21)
 
 ### Bug Fixes

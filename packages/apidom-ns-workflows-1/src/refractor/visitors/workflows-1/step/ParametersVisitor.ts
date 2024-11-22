@@ -7,10 +7,16 @@ import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 import StepParametersElement from '../../../../elements/nces/StepParameters.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepParametersElement;
 

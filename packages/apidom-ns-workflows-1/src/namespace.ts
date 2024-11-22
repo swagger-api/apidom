@@ -14,6 +14,9 @@ import CriterionElement from './elements/Criterion.ts';
 import ReferenceElement from './elements/Reference.ts';
 import JSONSchemaElement from './elements/JSONSchema.ts';
 
+/**
+ * @public
+ */
 const workflows1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

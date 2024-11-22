@@ -9,9 +9,16 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import WorkflowsSpecification1Element from '../../../elements/WorkflowsSpecification1.ts';
 
+/**
+ * @public
+ */
 export interface WorkflowsSpecificationVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
+
+/**
+ * @public
+ */
 class WorkflowsSpecificationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public readonly element: WorkflowsSpecification1Element;
 

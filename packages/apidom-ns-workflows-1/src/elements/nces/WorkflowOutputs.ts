@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class WorkflowOutputs extends ObjectElement {
   static primaryClass = 'workflow-outputs';
 

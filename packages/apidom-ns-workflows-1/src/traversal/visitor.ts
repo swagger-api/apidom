@@ -1,6 +1,8 @@
 import { keyMap as keyMapBase, isElement, Element } from '@swagger-api/apidom-core';
 
-// getNodeType :: Node -> String
+/**
+ * @public
+ */
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   if (!isElement(element)) {
     return undefined;
@@ -10,6 +12,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
 
 /**
  * Workflows Specification 1.0.0
+ * @public
  */
 
 export const keyMap = {

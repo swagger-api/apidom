@@ -5,10 +5,16 @@ import StepOnSuccessElement from '../../../../elements/nces/StepOnSuccess.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface OnSuccessVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OnSuccessVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: StepOnSuccessElement;
 

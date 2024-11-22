@@ -6,10 +6,16 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../Specificat
 import { isReferenceLikeElement } from '../../predicates.ts';
 import { isReferenceElement } from '../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: ArrayElement;
 

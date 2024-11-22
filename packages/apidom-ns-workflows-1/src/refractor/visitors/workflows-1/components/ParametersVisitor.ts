@@ -5,8 +5,14 @@ import ComponentsParametersElement from '../../../../elements/nces/ComponentsPar
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsParametersElement;
 

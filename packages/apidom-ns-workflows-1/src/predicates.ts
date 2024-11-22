@@ -27,6 +27,9 @@ import StepOutputsElement from './elements/nces/StepOutputs.ts';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria.ts';
 import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria.ts';
 
+/**
+ * @public
+ */
 export const isWorkflowsSpecElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is WorkflowsSpecElement =>
@@ -37,6 +40,9 @@ export const isWorkflowsSpecElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isWorkflowsSpecification1Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is WorkflowsSpecification1Element =>
@@ -49,6 +55,9 @@ export const isWorkflowsSpecification1Element = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is InfoElement =>
@@ -60,6 +69,9 @@ export const isInfoElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSourceDescriptionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SourceDescriptionElement =>
@@ -70,6 +82,9 @@ export const isSourceDescriptionElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSourceDescriptionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is SourceDescriptionsElement =>
@@ -81,6 +96,9 @@ export const isSourceDescriptionsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isWorkflowsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is WorkflowsElement =>
@@ -92,6 +110,9 @@ export const isWorkflowsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isWorkflowStepsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is WorkflowStepsElement =>
@@ -103,6 +124,9 @@ export const isWorkflowStepsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isWorkflowOutputsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is WorkflowOutputsElement =>
@@ -114,6 +138,9 @@ export const isWorkflowOutputsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isWorkflowElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is WorkflowElement =>
@@ -124,6 +151,9 @@ export const isWorkflowElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepOnSuccessElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepOnSuccessElement =>
@@ -135,6 +165,9 @@ export const isStepOnSuccessElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepOnFailureElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepOnFailureElement =>
@@ -146,6 +179,9 @@ export const isStepOnFailureElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepOutputsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepOutputsElement =>
@@ -157,6 +193,9 @@ export const isStepOutputsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is StepElement =>
@@ -167,6 +206,9 @@ export const isStepElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepParametersElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepParametersElement =>
@@ -178,6 +220,9 @@ export const isStepParametersElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepDependsOnElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepDependsOnElement =>
@@ -189,6 +234,9 @@ export const isStepDependsOnElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isStepSuccessCriteriaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is StepSuccessCriteriaElement =>
@@ -201,6 +249,9 @@ export const isStepSuccessCriteriaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isParameterElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ParameterElement =>
@@ -211,6 +262,9 @@ export const isParameterElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSuccessActionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SuccessActionElement =>
@@ -221,6 +275,9 @@ export const isSuccessActionElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isComponentsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ComponentsElement =>
@@ -231,6 +288,9 @@ export const isComponentsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isCriterionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is CriterionElement =>
@@ -241,6 +301,9 @@ export const isCriterionElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ReferenceElement =>
@@ -251,6 +314,9 @@ export const isReferenceElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSuccessActionCriteriaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is SuccessActionCriteriaElement =>
@@ -263,6 +329,9 @@ export const isSuccessActionCriteriaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isFailureActionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is FailureActionElement =>
@@ -273,6 +342,9 @@ export const isFailureActionElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isFailureActionCriteriaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is FailureActionCriteriaElement =>
@@ -285,6 +357,9 @@ export const isFailureActionCriteriaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isJSONSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is JSONSchemaElement =>

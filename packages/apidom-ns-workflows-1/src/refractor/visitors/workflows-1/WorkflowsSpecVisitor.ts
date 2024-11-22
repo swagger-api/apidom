@@ -5,10 +5,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import WorkflowsSpecElement from '../../../elements/WorkflowsSpec.ts';
 
+/**
+ * @public
+ */
 export interface WorkflowsSpecVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class WorkflowsSpecVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: WorkflowsSpecElement;
 

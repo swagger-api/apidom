@@ -5,10 +5,16 @@ import FailureActionCriteriaElement from '../../../elements/nces/FailureActionCr
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface FailureActionCriteriaVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class FailureActionCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: FailureActionCriteriaElement;
 

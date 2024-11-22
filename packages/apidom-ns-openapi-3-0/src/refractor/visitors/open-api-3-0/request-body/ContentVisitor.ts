@@ -3,6 +3,9 @@ import BaseContentVisitor, { ContentVisitorOptions } from '../ContentVisitor.ts'
 
 export type { ContentVisitorOptions };
 
+/**
+ * @public
+ */
 class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: RequestBodyContentElement;
 

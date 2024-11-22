@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class PathItemServers extends ArrayElement {
   static primaryClass = 'path-item-servers';
 

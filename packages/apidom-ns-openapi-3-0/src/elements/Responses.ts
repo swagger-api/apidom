@@ -3,6 +3,9 @@ import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 import ResponseElement from './Response.ts';
 import ReferenceElement from './Reference.ts';
 
+/**
+ * @public
+ */
 class Responses extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

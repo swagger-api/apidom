@@ -3,6 +3,9 @@ import ParameterContentElement from '../../../../elements/nces/ParameterContent.
 
 export type { ContentVisitorOptions };
 
+/**
+ * @public
+ */
 class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: ParameterContentElement;
 

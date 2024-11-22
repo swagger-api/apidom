@@ -5,8 +5,14 @@ import MediaTypeEncodingElement from '../../../../elements/nces/MediaTypeEncodin
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface EncodingVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class EncodingVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: MediaTypeEncodingElement;
 

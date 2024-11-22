@@ -12,10 +12,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import MapVisitor from '../../generics/MapVisitor.ts';
 import { isPathItemElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface CallbackVisitorOptions
   extends PatternedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: CallbackElement;
 

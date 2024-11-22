@@ -3,6 +3,9 @@ import BaseServersVisitor, { ServersVisitorOptions } from '../ServersVisitor.ts'
 
 export type { ServersVisitorOptions };
 
+/**
+ * @public
+ */
 class ServersVisitor extends BaseServersVisitor {
   public declare readonly element: PathItemServersElement;
 

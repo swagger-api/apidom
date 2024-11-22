@@ -3,6 +3,9 @@ import HeaderContentElement from '../../../../elements/nces/HeaderContent.ts';
 
 export type { ContentVisitorOptions };
 
+/**
+ * @public
+ */
 class ContentVisitor extends BaseContentVisitor {
   public declare readonly element: HeaderContentElement;
 

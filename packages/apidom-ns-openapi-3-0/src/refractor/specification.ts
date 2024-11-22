@@ -98,6 +98,9 @@ import TagsVisitor from './visitors/open-api-3-0/TagsVisitor.ts';
 const { fixedFields: jsonSchemaFixedFields } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema;
 
+/**
+ * @public
+ */
 const specification = {
   visitors: {
     value: FallbackVisitor,

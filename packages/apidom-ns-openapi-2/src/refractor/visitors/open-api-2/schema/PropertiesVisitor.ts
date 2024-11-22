@@ -4,13 +4,20 @@ import {
   JSONReferenceElement,
   isJSONReferenceElement,
   PropertiesVisitorOptions,
+  PropertiesVisitor as PropertiesVisitorType,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 export type { PropertiesVisitorOptions };
 
-const { properties: JSONSchemaPropertiesVisitor } =
-  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields;
+/**
+ * @public
+ */
+export const JSONSchemaPropertiesVisitor: typeof PropertiesVisitorType =
+  JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema.fixedFields.properties;
 
+/**
+ * @public
+ */
 class PropertiesVisitor extends JSONSchemaPropertiesVisitor {
   ObjectElement(objectElement: ObjectElement) {
     const result = JSONSchemaPropertiesVisitor.prototype.ObjectElement.call(this, objectElement);

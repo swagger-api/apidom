@@ -2,6 +2,9 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import File from '../../File.ts';
 
+/**
+ * @public
+ */
 export interface ParserOptions {
   readonly name: string;
   readonly allowEmpty?: boolean;
@@ -10,6 +13,9 @@ export interface ParserOptions {
   readonly mediaTypes?: string[];
 }
 
+/**
+ * @public
+ */
 abstract class Parser {
   public readonly name: string;
 

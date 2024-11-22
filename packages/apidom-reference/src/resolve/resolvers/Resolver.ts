@@ -1,9 +1,15 @@
 import File from '../../File.ts';
 
+/**
+ * @public
+ */
 export interface ResolverOptions {
   readonly name: string;
 }
 
+/**
+ * @public
+ */
 abstract class Resolver {
   public readonly name: string;
 

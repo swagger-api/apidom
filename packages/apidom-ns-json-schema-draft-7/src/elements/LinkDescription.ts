@@ -6,6 +6,7 @@ import { LinkDescriptionElement } from '@swagger-api/apidom-ns-json-schema-draft
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-01#section-6
+ * @public
  */
 
 class LinkDescription extends LinkDescriptionElement {

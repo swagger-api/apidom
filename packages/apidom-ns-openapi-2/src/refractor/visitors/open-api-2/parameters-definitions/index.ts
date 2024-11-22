@@ -5,10 +5,16 @@ import ParametersDefinitionsElement from '../../../../elements/ParametersDefinit
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ParametersDefinitionsVisitorOptions
   extends MapVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersDefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ParametersDefinitionsElement;
 

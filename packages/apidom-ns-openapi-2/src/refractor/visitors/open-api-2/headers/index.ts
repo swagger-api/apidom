@@ -5,8 +5,14 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import HeadersElement from '../../../../elements/Headers.ts';
 
+/**
+ * @public
+ */
 export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: HeadersElement;
 

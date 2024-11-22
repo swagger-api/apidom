@@ -10,10 +10,16 @@ import {
 
 import LinkDescriptionElement from '../../../../elements/LinkDescription.ts';
 
+/**
+ * @public
+ */
 export interface LinkDescriptionVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: LinkDescriptionElement;
 

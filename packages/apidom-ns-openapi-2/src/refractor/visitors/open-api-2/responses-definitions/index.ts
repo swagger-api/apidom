@@ -5,10 +5,16 @@ import ResponsesDefinitionsElement from '../../../../elements/ResponsesDefinitio
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ResponsesDefinitionsVisitorOptions
   extends MapVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ResponsesDefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ResponsesDefinitionsElement;
 

@@ -4,24 +4,24 @@ import {
   specificationObj as OpenApi3_1Specification,
   SpecPath,
   CallbackVisitorOptions,
+  CallbackVisitor as CallbackVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import CallbackElement from '../../../../elements/Callback.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Callback: { $visitor: BaseCallbackVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseCallbackVisitor: typeof CallbackVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Callback.$visitor;
 
 export type { CallbackVisitorOptions };
 
+/**
+ * @public
+ */
 class CallbackVisitor extends BaseCallbackVisitor {
   public declare readonly element: CallbackElement;
 

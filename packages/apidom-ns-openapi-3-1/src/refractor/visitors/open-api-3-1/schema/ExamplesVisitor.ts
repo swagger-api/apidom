@@ -3,6 +3,9 @@ import { FallbackVisitor, FallbackVisitorOptions } from '@swagger-api/apidom-ns-
 
 export type { FallbackVisitorOptions as ExamplesVisitorOptions };
 
+/**
+ * @public
+ */
 class ExamplesVisitor extends FallbackVisitor {
   public declare readonly element: ArrayElement;
 

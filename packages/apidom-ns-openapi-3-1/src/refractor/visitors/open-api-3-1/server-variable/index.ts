@@ -1,21 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   ServerVariableVisitorOptions,
+  ServerVariableVisitor as ServerVariableVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ServerVariableElement from '../../../../elements/ServerVariable.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        ServerVariable: { $visitor: BaseServerVariableVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseServerVariableVisitor: typeof ServerVariableVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.ServerVariable.$visitor;
 
 export type { ServerVariableVisitorOptions };
+
+/**
+ * @public
+ */
 class ServerVariableVisitor extends BaseServerVariableVisitor {
   public declare readonly element: ServerVariableElement;
 

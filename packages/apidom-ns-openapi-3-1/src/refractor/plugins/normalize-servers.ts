@@ -23,13 +23,17 @@ import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
  *
  * If an alternative server object is specified at the Path Item Object level, it will override OpenAPI.servers.
  * If an alternative server object is specified at the Operation Object level, it will override PathItem.servers and OpenAPI.servers respectively.
+ * @public
  */
 
-interface PluginOptions {
+export interface PluginOptions {
   storageField?: string;
 }
 
 /* eslint-disable no-param-reassign */
+/**
+ * @public
+ */
 const plugin =
   ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {

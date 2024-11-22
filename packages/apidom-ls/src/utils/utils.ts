@@ -690,6 +690,9 @@ export function correctPartialKeys(
   return processedText;
 }
 
+/**
+ * @public
+ */
 export function perfStart(label: string, force = false): string {
   if (force || performanceLogs) {
     const random = ` _R_${Math.random() * 100}`;
@@ -711,6 +714,9 @@ export function perfStart(label: string, force = false): string {
   return '';
 }
 
+/**
+ * @public
+ */
 export function perfEnd(label: string, force = false) {
   if (force || performanceLogs) {
     const realLabel = perfLabels[label];
@@ -753,6 +759,9 @@ export interface RegexMap {
   [key: string]: RegExp;
 }
 
+/**
+ * @public
+ */
 export function getText(document: TextDocument | string, trim = false): string {
   let text = '';
   if (typeof document === 'string') {
@@ -764,21 +773,33 @@ export function getText(document: TextDocument | string, trim = false): string {
   return text;
 }
 
+/**
+ * @public
+ */
 export async function isJsonDoc(document: TextDocument | string): Promise<boolean> {
   const text = getText(document, true);
   return await adapterJson.detect(text);
 }
 
+/**
+ * @public
+ */
 export function isJsonDocSync(document: TextDocument | string): boolean {
   const text = getText(document, true);
   return adapterJson.detectionRegExp.test(text);
 }
 
+/**
+ * @public
+ */
 export async function isYamlDoc(document: TextDocument | string): Promise<boolean> {
   const text = getText(document, true);
   return (await adapterYaml.detect(text)) && !(await isJsonDoc(document));
 }
 
+/**
+ * @public
+ */
 export async function findNamespace(
   document: TextDocument | string,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

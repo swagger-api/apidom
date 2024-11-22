@@ -49,6 +49,18 @@ export type {
   HoverProviderResult,
   LinksProviderResult,
   ContentLanguage,
+  HoverProvider,
+  QuickFixData,
+  DocumentCache,
+  LinksModifierFunction,
+  NamespaceVersion,
+  LinterCondition,
+  LinterMetaData,
+  LinterGivenFormat,
+  FormatMeta,
+  LinterFunction,
+  LinterConditionTarget,
+  DocumentationMeta,
 } from './apidom-language-types.ts';
 
 export {

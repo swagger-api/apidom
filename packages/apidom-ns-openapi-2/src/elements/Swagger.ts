@@ -15,6 +15,9 @@ import ResponsesDefinitionsElement from './ResponsesDefinitions.ts';
 import SecurityDefinitionsElement from './SecurityDefinitions.ts';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
+/**
+ * @public
+ */
 class Swagger extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

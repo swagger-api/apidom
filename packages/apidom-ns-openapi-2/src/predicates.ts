@@ -28,6 +28,9 @@ import SecuritySchemeElement from './elements/SecurityScheme.ts';
 import SecurityRequirementElement from './elements/SecurityRequirement.ts';
 import ScopesElement from './elements/Scopes.ts';
 
+/**
+ * @public
+ */
 export const isSwaggerElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SwaggerElement =>
@@ -38,6 +41,9 @@ export const isSwaggerElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSwaggerVersionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SwaggerVersionElement =>
@@ -48,6 +54,9 @@ export const isSwaggerVersionElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isInfoElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is InfoElement =>
@@ -58,6 +67,9 @@ export const isInfoElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isLicenseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is LicenseElement =>
@@ -68,6 +80,9 @@ export const isLicenseElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isContactElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ContactElement =>
@@ -78,6 +93,9 @@ export const isContactElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isPathsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is PathsElement =>
@@ -88,6 +106,9 @@ export const isPathsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isPathItemElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is PathItemElement =>
@@ -98,6 +119,9 @@ export const isPathItemElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isOperationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is OperationElement =>
@@ -108,6 +132,9 @@ export const isOperationElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isExternalDocumentationElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ExternalDocumentationElement =>
@@ -118,6 +145,9 @@ export const isExternalDocumentationElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isParameterElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ParameterElement =>
@@ -128,6 +158,9 @@ export const isParameterElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isItemsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ItemsElement =>
@@ -138,6 +171,9 @@ export const isItemsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isResponsesElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ResponsesElement =>
@@ -148,6 +184,9 @@ export const isResponsesElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isResponseElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ResponseElement =>
@@ -158,6 +197,9 @@ export const isResponseElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isHeadersElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is HeadersElement =>
@@ -168,6 +210,9 @@ export const isHeadersElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isExampleElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ExampleElement =>
@@ -178,6 +223,9 @@ export const isExampleElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isHeaderElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is HeaderElement =>
@@ -188,6 +236,9 @@ export const isHeaderElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isTagElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is TagElement =>
@@ -198,6 +249,9 @@ export const isTagElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isReferenceElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ReferenceElement =>
@@ -208,6 +262,9 @@ export const isReferenceElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SchemaElement =>
@@ -218,6 +275,9 @@ export const isSchemaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isXmlElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is XmlElement =>
@@ -228,6 +288,9 @@ export const isXmlElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isResponsesDefinitionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ResponsesDefinitionsElement =>
@@ -238,6 +301,9 @@ export const isResponsesDefinitionsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSecurityDefinitionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SecurityDefinitionsElement =>
@@ -248,6 +314,9 @@ export const isSecurityDefinitionsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isDefinitionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is DefinitionsElement =>
@@ -258,6 +327,9 @@ export const isDefinitionsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isParametersDefinitionsElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ParametersDefinitionsElement =>
@@ -268,6 +340,9 @@ export const isParametersDefinitionsElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSecuritySchemeElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SecuritySchemeElement =>
@@ -278,6 +353,9 @@ export const isSecuritySchemeElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isScopesElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is ScopesElement =>
@@ -288,6 +366,9 @@ export const isScopesElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isSecurityRequirementElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is SecurityRequirementElement =>

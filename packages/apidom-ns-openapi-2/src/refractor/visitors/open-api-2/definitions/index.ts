@@ -10,8 +10,14 @@ import DefinitionsElement from '../../../../elements/Definitions.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface DefinitionsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class DefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: DefinitionsElement;
 

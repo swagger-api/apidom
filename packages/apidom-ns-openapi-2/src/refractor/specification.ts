@@ -64,6 +64,9 @@ import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisi
 const { fixedFields: jsonSchemaFixedFields } =
   JSONSchemaDraft4Specification.visitors.document.objects.JSONSchema;
 
+/**
+ * @public
+ */
 const specification = {
   visitors: {
     value: FallbackVisitor,

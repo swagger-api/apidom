@@ -2,10 +2,16 @@ import File from '../../File.ts';
 import ReferenceSet from '../../ReferenceSet.ts';
 import type { ReferenceOptions } from '../../options/index.ts';
 
+/**
+ * @public
+ */
 export interface ResolveStrategyOptions {
   readonly name: string;
 }
 
+/**
+ * @public
+ */
 abstract class ResolveStrategy {
   public readonly name: string;
 

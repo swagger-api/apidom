@@ -21,7 +21,6 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 
 export { default as refract, createRefractor } from './refractor/index.ts';
 export { default as specificationObj } from './refractor/specification.ts';
-export type { Specification as SpecificationObj } from './refractor/specification.ts';
 
 export {
   isJSONReferenceElement,

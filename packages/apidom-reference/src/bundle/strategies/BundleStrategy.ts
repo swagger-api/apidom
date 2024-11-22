@@ -3,10 +3,16 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import File from '../../File.ts';
 import type { ReferenceOptions } from '../../options/index.ts';
 
+/**
+ * @public
+ */
 export interface BundleStrategyOptions {
   readonly name: string;
 }
 
+/**
+ * @public
+ */
 abstract class BundleStrategy {
   public readonly name: string;
 

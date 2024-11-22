@@ -8,13 +8,19 @@ import type DereferenceStrategy from '../dereference/strategies/DereferenceStrat
 import type ReferenceSet from '../ReferenceSet.ts';
 import type BundleStrategy from '../bundle/strategies/BundleStrategy.ts';
 
-interface ReferenceParseOptions {
+/**
+ * @public
+ */
+export interface ReferenceParseOptions {
   mediaType: string;
   parsers: Array<Parser>;
   parserOpts: Record<string, any>;
 }
 
-interface ReferenceResolveOptions {
+/**
+ * @public
+ */
+export interface ReferenceResolveOptions {
   baseURI: string;
   resolvers: Array<Resolver>;
   resolverOpts: Record<string, any>;
@@ -25,7 +31,10 @@ interface ReferenceResolveOptions {
   maxDepth: number;
 }
 
-interface ReferenceDereferenceOptions {
+/**
+ * @public
+ */
+export interface ReferenceDereferenceOptions {
   strategies: Array<DereferenceStrategy>;
   strategyOpts: Record<string, any>;
   refSet: null | ReferenceSet;
@@ -35,12 +44,18 @@ interface ReferenceDereferenceOptions {
   immutable: boolean;
 }
 
-interface ReferenceBundleOptions {
+/**
+ * @public
+ */
+export interface ReferenceBundleOptions {
   strategies: Array<BundleStrategy>;
   refSet: null | ReferenceSet;
   maxDepth: number;
 }
 
+/**
+ * @public
+ */
 export interface ReferenceOptions {
   readonly parse: ReferenceParseOptions;
   readonly resolve: ReferenceResolveOptions;
@@ -48,6 +63,9 @@ export interface ReferenceOptions {
   readonly bundle: ReferenceBundleOptions;
 }
 
+/**
+ * @public
+ */
 const defaultOptions: ReferenceOptions = {
   parse: {
     /**

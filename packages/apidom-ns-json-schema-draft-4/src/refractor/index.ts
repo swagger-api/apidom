@@ -9,7 +9,6 @@ import { path } from 'ramda';
 
 import type VisitorClass from './visitors/Visitor.ts';
 import specification from './specification.ts';
-import type { Specification } from './specification.ts';
 import { keyMap, getNodeType } from '../traversal/visitor.ts';
 import createToolbox from './toolbox.ts';
 
@@ -22,7 +21,7 @@ const refract = <T extends Element>(
     specPath = ['visitors', 'document', 'objects', 'JSONSchema', '$visitor'],
     plugins = [],
     specificationObj = specification,
-  }: { specPath?: string[]; plugins?: any[]; specificationObj?: Specification } = {},
+  }: { specPath?: string[]; plugins?: any[]; specificationObj?: object } = {},
 ): T => {
   const element = baseRefract(value);
   const resolvedSpec = dereference(specificationObj);

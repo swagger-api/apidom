@@ -19,22 +19,22 @@
     "./src/resolve/resolvers/file/index-node.mjs": "./src/resolve/resolvers/file/index-browser.mjs"
   },
   "main": "./src/configuration/saturated.cjs",
-  "types": "./types/dist.d.ts",
+  "types": "./types/apidom-reference.d.ts",
   "exports": {
     ".": {
       "import": "./src/configuration/saturated.mjs",
       "require": "./src/configuration/saturated.cjs",
-      "types": "./types/dist.d.ts"
+      "types": "./types/apidom-reference.d.ts"
     },
     "./configuration/saturated": {
       "import": "./src/configuration/saturated.mjs",
       "require": "./src/configuration/saturated.cjs",
-      "types": "./types/dist.d.ts"
+      "types": "./types/apidom-reference.d.ts"
     },
     "./configuration/empty": {
       "import": "./src/configuration/empty.mjs",
       "require": "./src/configuration/empty.cjs",
-      "types": "./types/dist.d.ts"
+      "types": "./types/apidom-reference.d.ts"
     },
     "./resolve/resolvers/file": {
       "browser": {
@@ -246,7 +246,7 @@
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:openapi-3-1-dereference": "cross-env BABEL_ENV=es babel ./test/perf/openapi-3-1-dereference.ts --out-file ./test/perf/openapi-3-1-dereference.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/openapi-3-1-dereference.mjs",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },

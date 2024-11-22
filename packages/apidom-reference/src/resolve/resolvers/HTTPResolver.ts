@@ -2,12 +2,18 @@ import Resolver, { ResolverOptions } from './Resolver.ts';
 import * as url from '../../util/url.ts';
 import File from '../../File.ts';
 
+/**
+ * @public
+ */
 export interface HTTPResolverOptions extends ResolverOptions {
   readonly timeout?: number;
   readonly redirects?: number;
   readonly withCredentials?: boolean;
 }
 
+/**
+ * @public
+ */
 abstract class HTTPResolver extends Resolver {
   protected readonly timeout: number;
 

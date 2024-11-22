@@ -9,8 +9,14 @@ import {
   FallbackVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
+/**
+ * @public
+ */
 export interface SchemasVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsSchemasElement;
 

@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   DiscriminatorVisitorOptions,
+  DiscriminatorVisitor as DiscriminatorVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import DiscriminatorElement from '../../../../elements/Discriminator.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Discriminator: { $visitor: BaseDiscriminatorVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseDiscriminatorVisitor: typeof DiscriminatorVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Discriminator.$visitor;
 
 export type { DiscriminatorVisitorOptions };
 
+/**
+ * @public
+ */
 class DiscriminatorVisitor extends BaseDiscriminatorVisitor {
   public declare readonly element: DiscriminatorElement;
 

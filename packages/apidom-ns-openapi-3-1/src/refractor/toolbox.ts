@@ -18,6 +18,14 @@ import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 import * as openApi3_1Predicates from '../predicates.ts';
 import openApi3_1Namespace from '../namespace.ts';
 
+/**
+ * @public
+ */
+export type { openApi3_1Predicates };
+
+/**
+ * @public
+ */
 export type Predicates = typeof openApi3_1Predicates & {
   isElement: typeof isElement;
   isStringElement: typeof isStringElement;
@@ -29,6 +37,9 @@ export type Predicates = typeof openApi3_1Predicates & {
   hasElementSourceMap: typeof hasElementSourceMap;
 };
 
+/**
+ * @public
+ */
 export interface Toolbox {
   predicates: Predicates;
   ancestorLineageToJSONPointer: typeof ancestorLineageToJSONPointer;
@@ -42,8 +53,9 @@ export interface Toolbox {
  *  - ancestors
  *  - parent
  *  - element
+ * @public
  */
-const ancestorLineageToJSONPointer = <T extends (Element | Element[])[]>(elementPath: T) => {
+export const ancestorLineageToJSONPointer = <T extends (Element | Element[])[]>(elementPath: T) => {
   const jsonPointerTokens = elementPath.reduce((path, element, index) => {
     if (isMemberElement(element)) {
       const token = String(toValue(element.key));
@@ -59,6 +71,9 @@ const ancestorLineageToJSONPointer = <T extends (Element | Element[])[]>(element
   return compileJSONPointerTokens(jsonPointerTokens);
 };
 
+/**
+ * @public
+ */
 const createToolbox = (): Toolbox => {
   const namespace = createNamespace(openApi3_1Namespace);
   const predicates: Predicates = {

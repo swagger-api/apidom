@@ -1,8 +1,14 @@
 import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-type Format = 'generic' | 'json' | 'yaml';
+/**
+ * @public
+ */
+export type Format = 'generic' | 'json' | 'yaml';
 
+/**
+ * @public
+ */
 export class OpenAPIMediaTypes extends MediaTypes<string> {
   filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'openapi;version' : format;
@@ -24,6 +30,9 @@ export class OpenAPIMediaTypes extends MediaTypes<string> {
   }
 }
 
+/**
+ * @public
+ */
 const mediaTypes = new OpenAPIMediaTypes(
   'application/vnd.oai.openapi;version=3.1.0',
   'application/vnd.oai.openapi+json;version=3.1.0',

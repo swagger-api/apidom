@@ -9,10 +9,16 @@ import {
 
 import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect.ts';
 
+/**
+ * @public
+ */
 export interface JsonSchemaDialectVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class JsonSchemaDialectVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: JsonSchemaDialectElement;
 

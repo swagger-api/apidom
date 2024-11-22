@@ -1,6 +1,8 @@
 import { keyMap as keyMapBase, isElement, Element } from '@swagger-api/apidom-core';
 
-// getNodeType :: Node -> String
+/**
+ * @public
+ */
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   if (!isElement(element)) {
     return undefined;
@@ -16,6 +18,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  *
  * To be 100% sure that currently visiting `LinkElement` is from this namespace
  * use `isLinkElement` predicate from this namespace to assert for it.
+ * @public
  */
 
 export const keyMap = {

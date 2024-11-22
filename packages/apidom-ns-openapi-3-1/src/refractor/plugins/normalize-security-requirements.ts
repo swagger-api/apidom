@@ -16,13 +16,17 @@ import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
  * only one of the Security Requirement Objects in the list needs to be satisfied to authorize the request.
  *
  * NOTE: this plugin is idempotent
+ * @public
  */
 
-interface PluginOptions {
+export interface PluginOptions {
   storageField?: string;
 }
 
 /* eslint-disable no-param-reassign */
+/**
+ * @public
+ */
 const plugin =
   ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {

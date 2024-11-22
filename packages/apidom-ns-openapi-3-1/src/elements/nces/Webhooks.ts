@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class Webhooks extends ObjectElement {
   static primaryClass = 'webhooks';
 

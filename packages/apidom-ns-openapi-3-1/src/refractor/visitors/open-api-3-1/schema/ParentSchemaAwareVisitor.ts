@@ -1,5 +1,8 @@
 import { Element } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 export interface ParentSchemaAwareVisitorOptions {
   readonly parent: Element;
 }

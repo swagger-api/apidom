@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   ResponseVisitorOptions,
+  ResponseVisitor as ResponseVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ResponseElement from '../../../../elements/Response.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Response: { $visitor: BaseResponseVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseResponseVisitor: typeof ResponseVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Response.$visitor;
 
 export type { ResponseVisitorOptions };
 
+/**
+ * @public
+ */
 class ResponseVisitor extends BaseResponseVisitor {
   public declare readonly element: ResponseElement;
 

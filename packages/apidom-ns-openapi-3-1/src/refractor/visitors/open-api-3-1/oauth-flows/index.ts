@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   OAuthFlowsVisitorOptions,
+  OAuthFlowsVisitor as OAuthFlowsVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OAuthFlowsElement from '../../../../elements/OAuthFlows.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        OAuthFlows: { $visitor: BaseOAuthFlowsVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseOAuthFlowsVisitor: typeof OAuthFlowsVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.OAuthFlows.$visitor;
 
 export type { OAuthFlowsVisitorOptions };
 
+/**
+ * @public
+ */
 class OAuthFlowsVisitor extends BaseOAuthFlowsVisitor {
   public declare readonly element: OAuthFlowsElement;
 

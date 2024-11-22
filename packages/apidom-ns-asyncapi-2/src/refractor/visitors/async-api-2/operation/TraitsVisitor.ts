@@ -6,8 +6,14 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../../Specifi
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface TraitsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class TraitsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: OperationTraitsElement;
 

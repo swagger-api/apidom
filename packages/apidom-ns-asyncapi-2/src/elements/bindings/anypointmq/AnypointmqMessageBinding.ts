@@ -3,6 +3,9 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
 import SchemaElement from '../../Schema.ts';
 import ReferenceElement from '../../Reference.ts';
 
+/**
+ * @public
+ */
 class AnypointmqMessageBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

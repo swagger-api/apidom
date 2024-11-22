@@ -5,10 +5,16 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import SecurityRequirementElement from '../../../../elements/SecurityRequirement.ts';
 
+/**
+ * @public
+ */
 export interface SecurityRequirementVisitorOptions
   extends MapVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SecurityRequirementVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: SecurityRequirementElement;
 

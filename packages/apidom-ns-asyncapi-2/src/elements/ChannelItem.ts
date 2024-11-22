@@ -10,6 +10,9 @@ import OperationElement from './Operation.ts';
 import ParametersElement from './Parameters.ts';
 import ChannelBindingsElement from './ChannelBindings.ts';
 
+/**
+ * @public
+ */
 class ChannelItem extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

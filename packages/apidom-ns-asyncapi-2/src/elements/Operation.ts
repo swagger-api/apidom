@@ -12,6 +12,9 @@ import OperationBindingsElement from './OperationBindings.ts';
 import MessageElement from './Message.ts';
 import ReferenceElement from './Reference.ts';
 
+/**
+ * @public
+ */
 class Operation extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

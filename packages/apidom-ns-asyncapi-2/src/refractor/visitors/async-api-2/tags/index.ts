@@ -5,8 +5,14 @@ import TagsElement from '../../../../elements/Tags.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface TagsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class TagsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: TagsElement;
 

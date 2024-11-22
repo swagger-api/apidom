@@ -230,13 +230,16 @@ const SchemaSpecification = {
   },
 };
 
+/**
+ * @public
+ */
 const specification = {
   visitors: {
     value: FallbackVisitor,
     document: {
       objects: {
         /**
-         * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
+         * `AsyncApi >= 2.0.0 <=2.6.0` specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi2Visitor,

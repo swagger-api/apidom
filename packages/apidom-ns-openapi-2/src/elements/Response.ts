@@ -4,6 +4,9 @@ import SchemaElement from './Schema.ts';
 import HeadersElement from './Headers.ts';
 import ExampleElement from './Example.ts';
 
+/**
+ * @public
+ */
 class Response extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

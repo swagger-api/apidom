@@ -48,14 +48,18 @@ const normalizeOperationId = (operationId: string, path: string, method: string)
  * and make sure Link.operationId fields are pointing to correct and normalized Operation.operationId fields.
  *
  * NOTE: this plugin is idempotent
+ * @public
  */
 
-interface PluginOptions {
+export interface PluginOptions {
   storageField?: string;
   operationIdNormalizer?: (operationId: string, path: string, method: string) => string;
 }
 
 /* eslint-disable no-param-reassign */
+/**
+ * @public
+ */
 const plugin =
   ({
     storageField = 'x-normalized',

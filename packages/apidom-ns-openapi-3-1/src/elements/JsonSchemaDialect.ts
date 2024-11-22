@@ -1,5 +1,8 @@
 import { StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class JsonSchemaDialect extends StringElement {
   static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.1/dialect/base');
 

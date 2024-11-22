@@ -13,8 +13,14 @@ import ReferenceElement from '../../../../elements/Reference.ts';
 import ComponentsPathItemsElement from '../../../../elements/nces/ComponentsPathItems.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface PathItemsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class PathItemsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsPathItemsElement;
 

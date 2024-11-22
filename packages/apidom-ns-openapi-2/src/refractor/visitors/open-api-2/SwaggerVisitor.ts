@@ -5,10 +5,16 @@ import SwaggerVersionElement from '../../../elements/SwaggerVersion.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SwaggerVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SwaggerVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: SwaggerVersionElement;
 

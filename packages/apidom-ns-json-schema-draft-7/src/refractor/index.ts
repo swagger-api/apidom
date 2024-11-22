@@ -12,6 +12,9 @@ import specification from './specification.ts';
 import { keyMap, getNodeType } from '../traversal/visitor.ts';
 import createToolbox from './toolbox.ts';
 
+/**
+ * @public
+ */
 const refract = <T extends Element>(
   value: unknown,
   {
@@ -43,6 +46,9 @@ const refract = <T extends Element>(
   });
 };
 
+/**
+ * @public
+ */
 export const createRefractor =
   (specPath: string[]) =>
   (value: unknown, options = {}) =>

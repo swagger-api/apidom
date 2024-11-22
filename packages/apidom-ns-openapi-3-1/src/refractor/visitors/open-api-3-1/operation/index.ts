@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   OperationVisitorOptions,
+  OperationVisitor as OperationVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OperationElement from '../../../../elements/Operation.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Operation: { $visitor: BaseOperationVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseOperationVisitor: typeof OperationVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Operation.$visitor;
 
 export type { OperationVisitorOptions };
 
+/**
+ * @public
+ */
 class OperationVisitor extends BaseOperationVisitor {
   public declare readonly element: OperationElement;
 

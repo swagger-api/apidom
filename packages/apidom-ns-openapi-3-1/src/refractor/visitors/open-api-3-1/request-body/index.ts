@@ -1,21 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   RequestBodyVisitorOptions,
+  RequestBodyVisitor as RequestBodyVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import RequestBodyElement from '../../../../elements/RequestBody.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        RequestBody: { $visitor: BaseRequestBodyVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseRequestBodyVisitor: typeof RequestBodyVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.RequestBody.$visitor;
 
 export type { RequestBodyVisitorOptions };
+
+/**
+ * @public
+ */
 class RequestBodyVisitor extends BaseRequestBodyVisitor {
   public declare readonly element: RequestBodyElement;
 

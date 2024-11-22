@@ -16,11 +16,17 @@ import {
   isJSONReferenceLikeElement,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
+/**
+ * @public
+ */
 export interface ItemsVisitorOptions
   extends SpecificationVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ItemsVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare element: ObjectElement | ArrayElement;
 

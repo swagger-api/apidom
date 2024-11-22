@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-openapi-3-1",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.2",
   "description": "OpenAPI 3.1.x namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -14,11 +14,11 @@
   "unpkg": "./dist/apidom-ns-openapi-3-1.browser.min.js",
   "main": "./src/index.cjs",
   "exports": {
-    "types": "./types/dist.d.ts",
+    "types": "./types/apidom-ns-openapi-3-1.d.ts",
     "import": "./src/index.mjs",
     "require": "./src/index.cjs"
   },
-  "types": "./types/dist.d.ts",
+  "types": "./types/apidom-ns-openapi-3-1.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
@@ -33,7 +33,7 @@
     "perf:visitor-shortcut": "cross-env BABEL_ENV=es babel ./test/perf/visitor-shortcut.ts --out-file ./test/perf/visitor-shortcut.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/visitor-shortcut.mjs",
     "perf:refract": "cross-env BABEL_ENV=es babel ./test/perf/refract.ts --out-file ./test/perf/refract.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/refract.mjs",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && rollup -c config/rollup/types.dist.js",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json 2>&1 | shx grep -v 'Visitor_base'",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
@@ -45,10 +45,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-ast": "^1.0.0-beta.0",
-    "@swagger-api/apidom-core": "^1.0.0-beta.0",
-    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.0",
-    "@swagger-api/apidom-ns-openapi-3-0": "^1.0.0-beta.0",
+    "@swagger-api/apidom-ast": "^1.0.0-beta.2",
+    "@swagger-api/apidom-core": "^1.0.0-beta.2",
+    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.2",
+    "@swagger-api/apidom-ns-openapi-3-0": "^1.0.0-beta.2",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
@@ -58,7 +58,7 @@
     "src/**/*.mjs",
     "src/**/*.cjs",
     "dist/",
-    "types/dist.d.ts",
+    "types/apidom-ns-openapi-3-1.d.ts",
     "LICENSES",
     "NOTICE",
     "README.md",

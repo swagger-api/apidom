@@ -15,6 +15,9 @@ import {
 
 /* eslint-disable class-methods-use-this */
 
+/**
+ * @public
+ */
 class JSONSchema extends JSONSchemaElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

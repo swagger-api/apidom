@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   ExternalDocumentationVisitorOptions,
+  ExternalDocumentationVisitor as ExternalDocumentationVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ExternalDocumentationElement from '../../../../elements/ExternalDocumentation.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        ExternalDocumentation: { $visitor: BaseExternalDocumentationVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseExternalDocumentationVisitor: typeof ExternalDocumentationVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.ExternalDocumentation.$visitor;
 
 export type { ExternalDocumentationVisitorOptions };
 
+/**
+ * @public
+ */
 class ExternalDocumentationVisitor extends BaseExternalDocumentationVisitor {
   public declare readonly element: ExternalDocumentationElement;
 

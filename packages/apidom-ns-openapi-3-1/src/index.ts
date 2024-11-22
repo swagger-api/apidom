@@ -12,19 +12,31 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, OpenAPIMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 export { default as refractorPluginNormalizeParameters } from './refractor/plugins/normalize-parameters.ts';
+export type { PluginOptions as RefractorPluginNormalizeParametersOptions } from './refractor/plugins/normalize-parameters.ts';
 export { default as refractorPluginNormalizeSecurityRequirements } from './refractor/plugins/normalize-security-requirements.ts';
+export type { PluginOptions as RefractorPluginNormalizeSecurityRequirementsOptions } from './refractor/plugins/normalize-security-requirements.ts';
 export { default as refractorPluginNormalizeServers } from './refractor/plugins/normalize-servers.ts';
+export type { PluginOptions as RefractorPluginNormalizeServersOptions } from './refractor/plugins/normalize-servers.ts';
 export { default as refractorPluginNormalizeOperationIds } from './refractor/plugins/normalize-operation-ids.ts';
+export type { PluginOptions as RefractorPluginNormalizeOperationIdsOptions } from './refractor/plugins/normalize-operation-ids.ts';
 export { default as refractorPluginNormalizeParameterExamples } from './refractor/plugins/normalize-parameter-examples.ts';
+export type { PluginOptions as RefractorPluginNormalizeParameterExamplesOptions } from './refractor/plugins/normalize-parameter-examples.ts';
 export { default as refractorPluginNormalizeHeaderExamples } from './refractor/plugins/normalize-header-examples/index.ts';
+export type { PluginOptions as RefractorPluginNormalizeHeaderExamplesOptions } from './refractor/plugins/normalize-header-examples/index.ts';
 export { default as createToolbox } from './refractor/toolbox.ts';
-export type { Predicates as ToolboxPredicates } from './refractor/toolbox.ts';
+export type {
+  Predicates as ToolboxPredicates,
+  openApi3_1Predicates,
+  Toolbox,
+  ancestorLineageToJSONPointer,
+} from './refractor/toolbox.ts';
 export { default as specificationObj } from './refractor/specification.ts';
 
 export { AlternatingVisitor } from '@swagger-api/apidom-ns-openapi-3-0';
@@ -49,6 +61,7 @@ export type { VisitorOptions } from '@swagger-api/apidom-ns-openapi-3-0';
 export type {
   default as CallbackVisitor,
   CallbackVisitorOptions,
+  BaseCallbackVisitor,
 } from './refractor/visitors/open-api-3-1/callback/index.ts';
 export type {
   ComponentsCallbacksVisitor,
@@ -65,6 +78,7 @@ export type {
 export type {
   default as ComponentsVisitor,
   ComponentsVisitorOptions,
+  BaseComponentsVisitor,
 } from './refractor/visitors/open-api-3-1/components/index.ts';
 export type {
   ComponentsLinksVisitor,
@@ -97,10 +111,12 @@ export type {
 export type {
   default as ContactVisitor,
   ContactVisitorOptions,
+  BaseContactVisitor,
 } from './refractor/visitors/open-api-3-1/contact/index.ts';
 export type {
   default as DiscriminatorVisitor,
   DiscriminatorVisitorOptions,
+  BaseDiscriminatorVisitor,
 } from './refractor/visitors/open-api-3-1/distriminator/index.ts';
 export type {
   DiscriminatorMappingVisitor,
@@ -113,6 +129,7 @@ export type {
 export type {
   default as EncodingVisitor,
   EncodingVisitorOptions,
+  BaseEncodingVisitor,
 } from './refractor/visitors/open-api-3-1/encoding/index.ts';
 export type {
   ExampleExternalValueVisitor,
@@ -121,10 +138,12 @@ export type {
 export type {
   default as ExampleVisitor,
   ExampleVisitorOptions,
+  BaseExampleVisitor,
 } from './refractor/visitors/open-api-3-1/example/index.ts';
 export type {
   default as ExternalDocumentationVisitor,
   ExternalDocumentationVisitorOptions,
+  BaseExternalDocumentationVisitor,
 } from './refractor/visitors/open-api-3-1/external-documentation/index.ts';
 export type {
   HeaderContentVisitor,
@@ -137,6 +156,7 @@ export type {
 export type {
   default as HeaderVisitor,
   HeaderVisitorOptions,
+  BaseHeaderVisitor,
 } from './refractor/visitors/open-api-3-1/header/index.ts';
 export type {
   HeaderSchemaVisitor,
@@ -145,6 +165,7 @@ export type {
 export type {
   default as InfoVisitor,
   InfoVisitorOptions,
+  BaseInfoVisitor,
 } from './refractor/visitors/open-api-3-1/info/index.ts';
 export type {
   InfoVersionVisitor,
@@ -153,10 +174,12 @@ export type {
 export type {
   default as LicenseVisitor,
   LicenseVisitorOptions,
+  BaseLicenseVisitor,
 } from './refractor/visitors/open-api-3-1/license/index.ts';
 export type {
   default as LinkVisitor,
   LinkVisitorOptions,
+  BaseLinkVisitor,
 } from './refractor/visitors/open-api-3-1/link/index.ts';
 export type {
   LinkOperationIdVisitor,
@@ -181,6 +204,7 @@ export type {
 export type {
   default as MediaTypeVisitor,
   MediaTypeVisitorOptions,
+  BaseMediaTypeVisitor,
 } from './refractor/visitors/open-api-3-1/media-type/index.ts';
 export type {
   MediaTypeSchemaVisitor,
@@ -189,6 +213,7 @@ export type {
 export type {
   default as OAuthFlowVisitor,
   OAuthFlowVisitorOptions,
+  BaseOAuthFlowVisitor,
 } from './refractor/visitors/open-api-3-1/oauth-flow/index.ts';
 export type {
   OAuthFlowScopesVisitor,
@@ -197,6 +222,7 @@ export type {
 export type {
   default as OAuthFlowsVisitor,
   OAuthFlowsVisitorOptions,
+  BaseOAuthFlowsVisitor,
 } from './refractor/visitors/open-api-3-1/oauth-flows/index.ts';
 export type {
   OperationCallbacksVisitor,
@@ -205,6 +231,7 @@ export type {
 export type {
   default as OperationVisitor,
   OperationVisitorOptions,
+  BaseOperationVisitor,
 } from './refractor/visitors/open-api-3-1/operation/index.ts';
 export type {
   OperationParametersVisitor,
@@ -237,6 +264,7 @@ export type {
 export type {
   default as ParameterVisitor,
   ParameterVisitorOptions,
+  BaseParameterVisitor,
 } from './refractor/visitors/open-api-3-1/parameter/index.ts';
 export type {
   ParameterSchemaVisitor,
@@ -249,6 +277,7 @@ export type {
 export type {
   default as PathItemVisitor,
   PathItemVisitorOptions,
+  BasePathItemVisitor,
 } from './refractor/visitors/open-api-3-1/path-item/index.ts';
 export type {
   PathItemParametersVisitor,
@@ -261,6 +290,7 @@ export type {
 export type {
   default as PathsVisitor,
   PathsVisitorOptions,
+  BasePathsVisitor,
 } from './refractor/visitors/open-api-3-1/paths/index.ts';
 export type {
   Reference$RefVisitor,
@@ -269,6 +299,7 @@ export type {
 export type {
   default as ReferenceVisitor,
   ReferenceVisitorOptions,
+  BaseReferenceVisitor,
 } from './refractor/visitors/open-api-3-1/reference/index.ts';
 export type {
   RequestBodyContentVisitor,
@@ -277,6 +308,7 @@ export type {
 export type {
   default as RequestBodyVisitor,
   RequestBodyVisitorOptions,
+  BaseRequestBodyVisitor,
 } from './refractor/visitors/open-api-3-1/request-body/index.ts';
 export type {
   ResponseContentVisitor,
@@ -289,6 +321,7 @@ export type {
 export type {
   default as ResponseVisitor,
   ResponseVisitorOptions,
+  BaseResponseVisitor,
 } from './refractor/visitors/open-api-3-1/response/index.ts';
 export type {
   ResponseLinksVisitor,
@@ -301,11 +334,13 @@ export type {
 export type {
   default as ResponsesVisitor,
   ResponsesVisitorOptions,
+  BaseResponsesVisitor,
 } from './refractor/visitors/open-api-3-1/responses/index.ts';
 export type {
   default as Schema$defsVisitor,
   $defsVisitorOptions as Schema$defsVisitorOptions,
 } from './refractor/visitors/open-api-3-1/schema/$defsVisitor.ts';
+export type { ParentSchemaAwareVisitorOptions } from './refractor/visitors/open-api-3-1/schema/ParentSchemaAwareVisitor.ts';
 export type {
   default as Schema$refVisitor,
   $refVisitorOptions as Schema$refVisitorOptions,
@@ -369,14 +404,17 @@ export type {
 export type {
   default as SecurityRequirementVisitor,
   SecurityRequirementVisitorOptions,
+  BaseSecurityRequirementVisitor,
 } from './refractor/visitors/open-api-3-1/security-requirement/index.ts';
 export type {
   default as SecuritySchemeVisitor,
   SecuritySchemeVisitorOptions,
+  BaseSecuritySchemeVisitor,
 } from './refractor/visitors/open-api-3-1/security-scheme/index.ts';
 export type {
   default as ServerVisitor,
   ServerVisitorOptions,
+  BaseServerVisitor,
 } from './refractor/visitors/open-api-3-1/server/index.ts';
 export type {
   ServerVariableUrlVisitor,
@@ -389,14 +427,17 @@ export type {
 export type {
   default as ServerVariableVisitor,
   ServerVariableVisitorOptions,
+  BaseServerVariableVisitor,
 } from './refractor/visitors/open-api-3-1/server-variable/index.ts';
 export type {
   default as TagVisitor,
   TagVisitorOptions,
+  BaseTagVisitor,
 } from './refractor/visitors/open-api-3-1/tag/index.ts';
 export type {
   default as XmlVisitor,
   XmlVisitorOptions,
+  BaseXMLVisitor,
 } from './refractor/visitors/open-api-3-1/xml/index.ts';
 export type { ContentVisitor, ContentVisitorOptions } from '@swagger-api/apidom-ns-openapi-3-0';
 export type { ExamplesVisitor, ExamplesVisitorOptions } from '@swagger-api/apidom-ns-openapi-3-0';

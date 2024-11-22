@@ -3,6 +3,9 @@ import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import LicenseElement from './License.ts';
 
+/**
+ * @public
+ */
 class Info extends InfoElement {
   get license(): LicenseElement | undefined {
     return this.get('license');

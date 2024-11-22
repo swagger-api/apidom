@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class SwaggerSchemes extends ArrayElement {
   static primaryClass = 'swagger-schemes';
 

@@ -10,6 +10,9 @@ import {
 import ServerElement from './Server.ts';
 import OperationElement from './Operation.ts';
 
+/**
+ * @public
+ */
 class Link extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

@@ -10,6 +10,7 @@ import FallbackVisitor from './FallbackVisitor.ts';
 /**
  * This is a base Type for every visitor that does
  * internal look-ups to retrieve other child visitors.
+ * @public
  */
 export interface SpecificationVisitorOptions extends VisitorOptions {
   readonly specObj: typeof specification;
@@ -18,6 +19,9 @@ export interface SpecificationVisitorOptions extends VisitorOptions {
   readonly openApiSemanticElement?: OpenApi3_0Element;
 }
 
+/**
+ * @public
+ */
 class SpecificationVisitor extends Visitor {
   protected readonly specObj: typeof specification;
 

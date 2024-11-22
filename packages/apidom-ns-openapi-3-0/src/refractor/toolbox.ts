@@ -12,6 +12,14 @@ import {
 import * as openApi3_0Predicates from '../predicates.ts';
 import openApi3_0Namespace from '../namespace.ts';
 
+/**
+ * @public
+ */
+export type { openApi3_0Predicates };
+
+/**
+ * @public
+ */
 export type Predicates = typeof openApi3_0Predicates & {
   isElement: typeof isElement;
   isStringElement: typeof isStringElement;
@@ -22,6 +30,9 @@ export type Predicates = typeof openApi3_0Predicates & {
   hasElementSourceMap: typeof hasElementSourceMap;
 };
 
+/**
+ * @public
+ */
 const createToolbox = () => {
   const namespace = createNamespace(openApi3_0Namespace);
   const predicates: Predicates = {

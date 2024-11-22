@@ -11,10 +11,16 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isMediaTypeElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface ParameterVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ParameterElement;
 

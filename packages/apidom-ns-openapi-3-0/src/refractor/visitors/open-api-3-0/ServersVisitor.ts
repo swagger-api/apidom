@@ -6,10 +6,16 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../Specificat
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import { isServerLikeElement } from '../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface ServersVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ServersElement;
 

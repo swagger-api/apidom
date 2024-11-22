@@ -4,6 +4,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 
 export type { FallbackVisitorOptions as OperationIdVisitorOptions };
 
+/**
+ * @public
+ */
 class OperationIdVisitor extends FallbackVisitor {
   public declare readonly element: StringElement;
 

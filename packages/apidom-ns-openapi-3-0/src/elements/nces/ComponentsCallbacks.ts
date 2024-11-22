@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class ComponentsCallbacks extends ObjectElement {
   static primaryClass = 'components-callbacks';
 

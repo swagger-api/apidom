@@ -18,10 +18,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement, isResponseElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface ResponsesVisitorOptions
   extends MixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ResponsesVisitor extends Mixin(MixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ResponsesElement;
 

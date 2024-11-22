@@ -3,6 +3,9 @@ import HeaderExamplesElement from '../../../../elements/nces/HeaderExamples.ts';
 
 export type { ExamplesVisitorOptions };
 
+/**
+ * @public
+ */
 class ExamplesVisitor extends BaseExamplesVisitor {
   public declare readonly element: HeaderExamplesElement;
 

@@ -8,10 +8,16 @@ import AlternatingVisitor, {
 } from '../../generics/AlternatingVisitor.ts';
 import { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface RequestBodyVisitorOptions
   extends AlternatingVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class RequestBodyVisitor extends AlternatingVisitor {
   constructor(options: RequestBodyVisitorOptions) {
     super(options);

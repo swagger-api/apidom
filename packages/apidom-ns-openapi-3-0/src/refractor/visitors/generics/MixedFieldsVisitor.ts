@@ -7,11 +7,17 @@ import PatternedFieldsVisitor, { PatternedFieldsVisitorOptions } from './Pattern
 
 export type { SpecPath };
 
+/**
+ * @public
+ */
 export interface MixedFieldsVisitorOptions extends PatternedFieldsVisitorOptions {
   readonly specPathFixedFields: SpecPath;
   readonly specPathPatternedFields: SpecPath;
 }
 
+/**
+ * @public
+ */
 class MixedFieldsVisitor extends Mixin(FixedFieldsVisitor, PatternedFieldsVisitor) {
   protected specPathFixedFields: SpecPath;
 

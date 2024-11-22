@@ -7,10 +7,16 @@ import OperationParametersElement from '../../../../elements/nces/OperationParam
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: OperationParametersElement;
 

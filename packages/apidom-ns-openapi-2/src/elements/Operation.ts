@@ -10,6 +10,9 @@ import {
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ResponsesElement from './Responses.ts';
 
+/**
+ * @public
+ */
 class Operation extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

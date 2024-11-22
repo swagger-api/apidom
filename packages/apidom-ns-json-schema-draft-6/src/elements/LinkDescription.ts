@@ -11,6 +11,7 @@ import JSONSchema from './JSONSchema.ts';
 
 /**
  * URI: https://datatracker.ietf.org/doc/html/draft-wright-json-schema-hyperschema-01#section-6
+ * @public
  */
 
 class LinkDescription extends LinkDescriptionElement {

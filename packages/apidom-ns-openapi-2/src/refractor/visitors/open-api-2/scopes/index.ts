@@ -5,8 +5,14 @@ import ScopesElement from '../../../../elements/Scopes.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ScopesElement;
 

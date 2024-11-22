@@ -1,7 +1,13 @@
 import { Element, ObjectElement, hasElementSourceMap, deepmerge } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 export interface VisitorOptions {}
 
+/**
+ * @public
+ */
 class Visitor {
   public element!: Element;
 

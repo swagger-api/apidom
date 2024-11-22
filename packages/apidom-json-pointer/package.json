@@ -45,9 +45,9 @@
     "ramda-adjunct": "^5.0.0"
   },
   "files": [
-    "cjs/",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
     "dist/",
-    "es/",
     "types/apidom-json-pointer.d.ts",
     "LICENSES",
     "NOTICE",

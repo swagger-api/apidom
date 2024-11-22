@@ -4,6 +4,9 @@ import { JSONReferenceElement } from '@swagger-api/apidom-ns-json-schema-draft-6
 import JSONSchemaElement from './elements/JSONSchema.ts';
 import LinkDescriptionElement from './elements/LinkDescription.ts';
 
+/**
+ * @public
+ */
 const jsonSchemaDraft7 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

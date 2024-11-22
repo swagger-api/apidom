@@ -11,10 +11,16 @@ import {
 
 import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
+/**
+ * @public
+ */
 export interface JSONSchemaVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class JSONSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare element: JSONSchemaElement;
 

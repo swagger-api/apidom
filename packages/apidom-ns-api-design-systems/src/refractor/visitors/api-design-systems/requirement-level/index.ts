@@ -5,10 +5,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import RequirementLevelElement from '../../../../elements/RequirementLevel.ts';
 
+/**
+ * @public
+ */
 export interface RequirementLevelVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class RequirementLevelVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: RequirementLevelElement;
 

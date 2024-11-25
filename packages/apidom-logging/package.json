@@ -42,9 +42,9 @@
     "@swagger-api/apidom-error": "*"
   },
   "files": [
-    "cjs/",
+    "src/**/*.mjs",
+    "src/**/*.cjs",
     "dist/",
-    "es/",
     "types/apidom-logging.d.ts",
     "LICENSES",
     "NOTICE",

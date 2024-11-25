@@ -9,6 +9,9 @@ import {
 import StandardIdentifierElement from './StandardIdentifier.ts';
 import RequirementLevelElement from './RequirementLevel.ts';
 
+/**
+ * @public
+ */
 class Requirement extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

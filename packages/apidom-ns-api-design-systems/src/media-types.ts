@@ -1,8 +1,14 @@
 import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-type Format = 'generic' | 'json' | 'yaml';
+/**
+ * @public
+ */
+export type Format = 'generic' | 'json' | 'yaml';
 
+/**
+ * @public
+ */
 export class ApiDesignSystemsMediaTypes extends MediaTypes<string> {
   filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'apidesignsystems;version' : format;
@@ -24,6 +30,9 @@ export class ApiDesignSystemsMediaTypes extends MediaTypes<string> {
   }
 }
 
+/**
+ * @public
+ */
 const mediaTypes = new ApiDesignSystemsMediaTypes(
   'application/vnd.aai.apidesignsystems;version=2021-05-07',
   'application/vnd.aai.apidesignsystems+json;version=2021-05-07',

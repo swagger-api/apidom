@@ -12,6 +12,9 @@ import ScenarioElement from './elements/Scenario.ts';
 import StandardElement from './elements/Standard.ts';
 import StandardIdentifierElement from './elements/StandardIdentifier.ts';
 
+/**
+ * @public
+ */
 const apiDesignSystems = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

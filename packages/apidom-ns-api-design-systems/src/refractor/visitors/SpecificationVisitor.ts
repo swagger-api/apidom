@@ -9,11 +9,15 @@ import type specification from '../specification.ts';
 /**
  * This is a base class for every visitor that does
  * internal look-ups to retrieve other child visitors.
+ * @public
  */
 export interface SpecificationVisitorOptions extends VisitorOptions {
   readonly specObj: typeof specification;
 }
 
+/**
+ * @public
+ */
 class SpecificationVisitor extends Visitor {
   protected readonly specObj: typeof specification;
 

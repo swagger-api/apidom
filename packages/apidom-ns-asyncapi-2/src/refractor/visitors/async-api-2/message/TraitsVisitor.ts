@@ -6,8 +6,14 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import MessageTraitsElement from '../../../../elements/nces/MessageTraits.ts';
 
+/**
+ * @public
+ */
 export interface TraitsVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class TraitsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: MessageTraitsElement;
 

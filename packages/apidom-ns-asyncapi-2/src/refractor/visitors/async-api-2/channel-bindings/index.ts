@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import ChannelBindingsElement from '../../../../elements/ChannelBindings.ts';
 
+/**
+ * @public
+ */
 export interface ChannelBindingsVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ChannelBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ChannelBindingsElement;
 

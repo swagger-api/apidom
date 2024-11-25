@@ -19,6 +19,9 @@ import MercureMessageBindingElement from './bindings/mercure/MercureMessageBindi
 import IbmmqMessageBindingElement from './bindings/ibmmq/IbmmqMessageBinding.ts';
 import GooglepubsubMessageBindingElement from './bindings/googlepubsub/GooglepubsubMessageBinding.ts';
 
+/**
+ * @public
+ */
 class MessageBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

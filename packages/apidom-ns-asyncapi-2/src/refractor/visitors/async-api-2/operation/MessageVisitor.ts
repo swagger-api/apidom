@@ -7,10 +7,16 @@ import { isReferenceLikeElement } from '../../../predicates.ts';
 import OperationMessageMapElement from '../../../../elements/nces/OperationMessageMap.ts';
 import OperationMessageElement from '../../../../elements/nces/OperationMessage.ts';
 
+/**
+ * @public
+ */
 export interface MessageVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class MessageVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: OperationMessageMapElement;
 

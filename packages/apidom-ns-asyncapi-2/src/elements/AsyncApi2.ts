@@ -10,6 +10,9 @@ import ServersElement from './Servers.ts';
 import TagsElement from './Tags.ts';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 
+/**
+ * @public
+ */
 class AsyncApi2 extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

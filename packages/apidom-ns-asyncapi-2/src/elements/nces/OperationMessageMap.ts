@@ -1,5 +1,8 @@
 import { ObjectElement, ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class OperationMessageMap extends ObjectElement {
   static primaryClass = 'operation-message-map';
 

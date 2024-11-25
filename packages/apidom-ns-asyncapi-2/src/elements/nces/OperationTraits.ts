@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class OperationTraits extends ArrayElement {
   static primaryClass = 'operation-traits';
 

@@ -1,8 +1,14 @@
 import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-type Format = 'generic' | 'json' | 'yaml';
+/**
+ * @public
+ */
+export type Format = 'generic' | 'json' | 'yaml';
 
+/**
+ * @public
+ */
 export class AsyncAPIMediaTypes extends MediaTypes<string> {
   filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'asyncapi;version' : format;
@@ -24,6 +30,9 @@ export class AsyncAPIMediaTypes extends MediaTypes<string> {
   }
 }
 
+/**
+ * @public
+ */
 const mediaTypes = new AsyncAPIMediaTypes(
   'application/vnd.aai.asyncapi;version=2.0.0',
   'application/vnd.aai.asyncapi+json;version=2.0.0',

@@ -8,6 +8,9 @@ import {
 
 import ServerBindingsElement from './ServerBindings.ts';
 
+/**
+ * @public
+ */
 class Server extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

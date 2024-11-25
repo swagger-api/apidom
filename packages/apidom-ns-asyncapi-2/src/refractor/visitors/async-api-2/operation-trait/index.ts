@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 
+/**
+ * @public
+ */
 export interface OperationTraitVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OperationTraitVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: OperationTraitElement;
 

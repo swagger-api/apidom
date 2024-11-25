@@ -13,10 +13,14 @@ import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * Implementation of refracting according `schemaFormat` fixed field is now limited,
- * and currently only supports AsyncAPI Schema Object >= 2.0.0 <=2.6.0.
+ * and currently only supports `AsyncAPI Schema Object >= 2.0.0 <=2.6.0.`
+ * @public
  */
 export interface MessageVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class MessageVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: MessageElement;
 

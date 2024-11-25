@@ -5,10 +5,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import AsyncApiVersionElement from '../../../elements/AsyncApiVersion.ts';
 
+/**
+ * @public
+ */
 export interface AsyncApiVersionVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class AsyncApiVersionVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: AsyncApiVersionElement;
 

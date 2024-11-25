@@ -2,6 +2,9 @@ import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/api
 
 import RequirementLevelElement from './RequirementLevel.ts';
 
+/**
+ * @public
+ */
 class Standard extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

@@ -12,9 +12,12 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, AsyncAPIMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
+
+export type { default as specificationObj } from './refractor/specification.ts';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
@@ -43,9 +46,13 @@ export {
 } from './predicates.ts';
 
 export { isReferenceLikeElement, isAsyncApiExtension } from './refractor/predicates.ts';
+export type { ReferenceLikeElement } from './refractor/predicates.ts';
 
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type {
+  AlternatingVisitorOptions,
+  Alternator,
+} from './refractor/visitors/generics/AlternatingVisitor.ts';
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
@@ -602,38 +609,47 @@ export type {
 export type {
   default as SchemaAllOfVisitor,
   AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+  JSONSchemaAllOfVisitor,
 } from './refractor/visitors/async-api-2/schema/AllOfVisitor.ts';
 export type {
   default as SchemaAnyOfVisitor,
   AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
+  JSONSchemaAnyOfVisitor,
 } from './refractor/visitors/async-api-2/schema/AnyOfVisitor.ts';
 export type {
   default as SchemaDefinitionsVisitor,
   DefinitionsVisitorOptions as SchemaDefinitionsVisitorOptions,
+  JSONSchemaDefinitionsVisitor,
 } from './refractor/visitors/async-api-2/schema/DefinitionsVisitor.ts';
 export type {
   default as SchemaDependenciesVisitor,
   DependenciesVisitorOptions as SchemaDependenciesVisitorOptions,
+  JSONSchemaDependenciesVisitor,
 } from './refractor/visitors/async-api-2/schema/DependenciesVisitor.ts';
 export type {
   default as SchemaItemsVisitor,
   ItemsVisitorOptions as SchemaItemsVisitorOptions,
+  JSONSchemaItemsVisitor,
 } from './refractor/visitors/async-api-2/schema/ItemsVisitor.ts';
 export type {
   default as SchemaOneOfVisitor,
   OneOfVisitorOptions as SchemaOneOfVisitorOptions,
+  JSONSchemaOneOfVisitor,
 } from './refractor/visitors/async-api-2/schema/OneOfVisitor.ts';
 export type {
   default as SchemaPatternPropertiesVisitor,
   PatternPropertiesVisitorOptions as SchemaPatternPropertiesVisitorOptions,
+  JSONSchemaPatternPropertiesVisitor,
 } from './refractor/visitors/async-api-2/schema/PatternPropertiesVisitor.ts';
 export type {
   default as SchemaPropertiesVisitor,
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+  JSONSchemaPropertiesVisitor,
 } from './refractor/visitors/async-api-2/schema/PropertiesVisitor.ts';
 export type {
   default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,
+  JSONSchemaOrJSONReferenceVisitor,
 } from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor.ts';
 export type {
   default as SecurityRequirementVisitor,
@@ -842,3 +858,30 @@ export {
   WebSocketOperationBindingElement,
   WebSocketServerBindingElement,
 } from './refractor/registration.ts';
+
+export type { default as ChannelItemsServersElement } from './elements/nces/ChannelItemsServers.ts';
+export type { default as ComponentsChannelBindingsElement } from './elements/nces/ComponentsChannelBindings.ts';
+export type { default as ComponentsChannelsElement } from './elements/nces/ComponentsChannels.ts';
+export type { default as ComponentsCorrelationIDsElement } from './elements/nces/ComponentsCorrelationIDs.ts';
+export type { default as ComponentsMessageBindingsElement } from './elements/nces/ComponentsMessageBindings.ts';
+export type { default as ComponentsMessagesElement } from './elements/nces/ComponentsMessages.ts';
+export type { default as ComponentsMessageTraitsElement } from './elements/nces/ComponentsMessageTraits.ts';
+export type { default as ComponentsOperationBindingsElement } from './elements/nces/ComponentsOperationBindings.ts';
+export type { default as ComponentsOperationTraitsElement } from './elements/nces/ComponentsOperationTraits.ts';
+export type { default as ComponentsParametersElement } from './elements/nces/ComponentsParameters.ts';
+export type { default as ComponentsSchemasElement } from './elements/nces/ComponentsSchemas.ts';
+export type { default as ComponentsSecuritySchemesElement } from './elements/nces/ComponentsSecuritySchemes.ts';
+export type { default as ComponentsServerBindingsElement } from './elements/nces/ComponentsServerBindings.ts';
+export type { default as ComponentsServersElement } from './elements/nces/ComponentsServers.ts';
+export type { default as ComponentsServerVariablesElement } from './elements/nces/ComponentsServerVariables.ts';
+export type { default as MessageExamplesElement } from './elements/nces/MessageExamples.ts';
+export type { default as MessageTraitExamplesElement } from './elements/nces/MessageTraitExamples.ts';
+export type { default as MessageTraitsElement } from './elements/nces/MessageTraits.ts';
+export type { default as OAuthFlowScopesElement } from './elements/nces/OAuthFlowScopes.ts';
+export type { default as OperationMessageElement } from './elements/nces/OperationMessage.ts';
+export type { default as OperationMessageMapElement } from './elements/nces/OperationMessageMap.ts';
+export type { default as OperationSecurityElement } from './elements/nces/OperationSecurity.ts';
+export type { default as OperationTraitsElement } from './elements/nces/OperationTraits.ts';
+export type { default as OperationTraitSecurityElement } from './elements/nces/OperationTraitSecurity.ts';
+export type { default as ServerSecurityElement } from './elements/nces/ServerSecurity.ts';
+export type { default as ServerVariablesElement } from './elements/nces/ServerVariables.ts';

@@ -13,6 +13,9 @@ import TagsElement from './Tags.ts';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import MessageBindingsElement from './MessageBindings.ts';
 
+/**
+ * @public
+ */
 class Message extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

@@ -19,6 +19,9 @@ import MercureServerBindingElement from './bindings/mercure/MercureServerBinding
 import IbmmqServerBindingElement from './bindings/ibmmq/IbmmqServerBinding.ts';
 import GooglepubsubServerBindingElement from './bindings/googlepubsub/GooglepubsubServerBinding.ts';
 
+/**
+ * @public
+ */
 class ServerBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

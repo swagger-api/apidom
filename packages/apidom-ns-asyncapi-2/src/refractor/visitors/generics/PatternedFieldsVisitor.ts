@@ -14,6 +14,9 @@ import { isAsyncApiExtension } from '../../predicates.ts';
 
 export type { SpecPath };
 
+/**
+ * @public
+ */
 export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptions {
   readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
@@ -22,6 +25,9 @@ export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptio
   readonly specificationExtensionPredicate?: typeof isAsyncApiExtension;
 }
 
+/**
+ * @public
+ */
 class PatternedFieldsVisitor extends SpecificationVisitor {
   protected specPath: SpecPath;
 

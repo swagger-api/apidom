@@ -13,6 +13,9 @@ import ReferenceElement from './Reference.ts';
 import SchemaElement from './Schema.ts';
 import TagsElement from './Tags.ts';
 
+/**
+ * @public
+ */
 class MessageTrait extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

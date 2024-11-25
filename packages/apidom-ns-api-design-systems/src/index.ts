@@ -12,9 +12,12 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, ApiDesignSystemsMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
+
+export type { default as specificationObj } from './refractor/specification.ts';
 
 export { default as refractPluginOpenApi3_1StandardIdentifierSelectors } from './refractor/plugins/openapi-3-1/standard-identifier-selectors.ts';
 export { default as refractPluginOpenApi3_1StandardIdentifierAccessors } from './refractor/plugins/openapi-3-1/standard-identifier-accessors.ts';

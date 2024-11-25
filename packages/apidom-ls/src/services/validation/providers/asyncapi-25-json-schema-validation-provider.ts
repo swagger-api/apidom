@@ -2,7 +2,55 @@ import asyncapiSchemaJson from '../json-schema/async-api-25/asyncapi-schema.json
 import { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
 import { NamespaceVersion } from '../../../apidom-language-types.ts';
 
-// eslint-disable-next-line import/prefer-default-export
+export type { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
+
+export type {
+  LanguageSettings,
+  MergeStrategy,
+  NamespaceVersion,
+  ValidationContext,
+  ValidationProvider,
+  ValidationProviderResult,
+  QuickFixData,
+  ProviderMode,
+  CompletionProvider,
+  HoverProvider,
+  LinksProvider,
+  Metadata,
+  DocumentCache,
+  LogLevel,
+  ContentLanguage,
+  CompletionContext,
+  DerefContext,
+  SymbolsContext,
+  ColorsContext,
+  LinksContext,
+  ReferenceValidationMode,
+  CompletionProviderResult,
+  HoverProviderResult,
+  LinksProviderResult,
+  Format,
+  LinksModifierFunction,
+  FormatMeta,
+  MetadataMaps,
+  LinterFunctionsMap,
+  DocumentationMeta,
+  LinterMeta,
+  ApidomCompletionItem,
+  MetadataMap,
+  LinterFunctions,
+  CompletionType,
+  CompletionFormat,
+  LinterCondition,
+  LinterMetaData,
+  LinterGivenFormat,
+  LinterFunction,
+  LinterConditionTarget,
+} from '../../../apidom-language-types.ts';
+
+/**
+ * @public
+ */
 export class Asyncapi25JsonSchemaValidationProvider extends JsonSchemaValidationProvider {
   public constructor() {
     super(false, asyncapiSchemaJson);

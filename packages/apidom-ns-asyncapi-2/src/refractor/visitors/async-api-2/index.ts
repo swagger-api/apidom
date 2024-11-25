@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import AsyncApi2Element from '../../../elements/AsyncApi2.ts';
 
+/**
+ * @public
+ */
 export interface AsyncApi2VisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class AsyncApi2Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: AsyncApi2Element;
 

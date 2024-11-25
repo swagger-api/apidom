@@ -5,10 +5,16 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../../Specifi
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import MessageExamplesElement from '../../../../elements/nces/MessageExamples.ts';
 
+/**
+ * @public
+ */
 export interface ExamplesVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ExamplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: MessageExamplesElement;
 

@@ -19,6 +19,9 @@ import MercureOperationBindingElement from './bindings/mercure/MercureOperationB
 import IbmmqOperationBindingElement from './bindings/ibmmq/IbmmqOperationBinding.ts';
 import GooglepubsubOperationBindingElement from './bindings/googlepubsub/GooglepubsubOperationBinding.ts';
 
+/**
+ * @public
+ */
 class OperationBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

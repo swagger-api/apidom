@@ -9,8 +9,14 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface HeadersVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class HeadersVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
   constructor(options: HeadersVisitorOptions) {
     super(options);

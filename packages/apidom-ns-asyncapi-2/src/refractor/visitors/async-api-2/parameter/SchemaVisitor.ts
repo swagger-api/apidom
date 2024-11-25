@@ -9,8 +9,14 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface SchemaVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SchemaVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
   constructor(options: SchemaVisitorOptions) {
     super(options);

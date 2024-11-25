@@ -37,6 +37,7 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
  * 6. When path is used in an element that includes the data of the pointer (such as with ref), the referenced path MAY need to be converted to a refract structure in order to be valid
  *
  * WARNING: this implementation only supports referencing elements in the local document. Points 2-4 are not supported.
+ * @public
  */
 
 export interface ApiDOMDereferenceVisitorOptions {
@@ -44,6 +45,9 @@ export interface ApiDOMDereferenceVisitorOptions {
   readonly options: ReferenceOptions;
 }
 
+/**
+ * @public
+ */
 class ApiDOMDereferenceVisitor {
   protected readonly reference: Reference;
 

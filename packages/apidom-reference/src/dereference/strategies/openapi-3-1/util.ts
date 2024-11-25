@@ -4,6 +4,9 @@ import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as url from '../../../util/url.ts';
 
+/**
+ * @public
+ */
 export const resolveSchema$refField = (retrievalURI: string, schemaElement: SchemaElement) => {
   if (typeof schemaElement.$ref === 'undefined') {
     return undefined;
@@ -22,6 +25,9 @@ export const resolveSchema$refField = (retrievalURI: string, schemaElement: Sche
   return `${$refBaseURI}${hash === '#' ? '' : hash}`;
 };
 
+/**
+ * @public
+ */
 export const resolveSchema$idField = (retrievalURI: string, schemaElement: SchemaElement) => {
   if (typeof schemaElement.$id === 'undefined') {
     return undefined;
@@ -52,6 +58,9 @@ export const refractToSchemaElement = <T extends Element>(element: T) => {
 };
 refractToSchemaElement.cache = new WeakMap();
 
+/**
+ * @public
+ */
 export const maybeRefractToSchemaElement = <T extends Element>(element: T) => {
   /**
    * Conditional version of refractToSchemaElement, that acts as an identity

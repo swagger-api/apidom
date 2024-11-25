@@ -10,9 +10,18 @@ import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
 import File from '../../../File.ts';
 
+export type { default as Parser, ParserOptions } from '../Parser.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface OpenAPIYAML3_1ParserOptions extends Omit<ParserOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class OpenAPIYAML3_1Parser extends Parser {
   public refractorOpts!: object;
 

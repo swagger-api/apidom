@@ -28,12 +28,18 @@ import {
 } from 'vscode-languageserver-protocol';
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 export interface DocumentCache<T> {
   get(document: TextDocument, text?: string, caller?: string): Promise<T | undefined>;
   onDocumentRemoved(document: TextDocument): void;
   dispose(): void;
 }
 
+/**
+ * @public
+ */
 export enum LogLevel {
   TRACE = 1,
   DEBUG,
@@ -43,11 +49,17 @@ export enum LogLevel {
   NONE,
 }
 
+/**
+ * @public
+ */
 export enum SupportedLanguages {
   OPENAPI_31,
   ASYNCAPI_20,
 }
 
+/**
+ * @public
+ */
 export enum Format {
   JSON,
   YAML,
@@ -59,6 +71,9 @@ export type Pointer = {
   isRef: boolean;
 };
 
+/**
+ * @public
+ */
 export enum MergeStrategy {
   REPLACE,
   PREPEND,
@@ -66,6 +81,9 @@ export enum MergeStrategy {
   IGNORE,
 }
 
+/**
+ * @public
+ */
 export enum ProviderMode {
   FULL,
   REF,
@@ -73,6 +91,9 @@ export enum ProviderMode {
 
 export const APIDOM_LINTER = 'apilint';
 
+/**
+ * @public
+ */
 export interface LanguageServiceContext {
   clientCapabilities?: ClientCapabilities;
   workspaceContext?: WorkspaceContextService;
@@ -95,11 +116,17 @@ export interface LanguageServiceContext {
   linksContext?: LinksContext;
 }
 
+/**
+ * @public
+ */
 export interface NamespaceVersion {
   namespace: string;
   version: string;
 }
 
+/**
+ * @public
+ */
 export interface ContentLanguage {
   mediaType: string;
   namespace: string;
@@ -108,28 +135,43 @@ export interface ContentLanguage {
   admitsRefsSiblings?: boolean;
 }
 
+/**
+ * @public
+ */
 export interface ValidationProviderResult {
   diagnostics: Diagnostic[];
   mergeStrategy: MergeStrategy;
   quickFixes?: Record<string, QuickFixData[]>;
 }
 
+/**
+ * @public
+ */
 export interface CompletionProviderResult {
   completionList: CompletionList;
   mergeStrategy: MergeStrategy;
 }
 
+/**
+ * @public
+ */
 export interface HoverProviderResult {
   hoverContent: string[];
   mergeStrategy: MergeStrategy;
 }
 
+/**
+ * @public
+ */
 export interface LinksProviderResult {
   links: DocumentLink[];
   mergeStrategy: MergeStrategy;
 }
 
-/* represent any validation provider  */
+/**
+ * Represents any validation provider.
+ * @public
+ */
 export interface ValidationProvider {
   namespaces(): NamespaceVersion[];
 
@@ -159,7 +201,10 @@ export interface ValidationProvider {
   name(): string;
 }
 
-/* represent any completion provider  */
+/**
+ * Represents any completion provider.
+ * @public
+ */
 export interface CompletionProvider {
   namespaces(): NamespaceVersion[];
 
@@ -192,7 +237,10 @@ export interface CompletionProvider {
   name(): string;
 }
 
-/* represent any hover provider  */
+/**
+ * Represents any hover provider.
+ * @public
+ */
 export interface HoverProvider {
   namespaces(): NamespaceVersion[];
 
@@ -222,7 +270,10 @@ export interface HoverProvider {
   name(): string;
 }
 
-/* represent any Links provider  */
+/**
+ * Represents any Links provider.
+ * @public
+ */
 export interface LinksProvider {
   namespaces(): NamespaceVersion[];
 
@@ -248,6 +299,10 @@ export interface LinksProvider {
 
   name(): string;
 }
+
+/**
+ * @public
+ */
 export interface LanguageSettings {
   validate?: boolean;
   allowComments?: boolean;
@@ -272,12 +327,18 @@ export interface LanguageSettings {
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
 
+/**
+ * @public
+ */
 export enum ReferenceValidationMode {
   LEGACY,
   APIDOM_INDIRECT,
   APIDOM_INDIRECT_EXTERNAL,
 }
 
+/**
+ * @public
+ */
 export interface ValidationContext {
   comments?: DiagnosticSeverity;
   relatedInformation?: boolean;
@@ -287,45 +348,72 @@ export interface ValidationContext {
   referenceValidationSequentialProcessing?: boolean;
 }
 
+/**
+ * @public
+ */
 export interface CompletionContext {
   maxNumberOfItems?: number;
   enableLSPFilter?: boolean;
   includeIndirectRefs?: boolean;
 }
 
+/**
+ * @public
+ */
 export interface DerefContext {
   format?: Format;
   baseURI?: string;
 }
 
+/**
+ * @public
+ */
 export interface SymbolsContext {
   resultLimit?: number;
   onResultLimitExceeded?: (uri: string) => void;
 }
 
+/**
+ * @public
+ */
 export interface ColorsContext {
   resultLimit?: number;
   onResultLimitExceeded?: (uri: string) => void;
 }
 
+/**
+ * @public
+ */
 export type LinksModifierFunction = ((value: string) => string) | undefined;
 
+/**
+ * @public
+ */
 export interface LinksContext {
   maxNumberOfLinks?: number;
   enableTrivialLinkDiscovery?: boolean;
   modifierFunction?: LinksModifierFunction;
 }
 
+/**
+ * @public
+ */
 export interface WorkspaceContextService {
   resolveRelativePath(relativePath: string, resource: string): string;
 }
 
+/**
+ * @public
+ */
 export enum CompletionType {
   PROPERTY,
   VALUE,
   UNDEFINED,
 }
 
+/**
+ * @public
+ */
 export enum CompletionFormat {
   UNQUOTED,
   QUOTED,
@@ -338,6 +426,9 @@ export enum CompletionFormat {
   PARTIAL_KEY_QUOTED,
 }
 
+/**
+ * @public
+ */
 export interface ApidomCompletionItem extends CompletionItem {
   targetSpecs?: NamespaceVersion[];
   target?: string;
@@ -351,6 +442,9 @@ export interface ApidomCompletionItem extends CompletionItem {
   functionParams?: [unknown] | undefined | unknown;
 }
 
+/**
+ * @public
+ */
 export interface DocumentationMeta {
   target?: string;
   docs: string;
@@ -359,6 +453,9 @@ export interface DocumentationMeta {
   conditions?: LinterCondition[];
 }
 
+/**
+ * @public
+ */
 export interface QuickFixData {
   message: string;
   function?: string;
@@ -369,24 +466,36 @@ export interface QuickFixData {
   snippetJson?: string;
   target?: string;
 }
+
+/**
+ * @public
+ */
 export interface LinterMetaData {
   quickFix?: QuickFixData[];
 }
 
+/**
+ * @public
+ */
 export enum LinterGivenFormat {
   SEMANTIC = 'SEMANTIC',
   JSONPATH = 'JSONPATH',
 }
 
+/**
+ * @public
+ */
 export interface LinterMeta {
   code?: number;
   message?: string;
   source?: string;
   /**
+   * ```
    * 1 => Error; Something not allowed by the rules of a language or other means.
    * 2 => Warning; Something suspicious but allowed.
    * 3 => Information; Something to inform about but not a problem.
    * 4 => Hint; Something not allowed by the rules of a language or other means.
+   * ```
    */
   severity?: DiagnosticSeverity | undefined;
   linterFunction?: string;
@@ -407,6 +516,9 @@ export interface LinterMeta {
   givenFormat?: LinterGivenFormat;
 }
 
+/**
+ * @public
+ */
 export interface LinterCondition {
   targets?: LinterConditionTarget[];
   function: string;
@@ -414,25 +526,40 @@ export interface LinterCondition {
   params?: [unknown] | undefined | unknown;
 }
 
+/**
+ * @public
+ */
 export interface LinterConditionTarget {
   path?: string;
   clazz?: string;
 }
 
+/**
+ * @public
+ */
 export interface FormatMeta {
   documentation?: DocumentationMeta[];
   lint?: LinterMeta[];
   completion?: ApidomCompletionItem[];
 }
 
+/**
+ * @public
+ */
 export interface MetadataMap {
   [index: string]: FormatMeta;
 }
 
+/**
+ * @public
+ */
 export interface MetadataMaps {
   [index: string]: MetadataMap;
 }
 
+/**
+ * @public
+ */
 export interface Metadata {
   rules?: Record<string, FormatMeta>;
   metadataMaps: MetadataMaps;
@@ -441,10 +568,16 @@ export interface Metadata {
   tokens: string[];
 }
 
+/**
+ * @public
+ */
 export interface LinterFunctionsMap {
   [index: string]: LinterFunctions;
 }
 
+/**
+ * @public
+ */
 export type LinterFunction = ((...args: any[]) => boolean) | undefined;
 export type CompletionFunction = ((...args: any[]) => CompletionItem[]) | undefined;
 export type ConditionFunction = ((...args: any[]) => boolean) | undefined;
@@ -454,10 +587,16 @@ export interface FunctionItem {
   function: LinterFunction | CompletionFunction | ConditionFunction;
 }
 
+/**
+ * @public
+ */
 export interface LinterFunctions {
   [index: string]: LinterFunction;
 }
 
+/**
+ * @public
+ */
 export interface LanguageService {
   configure(settings?: LanguageSettings): void;
   doValidation(document: TextDocument, context?: ValidationContext): Promise<Diagnostic[]>;

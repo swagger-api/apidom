@@ -5,6 +5,9 @@ import { Metadata } from '../apidom-language-types.ts';
 import symbols from './symbols.ts';
 import tokens from './tokens.ts';
 
+/**
+ * @public
+ */
 // eslint-disable-next-line import/prefer-default-export
 export function config(): Metadata {
   return {

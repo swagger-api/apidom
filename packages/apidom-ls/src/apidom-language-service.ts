@@ -31,6 +31,9 @@ import { config } from './config/config.ts';
 import { togglePerformanceLogs, toggleLogs, getSourceMap, debug } from './utils/utils.ts';
 import { DefaultLinksService } from './services/links/links-service.ts';
 
+/**
+ * @public
+ */
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export default function getLanguageService(context: LanguageServiceContext): LanguageService {
   togglePerformanceLogs(!!context.performanceLogs);

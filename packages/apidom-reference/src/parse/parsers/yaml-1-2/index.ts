@@ -9,8 +9,17 @@ import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
 import File from '../../../File.ts';
 
+export type { default as Parser, ParserOptions } from '../Parser.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 export interface YAMLParserOptions extends Omit<ParserOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class WorkflowsYAML1Parser extends Parser {
   public refractorOpts!: object;
 

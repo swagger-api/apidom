@@ -10,6 +10,7 @@ import { resolveSchema$idField } from '../util.ts';
 
 /**
  * Evaluates JSON Schema $ref containing unknown URI against ApiDOM fragment.
+ * @public
  */
 export const evaluate = <T extends Element>(uri: string, element: T): Element | undefined => {
   const { cache } = evaluate;

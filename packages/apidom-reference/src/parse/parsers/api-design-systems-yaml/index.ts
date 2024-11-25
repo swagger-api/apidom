@@ -10,8 +10,17 @@ import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
 import File from '../../../File.ts';
 
+export type { default as Parser, ParserOptions } from '../Parser.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 export interface APIDesignSystemsYAMLParserOptions extends Omit<ParserOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class APIDesignSystemsYAMLParser extends Parser {
   public refractorOpts!: object;
 

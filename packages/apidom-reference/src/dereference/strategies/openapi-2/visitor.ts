@@ -44,8 +44,11 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 // initialize element identity manager
 const identityManager = new IdentityManager();
 
-// custom mutation replacer
-const mutationReplacer = (
+/**
+ * Custom mutation replacer.
+ * @public
+ */
+export const mutationReplacer = (
   newElement: Element,
   oldElement: Element,
   key: string | number,
@@ -58,6 +61,9 @@ const mutationReplacer = (
   }
 };
 
+/**
+ * @public
+ */
 export interface OpenAPI2DereferenceVisitorOptions {
   readonly namespace: Namespace;
   readonly reference: Reference;
@@ -67,6 +73,9 @@ export interface OpenAPI2DereferenceVisitorOptions {
   readonly refractCache?: Map<string, Element>;
 }
 
+/**
+ * @public
+ */
 class OpenAPI2DereferenceVisitor {
   protected readonly indirections: Element[];
 

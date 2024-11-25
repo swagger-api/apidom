@@ -7,10 +7,19 @@ import Resolver, { ResolverOptions } from '../Resolver.ts';
 import * as url from '../../../util/url.ts';
 import ResolverError from '../../../errors/ResolverError.ts';
 
+export type { default as Resolver, ResolverOptions } from '../Resolver.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 export interface FileResolverOptions extends Omit<ResolverOptions, 'name'> {
   readonly fileAllowList?: string[] | RegExp[];
 }
 
+/**
+ * @public
+ */
 class FileResolver extends Resolver {
   public fileAllowList: string[] | RegExp[];
 

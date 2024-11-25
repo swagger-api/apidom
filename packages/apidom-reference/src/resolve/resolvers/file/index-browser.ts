@@ -1,6 +1,12 @@
 import Resolver from '../Resolver.ts';
 import ResolverError from '../../../errors/ResolverError.ts';
 
+export type { default as Resolver, ResolverOptions } from '../Resolver.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 class FileResolver extends Resolver {
   constructor() {
     super({ name: 'file' });

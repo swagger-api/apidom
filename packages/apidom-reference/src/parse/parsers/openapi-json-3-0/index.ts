@@ -10,9 +10,18 @@ import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
 import File from '../../../File.ts';
 
+export type { default as Parser, ParserOptions } from '../Parser.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
 /* eslint-disable @typescript-eslint/naming-convention */
 export interface OpenAPIJSON3_0ParserOptions extends Omit<ParserOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class OpenAPIJSON3_0Parser extends Parser {
   public syntacticAnalysis?: 'direct' | 'indirect';
 

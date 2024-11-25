@@ -6,7 +6,9 @@ import { getHash } from '../../../../util/url.ts';
 import EvaluationJsonSchema$anchorError from '../../../../errors/EvaluationJsonSchema$anchorError.ts';
 import InvalidJsonSchema$anchorError from '../../../../errors/InvalidJsonSchema$anchorError.ts';
 
-// isAnchor :: String -> Boolean
+/**
+ * @public
+ */
 export const isAnchor = (uri: string) => {
   /**
    *  MUST start with a letter ([A-Za-z]) or underscore ("_"), followed by any number of letters,
@@ -17,13 +19,17 @@ export const isAnchor = (uri: string) => {
   return /^[A-Za-z_][A-Za-z_0-9.-]*$/.test(uri);
 };
 
-// uriToAnchor :: String -> String
+/**
+ * @public
+ */
 export const uriToAnchor = (uri: string): string => {
   const hash = getHash(uri);
   return trimCharsStart('#', hash);
 };
 
-// parse :: String -> String
+/**
+ * @public
+ */
 export const parse = (anchor: string): string => {
   if (!isAnchor(anchor)) {
     throw new InvalidJsonSchema$anchorError(anchor);
@@ -32,7 +38,10 @@ export const parse = (anchor: string): string => {
   return anchor;
 };
 
-// evaluates JSON Schema $anchor against ApiDOM fragment
+/**
+ * Evaluates JSON Schema $anchor against ApiDOM fragment.
+ * @public
+ */
 export const evaluate = <T extends Element>(anchor: string, element: T): Element | undefined => {
   const token = parse(anchor);
 

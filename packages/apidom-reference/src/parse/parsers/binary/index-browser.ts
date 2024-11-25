@@ -4,13 +4,20 @@ import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
 import File from '../../../File.ts';
 
+export type { default as Parser, ParserOptions } from '../Parser.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
 /**
  * Everything that is not recognized by other parsers will be considered by this parser
  * as a binary data and will be encoded to Base64 format.
+ * @public
  */
 
 export interface BinaryParserOptions extends Omit<ParserOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class BinaryParser extends Parser {
   constructor(options?: BinaryParserOptions) {
     super({ ...(options ?? {}), name: 'binary' });

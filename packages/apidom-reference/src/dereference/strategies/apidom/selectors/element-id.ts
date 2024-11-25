@@ -7,6 +7,7 @@ const hasElementID = (element: Element): boolean => !!element.id;
 
 /**
  * Evaluates element ID against ApiDOM fragment.
+ * @public
  */
 export const evaluate = <T extends Element>(elementID: string, element: T): Element | undefined => {
   const { cache } = evaluate;

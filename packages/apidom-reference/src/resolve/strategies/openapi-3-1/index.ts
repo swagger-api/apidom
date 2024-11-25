@@ -5,8 +5,36 @@ import { merge as mergeOptions } from '../../../options/util.ts';
 import UnmatchedDereferenceStrategyError from '../../../errors/UnmatchedDereferenceStrategyError.ts';
 import type { ReferenceOptions } from '../../../options/index.ts';
 
+export type { default as ResolveStrategy, ResolveStrategyOptions } from '../ResolveStrategy.ts';
+export type { default as ReferenceSet, ReferenceSetOptions } from '../../../ReferenceSet.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+export type {
+  ReferenceOptions as ApiDOMReferenceOptions,
+  ReferenceBundleOptions as ApiDOMReferenceBundleOptions,
+  ReferenceDereferenceOptions as ApiDOMReferenceDereferenceOptions,
+  ReferenceParseOptions as ApiDOMReferenceParseOptions,
+  ReferenceResolveOptions as ApiDOMReferenceResolveOptions,
+} from '../../../options/index.ts';
+export type { default as Parser, ParserOptions } from '../../../parse/parsers/Parser.ts';
+export type { default as Resolver, ResolverOptions } from '../../resolvers/Resolver.ts';
+export type {
+  default as DereferenceStrategy,
+  DereferenceStrategyOptions,
+} from '../../../dereference/strategies/DereferenceStrategy.ts';
+export type {
+  default as BundleStrategy,
+  BundleStrategyOptions,
+} from '../../../bundle/strategies/BundleStrategy.ts';
+export type { default as Reference, ReferenceOptions } from '../../../Reference.ts';
+
+/**
+ * @public
+ */
 export interface OpenAPI3_1ResolveStrategyOptions extends Omit<ResolveStrategyOptions, 'name'> {}
 
+/**
+ * @public
+ */
 class OpenAPI3_1ResolveStrategy extends ResolveStrategy {
   constructor(options?: OpenAPI3_1ResolveStrategyOptions) {
     super({ ...(options ?? {}), name: 'openapi-3-1' });

@@ -6,14 +6,27 @@ import HTTPResolver, { HTTPResolverOptions } from '../HTTPResolver.ts';
 import File from '../../../File.ts';
 import ResolverError from '../../../errors/ResolverError.ts';
 
-interface HTTPResolverAxiosConfig extends CreateAxiosDefaults {
+export type { default as HTTPResolver, HTTPResolverOptions } from '../HTTPResolver.ts';
+export type { default as Resolver, ResolverOptions } from '../Resolver.ts';
+export type { default as File, FileOptions } from '../../../File.ts';
+
+/**
+ * @public
+ */
+export interface HTTPResolverAxiosConfig extends CreateAxiosDefaults {
   interceptors?: Axios['interceptors'];
 }
 
+/**
+ * @public
+ */
 export interface HTTPResolverAxiosOptions extends Omit<HTTPResolverOptions, 'name'> {
   readonly axiosConfig?: HTTPResolverAxiosConfig;
 }
 
+/**
+ * @public
+ */
 class HTTPResolverAxios extends HTTPResolver {
   public axiosConfig: HTTPResolverAxiosConfig = {};
 

@@ -17,7 +17,53 @@ import {
 import * as AjvUtils from './ajv-utils.ts';
 import { isJsonDoc } from '../../../utils/utils.ts';
 
-// eslint-disable-next-line import/prefer-default-export
+export type {
+  LanguageSettings,
+  MergeStrategy,
+  NamespaceVersion,
+  ValidationContext,
+  ValidationProvider,
+  ValidationProviderResult,
+  QuickFixData,
+  ProviderMode,
+  CompletionProvider,
+  HoverProvider,
+  LinksProvider,
+  Metadata,
+  DocumentCache,
+  LogLevel,
+  ContentLanguage,
+  CompletionContext,
+  DerefContext,
+  SymbolsContext,
+  ColorsContext,
+  LinksContext,
+  ReferenceValidationMode,
+  CompletionProviderResult,
+  HoverProviderResult,
+  LinksProviderResult,
+  Format,
+  LinksModifierFunction,
+  FormatMeta,
+  MetadataMaps,
+  LinterFunctionsMap,
+  DocumentationMeta,
+  LinterMeta,
+  ApidomCompletionItem,
+  MetadataMap,
+  LinterFunctions,
+  CompletionType,
+  CompletionFormat,
+  LinterCondition,
+  LinterMetaData,
+  LinterGivenFormat,
+  LinterFunction,
+  LinterConditionTarget,
+} from '../../../apidom-language-types.ts';
+
+/**
+ * @public
+ */
 export abstract class JsonSchemaValidationProvider implements ValidationProvider {
   private validationEnabled: boolean | undefined;
 

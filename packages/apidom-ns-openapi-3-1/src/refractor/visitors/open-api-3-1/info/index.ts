@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   InfoVisitorOptions,
+  InfoVisitor as InfoVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import InfoElement from '../../../../elements/Info.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Info: { $visitor: BaseInfoVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseInfoVisitor: typeof InfoVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Info.$visitor;
 
 export type { InfoVisitorOptions };
 
+/**
+ * @public
+ */
 class InfoVisitor extends BaseInfoVisitor {
   public declare readonly element: InfoElement;
 

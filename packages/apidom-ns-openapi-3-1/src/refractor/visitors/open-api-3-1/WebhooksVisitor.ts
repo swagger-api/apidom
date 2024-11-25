@@ -14,8 +14,14 @@ import PathItemElement from '../../../elements/PathItem.ts';
 import WebhooksElement from '../../../elements/nces/Webhooks.ts';
 import { isPathItemElement, isReferenceElement } from '../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface WebhooksVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class WebhooksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: WebhooksElement;
 

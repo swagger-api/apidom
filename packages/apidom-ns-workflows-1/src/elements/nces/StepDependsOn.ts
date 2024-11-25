@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class StepDependsOn extends ArrayElement {
   static primaryClass = 'step-depends-on';
 

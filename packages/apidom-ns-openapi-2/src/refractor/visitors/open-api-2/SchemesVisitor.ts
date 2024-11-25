@@ -5,6 +5,9 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
 export type { FallbackVisitorOptions as SchemesVisitorOptions };
 
+/**
+ * @public
+ */
 class SchemesVisitor extends FallbackVisitor {
   public declare element: SwaggerSchemesElement;
 

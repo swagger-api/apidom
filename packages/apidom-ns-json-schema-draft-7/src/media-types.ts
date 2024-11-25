@@ -1,8 +1,14 @@
 import { last } from 'ramda';
 import { MediaTypes } from '@swagger-api/apidom-core';
 
-type Format = 'generic' | 'json' | 'yaml';
+/**
+ * @public
+ */
+export type Format = 'generic' | 'json' | 'yaml';
 
+/**
+ * @public
+ */
 export class JSONSchemaDraft7MediaTypes extends MediaTypes<string> {
   filterByFormat(format: Format = 'generic') {
     const effectiveFormat = format === 'generic' ? 'schema;version' : format;
@@ -22,6 +28,9 @@ export class JSONSchemaDraft7MediaTypes extends MediaTypes<string> {
   }
 }
 
+/**
+ * @public
+ */
 const mediaTypes = new JSONSchemaDraft7MediaTypes(
   'application/schema;version=draft-07',
   'application/schema+json;version=draft-07',

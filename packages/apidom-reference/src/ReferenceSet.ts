@@ -2,11 +2,17 @@ import { isNotUndefined, isString } from 'ramda-adjunct';
 
 import type Reference from './Reference.ts';
 
+/**
+ * @public
+ */
 export interface ReferenceSetOptions {
   readonly refs?: Reference[];
   readonly circular?: boolean;
 }
 
+/**
+ * @public
+ */
 class ReferenceSet {
   public rootRef?: Reference;
 

@@ -19,12 +19,16 @@ import NormalizeStorage from './NormalizeStorage.ts';
  * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema.
  *
  * NOTE: this plugin is idempotent
+ * @public
  */
 
-interface PluginOptions {
+export interface PluginOptions {
   storageField?: string;
 }
 
+/**
+ * @public
+ */
 const plugin =
   ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {

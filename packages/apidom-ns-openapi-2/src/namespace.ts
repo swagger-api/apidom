@@ -28,6 +28,9 @@ import SecuritySchemeElement from './elements/SecurityScheme.ts';
 import ScopesElement from './elements/Scopes.ts';
 import SecurityRequirementElement from './elements/SecurityRequirement.ts';
 
+/**
+ * @public
+ */
 const openApi2 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

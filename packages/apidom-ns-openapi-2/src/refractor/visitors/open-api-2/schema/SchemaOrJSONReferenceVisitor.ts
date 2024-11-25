@@ -4,14 +4,23 @@ import {
   isJSONReferenceElement,
   JSONReferenceElement,
   SchemaOrReferenceVisitorOptions,
+  SchemaOrReferenceVisitor as SchemaOrReferenceVisitorType,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import SchemaElement from '../../../../elements/Schema.ts';
 
 export type { SchemaOrReferenceVisitorOptions };
 
-const { JSONSchemaOrJSONReferenceVisitor } = JSONSchemaDraft4Specification.visitors;
+/**
+ * @public
+ */
+// eslint-disable-next-line prefer-destructuring
+export const JSONSchemaOrJSONReferenceVisitor: typeof SchemaOrReferenceVisitorType =
+  JSONSchemaDraft4Specification.visitors.JSONSchemaOrJSONReferenceVisitor;
 
+/**
+ * @public
+ */
 class SchemaOrJSONReferenceVisitor extends JSONSchemaOrJSONReferenceVisitor {
   public declare element: SchemaElement | JSONReferenceElement;
 

@@ -8,8 +8,14 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 
+/**
+ * @public
+ */
 export interface WorkflowVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class WorkflowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: WorkflowElement;
 

@@ -5,10 +5,16 @@ import SourceDescriptionsElement from '../../../elements/nces/SourceDescriptions
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SourceDescriptionsVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SourceDescriptionsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public readonly element: SourceDescriptionsElement;
 

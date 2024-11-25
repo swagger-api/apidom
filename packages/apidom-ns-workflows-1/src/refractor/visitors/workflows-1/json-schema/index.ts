@@ -3,15 +3,26 @@ import {
   JsonSchemaDialectElement,
   specificationObj as OpenApi3_1Specification,
   SchemaVisitorOptions,
+  SchemaVisitor as SchemaVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import JSONSchemaElement from '../../../../elements/JSONSchema.ts';
 import { SpecPath } from '../../generics/FixedFieldsVisitor.ts';
 
-const { $visitor: SchemaVisitor } = OpenApi3_1Specification.visitors.document.objects.Schema;
+/**
+ * @public
+ */
+export const SchemaVisitor: typeof SchemaVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Schema.$visitor;
 
+/**
+ * @public
+ */
 export type JSONSchemaVisitorOptions = SchemaVisitorOptions;
 
+/**
+ * @public
+ */
 class JSONSchemaVisitor extends SchemaVisitor {
   public declare readonly element: JSONSchemaElement;
 

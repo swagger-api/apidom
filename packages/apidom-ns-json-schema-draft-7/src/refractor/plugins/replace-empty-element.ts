@@ -213,6 +213,9 @@ const findElementFactory = (ancestor: any, keyName: string) => {
       : keyMapping[keyName];
 };
 
+/**
+ * @public
+ */
 const plugin = () => () => {
   return {
     visitor: {

@@ -1,6 +1,9 @@
 import { StringElement } from '@swagger-api/apidom-core';
 import { ReferenceElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
+/**
+ * @public
+ */
 class Reference extends ReferenceElement {}
 
 Object.defineProperty(Reference.prototype, 'description', {

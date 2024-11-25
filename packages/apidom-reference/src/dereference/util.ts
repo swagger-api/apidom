@@ -1,5 +1,8 @@
 import { Element, isElement } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 // eslint-disable-next-line import/prefer-default-export
 export class AncestorLineage<T extends Element> extends Array<Set<T>> {
   includesCycle(element: T) {

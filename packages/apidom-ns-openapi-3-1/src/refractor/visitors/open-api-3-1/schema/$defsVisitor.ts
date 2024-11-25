@@ -13,11 +13,17 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor.ts';
 
+/**
+ * @public
+ */
 export interface $defsVisitorOptions
   extends MapVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class $defsVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ObjectElement;
 

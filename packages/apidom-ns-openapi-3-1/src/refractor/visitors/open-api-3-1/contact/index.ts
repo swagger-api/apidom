@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   ContactVisitorOptions,
+  ContactVisitor as ContactVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ContactElement from '../../../../elements/Contact.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Contact: { $visitor: BaseContactVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseContactVisitor: typeof ContactVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Contact.$visitor;
 
 export type { ContactVisitorOptions };
 
+/**
+ * @public
+ */
 class ContactVisitor extends BaseContactVisitor {
   public declare readonly element: ContactElement;
 

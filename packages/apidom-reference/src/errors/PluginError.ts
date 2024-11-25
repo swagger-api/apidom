@@ -1,5 +1,8 @@
 import { ApiDOMError } from '@swagger-api/apidom-error';
 
+/**
+ * @public
+ */
 class PluginError extends ApiDOMError {
   public plugin: any;
 

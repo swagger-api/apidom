@@ -19,13 +19,17 @@ import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
  * A unique parameter is defined by a combination of a name and location.
  *
  * NOTE: this plugin is idempotent
+ * @public
  */
 
-interface PluginOptions {
+export interface PluginOptions {
   storageField?: string;
 }
 
 /* eslint-disable no-param-reassign */
+/**
+ * @public
+ */
 const plugin =
   ({ storageField = 'x-normalized' }: PluginOptions = {}) =>
   (toolbox: Toolbox) => {

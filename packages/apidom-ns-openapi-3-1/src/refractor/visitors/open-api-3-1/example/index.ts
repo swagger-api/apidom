@@ -1,22 +1,22 @@
 import {
   specificationObj as OpenApi3_1Specification,
   ExampleVisitorOptions,
+  ExampleVisitor as ExampleVisitorType,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import ExampleElement from '../../../../elements/Example.ts';
 
-const {
-  visitors: {
-    document: {
-      objects: {
-        Example: { $visitor: BaseExampleVisitor },
-      },
-    },
-  },
-} = OpenApi3_1Specification;
+/**
+ * @public
+ */
+export const BaseExampleVisitor: typeof ExampleVisitorType =
+  OpenApi3_1Specification.visitors.document.objects.Example.$visitor;
 
 export type { ExampleVisitorOptions };
 
+/**
+ * @public
+ */
 class ExampleVisitor extends BaseExampleVisitor {
   public declare readonly element: ExampleElement;
 

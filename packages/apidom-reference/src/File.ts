@@ -6,6 +6,7 @@ import * as url from './util/url.ts';
 
 /**
  * This class represents a File object with url and data.
+ * @public
  */
 
 export interface FileOptions {
@@ -15,6 +16,9 @@ export interface FileOptions {
   readonly parseResult?: ParseResultElement;
 }
 
+/**
+ * @public
+ */
 class File {
   public uri: string;
 

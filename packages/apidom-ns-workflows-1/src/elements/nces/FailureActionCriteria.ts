@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class FailureActionCriteria extends ArrayElement {
   static primaryClass = 'failure-action-criteria';
 

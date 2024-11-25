@@ -17,6 +17,7 @@ export {
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 export { default as mediaTypes, OpenAPIMediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
@@ -57,9 +58,13 @@ export {
 } from './predicates.ts';
 
 export { isReferenceLikeElement, isSwaggerExtension } from './refractor/predicates.ts';
+export type { ReferenceLikeElement } from './refractor/predicates.ts';
 
 export { default as AlternatingVisitor } from './refractor/visitors/generics/AlternatingVisitor.ts';
-export type { AlternatingVisitorOptions } from './refractor/visitors/generics/AlternatingVisitor.ts';
+export type {
+  AlternatingVisitorOptions,
+  Alternator,
+} from './refractor/visitors/generics/AlternatingVisitor.ts';
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export type { FixedFieldsVisitorOptions } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 export { default as MapVisitor } from './refractor/visitors/generics/MapVisitor.ts';
@@ -198,18 +203,22 @@ export type {
 export type {
   default as SchemaAllOfVisitor,
   AllOfVisitorOptions as SchemaAllOfVisitorOptions,
+  JSONSchemaAllOfVisitor,
 } from './refractor/visitors/open-api-2/schema/AllOfVisitor.ts';
 export type {
   default as SchemaItemsVisitor,
   ItemsVisitorOptions as SchemaItemsVisitorOptions,
+  JSONSchemaItemsVisitor,
 } from './refractor/visitors/open-api-2/schema/ItemsVisitor.ts';
 export type {
   default as SchemaPropertiesVisitor,
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
+  JSONSchemaPropertiesVisitor,
 } from './refractor/visitors/open-api-2/schema/PropertiesVisitor.ts';
 export type {
   default as SchemaOrJSONReferenceVisitor,
   SchemaOrReferenceVisitorOptions as SchemaOrJSONReferenceVisitorOptions,
+  JSONSchemaOrJSONReferenceVisitor,
 } from './refractor/visitors/open-api-2/schema/SchemaOrJSONReferenceVisitor.ts';
 export type {
   default as ScopesVisitor,
@@ -267,6 +276,11 @@ export type {
   default as SwaggerVersionVisitor,
   SwaggerVisitorOptions as SwaggerVersionVisitorOptions,
 } from './refractor/visitors/open-api-2/SwaggerVisitor.ts';
+export type { default as SpecificationExtensionVisitor } from './refractor/visitors/SpecificationExtensionVisitor.ts';
+export type {
+  default as TagsVisitor,
+  TagsVisitorOptions,
+} from './refractor/visitors/open-api-2/TagsVisitor.ts';
 
 export type { SpecPath } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
 

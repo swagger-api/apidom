@@ -56,6 +56,7 @@ import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor.ts';
  * existing ones by manipulating it.
  *
  * Note: Specification object allows to use absolute internal JSON pointers.
+ * @public
  */
 const specification = {
   visitors: {

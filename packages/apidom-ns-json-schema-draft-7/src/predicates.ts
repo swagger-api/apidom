@@ -5,6 +5,9 @@ import LinkDescriptionElement from './elements/LinkDescription.ts';
 
 export { isJSONReferenceElement } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
+/**
+ * @public
+ */
 export const isJSONSchemaElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is JSONSchemaElement =>
@@ -15,6 +18,9 @@ export const isJSONSchemaElement = createPredicate(
   },
 );
 
+/**
+ * @public
+ */
 export const isLinkDescriptionElement = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq }) => {
     return (element: unknown): element is LinkDescriptionElement =>

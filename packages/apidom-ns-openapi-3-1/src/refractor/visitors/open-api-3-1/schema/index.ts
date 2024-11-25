@@ -23,11 +23,17 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SchemaVisitorOptions
   extends FixedFieldsVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: SchemaElement;
 
@@ -69,7 +75,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
   /**
    * This function depends on some external context, so we need to make sure this function
    * works even when no context is provided like when directly refracting generic Object Element
-   * into Schema Element: SchemaElement.refract(new ObjectElement({ type: 'object' });
+   * into Schema Element: `SchemaElement.refract(new ObjectElement({ type: 'object' });`
    */
   getJsonSchemaDialect(): JsonSchemaDialectElement {
     let jsonSchemaDialect;

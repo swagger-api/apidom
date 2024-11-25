@@ -12,6 +12,7 @@ export {
 } from '@swagger-api/apidom-core';
 
 export { default as mediaTypes, JSONSchemaDraft6MediaTypes } from './media-types.ts';
+export type { Format } from './media-types.ts';
 
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';

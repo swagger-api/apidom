@@ -11,11 +11,17 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor.ts';
 
+/**
+ * @public
+ */
 export interface OneOfVisitorOptions
   extends SpecificationVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OneOfVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
   public declare readonly element: ArrayElement;
 

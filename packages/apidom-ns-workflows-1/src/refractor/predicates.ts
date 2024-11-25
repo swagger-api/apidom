@@ -11,6 +11,9 @@ export interface ReferenceLikeElement extends ObjectElement {
   hasKey: (value: '$ref') => true;
 }
 
+/**
+ * @public
+ */
 export const isWorkflowsSpecificationExtension = (element: MemberElement): boolean => {
   return isStringElement(element.key) && startsWith('x-', toValue(element.key));
 };

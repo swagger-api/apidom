@@ -11,6 +11,9 @@ import type { ReferenceOptions } from './index.ts';
 const baseURILens = lens(path(['resolve', 'baseURI']), assocPath(['resolve', 'baseURI']));
 const baseURIDefault = (baseURI: string) => (isEmptyString(baseURI) ? cwd() : baseURI);
 
+/**
+ * @public
+ */
 // eslint-disable-next-line import/prefer-default-export
 export const merge = (lObj: ReferenceOptions, rObj: Record<string, any>): ReferenceOptions => {
   const withoutDefaults = mergeDeepRight(lObj, rObj);

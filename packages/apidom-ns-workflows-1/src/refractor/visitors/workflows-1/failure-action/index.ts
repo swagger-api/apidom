@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 
+/**
+ * @public
+ */
 export interface FailureActionVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class FailureActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: FailureActionElement;
 

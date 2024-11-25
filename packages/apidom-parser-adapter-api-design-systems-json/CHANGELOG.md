@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.3](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2024-11-25)
+
+### Bug Fixes
+
+- **parser-apadter-ads:** include files needed by main entry point ([9ca3749](https://github.com/swagger-api/apidom/commit/9ca37490e4f2dc9cbad009e3dbaac3d698e0445f)), closes [#4539](https://github.com/swagger-api/apidom/issues/4539)
+
+# [1.0.0-beta.2](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.1...v1.0.0-beta.2) (2024-11-22)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
 # [1.0.0-beta.1](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.0...v1.0.0-beta.1) (2024-11-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json

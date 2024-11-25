@@ -13,11 +13,17 @@ import ParentSchemaAwareVisitor, {
   ParentSchemaAwareVisitorOptions,
 } from './ParentSchemaAwareVisitor.ts';
 
+/**
+ * @public
+ */
 export interface PatternPropertiesVisitorOptions
   extends MapVisitorOptions,
     ParentSchemaAwareVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class PatternPropertiesVisitor extends Mixin(
   MapVisitor,
   ParentSchemaAwareVisitor,

@@ -11,6 +11,9 @@ import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import OperationBindingsElement from './OperationBindings.ts';
 import ReferenceElement from './Reference.ts';
 
+/**
+ * @public
+ */
 class OperationTrait extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

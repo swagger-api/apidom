@@ -8,8 +8,14 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 
+/**
+ * @public
+ */
 export interface TagVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: TagElement;
 

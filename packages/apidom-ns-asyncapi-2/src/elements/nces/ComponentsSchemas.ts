@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class ComponentsSchemas extends ObjectElement {
   static primaryClass = 'components-schemas';
 

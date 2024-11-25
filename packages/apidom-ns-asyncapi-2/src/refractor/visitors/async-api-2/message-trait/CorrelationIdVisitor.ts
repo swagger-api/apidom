@@ -9,10 +9,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface CorrelationIdVisitorOptions
   extends AlternatingVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class CorrelationIdVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
   constructor(options: CorrelationIdVisitorOptions) {
     super(options);

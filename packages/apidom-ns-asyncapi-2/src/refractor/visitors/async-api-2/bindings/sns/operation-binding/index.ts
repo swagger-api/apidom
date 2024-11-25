@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 } from '../../../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SnsOperationBindingVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SnsOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SnsOperationBindingElement;
 

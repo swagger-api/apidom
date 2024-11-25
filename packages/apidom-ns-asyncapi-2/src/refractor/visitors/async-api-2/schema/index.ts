@@ -9,8 +9,14 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SchemaVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare element: SchemaElement;
 

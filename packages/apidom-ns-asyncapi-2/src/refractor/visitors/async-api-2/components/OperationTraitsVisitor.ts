@@ -8,8 +8,14 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface OperationTraitsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class OperationTraitsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsOperationTraitsElement;
 

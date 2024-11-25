@@ -19,6 +19,9 @@ import MercureChannelBindingElement from './bindings/mercure/MercureChannelBindi
 import IbmmqChannelBindingElement from './bindings/ibmmq/IbmmqChannelBinding.ts';
 import GooglepubsubChannelBindingElement from './bindings/googlepubsub/GooglepubsubChannelBinding.ts';
 
+/**
+ * @public
+ */
 class ChannelBindings extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

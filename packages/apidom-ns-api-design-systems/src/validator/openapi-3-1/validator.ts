@@ -97,6 +97,9 @@ const validateScenario = (scenario: ScenarioElement, openApiElement: OpenApi3_1E
   return annotations;
 };
 
+/**
+ * @public
+ */
 const validate = (mainElement: MainElement, openApiElement: OpenApi3_1Element) => {
   const { scenarios } = mainElement;
   const annotations: AnnotationElement[] = [];

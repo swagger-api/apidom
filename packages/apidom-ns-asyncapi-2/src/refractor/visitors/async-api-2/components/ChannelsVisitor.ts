@@ -5,8 +5,14 @@ import ComponentsChannelsElement from '../../../../elements/nces/ComponentsChann
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ComponentsChannelsElement;
 

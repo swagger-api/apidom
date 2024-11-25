@@ -11,8 +11,14 @@ import {
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import { isAsyncApiExtension } from '../../predicates.ts';
 
+/**
+ * @public
+ */
 export type SpecPath<T = string[]> = (element: unknown) => T;
 
+/**
+ * @public
+ */
 export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
   readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
@@ -20,6 +26,9 @@ export interface FixedFieldsVisitorOptions extends SpecificationVisitorOptions {
   readonly specificationExtensionPredicate?: typeof isAsyncApiExtension;
 }
 
+/**
+ * @public
+ */
 class FixedFieldsVisitor extends SpecificationVisitor {
   protected specPath: SpecPath;
 

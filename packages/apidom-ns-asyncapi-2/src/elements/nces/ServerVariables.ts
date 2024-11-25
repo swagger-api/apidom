@@ -1,5 +1,8 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class ServerVariables extends ObjectElement {
   static primaryClass = 'server-variables';
 

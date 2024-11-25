@@ -136,6 +136,9 @@ import WebSocketMessageBindingElement from './elements/bindings/ws/WebSocketMess
 import WebSocketOperationBindingElement from './elements/bindings/ws/WebSocketOperationBinding.ts';
 import WebSocketServerBindingElement from './elements/bindings/ws/WebSocketServerBinding.ts';
 
+/**
+ * @public
+ */
 const asyncApi2 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;

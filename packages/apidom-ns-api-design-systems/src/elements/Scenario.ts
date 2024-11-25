@@ -8,6 +8,9 @@ import {
 
 import StandardIdentifierElement from './StandardIdentifier.ts';
 
+/**
+ * @public
+ */
 class Scenario extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

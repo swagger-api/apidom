@@ -5,10 +5,16 @@ import SpecificationVisitor, { SpecificationVisitorOptions } from '../../Specifi
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import OperationSecurityElement from '../../../../elements/nces/OperationSecurity.ts';
 
+/**
+ * @public
+ */
 export interface SecurityVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: OperationSecurityElement;
 

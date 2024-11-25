@@ -1,6 +1,8 @@
 import { isElement, keyMap as keyMapBase, Element } from '@swagger-api/apidom-core';
 
-// getNodeType :: Node -> String
+/**
+ * @public
+ */
 export const getNodeType = <T extends Element>(element: T): string | undefined => {
   if (!isElement(element)) {
     return undefined;
@@ -8,9 +10,12 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
   return `${element.element.charAt(0).toUpperCase() + element.element.slice(1)}Element`;
 };
 
+/**
+ * @public
+ */
 export const keyMap = {
   /**
-   * AsyncApi >= 2.0.0 <=2.6.0 specification elements.
+   * `AsyncApi >= 2.0.0 <=2.6.0` specification elements.
    */
   AsyncApi2Element: ['content'],
   AsyncApiVersionElement: [],

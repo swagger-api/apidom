@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 } from '../../../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface SqsMessageBindingVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class SqsMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: SqsMessageBindingElement;
 

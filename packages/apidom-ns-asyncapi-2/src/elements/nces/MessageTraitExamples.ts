@@ -1,5 +1,8 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class MessageTraitExamples extends ArrayElement {
   static primaryClass = 'message-trait-examples';
 

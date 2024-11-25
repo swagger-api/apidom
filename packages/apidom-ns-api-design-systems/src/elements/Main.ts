@@ -8,6 +8,9 @@ import {
 
 import InfoElement from './Info.ts';
 
+/**
+ * @public
+ */
 class Main extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

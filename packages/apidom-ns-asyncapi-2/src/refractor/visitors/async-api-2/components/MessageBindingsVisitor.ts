@@ -8,8 +8,14 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface MessageBindingsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class MessageBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare element: ComponentsMessageBindingsElement;
 

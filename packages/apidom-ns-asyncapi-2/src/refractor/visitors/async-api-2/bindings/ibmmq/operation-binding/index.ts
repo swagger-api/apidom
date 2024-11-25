@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 } from '../../../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface IbmmqOperationBindingVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class IbmmqOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: IbmmqOperationBindingElement;
 

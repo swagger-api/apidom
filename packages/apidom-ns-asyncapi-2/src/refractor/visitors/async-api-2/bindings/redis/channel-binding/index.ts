@@ -8,10 +8,16 @@ import FixedFieldsVisitor, {
 } from '../../../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface RedisChannelBindingVisitorOptions
   extends FixedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class RedisChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: RedisChannelBindingElement;
 

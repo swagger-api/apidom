@@ -5,10 +5,16 @@ import ChannelItemServersElement from '../../../../elements/nces/ChannelItemsSer
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
+/**
+ * @public
+ */
 export interface ServersVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare readonly element: ChannelItemServersElement;
 

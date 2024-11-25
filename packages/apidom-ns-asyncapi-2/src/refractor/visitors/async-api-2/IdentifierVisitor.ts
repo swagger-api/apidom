@@ -5,10 +5,16 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import IdentifierElement from '../../../elements/Identifier.ts';
 
+/**
+ * @public
+ */
 export interface IdentifierVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class IdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   public declare element: IdentifierElement;
 

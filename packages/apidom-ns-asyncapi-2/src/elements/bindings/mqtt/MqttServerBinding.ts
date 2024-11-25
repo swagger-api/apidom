@@ -7,6 +7,9 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class MqttServerBinding extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

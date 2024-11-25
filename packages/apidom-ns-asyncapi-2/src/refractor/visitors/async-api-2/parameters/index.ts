@@ -11,10 +11,16 @@ import { isReferenceLikeElement } from '../../../predicates.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
 
+/**
+ * @public
+ */
 export interface ParametersVisitorOptions
   extends PatternedFieldsVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ParametersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public declare readonly element: ParametersElement;
 

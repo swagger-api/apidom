@@ -5,8 +5,14 @@ import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisit
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
 
+/**
+ * @public
+ */
 export interface VariablesVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public declare readonly element: ServerVariablesElement;
 

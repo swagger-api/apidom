@@ -7,7 +7,7 @@ export type { FallbackVisitorOptions as DependentRequiredVisitorOptions };
  * @public
  */
 class DependentRequiredVisitor extends FallbackVisitor {
-  public declare readonly element: ObjectElement;
+  declare public readonly element: ObjectElement;
 
   ObjectElement(objectElement: ObjectElement) {
     const result = super.enter(objectElement);

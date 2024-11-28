@@ -19,13 +19,13 @@ export interface RedisOperationBindingVisitorOptions
  * @public
  */
 class RedisOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: RedisOperationBindingElement;
+  declare public readonly element: RedisOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'redis', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: RedisOperationBindingVisitorOptions) {
     super(options);

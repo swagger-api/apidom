@@ -14,9 +14,9 @@ export interface MappingVisitorOptions extends MapVisitorOptions, FallbackVisito
  * @public
  */
 class MappingVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: DiscriminatorMappingElement;
+  declare public readonly element: DiscriminatorMappingElement;
 
-  protected declare readonly specPath: SpecPath<['value']>;
+  declare protected readonly specPath: SpecPath<['value']>;
 
   constructor(options: MappingVisitorOptions) {
     super(options);

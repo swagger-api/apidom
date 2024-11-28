@@ -18,7 +18,7 @@ export type { LicenseVisitorOptions };
  * @public
  */
 class LicenseVisitor extends BaseLicenseVisitor {
-  public declare readonly element: LicenseElement;
+  declare public readonly element: LicenseElement;
 
   constructor(options: LicenseVisitorOptions) {
     super(options);

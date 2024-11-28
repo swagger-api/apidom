@@ -16,7 +16,7 @@ export interface InfoVisitorOptions extends FixedFieldsVisitorOptions, FallbackV
  * @public
  */
 class InfoVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: InfoElement;
+  declare public readonly element: InfoElement;
 
   constructor(options: InfoVisitorOptions) {
     super(options);

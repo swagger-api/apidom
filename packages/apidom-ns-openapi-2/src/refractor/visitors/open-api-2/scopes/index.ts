@@ -14,11 +14,11 @@ export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitor
  * @public
  */
 class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ScopesElement;
+  declare public readonly element: ScopesElement;
 
-  protected declare readonly specPath: SpecPath<['value']>;
+  declare protected readonly specPath: SpecPath<['value']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ScopesVisitorOptions) {
     super(options);

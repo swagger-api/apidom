@@ -8,7 +8,7 @@ export type { FallbackVisitorOptions as RequiredVisitorOptions };
  * @public
  */
 class RequiredVisitor extends FallbackVisitor {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   ArrayElement(arrayElement: ArrayElement) {
     const result = this.enter(arrayElement);

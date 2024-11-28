@@ -19,9 +19,9 @@ export interface LinkDescriptionVisitorOptions
  * @public
  */
 class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: LinkDescriptionElement;
+  declare public readonly element: LinkDescriptionElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;
 
   constructor(options: LinkDescriptionVisitorOptions) {
     super(options);

@@ -8,7 +8,7 @@ export type { FallbackVisitorOptions as OperationRefVisitorOptions };
  * @public
  */
 class OperationRefVisitor extends FallbackVisitor {
-  public declare readonly element: StringElement;
+  declare public readonly element: StringElement;
 
   StringElement(stringElement: StringElement) {
     const result = super.enter(stringElement);

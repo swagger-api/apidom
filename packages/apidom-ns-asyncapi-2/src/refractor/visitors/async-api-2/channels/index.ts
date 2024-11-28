@@ -14,9 +14,9 @@ export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ChannelsElement;
+  declare public readonly element: ChannelsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ChannelItem']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ChannelItem']>;
 
   constructor(options: ChannelsVisitorOptions) {
     super(options);

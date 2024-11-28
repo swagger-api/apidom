@@ -16,7 +16,7 @@ export interface SwaggerVisitorOptions
  * @public
  */
 class SwaggerVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: SwaggerVersionElement;
+  declare public element: SwaggerVersionElement;
 
   StringElement(stringElement: StringElement) {
     const swaggerVersionElement = new SwaggerVersionElement(toValue(stringElement));

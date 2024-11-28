@@ -17,9 +17,9 @@ export interface StandardVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class StandardVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: StandardElement;
+  declare public readonly element: StandardElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Standard']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Standard']>;
 
   constructor(options: StandardVisitorOptions) {
     super(options);

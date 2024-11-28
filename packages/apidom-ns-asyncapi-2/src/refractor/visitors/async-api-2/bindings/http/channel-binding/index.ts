@@ -19,13 +19,13 @@ export interface HttpChannelBindingVisitorOptions
  * @public
  */
 class HttpChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: HttpChannelBindingElement;
+  declare public readonly element: HttpChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'http', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: HttpChannelBindingVisitorOptions) {
     super(options);

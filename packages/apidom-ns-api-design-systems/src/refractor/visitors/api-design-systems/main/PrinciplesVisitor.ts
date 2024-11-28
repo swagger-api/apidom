@@ -15,7 +15,7 @@ export interface PrinciplesVisitorOptions
  * @public
  */
 class PrinciplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   constructor(options: PrinciplesVisitorOptions) {
     super(options);

@@ -18,7 +18,7 @@ export type { MediaTypeVisitorOptions };
  * @public
  */
 class MediaTypeVisitor extends BaseMediaTypeVisitor {
-  public declare readonly element: MediaTypeElement;
+  declare public readonly element: MediaTypeElement;
 
   constructor(options: MediaTypeVisitorOptions) {
     super(options);

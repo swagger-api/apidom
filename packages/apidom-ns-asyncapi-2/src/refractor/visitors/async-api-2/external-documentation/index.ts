@@ -19,11 +19,11 @@ export interface ExternalDocumentationVisitorOptions
  * @public
  */
 class ExternalDocumentationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ExternalDocumentationElement;
+  declare public readonly element: ExternalDocumentationElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ExternalDocumentation']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ExternalDocumentation']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ExternalDocumentationVisitorOptions) {
     super(options);

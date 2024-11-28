@@ -29,9 +29,9 @@ class PatternPropertiesVisitor extends Mixin(
   ParentSchemaAwareVisitor,
   FallbackVisitor,
 ) {
-  public declare readonly element: ObjectElement;
+  declare public readonly element: ObjectElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
   constructor(options: PatternPropertiesVisitorOptions) {
     super(options);

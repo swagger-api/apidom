@@ -27,7 +27,7 @@ class PrefixItemsVisitor extends Mixin(
   ParentSchemaAwareVisitor,
   FallbackVisitor,
 ) {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   constructor(options: PrefixItemsVisitorOptions) {
     super(options);

@@ -17,9 +17,9 @@ export interface ScenarioVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class ScenarioVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ScenarioElement;
+  declare public readonly element: ScenarioElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Scenario']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Scenario']>;
 
   constructor(options: ScenarioVisitorOptions) {
     super(options);

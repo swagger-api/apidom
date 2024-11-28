@@ -23,13 +23,13 @@ export interface ServersVisitorOptions
  * @public
  */
 class ServersVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ServersElement;
+  declare public readonly element: ServersElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Server']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: ServersVisitorOptions) {
     super(options);

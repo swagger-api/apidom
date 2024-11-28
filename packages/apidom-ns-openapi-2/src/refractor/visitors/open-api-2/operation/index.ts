@@ -19,9 +19,9 @@ export interface OperationVisitorOptions
  * @public
  */
 class OperationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: OperationElement;
+  declare public readonly element: OperationElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Operation']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Operation']>;
 
   constructor(options: OperationVisitorOptions) {
     super(options);

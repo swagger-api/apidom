@@ -16,7 +16,7 @@ export interface SuccessCriteriaVisitorOptions
  * @public
  */
 class SuccessCriteriaVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: StepSuccessCriteriaElement;
+  declare public readonly element: StepSuccessCriteriaElement;
 
   constructor(options: SuccessCriteriaVisitorOptions) {
     super(options);

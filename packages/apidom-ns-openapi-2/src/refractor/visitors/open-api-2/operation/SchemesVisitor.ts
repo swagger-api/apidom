@@ -9,7 +9,7 @@ export type { FallbackVisitorOptions as SchemesVisitorOptions };
  * @public
  */
 class SchemesVisitor extends FallbackVisitor {
-  public declare element: OperationSchemesElement;
+  declare public element: OperationSchemesElement;
 
   constructor(options: FallbackVisitorOptions) {
     super(options);

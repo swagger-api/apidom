@@ -19,13 +19,13 @@ export interface Amqp1MessageBindingVisitorOptions
  * @public
  */
 class Amqp1MessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: Amqp1MessageBindingElement;
+  declare public readonly element: Amqp1MessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'amqp1', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: Amqp1MessageBindingVisitorOptions) {
     super(options);

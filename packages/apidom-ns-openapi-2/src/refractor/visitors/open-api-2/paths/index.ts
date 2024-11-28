@@ -24,9 +24,9 @@ export interface PathsVisitorOptions
 class PathsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   public readonly element: PathsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: PathsVisitorOptions) {
     super(options);

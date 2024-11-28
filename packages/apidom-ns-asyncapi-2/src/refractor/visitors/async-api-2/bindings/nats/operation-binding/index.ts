@@ -19,13 +19,13 @@ export interface NatsOperationBindingVisitorOptions
  * @public
  */
 class NatsOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: NatsOperationBindingElement;
+  declare public readonly element: NatsOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'nats', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: NatsOperationBindingVisitorOptions) {
     super(options);

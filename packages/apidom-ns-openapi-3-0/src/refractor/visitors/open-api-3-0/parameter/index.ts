@@ -22,11 +22,11 @@ export interface ParameterVisitorOptions
  * @public
  */
 class ParameterVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ParameterElement;
+  declare public readonly element: ParameterElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ParameterVisitorOptions) {
     super(options);

@@ -17,9 +17,9 @@ export interface CallbackVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class CallbacksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsCallbacksElement;
+  declare public readonly element: ComponentsCallbacksElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Callback']
   >;
 

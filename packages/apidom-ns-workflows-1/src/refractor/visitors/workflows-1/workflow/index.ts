@@ -17,11 +17,11 @@ export interface WorkflowVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class WorkflowVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: WorkflowElement;
+  declare public readonly element: WorkflowElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Workflow']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Workflow']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: WorkflowVisitorOptions) {
     super(options);

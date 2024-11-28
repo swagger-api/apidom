@@ -19,11 +19,11 @@ export interface ChannelBindingsVisitorOptions
  * @public
  */
 class ChannelBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ChannelBindingsElement;
+  declare public readonly element: ChannelBindingsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ChannelBindings']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ChannelBindings']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ChannelBindingsVisitorOptions) {
     super(options);

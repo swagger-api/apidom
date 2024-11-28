@@ -19,13 +19,13 @@ export interface HttpMessageBindingVisitorOptions
  * @public
  */
 class HttpMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: HttpMessageBindingElement;
+  declare public readonly element: HttpMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'http', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: HttpMessageBindingVisitorOptions) {
     super(options);

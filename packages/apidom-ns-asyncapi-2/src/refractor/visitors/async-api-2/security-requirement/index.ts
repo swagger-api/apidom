@@ -16,9 +16,9 @@ export interface SecurityRequirementVisitorOptions
  * @public
  */
 class SecurityRequirementVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: SecurityRequirementElement;
+  declare public readonly element: SecurityRequirementElement;
 
-  protected declare readonly specPath: SpecPath<['value']>;
+  declare protected readonly specPath: SpecPath<['value']>;
 
   constructor(options: SecurityRequirementVisitorOptions) {
     super(options);

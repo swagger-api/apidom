@@ -19,13 +19,13 @@ export interface AnypointmqChannelBindingVisitorOptions
  * @public
  */
 class AnypointmqChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: AnypointmqChannelBindingElement;
+  declare public readonly element: AnypointmqChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'anypointmq', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: AnypointmqChannelBindingVisitorOptions) {
     super(options);

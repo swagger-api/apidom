@@ -9,7 +9,7 @@ export type { FallbackVisitorOptions as TagsVisitorOptions };
  * @public
  */
 class TagsVisitor extends FallbackVisitor {
-  public declare element: OperationTagsElement;
+  declare public element: OperationTagsElement;
 
   constructor(options: FallbackVisitorOptions) {
     super(options);

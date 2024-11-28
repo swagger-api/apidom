@@ -18,9 +18,9 @@ export type { DiscriminatorVisitorOptions };
  * @public
  */
 class DiscriminatorVisitor extends BaseDiscriminatorVisitor {
-  public declare readonly element: DiscriminatorElement;
+  declare public readonly element: DiscriminatorElement;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: DiscriminatorVisitorOptions) {
     super(options);

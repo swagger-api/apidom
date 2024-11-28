@@ -8,7 +8,7 @@ export type { SpecificationVisitorOptions as SpecificationExtensionVisitorOption
  * @public
  */
 class SpecificationExtensionVisitor extends SpecificationVisitor {
-  public declare element: MemberElement;
+  declare public element: MemberElement;
 
   MemberElement(memberElement: MemberElement) {
     this.element = cloneDeep(memberElement);

@@ -16,7 +16,7 @@ export interface OpenapiVisitorOptions
  * @public
  */
 class OpenapiVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: OpenapiElement;
+  declare public element: OpenapiElement;
 
   StringElement(stringElement: StringElement) {
     const openapiElement = new OpenapiElement(toValue(stringElement));

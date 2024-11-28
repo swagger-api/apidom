@@ -17,11 +17,11 @@ export interface LicenseVisitorOptions extends FixedFieldsVisitorOptions, Fallba
  * @public
  */
 class LicenseVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: LicenseElement;
+  declare public readonly element: LicenseElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'License']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'License']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: LicenseVisitorOptions) {
     super(options);

@@ -23,9 +23,9 @@ export type { CallbackVisitorOptions };
  * @public
  */
 class CallbackVisitor extends BaseCallbackVisitor {
-  public declare readonly element: CallbackElement;
+  declare public readonly element: CallbackElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 

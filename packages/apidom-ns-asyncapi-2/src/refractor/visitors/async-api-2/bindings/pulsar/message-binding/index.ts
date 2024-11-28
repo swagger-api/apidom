@@ -19,13 +19,13 @@ export interface PulsarMessageBindingVisitorOptions
  * @public
  */
 class PulsarMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: PulsarMessageBindingElement;
+  declare public readonly element: PulsarMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'pulsar', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: PulsarMessageBindingVisitorOptions) {
     super(options);

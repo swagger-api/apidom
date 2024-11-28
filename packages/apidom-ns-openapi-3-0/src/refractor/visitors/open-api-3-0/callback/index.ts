@@ -23,11 +23,11 @@ export interface CallbackVisitorOptions
  * @public
  */
 class CallbackVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: CallbackElement;
+  declare public readonly element: CallbackElement;
 
-  protected declare readonly specPath: SpecPath;
+  declare protected readonly specPath: SpecPath;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: CallbackVisitorOptions) {
     super(options);

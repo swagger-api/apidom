@@ -19,13 +19,13 @@ export interface SolaceMessageBindingVisitorOptions
  * @public
  */
 class SolaceMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SolaceMessageBindingElement;
+  declare public readonly element: SolaceMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'solace', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SolaceMessageBindingVisitor) {
     super(options);

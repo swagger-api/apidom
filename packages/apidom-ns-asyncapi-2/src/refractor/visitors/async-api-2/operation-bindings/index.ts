@@ -19,11 +19,11 @@ export interface OperationBindingsVisitorOptions
  * @public
  */
 class OperationBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: OperationBindingsElement;
+  declare public readonly element: OperationBindingsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'OperationBindings']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'OperationBindings']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: OperationBindingsVisitorOptions) {
     super(options);

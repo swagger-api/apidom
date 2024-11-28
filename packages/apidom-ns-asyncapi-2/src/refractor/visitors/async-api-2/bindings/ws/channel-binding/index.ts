@@ -19,13 +19,13 @@ export interface WebSocketChannelBindingVisitorOptions
  * @public
  */
 class WebSocketChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: WebSocketChannelBindingElement;
+  declare public readonly element: WebSocketChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'ws', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: WebSocketChannelBindingVisitorOptions) {
     super(options);

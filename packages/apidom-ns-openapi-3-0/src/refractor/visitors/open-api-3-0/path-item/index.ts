@@ -26,9 +26,9 @@ export interface PathItemVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class PathItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: PathItemElement;
+  declare public readonly element: PathItemElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
 
   constructor(options: PathItemVisitorOptions) {
     super(options);

@@ -19,13 +19,13 @@ export interface StompServerBindingVisitorOptions
  * @public
  */
 class StompServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: StompServerBindingElement;
+  declare public readonly element: StompServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'stomp', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: StompServerBindingVisitorOptions) {
     super(options);

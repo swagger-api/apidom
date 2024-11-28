@@ -19,13 +19,13 @@ export interface JmsChannelBindingVisitorOptions
  * @public
  */
 class JmsChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: JmsChannelBindingElement;
+  declare public readonly element: JmsChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'jms', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: JmsChannelBindingVisitorOptions) {
     super(options);

@@ -13,7 +13,7 @@ export interface ThenVisitorOptions extends SpecificationVisitorOptions, Fallbac
  * @public
  */
 class ThenVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   constructor(options: ThenVisitorOptions) {
     super(options);

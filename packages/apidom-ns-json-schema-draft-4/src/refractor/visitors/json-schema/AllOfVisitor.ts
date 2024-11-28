@@ -20,7 +20,7 @@ export interface AllOfVisitorOptions
  * @public
  */
 class AllOfVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   constructor(options: AllOfVisitorOptions) {
     super(options);

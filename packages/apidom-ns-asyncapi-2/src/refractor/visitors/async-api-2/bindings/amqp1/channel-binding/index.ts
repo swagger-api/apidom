@@ -19,13 +19,13 @@ export interface Amqp1ChannelBindingVisitorOptions
  * @public
  */
 class Amqp1ChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: Amqp1ChannelBindingElement;
+  declare public readonly element: Amqp1ChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'amqp1', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: Amqp1ChannelBindingVisitorOptions) {
     super(options);

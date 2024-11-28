@@ -14,9 +14,9 @@ export interface ParametersVisitorOptions extends MapVisitorOptions, FallbackVis
  * @public
  */
 class ParametersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsParametersElement;
+  declare public readonly element: ComponentsParametersElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Parameter']>;
 
   constructor(options: ParametersVisitorOptions) {
     super(options);

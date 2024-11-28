@@ -14,9 +14,9 @@ export interface InputsVisitorOptions extends MapVisitorOptions, FallbackVisitor
  * @public
  */
 class InputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsInputsElement;
+  declare public readonly element: ComponentsInputsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
   constructor(options: InputsVisitorOptions) {
     super(options);

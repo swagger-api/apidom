@@ -20,11 +20,11 @@ export interface ChannelItemVisitorOptions
  * @public
  */
 class ChannelItemVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ChannelItemElement;
+  declare public readonly element: ChannelItemElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ChannelItem']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ChannelItem']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ChannelItemVisitorOptions) {
     super(options);

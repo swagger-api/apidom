@@ -19,13 +19,13 @@ export interface MercureChannelBindingVisitorOptions
  * @public
  */
 class MercureChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MercureChannelBindingElement;
+  declare public readonly element: MercureChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mercure', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: MercureChannelBindingVisitorOptions) {
     super(options);

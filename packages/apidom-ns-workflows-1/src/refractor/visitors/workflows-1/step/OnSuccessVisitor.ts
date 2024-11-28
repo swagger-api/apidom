@@ -16,7 +16,7 @@ export interface OnSuccessVisitorOptions
  * @public
  */
 class OnSuccessVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: StepOnSuccessElement;
+  declare public readonly element: StepOnSuccessElement;
 
   constructor(options: OnSuccessVisitorOptions) {
     super(options);

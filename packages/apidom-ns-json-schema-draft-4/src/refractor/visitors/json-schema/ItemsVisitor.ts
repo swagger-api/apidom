@@ -20,7 +20,7 @@ export interface ItemsVisitorOptions
  * @public
  */
 class ItemsVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
-  public declare element: ArrayElement | ObjectElement;
+  declare public element: ArrayElement | ObjectElement;
 
   ObjectElement(objectElement: ObjectElement) {
     const specPath = isJSONReferenceLikeElement(objectElement)

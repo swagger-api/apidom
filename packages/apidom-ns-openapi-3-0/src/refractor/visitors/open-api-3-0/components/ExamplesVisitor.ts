@@ -17,9 +17,9 @@ export interface ExamplesVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class ExamplesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsExamplesElement;
+  declare public readonly element: ComponentsExamplesElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Example']
   >;
 

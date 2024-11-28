@@ -19,11 +19,11 @@ export interface FailureActionVisitorOptions
  * @public
  */
 class FailureActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: FailureActionElement;
+  declare public readonly element: FailureActionElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'FailureAction']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'FailureAction']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: FailureActionVisitorOptions) {
     super(options);

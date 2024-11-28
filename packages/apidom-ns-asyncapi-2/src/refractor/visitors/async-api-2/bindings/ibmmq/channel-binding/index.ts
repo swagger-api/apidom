@@ -19,13 +19,13 @@ export interface IbmmqChannelBindingVisitorOptions
  * @public
  */
 class IbmmqChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: IbmmqChannelBindingElement;
+  declare public readonly element: IbmmqChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'ibmmq', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: IbmmqChannelBindingVisitorOptions) {
     super(options);

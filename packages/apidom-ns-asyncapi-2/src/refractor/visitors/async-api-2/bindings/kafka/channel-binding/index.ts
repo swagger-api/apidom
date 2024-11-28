@@ -19,13 +19,13 @@ export interface KafkaChannelBindingVisitorOptions
  * @public
  */
 class KafkaChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: KafkaChannelBindingElement;
+  declare public readonly element: KafkaChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'kafka', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: KafkaChannelBindingVisitorOptions) {
     super(options);

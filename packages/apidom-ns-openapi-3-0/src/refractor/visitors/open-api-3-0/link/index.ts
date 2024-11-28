@@ -18,11 +18,11 @@ export interface LinkVisitorOptions extends FixedFieldsVisitorOptions, FallbackV
  * @public
  */
 class LinkVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: LinkElement;
+  declare public readonly element: LinkElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Link']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Link']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: LinkVisitorOptions) {
     super(options);

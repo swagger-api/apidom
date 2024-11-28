@@ -14,9 +14,9 @@ export interface ScopesVisitorOptions extends MapVisitorOptions, FallbackVisitor
  * @public
  */
 class ScopesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: OAuthFlowScopesElement;
+  declare public readonly element: OAuthFlowScopesElement;
 
-  protected declare readonly specPath: SpecPath<['value']>;
+  declare protected readonly specPath: SpecPath<['value']>;
 
   constructor(options: ScopesVisitorOptions) {
     super(options);

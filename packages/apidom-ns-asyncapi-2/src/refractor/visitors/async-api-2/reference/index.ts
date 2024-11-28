@@ -20,11 +20,11 @@ export interface ReferenceVisitorOptions
  * @public
  */
 class ReferenceVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ReferenceElement;
+  declare public readonly element: ReferenceElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Reference']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Reference']>;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: ReferenceVisitorOptions) {
     super(options);

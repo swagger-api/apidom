@@ -19,13 +19,13 @@ export interface SqsMessageBindingVisitorOptions
  * @public
  */
 class SqsMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SqsMessageBindingElement;
+  declare public readonly element: SqsMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'sqs', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SqsMessageBindingVisitorOptions) {
     super(options);

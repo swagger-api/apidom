@@ -17,11 +17,11 @@ export interface InfoVisitorOptions extends FixedFieldsVisitorOptions, FallbackV
  * @public
  */
 class InfoVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: InfoElement;
+  declare public readonly element: InfoElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Info']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Info']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: InfoVisitorOptions) {
     super(options);

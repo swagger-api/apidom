@@ -16,7 +16,7 @@ export interface SecurityVisitorOptions
  * @public
  */
 class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: OperationTraitSecurityElement;
+  declare public readonly element: OperationTraitSecurityElement;
 
   constructor(options: SecurityVisitorOptions) {
     super(options);

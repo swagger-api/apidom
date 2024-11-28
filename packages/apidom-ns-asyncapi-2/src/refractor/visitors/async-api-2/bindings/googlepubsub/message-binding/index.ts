@@ -19,13 +19,13 @@ export interface GooglepubsubMessageBindingVisitorOptions
  * @public
  */
 class GooglepubsubMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: GooglepubsubMessageBindingElement;
+  declare public readonly element: GooglepubsubMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'googlepubusb', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: GooglepubsubMessageBindingVisitorOptions) {
     super(options);

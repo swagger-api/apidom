@@ -17,11 +17,11 @@ export interface TagVisitorOptions extends FixedFieldsVisitorOptions, FallbackVi
  * @public
  */
 class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: TagElement;
+  declare public readonly element: TagElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Tag']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Tag']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: TagVisitorOptions) {
     super(options);

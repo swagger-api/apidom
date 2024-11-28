@@ -18,7 +18,7 @@ export type { ReferenceVisitorOptions };
  * @public
  */
 class ReferenceVisitor extends BaseReferenceVisitor {
-  public declare readonly element: ReferenceElement;
+  declare public readonly element: ReferenceElement;
 
   constructor(options: ReferenceVisitorOptions) {
     super(options);

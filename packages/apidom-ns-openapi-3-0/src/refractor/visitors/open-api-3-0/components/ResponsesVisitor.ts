@@ -17,9 +17,9 @@ export interface ResponsesVisitorOptions extends MapVisitorOptions, FallbackVisi
  * @public
  */
 class ResponsesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsResponsesElement;
+  declare public readonly element: ComponentsResponsesElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Response']
   >;
 

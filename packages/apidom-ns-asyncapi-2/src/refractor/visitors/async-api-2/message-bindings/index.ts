@@ -19,11 +19,11 @@ export interface MessageBindingsVisitorOptions
  * @public
  */
 class MessageBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MessageBindingsElement;
+  declare public readonly element: MessageBindingsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'MessageBindings']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'MessageBindings']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: MessageBindingsVisitorOptions) {
     super(options);

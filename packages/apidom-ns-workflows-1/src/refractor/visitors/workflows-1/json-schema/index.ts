@@ -24,13 +24,13 @@ export type JSONSchemaVisitorOptions = SchemaVisitorOptions;
  * @public
  */
 class JSONSchemaVisitor extends SchemaVisitor {
-  public declare readonly element: JSONSchemaElement;
+  declare public readonly element: JSONSchemaElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
-  protected declare readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
+  declare protected readonly jsonSchemaDefaultDialect: JsonSchemaDialectElement;
 
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);

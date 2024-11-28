@@ -18,7 +18,7 @@ export type { OAuthFlowsVisitorOptions };
  * @public
  */
 class OAuthFlowsVisitor extends BaseOAuthFlowsVisitor {
-  public declare readonly element: OAuthFlowsElement;
+  declare public readonly element: OAuthFlowsElement;
 
   constructor(options: OAuthFlowsVisitorOptions) {
     super(options);

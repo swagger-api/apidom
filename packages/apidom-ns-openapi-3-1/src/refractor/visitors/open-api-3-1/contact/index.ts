@@ -18,7 +18,7 @@ export type { ContactVisitorOptions };
  * @public
  */
 class ContactVisitor extends BaseContactVisitor {
-  public declare readonly element: ContactElement;
+  declare public readonly element: ContactElement;
 
   constructor(options: ContactVisitorOptions) {
     super(options);

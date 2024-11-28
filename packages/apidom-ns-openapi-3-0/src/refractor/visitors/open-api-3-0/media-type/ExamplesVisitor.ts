@@ -7,7 +7,7 @@ export type { ExamplesVisitorOptions };
  * @public
  */
 class ExamplesVisitor extends BaseExamplesVisitor {
-  public declare readonly element: MediaTypeExamples;
+  declare public readonly element: MediaTypeExamples;
 
   constructor(options: ExamplesVisitorOptions) {
     super(options);

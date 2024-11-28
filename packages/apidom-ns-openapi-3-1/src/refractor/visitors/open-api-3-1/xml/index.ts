@@ -18,7 +18,7 @@ export type { XmlVisitorOptions };
  * @public
  */
 class XmlVisitor extends BaseXMLVisitor {
-  public declare readonly element: XmlElement;
+  declare public readonly element: XmlElement;
 
   constructor(options: XmlVisitorOptions) {
     super(options);

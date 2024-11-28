@@ -19,13 +19,13 @@ export interface JmsServerBindingVisitorOptions
  * @public
  */
 class JmsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: JmsServerBindingElement;
+  declare public readonly element: JmsServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'jms', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: JmsServerBindingVisitorOptions) {
     super(options);

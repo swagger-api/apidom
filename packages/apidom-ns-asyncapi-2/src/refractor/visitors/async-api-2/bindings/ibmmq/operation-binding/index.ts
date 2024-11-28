@@ -19,13 +19,13 @@ export interface IbmmqOperationBindingVisitorOptions
  * @public
  */
 class IbmmqOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: IbmmqOperationBindingElement;
+  declare public readonly element: IbmmqOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'ibmmq', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: IbmmqOperationBindingVisitorOptions) {
     super(options);

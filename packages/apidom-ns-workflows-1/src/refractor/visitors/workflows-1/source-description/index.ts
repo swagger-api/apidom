@@ -19,11 +19,11 @@ export interface SourceDescriptionVisitorOptions
  * @public
  */
 class SourceDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SourceDescriptionElement;
+  declare public readonly element: SourceDescriptionElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'SourceDescription']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'SourceDescription']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: SourceDescriptionVisitorOptions) {
     super(options);

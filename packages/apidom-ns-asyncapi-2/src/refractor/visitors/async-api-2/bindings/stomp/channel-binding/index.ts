@@ -19,13 +19,13 @@ export interface StompChannelBindingVisitorOptions
  * @public
  */
 class StompChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: StompChannelBindingElement;
+  declare public readonly element: StompChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'stomp', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: StompChannelBindingVisitorOptions) {
     super(options);

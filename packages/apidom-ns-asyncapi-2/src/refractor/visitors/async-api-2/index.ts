@@ -19,11 +19,11 @@ export interface AsyncApi2VisitorOptions
  * @public
  */
 class AsyncApi2Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: AsyncApi2Element;
+  declare public readonly element: AsyncApi2Element;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'AsyncApi']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'AsyncApi']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: AsyncApi2VisitorOptions) {
     super(options);

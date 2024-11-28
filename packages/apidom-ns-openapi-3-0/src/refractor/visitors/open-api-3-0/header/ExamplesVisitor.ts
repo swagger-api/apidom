@@ -7,7 +7,7 @@ export type { ExamplesVisitorOptions };
  * @public
  */
 class ExamplesVisitor extends BaseExamplesVisitor {
-  public declare readonly element: HeaderExamplesElement;
+  declare public readonly element: HeaderExamplesElement;
 
   constructor(options: ExamplesVisitorOptions) {
     super(options);

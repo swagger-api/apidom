@@ -19,13 +19,13 @@ export interface GooglepubsubServerBindingVisitorOptions
  * @public
  */
 class GooglepubsubServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: GooglepubsubServerBindingElement;
+  declare public readonly element: GooglepubsubServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'googlepubsub', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: GooglepubsubServerBindingVisitorOptions) {
     super(options);

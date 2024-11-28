@@ -23,9 +23,9 @@ export interface WebhooksVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class WebhooksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: WebhooksElement;
+  declare public readonly element: WebhooksElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
   >;
 

@@ -16,7 +16,7 @@ export interface ExamplesVisitorOptions
  * @public
  */
 class ExamplesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: MessageExamplesElement;
+  declare public readonly element: MessageExamplesElement;
 
   constructor(options: ExamplesVisitorOptions) {
     super(options);

@@ -17,9 +17,9 @@ export interface RequestBodiesVisitorOptions extends MapVisitorOptions, Fallback
  * @public
  */
 class RequestBodiesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsRequestBodiesElement;
+  declare public readonly element: ComponentsRequestBodiesElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'RequestBody']
   >;
 

@@ -17,11 +17,11 @@ export interface ServerVisitorOptions extends FixedFieldsVisitorOptions, Fallbac
  * @public
  */
 class ServerVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ServerElement;
+  declare public readonly element: ServerElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Server']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Server']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ServerVisitorOptions) {
     super(options);

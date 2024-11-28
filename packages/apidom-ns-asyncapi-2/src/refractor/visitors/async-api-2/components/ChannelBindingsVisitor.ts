@@ -17,9 +17,9 @@ export interface ChannelBindingsVisitorOptions extends MapVisitorOptions, Fallba
  * @public
  */
 class ChannelBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsChannelBindingsElement;
+  declare public readonly element: ComponentsChannelBindingsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'ChannelBindings']
   >;
 

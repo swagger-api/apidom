@@ -18,7 +18,7 @@ export type { PathItemVisitorOptions };
  * @public
  */
 class PathItemVisitor extends BasePathItemVisitor {
-  public declare readonly element: PathItemElement;
+  declare public readonly element: PathItemElement;
 
   constructor(options: PathItemVisitorOptions) {
     super(options);

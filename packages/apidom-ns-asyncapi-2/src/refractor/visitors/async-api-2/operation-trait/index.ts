@@ -19,11 +19,11 @@ export interface OperationTraitVisitorOptions
  * @public
  */
 class OperationTraitVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: OperationTraitElement;
+  declare public readonly element: OperationTraitElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'OperationTrait']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'OperationTrait']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: OperationTraitVisitorOptions) {
     super(options);

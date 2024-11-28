@@ -17,9 +17,9 @@ export interface MessagesVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class MessagesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsMessagesElement;
+  declare public readonly element: ComponentsMessagesElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Message']
   >;
 

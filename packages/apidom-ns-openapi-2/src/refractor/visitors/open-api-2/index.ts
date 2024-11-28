@@ -17,11 +17,11 @@ export interface SwaggerVisitorOptions extends FixedFieldsVisitorOptions, Fallba
  * @public
  */
 class SwaggerVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SwaggerElement;
+  declare public readonly element: SwaggerElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Swagger']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Swagger']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: SwaggerVisitorOptions) {
     super(options);

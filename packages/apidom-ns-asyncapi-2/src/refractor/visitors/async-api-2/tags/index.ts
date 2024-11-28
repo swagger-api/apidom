@@ -14,7 +14,7 @@ export interface TagsVisitorOptions extends SpecificationVisitorOptions, Fallbac
  * @public
  */
 class TagsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: TagsElement;
+  declare public readonly element: TagsElement;
 
   constructor(options: TagsVisitorOptions) {
     super(options);

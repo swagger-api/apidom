@@ -18,7 +18,7 @@ export type { InfoVisitorOptions };
  * @public
  */
 class InfoVisitor extends BaseInfoVisitor {
-  public declare readonly element: InfoElement;
+  declare public readonly element: InfoElement;
 
   constructor(options: InfoVisitorOptions) {
     super(options);

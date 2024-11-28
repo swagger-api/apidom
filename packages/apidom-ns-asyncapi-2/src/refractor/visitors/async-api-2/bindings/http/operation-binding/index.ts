@@ -19,13 +19,13 @@ export interface HttpOperationBindingVisitorOptions
  * @public
  */
 class HttpOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: HttpOperationBindingElement;
+  declare public readonly element: HttpOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'http', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: HttpOperationBindingVisitorOptions) {
     super(options);

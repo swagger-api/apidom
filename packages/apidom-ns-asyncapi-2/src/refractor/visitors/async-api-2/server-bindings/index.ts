@@ -19,11 +19,11 @@ export interface ServerBindingsVisitorOptions
  * @public
  */
 class ServerBindingsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ServerBindingsElement;
+  declare public readonly element: ServerBindingsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ServerBindings']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ServerBindings']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ServerBindingsVisitorOptions) {
     super(options);

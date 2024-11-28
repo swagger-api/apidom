@@ -19,11 +19,11 @@ export interface CriterionVisitorOptions
  * @public
  */
 class CriterionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: CriterionElement;
+  declare public readonly element: CriterionElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Criterion']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Criterion']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: CriterionVisitorOptions) {
     super(options);

@@ -17,9 +17,9 @@ export interface CorrelationIdsVisitorOptions extends MapVisitorOptions, Fallbac
  * @public
  */
 class CorrelationIdsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsCorrelationIDsElement;
+  declare public readonly element: ComponentsCorrelationIDsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'CorrelationID']
   >;
 

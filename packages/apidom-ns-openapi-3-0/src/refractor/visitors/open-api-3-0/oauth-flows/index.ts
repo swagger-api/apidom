@@ -19,11 +19,11 @@ export interface OAuthFlowsVisitorOptions
  * @public
  */
 class OAuthFlowsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: OAuthFlowsElement;
+  declare public readonly element: OAuthFlowsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'OAuthFlows']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'OAuthFlows']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: OAuthFlowsVisitorOptions) {
     super(options);

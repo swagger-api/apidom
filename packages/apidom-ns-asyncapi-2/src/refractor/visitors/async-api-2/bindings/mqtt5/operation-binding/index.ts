@@ -19,13 +19,13 @@ export interface Mqtt5OperationBindingVisitorOptions
  * @public
  */
 class Mqtt5OperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: Mqtt5OperationBindingElement;
+  declare public readonly element: Mqtt5OperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mqtt5', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: Mqtt5OperationBindingVisitorOptions) {
     super(options);

@@ -19,13 +19,13 @@ export interface WebSocketOperationBindingVisitorOptions
  * @public
  */
 class WebSocketOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: WebSocketOperationBindingElement;
+  declare public readonly element: WebSocketOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'ws', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: WebSocketOperationBindingVisitor) {
     super(options);

@@ -19,9 +19,9 @@ export interface PrincipleVisitorOptions
  * @public
  */
 class PrincipleVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: PrincipleElement;
+  declare public readonly element: PrincipleElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Principle']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Principle']>;
 
   constructor(options: PrincipleVisitorOptions) {
     super(options);

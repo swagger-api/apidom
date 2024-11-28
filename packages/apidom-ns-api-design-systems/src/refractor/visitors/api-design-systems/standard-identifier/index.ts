@@ -16,7 +16,7 @@ export interface StandardIdentifierVisitorOptions
  * @public
  */
 class StandardIdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: StandardIdentifierElement;
+  declare public readonly element: StandardIdentifierElement;
 
   constructor(options: StandardIdentifierVisitorOptions) {
     super(options);

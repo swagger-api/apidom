@@ -19,11 +19,11 @@ export interface ServerVariableVisitorOptions
  * @public
  */
 class ServerVariableVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ServerVariableElement;
+  declare public readonly element: ServerVariableElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'ServerVariable']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'ServerVariable']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ServerVariableVisitorOptions) {
     super(options);

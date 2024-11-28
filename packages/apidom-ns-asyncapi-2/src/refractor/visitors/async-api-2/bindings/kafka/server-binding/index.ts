@@ -19,13 +19,13 @@ export interface KafkaServerBindingVisitorOptions
  * @public
  */
 class KafkaServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: KafkaServerBindingElement;
+  declare public readonly element: KafkaServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'kafka', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: KafkaServerBindingVisitorOptions) {
     super(options);

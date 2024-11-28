@@ -22,9 +22,9 @@ export interface RequestBodyVisitorOptions
  * @public
  */
 class RequestBodyVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: RequestBodyElement;
+  declare public readonly element: RequestBodyElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'RequestBody']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'RequestBody']>;
 
   constructor(options: RequestBodyVisitorOptions) {
     super(options);

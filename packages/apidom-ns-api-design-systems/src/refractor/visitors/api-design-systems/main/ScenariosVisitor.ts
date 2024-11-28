@@ -15,7 +15,7 @@ export interface ScenariosVisitorOptions
  * @public
  */
 class ScenariosVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   constructor(options: ScenariosVisitorOptions) {
     super(options);

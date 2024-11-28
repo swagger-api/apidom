@@ -19,13 +19,13 @@ export interface SnsMessageBindingVisitorOptions
  * @public
  */
 class SnsMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SnsMessageBindingElement;
+  declare public readonly element: SnsMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'sns', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SnsMessageBindingVisitorOptions) {
     super(options);

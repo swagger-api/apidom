@@ -19,13 +19,13 @@ export interface Mqtt5MessageBindingVisitorOptions
  * @public
  */
 class Mqtt5MessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: Mqtt5MessageBindingElement;
+  declare public readonly element: Mqtt5MessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mqtt5', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: Mqtt5MessageBindingVisitorOptions) {
     super(options);

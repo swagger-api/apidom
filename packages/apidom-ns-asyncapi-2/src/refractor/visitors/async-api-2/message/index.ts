@@ -22,11 +22,11 @@ export interface MessageVisitorOptions extends FixedFieldsVisitorOptions, Fallba
  * @public
  */
 class MessageVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MessageElement;
+  declare public readonly element: MessageElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Message']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Message']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: MessageVisitorOptions) {
     super(options);

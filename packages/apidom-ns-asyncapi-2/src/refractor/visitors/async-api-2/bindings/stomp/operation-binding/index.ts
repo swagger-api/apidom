@@ -19,13 +19,13 @@ export interface StompOperationBindingVisitorOptions
  * @public
  */
 class StompOperationBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: StompOperationBindingElement;
+  declare public readonly element: StompOperationBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'stomp', 'OperationBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: StompOperationBindingVisitorOptions) {
     super(options);

@@ -18,7 +18,7 @@ export interface SecurityDefinitionsVisitorOptions
 class SecurityDefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   public readonly element: SecurityDefinitionsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'SecurityScheme']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'SecurityScheme']>;
 
   constructor(options: SecurityDefinitionsVisitorOptions) {
     super(options);

@@ -10,7 +10,7 @@ export type { FallbackVisitorOptions as ExamplesVisitorOptions };
  * @public
  */
 class ExamplesVisitor extends FallbackVisitor {
-  public declare readonly element: ArrayElement;
+  declare public readonly element: ArrayElement;
 
   ArrayElement(arrayElement: ArrayElement) {
     const result = this.enter(arrayElement);

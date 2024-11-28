@@ -16,9 +16,9 @@ export interface ResponsesDefinitionsVisitorOptions
  * @public
  */
 class ResponsesDefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ResponsesDefinitionsElement;
+  declare public readonly element: ResponsesDefinitionsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Response']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Response']>;
 
   constructor(options: ResponsesDefinitionsVisitorOptions) {
     super(options);

@@ -8,7 +8,7 @@ export type { FallbackVisitorOptions as ExternalValueVisitorOptions };
  * @public
  */
 class ExternalValueVisitor extends FallbackVisitor {
-  public declare readonly element: StringElement;
+  declare public readonly element: StringElement;
 
   StringElement(stringElement: StringElement) {
     const result = super.enter(stringElement);

@@ -19,9 +19,9 @@ export interface RequirementVisitorOptions
  * @public
  */
 class RequirementVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: RequirementElement;
+  declare public readonly element: RequirementElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Requirement']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Requirement']>;
 
   constructor(options: RequirementVisitorOptions) {
     super(options);

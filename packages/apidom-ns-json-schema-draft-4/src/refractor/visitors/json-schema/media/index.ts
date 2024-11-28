@@ -17,9 +17,9 @@ export interface MediaVisitorOptions extends FixedFieldsVisitorOptions, Fallback
  * @public
  */
 class MediaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MediaElement;
+  declare public readonly element: MediaElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Media']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Media']>;
 
   constructor(options: MediaVisitorOptions) {
     super(options);

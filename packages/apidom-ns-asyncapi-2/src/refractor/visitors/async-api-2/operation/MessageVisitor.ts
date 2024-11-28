@@ -18,7 +18,7 @@ export interface MessageVisitorOptions
  * @public
  */
 class MessageVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: OperationMessageMapElement;
+  declare public element: OperationMessageMapElement;
 
   ObjectElement(objectElement: ObjectElement) {
     if (isReferenceLikeElement(objectElement)) {

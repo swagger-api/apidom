@@ -14,9 +14,9 @@ export interface ContentVisitorOptions extends MapVisitorOptions, FallbackVisito
  * @public
  */
 class ContentVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ObjectElement;
+  declare public readonly element: ObjectElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'MediaType']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'MediaType']>;
 
   constructor(options: ContentVisitorOptions) {
     super(options);

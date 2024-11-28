@@ -12,7 +12,7 @@ export interface DependsOnVisitorOptions extends FallbackVisitorOptions {}
  * @public
  */
 class DependsOnVisitor extends FallbackVisitor {
-  public declare element: StepDependsOnElement;
+  declare public element: StepDependsOnElement;
 
   constructor(options: DependsOnVisitorOptions) {
     super(options);

@@ -20,11 +20,11 @@ export interface EncodingVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class EncodingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: EncodingElement;
+  declare public readonly element: EncodingElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: EncodingVisitorOptions) {
     super(options);

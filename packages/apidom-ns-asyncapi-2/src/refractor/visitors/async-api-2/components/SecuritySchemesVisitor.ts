@@ -17,9 +17,9 @@ export interface SecuritySchemesVisitorOptions extends MapVisitorOptions, Fallba
  * @public
  */
 class SecuritySchemesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare element: ComponentsSecuritySchemesElement;
+  declare public element: ComponentsSecuritySchemesElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'SecurityScheme']
   >;
 

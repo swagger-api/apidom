@@ -19,13 +19,13 @@ export interface AnypointmqServerBindingVisitorOptions
  * @public
  */
 class AnypointmqServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: AnypointmqServerBindingElement;
+  declare public readonly element: AnypointmqServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'anypointmq', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: AnypointmqServerBindingVisitorOptions) {
     super(options);

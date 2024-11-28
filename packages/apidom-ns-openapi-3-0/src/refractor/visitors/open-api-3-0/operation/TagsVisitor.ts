@@ -12,7 +12,7 @@ export interface TagsVisitorOptions extends FallbackVisitorOptions {}
  * @public
  */
 class TagsVisitor extends FallbackVisitor {
-  public declare element: OperationTagsElement;
+  declare public element: OperationTagsElement;
 
   constructor(options: TagsVisitorOptions) {
     super(options);

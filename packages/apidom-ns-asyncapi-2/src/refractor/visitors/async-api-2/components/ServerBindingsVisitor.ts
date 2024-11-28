@@ -17,9 +17,9 @@ export interface ServerBindingsVisitorOptions extends MapVisitorOptions, Fallbac
  * @public
  */
 class ServerBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare element: ComponentsServerBindingsElement;
+  declare public element: ComponentsServerBindingsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'ServerBindings']
   >;
 

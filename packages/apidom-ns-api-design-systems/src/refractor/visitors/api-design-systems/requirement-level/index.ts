@@ -16,7 +16,7 @@ export interface RequirementLevelVisitorOptions
  * @public
  */
 class RequirementLevelVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: RequirementLevelElement;
+  declare public element: RequirementLevelElement;
 
   StringElement(stringElement: StringElement) {
     const requirementLevelElement = new RequirementLevelElement(toValue(stringElement));

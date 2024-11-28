@@ -17,11 +17,11 @@ export interface XmlVisitorOptions extends FixedFieldsVisitorOptions, FallbackVi
  * @public
  */
 class XmlVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: XmlElement;
+  declare public readonly element: XmlElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'XML']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'XML']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: XmlVisitorOptions) {
     super(options);

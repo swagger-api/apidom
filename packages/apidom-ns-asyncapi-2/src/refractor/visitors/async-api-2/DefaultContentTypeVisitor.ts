@@ -16,7 +16,7 @@ export interface DefaultContentTypeVisitorOptions
  * @public
  */
 class DefaultContentTypeVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: DefaultContentTypeElement;
+  declare public element: DefaultContentTypeElement;
 
   StringElement(stringElement: StringElement) {
     const defaultContentTypeElement = new DefaultContentTypeElement(toValue(stringElement));

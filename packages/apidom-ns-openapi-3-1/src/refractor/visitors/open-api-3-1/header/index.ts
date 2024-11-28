@@ -18,7 +18,7 @@ export type { HeaderVisitorOptions };
  * @public
  */
 class HeaderVisitor extends BaseHeaderVisitor {
-  public declare readonly element: HeaderElement;
+  declare public readonly element: HeaderElement;
 
   constructor(options: HeaderVisitorOptions) {
     super(options);

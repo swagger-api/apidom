@@ -17,9 +17,9 @@ export interface ServersVisitorOptions extends MapVisitorOptions, FallbackVisito
  * @public
  */
 class ServersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsServersElement;
+  declare public readonly element: ComponentsServersElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Server']
   >;
 

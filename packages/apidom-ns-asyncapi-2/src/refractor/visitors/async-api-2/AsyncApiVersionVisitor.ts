@@ -16,7 +16,7 @@ export interface AsyncApiVersionVisitorOptions
  * @public
  */
 class AsyncApiVersionVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: AsyncApiVersionElement;
+  declare public element: AsyncApiVersionElement;
 
   StringElement(stringElement: StringElement) {
     const asyncApiVersionElement = new AsyncApiVersionElement(toValue(stringElement));

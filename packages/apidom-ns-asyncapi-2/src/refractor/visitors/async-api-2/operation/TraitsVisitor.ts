@@ -15,7 +15,7 @@ export interface TraitsVisitorOptions extends SpecificationVisitorOptions, Fallb
  * @public
  */
 class TraitsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: OperationTraitsElement;
+  declare public readonly element: OperationTraitsElement;
 
   constructor(options: TraitsVisitorOptions) {
     super(options);

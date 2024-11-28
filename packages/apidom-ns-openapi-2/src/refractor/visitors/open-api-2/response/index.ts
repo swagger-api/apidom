@@ -17,11 +17,11 @@ export interface ResponseVisitorOptions extends FixedFieldsVisitorOptions, Fallb
  * @public
  */
 class ResponseVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ResponseElement;
+  declare public readonly element: ResponseElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Response']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Response']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ResponseVisitorOptions) {
     super(options);

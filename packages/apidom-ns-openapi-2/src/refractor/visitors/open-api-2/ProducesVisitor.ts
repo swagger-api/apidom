@@ -9,7 +9,7 @@ export type { FallbackVisitorOptions as ProducesVisitorOptions };
  * @public
  */
 class ProducesVisitor extends FallbackVisitor {
-  public declare element: SwaggerProducesElement;
+  declare public element: SwaggerProducesElement;
 
   constructor(options: FallbackVisitorOptions) {
     super(options);

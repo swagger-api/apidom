@@ -18,11 +18,11 @@ export interface ExampleVisitorOptions extends FixedFieldsVisitorOptions, Fallba
  * @public
  */
 class ExampleVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ExampleElement;
+  declare public readonly element: ExampleElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Example']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Example']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ExampleVisitorOptions) {
     super(options);

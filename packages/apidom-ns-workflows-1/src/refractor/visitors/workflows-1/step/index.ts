@@ -17,11 +17,11 @@ export interface StepVisitorOptions extends FixedFieldsVisitorOptions, FallbackV
  * @public
  */
 class StepVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: StepElement;
+  declare public readonly element: StepElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Step']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Step']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: StepVisitorOptions) {
     super(options);

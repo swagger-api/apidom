@@ -18,7 +18,7 @@ export type { ExternalDocumentationVisitorOptions };
  * @public
  */
 class ExternalDocumentationVisitor extends BaseExternalDocumentationVisitor {
-  public declare readonly element: ExternalDocumentationElement;
+  declare public readonly element: ExternalDocumentationElement;
 
   constructor(options: ExternalDocumentationVisitorOptions) {
     super(options);

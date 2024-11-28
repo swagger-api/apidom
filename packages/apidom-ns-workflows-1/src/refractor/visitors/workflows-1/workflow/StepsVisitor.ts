@@ -14,7 +14,7 @@ export interface StepsVisitorOptions extends SpecificationVisitorOptions, Fallba
  * @public
  */
 class StepsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: WorkflowStepsElement;
+  declare public readonly element: WorkflowStepsElement;
 
   constructor(options: StepsVisitorOptions) {
     super(options);

@@ -19,9 +19,9 @@ export interface JSONSchemaVisitorOptions
  * @public
  */
 class JSONSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare element: JSONSchemaElement;
+  declare public element: JSONSchemaElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);

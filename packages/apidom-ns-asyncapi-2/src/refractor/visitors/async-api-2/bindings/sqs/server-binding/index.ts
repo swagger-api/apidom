@@ -19,13 +19,13 @@ export interface SqsServerBindingVisitorOptions
  * @public
  */
 class SqsServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SqsServerBindingElement;
+  declare public readonly element: SqsServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'sqs', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SqsServerBindingVisitorOptions) {
     super(options);

@@ -24,9 +24,9 @@ class PatternPropertiesVisitor extends Mixin(
   ParentSchemaAwareVisitor,
   FallbackVisitor,
 ) {
-  public declare readonly element: ObjectElement;
+  declare public readonly element: ObjectElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'JSONReference'] | ['document', 'objects', 'JSONSchema']
   >;
 

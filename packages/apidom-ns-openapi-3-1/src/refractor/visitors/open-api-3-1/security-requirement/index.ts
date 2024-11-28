@@ -18,7 +18,7 @@ export type { SecurityRequirementVisitorOptions };
  * @public
  */
 class SecurityRequirementVisitor extends BaseSecurityRequirementVisitor {
-  public declare readonly element: SecurityRequirementElement;
+  declare public readonly element: SecurityRequirementElement;
 
   constructor(options: SecurityRequirementVisitorOptions) {
     super(options);

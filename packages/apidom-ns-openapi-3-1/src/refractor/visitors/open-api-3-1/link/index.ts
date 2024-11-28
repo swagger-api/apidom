@@ -18,7 +18,7 @@ export type { LinkVisitorOptions };
  * @public
  */
 class LinkVisitor extends BaseLinkVisitor {
-  public declare readonly element: LinkElement;
+  declare public readonly element: LinkElement;
 
   constructor(options: LinkVisitorOptions) {
     super(options);

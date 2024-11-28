@@ -17,9 +17,9 @@ export interface LinksVisitorOptions extends MapVisitorOptions, FallbackVisitorO
  * @public
  */
 class LinksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsLinksElement;
+  declare public readonly element: ComponentsLinksElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Link']
   >;
 

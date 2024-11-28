@@ -19,13 +19,13 @@ export interface NatsChannelBindingVisitorOptions
  * @public
  */
 class NatsChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: NatsChannelBindingElement;
+  declare public readonly element: NatsChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'nats', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: NatsChannelBindingVisitorOptions) {
     super(options);

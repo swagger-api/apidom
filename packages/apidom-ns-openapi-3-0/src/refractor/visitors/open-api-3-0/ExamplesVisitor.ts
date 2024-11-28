@@ -16,13 +16,13 @@ export interface ExamplesVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class ExamplesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ObjectElement;
+  declare public readonly element: ObjectElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Example']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ExamplesVisitorOptions) {
     super(options);

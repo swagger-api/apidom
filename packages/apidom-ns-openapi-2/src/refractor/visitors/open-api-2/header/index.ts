@@ -17,11 +17,11 @@ export interface HeaderVisitorOptions extends FixedFieldsVisitorOptions, Fallbac
  * @public
  */
 class HeaderVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: HeaderElement;
+  declare public readonly element: HeaderElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Header']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Header']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: HeaderVisitorOptions) {
     super(options);

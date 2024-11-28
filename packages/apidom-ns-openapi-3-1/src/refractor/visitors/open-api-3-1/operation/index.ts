@@ -18,7 +18,7 @@ export type { OperationVisitorOptions };
  * @public
  */
 class OperationVisitor extends BaseOperationVisitor {
-  public declare readonly element: OperationElement;
+  declare public readonly element: OperationElement;
 
   constructor(options: OperationVisitorOptions) {
     super(options);

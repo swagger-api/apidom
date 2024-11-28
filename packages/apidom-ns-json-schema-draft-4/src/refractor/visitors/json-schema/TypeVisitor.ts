@@ -8,7 +8,7 @@ export type { FallbackVisitorOptions as TypeVisitorOptions };
  * @public
  */
 class TypeVisitor extends FallbackVisitor {
-  public declare readonly element: StringElement | ArrayElement;
+  declare public readonly element: StringElement | ArrayElement;
 
   StringElement(stringElement: StringElement) {
     const result = this.enter(stringElement);

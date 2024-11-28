@@ -19,11 +19,11 @@ export interface MessageExampleVisitorOptions
  * @public
  */
 class MessageExampleVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MessageExampleElement;
+  declare public readonly element: MessageExampleElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'MessageExample']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'MessageExample']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: MessageExampleVisitorOptions) {
     super(options);

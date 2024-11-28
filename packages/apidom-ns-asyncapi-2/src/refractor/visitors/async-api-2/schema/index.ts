@@ -18,11 +18,11 @@ export interface SchemaVisitorOptions extends FixedFieldsVisitorOptions, Fallbac
  * @public
  */
 class SchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare element: SchemaElement;
+  declare public element: SchemaElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: SchemaVisitorOptions) {
     super(options);

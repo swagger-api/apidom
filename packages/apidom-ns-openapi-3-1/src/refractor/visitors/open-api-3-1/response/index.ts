@@ -18,7 +18,7 @@ export type { ResponseVisitorOptions };
  * @public
  */
 class ResponseVisitor extends BaseResponseVisitor {
-  public declare readonly element: ResponseElement;
+  declare public readonly element: ResponseElement;
 
   constructor(options: ResponseVisitorOptions) {
     super(options);

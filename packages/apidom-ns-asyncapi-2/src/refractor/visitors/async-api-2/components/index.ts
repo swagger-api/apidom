@@ -19,11 +19,11 @@ export interface ComponentsVisitorOptions
  * @public
  */
 class ComponentsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsElement;
+  declare public readonly element: ComponentsElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Components']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Components']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ComponentsVisitorOptions) {
     super(options);

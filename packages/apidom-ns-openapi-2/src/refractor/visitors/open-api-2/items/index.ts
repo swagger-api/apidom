@@ -17,7 +17,7 @@ export interface ItemsVisitorOptions extends FixedFieldsVisitorOptions, Fallback
  * @public
  */
 class ItemsVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ItemsElement;
+  declare public readonly element: ItemsElement;
 
   protected readonly specPath: SpecPath<['document', 'objects', 'Items']>;
 

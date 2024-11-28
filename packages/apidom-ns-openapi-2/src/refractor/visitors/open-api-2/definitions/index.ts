@@ -19,9 +19,9 @@ export interface DefinitionsVisitorOptions extends MapVisitorOptions, FallbackVi
  * @public
  */
 class DefinitionsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: DefinitionsElement;
+  declare public readonly element: DefinitionsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'JSONReference'] | ['document', 'objects', 'Schema']
   >;
 

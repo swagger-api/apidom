@@ -8,7 +8,7 @@ export type { FallbackVisitorOptions as VersionVisitorOptions };
  * @public
  */
 class VersionVisitor extends FallbackVisitor {
-  public declare element: StringElement;
+  declare public element: StringElement;
 
   StringElement(stringElement: StringElement) {
     this.element = new StringElement(toValue(stringElement));

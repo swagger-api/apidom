@@ -19,13 +19,13 @@ export interface RedisChannelBindingVisitorOptions
  * @public
  */
 class RedisChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: RedisChannelBindingElement;
+  declare public readonly element: RedisChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'redis', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: RedisChannelBindingVisitorOptions) {
     super(options);

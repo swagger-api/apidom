@@ -19,13 +19,13 @@ export interface WebSocketMessageBindingVisitorOptions
  * @public
  */
 class WebSocketMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: WebSocketMessageBindingElement;
+  declare public readonly element: WebSocketMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'ws', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: WebSocketMessageBindingVisitorOptions) {
     super(options);

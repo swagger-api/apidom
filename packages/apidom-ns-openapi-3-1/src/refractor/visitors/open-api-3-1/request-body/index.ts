@@ -18,7 +18,7 @@ export type { RequestBodyVisitorOptions };
  * @public
  */
 class RequestBodyVisitor extends BaseRequestBodyVisitor {
-  public declare readonly element: RequestBodyElement;
+  declare public readonly element: RequestBodyElement;
 
   constructor(options: RequestBodyVisitorOptions) {
     super(options);

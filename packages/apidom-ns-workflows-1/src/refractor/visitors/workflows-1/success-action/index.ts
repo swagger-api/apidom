@@ -19,11 +19,11 @@ export interface SuccessActionVisitorOptions
  * @public
  */
 class SuccessActionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SuccessActionElement;
+  declare public readonly element: SuccessActionElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'SuccessAction']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'SuccessAction']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: SuccessActionVisitorOptions) {
     super(options);

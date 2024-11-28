@@ -19,13 +19,13 @@ export interface MqttChannelBindingVisitorOptions
  * @public
  */
 class MqttChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MqttChannelBindingElement;
+  declare public readonly element: MqttChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mqtt', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: MqttChannelBindingVisitorOptions) {
     super(options);

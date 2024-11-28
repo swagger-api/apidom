@@ -19,11 +19,11 @@ export interface DiscriminatorVisitorOptions
  * @public
  */
 class DiscriminatorVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: DiscriminatorElement;
+  declare public readonly element: DiscriminatorElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Discriminator']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Discriminator']>;
 
-  protected declare canSupportSpecificationExtensions: boolean;
+  declare protected canSupportSpecificationExtensions: boolean;
 
   constructor(options: DiscriminatorVisitorOptions) {
     super(options);

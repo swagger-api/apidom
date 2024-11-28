@@ -19,9 +19,9 @@ export interface CorrelationIDVisitorOptions
  * @public
  */
 class CorrelationIDVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: CorrelationIDElement;
+  declare public readonly element: CorrelationIDElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'CorrelationID']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'CorrelationID']>;
 
   constructor(options: CorrelationIDVisitorOptions) {
     super(options);

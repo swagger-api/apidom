@@ -14,9 +14,9 @@ export interface EncodingVisitorOptions extends MapVisitorOptions, FallbackVisit
  * @public
  */
 class EncodingVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: MediaTypeEncodingElement;
+  declare public readonly element: MediaTypeEncodingElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Encoding']>;
 
   constructor(options: EncodingVisitorOptions) {
     super(options);

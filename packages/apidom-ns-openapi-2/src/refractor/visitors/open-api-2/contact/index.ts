@@ -17,11 +17,11 @@ export interface ContactVisitorOptions extends FixedFieldsVisitorOptions, Fallba
  * @public
  */
 class ContactVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ContactElement;
+  declare public readonly element: ContactElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'Contact']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Contact']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: ContactVisitorOptions) {
     super(options);

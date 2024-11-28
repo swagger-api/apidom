@@ -19,13 +19,13 @@ export interface MqttServerBindingVisitorOptions
  * @public
  */
 class MqttServerBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MqttServerBindingElement;
+  declare public readonly element: MqttServerBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mqtt', 'ServerBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: MqttServerBindingVisitorOptions) {
     super(options);

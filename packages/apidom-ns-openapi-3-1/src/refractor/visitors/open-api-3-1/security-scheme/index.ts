@@ -18,7 +18,7 @@ export type { SecuritySchemeVisitorOptions };
  * @public
  */
 class SecuritySchemeVisitor extends BaseSecuritySchemeVisitor {
-  public declare readonly element: SecuritySchemeElement;
+  declare public readonly element: SecuritySchemeElement;
 
   constructor(options: SecuritySchemeVisitorOptions) {
     super(options);

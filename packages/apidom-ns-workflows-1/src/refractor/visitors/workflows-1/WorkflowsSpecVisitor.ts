@@ -16,7 +16,7 @@ export interface WorkflowsSpecVisitorOptions
  * @public
  */
 class WorkflowsSpecVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: WorkflowsSpecElement;
+  declare public element: WorkflowsSpecElement;
 
   StringElement(stringElement: StringElement) {
     const workflowsSpecElement = new WorkflowsSpecElement(toValue(stringElement));

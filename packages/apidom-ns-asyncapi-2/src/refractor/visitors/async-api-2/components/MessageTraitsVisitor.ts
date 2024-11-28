@@ -17,9 +17,9 @@ export interface MessageTraitsVisitorOptions extends MapVisitorOptions, Fallback
  * @public
  */
 class MessageTraitsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ComponentsMessageTraitsElement;
+  declare public readonly element: ComponentsMessageTraitsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'MessageTrait']
   >;
 

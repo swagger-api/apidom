@@ -18,7 +18,7 @@ export type { ParameterVisitorOptions };
  * @public
  */
 class ParameterVisitor extends BaseParameterVisitor {
-  public declare readonly element: ParameterElement;
+  declare public readonly element: ParameterElement;
 
   constructor(options: ParameterVisitorOptions) {
     super(options);

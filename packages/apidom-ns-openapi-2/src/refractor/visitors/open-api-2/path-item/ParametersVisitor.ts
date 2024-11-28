@@ -18,7 +18,7 @@ export interface ParametersVisitorOptions
  * @public
  */
 class ParametersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare readonly element: PathItemParametersElement;
+  declare public readonly element: PathItemParametersElement;
 
   constructor(options: ParametersVisitorOptions) {
     super(options);

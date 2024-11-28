@@ -19,13 +19,13 @@ export interface MercureMessageBindingVisitorOptions
  * @public
  */
 class MercureMessageBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MercureMessageBindingElement;
+  declare public readonly element: MercureMessageBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'mercure', 'MessageBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: MercureMessageBindingVisitorOptions) {
     super(options);

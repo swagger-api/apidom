@@ -19,13 +19,13 @@ export interface PulsarChannelBindingVisitorOptions
  * @public
  */
 class PulsarChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element;
+  declare public readonly element;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'pulsar', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: PulsarChannelBindingVisitorOptions) {
     super(options);

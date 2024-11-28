@@ -19,11 +19,11 @@ export interface SecuritySchemeVisitorOptions
  * @public
  */
 class SecuritySchemeVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SecuritySchemeElement;
+  declare public readonly element: SecuritySchemeElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'SecurityScheme']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'SecurityScheme']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: SecuritySchemeVisitorOptions) {
     super(options);

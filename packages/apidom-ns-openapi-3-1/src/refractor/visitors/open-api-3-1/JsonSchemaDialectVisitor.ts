@@ -20,7 +20,7 @@ export interface JsonSchemaDialectVisitorOptions
  * @public
  */
 class JsonSchemaDialectVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: JsonSchemaDialectElement;
+  declare public element: JsonSchemaDialectElement;
 
   StringElement(stringElement: StringElement) {
     const jsonSchemaDialectElement = new JsonSchemaDialectElement(toValue(stringElement));

@@ -7,7 +7,7 @@ export type { ContentVisitorOptions };
  * @public
  */
 class ContentVisitor extends BaseContentVisitor {
-  public declare readonly element: ResponseContentElement;
+  declare public readonly element: ResponseContentElement;
 
   constructor(options: ContentVisitorOptions) {
     super(options);

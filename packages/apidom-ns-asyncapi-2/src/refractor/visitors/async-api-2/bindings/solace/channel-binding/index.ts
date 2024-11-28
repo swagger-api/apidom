@@ -19,13 +19,13 @@ export interface SolaceChannelBindingVisitorOptions
  * @public
  */
 class SolaceChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SolaceChannelBindingElement;
+  declare public readonly element: SolaceChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'solace', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SolaceChannelBindingVisitorOptions) {
     super(options);

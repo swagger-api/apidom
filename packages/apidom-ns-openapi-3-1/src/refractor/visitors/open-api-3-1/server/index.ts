@@ -18,7 +18,7 @@ export type { ServerVisitorOptions };
  * @public
  */
 class ServerVisitor extends BaseServerVisitor {
-  public declare readonly element: ServerElement;
+  declare public readonly element: ServerElement;
 
   constructor(options: ServerVisitorOptions) {
     super(options);

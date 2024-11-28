@@ -18,7 +18,7 @@ export type { PathsVisitorOptions };
  * @public
  */
 class PathsVisitor extends BasePathsVisitor {
-  public declare readonly element: PathsElement;
+  declare public readonly element: PathsElement;
 
   constructor(options: PathsVisitorOptions) {
     super(options);

@@ -18,7 +18,7 @@ export type { EncodingVisitorOptions };
  * @public
  */
 class EncodingVisitor extends BaseEncodingVisitor {
-  public declare readonly element: EncodingElement;
+  declare public readonly element: EncodingElement;
 
   constructor(options: EncodingVisitorOptions) {
     super(options);

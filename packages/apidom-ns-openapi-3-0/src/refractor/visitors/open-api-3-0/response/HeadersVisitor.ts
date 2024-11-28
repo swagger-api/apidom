@@ -17,9 +17,9 @@ export interface HeadersVisitorOptions extends MapVisitorOptions, FallbackVisito
  * @public
  */
 class HeadersVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: ResponseHeadersElement;
+  declare public readonly element: ResponseHeadersElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Header']
   >;
 

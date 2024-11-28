@@ -22,7 +22,7 @@ export const JSONSchemaOrJSONReferenceVisitor: typeof SchemaOrReferenceVisitorTy
  * @public
  */
 class SchemaOrReferenceVisitor extends JSONSchemaOrJSONReferenceVisitor {
-  public declare element: SchemaElement | JSONReferenceElement;
+  declare public element: SchemaElement | JSONReferenceElement;
 
   enter(element: Element) {
     const result = JSONSchemaOrJSONReferenceVisitor.prototype.enter.call(this, element);

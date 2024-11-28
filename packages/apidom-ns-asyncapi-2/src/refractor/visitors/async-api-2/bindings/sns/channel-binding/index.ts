@@ -19,13 +19,13 @@ export interface SnsChannelBindingVisitorOptions
  * @public
  */
 class SnsChannelBindingVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: SnsChannelBindingElement;
+  declare public readonly element: SnsChannelBindingElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'bindings', 'sns', 'ChannelBinding']
   >;
 
-  protected declare readonly canSupportSpecificationExtensions: false;
+  declare protected readonly canSupportSpecificationExtensions: false;
 
   constructor(options: SnsChannelBindingVisitorOptions) {
     super(options);

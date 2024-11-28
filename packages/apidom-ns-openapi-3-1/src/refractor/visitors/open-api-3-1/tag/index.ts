@@ -18,7 +18,7 @@ export type { TagVisitorOptions };
  * @public
  */
 class TagVisitor extends BaseTagVisitor {
-  public declare readonly element: TagElement;
+  declare public readonly element: TagElement;
 
   constructor(options: TagVisitorOptions) {
     super(options);

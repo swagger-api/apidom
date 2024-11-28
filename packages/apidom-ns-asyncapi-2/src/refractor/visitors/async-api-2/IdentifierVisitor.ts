@@ -16,7 +16,7 @@ export interface IdentifierVisitorOptions
  * @public
  */
 class IdentifierVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  public declare element: IdentifierElement;
+  declare public element: IdentifierElement;
 
   StringElement(stringElement: StringElement) {
     const identifierElement = new IdentifierElement(toValue(stringElement));

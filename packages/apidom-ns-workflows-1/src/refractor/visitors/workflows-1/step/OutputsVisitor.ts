@@ -14,9 +14,9 @@ export interface OutputsVisitorOptions extends MapVisitorOptions, FallbackVisito
  * @public
  */
 class OutputsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare readonly element: StepOutputsElement;
+  declare public readonly element: StepOutputsElement;
 
-  protected declare readonly specPath: SpecPath<['value']>;
+  declare protected readonly specPath: SpecPath<['value']>;
 
   constructor(options: OutputsVisitorOptions) {
     super(options);

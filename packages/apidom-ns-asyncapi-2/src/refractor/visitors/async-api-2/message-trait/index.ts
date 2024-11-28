@@ -19,11 +19,11 @@ export interface MessageTraitVisitorOptions
  * @public
  */
 class MessageTraitVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: MessageTraitElement;
+  declare public readonly element: MessageTraitElement;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'MessageTrait']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'MessageTrait']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: MessageTraitVisitorOptions) {
     super(options);

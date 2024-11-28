@@ -17,9 +17,9 @@ export interface MessageBindingsVisitorOptions extends MapVisitorOptions, Fallba
  * @public
  */
 class MessageBindingsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  public declare element: ComponentsMessageBindingsElement;
+  declare public element: ComponentsMessageBindingsElement;
 
-  protected declare readonly specPath: SpecPath<
+  declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'MessageBindings']
   >;
 

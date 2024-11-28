@@ -24,13 +24,13 @@ export interface OpenApi3_1VisitorOptions
  */
 // eslint-disable-next-line @typescript-eslint/naming-convention
 class OpenApi3_1Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: OpenApi3_1Element;
+  declare public readonly element: OpenApi3_1Element;
 
-  protected declare readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'OpenApi']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
-  protected declare readonly openApiSemanticElement: OpenApi3_1Element;
+  declare protected readonly openApiSemanticElement: OpenApi3_1Element;
 
   constructor(options: OpenApi3_1VisitorOptions) {
     super(options);

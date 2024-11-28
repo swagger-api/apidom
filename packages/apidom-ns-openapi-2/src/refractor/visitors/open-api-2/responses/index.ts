@@ -29,13 +29,13 @@ export interface ResponsesVisitorOptions
  * @public
  */
 class ResponsesVisitor extends Mixin(MixedFieldsVisitor, FallbackVisitor) {
-  public declare readonly element: ResponsesElement;
+  declare public readonly element: ResponsesElement;
 
-  protected declare readonly specPathFixedFields: SpecPath<['document', 'objects', 'Responses']>;
+  declare protected readonly specPathFixedFields: SpecPath<['document', 'objects', 'Responses']>;
 
-  protected declare readonly canSupportSpecificationExtensions: true;
+  declare protected readonly canSupportSpecificationExtensions: true;
 
-  protected declare readonly specPathPatternedFields: SpecPath<
+  declare protected readonly specPathPatternedFields: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Response']
   >;
 

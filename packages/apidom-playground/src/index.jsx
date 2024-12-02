@@ -14,7 +14,9 @@ import reportWebVitals from './reportWebVitals.js';
 const system = new System({
   plugins: [ApiDOMPlaygroundPlugin],
   middleware: (sys) => (getDefaultMiddleware) => {
-    const apiDOMWorker = new Worker(new URL('./playground/apidom.worker', import.meta.url));
+    const apiDOMWorker = new Worker(new URL('./playground/apidom.worker', import.meta.url), {
+      type: 'module',
+    });
     const apiDOMService = Comlink.wrap(apiDOMWorker);
 
     return getDefaultMiddleware({

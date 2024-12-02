@@ -1,7 +1,7 @@
 {
   "extends": [
-    "react-app",
-    "react-app/jest",
+    "eslint:recommended",
+    "plugin:react/recommended",
     "airbnb",
     "plugin:jsx-a11y/recommended",
     "prettier",

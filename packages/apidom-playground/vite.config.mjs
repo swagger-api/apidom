@@ -12,7 +12,7 @@ export default defineConfig({
   build: {
     sourcemap: false,
     sourcemapExcludeSources: true,
-    target: '',
+    target: 'esnext',
     outDir: 'build',
     chunkSizeWarningLimit: 1000,
     rollupOptions: {

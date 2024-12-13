@@ -100,6 +100,15 @@ describe('adapter-node', function () {
     });
   });
 
+  context('given valid YAML 1.2 with very long mapping key', function () {
+    specify('should parse', async function () {
+      const parseResult = await adapter.parse(`/${'a'.repeat(256)}: test`);
+
+      assert.isFalse(parseResult.isEmpty);
+      expect(toValue(parseResult)).toMatchSnapshot();
+    });
+  });
+
   context('given invalid YAML 1.2 with indentation syntax error', function () {
     specify('should produce syntax error annotation', async function () {
       const syntaxErrorSpec = `

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.4](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2024-12-13)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-yaml-2
+
 # [1.0.0-beta.3](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.2...v1.0.0-beta.3) (2024-11-25)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-yaml-2

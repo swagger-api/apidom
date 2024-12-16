@@ -5,17 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
-const exclusiveMaximumPatternLint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_EXCLUSIVEMAXIMUM,
+const exclusiveMinimumTypeNumberLint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_EXCLUSIVEMINUMUM,
   source: 'apilint',
-  message: 'exclusiveMaximum value must be a number',
+  message: "'exclusiveMinimum' value must be a number",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValueRegex',
-  linterParams: ['^-?\\d*\\.{0,1}\\d+$', 'number'],
+  linterFunction: 'apilintNumber',
+  linterParams: [false, false, true],
   marker: 'value',
-  target: 'exclusiveMaximum',
+  target: 'exclusiveMinimum',
   data: {},
   targetSpecs: [...AsyncAPI2, ...OpenAPI31],
 };
 
-export default exclusiveMaximumPatternLint;
+export default exclusiveMinimumTypeNumberLint;

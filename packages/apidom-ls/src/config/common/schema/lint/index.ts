@@ -23,10 +23,10 @@ import elseNonIfLint from './else--non-if.ts';
 import elseTypeLint from './else--type.ts';
 import enumUniqueLint from './enum--unique.ts';
 import examplesTypeLint from './examples--type.ts';
-import exclusiveMaximumPatternLint from './exclusive-maximum--pattern.ts';
-import exclusiveMaximumTypeLint from './exclusive-maximum--type.ts';
-import exclusiveMinimumPatternLint from './exclusive-minimum--pattern.ts';
-import exclusiveMinimumTypeLint from './exclusive-minimum--type.ts';
+import exclusiveMaximumTypeNumberLint from './exclusive-maximum--type-number.ts';
+import exclusiveMaximumTypeBooleanLint from './exclusive-maximum--type-boolean.ts';
+import exclusiveMinimumTypeBooleanLint from './exclusive-minimum--type-boolean.ts';
+import exclusiveMinimumTypeNumberLint from './exclusive-minimum--type-number.ts';
 import xmlTypeLint from './xml--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
 import formatTypeLint from './format--type.ts';
@@ -38,14 +38,14 @@ import maxItemsNonArrayLint from './max-items--non-array.ts';
 import maxItemsTypeLint from './max-items--type.ts';
 import maxLengthNonStringLint from './max-length--non-string.ts';
 import maxLengthTypeLint from './max-length--type.ts';
-import maximumPatternLint from './maximum--pattern.ts';
+import maximumTypeLint from './maximum--type.ts';
 import minItemsNonArrayLint from './min-items--non-array.ts';
 import minItemsTypeLint from './min-items--type.ts';
 import minLengthNonString from './min-length--non-string.ts';
 import minLengthTypeLint from './min-length--type.ts';
 import minPropertiesNonObjectLint from './min-properties--non-object.ts';
 import minPropertiesTypeLint from './min-properties--type.ts';
-import minimumPatternLint from './minimum--pattern.ts';
+import minimumTypeLint from './minimum--type.ts';
 import missingCoreFieldsOpenAPI2_0Lint from './missing-core-fields-openapi-2-0.ts';
 import missingCoreFieldsOpenAPI3_0Lint from './missing-core-fields-openapi-3-0.ts';
 import missingCoreFieldsOpenAPI3_1Lint from './missing-core-fields-openapi-3-1.ts';
@@ -108,10 +108,10 @@ const schemaLints = [
   elseTypeLint,
   enumUniqueLint,
   examplesTypeLint,
-  exclusiveMaximumPatternLint,
-  exclusiveMaximumTypeLint,
-  exclusiveMinimumPatternLint,
-  exclusiveMinimumTypeLint,
+  exclusiveMaximumTypeNumberLint,
+  exclusiveMaximumTypeBooleanLint,
+  exclusiveMinimumTypeNumberLint,
+  exclusiveMinimumTypeBooleanLint,
   xmlTypeLint,
   externalDocsTypeLint,
   formatTypeLint,
@@ -123,14 +123,14 @@ const schemaLints = [
   maxItemsTypeLint,
   maxLengthNonStringLint,
   maxLengthTypeLint,
-  maximumPatternLint,
+  maximumTypeLint,
   minItemsNonArrayLint,
   minItemsTypeLint,
   minLengthNonString,
   minLengthTypeLint,
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
-  minimumPatternLint,
+  minimumTypeLint,
   missingCoreFieldsOpenAPI2_0Lint,
   missingCoreFieldsOpenAPI3_0Lint,
   missingCoreFieldsOpenAPI3_1Lint,

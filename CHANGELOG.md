@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.5](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2024-12-16)
+
+### Bug Fixes
+
+- **ls:** fix validation of number range related keywords ([#4597](https://github.com/swagger-api/apidom/issues/4597)) ([675962a](https://github.com/swagger-api/apidom/commit/675962ae4b5ba2f0de9d94bdfe5320679df5eb62))
+
 # [1.0.0-beta.4](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.3...v1.0.0-beta.4) (2024-12-13)
 
 ### Bug Fixes

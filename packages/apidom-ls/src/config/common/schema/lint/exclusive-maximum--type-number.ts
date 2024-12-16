@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
-const exclusiveMaximumPatternLint: LinterMeta = {
+const exclusiveMaximumTypeNumberLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_EXCLUSIVEMAXIMUM,
   source: 'apilint',
   message: "'exclusiveMaximum' value must be a number",
@@ -18,4 +18,4 @@ const exclusiveMaximumPatternLint: LinterMeta = {
   targetSpecs: [...AsyncAPI2, ...OpenAPI31],
 };
 
-export default exclusiveMaximumPatternLint;
+export default exclusiveMaximumTypeNumberLint;

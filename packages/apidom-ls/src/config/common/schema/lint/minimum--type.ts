@@ -5,17 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
 
-const maximumPatternLint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_MAXIMUM,
+const minimumTypeLint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_MINUMUM,
   source: 'apilint',
-  message: "maximum' value must be a number",
+  message: "'minimum' value must be a number",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValueRegex',
-  linterParams: ['^-?\\d*\\.{0,1}\\d+$', 'number'],
+  linterFunction: 'apilintNumber',
+  linterParams: [false, false, true],
   marker: 'value',
-  target: 'maximum',
+  target: 'minimum',
   data: {},
   targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
 };
 
-export default maximumPatternLint;
+export default minimumTypeLint;

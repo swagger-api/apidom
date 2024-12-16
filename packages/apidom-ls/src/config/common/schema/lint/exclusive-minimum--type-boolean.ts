@@ -4,10 +4,10 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 
-const exclusiveMinimumTypeLint: LinterMeta = {
+const exclusiveMinimumTypeBooleanLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_EXCLUSIVEMAXIMUM,
   source: 'apilint',
-  message: 'exclusiveMinimum value must be a boolean',
+  message: "'exclusiveMinimum' value must be a boolean",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['boolean'],
@@ -17,4 +17,4 @@ const exclusiveMinimumTypeLint: LinterMeta = {
   targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
-export default exclusiveMinimumTypeLint;
+export default exclusiveMinimumTypeBooleanLint;

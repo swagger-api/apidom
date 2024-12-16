@@ -8,7 +8,7 @@ import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
 const formatTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_FORMAT,
   source: 'apilint',
-  message: "format' value must be a string",
+  message: "'format' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

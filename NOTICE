@@ -47,6 +47,32 @@ Copyright (c) 2012 James Halliday, Josh Duff, and other contributors
 Copy of the MIT license can be found in `LICENSES/MIT.txt` file.
 All modifications are licensed under Apache 2.0 License.
 
+OpenAPI Specification 2.0
+Copyright The Linux Foundation
+Fragments of the specification text are embedded in packages/apidom-ls/src/config/openapi.
+Copy of the Apache 2.0 license can be found in `LICENSES/Apache-2.0.txt` file.
+
+OpenAPI Specification 3.0.x
+Copyright The Linux Foundation
+Fragments of the specification text are embedded in packages/apidom-ls/src/config/openapi.
+Copy of the Apache 2.0 license can be found in `LICENSES/Apache-2.0.txt` file.
+
+OpenAPI Specification 3.1.x
+Copyright The Linux Foundation
+Fragments of the specification text are embedded in packages/apidom-ls/src/config/openapi.
+Copy of the Apache 2.0 license can be found in `LICENSES/Apache-2.0.txt` file.
+
+AsyncAPI Specification 2.x / AsyncAPI Initiative
+Copyright The Linux Foundation
+Fragments of the specification text are embedded in packages/apidom-ls/src/config/asyncapi.
+Copy of the Apache 2.0 license can be found in `LICENSES/Apache-2.0.txt` file.
+
+JSON Schema Specification (Draft 4/5 -> 2020-12)
+Copyright (c) 2022 JSON Schema Specification Authors
+Fragments of the specification text are embedded in packages/apidom-ls/src/config/common.
+Copy of the BSD 3-Clause "New" or "Revised" License can be found in `LICENSES/BSD-3-Clause.txt` file.
+Copy of the Academic Free License v3.0 can be found in `LICENSES/AFL-3.0.txt` file.
+
 ---
 
 If the SPDX-FileCopyrightText and SPDX-License-Identifier tags are not present in the file,

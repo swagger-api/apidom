@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor given generic ApiDOM object in OpenApi 3.0.3 shape should refract to OpenApi 3.0 Element 1`] = `
+exports[`refractor given generic ApiDOM object in OpenApi 3.0.4 shape should refract to OpenApi 3.0 Element 1`] = `
 {
   "element": "openApi3_0",
   "meta": {
@@ -50,7 +50,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.0.3 shape should ref
               ]
             }
           },
-          "content": "3.0.3"
+          "content": "3.0.4"
         }
       }
     },

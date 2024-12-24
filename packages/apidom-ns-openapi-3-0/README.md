@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-ns-openapi-3-0` contains ApiDOM namespace supports following OpenAPI specification versions:
 
+- [OpenAPI 3.0.4 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md)
 - [OpenAPI 3.0.3 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md)
 - [OpenAPI 3.0.2 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.2.md)
 - [OpenAPI 3.0.1 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.1.md)
@@ -156,7 +157,7 @@ import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 import { refractorPluginReplaceEmptyElement, OpenApi3_0Element } from '@swagger-api/apidom-ns-openapi-3-0';
 
 const yamlDefinition = `
-openapi: 3.0.3
+openapi: 3.0.4
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
@@ -187,34 +188,34 @@ const openApiElement = OpenApi3_0Element.refract(apiDOM.result, {
 
 Only fully implemented specification objects should be checked here.
 
-- [x] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oasObject)
-- [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#infoObject)
-- [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#contactObject)
-- [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#licenseObject)
-- [x] [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverObject)
-- [x] [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverVariableObject)
-- [x] [Components](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsObject)
-- [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#pathsObject)
-- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#pathItemObject)
-- [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operationObject)
-- [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#externalDocumentationObject)
-- [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameterObject)
-- [x] [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#requestBodyObject)
-- [x] [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#mediaTypeObject)
-- [x] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#encodingObject)
-- [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responsesObject)
-- [x] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callbackObject)
-- [x] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject)
-- [x] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject)
-- [x] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#headerObject)
-- [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#tagObject)
-- [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)
-- [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject)
-- [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminatorObject)
-- [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#xmlObject)
-- [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securitySchemeObject)
-- [x] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowsObject)
-- [x] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject)
-- [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securityRequirementObject)
-- [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#specificationExtensions)
+- [x] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#openapi-object)
+- [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#info-object)
+- [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#contact-object)
+- [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#license-object)
+- [x] [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#server-object)
+- [x] [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#server-variable-object)
+- [x] [Components](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#components-object)
+- [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#paths-object)
+- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#path-item-object)
+- [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#operation-object)
+- [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#external-documentation-object)
+- [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#parameter-object)
+- [x] [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#request-body-object)
+- [x] [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#media-type-object)
+- [x] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#encoding-object)
+- [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#responses-object)
+- [x] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#callback-object)
+- [x] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#example-object)
+- [x] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#link-object)
+- [x] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#header-object)
+- [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#tag-object)
+- [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#reference-object)
+- [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#schema-object)
+- [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#discriminator-object)
+- [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#xml-object)
+- [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#security-scheme-object)
+- [x] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#oauth-flows-object)
+- [x] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#oauth-flow-object)
+- [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#security-requirement-object)
+- [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#specification-extensions)
 

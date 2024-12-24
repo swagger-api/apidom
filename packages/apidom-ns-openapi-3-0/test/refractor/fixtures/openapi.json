@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.4",
   "info": {
     "title": "Sample Pet Store App",
     "description": "This is a sample server for a pet store.",

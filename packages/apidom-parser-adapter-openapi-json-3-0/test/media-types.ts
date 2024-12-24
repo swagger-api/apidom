@@ -64,7 +64,7 @@ describe('given adapter is used in parser', function () {
 
   context('given OpenAPI 3.0.0-rc0 definition in JSON format', function () {
     specify('should not find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('{"openapi": "3.0.0-rc1"}');
+      const mediaType = await parser.findMediaType('{"openapi": "3.0.0-rc0"}');
 
       assert.strictEqual(mediaType, 'application/octet-stream');
     });

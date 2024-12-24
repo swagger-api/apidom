@@ -13,7 +13,7 @@ export { default as mediaTypes } from './media-types.ts';
  * @public
  */
 export const detectionRegExp =
-  /(?<YAML>^(["']?)openapi\2\s*:\s*(["']?)(?<version_yaml>3\.0\.[0123](?:-rc[012])?)\3(?:\s+|$))|(?<JSON>"openapi"\s*:\s*"(?<version_json>3\.0\.[0123](?:-rc[012])?)")/m;
+  /(?<YAML>^(["']?)openapi\2\s*:\s*(["']?)(?<version_yaml>3\.0\.(?:[1-9]\d*|0))\3(?:\s+|$))|(?<JSON>"openapi"\s*:\s*"(?<version_json>3\.0\.(?:[1-9]\d*|0))")/m;
 
 /**
  * @public

@@ -22,8 +22,8 @@ describe('adapter', function () {
       assert.isFalse(await adapter.detect('openapi: "3.1.0"'));
     });
 
-    specify('should not detect patch version bump', async function () {
-      assert.isFalse(await adapter.detect('openapi: "3.0.4"'));
+    specify('should detect patch version bump', async function () {
+      assert.isTrue(await adapter.detect('openapi: "3.0.24"'));
     });
 
     specify('should not detect minor and patch version bump', async function () {
@@ -91,12 +91,29 @@ describe('adapter', function () {
   });
 
   context('detectionRegExp', function () {
+    specify('should detect version ranges in forward compatible way', function () {
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.0'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.1'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.2'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.3'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.4'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.5'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.6'));
+      assert.isTrue(adapter.detectionRegExp.test('openapi: 3.0.145'));
+    });
+
+    specify('should reject rc version ranges', function () {
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.0-rc2'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.0-rc1'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.0-rc0'));
+    });
+
     specify('should reject invalid version ranges', function () {
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.1.145'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.1.0'));
       assert.isFalse(adapter.detectionRegExp.test('openapi: 3.01.0'));
       assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.01'));
-      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.1.0'));
-      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.1.1'));
-      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.15'));
+      assert.isFalse(adapter.detectionRegExp.test('openapi: 3.0.1-rc1'));
     });
   });
 });

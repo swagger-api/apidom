@@ -6,6 +6,14 @@ import * as openApiJsonAdapter from '../src/adapter.ts';
 describe('given adapter is used in parser', function () {
   const parser = new ApiDOMParser().use(openApiJsonAdapter);
 
+  context('given OpenAPI 3.0.4 definition in JSON format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.0.4"}');
+
+      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.0.4');
+    });
+  });
+
   context('given OpenAPI 3.0.3 definition in JSON format', function () {
     specify('should find appropriate media type', async function () {
       const mediaType = await parser.findMediaType('{"openapi": "3.0.3"}');
@@ -38,9 +46,25 @@ describe('given adapter is used in parser', function () {
     });
   });
 
-  context('given OpenAPI 3.0.3-rc3 definition in JSON format', function () {
+  context('given OpenAPI 3.0.0-rc2 definition in JSON format', function () {
     specify('should not find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('{"openapi": "3.0.3-rc3"}');
+      const mediaType = await parser.findMediaType('{"openapi": "3.0.0-rc2"}');
+
+      assert.strictEqual(mediaType, 'application/octet-stream');
+    });
+  });
+
+  context('given OpenAPI 3.0.0-rc1 definition in JSON format', function () {
+    specify('should not find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.0.0-rc1"}');
+
+      assert.strictEqual(mediaType, 'application/octet-stream');
+    });
+  });
+
+  context('given OpenAPI 3.0.0-rc0 definition in JSON format', function () {
+    specify('should not find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.0.0-rc0"}');
 
       assert.strictEqual(mediaType, 'application/octet-stream');
     });

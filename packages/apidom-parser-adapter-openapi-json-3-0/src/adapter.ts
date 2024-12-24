@@ -9,7 +9,7 @@ export { default as mediaTypes } from './media-types.ts';
 /**
  * @public
  */
-export const detectionRegExp = /"openapi"\s*:\s*"(?<version_json>3\.0\.([0123]))"/;
+export const detectionRegExp = /"openapi"\s*:\s*"(?<version_json>3\.0\.(?:[1-9]\d*|0))"/;
 
 /**
  * @public

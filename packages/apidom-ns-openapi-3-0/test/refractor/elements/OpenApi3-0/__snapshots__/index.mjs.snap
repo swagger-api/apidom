@@ -1,6 +1,130 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements OpenApi3_0Element should refract to semantic ApiDOM tree 1`] = `
+exports[`refractor elements OpenApi3_0Element should refract OpenAPI 3.0.0 to semantic ApiDOM tree 1`] = `
+(OpenApi3_0Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement)))
+  (MemberElement
+    (StringElement)
+    (PathsElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (TagElement)))
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements OpenApi3_0Element should refract OpenAPI 3.0.1 to semantic ApiDOM tree 1`] = `
+(OpenApi3_0Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement)))
+  (MemberElement
+    (StringElement)
+    (PathsElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (TagElement)))
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements OpenApi3_0Element should refract OpenAPI 3.0.2 to semantic ApiDOM tree 1`] = `
+(OpenApi3_0Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement)))
+  (MemberElement
+    (StringElement)
+    (PathsElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (TagElement)))
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements OpenApi3_0Element should refract OpenAPI 3.0.3 to semantic ApiDOM tree 1`] = `
+(OpenApi3_0Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement)))
+  (MemberElement
+    (StringElement)
+    (PathsElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (TagElement)))
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements OpenApi3_0Element should refract OpenAPI 3.0.4 to semantic ApiDOM tree 1`] = `
 (OpenApi3_0Element
   (MemberElement
     (StringElement)

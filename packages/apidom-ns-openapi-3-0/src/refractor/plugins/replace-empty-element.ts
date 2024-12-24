@@ -12,7 +12,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 /**
- * OpenAPI 3.0.3 specification elements.
+ * OpenAPI 3.0.x specification elements.
  */
 import InfoElement from '../../elements/Info.ts';
 import ContactElement from '../../elements/Contact.ts';
@@ -89,7 +89,7 @@ import { getNodeType } from '../../traversal/visitor.ts';
  * @example
  *
  * ```yaml
- * openapi: 3.0.3
+ * openapi: 3.0.4
  * info:
  * ```
  * Refracting result without this plugin:

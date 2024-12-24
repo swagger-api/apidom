@@ -87,7 +87,7 @@ describe('adapter', function () {
     });
 
     specify('should reject rc version ranges', function () {
-      assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.0-rc2'));
+      assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.0-rc2"'));
       assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.0-rc1"'));
       assert.isFalse(adapter.detectionRegExp.test('"openapi": "3.0.0-rc0"'));
     });

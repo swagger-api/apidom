@@ -21,8 +21,8 @@ import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
  *  - PathItem.servers
  *  - Operation.servers
  *
- * If an alternative server object is specified at the Path Item Object level, it will override OpenAPI.servers.
- * If an alternative server object is specified at the Operation Object level, it will override PathItem.servers and OpenAPI.servers respectively.
+ * If a servers array is specified at the OpenAPI Object level, it will be overridden by `PathItem`.servers.
+ * If a servers array is specified at the Path Item Object or OpenAPI Object level, it will be overridden by Operation.servers.
  * @public
  */
 

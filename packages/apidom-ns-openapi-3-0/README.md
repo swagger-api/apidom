@@ -214,7 +214,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#discriminator-object)
 - [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#xml-object)
 - [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#security-scheme-object)
-- [x] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#oauth-flows-pbject)
+- [x] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#oauth-flows-object)
 - [x] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#oauth-flow-object)
 - [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#security-requirement-object)
 - [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md#specification-extensions)

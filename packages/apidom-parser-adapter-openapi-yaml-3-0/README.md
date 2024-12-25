@@ -1,6 +1,6 @@
 # @swagger-api/apidom-parser-adapter-openapi-yaml-3-0
 
-`@swagger-api/apidom-parser-adapter-openapi-yaml-3-0` is a parser adapter for the [OpenAPI 3.0.x specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
+`@swagger-api/apidom-parser-adapter-openapi-yaml-3-0` is a parser adapter for the [OpenAPI 3.0.x specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
 Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
 which is then refracted with [OpenAPI 3.0.x Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0#refractors).
@@ -33,6 +33,8 @@ Defines list of media types that this parser adapter recognizes.
   'application/vnd.oai.openapi+yaml;version=3.0.2',
   'application/vnd.oai.openapi;version=3.0.3',
   'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+yaml;version=3.0.4',
 ]
 ```
 
@@ -69,11 +71,11 @@ with [supported media types](#mediatypes).
 import { parse, detect } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 
 // detecting
-await detect('openapi: 3.0.3'); // => true
+await detect('openapi: 3.0.4'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('openapi: 3.0.0', { sourceMap: true });
+const parseResult = await parse('openapi: 3.0.4', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -88,5 +90,5 @@ const parser = new ApiDOMParser();
 
 parser.use(openApiYamlAdapter);
 
-const parseResult = await parser.parse('openapi: 3.0.3', { mediaType: openApiYamlAdapter.mediaTypes.latest('yaml') });
+const parseResult = await parser.parse('openapi: 3.0.4', { mediaType: openApiYamlAdapter.mediaTypes.latest('yaml') });
 ```

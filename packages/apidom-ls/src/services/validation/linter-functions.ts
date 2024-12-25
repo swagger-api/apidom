@@ -12,7 +12,11 @@ import {
   includesClasses,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
-import { test, resolve, parse } from 'openapi-path-templating';
+import {
+  test as testPathTemplate,
+  resolve as resolvePathTemplate,
+  parse as parsePathTemplate,
+} from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -1018,7 +1022,7 @@ export const standardLinterfunctions: FunctionItem[] = [
     function: (element: Element, strict = false) => {
       if (isStringElement(element)) {
         const pathTemplate = toValue(element);
-        return test(pathTemplate, { strict });
+        return testPathTemplate(pathTemplate, { strict });
       }
       return true;
     },
@@ -1076,8 +1080,8 @@ export const standardLinterfunctions: FunctionItem[] = [
         });
 
         const pathTemplate = toValue(element);
-        const resolvedPathTemplate = resolve(pathTemplate, pathTemplateResolveParams);
-        const includesTemplateExpression = test(resolvedPathTemplate, { strict: true });
+        const resolvedPathTemplate = resolvePathTemplate(pathTemplate, pathTemplateResolveParams);
+        const includesTemplateExpression = testPathTemplate(resolvedPathTemplate, { strict: true });
 
         return !includesTemplateExpression || oneOfParametersIsReferenceObject;
       }
@@ -1116,7 +1120,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         const pathTemplate = toValue(pathItemElement.meta.get('path'));
         const parameterName = toValue((element as ObjectElement).get('name'));
 
-        const parseResult = parse(pathTemplate);
+        const parseResult = parsePathTemplate(pathTemplate);
         if (!parseResult.result.success) return true;
 
         const parts: [string, string][] = [];

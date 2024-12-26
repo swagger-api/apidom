@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "links": {
+      "link1": {
+        "operationRef": "#/paths/~1path/get"
+      }
+    }
+  },
+  "paths": {
+    "/path": {
+      "get": {
+        "description": "description of operation"
+      }
+    }
+  }
+}

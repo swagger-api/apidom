@@ -1,12 +1,12 @@
 {
-  "openapi": "3.0.3",
+  "openapi": "3.0.4",
   "components": {
     "parameters": {
       "param1": {
-        "$ref": "./root.json#/components/parameters/param2"
+        "$ref": "./entry.json#/components/parameters/param2"
       },
       "param2": {
-        "$ref": "./root.json#/components/parameters/param2"
+        "$ref": "./entry.json#/components/parameters/param2"
       },
       "param3": {
         "name": "ex-param3",

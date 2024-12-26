@@ -8,7 +8,7 @@ import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDeref
 import ResolverError from '../../../../../src/errors/ResolverError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootFixturePath = path.join(__dirname, 'fixtures');
+const entryFixturePath = path.join(__dirname, 'fixtures');
 
 describe('resolve', function () {
   context('strategies', function () {
@@ -16,11 +16,11 @@ describe('resolve', function () {
       context('Path Item Object', function () {
         context('given Path Item Object $ref field', function () {
           context('given $ref field pointing externally only', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-only');
+            const fixturePath = path.join(entryFixturePath, 'external-only');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -29,11 +29,11 @@ describe('resolve', function () {
           });
 
           context('given $ref field pointing internally and externally', function () {
-            const fixturePath = path.join(rootFixturePath, 'internal-external');
+            const fixturePath = path.join(entryFixturePath, 'internal-external');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -42,11 +42,11 @@ describe('resolve', function () {
           });
 
           context('given external resolution disabled', function () {
-            const fixturePath = path.join(rootFixturePath, 'ignore-external');
+            const fixturePath = path.join(entryFixturePath, 'ignore-external');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
@@ -56,11 +56,11 @@ describe('resolve', function () {
           });
 
           context('given $ref field pointing to external indirections', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-indirections');
+            const fixturePath = path.join(entryFixturePath, 'external-indirections');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -69,13 +69,13 @@ describe('resolve', function () {
           });
 
           context('given $ref field with invalid JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'invalid-pointer');
+            const fixturePath = path.join(entryFixturePath, 'invalid-pointer');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await resolve(rootFilePath, {
+                await resolve(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');
@@ -86,13 +86,13 @@ describe('resolve', function () {
           });
 
           context('given $ref field and maxDepth of dereference', function () {
-            const fixturePath = path.join(rootFixturePath, 'max-depth');
+            const fixturePath = path.join(entryFixturePath, 'max-depth');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await resolve(rootFilePath, {
+                await resolve(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   dereference: { maxDepth: 1 },
                 });
@@ -108,13 +108,13 @@ describe('resolve', function () {
           });
 
           context('given $ref field with unresolvable JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'unresolvable-path-item');
+            const fixturePath = path.join(entryFixturePath, 'unresolvable-path-item');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await resolve(rootFilePath, {
+                await resolve(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');
@@ -125,11 +125,11 @@ describe('resolve', function () {
           });
 
           context('given $ref field with with direct circular external reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
+            const fixturePath = path.join(entryFixturePath, 'direct-external-circular');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -138,11 +138,11 @@ describe('resolve', function () {
           });
 
           context('given $ref field with with indirect circular external reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
+            const fixturePath = path.join(entryFixturePath, 'indirect-external-circular');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 

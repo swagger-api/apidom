@@ -8,18 +8,18 @@ import { loadJsonFile } from '../../../../helpers.ts';
 import { dereference } from '../../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootFixturePath = path.join(__dirname, 'fixtures');
+const entryFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-0', function () {
       context('Security Scheme Object', function () {
         context('given in components/securitySchemes field', function () {
-          const fixturePath = path.join(rootFixturePath, 'components-security-schemes');
+          const fixturePath = path.join(entryFixturePath, 'components-security-schemes');
 
           specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));

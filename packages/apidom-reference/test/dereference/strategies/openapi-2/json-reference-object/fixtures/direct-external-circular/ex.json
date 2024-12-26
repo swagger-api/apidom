@@ -1,7 +1,7 @@
 {
   "definitions": {
     "externalSchema": {
-      "$ref": "./root.json#/definitions/schema"
+      "$ref": "./entry.json#/definitions/schema"
     }
   }
 

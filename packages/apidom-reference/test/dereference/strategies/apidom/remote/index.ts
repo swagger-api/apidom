@@ -12,7 +12,7 @@ describe('dereference', function () {
     context('apidom', function () {
       context('remote', function () {
         specify('should substitute Ref Element with the Element it references', async function () {
-          const uri = path.join(__dirname, 'fixtures', 'substitute', 'root.json');
+          const uri = path.join(__dirname, 'fixtures', 'substitute', 'entry.json');
           const actual = await dereference(uri, {
             parse: { mediaType: 'application/vnd.apidom' },
           });
@@ -24,7 +24,7 @@ describe('dereference', function () {
         specify(
           'should process Ref Element nested in remote referenced element',
           async function () {
-            const uri = path.join(__dirname, 'fixtures', 'nested', 'root.json');
+            const uri = path.join(__dirname, 'fixtures', 'nested', 'entry.json');
             const actual = await dereference(uri, {
               parse: { mediaType: 'application/vnd.apidom' },
             });
@@ -37,7 +37,7 @@ describe('dereference', function () {
 
       context('given external resolution disabled', function () {
         specify('should not dereference', async function () {
-          const uri = path.join(__dirname, 'fixtures', 'external-disabled', 'root.json');
+          const uri = path.join(__dirname, 'fixtures', 'external-disabled', 'entry.json');
           const actual = await dereference(uri, {
             parse: { mediaType: 'application/vnd.apidom' },
             resolve: { external: false },

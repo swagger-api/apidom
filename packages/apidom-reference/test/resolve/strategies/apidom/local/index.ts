@@ -13,7 +13,7 @@ describe('resolve', function () {
       context('local', function () {
         context('resolve', function () {
           specify('should resolve', async function () {
-            const uri = path.resolve(__dirname, 'fixtures', 'root.json');
+            const uri = path.resolve(__dirname, 'fixtures', 'entry.json');
             const refSet = await resolve(uri, {
               parse: { mediaType: 'application/vnd.apidom' },
             });

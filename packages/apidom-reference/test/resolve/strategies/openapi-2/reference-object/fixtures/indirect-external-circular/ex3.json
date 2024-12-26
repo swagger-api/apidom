@@ -1,5 +1,5 @@
 {
   "indirection": {
-    "$ref": "./root.json#/paths/~1/parameters/0"
+    "$ref": "./entry.json#/paths/~1/parameters/0"
   }
 }

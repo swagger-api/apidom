@@ -4,10 +4,10 @@
     "/": {
       "parameters": [
         {
-          "$ref": "./root.json#/paths/~1/parameters/1"
+          "$ref": "./entry.json#/paths/~1/parameters/1"
         },
         {
-          "$ref": "./root.json#/paths/~1/parameters/1"
+          "$ref": "./entry.json#/paths/~1/parameters/1"
         },
         {
           "name": "ex-param3",

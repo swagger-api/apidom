@@ -1,10 +1,10 @@
 {
   "definitions": {
     "externalSchema1": {
-      "$ref": "./root.json#/definitions/schema2"
+      "$ref": "./entry.json#/definitions/schema2"
     },
     "externalSchema2": {
-      "$ref": "./root.json#/definitions/schema2"
+      "$ref": "./entry.json#/definitions/schema2"
     },
     "externalSchema3": {
       "type": "string",

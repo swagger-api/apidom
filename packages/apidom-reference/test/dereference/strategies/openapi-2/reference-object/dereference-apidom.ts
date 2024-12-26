@@ -23,7 +23,7 @@ describe('dereference', function () {
           'given single ReferenceElement passed to dereferenceApiDOM with internal references',
           function () {
             context('given dereferencing using local file system', function () {
-              const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'root.json');
+              const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'entry.json');
 
               specify('should dereference', async function () {
                 const parseResult = await parse(fixturePath, {
@@ -58,13 +58,13 @@ describe('dereference', function () {
 
                 assert.match(
                   toValue(dereferenced.meta.get('ref-origin')),
-                  /internal-only\/root\.json$/,
+                  /internal-only\/entry\.json$/,
                 );
               });
             });
 
             context('given dereferencing using HTTP protocol', function () {
-              const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'root.json');
+              const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'entry.json');
               const httpPort = 8123;
               let httpServer: ServerTerminable;
 
@@ -88,7 +88,7 @@ describe('dereference', function () {
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   resolve: {
-                    baseURI: `http://localhost:${httpPort}/root.json#/paths/~1/parameters/0`,
+                    baseURI: `http://localhost:${httpPort}/entry.json#/paths/~1/parameters/0`,
                   },
                 });
 
@@ -106,11 +106,11 @@ describe('dereference', function () {
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   resolve: {
-                    baseURI: `http://localhost:${httpPort}/root.json#/paths/~1/parameters/0`,
+                    baseURI: `http://localhost:${httpPort}/entry.json#/paths/~1/parameters/0`,
                   },
                 });
 
-                assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/root\.json$/);
+                assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/entry\.json$/);
               });
             });
           },
@@ -120,7 +120,7 @@ describe('dereference', function () {
           'given single ReferenceElement passed to dereferenceApiDOM with external references',
           function () {
             context('given dereferencing using local file system', function () {
-              const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'root.json');
+              const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'entry.json');
 
               specify('should dereference', async function () {
                 const parseResult = await parse(fixturePath, {
@@ -159,7 +159,7 @@ describe('dereference', function () {
             });
 
             context('given dereferencing using HTTP protocol', function () {
-              const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'root.json');
+              const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'entry.json');
               const httpPort = 8123;
               let httpServer: ServerTerminable;
 
@@ -182,7 +182,7 @@ describe('dereference', function () {
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
-                  resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
+                  resolve: { baseURI: `http://localhost:${httpPort}/entry.json` },
                 });
 
                 assert.isTrue(isSchemaElement(dereferenced));
@@ -198,7 +198,7 @@ describe('dereference', function () {
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
-                  resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
+                  resolve: { baseURI: `http://localhost:${httpPort}/entry.json` },
                 });
 
                 assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/ex\.json$/);
@@ -210,7 +210,7 @@ describe('dereference', function () {
                 __dirname,
                 'fixtures',
                 'external-only-absolute-url',
-                'root.json',
+                'entry.json',
               );
               const httpPort = 8123;
               let httpServer: ServerTerminable;
@@ -234,7 +234,7 @@ describe('dereference', function () {
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
-                  resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
+                  resolve: { baseURI: `http://localhost:${httpPort}/entry.json` },
                 });
 
                 assert.isTrue(isParameterElement(dereferenced));
@@ -250,7 +250,7 @@ describe('dereference', function () {
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
-                  resolve: { baseURI: `http://localhost:${httpPort}/root.json` },
+                  resolve: { baseURI: `http://localhost:${httpPort}/entry.json` },
                 });
 
                 assert.match(toValue(dereferenced.meta.get('ref-origin')), /\/ex\.json$/);

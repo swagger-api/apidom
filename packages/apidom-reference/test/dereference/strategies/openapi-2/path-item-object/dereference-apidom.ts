@@ -16,7 +16,7 @@ describe('dereference', function () {
         context(
           'given single PathItemElement passed to dereferenceApiDOM with internal references',
           function () {
-            const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'root.json');
+            const fixturePath = path.join(__dirname, 'fixtures', 'internal-only', 'entry.json');
 
             specify('should dereference', async function () {
               const parseResult = await parse(fixturePath, {
@@ -45,7 +45,7 @@ describe('dereference', function () {
 
               assert.match(
                 toValue(dereferenced.meta.get('ref-origin')),
-                /internal-only\/root\.json$/,
+                /internal-only\/entry\.json$/,
               );
             });
           },
@@ -54,7 +54,7 @@ describe('dereference', function () {
         context(
           'given single PathItemElement passed to dereferenceApiDOM with external references',
           function () {
-            const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'root.json');
+            const fixturePath = path.join(__dirname, 'fixtures', 'external-only', 'entry.json');
 
             specify('should dereference', async function () {
               const parseResult = await parse(fixturePath, {

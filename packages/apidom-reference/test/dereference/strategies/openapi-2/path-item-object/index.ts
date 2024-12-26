@@ -10,7 +10,7 @@ import DereferenceError from '../../../../../src/errors/DereferenceError.ts';
 import MaximumDereferenceDepthError from '../../../../../src/errors/MaximumDereferenceDepthError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootFixturePath = path.join(__dirname, 'fixtures');
+const entryFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
@@ -18,11 +18,11 @@ describe('dereference', function () {
       context('Path Item Object', function () {
         context('given Path Item Object $ref field', function () {
           context('given $ref field pointing internally only', function () {
-            const fixturePath = path.join(rootFixturePath, 'internal-only');
+            const fixturePath = path.join(entryFixturePath, 'internal-only');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -32,11 +32,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field pointing externally only', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-only');
+            const fixturePath = path.join(entryFixturePath, 'external-only');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -46,11 +46,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field pointing internally and externally', function () {
-            const fixturePath = path.join(rootFixturePath, 'internal-external');
+            const fixturePath = path.join(entryFixturePath, 'internal-external');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -60,11 +60,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field + additional fields', function () {
-            const fixturePath = path.join(rootFixturePath, 'additional-fields');
+            const fixturePath = path.join(entryFixturePath, 'additional-fields');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -74,11 +74,11 @@ describe('dereference', function () {
           });
 
           context('given external resolution disabled', function () {
-            const fixturePath = path.join(rootFixturePath, 'ignore-external');
+            const fixturePath = path.join(entryFixturePath, 'ignore-external');
 
             specify('should not dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
@@ -89,11 +89,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field pointing to internal indirection', function () {
-            const fixturePath = path.join(rootFixturePath, 'internal-indirections');
+            const fixturePath = path.join(entryFixturePath, 'internal-indirections');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -103,11 +103,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field pointing to external indirections', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-indirections');
+            const fixturePath = path.join(entryFixturePath, 'external-indirections');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -117,13 +117,13 @@ describe('dereference', function () {
           });
 
           context('given $ref field with invalid JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'invalid-pointer');
+            const fixturePath = path.join(entryFixturePath, 'invalid-pointer');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
@@ -134,13 +134,13 @@ describe('dereference', function () {
           });
 
           context('given $ref field and maxDepth of dereference', function () {
-            const fixturePath = path.join(rootFixturePath, 'max-depth');
+            const fixturePath = path.join(entryFixturePath, 'max-depth');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                   dereference: { maxDepth: 1 },
                 });
@@ -156,13 +156,13 @@ describe('dereference', function () {
           });
 
           context('given $ref field with unresolvable JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'unresolvable-path-item');
+            const fixturePath = path.join(entryFixturePath, 'unresolvable-path-item');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
@@ -173,11 +173,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field with direct circular internal reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'direct-internal-circular');
+            const fixturePath = path.join(entryFixturePath, 'direct-internal-circular');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -186,32 +186,29 @@ describe('dereference', function () {
             });
           });
 
-          context(
-            'given $ref field with direct circular internal reference to itself',
-            function () {
-              const fixturePath = path.join(rootFixturePath, 'direct-self-circular');
+          context('given $ref field with direct circular inte reference to itself', function () {
+            const fixturePath = path.join(entryFixturePath, 'direct-self-circular');
 
-              specify('should throw error', async function () {
-                const rootFilePath = path.join(fixturePath, 'root.json');
+            specify('should throw error', async function () {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
-                try {
-                  await dereference(rootFilePath, {
-                    parse: { mediaType: mediaTypes.latest('json') },
-                  });
-                  assert.fail('should throw DereferenceError');
-                } catch (e) {
-                  assert.instanceOf(e, DereferenceError);
-                }
-              });
-            },
-          );
+              try {
+                await dereference(entryFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                assert.fail('should throw DereferenceError');
+              } catch (e) {
+                assert.instanceOf(e, DereferenceError);
+              }
+            });
+          });
 
           context('given $ref field with indirect circular internal reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'indirect-internal-circular');
+            const fixturePath = path.join(entryFixturePath, 'indirect-internal-circular');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -221,11 +218,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field with direct circular external reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'direct-external-circular');
+            const fixturePath = path.join(entryFixturePath, 'direct-external-circular');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -235,11 +232,11 @@ describe('dereference', function () {
           });
 
           context('given $ref field with indirect circular external reference', function () {
-            const fixturePath = path.join(rootFixturePath, 'indirect-external-circular');
+            const fixturePath = path.join(entryFixturePath, 'indirect-external-circular');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));

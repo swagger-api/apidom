@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "examples": {
+      "example1": {
+        "description": "example1 description",
+        "externalValue": "./ex.json"
+      }
+    }
+  }
+}

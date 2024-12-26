@@ -10,18 +10,18 @@ import { dereference } from '../../../../../src/index.ts';
 import DereferenceError from '../../../../../src/errors/DereferenceError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootFixturePath = path.join(__dirname, 'fixtures');
+const entryFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
     context('openapi-3-0', function () {
       context('Link Object', function () {
         context('given in components/links field', function () {
-          const fixturePath = path.join(rootFixturePath, 'components-links');
+          const fixturePath = path.join(entryFixturePath, 'components-links');
 
           specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -32,8 +32,8 @@ describe('dereference', function () {
           specify(
             'should set Operation Object as metadata of Link.operationId field',
             async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const dereferenced = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
@@ -46,11 +46,11 @@ describe('dereference', function () {
         });
 
         context('given in Response Object', function () {
-          const fixturePath = path.join(rootFixturePath, 'response-object');
+          const fixturePath = path.join(entryFixturePath, 'response-object');
 
           specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -61,8 +61,8 @@ describe('dereference', function () {
           specify(
             'should set Operation Object as metadata of Link.operationId field',
             async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const dereferenced = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const link1 = evaluate(
@@ -79,11 +79,11 @@ describe('dereference', function () {
 
         context('given operationRef field', function () {
           context('and with internal JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-ref-internal');
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-internal');
 
             specify('should dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -94,8 +94,8 @@ describe('dereference', function () {
             specify(
               'should set Operation Object as metadata of Link.operationRef field',
               async function () {
-                const rootFilePath = path.join(fixturePath, 'root.json');
-                const dereferenced = await dereference(rootFilePath, {
+                const entryFilePath = path.join(fixturePath, 'entry.json');
+                const dereferenced = await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
@@ -106,11 +106,11 @@ describe('dereference', function () {
           });
 
           context('and with external JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-ref-external');
-            const rootFilePath = path.join(fixturePath, 'root.json');
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-external');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
 
             specify('should dereference', async function () {
-              const actual = await dereference(rootFilePath, {
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -119,7 +119,7 @@ describe('dereference', function () {
             });
 
             specify('should apply semantics to external fragment', async function () {
-              const dereferenced = await dereference(rootFilePath, {
+              const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -132,7 +132,7 @@ describe('dereference', function () {
             specify(
               'should set Operation Object as metadata of Link.operationRef field',
               async function () {
-                const dereferenced = await dereference(rootFilePath, {
+                const dereferenced = await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
@@ -143,11 +143,11 @@ describe('dereference', function () {
           });
 
           context('with external resolution disabled', function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-ref-ignore-external');
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-ignore-external');
 
             specify('should not dereference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const actual = await dereference(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
@@ -158,13 +158,13 @@ describe('dereference', function () {
           });
 
           context('and with invalid JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-ref-invalid-pointer');
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-invalid-pointer');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
@@ -175,13 +175,13 @@ describe('dereference', function () {
           });
 
           context('and with unresolvable JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-ref-unresolvable');
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-unresolvable');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
@@ -194,11 +194,11 @@ describe('dereference', function () {
 
         context('given operationId field', function () {
           context('and OperationElement with operationId exists', async function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-id');
-            const rootFilePath = path.join(fixturePath, 'root.json');
+            const fixturePath = path.join(entryFixturePath, 'operation-id');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
 
             specify('should dereference', async function () {
-              const actual = await dereference(rootFilePath, {
+              const actual = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
@@ -209,7 +209,7 @@ describe('dereference', function () {
             specify(
               'should set Operation Object as metadata of Link.operationId field',
               async function () {
-                const dereferenced = await dereference(rootFilePath, {
+                const dereferenced = await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
@@ -220,13 +220,13 @@ describe('dereference', function () {
           });
 
           context("and OperationElement with operationId doesn't exist", async function () {
-            const fixturePath = path.join(rootFixturePath, 'operation-id-non-existent');
+            const fixturePath = path.join(entryFixturePath, 'operation-id-non-existent');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await dereference(rootFilePath, {
+                await dereference(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw DereferenceError');
@@ -238,13 +238,13 @@ describe('dereference', function () {
         });
 
         context('given both operationRef and operationId fields are defined', function () {
-          const fixturePath = path.join(rootFixturePath, 'operation-ref-id-both-defined');
+          const fixturePath = path.join(entryFixturePath, 'operation-ref-id-both-defined');
 
           specify('should throw error', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
 
             try {
-              await dereference(rootFilePath, {
+              await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               assert.fail('should throw DereferenceError');

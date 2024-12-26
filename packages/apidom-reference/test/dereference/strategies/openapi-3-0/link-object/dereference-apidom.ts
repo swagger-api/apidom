@@ -24,7 +24,7 @@ describe('dereference', function () {
             __dirname,
             'fixtures',
             'operation-ref-external',
-            'root.json',
+            'entry.json',
           );
 
           specify('should dereference', async function () {

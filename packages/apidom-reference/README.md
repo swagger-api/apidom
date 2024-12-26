@@ -132,7 +132,7 @@ Supported media types are:
 #### [openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-json-3-0)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-json-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-0) package
-and is uniquely  identified by `openapi-json-3-1` name.
+and is uniquely  identified by `openapi-json-3-0` name.
 
 Supported media types are:
 
@@ -146,6 +146,8 @@ Supported media types are:
   'application/vnd.oai.openapi+json;version=3.0.2',
   'application/vnd.oai.openapi;version=3.0.3',
   'application/vnd.oai.openapi+json;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+json;version=3.0.4',
 ]
 ```
 
@@ -166,7 +168,7 @@ Supported media types are:
 #### [openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/openapi-yaml-3-0)
 
 Wraps [@swagger-api/apidom-parser-adapter-openapi-yaml-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0) package
-and is uniquely  identified by `openapi-yaml-3-1` name.
+and is uniquely  identified by `openapi-yaml-3-0` name.
 
 Supported media types are:
 
@@ -180,6 +182,8 @@ Supported media types are:
   'application/vnd.oai.openapi+yaml;version=3.0.2',
   'application/vnd.oai.openapi;version=3.0.3',
   'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+yaml;version=3.0.4',
 ]
 ```
 
@@ -1187,7 +1191,7 @@ Supported media types:
 
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-0)
 
-External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md) definitions.
 
 Supported media types:
 
@@ -1205,6 +1209,9 @@ Supported media types:
   'application/vnd.oai.openapi;version=3.0.3',
   'application/vnd.oai.openapi+json;version=3.0.3',
   'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+json;version=3.0.4',
+  'application/vnd.oai.openapi+yaml;version=3.0.4',
 ]
 ```
 
@@ -1555,7 +1562,7 @@ Supported media types:
 
 ##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-0)
 
-Dereference strategy for dereferencing [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md) definitions.
+Dereference strategy for dereferencing [OpenApi 3.0.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.4.md) definitions.
 
 Supported media types:
 
@@ -1573,6 +1580,9 @@ Supported media types:
   'application/vnd.oai.openapi;version=3.0.3',
   'application/vnd.oai.openapi+json;version=3.0.3',
   'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+json;version=3.0.4',
+  'application/vnd.oai.openapi+yaml;version=3.0.4',
 ]
 ```
 

@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "$ref": "#/components/schemas/User"
+          }
+        }
+      }
+    }
+  }
+}

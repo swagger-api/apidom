@@ -1,0 +1,28 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "responses": {
+      "201": {
+        "description": "201 description",
+        "links": {
+          "link": {
+            "$ref": "#/components/links/link1"
+          }
+        }
+      }
+    },
+    "links": {
+      "link1": {
+        "operationId": "op1"
+      }
+    }
+  },
+  "paths": {
+    "/path": {
+      "get": {
+        "operationId": "op1",
+        "description": "description of operation"
+      }
+    }
+  }
+}

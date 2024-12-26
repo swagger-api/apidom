@@ -1,0 +1,26 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "parameters": {
+      "param1": {
+        "schema": {
+          "$ref": "#/components/schemas/schema1"
+        }
+      }
+    },
+    "schemas": {
+      "schema1": {
+        "type": "object",
+        "title": "User signed up event",
+        "summary": "Inform about a new user",
+        "contentType": "application/json",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "foo"
+          }
+        }
+      }
+    }
+  }
+}

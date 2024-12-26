@@ -7,7 +7,7 @@ import { resolve } from '../../../../../src/index.ts';
 import ResolverError from '../../../../../src/errors/ResolverError.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const rootFixturePath = path.join(__dirname, 'fixtures');
+const entryFixturePath = path.join(__dirname, 'fixtures');
 
 describe('resolve', function () {
   context('strategies', function () {
@@ -15,11 +15,11 @@ describe('resolve', function () {
       context('Example Object', function () {
         context('given externalValue field', function () {
           context('and pointing to a JSON file', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-json');
+            const fixturePath = path.join(entryFixturePath, 'external-value-json');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -28,11 +28,11 @@ describe('resolve', function () {
           });
 
           context('and pointing to a JSON file and having JSON Pointer', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-pointer');
+            const fixturePath = path.join(entryFixturePath, 'external-value-pointer');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -41,11 +41,11 @@ describe('resolve', function () {
           });
 
           context('and pointing to a YAML file', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-yaml');
+            const fixturePath = path.join(entryFixturePath, 'external-value-yaml');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -54,11 +54,11 @@ describe('resolve', function () {
           });
 
           context('and pointing to a text file', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-text');
+            const fixturePath = path.join(entryFixturePath, 'external-value-text');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -67,11 +67,11 @@ describe('resolve', function () {
           });
 
           context('and pointing to a binary file', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-binary');
+            const fixturePath = path.join(entryFixturePath, 'external-value-binary');
 
             specify('should resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
 
@@ -80,13 +80,13 @@ describe('resolve', function () {
           });
 
           context('and with unresolvable URI', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-unresolvable');
+            const fixturePath = path.join(entryFixturePath, 'external-value-unresolvable');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await resolve(rootFilePath, {
+                await resolve(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');
@@ -97,11 +97,11 @@ describe('resolve', function () {
           });
 
           context('with external resolution disabled', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-ignore-external');
+            const fixturePath = path.join(entryFixturePath, 'external-value-ignore-external');
 
             specify('should not resolve', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              const refSet = await resolve(rootFilePath, {
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const refSet = await resolve(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { external: false },
               });
@@ -111,13 +111,13 @@ describe('resolve', function () {
           });
 
           context('given both value and externalValue fields are defined', function () {
-            const fixturePath = path.join(rootFixturePath, 'external-value-value-both-defined');
+            const fixturePath = path.join(entryFixturePath, 'external-value-value-both-defined');
 
             specify('should throw error', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
 
               try {
-                await resolve(rootFilePath, {
+                await resolve(entryFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
                 assert.fail('should throw ResolverError');

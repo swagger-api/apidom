@@ -1,0 +1,13 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/path1": {
+      "$ref": "./ex.json#/paths/invalid-pointer"
+    },
+    "/path2": {
+      "summary": "path item summary",
+      "description": "path item description",
+      "get": {}
+    }
+  }
+}

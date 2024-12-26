@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "responses": {
+      "default": {
+        "headers": {
+          "content-type": {
+            "$ref": "#/components/headers/content-type"
+          }
+        }
+      }
+    },
+    "headers": {
+      "content-type": {
+        "description": "content type header description"
+      }
+    }
+  }
+}

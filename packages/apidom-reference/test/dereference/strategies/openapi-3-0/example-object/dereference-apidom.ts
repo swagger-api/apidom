@@ -19,7 +19,7 @@ describe('dereference', function () {
     context('openapi-3-0', function () {
       context('Example Object', function () {
         context('given single ExampleElement passed to dereferenceApiDOM', function () {
-          const fixturePath = path.join(__dirname, 'fixtures', 'external-value-json', 'root.json');
+          const fixturePath = path.join(__dirname, 'fixtures', 'external-value-json', 'entry.json');
 
           specify('should dereference', async function () {
             const parseResult = await parse(fixturePath, {

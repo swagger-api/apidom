@@ -1,6 +1,6 @@
 [
   {
-    "openapi": "3.0.3",
+    "openapi": "3.0.4",
     "components": {
       "headers": {
         "header1": {

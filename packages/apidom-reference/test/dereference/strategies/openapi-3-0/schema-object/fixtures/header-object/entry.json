@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "headers": {
+      "header1": {
+        "schema": {
+          "title": "header1 schema title"
+        }
+      },
+      "header2": {
+        "schema": {
+          "$ref": "#/components/headers/header1/schema"
+        }
+      }
+    }
+  }
+}

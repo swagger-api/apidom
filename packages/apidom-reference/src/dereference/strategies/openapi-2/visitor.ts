@@ -267,15 +267,15 @@ class OpenAPI2DereferenceVisitor {
      *
      * Cases to consider:
      *  1. We're crossing document boundary
-     *  2. Fragment is from non-root document
+     *  2. Fragment is from non-entry document
      *  3. Fragment is a Reference Object. We need to follow it to get the eventual value
      *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
      */
-    const isNonRootDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
+    const isNonEntryDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
     const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
     if (
       (isExternalReference ||
-        isNonRootDocument ||
+        isNonEntryDocument ||
         isReferenceElement(referencedElement) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -432,15 +432,15 @@ class OpenAPI2DereferenceVisitor {
      *
      * Cases to consider:
      *  1. We're crossing document boundary
-     *  2. Fragment is from non-root document
-     *  3. Fragment is a Paht Item Object with $ref field. We need to follow it to get the eventual value
+     *  2. Fragment is from non-entry document
+     *  3. Fragment is a Path Item Object with $ref field. We need to follow it to get the eventual value
      *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
      */
-    const isNonRootDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
+    const isNonEntryDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
     const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
     if (
       (isExternalReference ||
-        isNonRootDocument ||
+        isNonEntryDocument ||
         (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -612,15 +612,15 @@ class OpenAPI2DereferenceVisitor {
      *
      * Cases to consider:
      *  1. We're crossing document boundary
-     2. Fragment is from non-root document
+     2. Fragment is from non-entry document
      *  3. Fragment is a JSON Reference Object. We need to follow it to get the eventual value
      *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
      */
-    const isNonRootDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
+    const isNonEntryDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
     const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
     if (
       (isExternalReference ||
-        isNonRootDocument ||
+        isNonEntryDocument ||
         isJSONReferenceElement(referencedElement) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)

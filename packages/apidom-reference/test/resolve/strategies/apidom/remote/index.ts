@@ -18,7 +18,7 @@ describe('dereference', function () {
             });
             const refSet = await resolveApiDOM(element, {
               parse: { mediaType: 'application/vnd.apidom' },
-              resolve: { baseURI: path.join(__dirname, 'fixtures', 'root.json') },
+              resolve: { baseURI: path.join(__dirname, 'fixtures', 'entry.json') },
             });
 
             assert.strictEqual(refSet.size, 2);

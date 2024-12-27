@@ -14,7 +14,7 @@ const httpCode3_0CompletionItem = {
   documentation: {
     kind: 'markdown',
     value:
-      "[Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject) can link to a response that the [OpenAPI Object's components/responses](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#componentsResponses) section defines.",
+      "[Response Object](https://spec.openapis.org/oas/v3.0.4.html#response-object) \\| [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)\n\\\n\\\nThe documentation of responses other than the ones declared for specific HTTP response codes. Use this field to cover undeclared responses. A [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object) can link to a response that the [OpenAPI Object's components/responses](https://spec.openapis.org/oas/v3.0.4.html#components-responses) section defines.",
   },
   targetSpecs: OpenAPI30,
 };

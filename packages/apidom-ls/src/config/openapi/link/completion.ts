@@ -29,7 +29,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A relative or absolute URI reference to an OAS operation. This field is mutually exclusive of the `operationId` field, and MUST point to an [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operationObject). Relative `operationRef` values MAY be used to locate an existing [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#operationObject) in the OpenAPI definition.',
+        'A relative or absolute URI reference to an OAS operation. This field is mutually exclusive of the `operationId` field, and MUST point to an [Operation Object](https://spec.openapis.org/oas/v3.0.4.html#operation-object). Relative `operationRef` values MAY be used to locate an existing [Operation Object](https://spec.openapis.org/oas/v3.0.4.html#operation-object) in the OpenAPI definition.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -71,7 +71,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, Any &#124; [`{expression}`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#runtimeExpression)]\n\\\n\\\nA map representing parameters to pass to an operation as specified with `operationId` or identified via `operationRef`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked operation. The parameter name can be qualified using the [parameter location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameterIn) `[{in}.]{name}` for operations that use the same parameter name in different locations (e.g. path.id).',
+        'Map[`string`, Any &#124; [`{expression}`](https://spec.openapis.org/oas/v3.0.4.html#runtime-expressions)]\n\\\n\\\nA map representing parameters to pass to an operation as specified with `operationId` or identified via `operationRef`. The key is the parameter name to be used, whereas the value can be a constant or an expression to be evaluated and passed to the linked operation. The parameter name can be qualified using the [parameter location](https://spec.openapis.org/oas/v3.0.4.html#parameter-in) `[{in}.]{name}` for operations that use the same parameter name in different locations (e.g. path.id).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -99,7 +99,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Any &#124; [`{expression}`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#runtimeExpression)\n\\\n\\\nA literal value or [`{expression}`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#runtimeExpression) to use as a request body when calling the target operation.',
+        'Any &#124; [`{expression}`](https://spec.openapis.org/oas/v3.0.4.html#runtime-expressions)\n\\\n\\\nA literal value or [`{expression}`](https://spec.openapis.org/oas/v3.0.4.html#runtime-expressions) to use as a request body when calling the target operation.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -141,7 +141,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverObject)\n\\\n\\\nA server object to be used by the target operation.',
+        '[Server Object](https://spec.openapis.org/oas/v3.0.4.html#server-object)\n\\\n\\\nA server object to be used by the target operation.',
     },
     targetSpecs: OpenAPI30,
   },

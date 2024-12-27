@@ -44,7 +44,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "**REQUIRED.** The default value to use for substitution, which SHALL be sent if an alternate value is *not* supplied. Note this behavior is different than the [Schema Object's](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject) treatment of default values, because in those cases parameter values are optional.If the [`enum`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#serverVariableEnum) is defined, the value SHOULD exist in the enum's values.",
+        "**REQUIRED.** The default value to use for substitution, which SHALL be sent if an alternate value is *not* supplied. Note this behavior is different than the [Schema Object's](https://spec.openapis.org/oas/v3.0.4.html#schema-object) treatment of default values, because in those cases parameter values are optional.If the [`enum`](https://spec.openapis.org/oas/v3.0.4.html#server-variable-enum) is defined, the value SHOULD exist in the enum's values.",
     },
     targetSpecs: OpenAPI30,
   },

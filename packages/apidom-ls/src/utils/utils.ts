@@ -1,9 +1,9 @@
 import * as openapi2AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-2';
 import * as openapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-2';
-import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
-import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
-import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
-import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as openapi30xAdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
+import * as openapi30xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
+import * as openapi31xAdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
+import * as openapi31xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
@@ -806,165 +806,167 @@ export async function findNamespace(
   defaultContentLanguage?: ContentLanguage,
 ): Promise<ContentLanguage> {
   const text = getText(document, true);
-  const json = await isJsonDoc(text);
+
   if (await asyncapi2AdapterJson.detect(text)) {
-    const versionMatch = text.match(asyncapi2AdapterJson.detectionRegExp);
-    const version = versionMatch?.groups?.version_json
-      ? versionMatch?.groups?.version_json
-      : '2.6.0';
+    const asyncapi2JsonMatch = text.match(asyncapi2AdapterJson.detectionRegExp)!;
+    const groups = asyncapi2JsonMatch.groups!;
+    const version = groups.version_json;
+
     return {
       namespace: 'asyncapi',
       version,
       format: 'JSON',
-      mediaType: `application/vnd.aai.asyncapi+json;version=${version}`,
+      mediaType: asyncapi2AdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
+
   if (await asyncapi2AdapterYaml.detect(text)) {
-    const versionMatch = text.match(asyncapi2AdapterYaml.detectionRegExp);
-    const version = versionMatch?.groups?.version_yaml
-      ? versionMatch?.groups?.version_yaml
-      : '2.6.0';
+    const asyncapi2YamlMatch = text.match(asyncapi2AdapterYaml.detectionRegExp)!;
+    const groups = asyncapi2YamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
     return {
       namespace: 'asyncapi',
       version,
       format: 'YAML',
-      mediaType: `application/vnd.aai.asyncapi+yaml;version=${version}`,
+      mediaType: asyncapi2AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
+
   if (await openapi2AdapterJson.detect(text)) {
-    const versionMatch = text.match(openapi2AdapterJson.detectionRegExp);
-    const version = versionMatch?.groups?.version_json ? versionMatch?.groups?.version_json : '2.0';
+    const openapi2JsonMatch = text.match(openapi2AdapterJson.detectionRegExp)!;
+    const groups = openapi2JsonMatch.groups!;
+    const version = groups?.version_json;
 
     return {
       namespace: 'openapi',
       version,
       format: 'JSON',
-      mediaType: `application/vnd.oai.openapi+json;version=${version}`,
+      mediaType: openapi2AdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
+
   if (await openapi2AdapterYaml.detect(text)) {
-    const versionMatch = text.match(openapi2AdapterYaml.detectionRegExp);
-    const version = versionMatch?.groups?.version_yaml
-      ? versionMatch?.groups?.version_yaml
-      : versionMatch?.groups?.version_json
-        ? versionMatch?.groups?.version_json
-        : '2.0';
+    const openapi2YamlMatch = text.match(openapi2AdapterYaml.detectionRegExp)!;
+    const groups = openapi2YamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
     return {
       namespace: 'openapi',
       version,
       format: 'YAML',
-      mediaType: `application/vnd.oai.openapi+yaml;version=${version}`,
+      mediaType: openapi2AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
-  if (await openapi3_0AdapterJson.detect(text)) {
-    const versionMatch = text.match(openapi3_0AdapterJson.detectionRegExp);
-    const version = versionMatch?.groups?.version_json
-      ? versionMatch?.groups?.version_json
-      : '3.0.3';
+
+  if (await openapi30xAdapterJson.detect(text)) {
+    const openapi30xJsonMatch = text.match(openapi30xAdapterJson.detectionRegExp)!;
+    const groups = openapi30xJsonMatch.groups!;
+    const version = groups.version_json;
+
     return {
       namespace: 'openapi',
       version,
       format: 'JSON',
-      mediaType: `application/vnd.oai.openapi+json;version=${version}`,
+      mediaType: openapi30xAdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
-  if (await openapi3_0AdapterYaml.detect(text)) {
-    const versionMatch = text.match(openapi3_0AdapterYaml.detectionRegExp);
-    const version = versionMatch?.groups?.version_yaml
-      ? versionMatch?.groups?.version_yaml
-      : versionMatch?.groups?.version_json
-        ? versionMatch?.groups?.version_json
-        : '3.0.3';
+
+  if (await openapi30xAdapterYaml.detect(text)) {
+    const openapi30xYamlMatch = text.match(openapi30xAdapterYaml.detectionRegExp)!;
+    const groups = openapi30xYamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
     return {
       namespace: 'openapi',
       version,
       format: 'YAML',
-      mediaType: `application/vnd.oai.openapi+yaml;version=${version}`,
+      mediaType: openapi30xAdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
-  if (await openapi3_1AdapterJson.detect(text)) {
-    const versionMatch = text.match(openapi3_1AdapterJson.detectionRegExp);
-    const version = versionMatch?.groups?.version_json
-      ? versionMatch?.groups?.version_json
-      : '3.1.0';
+
+  if (await openapi31xAdapterJson.detect(text)) {
+    const openapi31xAdapterJsonMatch = text.match(openapi31xAdapterJson.detectionRegExp)!;
+    const groups = openapi31xAdapterJsonMatch.groups!;
+    const version = groups.version_json;
+
     return {
       namespace: 'openapi',
       version,
       format: 'JSON',
       admitsRefsSiblings: true,
-      mediaType: `application/vnd.oai.openapi+json;version=${version}`,
+      mediaType: openapi31xAdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
-  if (await openapi3_1AdapterYaml.detect(text)) {
-    const versionMatch = text.match(openapi3_1AdapterYaml.detectionRegExp);
-    const version = versionMatch?.groups?.version_yaml
-      ? versionMatch?.groups?.version_yaml
-      : versionMatch?.groups?.version_json
-        ? versionMatch?.groups?.version_json
-        : '3.1.0';
+
+  if (await openapi31xAdapterYaml.detect(text)) {
+    const openapi31xYamlMatch = text.match(openapi31xAdapterYaml.detectionRegExp)!;
+    const groups = openapi31xYamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
     return {
       namespace: 'openapi',
       version,
       format: 'YAML',
       admitsRefsSiblings: true,
-      mediaType: `application/vnd.oai.openapi+yaml;version=${version}`,
+      mediaType: openapi31xAdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
+
   if (await adsAdapterJson.detect(text)) {
+    const adsJsonMatch = text.match(adsAdapterJson.detectionRegExp)!;
+    const groups = adsJsonMatch.groups!;
+    const version = groups.version_json;
+
     return {
       namespace: 'ads',
       format: 'JSON',
-      mediaType: 'application/vnd.aai.apidesignsystems+json;version=2021-05-07',
+      mediaType: adsAdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
+
   if (await adsAdapterYaml.detect(text)) {
+    const adsYamlMatch = text.match(adsAdapterYaml.detectionRegExp)!;
+    const groups = adsYamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
     return {
       namespace: 'ads',
       format: 'YAML',
-      mediaType: 'application/vnd.aai.apidesignsystems+yaml;version=2021-05-07',
+      mediaType: adsAdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
+
   if (await adapterJson.detect(text)) {
     return defaultContentLanguage
       ? {
-          namespace: defaultContentLanguage.namespace,
-          version: defaultContentLanguage.version,
+          ...defaultContentLanguage,
           format: 'JSON',
-          admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
-          mediaType: defaultContentLanguage.mediaType,
+          mediaType: defaultContentLanguage.mediaType.replace('+yaml', '+json'),
         }
       : {
           namespace: 'apidom',
           format: 'JSON',
-          mediaType: 'application/json',
+          mediaType: adapterJson.mediaTypes.latest(),
         };
   }
+
   if (await adapterYaml.detect(text)) {
     return defaultContentLanguage
-      ? {
-          namespace: defaultContentLanguage.namespace,
-          version: defaultContentLanguage.version,
-          format: 'YAML',
-          admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
-          mediaType: defaultContentLanguage.mediaType,
-        }
+      ? { ...defaultContentLanguage, format: 'YAML' }
       : {
           namespace: 'apidom',
           format: 'YAML',
-          mediaType: 'application/yaml',
+          mediaType: adapterYaml.mediaTypes.latest(),
         };
   }
+
+  // format was not recognized; assuming it's YAML
   return defaultContentLanguage
-    ? {
-        namespace: defaultContentLanguage.namespace,
-        version: defaultContentLanguage.version,
-        format: json ? 'JSON' : 'YAML',
-        admitsRefsSiblings: defaultContentLanguage.admitsRefsSiblings,
-        mediaType: defaultContentLanguage.mediaType,
-      }
+    ? { ...defaultContentLanguage, format: 'YAML' }
     : {
         namespace: 'apidom',
-        format: json ? 'JSON' : 'YAML',
-        mediaType: json ? 'application/json' : 'application/yaml',
+        format: 'YAML',
+        mediaType: adapterYaml.mediaTypes.latest(),
       };
 }

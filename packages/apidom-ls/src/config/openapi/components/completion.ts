@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaObject).',
+        'Map[`string`, [Schema Object](https://spec.openapis.org/oas/v3.0.4.html#schema-object) \\| [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Schema Objects](https://spec.openapis.org/oas/v3.0.4.html#schema-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -44,7 +44,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Response Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Response Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#responseObject).',
+        'Map[`string`, [Response Object](https://spec.openapis.org/oas/v3.0.4.html#response-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Response Objects](https://spec.openapis.org/oas/v3.0.4.html#response-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -72,7 +72,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameterObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#parameterObject).',
+        'Map[`string`, [Parameter Object](https://spec.openapis.org/oas/v3.0.4.html#parameter-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://spec.openapis.org/oas/v3.0.4.html#parameter-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -100,7 +100,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Example Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#exampleObject).',
+        'Map[`string`, [Example Object](https://spec.openapis.org/oas/v3.0.4.html#example-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Example Objects](https://spec.openapis.org/oas/v3.0.4.html#example-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -128,7 +128,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#requestBodyObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Request Body Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#requestBodyObject).',
+        'Map[`string`, [Request Body Object](https://spec.openapis.org/oas/v3.0.4.html#request-body-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Request Body Objects](https://spec.openapis.org/oas/v3.0.4.html#request-body-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -156,7 +156,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#headerObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Header Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#headerObject).',
+        'Map[`string`, [Header Object](https://spec.openapis.org/oas/v3.0.4.html#header-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Header Objects](https://spec.openapis.org/oas/v3.0.4.html#header-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -184,7 +184,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securitySchemeObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Security Scheme Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#securitySchemeObject).',
+        'Map[`string`, [Security Scheme Object](https://spec.openapis.org/oas/v3.0.4.html#security-scheme-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Security Scheme Objects](https://spec.openapis.org/oas/v3.0.4.html#security-scheme-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -212,7 +212,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Link Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject).',
+        'Map[`string`, [Link Object](https://spec.openapis.org/oas/v3.0.4.html#link-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Link Objects](https://spec.openapis.org/oas/v3.0.4.html#link-object).',
     },
     targetSpecs: OpenAPI30,
   },
@@ -226,7 +226,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Link Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#linkObject).',
+        'Map[`string`, [Link Object](https://spec.openapis.org/oas/v3.0.4.html#link-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Link Objects](https://spec.openapis.org/oas/v3.0.4.html#link-object).',
     },
     targetSpecs: OpenAPI31,
   },
@@ -240,7 +240,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callbackObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Callback Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#callbackObject).',
+        'Map[`string`, [Callback Object](https://spec.openapis.org/oas/v3.0.4.html#callback-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.0.4.html#reference-object)]\n\\\n\\\nAn object to hold reusable [Callback Objects](https://spec.openapis.org/oas/v3.0.4.html#callback-object).',
     },
     targetSpecs: OpenAPI30,
   },

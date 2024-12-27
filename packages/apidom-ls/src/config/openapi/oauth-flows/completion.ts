@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
+        '[OAuth Flow Object](https://spec.openapis.org/oas/v3.0.4.html#oauth-flow-object)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -44,7 +44,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Password flow.',
+        '[OAuth Flow Object](https://spec.openapis.org/oas/v3.0.4.html#oauth-flow-object)\n\\\n\\\nConfiguration for the OAuth Resource Owner Password flow.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -72,7 +72,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow. Previously called `application` in OpenAPI 2.0.',
+        '[OAuth Flow Object](https://spec.openapis.org/oas/v3.0.4.html#oauth-flow-object)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow. Previously called `application` in OpenAPI 2.0.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -100,7 +100,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow. Previously called accessCode in OpenAPI 2.0.',
+        '[OAuth Flow Object](https://spec.openapis.org/oas/v3.0.4.html#oauth-flow-object)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow. Previously called accessCode in OpenAPI 2.0.',
     },
     targetSpecs: OpenAPI30,
   },

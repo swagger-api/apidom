@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.0.4
 info:
   title: Swagger Petstore - OpenAPI 3.0
   description: |-

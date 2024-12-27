@@ -84,7 +84,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
+        '[External Documentation Object](https://spec.openapis.org/oas/v3.0.4.html#external-documentation-object)\n\\\n\\\nAdditional external documentation for this tag.',
     },
     targetSpecs: OpenAPI30,
   },

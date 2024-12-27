@@ -367,17 +367,31 @@ export class DefaultCompletionService implements CompletionService {
       asyncItem.insertTextFormat = 2;
       asyncItem.insertTextMode = 2;
       completionList.items.push(asyncItem);
-      const oasItem = CompletionItem.create('openapi');
-      oasItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
-      oasItem.documentation = {
+
+      const oas30xItem = CompletionItem.create('openapi');
+      oas30xItem.insertText = `openapi: '3.0.4$1'${isEmpty ? '' : '\n'}`;
+      oas30xItem.documentation = {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. This string MUST be the [version number](https://spec.openapis.org/oas/v3.0.4.html#versions) of the OpenAPI Specification that the OpenAPI Document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI Document. This is not related to the API [info.version](https://spec.openapis.org/oas/v3.0.4.html#info-version) string.',
+      };
+      oas30xItem.kind = CompletionItemKind.Keyword;
+      oas30xItem.insertTextFormat = 2;
+      oas30xItem.insertTextMode = 2;
+      completionList.items.push(oas30xItem);
+
+      const oas31xItem = CompletionItem.create('openapi');
+      oas31xItem.insertText = `openapi: '3.1.0$1'${isEmpty ? '' : '\n'}`;
+      oas31xItem.documentation = {
         kind: 'markdown',
         value:
           '**REQUIRED**. This string MUST be the [version number](#versions) of the OpenAPI Specification that the OpenAPI document uses. The `openapi` field SHOULD be used by tooling to interpret the OpenAPI document. This is *not* related to the API [`info.version`](#infoVersion) string.',
       };
-      oasItem.kind = CompletionItemKind.Keyword;
-      oasItem.insertTextFormat = 2;
-      oasItem.insertTextMode = 2;
-      completionList.items.push(oasItem);
+      oas31xItem.kind = CompletionItemKind.Keyword;
+      oas31xItem.insertTextFormat = 2;
+      oas31xItem.insertTextMode = 2;
+      completionList.items.push(oas31xItem);
+
       const swaggerItem = CompletionItem.create('swagger');
       swaggerItem.insertText = `swagger: '2.0'${isEmpty ? '$1' : '\n$1'}`;
       swaggerItem.documentation = {

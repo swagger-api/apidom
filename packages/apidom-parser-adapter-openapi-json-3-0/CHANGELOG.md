@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2024-12-30)
+
+### Features
+
+- **parser-adapter-openapi-json-3-0:** add support for OpenAPI 3.0.4 ([#4616](https://github.com/swagger-api/apidom/issues/4616)) ([174ca57](https://github.com/swagger-api/apidom/commit/174ca57f1bae9b685b9c4b3deb90557153ca5968)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+
 # [1.0.0-beta.5](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2024-12-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-json-3-0

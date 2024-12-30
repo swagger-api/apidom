@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2024-12-30)
+
+### Features
+
+- **ls:** add support for OpenAPI 3.0.4 ([#4628](https://github.com/swagger-api/apidom/issues/4628)) ([d973f6d](https://github.com/swagger-api/apidom/commit/d973f6d90663eeeb20d6bb6ca9817fce498fa393)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+
 # [1.0.0-beta.5](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2024-12-16)
 
 ### Bug Fixes

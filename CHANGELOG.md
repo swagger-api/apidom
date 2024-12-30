@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.6](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2024-12-30)
+
+### Features
+
+- **ls:** add support for OpenAPI 3.0.4 ([#4628](https://github.com/swagger-api/apidom/issues/4628)) ([d973f6d](https://github.com/swagger-api/apidom/commit/d973f6d90663eeeb20d6bb6ca9817fce498fa393)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+- **ns-openapi-3-0:** add support for OpenAPI 3.0.4 ([#4613](https://github.com/swagger-api/apidom/issues/4613)) ([e1c2eb7](https://github.com/swagger-api/apidom/commit/e1c2eb71e478c63f0dfc03baa7316a6d82e58b67)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+- **parser-adapter-openapi-json-3-0:** add support for OpenAPI 3.0.4 ([#4616](https://github.com/swagger-api/apidom/issues/4616)) ([174ca57](https://github.com/swagger-api/apidom/commit/174ca57f1bae9b685b9c4b3deb90557153ca5968)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+- **parser-adapter-openapi-yaml-3-0:** add support for OpenAPI 3.0.4 ([#4617](https://github.com/swagger-api/apidom/issues/4617)) ([db2140e](https://github.com/swagger-api/apidom/commit/db2140eebd199c55be3d36f6d522dbc1eb7b5315)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+- **reference:** add support for OpenAPI 3.0.4 ([#4624](https://github.com/swagger-api/apidom/issues/4624)) ([0dcb105](https://github.com/swagger-api/apidom/commit/0dcb10556ecd04a506bc00de01d53bc24e652cdf)), closes [#4612](https://github.com/swagger-api/apidom/issues/4612)
+
 # [1.0.0-beta.5](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.4...v1.0.0-beta.5) (2024-12-16)
 
 ### Bug Fixes

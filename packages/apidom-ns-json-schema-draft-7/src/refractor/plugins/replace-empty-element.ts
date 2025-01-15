@@ -159,6 +159,9 @@ const schema = {
     targetHints(...args: any[]) {
       return new ObjectElement(...args);
     },
+    headerSchema(...args: any[]) {
+      return new JSONSchemaElement(...args);
+    },
   },
   'json-schema-properties': {
     '[key: *]': function key(...args: any[]) {

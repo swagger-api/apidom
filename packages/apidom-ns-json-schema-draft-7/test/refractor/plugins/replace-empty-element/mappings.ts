@@ -221,6 +221,22 @@ describe('given empty value for LinkDescription.targetHints field', function () 
   });
 });
 
+describe('given empty value for LinkDescription.headerSchema field', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          $schema: 'http://json-schema.org/draft-07/schema#'
+          links:
+            - headerSchema:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const jsonSchemaElement = JSONSchemaElement.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    }) as JSONSchemaElement;
+
+    expect(sexprs(jsonSchemaElement)).toMatchSnapshot();
+  });
+});
+
 describe('given JSON Schema definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`

@@ -13,6 +13,20 @@ exports[`given JSON Schema definition with no empty values should do nothing 1`]
         (JSONSchemaDraft7Element)))))
 `;
 
+exports[`given empty value for LinkDescription.headerSchema field should replace empty value with semantic element 1`] = `
+(JSONSchemaDraft7Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchemaDraft7Element))))))
+`;
+
 exports[`given empty value for LinkDescription.hrefSchema field should replace empty value with semantic element 1`] = `
 (JSONSchemaDraft7Element
   (MemberElement

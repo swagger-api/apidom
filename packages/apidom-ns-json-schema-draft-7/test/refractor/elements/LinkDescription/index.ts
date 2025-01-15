@@ -18,6 +18,7 @@ describe('refractor', function () {
           templateRequired: ['id'],
           href: 'things/{id}',
           hrefSchema: {},
+          headerSchema: {},
           rel: 'image/png',
           title: 'title',
           targetSchema: {},

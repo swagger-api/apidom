@@ -3,6 +3,17 @@
 exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape should refract to JSONSchema Element 1`] = `
 {
   "element": "JSONSchemaDraft4",
+  "meta": {
+    "inheritedId": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "http://x.y.z/rootschema.json#"
+        }
+      ]
+    }
+  },
   "content": [
     {
       "element": "member",
@@ -263,7 +274,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "additionalItems"
         },
         "value": {
-          "element": "JSONSchemaDraft4"
+          "element": "JSONSchemaDraft4",
+          "meta": {
+            "inherited$schema": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-04/schema#"
+            },
+            "inheritedId": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -300,7 +320,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft4"
+              "element": "JSONSchemaDraft4",
+              "meta": {
+                "inherited$schema": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-04/schema#"
+                },
+                "inheritedId": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -521,7 +550,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "prop1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft4"
+                  "element": "JSONSchemaDraft4",
+                  "meta": {
+                    "inherited$schema": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-04/schema#"
+                    },
+                    "inheritedId": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -548,7 +586,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "additionalProperties"
         },
         "value": {
-          "element": "JSONSchemaDraft4"
+          "element": "JSONSchemaDraft4",
+          "meta": {
+            "inherited$schema": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-04/schema#"
+            },
+            "inheritedId": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -603,7 +650,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "[a-z]+"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft4"
+                  "element": "JSONSchemaDraft4",
+                  "meta": {
+                    "inherited$schema": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-04/schema#"
+                    },
+                    "inheritedId": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -662,7 +718,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "dep1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft4"
+                  "element": "JSONSchemaDraft4",
+                  "meta": {
+                    "inherited$schema": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-04/schema#"
+                    },
+                    "inheritedId": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -786,7 +851,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft4"
+              "element": "JSONSchemaDraft4",
+              "meta": {
+                "inherited$schema": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-04/schema#"
+                },
+                "inheritedId": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -825,7 +899,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft4"
+              "element": "JSONSchemaDraft4",
+              "meta": {
+                "inherited$schema": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-04/schema#"
+                },
+                "inheritedId": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -864,7 +947,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft4"
+              "element": "JSONSchemaDraft4",
+              "meta": {
+                "inherited$schema": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-04/schema#"
+                },
+                "inheritedId": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -889,7 +981,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
           "content": "not"
         },
         "value": {
-          "element": "JSONSchemaDraft4"
+          "element": "JSONSchemaDraft4",
+          "meta": {
+            "inherited$schema": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-04/schema#"
+            },
+            "inheritedId": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -944,7 +1045,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                   "content": "def1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft4"
+                  "element": "JSONSchemaDraft4",
+                  "meta": {
+                    "inherited$schema": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-04/schema#"
+                    },
+                    "inheritedId": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }

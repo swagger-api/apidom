@@ -32,6 +32,9 @@ exports[`refractor elements LinkDescription should refract to semantic ApiDOM tr
     (JSONSchemaDraft7Element))
   (MemberElement
     (StringElement)
+    (JSONSchemaDraft7Element))
+  (MemberElement
+    (StringElement)
     (StringElement))
   (MemberElement
     (StringElement)

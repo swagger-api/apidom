@@ -1,10 +1,11 @@
 import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
-import { isNonEmptyString } from 'ramda-adjunct';
+import { always, defaultTo } from 'ramda';
+import { isNonEmptyString, isUndefined } from 'ramda-adjunct';
 import {
   ObjectElement,
   BooleanElement,
   ArrayElement,
+  isStringElement,
   cloneDeep,
   toValue,
 } from '@swagger-api/apidom-core';
@@ -19,6 +20,7 @@ import {
 } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
 import JSONSchemaElement from '../../../elements/JSONSchema.ts';
+import { isJSONSchemaElement } from '../../../predicates.ts';
 
 /**
  * @public
@@ -49,7 +51,7 @@ class JSONSchemaVisitor extends Mixin(
 
   ObjectElement(objectElement: ObjectElement) {
     this.element = new JSONSchemaElement();
-    this.handle$schema();
+    this.handle$schema(objectElement);
     this.handle$id(objectElement);
 
     // for further processing consider this Schema Element as parent for all embedded Schema Elements
@@ -65,9 +67,19 @@ class JSONSchemaVisitor extends Mixin(
     return result;
   }
 
-  handle$schema(): void {
+  handle$schema(objectElement: ObjectElement): void {
     // handle $schema keyword in embedded resources
-    this.element.setMetaProperty('inherited$schema', this.default$schema);
+    if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
+      // no parent available and no $schema is defined, set default $schema
+      this.element.setMetaProperty('inherited$schema', this.default$schema);
+    } else if (isJSONSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
+      // parent is available and no $schema is defined, set parent $schema
+      const inherited$schema = defaultTo(
+        toValue(this.parent.meta.get('inherited$schema')),
+        toValue(this.parent.$schema),
+      );
+      this.element.setMetaProperty('inherited$schema', inherited$schema);
+    }
   }
 
   handle$id(objectElement: ObjectElement): void {

@@ -4,10 +4,6 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
 {
   "element": "JSONSchemaDraft7",
   "meta": {
-    "inherited$schema": {
-      "element": "string",
-      "content": "http://json-schema.org/draft-07/schema#"
-    },
     "inherited$id": {
       "element": "array",
       "content": [

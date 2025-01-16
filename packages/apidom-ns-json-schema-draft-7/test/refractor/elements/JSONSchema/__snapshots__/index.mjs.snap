@@ -3,6 +3,15 @@
 exports[`refractor elements Boolean JSON Schema support should refract to semantic ApiDOM tree 1`] = `
 {
   "element": "JSONSchemaDraft7",
+  "meta": {
+    "inherited$schema": {
+      "element": "string",
+      "content": "http://json-schema.org/draft-07/schema#"
+    },
+    "inherited$id": {
+      "element": "array"
+    }
+  },
   "content": [
     {
       "element": "member",

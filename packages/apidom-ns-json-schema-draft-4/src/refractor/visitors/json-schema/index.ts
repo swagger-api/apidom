@@ -54,15 +54,14 @@ class JSONSchemaVisitor extends Mixin(
 
     // for further processing consider this Schema Element as parent for all embedded Schema Elements
     this.parent = this.element;
-    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-    return result;
+    return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
   }
 
   handle$schema(objectElement: ObjectElement): void {
     // handle $schema keyword in embedded resources
     if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
-      // no parent available and no $schema is defined, set default$schema
+      // no parent available and no $schema is defined, set default $schema
       this.element.setMetaProperty('inherited$schema', this.default$schema);
     } else if (isJSONSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // parent is available and no $schema is defined, set parent $schema

@@ -4,11 +4,11 @@ exports[`refractor elements Boolean JSON Schema support should refract to semant
 {
   "element": "JSONSchemaDraft6",
   "meta": {
-    "inherited$schema": {
+    "inheritedDialectIdentifier": {
       "element": "string",
       "content": "http://json-schema.org/draft-06/schema#"
     },
-    "inherited$id": {
+    "ancestorsSchemaIdentifiers": {
       "element": "array"
     }
   },

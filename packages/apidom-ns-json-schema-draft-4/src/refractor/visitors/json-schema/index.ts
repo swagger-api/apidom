@@ -40,17 +40,20 @@ class JSONSchemaVisitor extends Mixin(
 
   declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
-  protected readonly default$schema = 'http://json-schema.org/draft-04/schema#';
-
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);
     this.element = new JSONSchemaElement();
     this.specPath = always(['document', 'objects', 'JSONSchema']);
   }
 
+  // eslint-disable-next-line class-methods-use-this
+  get default$schema(): string {
+    return 'http://json-schema.org/draft-04/schema#';
+  }
+
   ObjectElement(objectElement: ObjectElement) {
-    this.handle$schema(objectElement);
-    this.handleId(objectElement);
+    this.handleDialectIdentifier(objectElement);
+    this.handleSchemaIdentifier(objectElement);
 
     // for further processing consider this Schema Element as parent for all embedded Schema Elements
     this.parent = this.element;
@@ -58,37 +61,37 @@ class JSONSchemaVisitor extends Mixin(
     return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
   }
 
-  handle$schema(objectElement: ObjectElement): void {
+  handleDialectIdentifier(objectElement: ObjectElement): void {
     // handle $schema keyword in embedded resources
     if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // no parent available and no $schema is defined, set default $schema
-      this.element.setMetaProperty('inherited$schema', this.default$schema);
+      this.element.setMetaProperty('inheritedDialectIdentifier', this.default$schema);
     } else if (isJSONSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // parent is available and no $schema is defined, set parent $schema
-      const inherited$schema = defaultTo(
-        toValue(this.parent.meta.get('inherited$schema')),
+      const inheritedDialectIdentifier = defaultTo(
+        toValue(this.parent.meta.get('inheritedDialectIdentifier')),
         toValue(this.parent.$schema),
       );
-      this.element.setMetaProperty('inherited$schema', inherited$schema);
+      this.element.setMetaProperty('inheritedDialectIdentifier', inheritedDialectIdentifier);
     }
   }
 
-  handleId(objectElement: ObjectElement): void {
+  handleSchemaIdentifier(objectElement: ObjectElement): void {
     // handle id keyword in embedded resources
-    // fetch parent's inheritedId
-    const inheritedId =
+    // fetch parent's ancestorsSchemaIdentifiers
+    const ancestorsSchemaIdentifiers =
       this.parent !== undefined
-        ? cloneDeep(this.parent.getMetaProperty('inheritedId', []))
+        ? cloneDeep(this.parent.getMetaProperty('ancestorsSchemaIdentifiers', []))
         : new ArrayElement();
     // get current id keyword
     const id = toValue(objectElement.get('id'));
 
     // remember id keyword if it's a non-empty strings
     if (isNonEmptyString(id)) {
-      inheritedId.push(id);
+      ancestorsSchemaIdentifiers.push(id);
     }
 
-    this.element.setMetaProperty('inheritedId', inheritedId);
+    this.element.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
   }
 }
 

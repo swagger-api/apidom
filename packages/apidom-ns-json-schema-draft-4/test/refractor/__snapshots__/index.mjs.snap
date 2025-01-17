@@ -4,7 +4,7 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
 {
   "element": "JSONSchemaDraft4",
   "meta": {
-    "inheritedId": {
+    "ancestorsSchemaIdentifiers": {
       "element": "array",
       "content": [
         {
@@ -276,11 +276,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
         "value": {
           "element": "JSONSchemaDraft4",
           "meta": {
-            "inherited$schema": {
+            "inheritedDialectIdentifier": {
               "element": "string",
               "content": "http://json-schema.org/draft-04/schema#"
             },
-            "inheritedId": {
+            "ancestorsSchemaIdentifiers": {
               "element": "array"
             }
           }
@@ -322,11 +322,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
             {
               "element": "JSONSchemaDraft4",
               "meta": {
-                "inherited$schema": {
+                "inheritedDialectIdentifier": {
                   "element": "string",
                   "content": "http://json-schema.org/draft-04/schema#"
                 },
-                "inheritedId": {
+                "ancestorsSchemaIdentifiers": {
                   "element": "array"
                 }
               }
@@ -552,11 +552,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                 "value": {
                   "element": "JSONSchemaDraft4",
                   "meta": {
-                    "inherited$schema": {
+                    "inheritedDialectIdentifier": {
                       "element": "string",
                       "content": "http://json-schema.org/draft-04/schema#"
                     },
-                    "inheritedId": {
+                    "ancestorsSchemaIdentifiers": {
                       "element": "array"
                     }
                   }
@@ -588,11 +588,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
         "value": {
           "element": "JSONSchemaDraft4",
           "meta": {
-            "inherited$schema": {
+            "inheritedDialectIdentifier": {
               "element": "string",
               "content": "http://json-schema.org/draft-04/schema#"
             },
-            "inheritedId": {
+            "ancestorsSchemaIdentifiers": {
               "element": "array"
             }
           }
@@ -652,11 +652,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                 "value": {
                   "element": "JSONSchemaDraft4",
                   "meta": {
-                    "inherited$schema": {
+                    "inheritedDialectIdentifier": {
                       "element": "string",
                       "content": "http://json-schema.org/draft-04/schema#"
                     },
-                    "inheritedId": {
+                    "ancestorsSchemaIdentifiers": {
                       "element": "array"
                     }
                   }
@@ -720,11 +720,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                 "value": {
                   "element": "JSONSchemaDraft4",
                   "meta": {
-                    "inherited$schema": {
+                    "inheritedDialectIdentifier": {
                       "element": "string",
                       "content": "http://json-schema.org/draft-04/schema#"
                     },
-                    "inheritedId": {
+                    "ancestorsSchemaIdentifiers": {
                       "element": "array"
                     }
                   }
@@ -853,11 +853,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
             {
               "element": "JSONSchemaDraft4",
               "meta": {
-                "inherited$schema": {
+                "inheritedDialectIdentifier": {
                   "element": "string",
                   "content": "http://json-schema.org/draft-04/schema#"
                 },
-                "inheritedId": {
+                "ancestorsSchemaIdentifiers": {
                   "element": "array"
                 }
               }
@@ -901,11 +901,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
             {
               "element": "JSONSchemaDraft4",
               "meta": {
-                "inherited$schema": {
+                "inheritedDialectIdentifier": {
                   "element": "string",
                   "content": "http://json-schema.org/draft-04/schema#"
                 },
-                "inheritedId": {
+                "ancestorsSchemaIdentifiers": {
                   "element": "array"
                 }
               }
@@ -949,11 +949,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
             {
               "element": "JSONSchemaDraft4",
               "meta": {
-                "inherited$schema": {
+                "inheritedDialectIdentifier": {
                   "element": "string",
                   "content": "http://json-schema.org/draft-04/schema#"
                 },
-                "inheritedId": {
+                "ancestorsSchemaIdentifiers": {
                   "element": "array"
                 }
               }
@@ -983,11 +983,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
         "value": {
           "element": "JSONSchemaDraft4",
           "meta": {
-            "inherited$schema": {
+            "inheritedDialectIdentifier": {
               "element": "string",
               "content": "http://json-schema.org/draft-04/schema#"
             },
-            "inheritedId": {
+            "ancestorsSchemaIdentifiers": {
               "element": "array"
             }
           }
@@ -1047,11 +1047,11 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 4 shape shou
                 "value": {
                   "element": "JSONSchemaDraft4",
                   "meta": {
-                    "inherited$schema": {
+                    "inheritedDialectIdentifier": {
                       "element": "string",
                       "content": "http://json-schema.org/draft-04/schema#"
                     },
-                    "inheritedId": {
+                    "ancestorsSchemaIdentifiers": {
                       "element": "array"
                     }
                   }

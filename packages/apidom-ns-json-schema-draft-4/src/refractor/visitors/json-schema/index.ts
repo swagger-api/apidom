@@ -47,7 +47,7 @@ class JSONSchemaVisitor extends Mixin(
   }
 
   // eslint-disable-next-line class-methods-use-this
-  get default$schema(): string {
+  get defaultDialectIdentifier(): string {
     return 'http://json-schema.org/draft-04/schema#';
   }
 
@@ -65,7 +65,7 @@ class JSONSchemaVisitor extends Mixin(
     // handle $schema keyword in embedded resources
     if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // no parent available and no $schema is defined, set default $schema
-      this.element.setMetaProperty('inheritedDialectIdentifier', this.default$schema);
+      this.element.setMetaProperty('inheritedDialectIdentifier', this.defaultDialectIdentifier);
     } else if (isJSONSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
       // parent is available and no $schema is defined, set parent $schema
       const inheritedDialectIdentifier = defaultTo(

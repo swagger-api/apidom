@@ -76,19 +76,19 @@ class JSONSchemaVisitor extends Mixin(
     }
   }
 
-  handleSchemaIdentifier(objectElement: ObjectElement): void {
-    // handle id keyword in embedded resources
+  handleSchemaIdentifier(objectElement: ObjectElement, identifierKeyword: string = 'id'): void {
+    // handle schema identifier in embedded resources
     // fetch parent's ancestorsSchemaIdentifiers
     const ancestorsSchemaIdentifiers =
       this.parent !== undefined
         ? cloneDeep(this.parent.getMetaProperty('ancestorsSchemaIdentifiers', []))
         : new ArrayElement();
-    // get current id keyword
-    const id = toValue(objectElement.get('id'));
+    // get current schema identifier
+    const schemaIdentifier = toValue(objectElement.get(identifierKeyword));
 
-    // remember id keyword if it's a non-empty strings
-    if (isNonEmptyString(id)) {
-      ancestorsSchemaIdentifiers.push(id);
+    // remember schema identifier if it's a non-empty strings
+    if (isNonEmptyString(schemaIdentifier)) {
+      ancestorsSchemaIdentifiers.push(schemaIdentifier);
     }
 
     this.element.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);

@@ -88,10 +88,8 @@ export type {
   default as EnumVisitor,
   EnumVisitorOptions,
 } from './refractor/visitors/json-schema/EnumVisitor.ts';
-export type {
-  default as JSONSchemaVisitor,
-  JSONSchemaVisitorOptions,
-} from './refractor/visitors/json-schema/index.ts';
+export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
+export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export type {
   default as ItemsVisitor,
   ItemsVisitorOptions,

@@ -73,10 +73,8 @@ export type {
   default as LinkDescriptionVisitor,
   LinkDescriptionVisitorOptions,
 } from './refractor/visitors/json-schema/link-description/index.ts';
-export type {
-  default as JSONSchemaVisitor,
-  JSONSchemaVisitorOptions,
-} from './refractor/visitors/json-schema/index.ts';
+export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
+export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export type {
   default as ExamplesVisitor,
   ExamplesVisitorOptions,

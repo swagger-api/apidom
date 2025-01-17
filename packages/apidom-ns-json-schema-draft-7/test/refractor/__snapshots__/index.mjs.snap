@@ -3,6 +3,17 @@
 exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape should refract to JSONSchema Element 1`] = `
 {
   "element": "JSONSchemaDraft7",
+  "meta": {
+    "ancestorsSchemaIdentifiers": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "http://x.y.z/rootschema.json#"
+        }
+      ]
+    }
+  },
   "content": [
     {
       "element": "member",
@@ -263,7 +274,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           "content": "additionalItems"
         },
         "value": {
-          "element": "JSONSchemaDraft7"
+          "element": "JSONSchemaDraft7",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-07/schema#"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -300,7 +320,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft7"
+              "element": "JSONSchemaDraft7",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-07/schema#"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -397,7 +426,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           "content": "contains"
         },
         "value": {
-          "element": "JSONSchemaDraft7"
+          "element": "JSONSchemaDraft7",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-07/schema#"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -544,7 +582,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "prop1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft7"
+                  "element": "JSONSchemaDraft7",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-07/schema#"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -571,7 +618,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           "content": "additionalProperties"
         },
         "value": {
-          "element": "JSONSchemaDraft7"
+          "element": "JSONSchemaDraft7",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-07/schema#"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -626,7 +682,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "[a-z]+"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft7"
+                  "element": "JSONSchemaDraft7",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-07/schema#"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -685,7 +750,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "dep1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft7"
+                  "element": "JSONSchemaDraft7",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-07/schema#"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }
@@ -712,7 +786,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           "content": "propertyNames"
         },
         "value": {
-          "element": "JSONSchemaDraft7"
+          "element": "JSONSchemaDraft7",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-07/schema#"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -856,7 +939,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft7"
+              "element": "JSONSchemaDraft7",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-07/schema#"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -895,7 +987,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft7"
+              "element": "JSONSchemaDraft7",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-07/schema#"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -934,7 +1035,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           },
           "content": [
             {
-              "element": "JSONSchemaDraft7"
+              "element": "JSONSchemaDraft7",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "http://json-schema.org/draft-07/schema#"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
             }
           ]
         }
@@ -959,7 +1069,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
           "content": "not"
         },
         "value": {
-          "element": "JSONSchemaDraft7"
+          "element": "JSONSchemaDraft7",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "http://json-schema.org/draft-07/schema#"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
         }
       }
     },
@@ -1014,7 +1133,16 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "def1"
                 },
                 "value": {
-                  "element": "JSONSchemaDraft7"
+                  "element": "JSONSchemaDraft7",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "http://json-schema.org/draft-07/schema#"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
                 }
               }
             }

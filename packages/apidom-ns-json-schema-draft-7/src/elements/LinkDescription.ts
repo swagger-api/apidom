@@ -1,6 +1,16 @@
-import { StringElement, ObjectElement, ArrayElement } from '@swagger-api/apidom-core';
+import {
+  StringElement,
+  ObjectElement,
+  ArrayElement,
+  BooleanElement,
+} from '@swagger-api/apidom-core';
 import { UnsupportedOperationError } from '@swagger-api/apidom-error';
-import { LinkDescriptionElement } from '@swagger-api/apidom-ns-json-schema-draft-6';
+import {
+  LinkDescriptionElement,
+  JSONReferenceElement,
+} from '@swagger-api/apidom-ns-json-schema-draft-6';
+
+import JSONSchema from './JSONSchema.ts';
 
 /* eslint-disable class-methods-use-this */
 
@@ -102,6 +112,19 @@ class LinkDescription extends LinkDescriptionElement {
 
   set $comment($comment: StringElement | undefined) {
     this.set('$comment', $comment);
+  }
+
+  /**
+   *  Link Input.
+   *
+   *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-hyperschema-01#section-6.6
+   */
+  get headerSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('headerSchema');
+  }
+
+  set headerSchema(headerSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('headerSchema', headerSchema);
   }
 
   /**

@@ -69,10 +69,8 @@ export type {
   JSONSchemaDraft4ItemsVisitor,
 } from '@swagger-api/apidom-ns-json-schema-draft-6';
 
-export type {
-  default as JSONSchemaVisitor,
-  JSONSchemaVisitorOptions,
-} from './refractor/visitors/json-schema/index.ts';
+export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
+export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export type {
   default as LinkDescriptionVisitor,
   LinkDescriptionVisitorOptions,

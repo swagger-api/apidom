@@ -66,6 +66,10 @@ const specification = pipe(
     ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', '$comment'],
     specificationObj.visitors.value,
   ),
+  assocPath(
+    ['visitors', 'document', 'objects', 'LinkDescription', 'fixedFields', 'headerSchema'],
+    specificationObj.visitors.JSONSchemaOrJSONReferenceVisitor,
+  ),
   dissocPath([
     'visitors',
     'document',

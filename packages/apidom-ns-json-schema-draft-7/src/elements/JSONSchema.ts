@@ -1,4 +1,10 @@
-import { StringElement, BooleanElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import {
+  StringElement,
+  BooleanElement,
+  ArrayElement,
+  Attributes,
+  Meta,
+} from '@swagger-api/apidom-core';
 import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import {
   JSONSchemaElement,
@@ -37,6 +43,38 @@ class JSONSchema extends JSONSchemaElement {
    */
 
   /**
+   * Validation keywords for arrays
+   */
+
+  get containsProp(): this | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('contains');
+  }
+
+  set containsProp(contains: this | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('contains', contains);
+  }
+
+  get items(): this | BooleanElement | JSONReferenceElement | ArrayElement | undefined {
+    return this.get('items');
+  }
+
+  set items(items: this | BooleanElement | JSONReferenceElement | ArrayElement | undefined) {
+    this.set('items', items);
+  }
+
+  /**
+   * Validation keywords for objects
+   */
+
+  get propertyNames(): this | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('propertyNames');
+  }
+
+  set propertyNames(propertyNames: this | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('propertyNames', propertyNames);
+  }
+
+  /**
    * Keywords for Applying Subschemas Conditionally
    *
    * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.6
@@ -64,6 +102,20 @@ class JSONSchema extends JSONSchemaElement {
 
   set else(elseValue: this | BooleanElement | JSONReferenceElement | undefined) {
     this.set('else', elseValue);
+  }
+
+  /**
+   * Keywords for Applying Subschemas With Boolean Logic
+   *
+   * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-validation-01#section-6.7
+   */
+
+  get not(): this | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('not');
+  }
+
+  set not(not: this | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('not', not);
   }
 
   /**

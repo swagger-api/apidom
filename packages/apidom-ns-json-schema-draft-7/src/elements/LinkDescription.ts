@@ -70,6 +70,14 @@ class LinkDescription extends LinkDescriptionElement {
    * URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-hyperschema-01#section-6.5
    */
 
+  get targetSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('targetSchema');
+  }
+
+  set targetSchema(targetSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('targetSchema', targetSchema);
+  }
+
   get mediaType(): StringElement | undefined {
     throw new UnsupportedOperationError(
       'mediaType keyword from Hyper-Schema vocabulary has been renamed to targetMediaType.',
@@ -119,6 +127,15 @@ class LinkDescription extends LinkDescriptionElement {
    *
    *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-hyperschema-01#section-6.6
    */
+
+  get hrefSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('hrefSchema');
+  }
+
+  set hrefSchema(hrefSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined) {
+    this.set('hrefSchema', hrefSchema);
+  }
+
   get headerSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
     return this.get('headerSchema');
   }
@@ -132,6 +149,17 @@ class LinkDescription extends LinkDescriptionElement {
    *
    *  URI: https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-hyperschema-01#section-6.6.4
    */
+
+  get submissionSchema(): JSONSchema | BooleanElement | JSONReferenceElement | undefined {
+    return this.get('submissionSchema');
+  }
+
+  set submissionSchema(
+    submissionSchema: JSONSchema | BooleanElement | JSONReferenceElement | undefined,
+  ) {
+    this.set('submissionSchema', submissionSchema);
+  }
+
   get submissionEncType(): StringElement | undefined {
     throw new UnsupportedOperationError(
       'submissionEncType keyword from Hyper-Schema vocabulary has been renamed to submissionMediaType.',

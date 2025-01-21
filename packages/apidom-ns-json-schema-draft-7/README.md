@@ -132,7 +132,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
 });
 
-MediaElement.refract(objectElement, { plugins: [plugin] }); // => LinkDescriptionElement({ anchor = 'nodes/{thisNodeId}', anchorPointer = '#/relative/json/pointer/x' })
+LinkDescriptionElement.refract(objectElement, { plugins: [plugin] }); // => LinkDescriptionElement({ anchor = 'nodes/{thisNodeId}', anchorPointer = '#/relative/json/pointer/x' })
 ```
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.

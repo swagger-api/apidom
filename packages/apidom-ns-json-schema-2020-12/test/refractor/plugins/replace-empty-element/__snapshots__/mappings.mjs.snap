@@ -1,0 +1,241 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given JSON Schema definition with no empty values should do nothing 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema202012Element)))))
+`;
+
+exports[`given empty value for $dependentRequired field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;
+
+exports[`given empty value for $vocabulary field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;
+
+exports[`given empty value for LinkDescription.headerSchema field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchema202012Element))))))
+`;
+
+exports[`given empty value for LinkDescription.hrefSchema field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchema202012Element))))))
+`;
+
+exports[`given empty value for LinkDescription.submissionSchema field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchema202012Element))))))
+`;
+
+exports[`given empty value for LinkDescription.targetHints field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (ObjectElement))))))
+`;
+
+exports[`given empty value for LinkDescription.targetSchema field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (JSONSchema202012Element))))))
+`;
+
+exports[`given empty value for LinkDescription.templatePointers field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (ObjectElement))))))
+`;
+
+exports[`given empty value for contentSchema field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for else field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for field enum should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement)))
+`;
+
+exports[`given empty value for field items should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for field patternProperties should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;
+
+exports[`given empty value for if field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for propertyNames field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for then field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for unevaluatedItems field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value for unevaluatedProperties field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value instead for contains field keys should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema202012Element)))
+`;
+
+exports[`given empty value instead for properties field keys should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema202012Element)))))
+`;

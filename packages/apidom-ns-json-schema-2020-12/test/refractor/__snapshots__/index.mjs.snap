@@ -1,0 +1,1773 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor given generic ApiDOM object in JSON Schema 2020-12 shape should refract to JSONSchema Element 1`] = `
+{
+  "element": "JSONSchema202012",
+  "meta": {
+    "ancestorsSchemaIdentifiers": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "http://x.y.z/rootschema.json#"
+        }
+      ]
+    },
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "reference-element"
+        }
+      ]
+    },
+    "referenced-element": {
+      "element": "string",
+      "content": "schema"
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$id"
+        },
+        "value": {
+          "element": "string",
+          "content": "http://x.y.z/rootschema.json#"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$schema"
+        },
+        "value": {
+          "element": "string",
+          "content": "https://json-schema.org/draft/2020-12/schema"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "multipleOf"
+        },
+        "value": {
+          "element": "number",
+          "content": 1
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "maximum"
+        },
+        "value": {
+          "element": "number",
+          "content": 2
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "exclusiveMaximum"
+        },
+        "value": {
+          "element": "number",
+          "content": 3
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "minimum"
+        },
+        "value": {
+          "element": "number",
+          "content": 4
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "exclusiveMinimum"
+        },
+        "value": {
+          "element": "number",
+          "content": 5
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "maxLength"
+        },
+        "value": {
+          "element": "number",
+          "content": 6
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "minLength"
+        },
+        "value": {
+          "element": "number",
+          "content": 7
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "pattern"
+        },
+        "value": {
+          "element": "string",
+          "content": "[a-z]+"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "prefixItems"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-prefixItems"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "JSONSchema202012",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "https://json-schema.org/draft/2020-12/schema"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "items"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "maxItems"
+        },
+        "value": {
+          "element": "number",
+          "content": 8
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "minItems"
+        },
+        "value": {
+          "element": "number",
+          "content": 9
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "uniqueItems"
+        },
+        "value": {
+          "element": "boolean",
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "contains"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "maxProperties"
+        },
+        "value": {
+          "element": "number",
+          "content": 10
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "minProperties"
+        },
+        "value": {
+          "element": "number",
+          "content": 11
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "required"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-required"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "string",
+              "content": "prop1"
+            },
+            {
+              "element": "string",
+              "content": "prop2"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "properties"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-properties"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "prop1"
+                },
+                "value": {
+                  "element": "JSONSchema202012",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "https://json-schema.org/draft/2020-12/schema"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "additionalProperties"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "patternProperties"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-patternProperties"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "[a-z]+"
+                },
+                "value": {
+                  "element": "JSONSchema202012",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "https://json-schema.org/draft/2020-12/schema"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "dependentSchemas"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-dependentSchemas"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "dep1"
+                },
+                "value": {
+                  "element": "JSONSchema202012",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "https://json-schema.org/draft/2020-12/schema"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "propertyNames"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "enum"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-enum"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "number",
+              "content": 1
+            },
+            {
+              "element": "string",
+              "content": "2"
+            },
+            {
+              "element": "null",
+              "content": null
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "const"
+        },
+        "value": {
+          "element": "number",
+          "content": 1
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "type"
+        },
+        "value": {
+          "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-type"
+                }
+              ]
+            }
+          },
+          "content": "string"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "allOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-allOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "JSONSchema202012",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "https://json-schema.org/draft/2020-12/schema"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "anyOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-anyOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "JSONSchema202012",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "https://json-schema.org/draft/2020-12/schema"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "oneOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-oneOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "JSONSchema202012",
+              "meta": {
+                "inheritedDialectIdentifier": {
+                  "element": "string",
+                  "content": "https://json-schema.org/draft/2020-12/schema"
+                },
+                "ancestorsSchemaIdentifiers": {
+                  "element": "array"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "not"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$defs"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-$defs"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "def1"
+                },
+                "value": {
+                  "element": "JSONSchema202012",
+                  "meta": {
+                    "inheritedDialectIdentifier": {
+                      "element": "string",
+                      "content": "https://json-schema.org/draft/2020-12/schema"
+                    },
+                    "ancestorsSchemaIdentifiers": {
+                      "element": "array"
+                    }
+                  }
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "title"
+        },
+        "value": {
+          "element": "string",
+          "content": "title"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "description"
+        },
+        "value": {
+          "element": "string",
+          "content": "description"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "default"
+        },
+        "value": {
+          "element": "number",
+          "content": 3
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "examples"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-examples"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "number",
+              "content": 1
+            },
+            {
+              "element": "string",
+              "content": "string"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "format"
+        },
+        "value": {
+          "element": "string",
+          "content": "url"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "base"
+        },
+        "value": {
+          "element": "string",
+          "content": "/object/{id}"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "links"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-links"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "linkDescription"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "readOnly"
+        },
+        "value": {
+          "element": "boolean",
+          "content": false
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$vocabulary"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-$vocabulary"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "http://example.com/vocab#"
+                },
+                "value": {
+                  "element": "boolean",
+                  "content": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$anchor"
+        },
+        "value": {
+          "element": "string",
+          "content": "anchor"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$dynamicAnchor"
+        },
+        "value": {
+          "element": "string",
+          "content": "dynamicAnchor"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$ref"
+        },
+        "value": {
+          "element": "string",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "reference-value"
+                }
+              ]
+            }
+          },
+          "content": "#anchor"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$dynamicRef"
+        },
+        "value": {
+          "element": "string",
+          "content": "#dynamicAnchor"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "unevaluatedItems"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "unevaluatedProperties"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "maxContains"
+        },
+        "value": {
+          "element": "number",
+          "content": 3
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "minContains"
+        },
+        "value": {
+          "element": "number",
+          "content": 1
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "dependentRequired"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-dependentRequired"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "prop1"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "prop2"
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "deprecated"
+        },
+        "value": {
+          "element": "boolean",
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "contentSchema"
+        },
+        "value": {
+          "element": "JSONSchema202012",
+          "meta": {
+            "inheritedDialectIdentifier": {
+              "element": "string",
+              "content": "https://json-schema.org/draft/2020-12/schema"
+            },
+            "ancestorsSchemaIdentifiers": {
+              "element": "array"
+            }
+          }
+        }
+      }
+    }
+  ]
+}
+`;

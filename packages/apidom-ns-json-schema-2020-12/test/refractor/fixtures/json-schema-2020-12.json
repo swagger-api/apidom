@@ -1,0 +1,62 @@
+{
+  "$id": "http://x.y.z/rootschema.json#",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "multipleOf": 1,
+  "maximum": 2,
+  "exclusiveMaximum": 3,
+  "minimum": 4,
+  "exclusiveMinimum": 5,
+  "maxLength": 6,
+  "minLength": 7,
+  "pattern": "[a-z]+",
+  "prefixItems": [{}],
+  "items": {},
+  "maxItems": 8,
+  "minItems": 9,
+  "uniqueItems": true,
+  "contains": {},
+  "maxProperties": 10,
+  "minProperties": 11,
+  "required": ["prop1", "prop2"],
+  "properties": {
+    "prop1": {}
+  },
+  "additionalProperties": {},
+  "patternProperties": {
+    "[a-z]+": {}
+  },
+  "dependentSchemas": {
+    "dep1": {}
+  },
+  "propertyNames": {},
+  "enum": [1, "2", null],
+  "const": 1,
+  "type": "string",
+  "allOf": [{}],
+  "anyOf": [{}],
+  "oneOf": [{}],
+  "not": {},
+  "$defs": {
+    "def1": {}
+  },
+  "title": "title",
+  "description": "description",
+  "default": 3,
+  "examples": [1, "string"],
+  "format": "url",
+  "base": "/object/{id}",
+  "links": [{}],
+  "readOnly": false,
+  "$vocabulary": { "http://example.com/vocab#": true },
+  "$anchor": "anchor",
+  "$dynamicAnchor": "dynamicAnchor",
+  "$ref": "#anchor",
+  "$dynamicRef": "#dynamicAnchor",
+  "unevaluatedItems": {},
+  "unevaluatedProperties": {},
+  "maxContains": 3,
+  "minContains": 1,
+  "dependentRequired": { "prop1": ["prop2"] },
+  "deprecated": true,
+  "contentSchema": {}
+}

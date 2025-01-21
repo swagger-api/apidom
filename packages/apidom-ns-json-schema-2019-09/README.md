@@ -1,6 +1,6 @@
 # @swagger-api/apidom-ns-json-schema-2019-09
 
-`@swagger-api/apidom-ns-json-schema-2019-09` contains ApiDOM namespace specific to [JSON Schema 2019-09](https://datatracker.ietf.org/doc/html/draft-handrews-json-schema-02) specification.
+`@swagger-api/apidom-ns-json-schema-2019-09` contains ApiDOM namespace specific to [JSON Schema 2019-09](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-02) specification.
 
 ## Installation
 
@@ -131,7 +131,7 @@ const plugin = ({ predicates, namespace }) => ({
   },
 });
 
-MediaElement.refract(objectElement, { plugins: [plugin] }); // => LinkDescriptionElement({ anchor = 'nodes/{thisNodeId}', anchorPointer = '#/relative/json/pointer/x' })
+LinkDescriptionElement.refract(objectElement, { plugins: [plugin] }); // => LinkDescriptionElement({ anchor = 'nodes/{thisNodeId}', anchorPointer = '#/relative/json/pointer/x' })
 ```
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.

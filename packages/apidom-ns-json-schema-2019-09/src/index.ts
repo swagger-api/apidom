@@ -43,12 +43,6 @@ export type {
   AlternatingVisitorOptions,
   ParentSchemaAwareVisitorOptions,
   VisitorOptions,
-  DefinitionsVisitor,
-  DefinitionsVisitorOptions,
-  DependenciesVisitor,
-  DependenciesVisitorOptions,
-  SchemaOrReferenceVisitor,
-  SchemaOrReferenceVisitorOptions,
   SpecPath,
 } from '@swagger-api/apidom-ns-json-schema-draft-7';
 

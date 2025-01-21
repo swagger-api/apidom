@@ -1,0 +1,1172 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements Boolean JSON Schema support should refract to semantic ApiDOM tree 1`] = `
+{
+  "element": "JSONSchema201909",
+  "meta": {
+    "inheritedDialectIdentifier": {
+      "element": "string",
+      "content": "https://json-schema.org/draft/2019-09/schema"
+    },
+    "ancestorsSchemaIdentifiers": {
+      "element": "array"
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "additionalItems"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "items"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "contains"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "additionalProperties"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": false
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "patternProperties"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-patternProperties"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "[a-z]+"
+                },
+                "value": {
+                  "element": "boolean",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "boolean-json-schema"
+                        }
+                      ]
+                    }
+                  },
+                  "content": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "dependentSchemas"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-dependentSchemas"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "dep1"
+                },
+                "value": {
+                  "element": "boolean",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "boolean-json-schema"
+                        }
+                      ]
+                    }
+                  },
+                  "content": false
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "propertyNames"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "if"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "then"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": false
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "else"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "allOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-allOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "boolean",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "boolean-json-schema"
+                    }
+                  ]
+                }
+              },
+              "content": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "anyOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-anyOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "boolean",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "boolean-json-schema"
+                    }
+                  ]
+                }
+              },
+              "content": true
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "oneOf"
+        },
+        "value": {
+          "element": "array",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-oneOf"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "boolean",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "boolean-json-schema"
+                    }
+                  ]
+                }
+              },
+              "content": false
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "not"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": false
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "$defs"
+        },
+        "value": {
+          "element": "object",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "json-schema-$defs"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "def1"
+                },
+                "value": {
+                  "element": "boolean",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "boolean-json-schema"
+                        }
+                      ]
+                    }
+                  },
+                  "content": true
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "unevaluatedItems"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "unevaluatedProperties"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "contentSchema"
+        },
+        "value": {
+          "element": "boolean",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "boolean-json-schema"
+                }
+              ]
+            }
+          },
+          "content": true
+        }
+      }
+    }
+  ]
+}
+`;
+
+exports[`refractor elements JSONSchema should refract to semantic ApiDOM tree 1`] = `
+(JSONSchema201909Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element)))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (StringElement)
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (NumberElement)
+      (StringElement)
+      (NullElement)))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element)))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element))))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (NumberElement)
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement)))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (BooleanElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element)))
+`;
+
+exports[`refractor elements JSONSchema with alternate field values should refract to semantic ApiDOM tree 1`] = `
+(JSONSchema201909Element
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (StringElement)
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement))
+  (MemberElement
+    (StringElement)
+    (BooleanElement)))
+`;
+
+exports[`refractor elements given $ref fields should refract to semantic ApiDOM tree 1`] = `
+(JSONSchema201909Element
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element
+        (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element
+          (MemberElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element
+          (MemberElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element
+          (MemberElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element
+        (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element
+        (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema201909Element
+        (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (JSONSchema201909Element
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (JSONSchema201909Element
+          (MemberElement
+            (StringElement)
+            (StringElement)))))))
+`;
+
+exports[`refractor elements given generic ApiDOM element should refract to semantic ApiDOM tree 1`] = `
+(JSONSchema201909Element
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;

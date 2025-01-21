@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-01-21)
+
+### Bug Fixes
+
+- **ns-json-schema-draft-7:** add missing method overrides ([#4668](https://github.com/swagger-api/apidom/issues/4668)) ([15d2866](https://github.com/swagger-api/apidom/commit/15d2866fc0b8cb26c30cfbce29f4f38e3b75f777)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+- **ns-json-schema-draft-7:** add support for headerSchema ([#4652](https://github.com/swagger-api/apidom/issues/4652)) ([81682cc](https://github.com/swagger-api/apidom/commit/81682ccee1a9c75374d163e0248b082a491a13d3)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+
+### Features
+
+- implement JSON Schema 2019-09 namespace ([#4662](https://github.com/swagger-api/apidom/issues/4662)) ([6b208ed](https://github.com/swagger-api/apidom/commit/6b208ed14940d3b71d79020dc93f931a417e337e)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+- **ns-json-schema-draft-4:** handle inheritance of $schema and id ([#4653](https://github.com/swagger-api/apidom/issues/4653)) ([2b65f9e](https://github.com/swagger-api/apidom/commit/2b65f9e499dfd24c5be681ed932b34dc9f7c567d)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+- **ns-json-schema-draft-6:** handle inheritance of $schema and $id ([#4658](https://github.com/swagger-api/apidom/issues/4658)) ([86ddd8b](https://github.com/swagger-api/apidom/commit/86ddd8b029e5e98d00c0551e0bca228d2ef5522e)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+- **ns-json-schema-draft-7:** handle inheritance of $schema and $id ([#4659](https://github.com/swagger-api/apidom/issues/4659)) ([a4fbd7b](https://github.com/swagger-api/apidom/commit/a4fbd7b962fb5af752cff521eeb19b318a974c46)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+
 # [1.0.0-beta.6](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2024-12-30)
 
 ### Features

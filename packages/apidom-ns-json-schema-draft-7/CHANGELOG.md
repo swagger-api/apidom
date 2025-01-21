@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.7](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-01-21)
+
+### Bug Fixes
+
+- **ns-json-schema-draft-7:** add missing method overrides ([#4668](https://github.com/swagger-api/apidom/issues/4668)) ([15d2866](https://github.com/swagger-api/apidom/commit/15d2866fc0b8cb26c30cfbce29f4f38e3b75f777)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+- **ns-json-schema-draft-7:** add support for headerSchema ([#4652](https://github.com/swagger-api/apidom/issues/4652)) ([81682cc](https://github.com/swagger-api/apidom/commit/81682ccee1a9c75374d163e0248b082a491a13d3)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+
+### Features
+
+- **ns-json-schema-draft-7:** handle inheritance of $schema and $id ([#4659](https://github.com/swagger-api/apidom/issues/4659)) ([a4fbd7b](https://github.com/swagger-api/apidom/commit/a4fbd7b962fb5af752cff521eeb19b318a974c46)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)
+
 # [1.0.0-beta.6](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.5...v1.0.0-beta.6) (2024-12-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-7

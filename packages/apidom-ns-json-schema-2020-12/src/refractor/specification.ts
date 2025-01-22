@@ -64,14 +64,6 @@ const specification = pipe(
     JSONSchemaVisitor,
   ),
   assocPath(
-    ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'maxContains'],
-    specificationObj.visitors.value,
-  ),
-  assocPath(
-    ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'minContains'],
-    specificationObj.visitors.value,
-  ),
-  assocPath(
     ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'contentSchema'],
     JSONSchemaVisitor,
   ),

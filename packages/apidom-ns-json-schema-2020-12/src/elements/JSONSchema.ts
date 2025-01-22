@@ -1,7 +1,5 @@
 import {
   StringElement,
-  ObjectElement,
-  NumberElement,
   ArrayElement,
   BooleanElement,
   Attributes,
@@ -46,6 +44,7 @@ class JSONSchema extends JSONSchemaElement {
       '$recursiveAnchor keyword from Core vocabulary has been renamed to $dynamicAnchor.',
     );
   }
+
   get $dynamicRef(): StringElement | undefined {
     return this.get('$dynamicRef');
   }

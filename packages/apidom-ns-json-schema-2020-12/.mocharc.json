@@ -1,0 +1,5 @@
+{
+  "recursive": true,
+  "spec": "test/**/*.mjs",
+  "file": ["test/mocha-bootstrap.mjs"]
+}

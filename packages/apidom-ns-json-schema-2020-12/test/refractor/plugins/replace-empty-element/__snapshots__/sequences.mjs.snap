@@ -1,0 +1,93 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given JSON Schema definition with no empty values should do nothing 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema202012Element)
+      (JSONSchema202012Element))))
+`;
+
+exports[`given empty value for LinkDescription.templateRequired field should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (LinkDescriptionElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement))))))
+`;
+
+exports[`given empty value for field allOf should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema202012Element))))
+`;
+
+exports[`given empty value for field anyOf should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema202012Element)
+      (JSONSchema202012Element))))
+`;
+
+exports[`given empty value for field examples should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement)))
+`;
+
+exports[`given empty value for field oneOf should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema202012Element)
+      (JSONSchema202012Element))))
+`;
+
+exports[`given empty value for field prefixItems should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (JSONSchema202012Element))))
+`;
+
+exports[`given empty value for field type should replace empty value with semantic element 1`] = `
+(JSONSchema202012Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement)))
+`;

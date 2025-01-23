@@ -15,10 +15,6 @@ export type { JSONSchemaVisitorOptions };
 class JSONSchemaVisitor extends JSONSchemaDraft4Visitor {
   declare public element: JSONSchemaElement;
 
-  constructor(options: JSONSchemaVisitorOptions) {
-    super(options);
-  }
-
   // eslint-disable-next-line class-methods-use-this
   get defaultDialectIdentifier(): string {
     return 'http://json-schema.org/draft-06/schema#';

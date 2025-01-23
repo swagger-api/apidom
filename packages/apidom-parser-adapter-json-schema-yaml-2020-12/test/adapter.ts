@@ -39,7 +39,7 @@ describe('adapter', function () {
     const parseResult = await adapter.parse(yamlSpec, { sourceMap: true });
 
     assert.isTrue(isParseResultElement(parseResult));
-    assert.isTrue(isJSONSchemaElement(parseResult.content[0])); // ---- CHECK THIS LINE ----
+    assert.isTrue(isJSONSchemaElement(parseResult.content[0]));
     expect(sexprs(parseResult)).toMatchSnapshot();
   });
 

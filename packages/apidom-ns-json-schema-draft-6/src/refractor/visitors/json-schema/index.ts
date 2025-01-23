@@ -1,42 +1,22 @@
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
 import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
 import {
   FixedFieldsVisitor,
-  FixedFieldsVisitorOptions,
-  ParentSchemaAwareVisitor,
-  ParentSchemaAwareVisitorOptions,
-  FallbackVisitor,
-  FallbackVisitorOptions,
-  SpecPath,
   JSONSchemaVisitor as JSONSchemaDraft4Visitor,
+  JSONSchemaVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
 import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
-/**
- * @public
- */
-export interface JSONSchemaVisitorOptions
-  extends FixedFieldsVisitorOptions,
-    ParentSchemaAwareVisitorOptions,
-    FallbackVisitorOptions {}
+export type { JSONSchemaVisitorOptions };
 
 /**
  * @public
  */
-class JSONSchemaVisitor extends Mixin(
-  FixedFieldsVisitor,
-  ParentSchemaAwareVisitor,
-  FallbackVisitor,
-) {
+class JSONSchemaVisitor extends JSONSchemaDraft4Visitor {
   declare public element: JSONSchemaElement;
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);
-    this.specPath = always(['document', 'objects', 'JSONSchema']);
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -60,10 +40,6 @@ class JSONSchemaVisitor extends Mixin(
     this.element.classes.push('boolean-json-schema');
 
     return result;
-  }
-
-  handleDialectIdentifier(objectElement: ObjectElement): void {
-    return JSONSchemaDraft4Visitor.prototype.handleDialectIdentifier.call(this, objectElement);
   }
 
   handleSchemaIdentifier(objectElement: ObjectElement, identifierKeyword: string = '$id'): void {

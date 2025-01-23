@@ -8,9 +8,3 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 - implement JSON Schema 2020-12 namespace ([#4670](https://github.com/swagger-api/apidom/issues/4670)) ([603c9b3](https://github.com/swagger-api/apidom/commit/603c9b30bf46a916926e74ae259e4a6184eb2da3)), closes [#1820](https://github.com/swagger-api/apidom/issues/1820)
-
-# [1.0.0-beta.7](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-01-21)
-
-### Features
-
-- implement JSON Schema 2019-09 namespace ([#4662](https://github.com/swagger-api/apidom/issues/4662)) ([6b208ed](https://github.com/swagger-api/apidom/commit/6b208ed14940d3b71d79020dc93f931a417e337e)), closes [#1819](https://github.com/swagger-api/apidom/issues/1819)

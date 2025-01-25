@@ -91,6 +91,7 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
  $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-2
  $ npm install @swagger-api/apidom-parser-adapter-json
  $ npm install @swagger-api/apidom-parser-adapter-json-schema-json-2020-12
+ $ npm install @swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12
  $ npm install @swagger-api/apidom-parser-adapter-openapi-json-2
  $ npm install @swagger-api/apidom-parser-adapter-openapi-json-3-0
  $ npm install @swagger-api/apidom-parser-adapter-openapi-json-3-1

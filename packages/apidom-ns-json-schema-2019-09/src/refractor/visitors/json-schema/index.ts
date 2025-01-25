@@ -1,42 +1,23 @@
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
-import { ObjectElement, BooleanElement, isStringElement } from '@swagger-api/apidom-core';
+import { ObjectElement, isStringElement } from '@swagger-api/apidom-core';
 import {
   FixedFieldsVisitor,
-  FixedFieldsVisitorOptions,
-  ParentSchemaAwareVisitor,
-  ParentSchemaAwareVisitorOptions,
-  FallbackVisitor,
-  FallbackVisitorOptions,
-  SpecPath,
   JSONSchemaVisitor as JSONSchemaDraft7Visitor,
+  JSONSchemaVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
 import JSONSchemaElement from '../../../elements/JSONSchema.ts';
 
-/**
- * @public
- */
-export interface JSONSchemaVisitorOptions
-  extends FixedFieldsVisitorOptions,
-    ParentSchemaAwareVisitorOptions,
-    FallbackVisitorOptions {}
+export type { JSONSchemaVisitorOptions };
 
 /**
  * @public
  */
-class JSONSchemaVisitor extends Mixin(
-  FixedFieldsVisitor,
-  ParentSchemaAwareVisitor,
-  FallbackVisitor,
-) {
+class JSONSchemaVisitor extends JSONSchemaDraft7Visitor {
   declare public element: JSONSchemaElement;
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', 'JSONSchema']>;
 
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);
-    this.specPath = always(['document', 'objects', 'JSONSchema']);
+    this.element = new JSONSchemaElement();
   }
 
   // eslint-disable-next-line class-methods-use-this
@@ -45,7 +26,6 @@ class JSONSchemaVisitor extends Mixin(
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    this.element = new JSONSchemaElement();
     this.handleDialectIdentifier(objectElement);
     this.handleSchemaIdentifier(objectElement);
 
@@ -60,25 +40,6 @@ class JSONSchemaVisitor extends Mixin(
     }
 
     return result;
-  }
-
-  BooleanElement(booleanElement: BooleanElement) {
-    const result = this.enter(booleanElement);
-    this.element.classes.push('boolean-json-schema');
-
-    return result;
-  }
-
-  handleDialectIdentifier(objectElement: ObjectElement): void {
-    return JSONSchemaDraft7Visitor.prototype.handleDialectIdentifier.call(this, objectElement);
-  }
-
-  handleSchemaIdentifier(objectElement: ObjectElement, identifierKeyword: string = '$id'): void {
-    return JSONSchemaDraft7Visitor.prototype.handleSchemaIdentifier.call(
-      this,
-      objectElement,
-      identifierKeyword,
-    );
   }
 }
 

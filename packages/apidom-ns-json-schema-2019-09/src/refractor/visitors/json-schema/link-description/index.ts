@@ -1,34 +1,21 @@
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
 import {
-  FixedFieldsVisitor,
-  FixedFieldsVisitorOptions,
-  FallbackVisitor,
-  FallbackVisitorOptions,
-  SpecPath,
+  LinkDescriptionVisitor as JSONSchemaDraft7LinkDescriptionVisitor,
+  LinkDescriptionVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-7';
 
 import LinkDescriptionElement from '../../../../elements/LinkDescription.ts';
 
-/**
- * @public
- */
-export interface LinkDescriptionVisitorOptions
-  extends FixedFieldsVisitorOptions,
-    FallbackVisitorOptions {}
+export type { LinkDescriptionVisitorOptions };
 
 /**
  * @public
  */
-class LinkDescriptionVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
+class LinkDescriptionVisitor extends JSONSchemaDraft7LinkDescriptionVisitor {
   declare public readonly element: LinkDescriptionElement;
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', 'LinkDescription']>;
 
   constructor(options: LinkDescriptionVisitorOptions) {
     super(options);
     this.element = new LinkDescriptionElement();
-    this.specPath = always(['document', 'objects', 'LinkDescription']);
   }
 }
 

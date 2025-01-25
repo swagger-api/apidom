@@ -71,10 +71,9 @@ export type {
 
 export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
 export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
-export type {
-  default as LinkDescriptionVisitor,
-  LinkDescriptionVisitorOptions,
-} from './refractor/visitors/json-schema/link-description/index.ts';
+
+export { default as LinkDescriptionVisitor } from './refractor/visitors/json-schema/link-description/index.ts';
+export type { LinkDescriptionVisitorOptions } from './refractor/visitors/json-schema/link-description/index.ts';
 
 export { keyMap, getNodeType } from './traversal/visitor.ts';
 

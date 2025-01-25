@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12",
-  "version": "1.0.0-beta.7",
+  "version": "1.0.0-beta.9",
   "description": "Parser adapter for parsing YAML documents into JSON Schema 2020-12 namespace.",
   "publishConfig": {
     "access": "public",

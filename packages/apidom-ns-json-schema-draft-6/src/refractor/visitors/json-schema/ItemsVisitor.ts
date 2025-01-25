@@ -1,62 +1,15 @@
-import { Mixin } from 'ts-mixer';
+import { BooleanElement, BREAK } from '@swagger-api/apidom-core';
 import {
-  ObjectElement,
-  ArrayElement,
-  BooleanElement,
-  Element,
-  BREAK,
-} from '@swagger-api/apidom-core';
-import {
-  SpecificationVisitor,
-  SpecificationVisitorOptions,
-  FallbackVisitor,
-  FallbackVisitorOptions,
-  ParentSchemaAwareVisitor,
-  ParentSchemaAwareVisitorOptions,
-  isJSONReferenceLikeElement,
+  ItemsVisitor as JSONSchemaDraft4ItemsVisitor,
+  ItemsVisitorOptions,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-/**
- * @public
- */
-export interface ItemsVisitorOptions
-  extends SpecificationVisitorOptions,
-    ParentSchemaAwareVisitorOptions,
-    FallbackVisitorOptions {}
+export type { ItemsVisitorOptions };
 
 /**
  * @public
  */
-class ItemsVisitor extends Mixin(SpecificationVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
-  declare public element: ObjectElement | ArrayElement;
-
-  ObjectElement(objectElement: ObjectElement) {
-    const specPath = isJSONReferenceLikeElement(objectElement)
-      ? ['document', 'objects', 'JSONReference']
-      : ['document', 'objects', 'JSONSchema'];
-    this.element = this.toRefractedElement(specPath, objectElement);
-
-    return BREAK;
-  }
-
-  ArrayElement(arrayElement: ArrayElement) {
-    this.element = new ArrayElement();
-    this.element.classes.push('json-schema-items');
-
-    arrayElement.forEach((item: Element): void => {
-      const specPath = isJSONReferenceLikeElement(item)
-        ? ['document', 'objects', 'JSONReference']
-        : ['document', 'objects', 'JSONSchema'];
-      const element = this.toRefractedElement(specPath, item);
-
-      this.element.push(element);
-    });
-
-    this.copyMetaAndAttributes(arrayElement, this.element);
-
-    return BREAK;
-  }
-
+class ItemsVisitor extends JSONSchemaDraft4ItemsVisitor {
   BooleanElement(booleanElement: BooleanElement) {
     this.element = this.toRefractedElement(['document', 'objects', 'JSONSchema'], booleanElement);
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.9](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2025-01-23)
+
+### Features
+
+- implement JSON parser adapter for JSON Schema 2020-12 ([#4677](https://github.com/swagger-api/apidom/issues/4677)) ([d7fcb96](https://github.com/swagger-api/apidom/commit/d7fcb96ce086cc3b3e8c44c5f9840364e930f07a)), closes [#1867](https://github.com/swagger-api/apidom/issues/1867)
+
+# [1.0.0-beta.8](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-01-23)
+
+### Features
+
+- implement JSON Schema 2020-12 namespace ([#4670](https://github.com/swagger-api/apidom/issues/4670)) ([603c9b3](https://github.com/swagger-api/apidom/commit/603c9b30bf46a916926e74ae259e4a6184eb2da3)), closes [#1820](https://github.com/swagger-api/apidom/issues/1820)
+
 # [1.0.0-beta.7](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-01-21)
 
 ### Bug Fixes

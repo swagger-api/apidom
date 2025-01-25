@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.9](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.8...v1.0.0-beta.9) (2025-01-23)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-workflows-json-1
+
+# [1.0.0-beta.8](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.7...v1.0.0-beta.8) (2025-01-23)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-workflows-json-1
+
 # [1.0.0-beta.7](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.6...v1.0.0-beta.7) (2025-01-21)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-workflows-json-1

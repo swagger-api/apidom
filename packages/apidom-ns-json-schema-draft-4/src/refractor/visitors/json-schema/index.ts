@@ -42,6 +42,7 @@ class JSONSchemaVisitor extends Mixin(
 
   constructor(options: JSONSchemaVisitorOptions) {
     super(options);
+    this.element = new JSONSchemaElement();
     this.specPath = always(['document', 'objects', 'JSONSchema']);
   }
 
@@ -51,7 +52,6 @@ class JSONSchemaVisitor extends Mixin(
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    this.element = new JSONSchemaElement();
     this.handleDialectIdentifier(objectElement);
     this.handleSchemaIdentifier(objectElement);
 

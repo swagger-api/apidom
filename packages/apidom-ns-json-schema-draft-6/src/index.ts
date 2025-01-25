@@ -69,20 +69,16 @@ export type {
   ItemsVisitor as JSONSchemaDraft4ItemsVisitor,
 } from '@swagger-api/apidom-ns-json-schema-draft-4';
 
-export type {
-  default as LinkDescriptionVisitor,
-  LinkDescriptionVisitorOptions,
-} from './refractor/visitors/json-schema/link-description/index.ts';
+export { default as LinkDescriptionVisitor } from './refractor/visitors/json-schema/link-description/index.ts';
+export type { LinkDescriptionVisitorOptions } from './refractor/visitors/json-schema/link-description/index.ts';
 export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
 export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export type {
   default as ExamplesVisitor,
   ExamplesVisitorOptions,
 } from './refractor/visitors/json-schema/ExamplesVisitor.ts';
-export type {
-  default as ItemsVisitor,
-  ItemsVisitorOptions,
-} from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export { default as ItemsVisitor } from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export type { ItemsVisitorOptions } from './refractor/visitors/json-schema/ItemsVisitor.ts';
 
 export { keyMap, getNodeType } from './traversal/visitor.ts';
 

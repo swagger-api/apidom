@@ -60,10 +60,8 @@ export type {
   default as JSONReference$RefVisitor,
   $RefVisitorOptions as JSONReference$RefVisitorOptions,
 } from './refractor/visitors/json-schema/json-reference/$RefVisitor.ts';
-export type {
-  default as LinkDescriptionVisitor,
-  LinkDescriptionVisitorOptions,
-} from './refractor/visitors/json-schema/link-description/index.ts';
+export { default as LinkDescriptionVisitor } from './refractor/visitors/json-schema/link-description/index.ts';
+export type { LinkDescriptionVisitorOptions } from './refractor/visitors/json-schema/link-description/index.ts';
 export type {
   default as MediaVisitor,
   MediaVisitorOptions,
@@ -90,10 +88,8 @@ export type {
 } from './refractor/visitors/json-schema/EnumVisitor.ts';
 export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/index.ts';
 export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
-export type {
-  default as ItemsVisitor,
-  ItemsVisitorOptions,
-} from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export { default as ItemsVisitor } from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export type { ItemsVisitorOptions } from './refractor/visitors/json-schema/ItemsVisitor.ts';
 export type {
   default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,

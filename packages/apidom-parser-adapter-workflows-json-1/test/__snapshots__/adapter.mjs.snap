@@ -49,7 +49,7 @@ exports[`adapter should parse 1`] = `
             (StringElement))
           (MemberElement
             (StringElement)
-            (JSONSchemaDraft202012Element
+            (JSONSchema202012Element
               (MemberElement
                 (StringElement)
                 (StringElement))
@@ -58,13 +58,13 @@ exports[`adapter should parse 1`] = `
                 (ObjectElement
                   (MemberElement
                     (StringElement)
-                    (JSONSchemaDraft202012Element
+                    (JSONSchema202012Element
                       (MemberElement
                         (StringElement)
                         (StringElement))))
                   (MemberElement
                     (StringElement)
-                    (JSONSchemaDraft202012Element
+                    (JSONSchema202012Element
                       (MemberElement
                         (StringElement)
                         (StringElement))))))))

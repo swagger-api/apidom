@@ -1,7 +1,7 @@
 import { assert, expect } from 'chai';
-import { ObjectElement, sexprs, toValue } from '@swagger-api/apidom-core';
+import { ObjectElement, sexprs, toValue, isElement, find } from '@swagger-api/apidom-core';
 
-import { JSONSchemaElement } from '../../../../src/index.ts';
+import { JSONSchemaElement, isJSONSchemaElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {
@@ -113,6 +113,64 @@ describe('refractor', function () {
         });
 
         expect(jsonSchemaElement).toMatchSnapshot();
+      });
+    });
+
+    context('given JSONSchema ancestors are embedded resources', function () {
+      specify('should expose ancestors schema identifiers as metadata', function () {
+        const jsonSchemaElement = JSONSchemaElement.refract({
+          type: 'array',
+          oneOf: [
+            {
+              $id: '$id1',
+              type: 'number',
+              items: { $id: '$id2', type: 'object' },
+            },
+          ],
+          items: {
+            type: 'string',
+          },
+        });
+        const foundJsonSchemaElement = find(
+          (e) => isJSONSchemaElement(e) && isElement(e.$id) && e.$id.equals('$id2'),
+          jsonSchemaElement,
+        );
+        const ancestorsSchemaIdentifiers = foundJsonSchemaElement!.meta.get(
+          'ancestorsSchemaIdentifiers',
+        );
+
+        assert.deepEqual(toValue(ancestorsSchemaIdentifiers), ['$id1', '$id2']);
+      });
+    });
+
+    context('given JSONSchema switches dialect via parent schema', function () {
+      specify('should expose ancestors schema dialect identifier as metadata', function () {
+        const jsonSchemaElement = JSONSchemaElement.refract({
+          type: 'object',
+          oneOf: [
+            {
+              type: 'number',
+              $schema: 'schema1',
+              items: { type: 'object' },
+            },
+          ],
+          items: {
+            type: 'string',
+          },
+        }) as JSONSchemaElement;
+
+        assert.strictEqual(
+          toValue(jsonSchemaElement.meta.get('inheritedDialectIdentifier')),
+          'https://json-schema.org/draft/2020-12/schema',
+        );
+        assert.strictEqual(
+          toValue(jsonSchemaElement.items!.meta.get('inheritedDialectIdentifier')),
+          'https://json-schema.org/draft/2020-12/schema',
+        );
+        assert.strictEqual(
+          toValue(jsonSchemaElement.oneOf!.get(0).items.meta.get('inheritedDialectIdentifier')),
+          'schema1',
+        );
       });
     });
 

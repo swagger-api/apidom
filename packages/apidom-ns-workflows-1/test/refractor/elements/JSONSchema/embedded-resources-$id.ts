@@ -10,7 +10,7 @@ describe('refractor', function () {
         context('given JSONSchema Object without $id keyword', function () {
           specify('should have empty inherited$id', function () {
             const jsonSchemaElement = JSONSchemaElement.refract({});
-            const actual = toValue(jsonSchemaElement.meta.get('inherited$id'));
+            const actual = toValue(jsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
             assert.deepEqual(actual, []);
           });
@@ -28,7 +28,7 @@ describe('refractor', function () {
                 },
               },
             });
-            const actual = toValue(jsonSchemaElement.meta.get('inherited$id'));
+            const actual = toValue(jsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
             assert.deepEqual(actual, ['./nested/']);
           });
@@ -61,7 +61,7 @@ describe('refractor', function () {
               (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
               jsonSchemaElement,
             );
-            const actual = toValue(foundJsonSchemaElement.meta.get('inherited$id'));
+            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
             assert.deepEqual(actual, []);
           });
@@ -71,7 +71,7 @@ describe('refractor', function () {
               (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
               jsonSchemaElement,
             );
-            const actual = toValue(foundJsonSchemaElement.meta.get('inherited$id'));
+            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
             assert.deepEqual(actual, ['$id1']);
           });
@@ -81,7 +81,7 @@ describe('refractor', function () {
               (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
               jsonSchemaElement,
             );
-            const actual = toValue(foundJsonSchemaElement.meta.get('inherited$id'));
+            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
             assert.deepEqual(actual, ['$id1', '$id2']);
           });
@@ -93,7 +93,7 @@ describe('refractor', function () {
                 (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('4'),
                 jsonSchemaElement,
               );
-              const actual = toValue(foundJsonSchemaElement.meta.get('inherited$id'));
+              const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
               assert.deepEqual(actual, []);
             },

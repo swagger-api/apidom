@@ -1,3 +1,5 @@
+import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
+
 import WorkflowsSpecification1Element from '../elements/WorkflowsSpecification1.ts';
 import WorkflowsSpecElement from '../elements/WorkflowsSpec.ts';
 import InfoElement from '../elements/Info.ts';
@@ -10,7 +12,6 @@ import FailureActionElement from '../elements/FailureAction.ts';
 import ComponentsElement from '../elements/Components.ts';
 import CriterionElement from '../elements/Criterion.ts';
 import ReferenceElement from '../elements/Reference.ts';
-import JSONSchemaElement from '../elements/JSONSchema.ts';
 import { createRefractor } from './index.ts';
 
 InfoElement.refract = createRefractor(['visitors', 'document', 'objects', 'Info', '$visitor']);

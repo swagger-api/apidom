@@ -1,4 +1,5 @@
 import { NamespacePluginOptions } from '@swagger-api/apidom-core';
+import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1.ts';
 import WorkflowsSpecElement from './elements/WorkflowsSpec.ts';
@@ -12,7 +13,6 @@ import FailureActionElement from './elements/FailureAction.ts';
 import ComponentsElement from './elements/Components.ts';
 import CriterionElement from './elements/Criterion.ts';
 import ReferenceElement from './elements/Reference.ts';
-import JSONSchemaElement from './elements/JSONSchema.ts';
 
 /**
  * @public
@@ -33,7 +33,7 @@ const workflows1 = {
     base.register('components', ComponentsElement);
     base.register('criterion', CriterionElement);
     base.register('reference', ReferenceElement);
-    base.register('jSONSchemaDraft202012', JSONSchemaElement);
+    base.register('jSONSchema202012', JSONSchemaElement);
 
     return base;
   },

@@ -1,4 +1,5 @@
 import { createPredicate } from '@swagger-api/apidom-core';
+import { isJSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import WorkflowsSpecification1Element from './elements/WorkflowsSpecification1.ts';
 import WorkflowsSpecElement from './elements/WorkflowsSpec.ts';
@@ -12,7 +13,6 @@ import FailureActionElement from './elements/FailureAction.ts';
 import ComponentsElement from './elements/Components.ts';
 import CriterionElement from './elements/Criterion.ts';
 import ReferenceElement from './elements/Reference.ts';
-import JSONSchemaElement from './elements/JSONSchema.ts';
 // NCE types
 import WorkflowsElement from './elements/nces/Workflows.ts';
 import SourceDescriptionsElement from './elements/nces/SourceDescriptions.ts';
@@ -26,6 +26,8 @@ import StepOnFailureElement from './elements/nces/StepOnFailure.ts';
 import StepOutputsElement from './elements/nces/StepOutputs.ts';
 import SuccessActionCriteriaElement from './elements/nces/SuccessActionCriteria.ts';
 import FailureActionCriteriaElement from './elements/nces/FailureActionCriteria.ts';
+
+export { isJSONSchemaElement };
 
 /**
  * @public
@@ -354,18 +356,5 @@ export const isFailureActionCriteriaElement = createPredicate(
         primitiveEq('array', element) &&
         hasClass('failure-action-criteria', element) &&
         hasClass('criteria', element));
-  },
-);
-
-/**
- * @public
- */
-export const isJSONSchemaElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: unknown): element is JSONSchemaElement =>
-      element instanceof JSONSchemaElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('jSONSchemaDraft202012', element) &&
-        primitiveEq('object', element));
   },
 );

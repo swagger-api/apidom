@@ -1,5 +1,4 @@
-import { omit } from 'ramda';
-import { specificationObj as OpenApi3_1Specification } from '@swagger-api/apidom-ns-openapi-3-1';
+import { specificationObj as jsonSchemaSpecificationObj } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import WorkflowsSpecificationVisitor from './visitors/workflows-1/index.ts';
 import WorkflowsSpecVisitor from './visitors/workflows-1/WorkflowsSpecVisitor.ts';
@@ -30,7 +29,6 @@ import ComponentsParametersVisitor from './visitors/workflows-1/components/Param
 import CriterionVisitor from './visitors/workflows-1/criterion/index.ts';
 import ReferenceVisitor from './visitors/workflows-1/reference/index.ts';
 import Reference$RefVisitor from './visitors/workflows-1/reference/$RefVisitor.ts';
-import JSONSchemaVisitor from './visitors/workflows-1/json-schema/index.ts';
 import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor.ts';
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
 
@@ -43,11 +41,7 @@ import FallbackVisitor from './visitors/FallbackVisitor.ts';
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
 
-const { fixedFields: schemaFixedFields } = OpenApi3_1Specification.visitors.document.objects.Schema;
-const jsonSchemaFixedFields = omit(
-  ['discriminator', 'xml', 'externalDocs', 'example'],
-  schemaFixedFields,
-); // getting rid of OAS base dialect keywords
+const { JSONSchema: JSONSchemaVisitor } = jsonSchemaSpecificationObj.visitors.document.objects;
 
 /**
  * @public
@@ -167,19 +161,7 @@ const specification = {
             value: { $ref: '#/visitors/value' },
           },
         },
-        Schema: {
-          /**
-           * Internally the fixed field visitors are using references to `/document/objects/Schema`.
-           * Schema spec make sure it's pointing to our JSONSchema visitor and basically acts like
-           * an alias for it.
-           */
-          $visitor: JSONSchemaVisitor,
-          fixedFields: jsonSchemaFixedFields,
-        },
-        JSONSchema: {
-          $visitor: JSONSchemaVisitor,
-          fixedFields: jsonSchemaFixedFields,
-        },
+        JSONSchema: JSONSchemaVisitor,
       },
       extension: {
         $visitor: SpecificationExtensionVisitor,

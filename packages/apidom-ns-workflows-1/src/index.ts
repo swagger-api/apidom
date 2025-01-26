@@ -71,8 +71,7 @@ export type {
 export type {
   default as JSONSchemaVisitor,
   JSONSchemaVisitorOptions,
-  SchemaVisitor,
-} from './refractor/visitors/workflows-1/json-schema/index.ts';
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 export type {
   default as ParameterVisitor,
   ParameterVisitorOptions,

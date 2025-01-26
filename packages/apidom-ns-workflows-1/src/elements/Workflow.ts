@@ -5,8 +5,7 @@ import {
   Attributes,
   Meta,
 } from '@swagger-api/apidom-core';
-
-import JSONSchemaElement from './JSONSchema.ts';
+import { JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 /**
  * @public

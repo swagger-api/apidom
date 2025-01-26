@@ -7,7 +7,7 @@ exports[`refractor elements ComponentsElement should refract to semantic ApiDOM 
     (ObjectElement
       (MemberElement
         (StringElement)
-        (JSONSchemaDraft202012Element))))
+        (JSONSchema202012Element))))
   (MemberElement
     (StringElement)
     (ObjectElement

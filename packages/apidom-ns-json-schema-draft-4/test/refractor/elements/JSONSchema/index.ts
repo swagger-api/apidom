@@ -95,18 +95,15 @@ describe('refractor', function () {
     context('given JSONSchema switches dialect via parent schema', function () {
       specify('should expose ancestors schema dialect identifier as metadata', function () {
         const jsonSchemaElement = JSONSchemaElement.refract({
-          id: '1',
           type: 'object',
           oneOf: [
             {
-              id: '2',
               type: 'number',
               $schema: 'schema1',
-              items: { id: '3', type: 'object' },
+              items: { type: 'object' },
             },
           ],
           items: {
-            $id: '4',
             type: 'string',
           },
         }) as JSONSchemaElement;

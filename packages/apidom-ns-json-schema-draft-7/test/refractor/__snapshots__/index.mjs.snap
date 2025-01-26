@@ -281,7 +281,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
               "content": "http://json-schema.org/draft-07/schema#"
             },
             "ancestorsSchemaIdentifiers": {
-              "element": "array"
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "http://x.y.z/rootschema.json#"
+                }
+              ]
             }
           }
         }
@@ -327,7 +333,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "http://json-schema.org/draft-07/schema#"
                 },
                 "ancestorsSchemaIdentifiers": {
-                  "element": "array"
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "http://x.y.z/rootschema.json#"
+                    }
+                  ]
                 }
               }
             }
@@ -433,7 +445,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
               "content": "http://json-schema.org/draft-07/schema#"
             },
             "ancestorsSchemaIdentifiers": {
-              "element": "array"
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "http://x.y.z/rootschema.json#"
+                }
+              ]
             }
           }
         }
@@ -589,7 +607,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                       "content": "http://json-schema.org/draft-07/schema#"
                     },
                     "ancestorsSchemaIdentifiers": {
-                      "element": "array"
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http://x.y.z/rootschema.json#"
+                        }
+                      ]
                     }
                   }
                 }
@@ -625,7 +649,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
               "content": "http://json-schema.org/draft-07/schema#"
             },
             "ancestorsSchemaIdentifiers": {
-              "element": "array"
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "http://x.y.z/rootschema.json#"
+                }
+              ]
             }
           }
         }
@@ -689,7 +719,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                       "content": "http://json-schema.org/draft-07/schema#"
                     },
                     "ancestorsSchemaIdentifiers": {
-                      "element": "array"
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http://x.y.z/rootschema.json#"
+                        }
+                      ]
                     }
                   }
                 }
@@ -757,7 +793,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                       "content": "http://json-schema.org/draft-07/schema#"
                     },
                     "ancestorsSchemaIdentifiers": {
-                      "element": "array"
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http://x.y.z/rootschema.json#"
+                        }
+                      ]
                     }
                   }
                 }
@@ -793,7 +835,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
               "content": "http://json-schema.org/draft-07/schema#"
             },
             "ancestorsSchemaIdentifiers": {
-              "element": "array"
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "http://x.y.z/rootschema.json#"
+                }
+              ]
             }
           }
         }
@@ -946,7 +994,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "http://json-schema.org/draft-07/schema#"
                 },
                 "ancestorsSchemaIdentifiers": {
-                  "element": "array"
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "http://x.y.z/rootschema.json#"
+                    }
+                  ]
                 }
               }
             }
@@ -994,7 +1048,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "http://json-schema.org/draft-07/schema#"
                 },
                 "ancestorsSchemaIdentifiers": {
-                  "element": "array"
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "http://x.y.z/rootschema.json#"
+                    }
+                  ]
                 }
               }
             }
@@ -1042,7 +1102,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                   "content": "http://json-schema.org/draft-07/schema#"
                 },
                 "ancestorsSchemaIdentifiers": {
-                  "element": "array"
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "http://x.y.z/rootschema.json#"
+                    }
+                  ]
                 }
               }
             }
@@ -1076,7 +1142,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
               "content": "http://json-schema.org/draft-07/schema#"
             },
             "ancestorsSchemaIdentifiers": {
-              "element": "array"
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "http://x.y.z/rootschema.json#"
+                }
+              ]
             }
           }
         }
@@ -1140,7 +1212,13 @@ exports[`refractor given generic ApiDOM object in JSON Schema Draft 7 shape shou
                       "content": "http://json-schema.org/draft-07/schema#"
                     },
                     "ancestorsSchemaIdentifiers": {
-                      "element": "array"
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "http://x.y.z/rootschema.json#"
+                        }
+                      ]
                     }
                   }
                 }

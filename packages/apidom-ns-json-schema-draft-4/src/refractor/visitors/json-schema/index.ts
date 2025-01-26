@@ -55,7 +55,7 @@ class JSONSchemaVisitor extends Mixin(
     this.handleDialectIdentifier(objectElement);
     this.handleSchemaIdentifier(objectElement);
 
-    // for further processing consider this Schema Element as parent for all embedded Schema Elements
+    // for further processing consider this JSONSchema Element as parent for all sub-schemas
     this.parent = this.element;
 
     return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);

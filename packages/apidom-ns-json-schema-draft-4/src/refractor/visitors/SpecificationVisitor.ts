@@ -21,7 +21,7 @@ export interface SpecificationVisitorOptions extends VisitorOptions {
 class SpecificationVisitor extends Visitor {
   protected readonly specObj: typeof specification;
 
-  protected readonly passingOptionsNames: string[] = ['specObj'];
+  protected readonly passingOptionsNames: string[] = ['specObj', 'parent'];
 
   constructor({ specObj, ...rest }: SpecificationVisitorOptions) {
     super({ ...rest });
@@ -58,7 +58,7 @@ class SpecificationVisitor extends Visitor {
 
   toRefractedElement(specPath: string[], element: any, options = {}) {
     /**
-     * This is `Visitor shortcut`: mechanism for short circuiting the traversal and replacing
+     * This is `Visitor shortcut`: mechanism for short-circuiting the traversal and replacing
      * it by basic node cloning.
      *
      * Visiting the element is equivalent to cloning it  if the prototype of a visitor

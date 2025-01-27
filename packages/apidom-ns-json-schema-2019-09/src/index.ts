@@ -50,50 +50,28 @@ export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/i
 export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export { default as LinkDescriptionVisitor } from './refractor/visitors/json-schema/link-description/index.ts';
 export type { LinkDescriptionVisitorOptions } from './refractor/visitors/json-schema/link-description/index.ts';
-export type {
-  default as $defsVisitor,
-  $defsVisitorOptions,
-} from './refractor/visitors/json-schema/$defsVisitor.ts';
-export type {
-  default as $refVisitor,
-  $refVisitorOptions,
-} from './refractor/visitors/json-schema/$refVisitor.ts';
-export type {
-  default as $vocabularyVisitor,
-  $vocabularyVisitorOptions,
-} from './refractor/visitors/json-schema/$vocabularyVisitor.ts';
-export type {
-  default as AllOfVisitor,
-  AllOfVisitorOptions,
-} from './refractor/visitors/json-schema/AllOfVisitor.ts';
-export type {
-  default as AnyOfVisitor,
-  AnyOfVisitorOptions,
-} from './refractor/visitors/json-schema/AnyOfVisitor.ts';
-export type {
-  default as DependentRequiredVisitor,
-  DependentRequiredVisitorOptions,
-} from './refractor/visitors/json-schema/DependentRequiredVisitor.ts';
-export type {
-  default as DependentSchemasVisitor,
-  DependentSchemasVisitorOptions,
-} from './refractor/visitors/json-schema/DependentSchemasVisitor.ts';
-export type {
-  default as ItemsVisitor,
-  ItemsVisitorOptions,
-} from './refractor/visitors/json-schema/ItemsVisitor.ts';
-export type {
-  default as OneOfVisitor,
-  OneOfVisitorOptions,
-} from './refractor/visitors/json-schema/OneOfVisitor.ts';
-export type {
-  default as PatternPropertiesVisitor,
-  PatternPropertiesVisitorOptions,
-} from './refractor/visitors/json-schema/PatternPropertiesVisitor.ts';
-export type {
-  default as PropertiesVisitor,
-  PropertiesVisitorOptions,
-} from './refractor/visitors/json-schema/PropertiesVisitor.ts';
+export { default as $defsVisitor } from './refractor/visitors/json-schema/$defsVisitor.ts';
+export type { $defsVisitorOptions } from './refractor/visitors/json-schema/$defsVisitor.ts';
+export { default as $refVisitor } from './refractor/visitors/json-schema/$refVisitor.ts';
+export type { $refVisitorOptions } from './refractor/visitors/json-schema/$refVisitor.ts';
+export { default as $vocabularyVisitor } from './refractor/visitors/json-schema/$vocabularyVisitor.ts';
+export type { $vocabularyVisitorOptions } from './refractor/visitors/json-schema/$vocabularyVisitor.ts';
+export { default as AllOfVisitor } from './refractor/visitors/json-schema/AllOfVisitor.ts';
+export type { AllOfVisitorOptions } from './refractor/visitors/json-schema/AllOfVisitor.ts';
+export { default as AnyOfVisitor } from './refractor/visitors/json-schema/AnyOfVisitor.ts';
+export type { AnyOfVisitorOptions } from './refractor/visitors/json-schema/AnyOfVisitor.ts';
+export { default as DependentRequiredVisitor } from './refractor/visitors/json-schema/DependentRequiredVisitor.ts';
+export type { DependentRequiredVisitorOptions } from './refractor/visitors/json-schema/DependentRequiredVisitor.ts';
+export { default as DependentSchemasVisitor } from './refractor/visitors/json-schema/DependentSchemasVisitor.ts';
+export type { DependentSchemasVisitorOptions } from './refractor/visitors/json-schema/DependentSchemasVisitor.ts';
+export { default as ItemsVisitor } from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export type { ItemsVisitorOptions } from './refractor/visitors/json-schema/ItemsVisitor.ts';
+export { default as OneOfVisitor } from './refractor/visitors/json-schema/OneOfVisitor.ts';
+export type { OneOfVisitorOptions } from './refractor/visitors/json-schema/OneOfVisitor.ts';
+export { default as PatternPropertiesVisitor } from './refractor/visitors/json-schema/PatternPropertiesVisitor.ts';
+export type { PatternPropertiesVisitorOptions } from './refractor/visitors/json-schema/PatternPropertiesVisitor.ts';
+export { default as PropertiesVisitor } from './refractor/visitors/json-schema/PropertiesVisitor.ts';
+export type { PropertiesVisitorOptions } from './refractor/visitors/json-schema/PropertiesVisitor.ts';
 
 export { keyMap, getNodeType } from './traversal/visitor.ts';
 

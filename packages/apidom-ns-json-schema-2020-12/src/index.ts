@@ -50,10 +50,30 @@ export { default as JSONSchemaVisitor } from './refractor/visitors/json-schema/i
 export type { JSONSchemaVisitorOptions } from './refractor/visitors/json-schema/index.ts';
 export { default as LinkDescriptionVisitor } from './refractor/visitors/json-schema/link-description/index.ts';
 export type { LinkDescriptionVisitorOptions } from './refractor/visitors/json-schema/link-description/index.ts';
-export type {
-  default as PrefixItemsVisitor,
-  PrefixItemsVisitorOptions,
-} from './refractor/visitors/json-schema/PrefixItemsVisitor.ts';
+export { $defsVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { $defsVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { $refVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { $refVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { $vocabularyVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { $vocabularyVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { AllOfVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { AllOfVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { AnyOfVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { AnyOfVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { DependentRequiredVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { DependentRequiredVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { DependentSchemasVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { DependentSchemasVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { ItemsVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { ItemsVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { OneOfVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { OneOfVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { PatternPropertiesVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { PatternPropertiesVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { PropertiesVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export type { PropertiesVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
+export { default as PrefixItemsVisitor } from './refractor/visitors/json-schema/PrefixItemsVisitor.ts';
+export type { PrefixItemsVisitorOptions } from './refractor/visitors/json-schema/PrefixItemsVisitor.ts';
 
 /**
  * JSON Schema 2020-12 specification elements.

@@ -1,4 +1,5 @@
 import { specificationObj as OpenApi3_0Specification } from '@swagger-api/apidom-ns-openapi-3-0';
+import { specificationObj as JSONSchema202012Specification } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import OpenApi3_1Visitor from './visitors/open-api-3-1/index.ts';
 import InfoVisitor from './visitors/open-api-3-1/info/index.ts';
@@ -16,8 +17,6 @@ import ReferenceVisitor from './visitors/open-api-3-1/reference/index.ts';
 import ParameterVisitor from './visitors/open-api-3-1/parameter/index.ts';
 import HeaderVisitor from './visitors/open-api-3-1/header/index.ts';
 import SchemaVisitor from './visitors/open-api-3-1/schema/index.ts';
-import Schema$vocabularyVisitor from './visitors/open-api-3-1/schema/$vocabularyVisitor.ts';
-import Schema$refVisitor from './visitors/open-api-3-1/schema/$refVisitor.ts';
 import Schema$defsVisitor from './visitors/open-api-3-1/schema/$defsVisitor.ts';
 import SchemaAllOfVisitor from './visitors/open-api-3-1/schema/AllOfVisitor.ts';
 import SchemaAnyOfVisitor from './visitors/open-api-3-1/schema/AnyOfVisitor.ts';
@@ -26,10 +25,6 @@ import SchemaDependantSchemasVisitor from './visitors/open-api-3-1/schema/Depend
 import SchemaPrefixItemsVisitor from './visitors/open-api-3-1/schema/PrefixItemsVisitor.ts';
 import SchemaPropertiesVisitor from './visitors/open-api-3-1/schema/PropertiesVisitor.ts';
 import SchemaPatternPropertiesVisitor from './visitors/open-api-3-1/schema/PatternPropertiesVisitor.ts';
-import SchemaTypeVisitor from './visitors/open-api-3-1/schema/TypeVisitor.ts';
-import SchemaEnumVisitor from './visitors/open-api-3-1/schema/EnumVisitor.ts';
-import SchemaDependentRequiredVisitor from './visitors/open-api-3-1/schema/DependentRequiredVisitor.ts';
-import SchemaExamplesVisitor from './visitors/open-api-3-1/schema/ExamplesVisitor.ts';
 import DiscriminatorVisitor from './visitors/open-api-3-1/distriminator/index.ts';
 import XmlVisitor from './visitors/open-api-3-1/xml/index.ts';
 import ComponentsSchemasVisitor from './visitors/open-api-3-1/components/SchemasVisitor.ts';
@@ -48,6 +43,9 @@ import SecuritySchemeVisitor from './visitors/open-api-3-1/security-scheme/index
 import OAuthFlowsVisitor from './visitors/open-api-3-1/oauth-flows/index.ts';
 import OAuthFlowVisitor from './visitors/open-api-3-1/oauth-flow/index.ts';
 import WebhooksVisitor from './visitors/open-api-3-1/WebhooksVisitor.ts';
+
+const { JSONSchema: JSONSchemaVisitor, LinkDescription: LinkDescriptionVisitor } =
+  JSONSchema202012Specification.visitors.document.objects;
 
 /**
  * Specification object allows us to have complete control over visitors
@@ -402,19 +400,18 @@ const specification = {
             description: { $ref: '#/visitors/value' },
           },
         },
+        JSONSchema: {
+          $ref: '#/visitors/document/objects/Schema',
+        },
+        LinkDescription: {
+          ...LinkDescriptionVisitor,
+        },
         Schema: {
           $visitor: SchemaVisitor,
           fixedFields: {
+            ...JSONSchemaVisitor.fixedFields,
             // core vocabulary
-            $schema: { $ref: '#/visitors/value' },
-            $vocabulary: Schema$vocabularyVisitor,
-            $id: { $ref: '#/visitors/value' },
-            $anchor: { $ref: '#/visitors/value' },
-            $dynamicAnchor: { $ref: '#/visitors/value' },
-            $dynamicRef: { $ref: '#/visitors/value' },
-            $ref: Schema$refVisitor,
             $defs: Schema$defsVisitor,
-            $comment: { $ref: '#/visitors/value' },
             // applicator vocabulary
             allOf: SchemaAllOfVisitor,
             anyOf: SchemaAnyOfVisitor,
@@ -455,44 +452,7 @@ const specification = {
               $ref: '#/visitors/document/objects/Schema',
             },
             // validation vocabulary
-            // validation Keywords for Any Instance Type
-            type: SchemaTypeVisitor,
-            enum: SchemaEnumVisitor,
-            const: { $ref: '#/visitors/value' },
-            // validation Keywords for Numeric Instances (number and integer)
-            multipleOf: { $ref: '#/visitors/value' },
-            maximum: { $ref: '#/visitors/value' },
-            exclusiveMaximum: { $ref: '#/visitors/value' },
-            minimum: { $ref: '#/visitors/value' },
-            exclusiveMinimum: { $ref: '#/visitors/value' },
-            // validation Keywords for Strings
-            maxLength: { $ref: '#/visitors/value' },
-            minLength: { $ref: '#/visitors/value' },
-            pattern: { $ref: '#/visitors/value' },
-            // validation Keywords for Arrays
-            maxItems: { $ref: '#/visitors/value' },
-            minItems: { $ref: '#/visitors/value' },
-            uniqueItems: { $ref: '#/visitors/value' },
-            maxContains: { $ref: '#/visitors/value' },
-            minContains: { $ref: '#/visitors/value' },
-            // validation Keywords for Objects
-            maxProperties: { $ref: '#/visitors/value' },
-            minProperties: { $ref: '#/visitors/value' },
-            required: { $ref: '#/visitors/value' },
-            dependentRequired: SchemaDependentRequiredVisitor,
-            // basic Meta-Data Annotations vocabulary
-            title: { $ref: '#/visitors/value' },
-            description: { $ref: '#/visitors/value' },
-            default: { $ref: '#/visitors/value' },
-            deprecated: { $ref: '#/visitors/value' },
-            readOnly: { $ref: '#/visitors/value' },
-            writeOnly: { $ref: '#/visitors/value' },
-            examples: SchemaExamplesVisitor,
-            // semantic Content With "format" vocabulary
-            format: { $ref: '#/visitors/value' },
             // contents of String-Encoded Data vocabulary
-            contentEncoding: { $ref: '#/visitors/value' },
-            contentMediaType: { $ref: '#/visitors/value' },
             contentSchema: {
               $ref: '#/visitors/document/objects/Schema',
             },

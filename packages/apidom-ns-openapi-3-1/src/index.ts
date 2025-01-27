@@ -340,15 +340,15 @@ export type {
   default as Schema$defsVisitor,
   $defsVisitorOptions as Schema$defsVisitorOptions,
 } from './refractor/visitors/open-api-3-1/schema/$defsVisitor.ts';
-export type { ParentSchemaAwareVisitorOptions } from './refractor/visitors/open-api-3-1/schema/ParentSchemaAwareVisitor.ts';
+export type { ParentSchemaAwareVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2020-12';
 export type {
-  default as Schema$refVisitor,
+  $refVisitor as Schema$refVisitor,
   $refVisitorOptions as Schema$refVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/$refVisitor.ts';
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 export type {
-  default as Schema$vocabularyVisitor,
+  $vocabularyVisitor as Schema$vocabularyVisitor,
   $vocabularyVisitorOptions as Schema$vocabularyVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/$vocabularyVisitor.ts';
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 export type {
   default as SchemaAllOfVisitor,
   AllOfVisitorOptions as SchemaAllOfVisitorOptions,
@@ -358,21 +358,13 @@ export type {
   AnyOfVisitorOptions as SchemaAnyOfVisitorOptions,
 } from './refractor/visitors/open-api-3-1/schema/AnyOfVisitor.ts';
 export type {
-  default as SchemaDependentRequiredVisitor,
+  DependentRequiredVisitor as SchemaDependentRequiredVisitor,
   DependentRequiredVisitorOptions as SchemaDependentRequiredVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/DependentRequiredVisitor.ts';
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 export type {
   default as SchemaDependentSchemasVisitor,
   DependentSchemasVisitorOptions as SchemaDependentSchemasVisitorOptions,
 } from './refractor/visitors/open-api-3-1/schema/DependentSchemasVisitor.ts';
-export type {
-  default as SchemaEnumVisitor,
-  EnumVisitorOptions as SchemaEnumVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/EnumVisitor.ts';
-export type {
-  default as SchemaExamplesVisitor,
-  ExamplesVisitorOptions as SchemaExamplesVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/ExamplesVisitor.ts';
 export type {
   default as SchemaVisitor,
   SchemaVisitorOptions,
@@ -393,14 +385,6 @@ export type {
   default as SchemaPropertiesVisitor,
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
 } from './refractor/visitors/open-api-3-1/schema/PropertiesVisitor.ts';
-export type {
-  default as SchemaRequiredVisitor,
-  RequiredVisitorOptions as SchemaRequiredVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/RequiredVisitor.ts';
-export type {
-  default as SchemaTypeVisitor,
-  TypeVisitorOptions as SchemaTypeVisitorOptions,
-} from './refractor/visitors/open-api-3-1/schema/TypeVisitor.ts';
 export type {
   default as SecurityRequirementVisitor,
   SecurityRequirementVisitorOptions,

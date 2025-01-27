@@ -1038,11 +1038,11 @@ exports[`given OpenAPI 3.1 definition should decorate with API Design Systems St
                                                         "value": {
                                                           "element": "schema",
                                                           "meta": {
-                                                            "inherited$schema": {
+                                                            "inheritedDialectIdentifier": {
                                                               "element": "string",
                                                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                             },
-                                                            "inherited$id": {
+                                                            "ancestorsSchemaIdentifiers": {
                                                               "element": "array"
                                                             }
                                                           },

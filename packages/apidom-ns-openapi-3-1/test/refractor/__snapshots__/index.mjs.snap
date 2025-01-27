@@ -1437,11 +1437,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                         "value": {
                                                           "element": "schema",
                                                           "meta": {
-                                                            "inherited$schema": {
+                                                            "inheritedDialectIdentifier": {
                                                               "element": "string",
                                                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                             },
-                                                            "inherited$id": {
+                                                            "ancestorsSchemaIdentifiers": {
                                                               "element": "array"
                                                             }
                                                           },
@@ -1970,11 +1970,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                         "value": {
                                                                                           "element": "schema",
                                                                                           "meta": {
-                                                                                            "inherited$schema": {
+                                                                                            "inheritedDialectIdentifier": {
                                                                                               "element": "string",
                                                                                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                                                             },
-                                                                                            "inherited$id": {
+                                                                                            "ancestorsSchemaIdentifiers": {
                                                                                               "element": "array"
                                                                                             }
                                                                                           },
@@ -3037,11 +3037,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                                         "value": {
                                                                                           "element": "schema",
                                                                                           "meta": {
-                                                                                            "inherited$schema": {
+                                                                                            "inheritedDialectIdentifier": {
                                                                                               "element": "string",
                                                                                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                                                             },
-                                                                                            "inherited$id": {
+                                                                                            "ancestorsSchemaIdentifiers": {
                                                                                               "element": "array"
                                                                                             }
                                                                                           },
@@ -4989,11 +4989,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "schema",
                           "meta": {
-                            "inherited$schema": {
+                            "inheritedDialectIdentifier": {
                               "element": "string",
                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                             },
-                            "inherited$id": {
+                            "ancestorsSchemaIdentifiers": {
                               "element": "array"
                             }
                           },
@@ -5058,11 +5058,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                         "value": {
                           "element": "schema",
                           "meta": {
-                            "inherited$schema": {
+                            "inheritedDialectIdentifier": {
                               "element": "string",
                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                             },
-                            "inherited$id": {
+                            "ancestorsSchemaIdentifiers": {
                               "element": "array"
                             },
                             "classes": {
@@ -5310,11 +5310,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                 "value": {
                                                   "element": "schema",
                                                   "meta": {
-                                                    "inherited$schema": {
+                                                    "inheritedDialectIdentifier": {
                                                       "element": "string",
                                                       "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                     },
-                                                    "inherited$id": {
+                                                    "ancestorsSchemaIdentifiers": {
                                                       "element": "array"
                                                     }
                                                   },
@@ -6364,11 +6364,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                 "value": {
                                   "element": "schema",
                                   "meta": {
-                                    "inherited$schema": {
+                                    "inheritedDialectIdentifier": {
                                       "element": "string",
                                       "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                     },
-                                    "inherited$id": {
+                                    "ancestorsSchemaIdentifiers": {
                                       "element": "array"
                                     }
                                   },
@@ -7233,11 +7233,11 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                                                                         "value": {
                                                                           "element": "schema",
                                                                           "meta": {
-                                                                            "inherited$schema": {
+                                                                            "inheritedDialectIdentifier": {
                                                                               "element": "string",
                                                                               "content": "https://spec.openapis.org/oas/3.1/dialect/base"
                                                                             },
-                                                                            "inherited$id": {
+                                                                            "ancestorsSchemaIdentifiers": {
                                                                               "element": "array"
                                                                             }
                                                                           },

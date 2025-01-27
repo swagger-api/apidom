@@ -45,33 +45,12 @@ class JSONSchema extends JSONSchemaElement {
   /**
    * Validation keywords for arrays
    */
-
-  get containsProp(): this | BooleanElement | JSONReferenceElement | undefined {
-    return this.get('contains');
-  }
-
-  set containsProp(contains: this | BooleanElement | JSONReferenceElement | undefined) {
-    this.set('contains', contains);
-  }
-
   get items(): this | BooleanElement | JSONReferenceElement | ArrayElement | undefined {
     return this.get('items');
   }
 
   set items(items: this | BooleanElement | JSONReferenceElement | ArrayElement | undefined) {
     this.set('items', items);
-  }
-
-  /**
-   * Validation keywords for objects
-   */
-
-  get propertyNames(): this | BooleanElement | JSONReferenceElement | undefined {
-    return this.get('propertyNames');
-  }
-
-  set propertyNames(propertyNames: this | BooleanElement | JSONReferenceElement | undefined) {
-    this.set('propertyNames', propertyNames);
   }
 
   /**

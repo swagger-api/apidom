@@ -317,7 +317,7 @@ describe('dereference', function () {
               );
 
               assert.strictEqual(
-                toValue(profile.meta.get('inherited$schema')),
+                toValue(profile.meta.get('inheritedDialectIdentifier')),
                 'https://spec.openapis.org/oas/3.1/dialect/base',
               );
             });
@@ -359,7 +359,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/User', dereferenced);
 
             assert.strictEqual(
-              toValue(user.meta.get('inherited$schema')),
+              toValue(user.meta.get('inheritedDialectIdentifier')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -368,7 +368,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/User/properties/login', dereferenced);
 
             assert.strictEqual(
-              toValue(user.meta.get('inherited$schema')),
+              toValue(user.meta.get('inheritedDialectIdentifier')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -377,7 +377,7 @@ describe('dereference', function () {
             const user = evaluate('/0/components/schemas/UserProfile', dereferenced);
 
             assert.strictEqual(
-              toValue(user.meta.get('inherited$schema')),
+              toValue(user.meta.get('inheritedDialectIdentifier')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });
@@ -389,7 +389,7 @@ describe('dereference', function () {
             );
 
             assert.strictEqual(
-              toValue(user.meta.get('inherited$schema')),
+              toValue(user.meta.get('inheritedDialectIdentifier')),
               'https://spec.openapis.org/oas/3.1/dialect/base',
             );
           });

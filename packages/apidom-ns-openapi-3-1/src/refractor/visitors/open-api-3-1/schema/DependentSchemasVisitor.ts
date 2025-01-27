@@ -1,39 +1,16 @@
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
-import { ObjectElement } from '@swagger-api/apidom-core';
 import {
-  FallbackVisitor,
-  FallbackVisitorOptions,
-  MapVisitor,
-  MapVisitorOptions,
-  SpecPath,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+  DependentSchemasVisitor as DependentSchemaJSONSchema202012Visitor,
+  DependentSchemasVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
-import ParentSchemaAwareVisitor, {
-  ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor.ts';
+export type { DependentSchemasVisitorOptions };
 
 /**
  * @public
  */
-export interface DependentSchemasVisitorOptions
-  extends MapVisitorOptions,
-    ParentSchemaAwareVisitorOptions,
-    FallbackVisitorOptions {}
-
-/**
- * @public
- */
-class DependentSchemasVisitor extends Mixin(MapVisitor, ParentSchemaAwareVisitor, FallbackVisitor) {
-  declare public readonly element: ObjectElement;
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', 'Schema']>;
-
+class DependentSchemasVisitor extends DependentSchemaJSONSchema202012Visitor {
   constructor(options: DependentSchemasVisitorOptions) {
     super(options);
-    this.element = new ObjectElement();
-    this.element.classes.push('json-schema-dependentSchemas');
-    this.specPath = always(['document', 'objects', 'Schema']);
     this.passingOptionsNames.push('parent');
   }
 }

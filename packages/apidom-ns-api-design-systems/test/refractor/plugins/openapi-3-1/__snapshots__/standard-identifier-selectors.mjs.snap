@@ -1,0 +1,1805 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given OpenAPI 3.1 definition should decorate with API Design Systems Standard Identifiers 1`] = `
+{
+  "element": "openApi3_1",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        },
+        {
+          "element": "string",
+          "content": "result"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "openapi"
+        },
+        "value": {
+          "element": "openapi",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.1.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "paths"
+        },
+        "value": {
+          "element": "paths",
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "openapi-path-template"
+                        },
+                        {
+                          "element": "string",
+                          "content": "path-template"
+                        }
+                      ]
+                    }
+                  },
+                  "content": "/path1"
+                },
+                "value": {
+                  "element": "pathItem",
+                  "meta": {
+                    "path": {
+                      "element": "string",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "openapi-path-template"
+                            },
+                            {
+                              "element": "string",
+                              "content": "path-template"
+                            }
+                          ]
+                        }
+                      },
+                      "content": "/path1"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "get"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "GET"
+                            },
+                            "ads-s-standard-identifier": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "transaction"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "url"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "url"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "/path1"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "method"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "method"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "get"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header2"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header2"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          }
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "put"
+                        },
+                        "value": {
+                          "element": "operation",
+                          "meta": {
+                            "http-method": {
+                              "element": "string",
+                              "content": "PUT"
+                            },
+                            "ads-s-standard-identifier": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "transaction"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "url"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "url"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "/path1"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "method"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "method"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "put"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header2"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header2"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "X-Header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "body"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "body"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "request"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "http"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "message"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "header"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "Content-Type"
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "parameters"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-parameters"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "parameters"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "X-Header"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "header"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "parameter3 description"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "required"
+                                            },
+                                            "value": {
+                                              "element": "boolean",
+                                              "content": false
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "deprecated"
+                                            },
+                                            "value": {
+                                              "element": "boolean",
+                                              "content": false
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "allowEmptyValue"
+                                            },
+                                            "value": {
+                                              "element": "boolean",
+                                              "content": true
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "requestBody"
+                                },
+                                "value": {
+                                  "element": "requestBody",
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "content"
+                                        },
+                                        "value": {
+                                          "element": "object",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "request-body-content"
+                                                },
+                                                {
+                                                  "element": "string",
+                                                  "content": "content"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "patterned-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "application/json"
+                                                },
+                                                "value": {
+                                                  "element": "mediaType",
+                                                  "meta": {
+                                                    "media-type": {
+                                                      "element": "string",
+                                                      "content": "application/json"
+                                                    }
+                                                  },
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "fixed-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "schema"
+                                                        },
+                                                        "value": {
+                                                          "element": "schema",
+                                                          "meta": {
+                                                            "inheritedDialectIdentifier": {
+                                                              "element": "string",
+                                                              "content": "https://spec.openapis.org/oas/3.1/dialect/base"
+                                                            },
+                                                            "ancestorsSchemaIdentifiers": {
+                                                              "element": "array"
+                                                            }
+                                                          },
+                                                          "content": [
+                                                            {
+                                                              "element": "member",
+                                                              "meta": {
+                                                                "classes": {
+                                                                  "element": "array",
+                                                                  "content": [
+                                                                    {
+                                                                      "element": "string",
+                                                                      "content": "fixed-field"
+                                                                    }
+                                                                  ]
+                                                                }
+                                                              },
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "type"
+                                                                },
+                                                                "value": {
+                                                                  "element": "string",
+                                                                  "meta": {
+                                                                    "classes": {
+                                                                      "element": "array",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "string",
+                                                                          "content": "json-schema-type"
+                                                                        }
+                                                                      ]
+                                                                    }
+                                                                  },
+                                                                  "content": "object"
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "required"
+                                        },
+                                        "value": {
+                                          "element": "boolean",
+                                          "content": true
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "responses"
+                                },
+                                "value": {
+                                  "element": "responses",
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "patterned-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "201"
+                                        },
+                                        "value": {
+                                          "element": "response",
+                                          "meta": {
+                                            "http-status-code": {
+                                              "element": "string",
+                                              "content": "201"
+                                            },
+                                            "ads-s-standard-identifier": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "201"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "success"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "X-Header-Name"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "message"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "X-Header-Name"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "body"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "message"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "body"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "application/json"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "message"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "header"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "application/json"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "headers"
+                                                },
+                                                "value": {
+                                                  "element": "object",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "response-headers"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "patterned-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "X-Header-Name"
+                                                        },
+                                                        "value": {
+                                                          "element": "header",
+                                                          "meta": {
+                                                            "header-name": {
+                                                              "element": "string",
+                                                              "content": "X-Header-Name"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            },
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "content"
+                                                },
+                                                "value": {
+                                                  "element": "object",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "response-content"
+                                                        },
+                                                        {
+                                                          "element": "string",
+                                                          "content": "content"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "meta": {
+                                                        "classes": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "patterned-field"
+                                                            }
+                                                          ]
+                                                        }
+                                                      },
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "application/json"
+                                                        },
+                                                        "value": {
+                                                          "element": "mediaType",
+                                                          "meta": {
+                                                            "media-type": {
+                                                              "element": "string",
+                                                              "content": "application/json"
+                                                            }
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "patterned-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "202"
+                                        },
+                                        "value": {
+                                          "element": "response",
+                                          "meta": {
+                                            "http-status-code": {
+                                              "element": "string",
+                                              "content": "202"
+                                            },
+                                            "ads-s-standard-identifier": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "202"
+                                                    }
+                                                  ]
+                                                },
+                                                {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "http"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "response"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "status_code"
+                                                    },
+                                                    {
+                                                      "element": "string",
+                                                      "content": "success"
+                                                    }
+                                                  ]
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "parameters"
+                        },
+                        "value": {
+                          "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "path-item-parameters"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "parameters"
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "parameter",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "name"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "X-Header2"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "in"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "header"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "description"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "parameter1 description"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "allowEmptyValue"
+                                    },
+                                    "value": {
+                                      "element": "boolean",
+                                      "content": true
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;

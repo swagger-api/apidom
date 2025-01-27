@@ -8,7 +8,7 @@ describe('refractor', function () {
     context('JSONSchemaElement', function () {
       context('$id keyword in embedded resources', function () {
         context('given JSONSchema Object without $id keyword', function () {
-          specify('should have empty inherited$id', function () {
+          specify('should have empty ancestorsSchemaIdentifiers', function () {
             const jsonSchemaElement = JSONSchemaElement.refract({});
             const actual = toValue(jsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
@@ -17,7 +17,7 @@ describe('refractor', function () {
         });
 
         context('given JSONSchema Object with arbitrary fields boundaries', function () {
-          specify('should annotate Schema($anchor=1) with inherited$id', function () {
+          specify('should annotate Schema($anchor=1) with ancestorsSchemaIdentifiers', function () {
             const jsonSchemaElement = JSONSchemaElement.refract({
               $id: './nested/',
               type: 'object',
@@ -56,38 +56,47 @@ describe('refractor', function () {
             });
           });
 
-          specify('should annotate JSONSchema Object($anchor=1) with inherited$id', function () {
-            const foundJsonSchemaElement = find(
-              (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
-              jsonSchemaElement,
-            );
-            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
+          specify(
+            'should annotate JSONSchema Object($anchor=1) with ancestorsSchemaIdentifiers',
+            function () {
+              const foundJsonSchemaElement = find(
+                (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
+                jsonSchemaElement,
+              );
+              const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
-            assert.deepEqual(actual, []);
-          });
-
-          specify('should annotate JSONSchema Object($anchor=2) with inherited$id', function () {
-            const foundJsonSchemaElement = find(
-              (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
-              jsonSchemaElement,
-            );
-            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
-
-            assert.deepEqual(actual, ['$id1']);
-          });
-
-          specify('should annotate JSONSchema Object($anchor=3) with inherited$id', function () {
-            const foundJsonSchemaElement = find(
-              (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
-              jsonSchemaElement,
-            );
-            const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
-
-            assert.deepEqual(actual, ['$id1', '$id2']);
-          });
+              assert.deepEqual(actual, []);
+            },
+          );
 
           specify(
-            'should not annotate JSONSchema Object($anchor=4) with inherited$id',
+            'should annotate JSONSchema Object($anchor=2) with ancestorsSchemaIdentifiers',
+            function () {
+              const foundJsonSchemaElement = find(
+                (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
+                jsonSchemaElement,
+              );
+              const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
+
+              assert.deepEqual(actual, ['$id1']);
+            },
+          );
+
+          specify(
+            'should annotate JSONSchema Object($anchor=3) with ancestorsSchemaIdentifiers',
+            function () {
+              const foundJsonSchemaElement = find(
+                (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
+                jsonSchemaElement,
+              );
+              const actual = toValue(foundJsonSchemaElement.meta.get('ancestorsSchemaIdentifiers'));
+
+              assert.deepEqual(actual, ['$id1', '$id2']);
+            },
+          );
+
+          specify(
+            'should not annotate JSONSchema Object($anchor=4) with ancestorsSchemaIdentifiers',
             function () {
               const foundJsonSchemaElement = find(
                 (e) => isJSONSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('4'),

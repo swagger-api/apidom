@@ -13,13 +13,13 @@ export const resolveSchema$refField = (retrievalURI: string, schemaElement: Sche
   }
 
   const hash = url.getHash(toValue(schemaElement.$ref));
-  const inherited$id = toValue(schemaElement.meta.get('inherited$id'));
+  const ancestorsSchemaIdentifiers = toValue(schemaElement.meta.get('ancestorsSchemaIdentifiers'));
   const $refBaseURI = reduce(
     (acc: string, uri: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash(uri)));
     },
     retrievalURI,
-    [...inherited$id, toValue(schemaElement.$ref)],
+    [...ancestorsSchemaIdentifiers, toValue(schemaElement.$ref)],
   );
 
   return `${$refBaseURI}${hash === '#' ? '' : hash}`;
@@ -33,14 +33,14 @@ export const resolveSchema$idField = (retrievalURI: string, schemaElement: Schem
     return undefined;
   }
 
-  const inherited$id = toValue(schemaElement.meta.get('inherited$id'));
+  const ancestorsSchemaIdentifiers = toValue(schemaElement.meta.get('ancestorsSchemaIdentifiers'));
 
   return reduce(
     (acc: string, $id: string): string => {
       return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
     retrievalURI,
-    [...inherited$id, toValue(schemaElement.$id)],
+    [...ancestorsSchemaIdentifiers, toValue(schemaElement.$id)],
   );
 };
 

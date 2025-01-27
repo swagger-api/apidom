@@ -8,11 +8,11 @@ export type { OneOfVisitorOptions };
 /**
  * @public
  */
-class AnyOfVisitor extends OneOfJSONSchema202012Options {
+class OneOfVisitor extends OneOfJSONSchema202012Options {
   constructor(options: OneOfVisitorOptions) {
     super(options);
     this.passingOptionsNames.push('parent');
   }
 }
 
-export default AnyOfVisitor;
+export default OneOfVisitor;

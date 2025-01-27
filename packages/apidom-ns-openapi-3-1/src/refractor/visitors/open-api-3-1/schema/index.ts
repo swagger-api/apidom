@@ -1,28 +1,21 @@
 import { Mixin } from 'ts-mixer';
-import { always, defaultTo } from 'ramda';
-import { isNonEmptyString, isUndefined } from 'ramda-adjunct';
-import {
-  ObjectElement,
-  ArrayElement,
-  BooleanElement,
-  isStringElement,
-  cloneDeep,
-  toValue,
-} from '@swagger-api/apidom-core';
+import { always } from 'ramda';
+import { ObjectElement, BooleanElement, isStringElement, toValue } from '@swagger-api/apidom-core';
 import {
   FallbackVisitor,
   FallbackVisitorOptions,
   FixedFieldsVisitor,
   FixedFieldsVisitorOptions,
 } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  JSONSchemaVisitor,
+  ParentSchemaAwareVisitor,
+  ParentSchemaAwareVisitorOptions,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
-import { isSchemaElement, isJsonSchemaDialectElement } from '../../../../predicates.ts';
+import { isJsonSchemaDialectElement } from '../../../../predicates.ts';
 import SchemaElement from '../../../../elements/Schema.ts';
 import JsonSchemaDialectElement from '../../../../elements/JsonSchemaDialect.ts';
-import ParentSchemaAwareVisitor, {
-  ParentSchemaAwareVisitorOptions,
-} from './ParentSchemaAwareVisitor.ts';
-
 /**
  * @public
  */
@@ -49,8 +42,8 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    this.handle$schema(objectElement);
-    this.handle$id(objectElement);
+    this.handleDialectIdentifier(objectElement);
+    this.handleSchemaIdentifier(objectElement);
 
     // for further processing consider this Schema Element as parent for all embedded Schema Elements
     this.parent = this.element;
@@ -66,10 +59,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
   }
 
   BooleanElement(booleanElement: BooleanElement) {
-    const result = super.enter(booleanElement);
-    this.element.classes.push('boolean-json-schema');
-
-    return result;
+    return JSONSchemaVisitor.prototype.BooleanElement.call(this, booleanElement);
   }
 
   /**
@@ -77,7 +67,7 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
    * works even when no context is provided like when directly refracting generic Object Element
    * into Schema Element: `SchemaElement.refract(new ObjectElement({ type: 'object' });`
    */
-  getJsonSchemaDialect(): JsonSchemaDialectElement {
+  get defaultDialectIdentifier(): JsonSchemaDialectElement {
     let jsonSchemaDialect;
 
     if (
@@ -99,37 +89,12 @@ class SchemaVisitor extends Mixin(FixedFieldsVisitor, ParentSchemaAwareVisitor, 
     return jsonSchemaDialect;
   }
 
-  handle$schema(objectElement: ObjectElement): void {
-    // handle $schema keyword in embedded resources
-    if (isUndefined(this.parent) && !isStringElement(objectElement.get('$schema'))) {
-      // no parent available and no $schema is defined, set default jsonSchemaDialect
-      this.element.setMetaProperty('inherited$schema', this.getJsonSchemaDialect());
-    } else if (isSchemaElement(this.parent) && !isStringElement(objectElement.get('$schema'))) {
-      // parent is available and no $schema is defined, set parent $schema
-      const inherited$schema = defaultTo(
-        toValue(this.parent.meta.get('inherited$schema')),
-        toValue(this.parent.$schema),
-      );
-      this.element.setMetaProperty('inherited$schema', inherited$schema);
-    }
+  handleDialectIdentifier(objectElement: ObjectElement): void {
+    return JSONSchemaVisitor.prototype.handleDialectIdentifier.call(this, objectElement);
   }
 
-  handle$id(objectElement: ObjectElement): void {
-    // handle $id keyword in embedded resources
-    // fetch parent's inherited$id
-    const inherited$id =
-      this.parent !== undefined
-        ? cloneDeep(this.parent.getMetaProperty('inherited$id', []))
-        : new ArrayElement();
-    // get current $id keyword
-    const $id = toValue(objectElement.get('$id'));
-
-    // remember $id keyword if it's a non-empty strings
-    if (isNonEmptyString($id)) {
-      inherited$id.push($id);
-    }
-
-    this.element.setMetaProperty('inherited$id', inherited$id);
+  handleSchemaIdentifier(objectElement: ObjectElement): void {
+    return JSONSchemaVisitor.prototype.handleSchemaIdentifier.call(this, objectElement);
   }
 }
 

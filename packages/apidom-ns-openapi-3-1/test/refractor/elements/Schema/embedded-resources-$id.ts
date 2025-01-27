@@ -9,7 +9,7 @@ describe('refractor', function () {
       context('plugins', function () {
         context('$id keyword in embedded resources', function () {
           context('given Schema Object without $id keyword', function () {
-            specify('should have empty inherited$id', function () {
+            specify('should have empty ancestorsSchemaIdentifiers', function () {
               const genericObjectElement = new ObjectElement({
                 openapi: '3.1.0',
                 components: {
@@ -22,40 +22,43 @@ describe('refractor', function () {
               });
               const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
               const schemaElement = find((e) => isSchemaElement(e), openApiElement);
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+              const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
               assert.deepEqual(actual, []);
             });
           });
 
           context('given Schema Object with arbitrary fields boundaries', function () {
-            specify('should annotate Schema($anchor=1) with inherited$id', function () {
-              const genericObjectElement = new ObjectElement({
-                openapi: '3.1.0',
-                components: {
-                  schemas: {
-                    User: {
-                      $id: './nested/',
-                      type: 'object',
-                      properties: {
-                        profile: {
-                          $anchor: '1',
-                          $ref: './ex.json',
+            specify(
+              'should annotate Schema($anchor=1) with ancestorsSchemaIdentifiers',
+              function () {
+                const genericObjectElement = new ObjectElement({
+                  openapi: '3.1.0',
+                  components: {
+                    schemas: {
+                      User: {
+                        $id: './nested/',
+                        type: 'object',
+                        properties: {
+                          profile: {
+                            $anchor: '1',
+                            $ref: './ex.json',
+                          },
                         },
                       },
                     },
                   },
-                },
-              });
-              const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
-              const schemaElement = find(
-                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
-                openApiElement,
-              );
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+                });
+                const openApiElement = OpenApi3_1Element.refract(genericObjectElement);
+                const schemaElement = find(
+                  (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
+                  openApiElement,
+                );
+                const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
-              assert.deepEqual(actual, ['./nested/']);
-            });
+                assert.deepEqual(actual, ['./nested/']);
+              },
+            );
           });
 
           context('given Schema Object with inner Schemas', function () {
@@ -89,45 +92,57 @@ describe('refractor', function () {
               openApiElement = OpenApi3_1Element.refract(genericObjectElement);
             });
 
-            specify('should annotate Schema Object($anchor=1) with inherited$id', function () {
-              const schemaElement = find(
-                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
-                openApiElement,
-              );
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+            specify(
+              'should annotate Schema Object($anchor=1) with ancestorsSchemaIdentifiers',
+              function () {
+                const schemaElement = find(
+                  (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('1'),
+                  openApiElement,
+                );
+                const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
-              assert.deepEqual(actual, []);
-            });
+                assert.deepEqual(actual, []);
+              },
+            );
 
-            specify('should annotate Schema Object($anchor=2) with inherited$id', function () {
-              const schemaElement = find(
-                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
-                openApiElement,
-              );
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+            specify(
+              'should annotate Schema Object($anchor=2) with ancestorsSchemaIdentifiers',
+              function () {
+                const schemaElement = find(
+                  (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('2'),
+                  openApiElement,
+                );
+                const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
-              assert.deepEqual(actual, ['$id1']);
-            });
+                assert.deepEqual(actual, ['$id1']);
+              },
+            );
 
-            specify('should annotate Schema Object($anchor=3) with inherited$id', function () {
-              const schemaElement = find(
-                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
-                openApiElement,
-              );
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+            specify(
+              'should annotate Schema Object($anchor=3) with ancestorsSchemaIdentifiers',
+              function () {
+                const schemaElement = find(
+                  (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('3'),
+                  openApiElement,
+                );
+                const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
-              assert.deepEqual(actual, ['$id1', '$id2']);
-            });
+                assert.deepEqual(actual, ['$id1', '$id2']);
+              },
+            );
 
-            specify('should not annotate Schema Object($anchor=4) with inherited$id', function () {
-              const schemaElement = find(
-                (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('4'),
-                openApiElement,
-              );
-              const actual = toValue(schemaElement?.meta.get('inherited$id'));
+            specify(
+              'should not annotate Schema Object($anchor=4) with ancestorsSchemaIdentifiers',
+              function () {
+                const schemaElement = find(
+                  (e) => isSchemaElement(e) && isElement(e.$anchor) && e.$anchor.equals('4'),
+                  openApiElement,
+                );
+                const actual = toValue(schemaElement?.meta.get('ancestorsSchemaIdentifiers'));
 
-              assert.deepEqual(actual, []);
-            });
+                assert.deepEqual(actual, []);
+              },
+            );
           });
         });
       });

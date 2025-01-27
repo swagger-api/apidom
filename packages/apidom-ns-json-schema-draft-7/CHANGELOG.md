@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.11](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2025-01-27)
+
+### Bug Fixes
+
+- **ns-json-schema:** collect properly metadata for dialect and schema identifiers ([#4689](https://github.com/swagger-api/apidom/issues/4689)) ([a69a698](https://github.com/swagger-api/apidom/commit/a69a6983e5b0295417fbab8f2213d641f34768e2))
+
+### Features
+
+- **ns-openapi-3-1:** use JSON Schema 2020-12 namespace ([#4691](https://github.com/swagger-api/apidom/issues/4691)) ([f68adb7](https://github.com/swagger-api/apidom/commit/f68adb7645b692152c80537828247e9ad71e5933)), closes [#1822](https://github.com/swagger-api/apidom/issues/1822)
+
 # [1.0.0-beta.10](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.9...v1.0.0-beta.10) (2025-01-25)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-7

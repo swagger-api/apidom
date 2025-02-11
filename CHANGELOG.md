@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.12](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2025-02-11)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** import only JSON Schema 2020-12 namespace ([#4716](https://github.com/swagger-api/apidom/issues/4716)) ([ab1ca15](https://github.com/swagger-api/apidom/commit/ab1ca15aeecc0d8e8621afb706ec76ee007183d1)), closes [#4705](https://github.com/swagger-api/apidom/issues/4705)
+
 # [1.0.0-beta.11](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.10...v1.0.0-beta.11) (2025-01-27)
 
 ### Bug Fixes

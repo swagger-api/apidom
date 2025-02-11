@@ -1,7 +1,7 @@
 import {
   $defsVisitor as $defsJSONSchema202012Visitor,
   $defsVisitorOptions,
-} from '@swagger-api/apidom-ns-json-schema-2019-09';
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 /**
  * @public

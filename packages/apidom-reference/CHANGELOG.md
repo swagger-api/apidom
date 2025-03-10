@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.13](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.12...v1.0.0-beta.13) (2025-03-10)
+
+### Bug Fixes
+
+- **security:** fix CVE-2025-27152 in Axios ([#4778](https://github.com/swagger-api/apidom/issues/4778)) ([c73ff16](https://github.com/swagger-api/apidom/commit/c73ff16a0ee35a8a762db5579a5de11d7572eea6))
+
 # [1.0.0-beta.12](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.11...v1.0.0-beta.12) (2025-02-11)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

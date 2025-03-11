@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.15](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.14...v1.0.0-beta.15) (2025-03-11)
+
+### Bug Fixes
+
+- allow release to GitHub Package Registry ([#4785](https://github.com/swagger-api/apidom/issues/4785)) ([62f90f9](https://github.com/swagger-api/apidom/commit/62f90f9d411ebd7941ff63de5da265c93520b86e))
+
 # [1.0.0-beta.14](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.13...v1.0.0-beta.14) (2025-03-11)
 
 ### Bug Fixes

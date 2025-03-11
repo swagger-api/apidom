@@ -24,7 +24,7 @@ jobs:
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.14.0
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -42,7 +42,7 @@ jobs:
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.14.0
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -61,7 +61,7 @@ jobs:
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.14.0
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -79,7 +79,7 @@ jobs:
       - name: Use Node.js 22
         uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 22.14.0
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -99,7 +99,7 @@ jobs:
     - name: Use Node.js 22
       uses: actions/setup-node@v4
       with:
-        node-version: 22
+        node-version: 22.14.0
         cache: 'npm'
         cache-dependency-path: 'package-lock.json'
     - name: Install dependencies

@@ -2,7 +2,7 @@ name: Release monorepo packages
 on:
   workflow_dispatch:
     branches:
-      - release
+      - main
 
 env:
   CPU_CORES: 2

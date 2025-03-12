@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.24](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.23...v1.0.0-beta.24) (2025-03-12)
+
+### Bug Fixes
+
+- **release:** disable lerna CI mode ([1525b66](https://github.com/swagger-api/apidom/commit/1525b663130782a1b95dd821560e330bedccf6f5))
+
 # [1.0.0-beta.23](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.22...v1.0.0-beta.23) (2025-03-12)
 
 ### Bug Fixes

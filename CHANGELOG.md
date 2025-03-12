@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.26](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.25...v1.0.0-beta.26) (2025-03-12)
+
+### Bug Fixes
+
+- **release:** pull changes before syncing lockfile ([4d33a8a](https://github.com/swagger-api/apidom/commit/4d33a8a01a2ddbdc166b8bee345cbda8b1df555f))
+
 # [1.0.0-beta.25](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.24...v1.0.0-beta.25) (2025-03-12)
 
 ### Bug Fixes

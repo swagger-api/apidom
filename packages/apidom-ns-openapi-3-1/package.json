@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-openapi-3-1",
-  "version": "1.0.0-beta.25",
+  "version": "1.0.0-beta.26",
   "description": "OpenAPI 3.1.x namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -45,11 +45,11 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.20.7",
-    "@swagger-api/apidom-ast": "^1.0.0-beta.25",
-    "@swagger-api/apidom-core": "^1.0.0-beta.25",
-    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.25",
-    "@swagger-api/apidom-ns-json-schema-2020-12": "^1.0.0-beta.25",
-    "@swagger-api/apidom-ns-openapi-3-0": "^1.0.0-beta.25",
+    "@swagger-api/apidom-ast": "^1.0.0-beta.26",
+    "@swagger-api/apidom-core": "^1.0.0-beta.26",
+    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.26",
+    "@swagger-api/apidom-ns-json-schema-2020-12": "^1.0.0-beta.26",
+    "@swagger-api/apidom-ns-openapi-3-0": "^1.0.0-beta.26",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",

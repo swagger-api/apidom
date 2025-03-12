@@ -39,7 +39,7 @@ jobs:
           npx husky
           echo -e 'npm install\ngit add package-lock.json' > .husky/pre-commit
           chmod +x .husky/pre-commit
-
+          # Change version + release commit + push
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
           npx lerna version prerelease --preid beta --no-private --yes --force-publish
@@ -47,7 +47,9 @@ jobs:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish monorepo npm packages
-        run: npx lerna publish from-package --no-private --yes
+        run: |
+          git checkout -- .husky/pre-commit
+          npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

@@ -63,6 +63,7 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: Sync lockfile
         run: |
+          git pull --rebase origin main
           npm install
           git add package-lock.json
           git diff --quiet || git commit -m "chore: sync lockfile"

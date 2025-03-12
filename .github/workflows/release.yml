@@ -37,6 +37,11 @@ jobs:
         run: npm run test
       - name: Version bump & GitHub release
         run: |
+          # Sync lockfile before commit
+          npx husky
+          echo -e 'npm install\ngit add package-lock.json' > .husky/pre-commit
+          chmod +x .husky/pre-commit
+
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
           npx lerna version prerelease --preid beta --no-private --yes --force-publish
@@ -47,11 +52,4 @@ jobs:
         run: npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      - name: Auto-fix package-lock.json if needed
-        run: |
-          npm install
-          git add package-lock.json
-          git diff --quiet || git commit -m "chore: sync lockfile"
-          git push origin main
-
 

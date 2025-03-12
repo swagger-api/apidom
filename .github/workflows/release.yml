@@ -6,8 +6,7 @@ on:
 
 env:
   CPU_CORES: 2
-  HUSKY: 1
-  HUSKY_DEBUG: 1
+  HUSKY: 0
 
 jobs:
   release:
@@ -35,22 +34,36 @@ jobs:
 #        run: npm run test
       - name: Version bump & GitHub release
         run: |
-          # Sync lockfile before commit
-          npx husky
-          echo -e 'npm install\ngit add package-lock.json' > .husky/pre-commit
-          chmod +x .husky/pre-commit
-
-          # Change version + release commit + push
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
-          CI='' npx lerna version prerelease --preid beta --no-private --yes --force-publish
+          npx lerna version prerelease --preid beta --no-private --yes --force-publish
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish monorepo npm packages
-        run: |
-          git checkout -- .husky/pre-commit
-          CI='' npx lerna publish from-package --no-private --yes
+        run: npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+  sync-lockfile:
+    name: Sync lockfile
+    runs-on: ubuntu-latest
+    needs: release
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22.14.0
+          registry-url: https://registry.npmjs.org
+      - name: Sync lockfile
+        run: |
+          npm install
+          git add package-lock.json
+          git diff --quiet || git commit -m "chore: sync lockfile"
+          git push origin main

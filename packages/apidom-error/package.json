@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-error",
-  "version": "1.0.0-beta.18",
+  "version": "1.0.0-beta.19",
   "description": "Backward compatible custom ApiDOM errors with causes.",
   "publishConfig": {
     "access": "public",

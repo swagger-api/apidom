@@ -52,7 +52,6 @@ jobs:
           npm install
           git add package-lock.json
           git diff --quiet || git commit -m "chore: sync lockfile"
-          git pull --rebase origin main
           git push origin main
 
 

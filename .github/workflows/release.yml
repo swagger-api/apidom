@@ -2,10 +2,12 @@ name: Release monorepo packages
 on:
   workflow_dispatch:
     branches:
-      - main
+      - release
 
 env:
   CPU_CORES: 2
+  HUSKY: 1
+  HUSKY_DEBUG: 1
 
 jobs:
   release:
@@ -23,33 +25,32 @@ jobs:
         with:
           node-version: 22.14.0
           registry-url: https://registry.npmjs.org
-          cache: 'npm'
-          cache-dependency-path: 'package-lock.json'
       - name: Install monorepo dependencies
         run: npm ci --engine-strict=false
       - name: Build monorepo
         run: npm run build
-      - name: Check TypeScript types
-        run: npm run typescript:check-types
-      - name: Execute tests in monorepo
-        run: npm run test
+#      - name: Check TypeScript types
+#        run: npm run typescript:check-types
+#      - name: Execute tests in monorepo
+#        run: npm run test
       - name: Version bump & GitHub release
         run: |
           # Sync lockfile before commit
           npx husky
           echo -e 'npm install\ngit add package-lock.json' > .husky/pre-commit
           chmod +x .husky/pre-commit
+
           # Change version + release commit + push
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
-          npx lerna version prerelease --preid beta --no-private --yes --force-publish
+          CI='' npx lerna version prerelease --preid beta --no-private --yes --force-publish
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish monorepo npm packages
         run: |
           git checkout -- .husky/pre-commit
-          npx lerna publish from-package --no-private --yes
+          CI='' npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

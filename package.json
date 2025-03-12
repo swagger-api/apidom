@@ -18,7 +18,6 @@
     }
   },
   "scripts": {
-    "version": "npm install --workspaces && git add package-lock.json",
     "prebuild": "cd ./packages/apidom-parser-adapter-json/node_modules/tree-sitter && node-gyp rebuild && cd ../../../apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter && node-gyp rebuild && cd ../../../../node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild && cd ../@tree-sitter-grammars/tree-sitter-yaml && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild",
     "build": "lerna run build",
     "build:es": "lerna run build:es",

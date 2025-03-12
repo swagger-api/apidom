@@ -11,8 +11,6 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    env:
-      HUSKY: 0 # disabled husky and lint staged; https://typicode.github.io/husky/#/?id=with-env-variables
 
     steps:
       - name: Checkout

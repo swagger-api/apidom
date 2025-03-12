@@ -15,7 +15,8 @@
       "ignoreChanges": ["**/test/**"]
     },
     "publish": {
-      "registry": "https://registry.npmjs.org"
+      "registry": "https://registry.npmjs.org",
+      "ignoreChanges": [".husky/**"]
     }
   },
   "$schema": "node_modules/lerna/schemas/lerna-schema.json"

@@ -47,3 +47,12 @@ jobs:
         run: npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Auto-fix package-lock.json if needed
+        run: |
+          npm install
+          git add package-lock.json
+          git diff --quiet || git commit -m "chore: sync lockfile"
+          git pull --rebase origin main
+          git push origin main
+
+

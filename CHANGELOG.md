@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.17](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2025-03-12)
+
+### Bug Fixes
+
+- **package:** stage changes to be included in release commit ([5cb36e2](https://github.com/swagger-api/apidom/commit/5cb36e22a3c7c3600079bff87dcf1414a8b7a82f))
+
 # [1.0.0-beta.16](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.15...v1.0.0-beta.16) (2025-03-12)
 
 ### Bug Fixes

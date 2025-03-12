@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.21](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2025-03-12)
+
+### Bug Fixes
+
+- **release:** use husky hooks to sync lockfile during release ([f60da0d](https://github.com/swagger-api/apidom/commit/f60da0d7d88250356cd370ef82b37e86557189a0))
+
 # [1.0.0-beta.20](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.19...v1.0.0-beta.20) (2025-03-12)
 
 ### Bug Fixes

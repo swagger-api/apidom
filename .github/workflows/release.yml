@@ -63,6 +63,8 @@ jobs:
           registry-url: https://registry.npmjs.org
       - name: Sync lockfile
         run: |
+          git config user.email "swagger-bot@smartbear.com"
+          git config user.name "swagger-bot"
           git pull --rebase origin main
           npm install
           git add package-lock.json

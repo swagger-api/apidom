@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.22](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.21...v1.0.0-beta.22) (2025-03-12)
+
+### Bug Fixes
+
+- ignore changes to husky ([1b6ac9f](https://github.com/swagger-api/apidom/commit/1b6ac9f0c697a866f6e0ba112e1fff7b38a5bead))
+
 # [1.0.0-beta.21](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.20...v1.0.0-beta.21) (2025-03-12)
 
 ### Bug Fixes

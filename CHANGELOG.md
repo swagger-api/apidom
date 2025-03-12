@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.18](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.17...v1.0.0-beta.18) (2025-03-12)
+
+### Bug Fixes
+
+- **release:** auto-fix package-lock.json after release ([1a43aea](https://github.com/swagger-api/apidom/commit/1a43aea5c7a618a6940c620df5e655018ae16e4c))
+
 # [1.0.0-beta.17](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.16...v1.0.0-beta.17) (2025-03-12)
 
 ### Bug Fixes

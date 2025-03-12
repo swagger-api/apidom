@@ -28,10 +28,10 @@ jobs:
         run: npm ci --engine-strict=false
       - name: Build monorepo
         run: npm run build
-#      - name: Check TypeScript types
-#        run: npm run typescript:check-types
-#      - name: Execute tests in monorepo
-#        run: npm run test
+      - name: Check TypeScript types
+        run: npm run typescript:check-types
+      - name: Execute tests in monorepo
+        run: npm run test
       - name: Version bump & GitHub release
         run: |
           git config user.email "swagger-bot@smartbear.com"

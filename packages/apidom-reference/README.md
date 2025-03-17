@@ -411,8 +411,8 @@ import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-json-1';
+import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
@@ -453,8 +453,8 @@ import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-json-1';
+import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';

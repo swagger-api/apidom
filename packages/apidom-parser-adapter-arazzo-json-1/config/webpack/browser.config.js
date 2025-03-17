@@ -12,9 +12,9 @@ const browser = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-workflows-json-1.browser.js',
+    filename: 'apidom-parser-adapter-arazzo-json-1.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterWorkflowsJson1',
+    library: 'apidomParserAdapterArazzoJson1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -56,9 +56,9 @@ const browserMin = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-workflows-json-1.browser.min.js',
+    filename: 'apidom-parser-adapter-arazzo-json-1.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterWorkflowsJson1',
+    library: 'apidomParserAdapterArazzoJson1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

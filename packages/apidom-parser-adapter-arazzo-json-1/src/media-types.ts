@@ -1,9 +1,9 @@
-import { mediaTypes, WorkflowsMediaTypes } from '@swagger-api/apidom-ns-workflows-1';
+import { mediaTypes, ArazzoMediaTypes } from '@swagger-api/apidom-ns-arazzo-1';
 
 /**
  * @public
  */
-const jsonMediaTypes = new WorkflowsMediaTypes(
+const jsonMediaTypes = new ArazzoMediaTypes(
   ...mediaTypes.filterByFormat('generic'),
   ...mediaTypes.filterByFormat('json'),
 );

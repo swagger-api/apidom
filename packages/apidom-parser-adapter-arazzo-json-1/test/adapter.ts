@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import { isParseResultElement, sexprs } from '@swagger-api/apidom-core';
-import { isWorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflows-1';
+import { isArazzoSpecification1Element } from '@swagger-api/apidom-ns-arazzo-1';
 
 import * as adapter from '../src/adapter.ts';
 
@@ -22,15 +22,15 @@ describe('adapter', function () {
     });
 
     specify('should detect minor version bump', async function () {
-      assert.isTrue(await adapter.detect('{"workflowsSpec": "1.1.0"}'));
+      assert.isTrue(await adapter.detect('{"arazzo": "1.1.0"}'));
     });
 
     specify('should detect patch version bump', async function () {
-      assert.isTrue(await adapter.detect('{"workflowsSpec": "1.0.1"}'));
+      assert.isTrue(await adapter.detect('{"arazzo": "1.0.1"}'));
     });
 
     specify('should not detect major version bump', async function () {
-      assert.isFalse(await adapter.detect('{"workflowsSpec": "2.0.0"}'));
+      assert.isFalse(await adapter.detect('{"arazzo": "2.0.0"}'));
     });
   });
 
@@ -50,7 +50,7 @@ describe('adapter', function () {
     const parseResult = await adapter.parse(jsonSpec, { sourceMap: true });
 
     assert.isTrue(isParseResultElement(parseResult));
-    assert.isTrue(isWorkflowsSpecification1Element(parseResult.api));
+    assert.isTrue(isArazzoSpecification1Element(parseResult.api));
     expect(sexprs(parseResult)).toMatchSnapshot();
   });
 
@@ -80,15 +80,15 @@ describe('adapter', function () {
 
   context('detectionRegExp', function () {
     specify('should reject invalid version ranges', function () {
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 1.01.0'));
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 1.0.x'));
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 3.1.0'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 1.01.0'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 1.0.x'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 3.1.0'));
     });
 
     specify('should detect version ranges in forward compatible way', function () {
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.0.0"'));
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.0.145"'));
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.1.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.0.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.0.145"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.1.0"'));
     });
   });
 });

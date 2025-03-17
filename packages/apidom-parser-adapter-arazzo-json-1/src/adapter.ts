@@ -2,9 +2,7 @@ import { propOr, omit } from 'ramda';
 import { isNotUndefined } from 'ramda-adjunct';
 import { ParseResultElement, createNamespace } from '@swagger-api/apidom-core';
 import { parse as parseJSON, detect as detectJSON } from '@swagger-api/apidom-parser-adapter-json';
-import workflowsNamespace, {
-  WorkflowsSpecification1Element,
-} from '@swagger-api/apidom-ns-workflows-1';
+import arazzoNamespace, { ArazzoSpecification1Element } from '@swagger-api/apidom-ns-arazzo-1';
 
 export { default as mediaTypes } from './media-types.ts';
 
@@ -12,7 +10,7 @@ export { default as mediaTypes } from './media-types.ts';
  * @public
  */
 export const detectionRegExp =
-  /"workflowsSpec"\s*:\s*"(?<version_json>1\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))"/;
+  /"arazzo"\s*:\s*"(?<version_json>1\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))"/;
 
 /**
  * @public
@@ -33,12 +31,9 @@ export const parse = async (
   const { result } = parseResultElement;
 
   if (isNotUndefined(result)) {
-    const workflowsSpecificationElement = WorkflowsSpecification1Element.refract(
-      result,
-      refractorOpts,
-    );
-    workflowsSpecificationElement.classes.push('result');
-    parseResultElement.replaceResult(workflowsSpecificationElement);
+    const arazzoSpecificationElement = ArazzoSpecification1Element.refract(result, refractorOpts);
+    arazzoSpecificationElement.classes.push('result');
+    parseResultElement.replaceResult(arazzoSpecificationElement);
   }
 
   return parseResultElement;
@@ -47,4 +42,4 @@ export const parse = async (
 /**
  * @public
  */
-export const namespace = createNamespace(workflowsNamespace);
+export const namespace = createNamespace(arazzoNamespace);

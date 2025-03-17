@@ -10,9 +10,9 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
  $ npm install @swagger-api/apidom-ns-arazzo-1
 ```
 
-## Arazzo 1.1.0 namespace
+## Arazzo 1.0.1 namespace
 
-Arazzo 1.1.0 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-worfklows-1/src/elements) implemented on top
+Arazzo 1.0.1 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-worfklows-1/src/elements) implemented on top
 of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js

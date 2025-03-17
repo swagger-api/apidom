@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.29](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2025-03-17)
+
+### Bug Fixes
+
+- **security:** eliminate CVE-2025-27789 ([#4797](https://github.com/swagger-api/apidom/issues/4797)) ([af335c3](https://github.com/swagger-api/apidom/commit/af335c3d53616b7991acc74329e61d350398997a))
+
 # [1.0.0-beta.28](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.27...v1.0.0-beta.28) (2025-03-12)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

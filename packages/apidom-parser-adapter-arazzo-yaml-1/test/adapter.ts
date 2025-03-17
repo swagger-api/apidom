@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import dedent from 'dedent';
 import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
-import { isWorkflowsSpecification1Element } from '@swagger-api/apidom-ns-workflows-1';
+import { isArazzoSpecification1Element } from '@swagger-api/apidom-ns-arazzo-1';
 
 import * as adapter from '../src/adapter.ts';
 
@@ -23,15 +23,15 @@ describe('adapter', function () {
     });
 
     specify('should detect minor version bump', async function () {
-      assert.isTrue(await adapter.detect('workflowsSpec: "1.1.0"'));
+      assert.isTrue(await adapter.detect('arazzo: "1.1.0"'));
     });
 
     specify('should detect patch version bump', async function () {
-      assert.isTrue(await adapter.detect('workflowsSpec: "1.0.1"'));
+      assert.isTrue(await adapter.detect('arazzo: "1.0.1"'));
     });
 
     specify('should detect minor and patch version bump', async function () {
-      assert.isTrue(await adapter.detect('workflowsSpec: "1.1.1"'));
+      assert.isTrue(await adapter.detect('arazzo: "1.1.1"'));
     });
   });
 
@@ -51,7 +51,7 @@ describe('adapter', function () {
     const parseResult = await adapter.parse(yamlSpec, { sourceMap: true });
 
     assert.isTrue(isParseResultElement(parseResult));
-    assert.isTrue(isWorkflowsSpecification1Element(parseResult.api));
+    assert.isTrue(isArazzoSpecification1Element(parseResult.api));
     expect(sexprs(parseResult)).toMatchSnapshot();
   });
 
@@ -82,7 +82,7 @@ describe('adapter', function () {
   context('given YAML with empty node', function () {
     specify('should generate source maps', async function () {
       const yamlSource = dedent`
-          workflowsSpec: 1.0.0
+          arazzo: 1.0.0
           info:
         `;
 
@@ -91,7 +91,7 @@ describe('adapter', function () {
       const infoValue = result.get('info');
       const sourceMap = infoValue.meta.get('sourceMap');
       const { positionStart, positionEnd } = sourceMap;
-      const expectedEmptyPosition = [1, 5, 26];
+      const expectedEmptyPosition = [1, 5, 19];
 
       assert.instanceOf(sourceMap, SourceMapElement);
       assert.isTrue(positionStart.equals(expectedEmptyPosition));
@@ -101,15 +101,16 @@ describe('adapter', function () {
 
   context('detectionRegExp', function () {
     specify('should detect version ranges in forward compatible way', function () {
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.0.0"'));
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.0.145"'));
-      assert.isTrue(adapter.detectionRegExp.test('"workflowsSpec": "1.1.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.0.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.0.1"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.0.145"'));
+      assert.isTrue(adapter.detectionRegExp.test('"arazzo": "1.1.0"'));
     });
 
     specify('should reject invalid version ranges', function () {
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 1.01.0'));
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 1.0.x'));
-      assert.isFalse(adapter.detectionRegExp.test('workflowsSpec: 3.1.0'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 1.01.0'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 1.0.x'));
+      assert.isFalse(adapter.detectionRegExp.test('arazzo: 3.1.0'));
     });
   });
 });

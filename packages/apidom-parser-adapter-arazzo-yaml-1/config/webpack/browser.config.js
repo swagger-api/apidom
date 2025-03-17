@@ -12,9 +12,9 @@ const browser = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-workflows-yaml-1.browser.js',
+    filename: 'apidom-parser-adapter-arazzo-yaml-1.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterWorkflowsYaml1',
+    library: 'apidomParserAdapterArazzoYaml1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -56,9 +56,9 @@ const browserMin = {
   },
   output: {
     path: path.resolve('./dist'),
-    filename: 'apidom-parser-adapter-workflows-yaml-1.browser.min.js',
+    filename: 'apidom-parser-adapter-arazzo-yaml-1.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterWorkflowsYaml1',
+    library: 'apidomParserAdapterArazzoYaml1',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

@@ -2,10 +2,10 @@
 
 exports[`adapter should parse 1`] = `
 (ParseResultElement
-  (WorkflowsSpecification1Element
+  (ArazzoSpecification1Element
     (MemberElement
       (StringElement)
-      (StringElement))
+      (ArazzoSpecElement))
     (MemberElement
       (StringElement)
       (InfoElement

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.30](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2025-03-17)
+
+### Features
+
+- rename Workflow related packages to Arazzo ([#4798](https://github.com/swagger-api/apidom/issues/4798)) ([1b6571b](https://github.com/swagger-api/apidom/commit/1b6571b2ef69a4140f0b866173a02b18d1751e71))
+
 # [1.0.0-beta.29](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.28...v1.0.0-beta.29) (2025-03-17)
 
 ### Bug Fixes

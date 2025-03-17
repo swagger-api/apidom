@@ -12,8 +12,8 @@ import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
-import * as workflows1AdapterJson from '@swagger-api/apidom-parser-adapter-workflows-json-1';
-import * as workflows1AdapterYaml from '@swagger-api/apidom-parser-adapter-workflows-yaml-1';
+import * as arazzo1AdapterJson from '@swagger-api/apidom-parser-adapter-arazzo-json-1';
+import * as arazzo1AdapterYaml from '@swagger-api/apidom-parser-adapter-arazzo-yaml-1';
 import {
   readFile,
   resolveApiDOM as resolveApiDOMReferences,
@@ -32,8 +32,8 @@ const parser = new ApiDOMParser()
   .use(openapi3_1AdapterYaml)
   .use(asyncapi2AdapterJson)
   .use(asyncapi2AdapterYaml)
-  .use(workflows1AdapterJson)
-  .use(workflows1AdapterYaml);
+  .use(arazzo1AdapterJson)
+  .use(arazzo1AdapterYaml);
 
 /* eslint-disable */
 const service = {

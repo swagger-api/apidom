@@ -20,7 +20,7 @@ export interface YAMLParserOptions extends Omit<ParserOptions, 'name'> {}
 /**
  * @public
  */
-class WorkflowsYAML1Parser extends Parser {
+class YAML1Parser extends Parser {
   public refractorOpts!: object;
 
   constructor(options?: YAMLParserOptions) {
@@ -53,4 +53,4 @@ class WorkflowsYAML1Parser extends Parser {
   }
 }
 
-export default WorkflowsYAML1Parser;
+export default YAML1Parser;

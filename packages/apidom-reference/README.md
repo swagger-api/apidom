@@ -269,10 +269,10 @@ Supported media types are:
 ]
 ```
 
-#### [workflows-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/workflows-json-1)
+#### [arazzo-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/arazzo-json-1)
 
-Wraps [@swagger-api/apidom-parser-adapter-workflows-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-workflows-json-1) package
-and is uniquely identified by `workflows-json-1` name.
+Wraps [@swagger-api/apidom-parser-adapter-arazzo-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-json-1) package
+and is uniquely identified by `arazzo-json-1` name.
 
 Supported media types are:
 
@@ -280,13 +280,15 @@ Supported media types are:
 [
   'application/vnd.oai.workflows;version=1.0.0',
   'application/vnd.oai.workflows+json;version=1.0.0',
+  'application/vnd.oai.workflows;version=1.0.1',
+  'application/vnd.oai.workflows+json;version=1.0.1',
 ]
 ```
 
-#### [workflows-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/workflows-yaml-1)
+#### [arazzo-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/arazzo-yaml-1)
 
-Wraps [@swagger-api/apidom-parser-adapter-workflows-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-workflows-yaml-1) package
-and is uniquely identified by `workflows-yaml-1` name.
+Wraps [@swagger-api/apidom-parser-adapter-arazzo-yaml-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-yaml-1) package
+and is uniquely identified by `arazzo-yaml-1` name.
 
 Supported media types are:
 
@@ -294,6 +296,8 @@ Supported media types are:
 [
   'application/vnd.oai.workflows;version=1.0.0',
   'application/vnd.oai.workflows+yaml;version=1.0.0',
+  'application/vnd.oai.workflows;version=1.0.1',
+  'application/vnd.oai.workflows+yaml;version=1.0.1',
 ]
 ```
 
@@ -383,8 +387,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -407,8 +411,8 @@ import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import WorkflowsJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import WorkflowsYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
@@ -426,8 +430,8 @@ options.parse.parsers = [
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -449,8 +453,8 @@ import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
-import WorkflowsJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
-import WorkflowsYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
+import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-json-1';
+import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/workflows-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
 import APIDesignSystemsJSONParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
 import APIDesignSystemsYAMLParser from '@swagger-api/apidom-reference/parse/parsers/api-design-systems-json';
@@ -470,8 +474,8 @@ await parse('/home/user/oas.json', {
       new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-      new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-      new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+      new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
+      new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
       new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
       new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
       new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),

@@ -1,0 +1,23 @@
+import { startsWith } from 'ramda';
+import {
+  MemberElement,
+  ObjectElement,
+  isStringElement,
+  toValue,
+  isObjectElement,
+} from '@swagger-api/apidom-core';
+
+export interface ReferenceLikeElement extends ObjectElement {
+  hasKey: (value: '$ref') => true;
+}
+
+/**
+ * @public
+ */
+export const isArazzoSpecificationExtension = (element: MemberElement): boolean => {
+  return isStringElement(element.key) && startsWith('x-', toValue(element.key));
+};
+
+export const isReferenceLikeElement = (element: unknown): element is ReferenceLikeElement => {
+  return isObjectElement(element) && element.hasKey('$ref');
+};

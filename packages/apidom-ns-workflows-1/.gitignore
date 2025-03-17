@@ -1,7 +1,0 @@
-/src/**/*.mjs
-/src/**/*.cjs
-/test/**/*.mjs
-/dist
-/types
-/NOTICE
-/swagger-api-apidom-ns-workflows-1-*.tgz

@@ -15,8 +15,8 @@ import OpenAPIJSON3_1Parser from '../parse/parsers/openapi-json-3-1/index.ts';
 import OpenAPIYAML3_1Parser from '../parse/parsers/openapi-yaml-3-1/index.ts';
 import AsyncAPIJSON2Parser from '../parse/parsers/asyncapi-json-2/index.ts';
 import AsyncAPIYAML2Parser from '../parse/parsers/asyncapi-yaml-2/index.ts';
-import WorkflowsJSON1Parser from '../parse/parsers/workflows-json-1/index.ts';
-import WorkflowsYAML1Parser from '../parse/parsers/workflows-yaml-1/index.ts';
+import ArazzoJSON1Parser from '../parse/parsers/arazzo-json-1/index.ts';
+import ArazzoYAML1Parser from '../parse/parsers/arazzo-yaml-1/index.ts';
 import APIDOMJSONParser from '../parse/parsers/apidom-json/index.ts';
 import JSONParser from '../parse/parsers/json/index.ts';
 import YAMLParser from '../parse/parsers/yaml-1-2/index.ts';
@@ -38,8 +38,8 @@ options.parse.parsers = [
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsJSON1Parser({ allowEmpty: true, sourceMap: false }),
-  new WorkflowsYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),

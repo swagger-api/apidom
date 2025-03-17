@@ -1,0 +1,7 @@
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
+/dist
+/types
+/NOTICE
+/swagger-api-apidom-ns-arazzo-1-*.tgz

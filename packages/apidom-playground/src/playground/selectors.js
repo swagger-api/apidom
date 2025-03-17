@@ -14,9 +14,9 @@ import openApi3_1NsPlugin, {
 import asyncApi2NsPlugin, {
   mediaTypes as asyncApi2MediaTypes,
 } from '@swagger-api/apidom-ns-asyncapi-2';
-import workflowsSpecification1NsPlugin, {
-  mediaTypes as workflowsSpecification1MediaTypes,
-} from '@swagger-api/apidom-ns-workflows-1';
+import arazzoSpecification1NsPlugin, {
+  mediaTypes as arazzoSpecification1MediaTypes,
+} from '@swagger-api/apidom-ns-arazzo-1';
 import { mediaTypes as jsonMediaTypes } from '@swagger-api/apidom-parser-adapter-json';
 import { mediaTypes as yamlMediaTypes } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
@@ -54,8 +54,8 @@ export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType)
   if (asyncApi2MediaTypes.includes(mediaType)) {
     return createNamespace(asyncApi2NsPlugin);
   }
-  if (workflowsSpecification1MediaTypes.includes(mediaType)) {
-    return createNamespace(workflowsSpecification1NsPlugin);
+  if (arazzoSpecification1MediaTypes.includes(mediaType)) {
+    return createNamespace(arazzoSpecification1NsPlugin);
   }
   return createNamespace();
 });
@@ -131,7 +131,7 @@ export const selectMediaTypes = (() => {
     ...openApi3_0MediaTypes,
     ...openApi3_1MediaTypes,
     ...asyncApi2MediaTypes,
-    ...workflowsSpecification1MediaTypes,
+    ...arazzoSpecification1MediaTypes,
   ];
   return () => allMediaTypes;
 })();

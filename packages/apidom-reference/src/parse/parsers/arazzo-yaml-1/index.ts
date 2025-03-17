@@ -1,9 +1,10 @@
+import { pick } from 'ramda';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 import {
   parse,
-  mediaTypes as YAMLMediaTypes,
+  mediaTypes as ArazzoYAML1MediaTypes,
   detect,
-} from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+} from '@swagger-api/apidom-parser-adapter-arazzo-yaml-1';
 
 import ParserError from '../../../errors/ParserError.ts';
 import Parser, { ParserOptions } from '../Parser.ts';
@@ -15,18 +16,18 @@ export type { default as File, FileOptions } from '../../../File.ts';
 /**
  * @public
  */
-export interface YAMLParserOptions extends Omit<ParserOptions, 'name'> {}
+export interface ArazzoYAML1ParserOptions extends Omit<ParserOptions, 'name'> {}
 
 /**
  * @public
  */
-class YAML1Parser extends Parser {
+class ArazzoYAML1Parser extends Parser {
   public refractorOpts!: object;
 
-  constructor(options?: YAMLParserOptions) {
-    const { fileExtensions = [], mediaTypes = YAMLMediaTypes, ...rest } = options ?? {};
+  constructor(options?: ArazzoYAML1ParserOptions) {
+    const { fileExtensions = [], mediaTypes = ArazzoYAML1MediaTypes, ...rest } = options ?? {};
 
-    super({ ...rest, name: 'yaml-1-2', fileExtensions, mediaTypes });
+    super({ ...rest, name: 'arazzo-yaml-1', fileExtensions, mediaTypes });
   }
 
   async canParse(file: File): Promise<boolean> {
@@ -46,11 +47,12 @@ class YAML1Parser extends Parser {
     const source = file.toString();
 
     try {
-      return await parse(source, { sourceMap: this.sourceMap });
+      const parserOpts = pick(['sourceMap', 'refractorOpts'], this);
+      return await parse(source, parserOpts);
     } catch (error: unknown) {
       throw new ParserError(`Error parsing "${file.uri}"`, { cause: error });
     }
   }
 }
 
-export default YAML1Parser;
+export default ArazzoYAML1Parser;

@@ -94,7 +94,7 @@
     "prettier": "=3.5.3",
     "rimraf": "=6.0.1",
     "shx": "^0.4.0",
-    "sinon": "=19.0.4",
+    "sinon": "=20.0.0",
     "terser-webpack-plugin": "=5.3.14",
     "ts-node": "=10.9.2",
     "typescript": "=5.5.4",

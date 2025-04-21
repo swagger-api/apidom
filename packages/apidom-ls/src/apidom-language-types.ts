@@ -52,14 +52,6 @@ export enum LogLevel {
 /**
  * @public
  */
-export enum SupportedLanguages {
-  OPENAPI_31,
-  ASYNCAPI_20,
-}
-
-/**
- * @public
- */
 export enum Format {
   JSON,
   YAML,

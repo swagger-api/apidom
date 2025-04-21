@@ -30,6 +30,7 @@ import requestBodyMeta from './request-body/meta.ts';
 import responseMeta from './response/meta.ts';
 import responsesMeta from './responses/meta.ts';
 import responsesDefinitionsMeta from './responses-definitions/meta.ts';
+import schemaMeta from './schema/meta.ts';
 import securityRequirementMeta from './security-requirement/meta.ts';
 import securitySchemeMeta from './security-scheme/meta.ts';
 import securityDefinitionsMeta from './security-definitions/meta.ts';
@@ -41,7 +42,6 @@ import xmlMeta from './xml/meta.ts';
 import pathTemplateMeta from './path-template/meta.ts';
 import itemsMeta from './items/meta.ts';
 import scopesMeta from './scopes/meta.ts';
-import schemaMeta from '../common/schema/meta.ts';
 import ApilintCodes from '../codes.ts';
 
 export default {

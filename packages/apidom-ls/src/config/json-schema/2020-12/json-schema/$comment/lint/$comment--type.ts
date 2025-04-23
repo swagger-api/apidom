@@ -9,7 +9,7 @@ const $commentTypeLint: LinterMeta = {
   source: 'apilint',
   message: '$comment value must be a string',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValidURI',
+  linterFunction: 'apilintValidString',
   marker: 'value',
   target: '$comment',
   data: {},

@@ -1,7 +1,4 @@
-import $idLint from '../../json-schema/2020-12/json-schema/$id/lint/index.ts';
-import $schemaLint from '../../json-schema/2020-12/json-schema/$schema/lint/index.ts';
-import $refLint from '../../json-schema/2020-12/json-schema/$ref/lint/index.ts';
-import $commentLint from '../../json-schema/2020-12/json-schema/$comment/lint/index.ts';
+import jsonSchema202012Lint from '../../json-schema/2020-12/json-schema/lint.ts';
 import { compose, assoc } from '../../json-schema/2020-12/target-specs.ts';
 // below are older rule variants that need to be replaced
 import additionalItemsNonArrayLint from '../../common/schema/lint/additional-items--non-array.ts';
@@ -81,7 +78,7 @@ import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.
 import { OpenAPI31 } from '../target-specs.ts';
 
 const schemaLints = [
-  ...compose([$idLint, $schemaLint, $refLint, $commentLint], assoc(OpenAPI31)),
+  ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
 
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,

@@ -4,8 +4,8 @@
  */
 
 const transform = (str) => {
-  const jsonTransformed = str.replace(/```json/m, '\n\\\nJSON\n```json');
-  const yamlTransformed = jsonTransformed.replace(/```yaml/m, '\n\\\nYAML\n```yaml');
+  const jsonTransformed = str.replace(/```json/gm, '\n\\\nJSON\n```json');
+  const yamlTransformed = jsonTransformed.replace(/```yaml/gm, '\n\\\nYAML\n```yaml');
   const transformed = JSON.stringify(yamlTransformed.trim().replace(/(\r\n|\n|\r)/gm, '\n'));
   console.log(transformed);
 };

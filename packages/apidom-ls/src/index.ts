@@ -64,7 +64,6 @@ export type {
 } from './apidom-language-types.ts';
 
 export {
-  SupportedLanguages,
   Format,
   CompletionType,
   ReferenceValidationMode,

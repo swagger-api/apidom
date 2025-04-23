@@ -12,7 +12,7 @@ const completion: ApidomCompletionItem[] = [
     label: '$ref',
     insertText: '\\$ref',
     kind: CompletionItemKind.Keyword,
-    format: CompletionFormat.UNQUOTED,
+    format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: InsertTextFormat.Snippet,
     documentation: {

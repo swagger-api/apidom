@@ -4,17 +4,16 @@ import ApilintCodes from '../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../apidom-language-types.ts';
 import { JSONSchema202012 } from '../../../target-specs.ts';
 
-const $schemaFormatURILint: LinterMeta = {
-  code: ApilintCodes.JSON_SCHEMA_2020_12_KEYWORD_$SCHEMA_FORMAT_URI,
+const $commentTypeLint: LinterMeta = {
+  code: ApilintCodes.JSON_SCHEMA_2020_12_KEYWORD_$COMMENT_TYPE,
   source: 'apilint',
-  message: 'The value of $schema keyword MUST be a URI [RFC3986] containing a scheme',
+  message: '$comment value must be a string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValidURI',
-  linterParams: [true],
   marker: 'value',
-  target: '$schema',
+  target: '$comment',
   data: {},
   targetSpecs: JSONSchema202012,
 };
 
-export default $schemaFormatURILint;
+export default $commentTypeLint;

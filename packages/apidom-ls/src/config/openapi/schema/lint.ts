@@ -1,8 +1,9 @@
 import $idLint from '../../json-schema/2020-12/json-schema/$id/lint/index.ts';
 import $schemaLint from '../../json-schema/2020-12/json-schema/$schema/lint/index.ts';
 import $refLint from '../../json-schema/2020-12/json-schema/$ref/lint/index.ts';
-// below are older rule variants that needs to be replaced
-import $refValidLint from '../../common/schema/lint/$ref--valid.ts';
+import $commentLint from '../../json-schema/2020-12/json-schema/$comment/lint/index.ts';
+import { compose, assoc } from '../../json-schema/2020-12/target-specs.ts';
+// below are older rule variants that need to be replaced
 import additionalItemsNonArrayLint from '../../common/schema/lint/additional-items--non-array.ts';
 import additionalItemsTypeLint from '../../common/schema/lint/additional-items--type.ts';
 import additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/additional-items--type-openapi-3-1--asyncapi-2.ts';
@@ -78,19 +79,10 @@ import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts'
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
 import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.ts';
 import { OpenAPI31 } from '../target-specs.ts';
-import { LinterMeta } from '../../../apidom-language-types.ts';
-
-const assignTargetSpecs = (targetSpecs: typeof OpenAPI31) => (rule: LinterMeta) => ({
-  ...rule,
-  targetSpecs,
-});
 
 const schemaLints = [
-  ...$idLint.map(assignTargetSpecs(OpenAPI31)),
-  ...$schemaLint.map(assignTargetSpecs(OpenAPI31)),
-  ...$refLint.map(assignTargetSpecs(OpenAPI31)),
+  ...compose([$idLint, $schemaLint, $refLint, $commentLint], assoc(OpenAPI31)),
 
-  $refValidLint,
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,
   additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint,

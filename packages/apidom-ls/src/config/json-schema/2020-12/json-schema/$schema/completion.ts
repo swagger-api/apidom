@@ -5,12 +5,12 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../../../apidom-language-types.ts';
-import JSONSchema202012 from '../../target-specs.ts';
+import { JSONSchema202012 } from '../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
     label: '$schema',
-    insertText: '$schema',
+    insertText: '\\$schema',
     kind: CompletionItemKind.Keyword,
     format: CompletionFormat.UNQUOTED,
     type: CompletionType.PROPERTY,
@@ -18,7 +18,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The "$schema" keyword is both used as a JSON Schema dialect identifier and as the identifier of a resource which is itself a JSON Schema, which describes the set of valid schemas written for this particular dialect.\n\\\n\\\nThe value of this keyword MUST be a URI [RFC3986] (containing a scheme) and this URI MUST be normalized. The current schema MUST be valid against the meta-schema identified by this URI.',
+        'The "$schema" keyword is both used as a JSON Schema dialect identifier and as the identifier of a resource which is itself a JSON Schema, which describes the set of valid schemas written for this particular dialect.\n\\\n\\\nThe value of this keyword MUST be a [URI [RFC3986]](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01#RFC3986) (containing a scheme) and this URI MUST be normalized. The current schema MUST be valid against the meta-schema identified by this URI.',
     },
     targetSpecs: JSONSchema202012,
   },

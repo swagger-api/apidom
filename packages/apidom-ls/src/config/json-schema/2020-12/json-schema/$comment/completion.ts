@@ -9,8 +9,8 @@ import { JSONSchema202012 } from '../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
-    label: '$id',
-    insertText: '\\$id',
+    label: '$comment',
+    insertText: '\\$comment',
     kind: CompletionItemKind.Keyword,
     format: CompletionFormat.UNQUOTED,
     type: CompletionType.PROPERTY,
@@ -18,7 +18,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The "$id" keyword identifies a schema resource with its canonical [RFC6596] URI.\n\\\n\\\nNote that this URI is an identifier and not necessarily a network locator. In the case of a network-addressable URL, a schema need not be downloadable from its canonical URI.',
+        'This keyword reserves a location for comments from schema authors to readers or maintainers of the schema.\n\\\n\\\nThe value of this keyword MUST be a string. Implementations MUST NOT present this string to end users. Tools for editing schemas SHOULD support displaying and editing this keyword. The value of this keyword MAY be used in debug or error output which is intended for developers making use of schemas.',
     },
     targetSpecs: JSONSchema202012,
   },

@@ -9,7 +9,7 @@ export const assoc =
     targetSpecs,
   });
 
-export const compose = <T>(rules: readonly T[], transformer?: (rule: T) => T) => {
+export const compose = <T>(rules: ReadonlyArray<T | T[]>, transformer?: (rule: T) => T) => {
   if (typeof transformer === 'function') {
     return (rules.flat(+Infinity) as T[]).map(transformer);
   }

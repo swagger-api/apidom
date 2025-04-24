@@ -71,7 +71,7 @@ const EditorControls = () => {
     <Paper variant="outlined">
       <form noValidate autoComplete="off">
         <Grid container spacing={3}>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <TextField
               fullWidth
               variant="standard"
@@ -80,7 +80,7 @@ const EditorControls = () => {
               value={baseURI}
             />
           </Grid>
-          <Grid item xs={12}>
+          <Grid size={{ xs: 12 }}>
             <FormControl variant="standard">
               <InputLabel id="media-type-label">Media Type</InputLabel>
               <Select
@@ -110,7 +110,7 @@ const EditorControls = () => {
         alignItems="center"
         sx={{ marginTop: (theme) => theme.spacing(2) }}
       >
-        <Grid item>
+        <Grid>
           <ButtonGroup
             variant="contained"
             color="primary"

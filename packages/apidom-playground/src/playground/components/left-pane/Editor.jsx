@@ -43,8 +43,4 @@ Editor.propTypes = {
   className: PropTypes.string,
 };
 
-Editor.defaultProps = {
-  className: null,
-};
-
 export default Editor;

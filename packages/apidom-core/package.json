@@ -48,7 +48,7 @@
     "minim": "~0.23.8",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
-    "short-unique-id": "^5.0.2",
+    "short-unique-id": "=5.2.0",
     "ts-mixer": "^6.0.3"
   },
   "files": [

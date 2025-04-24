@@ -31,8 +31,4 @@ LeftPane.propTypes = {
   className: PropTypes.string,
 };
 
-LeftPane.defaultProps = {
-  className: null,
-};
-
 export default LeftPane;

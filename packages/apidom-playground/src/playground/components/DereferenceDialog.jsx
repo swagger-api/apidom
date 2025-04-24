@@ -84,7 +84,7 @@ const ApiDOMInterpreterDialog = ({ open, onClose }) => {
           />
         </FormControl>
         <Box mt={2}>
-          <Grid container item justifyContent="center">
+          <Grid container justifyContent="center">
             <ButtonGroup
               variant="contained"
               color="primary"

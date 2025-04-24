@@ -39,6 +39,7 @@
     }],
     "react/function-component-definition": [1, {
       "namedComponents": ["arrow-function"]
-    }]
+    }],
+    "react/require-default-props": "off"
   }
 }

@@ -36,8 +36,4 @@ RightPane.propTypes = {
   className: PropTypes.string,
 };
 
-RightPane.defaultProps = {
-  className: null,
-};
-
 export default RightPane;

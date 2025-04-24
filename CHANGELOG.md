@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.31](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.30...v1.0.0-beta.31) (2025-04-24)
+
+### Features
+
+- **ls:** add support for standalone JSON Schema 2020-12 ([#4838](https://github.com/swagger-api/apidom/issues/4838)) ([1527e38](https://github.com/swagger-api/apidom/commit/1527e3865632953de0badac4b51b9a2ae6c45586)), closes [#2481](https://github.com/swagger-api/apidom/issues/2481)
+
 # [1.0.0-beta.30](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.29...v1.0.0-beta.30) (2025-03-17)
 
 ### Features

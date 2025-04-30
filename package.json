@@ -58,7 +58,7 @@
     "@types/dedent": "=0.7.2",
     "@types/jsdom-global": "^3.0.7",
     "@types/mocha": "=10.0.10",
-    "@types/node": "=22.13.11",
+    "@types/node": "=22.15.3",
     "@types/sinon": "=17.0.4",
     "@typescript-eslint/eslint-plugin": "=7.17.0",
     "@typescript-eslint/parser": "=7.18.0",
@@ -67,7 +67,7 @@
     "benchmark": "=2.1.4",
     "chai": "^5.1.1",
     "copyfiles": "=2.4.1",
-    "core-js": "=3.41.0",
+    "core-js": "=3.42.0",
     "cross-env": "=7.0.3",
     "dedent": "=1.5.3",
     "eslint": "=8.57.0",
@@ -98,7 +98,7 @@
     "terser-webpack-plugin": "=5.3.14",
     "ts-node": "=10.9.2",
     "typescript": "=5.5.4",
-    "webpack": "=5.98.0",
+    "webpack": "=5.99.7",
     "webpack-cli": "=6.0.1"
   }
 }

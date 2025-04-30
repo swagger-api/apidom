@@ -10,7 +10,7 @@ import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError.ts';
  */
 const evaluate = <T extends Element>(pointer: string, element: T): Element => {
   try {
-    return baseEvaluate(element, URIFragmentIdentifier.from(pointer), { trace: true });
+    return baseEvaluate(element, URIFragmentIdentifier.from(pointer));
   } catch (error: unknown) {
     if (error instanceof JSONPointerEvaluateError) {
       throw new EvaluationJsonPointerError(error.message, {

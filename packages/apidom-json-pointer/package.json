@@ -40,7 +40,7 @@
     "@babel/runtime-corejs3": "^7.26.10",
     "@swagger-api/apidom-core": "^1.0.0-beta.32",
     "@swagger-api/apidom-error": "^1.0.0-beta.32",
-    "@swaggerexpert/json-pointer": "^2.8.1"
+    "@swaggerexpert/json-pointer": "^2.9.0"
   },
   "files": [
     "src/**/*.mjs",

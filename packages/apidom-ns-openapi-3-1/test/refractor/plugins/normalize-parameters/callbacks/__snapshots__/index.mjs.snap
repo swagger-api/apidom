@@ -1014,7 +1014,7 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                   "content": [
                     {
                       "element": "string",
-                      "content": "/paths/~1/get/callbacks/myCallback/%7B%24url%7D/get"
+                      "content": "/paths/~1/get/callbacks/myCallback/%7B$url%7D/get"
                     },
                     {
                       "element": "string",

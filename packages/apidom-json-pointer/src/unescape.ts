@@ -1,22 +1,10 @@
-import { pipe, replace } from 'ramda';
-
-/**
- * decodeURIComponent can throw URIError in certain cases like 'c%d'.
- * safeDecodeURIComponent is a safe variant of decodeURIComponent that never trows.
- *
- * {@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Errors/Malformed_URI|More info about URIError}
- */
-const safeDecodeURIComponent = (encodedURIComponent: string): string => {
-  try {
-    return decodeURIComponent(encodedURIComponent);
-  } catch {
-    return encodedURIComponent;
-  }
-};
+import { unescape as baseUnescape, URIFragmentIdentifier } from '@swaggerexpert/json-pointer';
 
 /**
  * @public
  */
-const unescape = pipe(replace(/~1/g, '/'), replace(/~0/g, '~'), safeDecodeURIComponent);
+const unescape = (referenceToken: string): string => {
+  return URIFragmentIdentifier.from(baseUnescape(referenceToken));
+};
 
 export default unescape;

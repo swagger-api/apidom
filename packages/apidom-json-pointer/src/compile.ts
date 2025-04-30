@@ -1,4 +1,9 @@
-import escape from './escape.ts';
+import {
+  compile as baseCompile,
+  URIFragmentIdentifier,
+  JSONPointerCompileError,
+} from '@swaggerexpert/json-pointer';
+
 import CompilationJsonPointerError from './errors/CompilationJsonPointerError.ts';
 
 /**
@@ -6,19 +11,15 @@ import CompilationJsonPointerError from './errors/CompilationJsonPointerError.ts
  */
 const compile = (tokens: string[]): string => {
   try {
-    if (tokens.length === 0) {
-      return '';
-    }
-
-    return `/${tokens.map(escape).join('/')}`;
+    return URIFragmentIdentifier.to(baseCompile(tokens)).slice(1);
   } catch (error: unknown) {
-    throw new CompilationJsonPointerError(
-      'JSON Pointer compilation of tokens encountered an error.',
-      {
+    if (error instanceof JSONPointerCompileError) {
+      throw new CompilationJsonPointerError(error.message, {
         tokens,
         cause: error,
-      },
-    );
+      });
+    }
+    throw error;
   }
 };
 

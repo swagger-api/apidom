@@ -68,8 +68,6 @@ export const ancestorLineageToJSONPointer = <T extends (Element | Element[])[]>(
     return path;
   }, [] as string[]);
 
-  console.dir(compileJSONPointerTokens(jsonPointerTokens));
-
   return compileJSONPointerTokens(jsonPointerTokens);
 };
 

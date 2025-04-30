@@ -1,6 +1,6 @@
 import { JSONPath } from 'jsonpath-plus';
+import { evaluate as jsonPointerEvaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
 import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
-import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError.ts';
 
@@ -35,7 +35,7 @@ const evaluateMulti: EvaluateMulti = (paths, element) => {
 
       const endPointValues: Element[] = [];
       for (const pointer of pointers) {
-        const endPointValue = jsonPointerEvaluate(pointer, element);
+        const endPointValue = jsonPointerEvaluate(element, pointer) as Element;
         endPointValues.push(endPointValue);
       }
 

@@ -1,6 +1,6 @@
 import { JSONPath } from 'jsonpath-plus';
+import { evaluate as jsonPointerEvaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
 import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
-import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
 
 import EvaluationJsonPathError from './errors/EvaluationJsonPathError.ts';
 
@@ -25,7 +25,7 @@ const evaluate: Evaluate = (path, element) => {
       resultType: 'pointer',
     }) as string[];
 
-    return pointers.map((pointer) => jsonPointerEvaluate(pointer, element));
+    return pointers.map((pointer) => jsonPointerEvaluate(element, pointer));
   } catch (error: unknown) {
     throw new EvaluationJsonPathError(
       `JSON Path evaluation failed while evaluating "${String(path)}".`,

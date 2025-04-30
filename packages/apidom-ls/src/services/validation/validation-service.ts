@@ -198,10 +198,10 @@ export class DefaultValidationService implements ValidationService {
       errorCause = errorCause.cause;
       // console.log('ERRR', JSON.stringify(errorCause));
     }
-    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
+    const pointerString = errorCause.jsonPointer ? ` at "${errorCause.jsonPointer}"` : '';
     // @ts-ignore
     if (errorCause.message) {
-      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
+      return `${errorCause.name}: ${errorCause.message}`;
     }
     return errorCause.name + pointerString;
   }
@@ -212,9 +212,10 @@ export class DefaultValidationService implements ValidationService {
     while (errorCause?.cause) {
       errorCause = errorCause.cause;
     }
-    const pointerString = errorCause.pointer ? ` at "${errorCause.pointer}"` : '';
+    const pointerString = errorCause.jsonPointer ? ` at "${errorCause.jsonPointer}"` : '';
+
     if (errorCause.message) {
-      return `${errorCause.name}: ${errorCause.message} ${pointerString}`;
+      return `${errorCause.name}: ${errorCause.message}`;
     }
     return errorCause.name + pointerString;
   }

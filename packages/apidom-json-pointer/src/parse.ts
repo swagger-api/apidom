@@ -1,38 +1,15 @@
-import { map, pipe, split, startsWith, tail } from 'ramda';
-import { isEmptyString, trimCharsStart } from 'ramda-adjunct';
-
-import unescape from './unescape.ts';
-import InvalidJsonPointerError from './errors/InvalidJsonPointerError.ts';
+import {
+  parse as jsonPointerParse,
+  URIFragmentIdentifier,
+  ParseOptions,
+} from '@swaggerexpert/json-pointer';
 
 /**
  * @public
  */
-const parse = (pointer: string): string[] => {
-  if (isEmptyString(pointer)) {
-    return [];
-  }
-
-  if (!startsWith('/', pointer)) {
-    throw new InvalidJsonPointerError(
-      `Invalid JSON Pointer "${pointer}". JSON Pointers must begin with "/"`,
-      {
-        pointer,
-      },
-    );
-  }
-
-  try {
-    const tokens = pipe(split('/'), map(unescape))(pointer);
-    return tail(tokens);
-  } catch (error: unknown) {
-    throw new InvalidJsonPointerError(
-      `JSON Pointer parsing of "${pointer}" encountered an error.`,
-      {
-        pointer,
-        cause: error,
-      },
-    );
-  }
+const parse = (pointer: string, options?: ParseOptions): string[] => {
+  const { tree } = jsonPointerParse(URIFragmentIdentifier.from(pointer), options);
+  return tree!;
 };
 
 /**
@@ -52,7 +29,7 @@ const getHash = (uri: string): string => {
  */
 export const uriToPointer = (uri: string): string => {
   const hash = getHash(uri);
-  return trimCharsStart('#', hash);
+  return URIFragmentIdentifier.from(hash);
 };
 
 export default parse;

@@ -66,7 +66,7 @@ describe('reference validation', function () {
         {
           range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
           message:
-            'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "invalid" against an ObjectElement  at "/components/schemas/invalid"',
+            'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
           severity: 1,
           code: '549-30-1693572091371',
           source: 'apilint',
@@ -83,7 +83,7 @@ describe('reference validation', function () {
         {
           range: { start: { line: 38, character: 26 }, end: { line: 38, character: 96 } },
           message:
-            'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "PetInvalid" against an ObjectElement  at "/components/schemas/PetInvalid"',
+            'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
           severity: 1,
           code: '1048-70-1693572091371',
           source: 'apilint',
@@ -99,7 +99,7 @@ describe('reference validation', function () {
         },
         {
           range: { start: { line: 43, character: 26 }, end: { line: 43, character: 117 } },
-          message: 'Reference Error - AxiosError: Request failed with status code 404 ',
+          message: 'Reference Error - AxiosError: Request failed with status code 404',
           severity: 1,
           code: '1243-91-1693572091371',
           source: 'apilint',
@@ -116,7 +116,7 @@ describe('reference validation', function () {
         {
           range: { start: { line: 63, character: 16 }, end: { line: 63, character: 99 } },
           message:
-            'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "PetInvalid" against an ObjectElement  at "/components/schemas/PetInvalid"',
+            'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
           severity: 1,
           code: '1703-83-1693572091371',
           source: 'apilint',
@@ -166,7 +166,7 @@ describe('reference validation', function () {
           {
             range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
             message:
-              'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "invalid" against an ObjectElement  at "/components/schemas/invalid"',
+              'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
             severity: 1,
             code: '549-30-1693572190252',
             source: 'apilint',
@@ -183,7 +183,7 @@ describe('reference validation', function () {
           {
             range: { start: { line: 38, character: 26 }, end: { line: 38, character: 96 } },
             message:
-              'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "PetInvalid" against an ObjectElement  at "/components/schemas/PetInvalid"',
+              'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
             code: '1048-70-1693572190325',
             source: 'apilint',
@@ -199,7 +199,7 @@ describe('reference validation', function () {
           },
           {
             range: { start: { line: 43, character: 26 }, end: { line: 43, character: 117 } },
-            message: 'Reference Error - AxiosError: Request failed with status code 404 ',
+            message: 'Reference Error - AxiosError: Request failed with status code 404',
             severity: 1,
             code: '1243-91-1693572191128',
             source: 'apilint',
@@ -216,7 +216,7 @@ describe('reference validation', function () {
           {
             range: { start: { line: 63, character: 16 }, end: { line: 63, character: 99 } },
             message:
-              'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "PetInvalid" against an ObjectElement  at "/components/schemas/PetInvalid"',
+              'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
             code: '1703-83-1693572191343',
             source: 'apilint',
@@ -292,7 +292,7 @@ describe('reference validation', function () {
         {
           range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
           message:
-            'Reference Error - EvaluationJsonPointerError: JSON Pointer evaluation failed while evaluating token "invalid" against an ObjectElement  at "/components/schemas/invalid"',
+            'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
           severity: 1,
           code: '549-30-1693572773556',
           source: 'apilint',

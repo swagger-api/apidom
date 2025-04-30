@@ -55,7 +55,7 @@ describe('resolve', function () {
             } catch (error: any) {
               assert.strictEqual(
                 error.cause.cause.message,
-                'JSON Pointer evaluation failed while parsing the pointer "invalid-pointer".',
+                'Invalid JSON Pointer: "invalid-pointer". Syntax error at position 0, expected "/"',
               );
               assert.instanceOf(error, ResolverError);
             }

@@ -1,8 +1,10 @@
-import { pipe, replace } from 'ramda';
+import { escape as baseEscape, URIFragmentIdentifier } from '@swaggerexpert/json-pointer';
 
 /**
  * @public
  */
-const escape = pipe(replace(/~/g, '~0'), replace(/\//g, '~1'), encodeURIComponent);
+const escape = (referenceToken: string): string => {
+  return URIFragmentIdentifier.to(baseEscape(referenceToken)).slice(1);
+};
 
 export default escape;

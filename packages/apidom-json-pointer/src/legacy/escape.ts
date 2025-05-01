@@ -2,6 +2,7 @@ import { escape as baseEscape, URIFragmentIdentifier } from '@swaggerexpert/json
 
 /**
  * @public
+ * @deprecated
  */
 const escape = (referenceToken: string): string => {
   return URIFragmentIdentifier.to(baseEscape(referenceToken)).slice(1);

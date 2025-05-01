@@ -2,6 +2,7 @@ import { unescape as baseUnescape, URIFragmentIdentifier } from '@swaggerexpert/
 
 /**
  * @public
+ * @deprecated
  */
 const unescape = (referenceToken: string): string => {
   return URIFragmentIdentifier.from(baseUnescape(referenceToken));

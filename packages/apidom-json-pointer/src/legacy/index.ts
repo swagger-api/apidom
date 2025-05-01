@@ -1,6 +1,3 @@
-/**
- * @deprecated
- */
 export { default as JsonPointerError } from './errors/JsonPointerError.ts';
 export { default as InvalidJsonPointerError } from './errors/InvalidJsonPointerError.ts';
 export type { InvalidJsonPointerErrorOptions } from './errors/InvalidJsonPointerError.ts';

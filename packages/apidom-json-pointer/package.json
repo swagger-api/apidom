@@ -9,13 +9,25 @@
   "type": "module",
   "sideEffects": false,
   "unpkg": "./dist/apidom-json-pointer.browser.min.js",
-  "main": "./src/index.cjs",
+  "main": "./src/legacy/index.cjs",
   "exports": {
-    "types": "./types/apidom-json-pointer.d.ts",
-    "import": "./src/index.mjs",
-    "require": "./src/index.cjs"
+    ".": {
+      "types": "./types/legacy/index.d.ts",
+      "import": "./src/legacy/index.mjs",
+      "require": "./src/legacy/index.cjs"
+    },
+    "./legacy": {
+      "types": "./types/legacy/index.d.ts",
+      "import": "./src/legacy/index.mjs",
+      "require": "./src/legacy/index.cjs"
+    },
+    "./modern": {
+      "types": "./types/apidom-json-pointer.d.ts",
+      "import": "./src/index.mjs",
+      "require": "./src/index.cjs"
+    }
   },
-  "types": "./types/apidom-json-pointer.d.ts",
+  "types": "./types/legacy/index.d.ts",
   "scripts": {
     "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
@@ -40,7 +52,7 @@
     "@babel/runtime-corejs3": "^7.26.10",
     "@swagger-api/apidom-core": "^1.0.0-beta.33",
     "@swagger-api/apidom-error": "^1.0.0-beta.33",
-    "@swaggerexpert/json-pointer": "^2.9.0"
+    "@swaggerexpert/json-pointer": "^2.10.0"
   },
   "files": [
     "src/**/*.mjs",

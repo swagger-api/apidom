@@ -1,5 +1,5 @@
 import { JSONPath } from 'jsonpath-plus';
-import { evaluate as jsonPointerEvaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
+import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { Element, toValue, cloneDeep } from '@swagger-api/apidom-core';
 
 import MultiEvaluationJsonPathError from './errors/MultiEvaluationJsonPathError.ts';

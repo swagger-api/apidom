@@ -13,11 +13,14 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
 ## Modern API
 
 This is the recommended API for use in new projects. It is fully compliant with [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901) and supports all aspects of JSON Pointer.
-Uses [@swaggerexpert/json-pointer](https://www.npmjs.com/package/@swaggerexpert/json-pointer) under the hood.
+Uses [@swaggerexpert/json-pointer](https://www.npmjs.com/package/@swaggerexpert/json-pointer) under the hood and fully reflects its API.
 
-API fully reflects the API of [@swaggerexpert/json-pointer](https://github.com/swaggerexpert/json-pointer?tab=readme-ov-file#swaggerexpertjson-pointer)
-and evaluation is contextual to [ApiDOM realm](https://github.com/swaggerexpert/json-pointer?tab=readme-ov-file#apidom-evaluation-realm) - meaning `evaluate` function
-expects ApiDOM as the first argument.
+Evaluation is contextual to [ApiDOM realm](https://github.com/swaggerexpert/json-pointer?tab=readme-ov-file#apidom-evaluation-realm) - meaning `evaluate` function
+expects only ApiDOM as the first argument.
+
+```js
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
+```
 
 
 
@@ -26,16 +29,15 @@ expects ApiDOM as the first argument.
 This is a legacy API not recommended for use in new projects. It is provided for backward compatibility only.
 The legacy API implementation is not RFC 6901 compliant, nor does it support all features of JSON Pointer.
 
-Importing from `@swagger-api/apidom-json-pointer` is equivalent to importing from `@swagger-api/apidom-json-pointer/legacy`.
+Importing legacy API from `@swagger-api/apidom-json-pointer` is equivalent to importing from `@swagger-api/apidom-json-pointer/legacy`.
 
 ```js
-import * as jsonPointer from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer';
 ```
 or
 ```js
-import * as jsonPointer from '@swagger-api/apidom-json-pointer/legacy';
+import { evaluate } from '@swagger-api/apidom-json-pointer/legacy';
 ```
-
 
 ### Evaluating
 
@@ -104,3 +106,4 @@ ApiDOM fragment, `EvaluationJsonPointerError` is thrown.
 ```js
 import { EvaluationJsonPointerError } from '@swagger-api/apidom-json-pointer';
 ```
+

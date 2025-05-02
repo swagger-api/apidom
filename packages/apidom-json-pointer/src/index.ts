@@ -12,6 +12,14 @@ export {
   ASTTranslator,
   XMLTranslator,
   /**
+   * Testing
+   */
+  testJSONPointer,
+  testReferenceToken,
+  testArrayLocation,
+  testArrayIndex,
+  testArrayDash,
+  /**
    * Compiling
    */
   compile,
@@ -20,6 +28,10 @@ export {
    */
   escape,
   unescape,
+  /**
+   * Grammar
+   */
+  Grammar,
   /**
    * Errors
    */
@@ -32,7 +44,10 @@ export {
   JSONPointerIndexError,
 } from '@swaggerexpert/json-pointer';
 /**
- * Evaluation
+ * Contextual Evaluation for ApiDOM
  */
 export { evaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
+/**
+ * Re-export all types
+ */
 export type * from '@swaggerexpert/json-pointer';

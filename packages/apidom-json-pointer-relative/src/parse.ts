@@ -1,4 +1,4 @@
-import { parse as parseJsonPointer } from '@swagger-api/apidom-json-pointer';
+import { parse as parseJsonPointer } from '@swagger-api/apidom-json-pointer/modern';
 
 import InvalidRelativeJsonPointerError from './errors/InvalidRelativeJsonPointerError.ts';
 import { RelativeJsonPointer } from './types.ts';
@@ -41,7 +41,7 @@ const parse = (relativePointer: string): RelativeJsonPointer => {
     // <json-pointer>
     const jsonPointerTokens =
       typeof match.groups.jsonPointer === 'string'
-        ? parseJsonPointer(match.groups.jsonPointer)
+        ? parseJsonPointer(match.groups.jsonPointer).tree
         : undefined;
     // "#"
     const hashCharacter = typeof match.groups.hashCharacter === 'string';

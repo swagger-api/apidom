@@ -13,7 +13,7 @@ import {
 import {
   compile as compileJsonPointer,
   evaluate as evaluateJsonPointer,
-} from '@swagger-api/apidom-json-pointer';
+} from '@swagger-api/apidom-json-pointer/modern';
 import { last } from 'ramda';
 
 import EvaluationRelativeJsonPointerError from './errors/EvaluationRelativeJsonPointerError.ts';
@@ -28,7 +28,7 @@ const evaluate = <T extends Element, U extends Element>(
   relativePointer: string,
   currentElement: T,
   rootElement: U,
-): Element => {
+): Element | undefined => {
   let ancestorLineage: Element[] = [];
   let cursor: Element | undefined = currentElement;
 
@@ -148,7 +148,7 @@ const evaluate = <T extends Element, U extends Element>(
   if (Array.isArray(relativeJsonPointer.jsonPointerTokens)) {
     // <json-pointer>
     const jsonPointer = compileJsonPointer(relativeJsonPointer.jsonPointerTokens);
-    cursor = evaluateJsonPointer(jsonPointer, cursor);
+    cursor = evaluateJsonPointer(cursor, jsonPointer);
   } else if (relativeJsonPointer.hashCharacter) {
     // "#"
     if (cursor === rootElement) {

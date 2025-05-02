@@ -44,7 +44,7 @@ export {
   JSONPointerIndexError,
 } from '@swaggerexpert/json-pointer';
 /**
- * Contextual Evaluation in ApiDOM
+ * Contextual Evaluation for ApiDOM
  */
 export { evaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
 /**

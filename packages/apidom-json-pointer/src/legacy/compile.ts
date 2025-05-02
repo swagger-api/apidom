@@ -8,6 +8,7 @@ import CompilationJsonPointerError from './errors/CompilationJsonPointerError.ts
 
 /**
  * @public
+ * @deprecated
  */
 const compile = (tokens: string[]): string => {
   try {

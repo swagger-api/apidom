@@ -1,7 +1,7 @@
 import { assert } from 'chai';
 import { ObjectElement, ArrayElement, StringElement } from '@swagger-api/apidom-core';
 
-import { evaluate, uriToPointer, EvaluationJsonPointerError } from '../src/index.ts';
+import { evaluate, uriToPointer, EvaluationJsonPointerError } from '../src/legacy/index.ts';
 
 describe('apidom-json-pointer', function () {
   context('RFC 6901 test', function () {

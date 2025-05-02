@@ -5,6 +5,7 @@ import JsonPointerError from './JsonPointerError.ts';
 
 /**
  * @public
+ * @deprecated
  */
 export interface EvaluationJsonPointerErrorOptions<T extends Element> extends ApiDOMErrorOptions {
   readonly pointer: string;
@@ -16,6 +17,7 @@ export interface EvaluationJsonPointerErrorOptions<T extends Element> extends Ap
 
 /**
  * @public
+ * @deprecated
  */
 class EvaluationJsonPointerError<T extends Element> extends JsonPointerError {
   public readonly pointer!: string;

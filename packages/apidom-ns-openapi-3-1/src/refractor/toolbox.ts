@@ -12,7 +12,7 @@ import {
   includesClasses,
   hasElementSourceMap,
 } from '@swagger-api/apidom-core';
-import { compile as compileJSONPointerTokens } from '@swagger-api/apidom-json-pointer';
+import { compile as compileJSONPointerTokens } from '@swagger-api/apidom-json-pointer/modern';
 import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import * as openApi3_1Predicates from '../predicates.ts';

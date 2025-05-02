@@ -6,6 +6,7 @@ import {
 
 /**
  * @public
+ * @deprecated
  */
 const parse = (pointer: string, options?: ParseOptions): string[] => {
   const { tree } = jsonPointerParse(URIFragmentIdentifier.from(pointer), options);
@@ -26,6 +27,7 @@ const getHash = (uri: string): string => {
 
 /**
  * @public
+ * @deprecated
  */
 export const uriToPointer = (uri: string): string => {
   const hash = getHash(uri);

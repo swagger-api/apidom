@@ -7,6 +7,7 @@ import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError.ts';
 /**
  * Evaluates JSON Pointer against ApiDOM fragment.
  * @public
+ * @deprecated
  */
 const evaluate = <T extends Element>(pointer: string, element: T): Element => {
   try {

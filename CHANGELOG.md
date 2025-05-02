@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.34](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2025-05-02)
+
+### Bug Fixes
+
+- **ns-openapi-3-1:** use spec compliant JSON Pointer implementation ([#4880](https://github.com/swagger-api/apidom/issues/4880)) ([9499aa8](https://github.com/swagger-api/apidom/commit/9499aa8733445f15ec7441c7f87b89dab8542c49)), closes [#4870](https://github.com/swagger-api/apidom/issues/4870)
+
 # [1.0.0-beta.33](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.32...v1.0.0-beta.33) (2025-04-30)
 
 ### Bug Fixes

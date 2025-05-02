@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.35](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.34...v1.0.0-beta.35) (2025-05-02)
+
+### Bug Fixes
+
+- **json-pointer-relative:** use spec compliant JSON Pointer impl ([#4885](https://github.com/swagger-api/apidom/issues/4885)) ([f22949c](https://github.com/swagger-api/apidom/commit/f22949c26b3b3f1dab2081dc32b84f4e1035049c)), closes [#4870](https://github.com/swagger-api/apidom/issues/4870)
+
 # [1.0.0-beta.34](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.33...v1.0.0-beta.34) (2025-05-02)
 
 ### Bug Fixes

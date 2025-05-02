@@ -28,7 +28,7 @@ const evaluate = <T extends Element, U extends Element>(
   relativePointer: string,
   currentElement: T,
   rootElement: U,
-): Element => {
+): Element | undefined => {
   let ancestorLineage: Element[] = [];
   let cursor: Element | undefined = currentElement;
 
@@ -148,7 +148,7 @@ const evaluate = <T extends Element, U extends Element>(
   if (Array.isArray(relativeJsonPointer.jsonPointerTokens)) {
     // <json-pointer>
     const jsonPointer = compileJsonPointer(relativeJsonPointer.jsonPointerTokens);
-    cursor = evaluateJsonPointer(cursor, jsonPointer)!;
+    cursor = evaluateJsonPointer(cursor, jsonPointer);
   } else if (relativeJsonPointer.hashCharacter) {
     // "#"
     if (cursor === rootElement) {

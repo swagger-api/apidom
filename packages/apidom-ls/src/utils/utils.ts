@@ -29,7 +29,7 @@ import {
   traverse,
   toValue,
 } from '@swagger-api/apidom-core';
-import { compile } from '@swagger-api/apidom-json-pointer';
+import { compile } from '@swagger-api/apidom-json-pointer/modern';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
 

@@ -8,7 +8,7 @@ import {
 } from '@swagger-api/apidom-core';
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
-import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import { LanguageSettings } from '../../apidom-language-types.ts';
@@ -129,7 +129,7 @@ export class DefaultDefinitionService implements DefinitionService {
         }
       }
       // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-      const refTarget = jsonPointerEvaluate(ref.substring(1, ref.length), api);
+      const refTarget = jsonPointerEvaluate<Element>(api, ref.substring(1, ref.length));
       const nodeSourceMap = getSourceMap(refTarget);
       const range = Range.create(
         textDocument.positionAt(nodeSourceMap.offset),
@@ -177,7 +177,7 @@ export class DefaultDefinitionService implements DefinitionService {
         return null;
       }
       // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-      const refTarget = jsonPointerEvaluate(ref.substring(1, ref.length), api);
+      const refTarget = jsonPointerEvaluate<Element>(api, ref.substring(1, ref.length));
       const nodeSourceMap = getSourceMap(refTarget);
       const range = Range.create(
         textDocument.positionAt(nodeSourceMap.offset),

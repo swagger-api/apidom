@@ -221,7 +221,7 @@ export class DefaultHoverService implements HoverService {
           } else {
             try {
               // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-              const refTarget = <Element>jsonPointerEvaluate(api, ref.substring(1, ref.length));
+              const refTarget = jsonPointerEvaluate<Element>(api, ref.substring(1, ref.length));
               const nodeSourceMap = getSourceMap(refTarget);
 
               const linePosition = textDocument.positionAt(nodeSourceMap.offset);

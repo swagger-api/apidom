@@ -9,7 +9,10 @@ import {
 } from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
-import { evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer/modern';
+import {
+  evaluate as jsonPointerEvaluate,
+  URIFragmentIdentifier,
+} from '@swagger-api/apidom-json-pointer/modern';
 
 import {
   HoverProvider,
@@ -221,7 +224,7 @@ export class DefaultHoverService implements HoverService {
           } else {
             try {
               // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-              const refTarget = jsonPointerEvaluate<Element>(api, ref.substring(1, ref.length));
+              const refTarget = jsonPointerEvaluate<Element>(api, URIFragmentIdentifier.from(ref));
               const nodeSourceMap = getSourceMap(refTarget);
 
               const linePosition = textDocument.positionAt(nodeSourceMap.offset);

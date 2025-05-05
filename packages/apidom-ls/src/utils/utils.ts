@@ -29,7 +29,7 @@ import {
   traverse,
   toValue,
 } from '@swagger-api/apidom-core';
-import { compile } from '@swagger-api/apidom-json-pointer/modern';
+import { compile, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
 
@@ -189,7 +189,7 @@ export function logJson(label: string, message: unknown): void {
 
 export function buildJsonPointer(path: string[]): string {
   const jsonPointer = compile(path);
-  return `#${jsonPointer}`;
+  return URIFragmentIdentifier.to(jsonPointer);
 }
 
 interface FoundNode {

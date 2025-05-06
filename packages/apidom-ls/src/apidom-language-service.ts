@@ -9,8 +9,8 @@ import {
 } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { SemanticTokensLegend } from 'vscode-languageserver-protocol';
-import { ParseResultElement } from '@swagger-api/apidom-core';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { Element, ParseResultElement } from '@swagger-api/apidom-core';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 
 import {
   ColorsContext,
@@ -152,7 +152,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
       // no API document has been parsed
       if (api === undefined) return null;
       try {
-        const jsonPointerResult = evaluate(path, api);
+        const jsonPointerResult = evaluate<Element>(api, path);
         const sm = getSourceMap(jsonPointerResult);
         return {
           line: sm.line,

@@ -1,8 +1,8 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import { toValue } from '@swagger-api/apidom-core';
+import { Element, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -36,7 +36,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/paths/~1/parameters/1', dereferenced);
+            const fragment = evaluate<Element>(dereferenced, '/0/paths/~1/parameters/1');
 
             assert.isTrue(isParameterElement(fragment));
           });
@@ -48,7 +48,7 @@ describe('dereference', function () {
               const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const fragment = evaluate('/0/paths/~1/parameters/0', dereferenced);
+              const fragment = evaluate<Element>(dereferenced, '/0/paths/~1/parameters/0');
 
               assert.strictEqual(
                 toValue(fragment.meta.get('ref-fields').get('$ref')),
@@ -104,7 +104,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/paths/~1/parameters/0', dereferenced);
+            const fragment = evaluate<Element>(dereferenced, '/0/paths/~1/parameters/0');
 
             assert.isTrue(isParameterElement(fragment));
           });

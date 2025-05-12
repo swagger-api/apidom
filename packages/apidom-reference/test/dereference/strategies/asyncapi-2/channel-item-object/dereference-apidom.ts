@@ -3,10 +3,10 @@ import { assert } from 'chai';
 import {
   mediaTypes,
   isChannelItemElement,
-  AsyncApi2Element,
+  ChannelItemElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 import { toValue } from '@swagger-api/apidom-core';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -24,9 +24,9 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const channelItemElement = evaluate(
+            const channelItemElement = evaluate<ChannelItemElement>(
+              parseResult.api,
               '/channels/channelItem1',
-              parseResult.api as AsyncApi2Element,
             );
             const dereferenced = await dereferenceApiDOM(channelItemElement, {
               parse: { mediaType: mediaTypes.latest('json') },
@@ -40,9 +40,9 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const channelItemElement = evaluate(
+            const channelItemElement = evaluate<ChannelItemElement>(
+              parseResult.api,
               '/channels/channelItem1',
-              parseResult.api as AsyncApi2Element,
             );
             const dereferenced = await dereferenceApiDOM(channelItemElement, {
               parse: { mediaType: mediaTypes.latest('json') },

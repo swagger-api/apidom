@@ -1,8 +1,13 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
-import { mediaTypes, isSchemaElement, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import {
+  SchemaElement,
+  PathItemElement,
+  mediaTypes,
+  isSchemaElement,
+} from '@swagger-api/apidom-ns-openapi-3-1';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -22,9 +27,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const schemaElement = evaluate(
+              const schemaElement = evaluate<SchemaElement>(
+                parseResult.api,
                 '/components/schemas/User/properties/profile',
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(schemaElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -38,9 +43,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const schemaElement = evaluate(
+              const schemaElement = evaluate<SchemaElement>(
+                parseResult.api,
                 '/components/schemas/User/properties/profile',
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(schemaElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -64,9 +69,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const schemaElement = evaluate(
+              const schemaElement = evaluate<SchemaElement>(
+                parseResult.api,
                 '/components/schemas/User/properties/profile',
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(schemaElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -80,9 +85,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const pathItemElement = evaluate(
+              const pathItemElement = evaluate<PathItemElement>(
+                parseResult.api,
                 '/components/schemas/User/properties/profile',
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(pathItemElement, {
                 parse: { mediaType: mediaTypes.latest('json') },

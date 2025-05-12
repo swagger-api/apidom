@@ -1,7 +1,10 @@
 import { isUndefined } from 'ramda-adjunct';
 import { Element, filter } from '@swagger-api/apidom-core';
 import { isSchemaElement, SchemaElement } from '@swagger-api/apidom-ns-openapi-3-1';
-import { uriToPointer, evaluate as jsonPointerEvaluate } from '@swagger-api/apidom-json-pointer';
+import {
+  URIFragmentIdentifier,
+  evaluate as jsonPointerEvaluate,
+} from '@swagger-api/apidom-json-pointer/modern';
 
 import * as url from '../../../../util/url.ts';
 import EvaluationJsonSchemaUriError from '../../../../errors/EvaluationJsonSchemaUriError.ts';
@@ -33,20 +36,12 @@ export const evaluate = <T extends Element>(uri: string, element: T): Element | 
     throw new EvaluationJsonSchemaUriError(`Evaluation failed on URI: "${uri}"`);
   }
 
-  let fragmentEvaluate;
-  let selector;
   if (isAnchor(uriToAnchor(uri))) {
     // we're dealing with JSON Schema $anchor here
-    fragmentEvaluate = $anchorEvaluate;
-    selector = uriToAnchor(uri);
-  } else {
-    // we're assuming here that we're dealing with JSON Pointer here
-    fragmentEvaluate = jsonPointerEvaluate;
-    selector = uriToPointer(uri);
+    return $anchorEvaluate(uriToAnchor(uri), result);
   }
 
-  // @ts-ignore
-  return fragmentEvaluate(selector, result);
+  return jsonPointerEvaluate(result, URIFragmentIdentifier.fromURIReference(uri));
 };
 evaluate.cache = new WeakMap();
 

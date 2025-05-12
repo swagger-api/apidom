@@ -4,10 +4,10 @@ import {
   mediaTypes,
   isSchemaElement,
   isParameterElement,
-  AsyncApi2Element,
+  ReferenceElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 import { toValue } from '@swagger-api/apidom-core';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -29,9 +29,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/userId',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -47,9 +47,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/userId',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -81,9 +81,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/userId',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -99,9 +99,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/userId',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -126,9 +126,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -142,9 +142,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -176,9 +176,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -192,9 +192,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -228,9 +228,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },
@@ -244,9 +244,9 @@ describe('dereference', function () {
                 const parseResult = await parse(fixturePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const referenceElement = evaluate(
+                const referenceElement = evaluate<ReferenceElement>(
+                  parseResult.api,
                   '/components/parameters/externalRef',
-                  parseResult.api as AsyncApi2Element,
                 );
                 const dereferenced = await dereferenceApiDOM(referenceElement, {
                   parse: { mediaType: mediaTypes.latest('json') },

@@ -1,12 +1,8 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import {
-  mediaTypes,
-  isPathItemElement,
-  OpenApi3_1Element,
-} from '@swagger-api/apidom-ns-openapi-3-1';
+import { PathItemElement, mediaTypes, isPathItemElement } from '@swagger-api/apidom-ns-openapi-3-1';
 import { toValue } from '@swagger-api/apidom-core';
-import { evaluate, compile } from '@swagger-api/apidom-json-pointer';
+import { evaluate, compile } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -27,7 +23,7 @@ describe('dereference', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
               const jsonPointer = compile(['paths', '/path1']);
-              const pathItemElement = evaluate(jsonPointer, parseResult.api as OpenApi3_1Element);
+              const pathItemElement = evaluate<PathItemElement>(parseResult.api, jsonPointer);
               const dereferenced = await dereferenceApiDOM(pathItemElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { baseURI: `${fixturePath}#${jsonPointer}` },
@@ -41,7 +37,7 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const pathItemElement = evaluate(jsonPointer, parseResult.api as OpenApi3_1Element);
+              const pathItemElement = evaluate<PathItemElement>(parseResult.api, jsonPointer);
               const dereferenced = await dereferenceApiDOM(pathItemElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { baseURI: `${fixturePath}#${jsonPointer}` },
@@ -64,9 +60,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const pathItemElement = evaluate(
+              const pathItemElement = evaluate<PathItemElement>(
+                parseResult.api,
                 compile(['paths', '/path1']),
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(pathItemElement, {
                 parse: { mediaType: mediaTypes.latest('json') },
@@ -80,9 +76,9 @@ describe('dereference', function () {
               const parseResult = await parse(fixturePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const pathItemElement = evaluate(
+              const pathItemElement = evaluate<PathItemElement>(
+                parseResult.api,
                 compile(['paths', '/path1']),
-                parseResult.api as OpenApi3_1Element,
               );
               const dereferenced = await dereferenceApiDOM(pathItemElement, {
                 parse: { mediaType: mediaTypes.latest('json') },

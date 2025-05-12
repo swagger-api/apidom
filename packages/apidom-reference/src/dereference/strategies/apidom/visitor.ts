@@ -13,7 +13,7 @@ import {
   visit,
   cloneDeep,
 } from '@swagger-api/apidom-core';
-import { uriToPointer as uriToElementID } from '@swagger-api/apidom-json-pointer';
+import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
 import * as url from '../../../util/url.ts';
@@ -130,7 +130,7 @@ class ApiDOMDereferenceVisitor {
 
     const reference = await this.toReference(refNormalizedURI);
     const refBaseURI = url.resolve(retrievalURI, refNormalizedURI);
-    const elementID = uriToElementID(refBaseURI);
+    const elementID = URIFragmentIdentifier.fromURIReference(refBaseURI);
     let referencedElement: unknown | Element | undefined = evaluate(
       elementID,
       reference.value.result as Element,

@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { identity } from 'ramda';
 import { isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -56,10 +56,10 @@ describe('dereference', function () {
               const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const pathItem = evaluate('/0/paths/~1uri/get', dereferenced);
+              const pathItem = evaluate(dereferenced, '/0/paths/~1uri/get');
               const cyclicPathItem = evaluate(
-                '/0/paths/~1uri/get/callbacks/myCallback/{$request.query.queryUrl}/get',
                 dereferenced,
+                '/0/paths/~1uri/get/callbacks/myCallback/{$request.query.queryUrl}/get',
               );
 
               assert.strictEqual(pathItem, cyclicPathItem);
@@ -177,10 +177,10 @@ describe('dereference', function () {
                 parse: { mediaType: mediaTypes.latest('json') },
                 dereference: { circular: 'ignore' },
               });
-              const pathItem = evaluate('/0/paths/~1uri/get', dereferenced);
+              const pathItem = evaluate(dereferenced, '/0/paths/~1uri/get');
               const cyclicPathItem = evaluate(
-                '/0/paths/~1uri/get/callbacks/myCallback/{$request.query.queryUrl}/get',
                 dereferenced,
+                '/0/paths/~1uri/get/callbacks/myCallback/{$request.query.queryUrl}/get',
               );
 
               assert.strictEqual(pathItem, cyclicPathItem);
@@ -268,12 +268,12 @@ describe('dereference', function () {
               });
 
               const parent = evaluate(
-                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}',
                 dereferenced,
+                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}',
               );
               const cyclicParent = evaluate(
-                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}/get/callbacks/myCallback/{$request.query.queryUrl}',
                 dereferenced,
+                '/0/paths/~1path1/get/callbacks/myCallback/{$request.query.queryUrl}/get/callbacks/myCallback/{$request.query.queryUrl}',
               );
 
               assert.strictEqual(parent, cyclicParent);

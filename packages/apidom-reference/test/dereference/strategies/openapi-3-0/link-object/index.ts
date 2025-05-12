@@ -36,8 +36,8 @@ describe('dereference', function () {
               const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const link1 = evaluate(dereferenced, '/0/components/links/link1') as LinkElement;
-              const link2 = evaluate(dereferenced, '/0/components/links/link2') as LinkElement;
+              const link1 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
+              const link2 = evaluate<LinkElement>(dereferenced, '/0/components/links/link2');
 
               assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               assert.isTrue(isOperationElement(link2.operationId?.meta.get('operation')));

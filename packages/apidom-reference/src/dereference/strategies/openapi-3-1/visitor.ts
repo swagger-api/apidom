@@ -18,7 +18,10 @@ import {
   Namespace,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
-import { evaluate as jsonPointerEvaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
+import {
+  evaluate as jsonPointerEvaluate,
+  URIFragmentIdentifier,
+} from '@swagger-api/apidom-json-pointer/modern';
 import {
   getNodeType,
   isReferenceLikeElement,
@@ -212,10 +215,10 @@ class OpenAPI3_1DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic fragment
-    let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = jsonPointerEvaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     // applying semantics to a fragment
@@ -398,10 +401,10 @@ class OpenAPI3_1DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic referenced element
-    let referencedElement = jsonPointerEvaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = jsonPointerEvaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -561,7 +564,7 @@ class OpenAPI3_1DereferenceVisitor {
 
     if (isStringElement(linkElement.operationRef)) {
       // possibly non-semantic referenced element
-      const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
+      const jsonPointer = URIFragmentIdentifier.fromURIReference(toValue(linkElement.operationRef));
       const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
       const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
       const isExternalReference = !isInternalReference;
@@ -579,7 +582,7 @@ class OpenAPI3_1DereferenceVisitor {
 
       const reference = await this.toReference(toValue(linkElement.operationRef));
 
-      operationElement = jsonPointerEvaluate(jsonPointer, reference.value.result as Element);
+      operationElement = jsonPointerEvaluate<OperationElement>(reference.value.result, jsonPointer);
       // applying semantics to a referenced element
       if (isPrimitiveElement(operationElement)) {
         const cacheKey = `operation-${toValue(identityManager.identify(operationElement))}`;
@@ -770,9 +773,9 @@ class OpenAPI3_1DereferenceVisitor {
         }
 
         reference = await this.toReference(url.unsanitize($refBaseURI));
-        const selector = uriToPointer($refBaseURI);
+        const selector = URIFragmentIdentifier.fromURIReference($refBaseURI);
         const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result as Element);
-        referencedElement = jsonPointerEvaluate(selector, referenceAsSchema);
+        referencedElement = jsonPointerEvaluate(referenceAsSchema, selector);
         referencedElement = maybeRefractToSchemaElement(referencedElement);
         referencedElement.id = identityManager.identify(referencedElement);
       }
@@ -822,9 +825,9 @@ class OpenAPI3_1DereferenceVisitor {
           }
 
           reference = await this.toReference(url.unsanitize($refBaseURI));
-          const selector = uriToPointer($refBaseURI);
+          const selector = URIFragmentIdentifier.fromURIReference($refBaseURI);
           const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result as Element);
-          referencedElement = jsonPointerEvaluate(selector, referenceAsSchema);
+          referencedElement = jsonPointerEvaluate(referenceAsSchema, selector);
           referencedElement = maybeRefractToSchemaElement(referencedElement);
           referencedElement.id = identityManager.identify(referencedElement);
         }

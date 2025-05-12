@@ -15,7 +15,7 @@ import {
   RefElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
-import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
+import { evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import {
   ChannelItemElement,
   getNodeType,
@@ -197,10 +197,10 @@ class AsyncAPI2DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic fragment
-    let referencedElement = evaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -391,10 +391,10 @@ class AsyncAPI2DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic referenced element
-    let referencedElement = evaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**

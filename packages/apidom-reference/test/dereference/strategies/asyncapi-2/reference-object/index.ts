@@ -2,9 +2,9 @@ import path from 'node:path';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import { identity } from 'ramda';
-import { isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
+import { Element, isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
 import { isParameterElement, mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -38,7 +38,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/components/parameters/externalRef', dereferenced);
+            const fragment = evaluate(dereferenced, '/0/components/parameters/externalRef');
 
             assert.isTrue(isParameterElement(fragment));
           });
@@ -50,7 +50,7 @@ describe('dereference', function () {
               const dereferenced = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const fragment = evaluate('/0/components/parameters/userId', dereferenced);
+              const fragment = evaluate<Element>(dereferenced, '/0/components/parameters/userId');
 
               assert.strictEqual(
                 toValue(fragment.meta.get('ref-fields').get('$ref')),
@@ -97,12 +97,12 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const parent = evaluate(
-              '/0/components/schemas/externalSchema/properties',
               dereferenced,
+              '/0/components/schemas/externalSchema/properties',
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/externalSchema/properties/parent/properties',
               dereferenced,
+              '/0/components/schemas/externalSchema/properties/parent/properties',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -127,7 +127,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/components/parameters/externalRef', dereferenced);
+            const fragment = evaluate(dereferenced, '/0/components/parameters/externalRef');
 
             assert.isTrue(isParameterElement(fragment));
           });
@@ -169,10 +169,10 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
+            const parent = evaluate(dereferenced, '/0/components/schemas/User/properties/parent');
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/parent/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/parent/properties/parent',
             );
 
             assert.strictEqual(parent, cyclicParent);

@@ -1,9 +1,9 @@
 import path from 'node:path';
 import util from 'node:util';
 import { assert } from 'chai';
-import { toValue } from '@swagger-api/apidom-core';
+import { Element, toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { dereference, parse, Reference, ReferenceSet } from '../../../../../src/index.ts';
@@ -40,7 +40,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/components/schemas/Order', dereferenced);
+            const fragment = evaluate(dereferenced, '/0/components/schemas/Order');
 
             assert.isTrue(isSchemaElement(fragment));
           });
@@ -52,9 +52,9 @@ describe('dereference', function () {
               const dereferenced = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const fragment = evaluate(
-                '/0/components/schemas/User/properties/profile',
+              const fragment = evaluate<Element>(
                 dereferenced,
+                '/0/components/schemas/User/properties/profile',
               );
 
               assert.strictEqual(
@@ -102,12 +102,12 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const parent = evaluate(
-              '/0/components/schemas/User/properties/parent/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/parent/properties/parent',
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/parent/properties/parent/properties/parent/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/parent/properties/parent/properties/parent/properties/parent',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -123,12 +123,12 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const parent = evaluate(
-              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items',
               dereferenced,
+              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items',
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items/properties/children/items',
               dereferenced,
+              '/0/components/schemas/PlatformMenuTree/properties/children/items/properties/children/items/properties/children/items',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -143,10 +143,10 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/components/schemas/User/properties/parent', dereferenced);
+            const parent = evaluate(dereferenced, '/0/components/schemas/User/properties/parent');
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/parent/oneOf/0/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/parent/oneOf/0/properties/parent',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -163,12 +163,12 @@ describe('dereference', function () {
             });
 
             const parent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent',
             );
             const cyclicParent = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent/properties/parent',
               dereferenced,
+              '/0/components/schemas/User/properties/profile/properties/parent/properties/parent/properties/parent',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -184,12 +184,12 @@ describe('dereference', function () {
               parse: { mediaType: mediaTypes.latest('json') },
             });
             const user = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user/properties/profile',
               dereferenced,
+              '/0/components/schemas/User/properties/profile/properties/user/properties/profile',
             );
             const cyclicUserInProfile = evaluate(
-              '/0/components/schemas/User/properties/profile/properties/user/properties/profile/properties/user/properties/profile',
               dereferenced,
+              '/0/components/schemas/User/properties/profile/properties/user/properties/profile/properties/user/properties/profile',
             );
 
             assert.strictEqual(user, cyclicUserInProfile);
@@ -271,7 +271,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/components/schemas/Indirection', dereferenced);
+            const fragment = evaluate(dereferenced, '/0/components/schemas/Indirection');
 
             assert.isTrue(isSchemaElement(fragment));
           });
@@ -311,9 +311,9 @@ describe('dereference', function () {
             });
 
             specify('should retain $schema before dereferencing', function () {
-              const profile = evaluate(
-                '/0/components/schemas/User/properties/profile',
+              const profile = evaluate<Element>(
                 dereferenced,
+                '/0/components/schemas/User/properties/profile',
               );
 
               assert.strictEqual(
@@ -356,7 +356,7 @@ describe('dereference', function () {
           });
 
           specify('should inherit default $schema dialect for User', function () {
-            const user = evaluate('/0/components/schemas/User', dereferenced);
+            const user = evaluate<Element>(dereferenced, '/0/components/schemas/User');
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
@@ -365,7 +365,10 @@ describe('dereference', function () {
           });
 
           specify('should inherit default $schema dialect for User.login', function () {
-            const user = evaluate('/0/components/schemas/User/properties/login', dereferenced);
+            const user = evaluate<Element>(
+              dereferenced,
+              '/0/components/schemas/User/properties/login',
+            );
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
@@ -374,7 +377,7 @@ describe('dereference', function () {
           });
 
           specify('should inherit default $schema dialect for UserProfile', function () {
-            const user = evaluate('/0/components/schemas/UserProfile', dereferenced);
+            const user = evaluate<Element>(dereferenced, '/0/components/schemas/UserProfile');
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
@@ -383,9 +386,9 @@ describe('dereference', function () {
           });
 
           specify('should inherit default $schema dialect for UserProfile.login', function () {
-            const user = evaluate(
-              '/0/components/schemas/UserProfile/properties/avatar',
+            const user = evaluate<Element>(
               dereferenced,
+              '/0/components/schemas/UserProfile/properties/avatar',
             );
 
             assert.strictEqual(

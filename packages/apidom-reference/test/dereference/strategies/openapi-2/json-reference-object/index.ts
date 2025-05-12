@@ -2,9 +2,9 @@ import path from 'node:path';
 import sinon from 'sinon';
 import { assert } from 'chai';
 import { identity } from 'ramda';
-import { isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
+import { Element, isParseResultElement, isRefElement, toValue } from '@swagger-api/apidom-core';
 import { isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-2';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -38,7 +38,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/definitions/schema2', dereferenced);
+            const fragment = evaluate<Element>(dereferenced, '/0/definitions/schema2');
 
             assert.isTrue(isSchemaElement(fragment));
           });
@@ -50,7 +50,7 @@ describe('dereference', function () {
               const dereferenced = await dereference(entryFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const fragment = evaluate('/0/definitions/schema1', dereferenced);
+              const fragment = evaluate<Element>(dereferenced, '/0/definitions/schema1');
 
               assert.strictEqual(
                 toValue(fragment.meta.get('ref-fields').get('$ref')),
@@ -82,10 +82,13 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/definitions/schema/properties/parent', dereferenced);
-            const cyclicParent = evaluate(
-              '/0/definitions/schema/properties/parent/properties/parent',
+            const parent = evaluate<Element>(
               dereferenced,
+              '/0/definitions/schema/properties/parent',
+            );
+            const cyclicParent = evaluate<Element>(
+              dereferenced,
+              '/0/definitions/schema/properties/parent/properties/parent',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -216,10 +219,10 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const parent = evaluate('/0/definitions/schema/properties', dereferenced);
-            const cyclicParent = evaluate(
-              '/0/definitions/schema/properties/parent/properties',
+            const parent = evaluate<Element>(dereferenced, '/0/definitions/schema/properties');
+            const cyclicParent = evaluate<Element>(
               dereferenced,
+              '/0/definitions/schema/properties/parent/properties',
             );
 
             assert.strictEqual(parent, cyclicParent);
@@ -244,7 +247,7 @@ describe('dereference', function () {
             const dereferenced = await dereference(entryFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const fragment = evaluate('/0/definitions/schema', dereferenced);
+            const fragment = evaluate<Element>(dereferenced, '/0/definitions/schema');
 
             assert.isTrue(isSchemaElement(fragment));
           });

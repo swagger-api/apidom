@@ -1,13 +1,8 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import {
-  mediaTypes,
-  ExampleElement,
-  isExampleElement,
-  OpenApi3_0Element,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+import { mediaTypes, ExampleElement, isExampleElement } from '@swagger-api/apidom-ns-openapi-3-0';
 import { toValue } from '@swagger-api/apidom-core';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -25,9 +20,9 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const exampleElement = evaluate(
+            const exampleElement = evaluate<ExampleElement>(
+              parseResult.api,
               '/components/examples/example1',
-              parseResult.api as OpenApi3_0Element,
             );
             const dereferenced = await dereferenceApiDOM(exampleElement, {
               parse: { mediaType: mediaTypes.latest('json') },
@@ -41,9 +36,9 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const exampleElement = evaluate(
+            const exampleElement = evaluate<ExampleElement>(
+              parseResult.api,
               '/components/examples/example1',
-              parseResult.api as OpenApi3_0Element,
             );
             const dereferenced = (await dereferenceApiDOM(exampleElement, {
               parse: { mediaType: mediaTypes.latest('json') },

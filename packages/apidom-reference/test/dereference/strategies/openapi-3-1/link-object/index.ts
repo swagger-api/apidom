@@ -2,7 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
 import { isOperationElement, LinkElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -36,8 +36,8 @@ describe('dereference', function () {
               const dereferenced = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
-              const link2 = evaluate('/0/components/links/link2', dereferenced) as LinkElement;
+              const link1 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
+              const link2 = evaluate<LinkElement>(dereferenced, '/0/components/links/link2');
 
               assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               assert.isTrue(isOperationElement(link2.operationId?.meta.get('operation')));
@@ -65,11 +65,11 @@ describe('dereference', function () {
               const dereferenced = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const link1 = evaluate(
-                '/0/components/responses/201/links/link',
+              const link1 = evaluate<LinkElement>(
                 dereferenced,
-              ) as LinkElement;
-              const link2 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+                '/0/components/responses/201/links/link',
+              );
+              const link2 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
 
               assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               assert.isTrue(isOperationElement(link2.operationId?.meta.get('operation')));
@@ -98,7 +98,7 @@ describe('dereference', function () {
                 const dereferenced = await dereference(rootFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+                const link1 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
 
                 assert.isTrue(isOperationElement(link1.operationRef?.meta.get('operation')));
               },
@@ -135,7 +135,7 @@ describe('dereference', function () {
                 const dereferenced = await dereference(rootFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+                const link1 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
 
                 assert.isTrue(isOperationElement(link1.operationRef?.meta.get('operation')));
               },
@@ -212,7 +212,7 @@ describe('dereference', function () {
                 const dereferenced = await dereference(rootFilePath, {
                   parse: { mediaType: mediaTypes.latest('json') },
                 });
-                const link1 = evaluate('/0/components/links/link1', dereferenced) as LinkElement;
+                const link1 = evaluate<LinkElement>(dereferenced, '/0/components/links/link1');
 
                 assert.isTrue(isOperationElement(link1.operationId?.meta.get('operation')));
               },

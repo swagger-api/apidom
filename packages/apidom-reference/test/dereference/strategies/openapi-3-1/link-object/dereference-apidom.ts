@@ -5,10 +5,9 @@ import {
   isLinkElement,
   LinkElement,
   isOperationElement,
-  OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 import { toValue } from '@swagger-api/apidom-core';
-import { evaluate } from '@swagger-api/apidom-json-pointer';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
 import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
@@ -31,14 +30,11 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const linkElement = evaluate(
-              '/components/links/link1',
-              parseResult.api as OpenApi3_1Element,
-            );
-            const dereferenced = (await dereferenceApiDOM(linkElement, {
+            const linkElement = evaluate<LinkElement>(parseResult.api, '/components/links/link1');
+            const dereferenced = await dereferenceApiDOM(linkElement, {
               parse: { mediaType: mediaTypes.latest('json') },
               resolve: { baseURI: fixturePath },
-            })) as LinkElement;
+            });
 
             assert.isTrue(isLinkElement(dereferenced));
             assert.isTrue(isOperationElement(dereferenced.operationRef?.meta.get('operation')));
@@ -48,10 +44,7 @@ describe('dereference', function () {
             const parseResult = await parse(fixturePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            const linkElement = evaluate(
-              '/components/links/link1',
-              parseResult.api as OpenApi3_1Element,
-            );
+            const linkElement = evaluate<LinkElement>(parseResult.api, '/components/links/link1');
             const dereferenced = (await dereferenceApiDOM(linkElement, {
               parse: { mediaType: mediaTypes.latest('json') },
               resolve: { baseURI: fixturePath },

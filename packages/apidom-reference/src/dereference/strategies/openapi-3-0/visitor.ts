@@ -16,7 +16,7 @@ import {
   Namespace,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
-import { evaluate, uriToPointer } from '@swagger-api/apidom-json-pointer';
+import { evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import {
   getNodeType,
   keyMap,
@@ -201,10 +201,10 @@ class OpenAPI3_0DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic fragment
-    let referencedElement = evaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -373,10 +373,10 @@ class OpenAPI3_0DereferenceVisitor {
 
     this.indirections.push(referencingElement);
 
-    const jsonPointer = uriToPointer($refBaseURI);
+    const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
     // possibly non-semantic referenced element
-    let referencedElement = evaluate(jsonPointer, reference.value.result as Element);
+    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -536,7 +536,7 @@ class OpenAPI3_0DereferenceVisitor {
 
     if (isStringElement(linkElement.operationRef)) {
       // possibly non-semantic referenced element
-      const jsonPointer = uriToPointer(toValue(linkElement.operationRef));
+      const jsonPointer = URIFragmentIdentifier.fromURIReference(toValue(linkElement.operationRef));
       const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
       const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
       const isExternalReference = !isInternalReference;
@@ -554,7 +554,7 @@ class OpenAPI3_0DereferenceVisitor {
 
       const reference = await this.toReference(toValue(linkElement.operationRef));
 
-      operationElement = evaluate(jsonPointer, reference.value.result as Element);
+      operationElement = evaluate<Element>(reference.value.result, jsonPointer);
       // applying semantics to a referenced element
       if (isPrimitiveElement(operationElement)) {
         const cacheKey = `operation-${toValue(identityManager.identify(operationElement))}`;

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.38](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2025-05-16)
+
+### Bug Fixes
+
+- **reference:** fix resolving of JSON Schema identifier keyword ([#4919](https://github.com/swagger-api/apidom/issues/4919)) ([f1ef0a5](https://github.com/swagger-api/apidom/commit/f1ef0a5cd48a38e6e4c35391690a7b761cfcdb7c))
+
 # [1.0.0-beta.37](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.36...v1.0.0-beta.37) (2025-05-12)
 
 ### Bug Fixes

@@ -40,7 +40,7 @@ export const resolveSchema$idField = (retrievalURI: string, schemaElement: Schem
       return url.resolve(acc, url.sanitize(url.stripHash($id)));
     },
     retrievalURI,
-    [...ancestorsSchemaIdentifiers, toValue(schemaElement.$id)],
+    ancestorsSchemaIdentifiers,
   );
 };
 

@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.39](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2025-05-20)
+
+**Note:** Version bump only for package @swagger-api/apidom-ast
+
 # [1.0.0-beta.38](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2025-05-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

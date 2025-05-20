@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.39](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2025-05-20)
+
+### Bug Fixes
+
+- **security:** update Axios to non-vulnerable 1.9.0 version ([#4926](https://github.com/swagger-api/apidom/issues/4926)) ([f6cab08](https://github.com/swagger-api/apidom/commit/f6cab08b6511498348f8151a611fcadab1eeb106))
+
 # [1.0.0-beta.38](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.37...v1.0.0-beta.38) (2025-05-16)
 
 ### Bug Fixes

@@ -55,7 +55,7 @@
     "@swagger-api/apidom-ast": "^1.0.0-beta.39",
     "@swagger-api/apidom-core": "^1.0.0-beta.39",
     "@swagger-api/apidom-error": "^1.0.0-beta.39",
-    "@tree-sitter-grammars/tree-sitter-yaml": "=0.7.0",
+    "@tree-sitter-grammars/tree-sitter-yaml": "=0.7.1",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",

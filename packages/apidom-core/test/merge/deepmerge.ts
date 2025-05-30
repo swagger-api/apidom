@@ -1,4 +1,5 @@
 import { assert } from 'chai';
+import { uniqWith, equals } from 'ramda';
 
 import {
   deepmerge,
@@ -454,6 +455,42 @@ describe('deepmerge', function () {
 
       assert.strictEqual(toValue(merged.get('name')), 'Alex and Tony');
       assert.deepEqual(toValue(merged.get('pets')), ['Cat', 'Parrot', 'Dog']);
+    });
+
+    specify('should handle nested properties', function () {
+      const x = new ObjectElement({
+        foo: { bar: { enum: [1, 2, 3, 4] } },
+        baz: {
+          enum: [{ enum: [1, 2, 3] }, { enum: [1, 2, 3, 4] }],
+        },
+      });
+      const y = new ObjectElement({
+        foo: { bar: { enum: [1, 2, 3, 5] } },
+        baz: {
+          enum: [{ enum: [1, 2, 3, 4] }],
+        },
+      });
+      const merged = deepmerge(x, y, {
+        customMerge: (keyElement) => {
+          if (toValue(keyElement) === 'enum') {
+            return (targetElement, sourceElement) =>
+              new ArrayElement(
+                uniqWith(equals)([...toValue(targetElement), ...toValue(sourceElement)]),
+              );
+          }
+          return deepmerge;
+        },
+      });
+      const output = {
+        foo: {
+          bar: { enum: [1, 2, 3, 4, 5] },
+        },
+        baz: {
+          enum: [{ enum: [1, 2, 3] }, { enum: [1, 2, 3, 4] }],
+        },
+      };
+
+      assert.deepEqual(toValue(merged), output);
     });
   });
 

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.40](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2025-05-30)
+
+### Bug Fixes
+
+- **core:** fix custom deep merge not affecting nested properties ([#4940](https://github.com/swagger-api/apidom/issues/4940)) ([15a4839](https://github.com/swagger-api/apidom/commit/15a4839a2f4bfe69406b0e0268cd4121ca90fd6c))
+
 # [1.0.0-beta.39](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.38...v1.0.0-beta.39) (2025-05-20)
 
 ### Bug Fixes

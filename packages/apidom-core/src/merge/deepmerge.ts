@@ -164,6 +164,7 @@ const mergeObjectElement: ObjectElementMerge = (targetElement, sourceElement, op
       clonedMember.value = getMergeFunction(key, options)(
         targetValue,
         value as ObjectOrArrayElement,
+        options,
       );
     } else {
       clonedMember = cloneShallow(member as MemberElement);

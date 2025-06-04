@@ -5,7 +5,8 @@
     "paths": {
       "#buffer": ["./src/util/polyfills/buffer/protocol-import.ts"],
       "#fs": ["./src/util/polyfills/fs/protocol-import.ts"],
-      "#util": ["./src/util/polyfills/util/protocol-import.ts"]
+      "#util": ["./src/util/polyfills/util/protocol-import.ts"],
+      "tree-sitter": ["../apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter/tree-sitter.d.ts"]
     },
   },
   "include": [

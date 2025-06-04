@@ -7,6 +7,10 @@
   "compilerOptions": {
     "resolveJsonModule": true,
     "isolatedModules": false,
+    "baseUrl": ".",
+    "paths": {
+      "tree-sitter": ["../apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter/tree-sitter.d.ts"]
+    }
   },
   "ts-node": {
     "files": true

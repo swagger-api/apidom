@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.41](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.40...v1.0.0-beta.41) (2025-06-04)
+
+### Bug Fixes
+
+- **deps:** resolve downstream tree-sitter peer dep issue ([#4947](https://github.com/swagger-api/apidom/issues/4947)) ([ca2e9ee](https://github.com/swagger-api/apidom/commit/ca2e9ee55b75b4b2fe8911727a95ca1d3371ebac))
+
 # [1.0.0-beta.40](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.39...v1.0.0-beta.40) (2025-05-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

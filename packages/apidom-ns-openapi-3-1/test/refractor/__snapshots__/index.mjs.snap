@@ -4995,6 +4995,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                             },
                             "ancestorsSchemaIdentifiers": {
                               "element": "array"
+                            },
+                            "name": {
+                              "element": "string",
+                              "content": "schema1"
                             }
                           },
                           "content": [
@@ -5077,6 +5081,10 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
                             "referenced-element": {
                               "element": "string",
                               "content": "schema"
+                            },
+                            "name": {
+                              "element": "string",
+                              "content": "schema2"
                             }
                           },
                           "content": [

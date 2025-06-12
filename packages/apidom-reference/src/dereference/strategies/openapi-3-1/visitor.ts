@@ -16,6 +16,7 @@ import {
   RefElement,
   BooleanElement,
   Namespace,
+  MemberElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import {
@@ -697,6 +698,88 @@ class OpenAPI3_1DereferenceVisitor {
      * We're at the root of the tree, so we're just replacing the entire tree.
      */
     return !parent ? exampleElementCopy : undefined;
+  }
+
+  public async MemberElement(
+    memberElement: MemberElement,
+    key: string | number,
+    parent: Element | undefined,
+    path: (string | number)[],
+    ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
+  ) {
+    const parentElement = ancestors[ancestors.length - 1];
+
+    // skip current MemberElement if its parent is not a DiscriminatorElement
+    if (
+      !isObjectElement(parentElement) ||
+      !parentElement.classes.contains('discriminator-mapping')
+    ) {
+      return undefined;
+    }
+
+    // skip current MemberElement if its key or value is not a StringElement
+    if (!isStringElement(memberElement.key) || !isStringElement(memberElement.value)) {
+      return undefined;
+    }
+
+    // skip current referencing MemberElement as it's already been accessed
+    if (this.indirections.includes(memberElement)) {
+      return false;
+    }
+
+    this.indirections.push(memberElement);
+
+    const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
+    const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
+    const ancestorsSchemaIdentifiers = cloneDeep(
+      parentSchemaElement!.getMetaProperty('ancestorsSchemaIdentifiers'),
+    );
+
+    // transform MemberElement values to Schema Elements
+    const transformedMapping: MemberElement = cloneDeep(memberElement);
+    const namePattern = /^[a-zA-Z0-9\\.\\-_]+$/;
+
+    // get the reference from the MemberElement value
+    const memberElementValue = toValue(memberElement.value);
+    const memberElementRef = namePattern.test(memberElementValue)
+      ? `#/components/schemas/${memberElementValue}`
+      : memberElementValue;
+
+    const memberElementSchema = new SchemaElement({
+      $ref: memberElementRef,
+    });
+    memberElementSchema.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
+
+    const reference = await this.toReference(memberElementRef);
+
+    // append referencing reference to ancestors lineage
+    directAncestors.add(memberElementSchema);
+
+    const visitor = new OpenAPI3_1DereferenceVisitor({
+      reference,
+      namespace: this.namespace,
+      indirections: [...this.indirections],
+      options: this.options,
+      refractCache: this.refractCache,
+      ancestors: ancestorsLineage,
+    });
+
+    const referencedElement = await visitAsync(memberElementSchema, visitor, {
+      keyMap,
+      nodeTypeGetter: getNodeType,
+    });
+
+    // remove referencing reference from ancestors lineage
+    directAncestors.delete(memberElementSchema);
+
+    this.indirections.pop();
+
+    transformedMapping.value = referencedElement;
+
+    link.replaceWith(transformedMapping, mutationReplacer);
+
+    return !parent ? transformedMapping : undefined;
   }
 
   public async SchemaElement(

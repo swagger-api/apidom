@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-dicriminator-mapping should have idempotent characteristics 1`] = `
+Object {
+  components: Object {
+    schemas: Object {
+      Cat: Object {
+        allOf: Array [
+          Object {
+            $ref: #/components/schemas/Pet,
+          },
+          Object {
+            properties: Object {
+              meows: Object {
+                type: boolean,
+              },
+            },
+            type: object,
+          },
+        ],
+      },
+      Dog: Object {
+        allOf: Array [
+          Object {
+            $ref: #/components/schemas/Pet,
+          },
+          Object {
+            properties: Object {
+              barks: Object {
+                type: boolean,
+              },
+            },
+            type: object,
+          },
+        ],
+      },
+      MyResponse: Object {
+        discriminator: Object {
+          propertyName: petType,
+        },
+        oneOf: Array [
+          Object {
+            $ref: #/components/schemas/Cat,
+          },
+          Object {
+            $ref: #/components/schemas/Dog,
+          },
+        ],
+        type: object,
+      },
+      Pet: Object {
+        properties: Object {
+          petType: Object {
+            type: string,
+          },
+        },
+        type: object,
+      },
+    },
+  },
+  openapi: 3.1.0,
+}
+`;

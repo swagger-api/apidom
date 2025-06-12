@@ -146,7 +146,7 @@ const plugin =
               }
             });
 
-            if (schemaElement.discriminator.getKey('x-swagger-ui-normalized')) {
+            if (schemaElement.discriminator.get('x-swagger-ui-normalized').equals(true)) {
               schemaElement.discriminator.set('mapping', normalizedMapping);
             }
 

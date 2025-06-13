@@ -1,0 +1,15 @@
+{
+  "$defs": {
+    "Lizard": {
+      "type": "object",
+      "properties": {
+        "petType": {
+          "type": "string"
+        },
+        "lovesRocks": {
+          "type": "boolean"
+        }
+      }
+    }
+  }
+}

@@ -64,5 +64,8 @@
     "NOTICE",
     "README.md",
     "CHANGELOG.md"
-  ]
+  ],
+  "devDependencies": {
+    "@swagger-api/apidom-reference": "^1.0.0-beta.42"
+  }
 }

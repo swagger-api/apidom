@@ -17,4 +17,4 @@ const styleEqualsLint: LinterMeta = {
   targetSpecs: OpenAPI3,
 };
 
-export default styleTypeLint;
+export default styleEqualsLint;

@@ -1,5 +1,11 @@
 {
   "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "tree-sitter": ["../apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter/tree-sitter.d.ts"]
+    },
+  },
   "include": [
     "src/**/*"
   ]

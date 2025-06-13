@@ -3757,4 +3757,35 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas - parameters style should allow only "simple" and "form" values', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'sample-api-validation-parameters.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sample-api-validation-parameters.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'style must be one of allowed values: form, simple',
+        severity: 1,
+        code: 5150800,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 12, character: 17 }, end: { line: 12, character: 22 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

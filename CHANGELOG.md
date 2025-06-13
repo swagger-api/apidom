@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.43](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-06-13)
+
+### Features
+
+- **ls:** add OpenAPI 3.x validation for Paramter.style fixed field ([#4955](https://github.com/swagger-api/apidom/issues/4955)) ([0fa98c8](https://github.com/swagger-api/apidom/commit/0fa98c8317c4fff5cdec14fbcb630fc195434881)), closes [#2355](https://github.com/swagger-api/apidom/issues/2355)
+
 # [1.0.0-beta.42](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.41...v1.0.0-beta.42) (2025-06-06)
 
 ### Bug Fixes

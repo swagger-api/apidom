@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { StringElement, ObjectElement } from '@swagger-api/apidom-core';
+import { StringElement, ObjectElement, toValue } from '@swagger-api/apidom-core';
 import {
   ComponentsSchemasElement,
   MapVisitor,
@@ -40,7 +40,7 @@ class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
       .filter(isSchemaElement)
       // @ts-ignore
       .forEach((schemaElement: SchemaElement, schemaName: StringElement) => {
-        schemaElement.setMetaProperty('schemaName', schemaName);
+        schemaElement.setMetaProperty('schemaName', toValue(schemaName));
       });
 
     return result;

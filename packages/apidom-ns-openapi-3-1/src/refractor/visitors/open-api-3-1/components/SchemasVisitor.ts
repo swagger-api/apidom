@@ -40,7 +40,7 @@ class SchemasVisitor extends Mixin(MapVisitor, FallbackVisitor) {
       .filter(isSchemaElement)
       // @ts-ignore
       .forEach((schemaElement: SchemaElement, schemaName: StringElement) => {
-        schemaElement.setMetaProperty('name', schemaName);
+        schemaElement.setMetaProperty('schemaName', schemaName);
       });
 
     return result;

@@ -1,4 +1,10 @@
-import { cloneDeep, Element, isArrayElement, toValue } from '@swagger-api/apidom-core';
+import {
+  cloneDeep,
+  Element,
+  isArrayElement,
+  StringElement,
+  toValue,
+} from '@swagger-api/apidom-core';
 import {
   DiscriminatorMappingElement,
   isReferenceLikeElement,
@@ -14,10 +20,9 @@ import { isSchemaElement } from '../../predicates.ts';
  * Normalization of Discriminator.mapping field.
  *
  * Discriminator.mapping fields are normalized by adding missing mappings from oneOf/anyOf items
- * of the parent Schema Object.
+ * of the parent Schema Object and transforming existing mappings to Schema Objects.
  *
- * This plugin also marks the Schema.discriminator field with `x-swagger-ui-normalized` property,
- * depending on whether the Discriminator.mapping is valid according to the OpenAPI 3.1 specification.
+ * The normalized mapping is stored in the Schema.discriminator field as `x-normalized-mapping`.
  *
  * NOTE: this plugin is idempotent
  * @public
@@ -27,55 +32,6 @@ export interface PluginOptions {
   storageField?: string;
   baseURI?: string;
 }
-
-const handleItem = (
-  schemaElement: SchemaElement,
-  item: Element,
-  normalizedMapping: DiscriminatorMappingElement,
-  baseURI: string,
-) => {
-  if (!isSchemaElement(item)) {
-    return;
-  }
-
-  if (isReferenceLikeElement(item)) {
-    schemaElement.discriminator!.set('x-swagger-ui-normalized', false);
-    return;
-  }
-
-  const metaRefFields = toValue(item.getMetaProperty('ref-fields'));
-  const metaRefOrigin = toValue(item.getMetaProperty('ref-origin'));
-  const metaSchemaName = toValue(item.getMetaProperty('name'));
-
-  // handle external references
-  if (metaRefOrigin !== baseURI) {
-    const hasMatchingMapping =
-      normalizedMapping.find((element: Element) =>
-        element.getMetaProperty('ref-fields')?.get('$ref')?.equals(metaRefFields?.$ref),
-      ).length > 0;
-
-    if (!hasMatchingMapping) {
-      schemaElement.discriminator!.set('x-swagger-ui-normalized', false);
-    }
-    return;
-  }
-
-  // handle internal references that don't point to components/schemas/<SchemaName>
-  if (!metaSchemaName && metaRefFields) {
-    schemaElement.discriminator!.set('x-swagger-ui-normalized', false);
-    return;
-  }
-
-  const hasMatchingMapping =
-    normalizedMapping.find((element: Element) =>
-      element.getMetaProperty('name')?.equals(metaSchemaName),
-    ).length > 0;
-
-  // handle internal references that point to components/schemas/<SchemaName> and have no mapping
-  if (metaSchemaName && !hasMatchingMapping) {
-    normalizedMapping.set(metaSchemaName, cloneDeep(item));
-  }
-};
 
 /**
  * @public
@@ -121,33 +77,99 @@ const plugin =
               return;
             }
 
-            schemaElement.discriminator.set('x-swagger-ui-normalized', true);
+            // skip if both oneOf and anyOf are present
+            if (isArrayElement(schemaElement.oneOf) && isArrayElement(schemaElement.anyOf)) {
+              return;
+            }
+
+            // skip if neither oneOf nor anyOf is present
+            if (!isArrayElement(schemaElement.oneOf) && !isArrayElement(schemaElement.anyOf)) {
+              return;
+            }
 
             const mapping =
               schemaElement.discriminator.get('mapping') ?? new DiscriminatorMappingElement();
             const normalizedMapping: DiscriminatorMappingElement = cloneDeep(mapping);
+            let normalizationResult = true;
 
-            if (isArrayElement(schemaElement.oneOf)) {
-              schemaElement.oneOf.forEach((item) => {
-                handleItem(schemaElement, item, normalizedMapping, baseURI);
-              });
-            }
+            const items = isArrayElement(schemaElement.oneOf)
+              ? schemaElement.oneOf
+              : schemaElement.anyOf;
 
-            if (isArrayElement(schemaElement.anyOf)) {
-              schemaElement.anyOf.forEach((item) => {
-                handleItem(schemaElement, item, normalizedMapping, baseURI);
-              });
-            }
+            items!.forEach((item) => {
+              if (!isSchemaElement(item)) {
+                return;
+              }
 
-            // check if any mapping is not a Schema Object or if it was not dereferenced
-            normalizedMapping.forEach((mappingValue: Element) => {
-              if (!isSchemaElement(mappingValue) || isReferenceLikeElement(mappingValue)) {
-                schemaElement.discriminator!.set('x-swagger-ui-normalized', false);
+              if (isReferenceLikeElement(item)) {
+                normalizationResult = false;
+                return;
+              }
+
+              const metaRefFields = toValue(item.getMetaProperty('ref-fields'));
+              const metaRefOrigin = toValue(item.getMetaProperty('ref-origin'));
+              const metaSchemaName = toValue(item.getMetaProperty('schemaName'));
+
+              /**
+               * handle external references and internal references
+               * that don't point to components/schemas/<SchemaName>
+               */
+              if (metaRefOrigin !== baseURI || (!metaSchemaName && metaRefFields)) {
+                let hasMatchingMapping = false;
+
+                mapping.forEach((mappingValue: StringElement, mappingKey: StringElement) => {
+                  const mappingValueSchema = mappingValue.getMetaProperty('ref-schema');
+                  const mappingValueSchemaRefBaseURI = mappingValueSchema
+                    ?.getMetaProperty('ref-fields')
+                    ?.get('$refBaseURI');
+
+                  if (mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)) {
+                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    hasMatchingMapping = true;
+                  }
+                });
+
+                if (!hasMatchingMapping) {
+                  normalizationResult = false;
+                }
+                return;
+              }
+
+              // handle internal references that point to components/schemas/<SchemaName>
+              if (metaSchemaName) {
+                let hasMatchingMapping = false;
+
+                mapping.forEach((mappingValue: StringElement, mappingKey: StringElement) => {
+                  const mappingValueSchema = mappingValue.getMetaProperty('ref-schema');
+                  const mappingValueSchemaName = mappingValueSchema?.getMetaProperty('schemaName');
+                  const mappingValueSchemaRefBaseURI = mappingValueSchema
+                    ?.getMetaProperty('ref-fields')
+                    ?.get('$refBaseURI');
+
+                  if (
+                    mappingValueSchemaName?.equals(metaSchemaName) &&
+                    mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)
+                  ) {
+                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    hasMatchingMapping = true;
+                  }
+                });
+
+                // add a new mapping if no matching mapping was found
+                if (!hasMatchingMapping) {
+                  normalizedMapping.set(metaSchemaName, cloneDeep(item));
+                }
               }
             });
 
-            if (schemaElement.discriminator.get('x-swagger-ui-normalized').equals(true)) {
-              schemaElement.discriminator.set('mapping', normalizedMapping);
+            // check if any mapping is not a Schema Object
+            normalizationResult =
+              normalizationResult &&
+              normalizedMapping.filter((mappingValue: Element) => !isSchemaElement(mappingValue))
+                .length === 0;
+
+            if (normalizationResult) {
+              schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);
             }
 
             storage!.append(schemaJSONPointer);

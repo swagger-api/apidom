@@ -1,101 +1,97 @@
 import { assert } from 'chai';
-import dedent from 'dedent';
-import { toValue } from '@swagger-api/apidom-core';
-import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { toValue, dispatchRefractorPlugins } from '@swagger-api/apidom-core';
+import { dereference } from '@swagger-api/apidom-reference';
+import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
 
 import {
   OpenApi3_1Element,
   refractorPluginNormalizeDiscriminatorMapping,
+  mediaTypes,
+  createToolbox,
+  keyMap,
+  getNodeType,
 } from '../../../../src/index.ts';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('refractor', function () {
   context('plugins', function () {
     context('normalize-discriminator-mapping', function () {
       specify('should use sub-field to store normalized scopes', async function () {
-        const yamlDefinition = dedent`
-          openapi: 3.1.0
-          components:
-            schemas:
-              MyResponse:
-                type: object
-                oneOf:
-                  - $ref: '#/components/schemas/Cat'
-                  - $ref: '#/components/schemas/Dog'
-                discriminator:
-                  propertyName: petType
-              Pet:
-                type: object
-                properties:
-                  petType:
-                    type: string
-              Cat:
-                allOf:
-                  - $ref: '#/components/schemas/Pet'
-                  - type: object
-                    properties:
-                      meows:
-                        type: boolean
-              Dog:
-                allOf:
-                  - $ref: '#/components/schemas/Pet'
-                  - type: object
-                    properties:
-                      barks:
-                        type: boolean
-        `;
-        const apiDOM = await parse(yamlDefinition);
-        const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
-          plugins: [refractorPluginNormalizeDiscriminatorMapping()],
-        }) as OpenApi3_1Element;
+        const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
+        const dereferenced = await dereference(uri, {
+          parse: { mediaType: mediaTypes.latest('json') },
+          resolve: {
+            baseURI: uri,
+            resolvers: [
+              new FileResolver({
+                // @ts-ignore
+                fileAllowList: ['*.json', /\.json$/],
+              }),
+            ],
+            dereference: {
+              strategyOpts: {
+                'openapi-3-1': {
+                  dereferenceDiscriminatorMapping: true,
+                },
+              },
+            },
+          },
+        });
 
-        assert.deepEqual(toValue(openApiElement.get('x-normalized')), {
+        const normalized = dispatchRefractorPlugins(
+          dereferenced.result as OpenApi3_1Element,
+          [refractorPluginNormalizeDiscriminatorMapping()],
+          {
+            toolboxCreator: createToolbox,
+            visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+          },
+        ) as OpenApi3_1Element;
+
+        assert.deepEqual(toValue(normalized.get('x-normalized')), {
           'discriminator-mapping': ['/components/schemas/MyResponse'],
         });
       });
 
       context('given custom storage field', function () {
         specify('should use custom storage field to store normalized scopes', async function () {
-          const yamlDefinition = dedent`
-            openapi: 3.1.0
-            components:
-              schemas:
-                MyResponse:
-                  type: object
-                  oneOf:
-                    - $ref: '#/components/schemas/Cat'
-                    - $ref: '#/components/schemas/Dog'
-                  discriminator:
-                    propertyName: petType
-                Pet:
-                  type: object
-                  properties:
-                    petType:
-                      type: string
-                Cat:
-                  allOf:
-                    - $ref: '#/components/schemas/Pet'
-                    - type: object
-                      properties:
-                        meows:
-                          type: boolean
-                Dog:
-                  allOf:
-                    - $ref: '#/components/schemas/Pet'
-                    - type: object
-                      properties:
-                        barks:
-                          type: boolean
-          `;
-          const apiDOM = await parse(yamlDefinition);
-          const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
-            plugins: [
+          const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
+          const dereferenced = await dereference(uri, {
+            parse: { mediaType: mediaTypes.latest('json') },
+            resolve: {
+              baseURI: uri,
+              resolvers: [
+                new FileResolver({
+                  // @ts-ignore
+                  fileAllowList: ['*.json', /\.json$/],
+                }),
+              ],
+              dereference: {
+                strategyOpts: {
+                  'openapi-3-1': {
+                    dereferenceDiscriminatorMapping: true,
+                  },
+                },
+              },
+            },
+          });
+
+          const normalized = dispatchRefractorPlugins(
+            dereferenced.result as OpenApi3_1Element,
+            [
               refractorPluginNormalizeDiscriminatorMapping({
                 storageField: '$$normalized',
               }),
             ],
-          }) as OpenApi3_1Element;
+            {
+              toolboxCreator: createToolbox,
+              visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+            },
+          ) as OpenApi3_1Element;
 
-          assert.deepEqual(toValue(openApiElement.get('$$normalized')), {
+          assert.deepEqual(toValue(normalized.get('$$normalized')), {
             'discriminator-mapping': ['/components/schemas/MyResponse'],
           });
         });

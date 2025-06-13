@@ -7,7 +7,12 @@ Object {
       Cat: Object {
         allOf: Array [
           Object {
-            $ref: #/components/schemas/Pet,
+            properties: Object {
+              petType: Object {
+                type: string,
+              },
+            },
+            type: object,
           },
           Object {
             properties: Object {
@@ -22,7 +27,12 @@ Object {
       Dog: Object {
         allOf: Array [
           Object {
-            $ref: #/components/schemas/Pet,
+            properties: Object {
+              petType: Object {
+                type: string,
+              },
+            },
+            type: object,
           },
           Object {
             properties: Object {
@@ -40,10 +50,44 @@ Object {
         },
         oneOf: Array [
           Object {
-            $ref: #/components/schemas/Cat,
+            allOf: Array [
+              Object {
+                properties: Object {
+                  petType: Object {
+                    type: string,
+                  },
+                },
+                type: object,
+              },
+              Object {
+                properties: Object {
+                  meows: Object {
+                    type: boolean,
+                  },
+                },
+                type: object,
+              },
+            ],
           },
           Object {
-            $ref: #/components/schemas/Dog,
+            allOf: Array [
+              Object {
+                properties: Object {
+                  petType: Object {
+                    type: string,
+                  },
+                },
+                type: object,
+              },
+              Object {
+                properties: Object {
+                  barks: Object {
+                    type: boolean,
+                  },
+                },
+                type: object,
+              },
+            ],
           },
         ],
         type: object,
@@ -59,5 +103,10 @@ Object {
     },
   },
   openapi: 3.1.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/MyResponse,
+    ],
+  },
 }
 `;

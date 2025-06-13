@@ -14,7 +14,7 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 describe('resolve', function () {
   context('strategies', function () {
     context('openapi-3-1', function () {
-      context('Discriminator Mapping Object', function () {
+      context('Discriminator Mapping Object values', function () {
         context(
           'given Discriminator Mapping values pointing internally and externally',
           function () {
@@ -24,6 +24,13 @@ describe('resolve', function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -38,6 +45,13 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                strategyOpts: {
+                  'openapi-3-1': {
+                    dereferenceDiscriminatorMapping: true,
+                  },
+                },
+              },
             });
 
             assert.strictEqual(refSet.size, 1);
@@ -51,6 +65,13 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                strategyOpts: {
+                  'openapi-3-1': {
+                    dereferenceDiscriminatorMapping: true,
+                  },
+                },
+              },
             });
 
             assert.strictEqual(refSet.size, 2);
@@ -66,7 +87,14 @@ describe('resolve', function () {
             try {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
-                dereference: { maxDepth: 2 },
+                dereference: {
+                  maxDepth: 2,
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
               assert.fail('should throw MaximumDereferenceDepthError');
             } catch (error: any) {
@@ -89,6 +117,13 @@ describe('resolve', function () {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
                 resolve: { maxDepth: 2 },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
               assert.fail('should throw MaximumResolveDepthError');
             } catch (error: any) {
@@ -109,6 +144,13 @@ describe('resolve', function () {
             try {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
               assert.fail('should throw ResolverError');
             } catch (e) {
@@ -125,6 +167,13 @@ describe('resolve', function () {
             try {
               await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
               assert.fail('should throw ResolverError');
             } catch (e) {
@@ -140,6 +189,13 @@ describe('resolve', function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const refSet = await resolve(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                strategyOpts: {
+                  'openapi-3-1': {
+                    dereferenceDiscriminatorMapping: true,
+                  },
+                },
+              },
             });
 
             assert.strictEqual(refSet.size, 1);
@@ -155,6 +211,13 @@ describe('resolve', function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
 
               assert.strictEqual(refSet.size, 2);
@@ -171,6 +234,13 @@ describe('resolve', function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
 
               assert.strictEqual(refSet.size, 1);
@@ -187,6 +257,13 @@ describe('resolve', function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
 
               assert.strictEqual(refSet.size, 4);
@@ -203,6 +280,13 @@ describe('resolve', function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const refSet = await resolve(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: {
+                    'openapi-3-1': {
+                      dereferenceDiscriminatorMapping: true,
+                    },
+                  },
+                },
               });
 
               assert.strictEqual(refSet.size, 1);

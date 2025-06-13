@@ -17,6 +17,7 @@ import {
   BooleanElement,
   Namespace,
   MemberElement,
+  StringElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import {
@@ -718,9 +719,14 @@ class OpenAPI3_1DereferenceVisitor {
       return undefined;
     }
 
+    // skip current MemberElement if discriminator mapping dereferencing option is not enabled
+    if (!this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+      return false;
+    }
+
     // skip current MemberElement if its key or value is not a StringElement
     if (!isStringElement(memberElement.key) || !isStringElement(memberElement.value)) {
-      return undefined;
+      return false;
     }
 
     // skip current referencing MemberElement as it's already been accessed
@@ -728,30 +734,26 @@ class OpenAPI3_1DereferenceVisitor {
       return false;
     }
 
-    this.indirections.push(memberElement);
-
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
     const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
     const ancestorsSchemaIdentifiers = cloneDeep(
       parentSchemaElement!.getMetaProperty('ancestorsSchemaIdentifiers'),
     );
 
-    // transform MemberElement values to Schema Elements
-    const transformedMapping: MemberElement = cloneDeep(memberElement);
-    const namePattern = /^[a-zA-Z0-9\\.\\-_]+$/;
-
     // get the reference from the MemberElement value
     const memberElementValue = toValue(memberElement.value);
+    const namePattern = /^[a-zA-Z0-9\\.\\-_]+$/;
     const memberElementRef = namePattern.test(memberElementValue)
       ? `#/components/schemas/${memberElementValue}`
       : memberElementValue;
 
+    // create SchemaElement with the reference from the MemberElement value
     const memberElementSchema = new SchemaElement({
       $ref: memberElementRef,
     });
     memberElementSchema.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
 
-    const reference = await this.toReference(memberElementRef);
+    const reference = await this.toReference(url.unsanitize(this.reference.uri));
 
     // append referencing reference to ancestors lineage
     directAncestors.add(memberElementSchema);
@@ -773,13 +775,19 @@ class OpenAPI3_1DereferenceVisitor {
     // remove referencing reference from ancestors lineage
     directAncestors.delete(memberElementSchema);
 
-    this.indirections.pop();
+    // annotate MemberElement with referenced schema
+    const memberElementCopy: MemberElement = cloneDeep(memberElement);
+    (memberElementCopy.value as StringElement).setMetaProperty('ref-schema', referencedElement);
 
-    transformedMapping.value = referencedElement;
+    /**
+     * Transclude MemberElement containing referenced schema in its meta.
+     */
+    link.replaceWith(memberElementCopy, mutationReplacer);
 
-    link.replaceWith(transformedMapping, mutationReplacer);
-
-    return !parent ? transformedMapping : undefined;
+    /**
+     * We're at the root of the tree, so we're just replacing the entire tree.
+     */
+    return !parent ? memberElementCopy : undefined;
   }
 
   public async SchemaElement(
@@ -1002,6 +1010,7 @@ class OpenAPI3_1DereferenceVisitor {
       // annotate referenced element with info about original referencing element
       booleanJsonSchemaElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
+        $refBaseURI,
       });
       // annotate referenced element with info about origin
       booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
@@ -1036,6 +1045,7 @@ class OpenAPI3_1DereferenceVisitor {
       // annotate referenced element with info about original referencing element
       mergedElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
+        $refBaseURI,
       });
       // annotate fragment with info about origin
       mergedElement.setMetaProperty('ref-origin', reference.uri);

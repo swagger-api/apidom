@@ -1,7 +1,9 @@
 import { expect } from 'chai';
-import dedent from 'dedent';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { toValue, dispatchRefractorPlugins } from '@swagger-api/apidom-core';
-import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { dereference } from '@swagger-api/apidom-reference';
+import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
 
 import {
   createToolbox,
@@ -9,45 +11,38 @@ import {
   refractorPluginNormalizeDiscriminatorMapping,
   keyMap,
   getNodeType,
+  mediaTypes,
 } from '../../../../src/index.ts';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 describe('refractor', function () {
   context('plugins', function () {
     context('normalize-dicriminator-mapping', function () {
       specify('should have idempotent characteristics', async function () {
-        const yamlDefinition = dedent`
-          openapi: 3.1.0
-          components:
-            schemas:
-              MyResponse:
-                type: object
-                oneOf:
-                  - $ref: '#/components/schemas/Cat'
-                  - $ref: '#/components/schemas/Dog'
-                discriminator:
-                  propertyName: petType
-              Pet:
-                type: object
-                properties:
-                  petType:
-                    type: string
-              Cat:
-                allOf:
-                  - $ref: '#/components/schemas/Pet'
-                  - type: object
-                    properties:
-                      meows:
-                        type: boolean
-              Dog:
-                allOf:
-                  - $ref: '#/components/schemas/Pet'
-                  - type: object
-                    properties:
-                      barks:
-                        type: boolean
-        `;
-        const apiDOM = await parse(yamlDefinition);
-        const openApiElement = OpenApi3_1Element.refract(apiDOM.result) as OpenApi3_1Element;
+        const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
+        const dereferenced = await dereference(uri, {
+          parse: { mediaType: mediaTypes.latest('json') },
+          resolve: {
+            baseURI: uri,
+            resolvers: [
+              new FileResolver({
+                // @ts-ignore
+                fileAllowList: ['*.json', /\.json$/],
+              }),
+            ],
+          },
+          dereference: {
+            strategyOpts: {
+              'openapi-3-1': {
+                dereferenceDiscriminatorMapping: true,
+              },
+            },
+          },
+        });
+
+        const openApiElement = dereferenced.result as OpenApi3_1Element;
+
         const options = {
           toolboxCreator: createToolbox,
           visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
@@ -69,7 +64,7 @@ describe('refractor', function () {
           options,
         );
 
-        expect(toValue(apiDOM.result)).toMatchSnapshot();
+        expect(toValue(dereferenced.result)).toMatchSnapshot();
       });
     });
   });

@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI3 } from '../../target-specs.ts';
 
-const styleTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_STYLE_TYPE,
+const styleEqualsLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_STYLE_EQUALS,
   source: 'apilint',
-  message: 'style must be a string',
+  message: 'style must be one of allowed values: form, simple',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterFunction: 'apilintValueOrArray',
+  linterParams: [['form', 'simple']],
   marker: 'value',
   target: 'style',
   data: {},
   targetSpecs: OpenAPI3,
 };
 
-export default styleTypeLint;
+export default styleEqualsLint;

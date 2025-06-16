@@ -75,9 +75,7 @@ Object {
   },
   openapi: 3.1.0,
   x-normalized: Object {
-    discriminator-mapping: Array [
-      /components/schemas/MyResponse,
-    ],
+    discriminator-mapping: Array [],
   },
 }
 `;

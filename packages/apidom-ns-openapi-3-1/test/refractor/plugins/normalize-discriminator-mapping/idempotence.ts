@@ -27,8 +27,7 @@ describe('refractor', function () {
             baseURI: uri,
             resolvers: [
               new FileResolver({
-                // @ts-ignore
-                fileAllowList: ['*.json', /\.json$/],
+                fileAllowList: [/\.json$/],
               }),
             ],
           },
@@ -50,17 +49,17 @@ describe('refractor', function () {
 
         dispatchRefractorPlugins(
           openApiElement,
-          [refractorPluginNormalizeDiscriminatorMapping()],
+          [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
           options,
         );
         dispatchRefractorPlugins(
           openApiElement,
-          [refractorPluginNormalizeDiscriminatorMapping()],
+          [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
           options,
         );
         dispatchRefractorPlugins(
           openApiElement,
-          [refractorPluginNormalizeDiscriminatorMapping()],
+          [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
           options,
         );
 

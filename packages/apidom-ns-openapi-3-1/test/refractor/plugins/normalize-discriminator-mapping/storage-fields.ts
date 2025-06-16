@@ -27,8 +27,7 @@ describe('refractor', function () {
             baseURI: uri,
             resolvers: [
               new FileResolver({
-                // @ts-ignore
-                fileAllowList: ['*.json', /\.json$/],
+                fileAllowList: [/\.json$/],
               }),
             ],
             dereference: {
@@ -43,7 +42,7 @@ describe('refractor', function () {
 
         const normalized = dispatchRefractorPlugins(
           dereferenced.result as OpenApi3_1Element,
-          [refractorPluginNormalizeDiscriminatorMapping()],
+          [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
           {
             toolboxCreator: createToolbox,
             visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
@@ -83,6 +82,7 @@ describe('refractor', function () {
             [
               refractorPluginNormalizeDiscriminatorMapping({
                 storageField: '$$normalized',
+                baseURI: uri,
               }),
             ],
             {

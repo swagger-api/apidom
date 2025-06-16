@@ -170,9 +170,8 @@ const plugin =
 
             if (normalizationResult) {
               schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);
+              storage!.append(schemaJSONPointer);
             }
-
-            storage!.append(schemaJSONPointer);
           },
         },
       },

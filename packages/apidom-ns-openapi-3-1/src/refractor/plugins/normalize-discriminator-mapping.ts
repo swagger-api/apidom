@@ -1,5 +1,6 @@
 import {
-  cloneDeep,
+  ArrayElement,
+  cloneShallow,
   Element,
   isArrayElement,
   ObjectElement,
@@ -39,12 +40,15 @@ const plugin =
   (toolbox: Toolbox) => {
     const { ancestorLineageToJSONPointer } = toolbox;
     let storage: NormalizeStorage | undefined;
+    let allOfDiscriminatorMapping: ObjectElement;
 
     return {
       visitor: {
         OpenApi3_1Element: {
           enter(element: OpenApi3_1Element) {
             storage = new NormalizeStorage(element, storageField, 'discriminator-mapping');
+            allOfDiscriminatorMapping =
+              element.getMetaProperty('allOfDiscriminatorMapping') ?? new ObjectElement();
           },
           leave() {
             storage = undefined;
@@ -80,18 +84,31 @@ const plugin =
               return;
             }
 
-            // skip if neither oneOf nor anyOf is present
-            if (!isArrayElement(schemaElement.oneOf) && !isArrayElement(schemaElement.anyOf)) {
+            const parentElement = ancestors[ancestors.length - 1];
+            const schemaName = schemaElement.getMetaProperty('schemaName');
+            const allOfMapping = allOfDiscriminatorMapping.getMember(toValue(schemaName));
+            const hasAllOfMapping =
+              // @ts-ignore
+              allOfMapping && !parentElement?.classes?.contains('json-schema-allOf');
+
+            // skip if neither oneOf, anyOf nor allOf is present
+            if (
+              !isArrayElement(schemaElement.oneOf) &&
+              !isArrayElement(schemaElement.anyOf) &&
+              !hasAllOfMapping
+            ) {
               return;
             }
 
             const mapping = schemaElement.discriminator.get('mapping') ?? new ObjectElement();
-            const normalizedMapping: ObjectElement = cloneDeep(mapping);
+            const normalizedMapping = new ObjectElement();
             let isNormalized = true;
 
             const items = isArrayElement(schemaElement.oneOf)
               ? schemaElement.oneOf
-              : schemaElement.anyOf;
+              : isArrayElement(schemaElement.anyOf)
+                ? schemaElement.anyOf
+                : (allOfMapping.value as ArrayElement);
 
             items!.forEach((item) => {
               if (!isSchemaElement(item)) {
@@ -111,7 +128,10 @@ const plugin =
                * handle external references and internal references
                * that don't point to components/schemas/<SchemaName>
                */
-              if (metaRefOrigin !== baseURI || (!metaSchemaName && metaRefFields)) {
+              if (
+                !hasAllOfMapping &&
+                (metaRefOrigin !== baseURI || (!metaSchemaName && metaRefFields))
+              ) {
                 let hasMatchingMapping = false;
 
                 mapping.forEach((mappingValue: StringElement, mappingKey: StringElement) => {
@@ -121,7 +141,7 @@ const plugin =
                     ?.get('$refBaseURI');
 
                   if (mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)) {
-                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    normalizedMapping.set(toValue(mappingKey), cloneShallow(item));
                     hasMatchingMapping = true;
                   }
                 });
@@ -145,25 +165,29 @@ const plugin =
 
                   if (
                     mappingValueSchemaName?.equals(metaSchemaName) &&
-                    mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)
+                    (!hasAllOfMapping ||
+                      mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI))
                   ) {
-                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    normalizedMapping.set(toValue(mappingKey), cloneShallow(item));
                     hasMatchingMapping = true;
                   }
                 });
 
                 // add a new mapping if no matching mapping was found
                 if (!hasMatchingMapping) {
-                  normalizedMapping.set(metaSchemaName, cloneDeep(item));
+                  normalizedMapping.set(metaSchemaName, cloneShallow(item));
                 }
               }
             });
 
-            // check if any mapping is not a Schema Object
+            // check if any mapping is not a Schema Object or if any mapping was not normalized
+            const mappingKeys = mapping.keys();
+            const normalizedMappingKeys = normalizedMapping.keys();
             isNormalized =
               isNormalized &&
               normalizedMapping.filter((mappingValue: Element) => !isSchemaElement(mappingValue))
-                .length === 0;
+                .length === 0 &&
+              mappingKeys.every((mappingKey: string) => normalizedMappingKeys.includes(mappingKey));
 
             if (isNormalized) {
               schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);

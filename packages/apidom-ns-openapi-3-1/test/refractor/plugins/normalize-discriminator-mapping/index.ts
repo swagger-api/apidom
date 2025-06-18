@@ -94,6 +94,111 @@ describe('refractor', function () {
           );
         },
       );
+
+      context('given Discriminator.mapping is not defined and allOf is present', function () {
+        specify('should add x-normalized-mapping field with normalized mapping', async function () {
+          const uri = path.join(__dirname, 'fixtures', 'allOf-no-mapping.json');
+          const dereferenced = await dereference(uri, {
+            parse: { mediaType: mediaTypes.latest('json') },
+            resolve: {
+              baseURI: uri,
+              resolvers: [
+                new FileResolver({
+                  fileAllowList: [/\.json$/],
+                }),
+              ],
+            },
+            dereference: {
+              strategyOpts: {
+                'openapi-3-1': {
+                  dereferenceDiscriminatorMapping: true,
+                },
+              },
+            },
+          });
+
+          const normalized = dispatchRefractorPlugins(
+            dereferenced.result as OpenApi3_1Element,
+            [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
+            {
+              toolboxCreator: createToolbox,
+              visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+            },
+          ) as OpenApi3_1Element;
+
+          expect(toValue(normalized)).toMatchSnapshot();
+        });
+      });
+
+      context('given Discriminator.mapping is defined and allOf is present', function () {
+        specify('should add x-normalized-mapping field with normalized mapping', async function () {
+          const uri = path.join(__dirname, 'fixtures', 'allOf-mapping.json');
+          const dereferenced = await dereference(uri, {
+            parse: { mediaType: mediaTypes.latest('json') },
+            resolve: {
+              baseURI: uri,
+              resolvers: [
+                new FileResolver({
+                  fileAllowList: [/\.json$/],
+                }),
+              ],
+            },
+            dereference: {
+              strategyOpts: {
+                'openapi-3-1': {
+                  dereferenceDiscriminatorMapping: true,
+                },
+              },
+            },
+          });
+
+          const normalized = dispatchRefractorPlugins(
+            dereferenced.result as OpenApi3_1Element,
+            [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
+            {
+              toolboxCreator: createToolbox,
+              visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+            },
+          ) as OpenApi3_1Element;
+
+          expect(toValue(normalized)).toMatchSnapshot();
+        });
+      });
+
+      context('given Discriminator is defined and multiple allOf are present', function () {
+        specify('should add x-normalized-mapping field with normalized mapping', async function () {
+          const uri = path.join(__dirname, 'fixtures', 'allOf-multiple.json');
+          const dereferenced = await dereference(uri, {
+            parse: { mediaType: mediaTypes.latest('json') },
+            resolve: {
+              baseURI: uri,
+              resolvers: [
+                new FileResolver({
+                  fileAllowList: [/\.json$/],
+                }),
+              ],
+            },
+            dereference: {
+              strategyOpts: {
+                'openapi-3-1': {
+                  dereferenceDiscriminatorMapping: true,
+                },
+              },
+            },
+          });
+
+          const normalized = dispatchRefractorPlugins(
+            dereferenced.result as OpenApi3_1Element,
+            [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
+            {
+              toolboxCreator: createToolbox,
+              visitorOptions: { keyMap, nodeTypeGetter: getNodeType },
+            },
+          ) as OpenApi3_1Element;
+
+          expect(toValue(normalized)).toMatchSnapshot();
+        });
+      });
     });
   });
 });

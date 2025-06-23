@@ -734,6 +734,8 @@ class OpenAPI3_1DereferenceVisitor {
       return false;
     }
 
+    this.indirections.push(memberElement);
+
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
     const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
     const ancestorsSchemaIdentifiers = cloneDeep(
@@ -772,9 +774,10 @@ class OpenAPI3_1DereferenceVisitor {
 
     // remove referencing reference from ancestors lineage
     directAncestors.delete(schemaElement);
+    this.indirections.pop();
 
     // annotate MemberElement with referenced schema
-    const memberElementCopy: MemberElement = cloneDeep(memberElement);
+    const memberElementCopy: MemberElement = cloneShallow(memberElement);
     (memberElementCopy.value as StringElement).setMetaProperty('ref-schema', referencedElement);
 
     /**

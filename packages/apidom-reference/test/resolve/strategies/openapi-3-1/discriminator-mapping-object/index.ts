@@ -102,7 +102,7 @@ describe('resolve', function () {
               // @ts-ignore
               assert.instanceOf(error.cause.cause, MaximumDereferenceDepthError);
               // @ts-ignore
-              assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex2.json"$/);
+              assert.match(error.cause.cause.message, /fixtures\/max-depth\/ex1.json"$/);
             }
           });
         });

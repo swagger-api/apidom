@@ -39,6 +39,7 @@ import {
   isSchemaElement,
   isOperationElement,
   isBooleanJsonSchemaElement,
+  OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor.ts';
@@ -89,6 +90,7 @@ export interface OpenAPI3_1DereferenceVisitorOptions {
   readonly indirections?: Element[];
   readonly ancestors?: AncestorLineage<Element>;
   readonly refractCache?: Map<string, Element>;
+  readonly allOfDiscriminatorMapping?: Map<string, Element[]>;
 }
 
 /**
@@ -107,6 +109,8 @@ class OpenAPI3_1DereferenceVisitor {
 
   protected readonly refractCache: Map<string, Element>;
 
+  protected readonly allOfDiscriminatorMapping: Map<string, Element[]>;
+
   constructor({
     reference,
     namespace,
@@ -114,6 +118,7 @@ class OpenAPI3_1DereferenceVisitor {
     indirections = [],
     ancestors = new AncestorLineage(),
     refractCache = new Map(),
+    allOfDiscriminatorMapping = new Map(),
   }: OpenAPI3_1DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -121,6 +126,7 @@ class OpenAPI3_1DereferenceVisitor {
     this.options = options;
     this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
+    this.allOfDiscriminatorMapping = allOfDiscriminatorMapping;
   }
 
   protected toBaseURI(uri: string): string {
@@ -181,6 +187,31 @@ class OpenAPI3_1DereferenceVisitor {
 
     return [ancestorsLineage, directAncestors];
   }
+
+  public readonly OpenApi3_1Element = {
+    leave: (
+      openApi3_1Element: OpenApi3_1Element,
+      key: string | number,
+      parent: Element | undefined,
+      path: (string | number)[],
+      ancestors: [Element | Element[]],
+      link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
+    ) => {
+      if (!this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+        return undefined;
+      }
+
+      const openApi3_1ElementCopy = cloneShallow(openApi3_1Element);
+      openApi3_1ElementCopy.setMetaProperty(
+        'allOfDiscriminatorMapping',
+        Object.fromEntries(this.allOfDiscriminatorMapping),
+      );
+
+      link.replaceWith(openApi3_1ElementCopy, mutationReplacer);
+
+      return !parent ? openApi3_1ElementCopy : undefined;
+    },
+  };
 
   public async ReferenceElement(
     referencingElement: ReferenceElement,
@@ -306,6 +337,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -486,6 +518,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -765,6 +798,7 @@ class OpenAPI3_1DereferenceVisitor {
       options: this.options,
       refractCache: this.refractCache,
       ancestors: ancestorsLineage,
+      allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
     });
 
     const referencedElement = await visitAsync(schemaElement, visitor, {
@@ -991,6 +1025,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -1055,6 +1090,25 @@ class OpenAPI3_1DereferenceVisitor {
         'ref-referencing-element-id',
         cloneDeep(identityManager.identify(referencingElement)),
       );
+
+      // creating mapping for allOf discriminator
+      if (this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+        const parentElement = ancestors[ancestors.length - 1];
+        const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
+        const parentSchemaElementName = parentSchemaElement?.getMetaProperty('schemaName');
+        const mergedElementName = toValue(mergedElement.getMetaProperty('schemaName'));
+
+        if (
+          mergedElementName &&
+          parentSchemaElementName &&
+          // @ts-ignore
+          parentElement?.classes?.contains('json-schema-allOf')
+        ) {
+          const currentMapping = this.allOfDiscriminatorMapping.get(mergedElementName) ?? [];
+          currentMapping.push(parentSchemaElement!);
+          this.allOfDiscriminatorMapping.set(mergedElementName, currentMapping);
+        }
+      }
 
       referencedElement = mergedElement;
     }

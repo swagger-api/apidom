@@ -1,0 +1,16 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "PetResponse": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "lizard": "./ex.json#/$defs/Lizard"
+          }
+        }
+      }
+    }
+  }
+}

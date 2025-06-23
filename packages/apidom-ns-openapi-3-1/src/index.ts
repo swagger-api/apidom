@@ -30,6 +30,8 @@ export { default as refractorPluginNormalizeParameterExamples } from './refracto
 export type { PluginOptions as RefractorPluginNormalizeParameterExamplesOptions } from './refractor/plugins/normalize-parameter-examples.ts';
 export { default as refractorPluginNormalizeHeaderExamples } from './refractor/plugins/normalize-header-examples/index.ts';
 export type { PluginOptions as RefractorPluginNormalizeHeaderExamplesOptions } from './refractor/plugins/normalize-header-examples/index.ts';
+export { default as refractorPluginNormalizeDiscriminatorMapping } from './refractor/plugins/normalize-discriminator-mapping.ts';
+export type { PluginOptions as RefractorPluginNormalizeDiscriminatorMappingOptions } from './refractor/plugins/normalize-discriminator-mapping.ts';
 export { default as createToolbox } from './refractor/toolbox.ts';
 export type {
   Predicates as ToolboxPredicates,

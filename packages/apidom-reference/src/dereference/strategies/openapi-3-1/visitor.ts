@@ -748,18 +748,16 @@ class OpenAPI3_1DereferenceVisitor {
       : memberElementValue;
 
     // create SchemaElement with the reference from the MemberElement value
-    const memberElementSchema = new SchemaElement({
+    const schemaElement = new SchemaElement({
       $ref: memberElementRef,
     });
-    memberElementSchema.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
-
-    const reference = await this.toReference(url.unsanitize(this.reference.uri));
+    schemaElement.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
 
     // append referencing reference to ancestors lineage
-    directAncestors.add(memberElementSchema);
+    directAncestors.add(schemaElement);
 
     const visitor = new OpenAPI3_1DereferenceVisitor({
-      reference,
+      reference: this.reference,
       namespace: this.namespace,
       indirections: [...this.indirections],
       options: this.options,
@@ -767,13 +765,13 @@ class OpenAPI3_1DereferenceVisitor {
       ancestors: ancestorsLineage,
     });
 
-    const referencedElement = await visitAsync(memberElementSchema, visitor, {
+    const referencedElement = await visitAsync(schemaElement, visitor, {
       keyMap,
       nodeTypeGetter: getNodeType,
     });
 
     // remove referencing reference from ancestors lineage
-    directAncestors.delete(memberElementSchema);
+    directAncestors.delete(schemaElement);
 
     // annotate MemberElement with referenced schema
     const memberElementCopy: MemberElement = cloneDeep(memberElement);

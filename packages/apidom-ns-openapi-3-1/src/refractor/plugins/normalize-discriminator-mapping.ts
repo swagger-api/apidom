@@ -90,7 +90,7 @@ const plugin =
             const mapping =
               schemaElement.discriminator.get('mapping') ?? new DiscriminatorMappingElement();
             const normalizedMapping: DiscriminatorMappingElement = cloneDeep(mapping);
-            let normalizationResult = true;
+            let isNormalized = true;
 
             const items = isArrayElement(schemaElement.oneOf)
               ? schemaElement.oneOf
@@ -102,7 +102,7 @@ const plugin =
               }
 
               if (isReferenceLikeElement(item)) {
-                normalizationResult = false;
+                isNormalized = false;
                 return;
               }
 
@@ -130,7 +130,7 @@ const plugin =
                 });
 
                 if (!hasMatchingMapping) {
-                  normalizationResult = false;
+                  isNormalized = false;
                 }
                 return;
               }
@@ -163,12 +163,12 @@ const plugin =
             });
 
             // check if any mapping is not a Schema Object
-            normalizationResult =
-              normalizationResult &&
+            isNormalized =
+              isNormalized &&
               normalizedMapping.filter((mappingValue: Element) => !isSchemaElement(mappingValue))
                 .length === 0;
 
-            if (normalizationResult) {
+            if (isNormalized) {
               schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);
               storage!.append(schemaJSONPointer);
             }

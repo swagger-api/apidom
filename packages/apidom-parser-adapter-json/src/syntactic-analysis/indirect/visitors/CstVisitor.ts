@@ -11,8 +11,6 @@ import {
   JsonStringContent,
   JsonTrue,
   ParseResult,
-  Position,
-  Point,
   Literal,
   Error,
 } from '@swagger-api/apidom-ast';
@@ -32,28 +30,16 @@ export const keyMap = {
 /* eslint-disable class-methods-use-this */
 
 class CstVisitor {
-  private static toPosition(node: TreeCursorSyntaxNode): Position {
-    const start = new Point({
-      row: node.startPosition.row,
-      column: node.startPosition.column,
-      char: node.startIndex,
-    });
-    const end = new Point({
-      row: node.endPosition.row,
-      column: node.endPosition.column,
-      char: node.endIndex,
-    });
-
-    return new Position({ start, end });
-  }
-
   public readonly document = {
     enter: (node: TreeCursorSyntaxNode): JsonDocument => {
-      const position = CstVisitor.toPosition(node);
-
       return new JsonDocument({
         children: node.children,
-        position,
+        startPositionRow: node.startPositionRow,
+        startPositionColumn: node.startPositionColumn,
+        startIndex: node.startIndex,
+        endPositionRow: node.endPositionRow,
+        endPositionColumn: node.endPositionColumn,
+        endIndex: node.endIndex,
         isMissing: node.isMissing,
       });
     },
@@ -65,77 +51,153 @@ class CstVisitor {
   public enter(node: TreeCursorSyntaxNode): Literal | undefined {
     // anonymous literals from CST transformed into AST literal nodes
     if (node instanceof TreeCursorSyntaxNode && !node.isNamed) {
-      const position = CstVisitor.toPosition(node);
       const value = node.type || node.text;
       const { isMissing } = node;
 
-      return new Literal({ value, position, isMissing });
+      return new Literal({
+        value,
+        startPositionRow: node.startPositionRow,
+        startPositionColumn: node.startPositionColumn,
+        startIndex: node.startIndex,
+        endPositionRow: node.endPositionRow,
+        endPositionColumn: node.endPositionColumn,
+        endIndex: node.endIndex,
+        isMissing,
+      });
     }
 
     return undefined;
   }
 
   public object(node: TreeCursorSyntaxNode): JsonObject {
-    const position = CstVisitor.toPosition(node);
-
-    return new JsonObject({ children: node.children, position, isMissing: node.isMissing });
+    return new JsonObject({
+      children: node.children,
+      // position,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   public pair(node: TreeCursorSyntaxNode): JsonProperty {
-    const position = CstVisitor.toPosition(node);
     const children = node.children.slice(1);
     const { keyNode } = node;
     const key = new JsonKey({
       children: keyNode?.children || [],
-      position: keyNode != null ? CstVisitor.toPosition(keyNode) : undefined,
+      startPositionRow: keyNode?.startPositionRow,
+      startPositionColumn: keyNode?.startPositionColumn,
+      startIndex: keyNode?.startIndex,
+      endPositionRow: keyNode?.endPositionRow,
+      endPositionColumn: keyNode?.endPositionColumn,
+      endIndex: keyNode?.endIndex,
       isMissing: keyNode != null ? keyNode.isMissing : false,
     });
 
-    return new JsonProperty({ children: [key, ...children], position, isMissing: node.isMissing });
+    return new JsonProperty({
+      children: [key, ...children],
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   public array(node: TreeCursorSyntaxNode): JsonArray {
-    const position = CstVisitor.toPosition(node);
-
-    return new JsonArray({ children: node.children, position, isMissing: node.isMissing });
+    return new JsonArray({
+      children: node.children,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   public string(node: TreeCursorSyntaxNode): JsonString {
-    const position = CstVisitor.toPosition(node);
     const content = new JsonStringContent({ value: JSON.parse(node.text) });
 
-    return new JsonString({ children: [content], position, isMissing: node.isMissing });
+    return new JsonString({
+      children: [content],
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   public number(node: TreeCursorSyntaxNode): JsonNumber {
-    const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return new JsonNumber({ value, position, isMissing: node.isMissing });
+    return new JsonNumber({
+      value,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public null(node: TreeCursorSyntaxNode): JsonNull {
-    const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return new JsonNull({ value, position, isMissing: node.isMissing });
+    return new JsonNull({
+      value,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public true(node: TreeCursorSyntaxNode): JsonTrue {
-    const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return new JsonTrue({ value, position, isMissing: node.isMissing });
+    return new JsonTrue({
+      value,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   // eslint-disable-next-line @typescript-eslint/naming-convention
   public false(node: TreeCursorSyntaxNode): JsonFalse {
-    const position = CstVisitor.toPosition(node);
     const value = node.text;
 
-    return new JsonFalse({ value, position, isMissing: node.isMissing });
+    return new JsonFalse({
+      value,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
+      isMissing: node.isMissing,
+    });
   }
 
   public ERROR(
@@ -144,10 +206,14 @@ class CstVisitor {
     parent: unknown,
     path: string[],
   ): ParseResult | Error {
-    const position = CstVisitor.toPosition(node);
     const errorNode = new Error({
       children: node.children,
-      position,
+      startPositionRow: node.startPositionRow,
+      startPositionColumn: node.startPositionColumn,
+      startIndex: node.startIndex,
+      endPositionRow: node.endPositionRow,
+      endPositionColumn: node.endPositionColumn,
+      endIndex: node.endIndex,
       isUnexpected: !node.hasError,
       isMissing: node.isMissing,
       value: node.text,

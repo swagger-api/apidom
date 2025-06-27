@@ -4,7 +4,6 @@ import { Element } from 'minim';
 
 import { hasElementSourceMap } from '../predicates/index.ts';
 import { visit } from './visitor.ts';
-import toValue from '../transformers/serializers/value/index.ts';
 
 interface VisitorOptions {
   readonly offset?: number;
@@ -29,9 +28,8 @@ class Visitor<T> {
       return undefined; // dive in
     }
 
-    const sourceMapElement = element.getMetaProperty('sourceMap');
-    const charStart = toValue(sourceMapElement.positionStart.get(2));
-    const charEnd = toValue(sourceMapElement.positionEnd.get(2));
+    const charStart = element.startIndex;
+    const charEnd = element.endIndex;
     const isWithinOffsetRange =
       this.offset >= charStart &&
       (this.offset < charEnd || (this.includeRightBound && this.offset <= charEnd));

@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
-import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { NumberElement, isParseResultElement, hasElementSourceMap } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 import { fileURLToPath } from 'node:url';
 
@@ -205,7 +205,7 @@ describe('parsers', function () {
             const parser = new OpenAPIYAML3_0Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(isSourceMapElement(parseResult.api?.meta.get('sourceMap')));
+            assert.isTrue(parseResult.api && hasElementSourceMap(parseResult.api));
           });
         });
 

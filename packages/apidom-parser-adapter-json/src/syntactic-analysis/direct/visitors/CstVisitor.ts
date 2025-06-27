@@ -4,7 +4,6 @@ import {
   NumberElement,
   ParseResultElement,
   Element,
-  SourceMapElement,
   MemberElement,
   ObjectElement,
   ArrayElement,
@@ -18,20 +17,6 @@ import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode.ts';
 /* eslint-disable no-underscore-dangle */
 
 class CstVisitor {
-  private static toPosition(node: TreeCursorSyntaxNode): Array<ArrayElement> {
-    const start = new ArrayElement([
-      node.startPosition.row,
-      node.startPosition.column,
-      node.startIndex,
-    ]);
-    const end = new ArrayElement([node.endPosition.row, node.endPosition.column, node.endIndex]);
-
-    start.classes.push('position');
-    end.classes.push('position');
-
-    return [start, end];
-  }
-
   public sourceMap: boolean = false;
 
   public annotations: AnnotationElement[];
@@ -182,23 +167,20 @@ class CstVisitor {
     return null;
   }
 
+  /* eslint-disable no-param-reassign */
   private maybeAddSourceMap(node: TreeCursorSyntaxNode, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    const sourceMap = new SourceMapElement();
-    const position = CstVisitor.toPosition(node);
-
-    if (position !== null) {
-      const [start, end] = position;
-      sourceMap.push(start);
-      sourceMap.push(end);
-    }
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
+    element.startPositionRow = node.startPositionRow;
+    element.startPositionColumn = node.startPositionColumn;
+    element.startIndex = node.startIndex;
+    element.endPositionRow = node.endPositionRow;
+    element.endPositionColumn = node.endPositionColumn;
+    element.endIndex = node.endIndex;
   }
+  /* eslint-enable no-param-reassign */
 }
 
 /* eslint-enable no-underscore-dangle */

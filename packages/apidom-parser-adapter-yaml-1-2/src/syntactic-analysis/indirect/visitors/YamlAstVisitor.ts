@@ -16,7 +16,6 @@ import {
   ParseResultElement,
   AnnotationElement,
   CommentElement,
-  SourceMapElement,
   Element,
   MemberElement,
   ObjectElement,
@@ -212,18 +211,26 @@ class YamlAstVisitor {
     return null;
   }
 
+  /* eslint-disable no-param-reassign */
   private maybeAddSourceMap(node: unknown, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    const sourceMap = new SourceMapElement();
     // @ts-ignore
-    sourceMap.position = node.position;
+    element.startPositionRow = node.startPositionRow;
     // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
+    element.startPositionColumn = node.startPositionColumn;
+    // @ts-ignore
+    element.startIndex = node.startIndex;
+    // @ts-ignore
+    element.endPositionRow = node.endPositionRow;
+    // @ts-ignore
+    element.endPositionColumn = node.endPositionColumn;
+    // @ts-ignore
+    element.endIndex = node.endIndex;
   }
+  /* eslint-enable no-param-reassign */
 }
 
 export default YamlAstVisitor;

@@ -20,7 +20,6 @@ import {
   Element,
   ParseResultElement,
   ObjectElement,
-  SourceMapElement,
   MemberElement,
   ArrayElement,
   BooleanElement,
@@ -218,18 +217,20 @@ class JsonAstVisitor {
     return null;
   }
 
+  /* eslint-disable no-param-reassign */
   private maybeAddSourceMap(node: JsonNode, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    const sourceMap = new SourceMapElement();
-    // @ts-ignore
-    sourceMap.position = node.position;
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
+    element.startPositionRow = node.startPositionRow;
+    element.startPositionColumn = node.startPositionColumn;
+    element.startIndex = node.startIndex;
+    element.endPositionRow = node.endPositionRow;
+    element.endPositionColumn = node.endPositionColumn;
+    element.endIndex = node.endIndex;
   }
+  /* eslint-enable no-param-reassign */
 }
 
 export default JsonAstVisitor;

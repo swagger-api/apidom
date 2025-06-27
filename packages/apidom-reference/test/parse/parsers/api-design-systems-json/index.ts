@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
-import { NumberElement, isParseResultElement, isSourceMapElement } from '@swagger-api/apidom-core';
+import { NumberElement, isParseResultElement, hasElementSourceMap } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import { fileURLToPath } from 'node:url';
 
@@ -176,7 +176,7 @@ describe('parsers', function () {
             const parser = new APIDesignSystemsJSONParser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(isSourceMapElement(parseResult.result?.meta.get('sourceMap')));
+            assert.isTrue(parseResult.result && hasElementSourceMap(parseResult.result));
           });
         });
 

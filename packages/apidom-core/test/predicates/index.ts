@@ -839,8 +839,12 @@ describe('predicates', function () {
     context('given element has sourcemap', function () {
       specify('should return true', function () {
         const element = new ObjectElement({ prop: 'val' });
-        const sourceMap = new SourceMapElement();
-        element.setMetaProperty('sourceMap', sourceMap);
+        element.startPositionRow = 1;
+        element.startPositionColumn = 1;
+        element.startIndex = 0;
+        element.endPositionRow = 1;
+        element.endPositionColumn = 2;
+        element.endIndex = 1;
 
         assert.isTrue(hasElementSourceMap(element));
       });
@@ -848,7 +852,12 @@ describe('predicates', function () {
       context('and sourcemap is not SourceMapElement', function () {
         specify('should return false', function () {
           const element = new ObjectElement({ prop: 'val' });
-          element.setMetaProperty('sourceMap', null);
+          element.startPositionRow = null;
+          element.startPositionColumn = null;
+          element.startIndex = null;
+          element.endPositionRow = null;
+          element.endPositionColumn = null;
+          element.endIndex = null;
 
           assert.isFalse(hasElementSourceMap(element));
         });

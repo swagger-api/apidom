@@ -220,7 +220,14 @@ export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
  * @public
  */
 export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
-  return isSourceMapElement(element.meta.get('sourceMap'));
+  return (
+    typeof element.startPositionRow === 'number' &&
+    typeof element.startPositionColumn === 'number' &&
+    typeof element.startIndex === 'number' &&
+    typeof element.endPositionRow === 'number' &&
+    typeof element.endPositionColumn === 'number' &&
+    typeof element.endIndex === 'number'
+  );
 };
 
 /**

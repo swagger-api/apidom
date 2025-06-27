@@ -4,11 +4,24 @@ import { createToolbox as createToolboxOpenAPI31 } from '@swagger-api/apidom-ns-
 const createToolbox = () => {
   const openAPI31Toolbox = createToolboxOpenAPI31();
 
+  /* eslint-disable class-methods-use-this, no-param-reassign */
   const copySourceMap = <T extends Element, U extends Element>(from: T, to: U): void => {
     if (openAPI31Toolbox.predicates.hasElementSourceMap(from)) {
-      to.meta.set('sourceMap', from.meta.get('sourceMap'));
+      // @ts-ignore
+      to.startPositionRow = from.startPositionRow;
+      // @ts-ignore
+      to.startPositionColumn = from.startPositionColumn;
+      // @ts-ignore
+      to.startIndex = from.startIndex;
+      // @ts-ignore
+      to.endPositionRow = from.endPositionRow;
+      // @ts-ignore
+      to.endPositionColumn = from.endPositionColumn;
+      // @ts-ignore
+      to.endIndex = from.endIndex;
     }
   };
+  /* eslint-enable no-param-reassign */
 
   const createAnnotation = (content?: string, meta?: Meta, attributes?: Attributes) => {
     return new AnnotationElement(content, meta, attributes);

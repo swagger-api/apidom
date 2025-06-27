@@ -635,12 +635,19 @@ const plugin = () => () => ({
       // no element factory found
       if (typeof elementFactory !== 'function') return undefined;
 
-      return elementFactory.call(
+      const result = elementFactory.call(
         { context },
         undefined,
         cloneDeep(element.meta),
         cloneDeep(element.attributes),
       );
+      result.startPositionRow = element.startPositionRow;
+      result.startPositionColumn = element.startPositionColumn;
+      result.startIndex = element.startIndex;
+      result.endPositionRow = element.endPositionRow;
+      result.endPositionColumn = element.endPositionColumn;
+      result.endIndex = element.endIndex;
+      return result;
     },
   },
 });

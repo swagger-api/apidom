@@ -7,6 +7,12 @@ export interface NodeOptions {
   readonly children?: unknown[];
   readonly position?: Position;
   readonly isMissing?: boolean;
+  readonly startPositionRow?: number;
+  readonly startPositionColumn?: number;
+  readonly startIndex?: number;
+  readonly endPositionRow?: number;
+  readonly endPositionColumn?: number;
+  readonly endIndex?: number;
 }
 
 /**
@@ -21,13 +27,37 @@ class Node {
 
   public children: unknown[];
 
-  public position?: Position;
+  public startPositionRow?: number;
 
-  constructor({ children = [], position, isMissing = false }: NodeOptions = {}) {
+  public startPositionColumn?: number;
+
+  public startIndex?: number;
+
+  public endPositionRow?: number;
+
+  public endPositionColumn?: number;
+
+  public endIndex?: number;
+
+  constructor({
+    children = [],
+    isMissing = false,
+    startPositionRow,
+    startPositionColumn,
+    startIndex,
+    endPositionRow,
+    endPositionColumn,
+    endIndex,
+  }: NodeOptions = {}) {
     this.type = (this.constructor as typeof Node).type;
     this.isMissing = isMissing;
     this.children = children;
-    this.position = position;
+    this.startPositionRow = startPositionRow;
+    this.startPositionColumn = startPositionColumn;
+    this.startIndex = startIndex;
+    this.endPositionRow = endPositionRow;
+    this.endPositionColumn = endPositionColumn;
+    this.endIndex = endIndex;
   }
 
   // creates shallow clone of node

@@ -1,5 +1,4 @@
 import type Literal from './Literal.ts';
-import Position, { Point } from './Position.ts';
 import ParseResult from './ParseResult.ts';
 
 /**

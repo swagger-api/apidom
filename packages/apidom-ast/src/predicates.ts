@@ -16,15 +16,5 @@ export const isLiteral = (node: unknown): node is Literal => isNodeType('literal
 /**
  * @public
  */
-export const isPosition = (node: unknown): node is Position => isNodeType('position', node);
-
-/**
- * @public
- */
-export const isPoint = (node: unknown): node is Point => isNodeType('point', node);
-
-/**
- * @public
- */
 export const isParseResult = (node: unknown): node is ParseResult =>
   isNodeType('parseResult', node);

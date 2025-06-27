@@ -16,7 +16,6 @@ import { included } from 'ramda-adjunct';
 import AnnotationElement from '../elements/Annotation.ts';
 import CommentElement from '../elements/Comment.ts';
 import ParserResultElement from '../elements/ParseResult.ts';
-import SourceMapElement from '../elements/SourceMap.ts';
 import createPredicate, { isElementType as isElementTypeHelper } from './helpers.ts';
 import type { ElementPredicate } from './helpers.ts';
 
@@ -170,19 +169,6 @@ export const isParseResultElement = createPredicate(
       element instanceof ParserResultElement ||
       (hasBasicElementProps(element) &&
         isElementType('parseResult', element) &&
-        primitiveEq('array', element));
-  },
-);
-
-/**
- * @public
- */
-export const isSourceMapElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: unknown): element is SourceMapElement =>
-      element instanceof SourceMapElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('sourceMap', element) &&
         primitiveEq('array', element));
   },
 );

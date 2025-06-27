@@ -13,7 +13,6 @@ import {
   RefElement,
   ParseResultElement,
   AnnotationElement,
-  SourceMapElement,
   isElement,
   isStringElement,
   isNumberElement,
@@ -26,7 +25,6 @@ import {
   isRefElement,
   isParseResultElement,
   isAnnotationElement,
-  isSourceMapElement,
   hasElementSourceMap,
   includesSymbols,
   includesClasses,
@@ -776,62 +774,6 @@ describe('predicates', function () {
 
       assert.isTrue(isAnnotationElement(annotationElementDuck));
       assert.isFalse(isAnnotationElement(annotationElementSwan));
-    });
-  });
-
-  context('isSourceMapElement', function () {
-    context('given SourceMapElement instance value', function () {
-      specify('should return true', function () {
-        const element = new SourceMapElement();
-
-        assert.isTrue(isSourceMapElement(element));
-      });
-    });
-
-    context('given subtype instance value', function () {
-      specify('should return true', function () {
-        class SourceMapSubElement extends SourceMapElement {}
-
-        assert.isTrue(isSourceMapElement(new SourceMapSubElement()));
-      });
-    });
-
-    context('given non SourceMapSubElement instance value', function () {
-      specify('should return false', function () {
-        assert.isFalse(isSourceMapElement(1));
-        assert.isFalse(isSourceMapElement(null));
-        assert.isFalse(isSourceMapElement(undefined));
-        assert.isFalse(isSourceMapElement({}));
-        assert.isFalse(isSourceMapElement([]));
-        assert.isFalse(isSourceMapElement('string'));
-
-        assert.isFalse(isSourceMapElement(new StringElement()));
-        assert.isFalse(isSourceMapElement(new BooleanElement()));
-      });
-    });
-
-    specify('should support duck-typing', function () {
-      const sourceMapElementDuck = {
-        _storedElement: 'sourceMap',
-        _content: [],
-        primitive() {
-          return 'array';
-        },
-        get element() {
-          return this._storedElement;
-        },
-      };
-
-      const sourceMapElementSwan = {
-        _storedElement: 'sourceMap',
-        _content: [],
-        primitive() {
-          return undefined;
-        },
-      };
-
-      assert.isTrue(isSourceMapElement(sourceMapElementDuck));
-      assert.isFalse(isSourceMapElement(sourceMapElementSwan));
     });
   });
 

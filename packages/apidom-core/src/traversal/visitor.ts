@@ -85,7 +85,6 @@ export const keyMapDefault = {
   Annotation: [],
   Comment: [],
   ParseResultElement: ['content'],
-  SourceMap: ['content'],
 };
 
 export interface PredicateVisitorOptions {

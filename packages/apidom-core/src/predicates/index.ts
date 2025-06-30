@@ -205,7 +205,7 @@ export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
 /**
  * @public
  */
-export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
+export const hasElementSourceMap = <T extends Element>(element?: T): boolean => {
   if (!isElement(element)) {
     return false;
   }

@@ -174,7 +174,7 @@ describe('parsers', function () {
             const parser = new AsyncAPIJSON2Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(parseResult.api && hasElementSourceMap(parseResult.api));
+            assert.isTrue(hasElementSourceMap(parseResult.api));
           });
         });
 

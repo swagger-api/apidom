@@ -218,7 +218,6 @@ class JsonAstVisitor {
     return null;
   }
 
-  /* eslint-disable no-param-reassign */
   private maybeAddSourceMap(node: JsonNode, element: Element): void {
     if (!this.sourceMap) {
       return;
@@ -226,7 +225,6 @@ class JsonAstVisitor {
 
     assignSourceMap(element, node);
   }
-  /* eslint-enable no-param-reassign */
 }
 
 export default JsonAstVisitor;

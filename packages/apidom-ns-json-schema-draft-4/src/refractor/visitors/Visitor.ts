@@ -33,6 +33,7 @@ class Visitor {
       to.attributes = deepmerge(to.attributes, from.attributes) as ObjectElement;
     }
   }
+  /* eslint-enable class-methods-use-this, no-param-reassign */
 }
 
 export default Visitor;

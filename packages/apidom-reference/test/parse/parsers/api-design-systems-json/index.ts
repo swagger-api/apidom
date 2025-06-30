@@ -176,7 +176,7 @@ describe('parsers', function () {
             const parser = new APIDesignSystemsJSONParser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(parseResult.result && hasElementSourceMap(parseResult.result));
+            assert.isTrue(hasElementSourceMap(parseResult.result));
           });
         });
 

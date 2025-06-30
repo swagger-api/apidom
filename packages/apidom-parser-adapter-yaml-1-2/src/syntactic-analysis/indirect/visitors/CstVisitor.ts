@@ -222,7 +222,7 @@ class CstVisitor {
       ) {
         return node.children;
       }
-      // // kind node not present in flow node, creating empty node
+      // kind node not present in flow node, creating empty node
       const emptyScalarNode = new YamlScalar({
         content: '',
         anchor: CstVisitor.kindNodeToYamlAnchor(kindCandidate),

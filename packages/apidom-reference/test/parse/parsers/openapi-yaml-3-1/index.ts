@@ -205,7 +205,7 @@ describe('parsers', function () {
             const parser = new OpenAPIYAML3_1Parser({ sourceMap: true });
             const parseResult = await parser.parse(file);
 
-            assert.isTrue(parseResult.api && hasElementSourceMap(parseResult.api));
+            assert.isTrue(hasElementSourceMap(parseResult.api));
           });
         });
 

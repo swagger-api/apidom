@@ -2,13 +2,11 @@ import {
   cloneDeep,
   Element,
   isArrayElement,
+  ObjectElement,
   StringElement,
   toValue,
 } from '@swagger-api/apidom-core';
-import {
-  DiscriminatorMappingElement,
-  isReferenceLikeElement,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import type { Toolbox } from '../toolbox.ts';
 import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
@@ -62,7 +60,7 @@ const plugin =
             ancestors: [Element | Element[]],
           ) {
             // no Schema.discriminator field present
-            if (typeof schemaElement.discriminator === 'undefined') {
+            if (!isDiscriminatorElement(schemaElement.discriminator)) {
               return;
             }
 
@@ -87,9 +85,8 @@ const plugin =
               return;
             }
 
-            const mapping =
-              schemaElement.discriminator.get('mapping') ?? new DiscriminatorMappingElement();
-            const normalizedMapping: DiscriminatorMappingElement = cloneDeep(mapping);
+            const mapping = schemaElement.discriminator.get('mapping') ?? new ObjectElement();
+            const normalizedMapping: ObjectElement = cloneDeep(mapping);
             let isNormalized = true;
 
             const items = isArrayElement(schemaElement.oneOf)
@@ -124,7 +121,7 @@ const plugin =
                     ?.get('$refBaseURI');
 
                   if (mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)) {
-                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    normalizedMapping.set(mappingKey, cloneDeep(item));
                     hasMatchingMapping = true;
                   }
                 });
@@ -150,7 +147,7 @@ const plugin =
                     mappingValueSchemaName?.equals(metaSchemaName) &&
                     mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)
                   ) {
-                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
+                    normalizedMapping.set(mappingKey, cloneDeep(item));
                     hasMatchingMapping = true;
                   }
                 });

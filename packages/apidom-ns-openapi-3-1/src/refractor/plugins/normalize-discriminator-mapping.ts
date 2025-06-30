@@ -121,7 +121,7 @@ const plugin =
                     ?.get('$refBaseURI');
 
                   if (mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)) {
-                    normalizedMapping.set(mappingKey, cloneDeep(item));
+                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
                     hasMatchingMapping = true;
                   }
                 });
@@ -147,7 +147,7 @@ const plugin =
                     mappingValueSchemaName?.equals(metaSchemaName) &&
                     mappingValueSchemaRefBaseURI?.equals(metaRefFields?.$refBaseURI)
                   ) {
-                    normalizedMapping.set(mappingKey, cloneDeep(item));
+                    normalizedMapping.set(toValue(mappingKey), cloneDeep(item));
                     hasMatchingMapping = true;
                   }
                 });

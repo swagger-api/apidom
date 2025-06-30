@@ -20,7 +20,6 @@ import {
   Element,
   ParseResultElement,
   ObjectElement,
-  SourceMapElement,
   MemberElement,
   ArrayElement,
   BooleanElement,
@@ -33,6 +32,7 @@ import {
   isElement,
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 export const keyMap = {
@@ -218,18 +218,15 @@ class JsonAstVisitor {
     return null;
   }
 
+  /* eslint-disable no-param-reassign */
   private maybeAddSourceMap(node: JsonNode, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    const sourceMap = new SourceMapElement();
-    // @ts-ignore
-    sourceMap.position = node.position;
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
+    assignSourceMap(element, node);
   }
+  /* eslint-enable no-param-reassign */
 }
 
 export default JsonAstVisitor;

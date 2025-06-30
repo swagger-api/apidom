@@ -32,6 +32,7 @@ import {
   isElement,
   keyMap as keyMapApiDOM,
   getNodeType as getNodeTypeApiDOM,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 export const keyMap = {
@@ -223,12 +224,7 @@ class JsonAstVisitor {
       return;
     }
 
-    element.startPositionRow = node.startPositionRow;
-    element.startPositionColumn = node.startPositionColumn;
-    element.startIndex = node.startIndex;
-    element.endPositionRow = node.endPositionRow;
-    element.endPositionColumn = node.endPositionColumn;
-    element.endIndex = node.endIndex;
+    assignSourceMap(element, node);
   }
   /* eslint-enable no-param-reassign */
 }

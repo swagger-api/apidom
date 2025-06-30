@@ -28,11 +28,10 @@ class Visitor<T> {
       return undefined; // dive in
     }
 
-    const charStart = element.startIndex;
-    const charEnd = element.endIndex;
+    const { startIndex, endIndex } = element;
     const isWithinOffsetRange =
-      this.offset >= charStart &&
-      (this.offset < charEnd || (this.includeRightBound && this.offset <= charEnd));
+      this.offset >= startIndex &&
+      (this.offset < endIndex || (this.includeRightBound && this.offset <= endIndex));
 
     if (isWithinOffsetRange) {
       this.result.push(element);

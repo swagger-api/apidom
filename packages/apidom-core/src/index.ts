@@ -80,7 +80,7 @@ export type { Callback, TraverseOptions } from './traversal/traverse.ts';
 
 export { transclude, default as Transcluder } from './transcluder/index.ts';
 
-export { dereference } from './util.ts';
+export { dereference, assignSourceMap } from './util.ts';
 
 export { cloneShallow, cloneDeep } from './clone/index.ts';
 export { default as CloneError } from './clone/errors/CloneError.ts';

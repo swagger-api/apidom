@@ -10,6 +10,7 @@ import {
   StringElement,
   AnnotationElement,
   isPrimitiveElement,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 import TreeCursorSyntaxNode from '../../TreeCursorSyntaxNode.ts';
@@ -173,12 +174,7 @@ class CstVisitor {
       return;
     }
 
-    element.startPositionRow = node.startPositionRow;
-    element.startPositionColumn = node.startPositionColumn;
-    element.startIndex = node.startIndex;
-    element.endPositionRow = node.endPositionRow;
-    element.endPositionColumn = node.endPositionColumn;
-    element.endIndex = node.endIndex;
+    assignSourceMap(element, node);
   }
   /* eslint-enable no-param-reassign */
 }

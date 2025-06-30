@@ -1,4 +1,10 @@
-import { ObjectElement, hasElementSourceMap, deepmerge, Element } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  hasElementSourceMap,
+  deepmerge,
+  Element,
+  assignSourceMap,
+} from '@swagger-api/apidom-core';
 
 /**
  * @public
@@ -21,12 +27,7 @@ class Visitor {
       to.meta = deepmerge(to.meta, from.meta) as ObjectElement;
     }
     if (hasElementSourceMap(from)) {
-      to.startPositionRow = from.startPositionRow;
-      to.startPositionColumn = from.startPositionColumn;
-      to.startIndex = from.startIndex;
-      to.endPositionRow = from.endPositionRow;
-      to.endPositionColumn = from.endPositionColumn;
-      to.endIndex = from.endIndex;
+      assignSourceMap(to, from);
     }
     if (from.attributes.length > 0 || from.meta.length > 0) {
       to.attributes = deepmerge(to.attributes, from.attributes) as ObjectElement;

@@ -11,6 +11,7 @@ import {
   isNode as isCSTNode,
   YamlScalar,
   YamlStyle,
+  Node,
 } from '@swagger-api/apidom-ast';
 import {
   ParseResultElement,
@@ -26,6 +27,7 @@ import {
   getNodeType as getNodeTypeApiDOM,
   Namespace,
   createNamespace,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 export const keyMap = {
@@ -212,23 +214,12 @@ class YamlAstVisitor {
   }
 
   /* eslint-disable no-param-reassign */
-  private maybeAddSourceMap(node: unknown, element: Element): void {
+  private maybeAddSourceMap(node: Node, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    // @ts-ignore
-    element.startPositionRow = node.startPositionRow;
-    // @ts-ignore
-    element.startPositionColumn = node.startPositionColumn;
-    // @ts-ignore
-    element.startIndex = node.startIndex;
-    // @ts-ignore
-    element.endPositionRow = node.endPositionRow;
-    // @ts-ignore
-    element.endPositionColumn = node.endPositionColumn;
-    // @ts-ignore
-    element.endIndex = node.endIndex;
+    assignSourceMap(element, node);
   }
   /* eslint-enable no-param-reassign */
 }

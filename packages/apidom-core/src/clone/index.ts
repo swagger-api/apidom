@@ -3,6 +3,7 @@ import { ArraySlice, ObjectSlice, KeyValuePair, Element } from 'minim';
 import { hasElementSourceMap, isElement } from '../predicates/index.ts';
 import DeepCloneError from './errors/DeepCloneError.ts';
 import ShallowCloneError from './errors/ShallowCloneError.ts';
+import { assignSourceMap } from '../util.ts';
 
 /**
  * @public
@@ -124,12 +125,7 @@ const cloneShallowElement = <T extends Element>(element: T): T => {
   copy.element = element.element;
 
   if (hasElementSourceMap(element)) {
-    copy.startPositionRow = element.startPositionRow;
-    copy.startPositionColumn = element.startPositionColumn;
-    copy.startIndex = element.startIndex;
-    copy.endPositionRow = element.endPositionRow;
-    copy.endPositionColumn = element.endPositionColumn;
-    copy.endIndex = element.endIndex;
+    assignSourceMap(copy, element);
   }
 
   if (element.meta.length > 0) {

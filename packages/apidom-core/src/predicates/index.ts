@@ -206,13 +206,17 @@ export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
  * @public
  */
 export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
+  if (!isElement(element)) {
+    return false;
+  }
+
   return (
-    typeof element.startPositionRow === 'number' &&
-    typeof element.startPositionColumn === 'number' &&
-    typeof element.startIndex === 'number' &&
-    typeof element.endPositionRow === 'number' &&
-    typeof element.endPositionColumn === 'number' &&
-    typeof element.endIndex === 'number'
+    Number.isInteger(element.startPositionRow) &&
+    Number.isInteger(element.startPositionColumn) &&
+    Number.isInteger(element.startIndex) &&
+    Number.isInteger(element.endPositionRow) &&
+    Number.isInteger(element.endPositionColumn) &&
+    Number.isInteger(element.endIndex)
   );
 };
 

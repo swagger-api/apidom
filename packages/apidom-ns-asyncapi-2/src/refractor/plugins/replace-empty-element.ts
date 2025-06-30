@@ -10,6 +10,7 @@ import {
   includesClasses,
   cloneDeep,
   toValue,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 import mediaTypes from '../../media-types.ts';
@@ -1067,13 +1068,8 @@ const plugin = () => () => ({
         cloneDeep(element.meta),
         cloneDeep(element.attributes),
       );
-      result.startPositionRow = element.startPositionRow;
-      result.startPositionColumn = element.startPositionColumn;
-      result.startIndex = element.startIndex;
-      result.endPositionRow = element.endPositionRow;
-      result.endPositionColumn = element.endPositionColumn;
-      result.endIndex = element.endIndex;
-      return result;
+
+      return assignSourceMap(result, element);
     },
   },
 });

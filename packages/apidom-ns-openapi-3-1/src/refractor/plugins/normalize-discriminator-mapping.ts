@@ -120,7 +120,7 @@ const plugin =
                 ? schemaElement.anyOf
                 : (allOfMapping.value as ArrayElement);
 
-            items!.forEach((item) => {
+            items.forEach((item) => {
               if (!isSchemaElement(item)) {
                 return;
               }

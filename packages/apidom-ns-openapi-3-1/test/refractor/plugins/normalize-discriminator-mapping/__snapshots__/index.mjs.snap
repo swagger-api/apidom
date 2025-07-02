@@ -9,55 +9,6 @@ Object {
           Object {
             discriminator: Object {
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Cat: Object {
-                  allOf: [Circular],
-                },
-                Dog: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      discriminator: Object {
-                        mapping: Object {
-                          Test1: #/components/schemas/Cat,
-                          Test2: #/components/schemas/Dog,
-                        },
-                        propertyName: petType2,
-                        x-normalized-mapping: Object {
-                          Test1: Object {
-                            allOf: [Circular],
-                          },
-                          Test2: Object {
-                            allOf: [Circular],
-                          },
-                        },
-                      },
-                      properties: Object {
-                        petType2: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        barks: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -73,51 +24,6 @@ Object {
                 Test2: #/components/schemas/Dog,
               },
               propertyName: petType2,
-              x-normalized-mapping: Object {
-                Test1: Object {
-                  allOf: [Circular],
-                },
-                Test2: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: Object {
-                        propertyName: petType,
-                        x-normalized-mapping: Object {
-                          Cat: Object {
-                            allOf: [Circular],
-                          },
-                          Dog: Object {
-                            allOf: [Circular],
-                          },
-                        },
-                      },
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType2: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        barks: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-              },
             },
             properties: Object {
               petType2: Object {
@@ -141,55 +47,6 @@ Object {
           Object {
             discriminator: Object {
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Cat: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      discriminator: Object {
-                        mapping: Object {
-                          Test1: #/components/schemas/Cat,
-                          Test2: #/components/schemas/Dog,
-                        },
-                        propertyName: petType2,
-                        x-normalized-mapping: Object {
-                          Test1: Object {
-                            allOf: [Circular],
-                          },
-                          Test2: Object {
-                            allOf: [Circular],
-                          },
-                        },
-                      },
-                      properties: Object {
-                        petType2: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        meows: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-                Dog: Object {
-                  allOf: [Circular],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -205,51 +62,6 @@ Object {
                 Test2: #/components/schemas/Dog,
               },
               propertyName: petType2,
-              x-normalized-mapping: Object {
-                Test1: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: Object {
-                        propertyName: petType,
-                        x-normalized-mapping: Object {
-                          Cat: Object {
-                            allOf: [Circular],
-                          },
-                          Dog: Object {
-                            allOf: [Circular],
-                          },
-                        },
-                      },
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType2: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        meows: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-                Test2: Object {
-                  allOf: [Circular],
-                },
-              },
             },
             properties: Object {
               petType2: Object {
@@ -275,7 +87,9 @@ Object {
             Cat: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,
@@ -290,41 +104,6 @@ Object {
                       Test2: #/components/schemas/Dog,
                     },
                     propertyName: petType2,
-                    x-normalized-mapping: Object {
-                      Test1: Object {
-                        allOf: [Circular],
-                      },
-                      Test2: Object {
-                        allOf: Array [
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType2: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            properties: Object {
-                              barks: Object {
-                                type: boolean,
-                              },
-                            },
-                            type: object,
-                          },
-                        ],
-                      },
-                    },
                   },
                   properties: Object {
                     petType2: Object {
@@ -346,7 +125,9 @@ Object {
             Dog: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,
@@ -361,41 +142,6 @@ Object {
                       Test2: #/components/schemas/Dog,
                     },
                     propertyName: petType2,
-                    x-normalized-mapping: Object {
-                      Test1: Object {
-                        allOf: Array [
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType2: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            properties: Object {
-                              meows: Object {
-                                type: boolean,
-                              },
-                            },
-                            type: object,
-                          },
-                        ],
-                      },
-                      Test2: Object {
-                        allOf: [Circular],
-                      },
-                    },
                   },
                   properties: Object {
                     petType2: Object {
@@ -436,41 +182,6 @@ Object {
                 Object {
                   discriminator: Object {
                     propertyName: petType,
-                    x-normalized-mapping: Object {
-                      Cat: Object {
-                        allOf: [Circular],
-                      },
-                      Dog: Object {
-                        allOf: Array [
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType2: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            properties: Object {
-                              barks: Object {
-                                type: boolean,
-                              },
-                            },
-                            type: object,
-                          },
-                        ],
-                      },
-                    },
                   },
                   properties: Object {
                     petType: Object {
@@ -480,7 +191,13 @@ Object {
                   type: object,
                 },
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
                   properties: Object {
                     petType2: Object {
                       type: string,
@@ -503,41 +220,6 @@ Object {
                 Object {
                   discriminator: Object {
                     propertyName: petType,
-                    x-normalized-mapping: Object {
-                      Cat: Object {
-                        allOf: Array [
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            discriminator: [Circular],
-                            properties: Object {
-                              petType2: Object {
-                                type: string,
-                              },
-                            },
-                            type: object,
-                          },
-                          Object {
-                            properties: Object {
-                              meows: Object {
-                                type: boolean,
-                              },
-                            },
-                            type: object,
-                          },
-                        ],
-                      },
-                      Dog: Object {
-                        allOf: [Circular],
-                      },
-                    },
                   },
                   properties: Object {
                     petType: Object {
@@ -547,7 +229,13 @@ Object {
                   type: object,
                 },
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
                   properties: Object {
                     petType2: Object {
                       type: string,
@@ -599,32 +287,6 @@ Object {
                 Test2: #/components/schemas/Dog,
               },
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Test1: Object {
-                  allOf: [Circular],
-                },
-                Test2: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        barks: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -652,32 +314,6 @@ Object {
                 Test2: #/components/schemas/Dog,
               },
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Test1: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        meows: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-                Test2: Object {
-                  allOf: [Circular],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -707,7 +343,13 @@ Object {
             Test1: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,
@@ -728,7 +370,13 @@ Object {
             Test2: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,
@@ -775,32 +423,6 @@ Object {
           Object {
             discriminator: Object {
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Cat: Object {
-                  allOf: [Circular],
-                },
-                Dog: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        barks: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -824,32 +446,6 @@ Object {
           Object {
             discriminator: Object {
               propertyName: petType,
-              x-normalized-mapping: Object {
-                Cat: Object {
-                  allOf: Array [
-                    Object {
-                      discriminator: [Circular],
-                      properties: Object {
-                        petType: Object {
-                          type: string,
-                        },
-                      },
-                      type: object,
-                    },
-                    Object {
-                      properties: Object {
-                        meows: Object {
-                          type: boolean,
-                        },
-                      },
-                      type: object,
-                    },
-                  ],
-                },
-                Dog: Object {
-                  allOf: [Circular],
-                },
-              },
             },
             properties: Object {
               petType: Object {
@@ -875,7 +471,9 @@ Object {
             Cat: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,
@@ -896,7 +494,9 @@ Object {
             Dog: Object {
               allOf: Array [
                 Object {
-                  discriminator: [Circular],
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
                   properties: Object {
                     petType: Object {
                       type: string,

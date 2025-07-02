@@ -5,7 +5,11 @@ import {
   isArrayElement,
   ObjectElement,
   StringElement,
+  MemberElement,
   toValue,
+  visit,
+  isMemberElement,
+  isStringElement,
 } from '@swagger-api/apidom-core';
 import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
@@ -14,6 +18,7 @@ import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
 import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 import { SchemaElement } from '../registration.ts';
 import { isSchemaElement } from '../../predicates.ts';
+import DiscriminatorElement from '../../elements/Discriminator.ts';
 
 /**
  * Normalization of Discriminator.mapping field.
@@ -21,7 +26,12 @@ import { isSchemaElement } from '../../predicates.ts';
  * Discriminator.mapping fields are normalized by adding missing mappings from oneOf/anyOf items
  * of the parent Schema Object and transforming existing mappings to Schema Objects.
  *
+ * In case of allOf discriminator, the plugin will add missing mappings based on
+ * allOf items of other Schema Objects.
+ *
  * The normalized mapping is stored in the Schema.discriminator field as `x-normalized-mapping`.
+ *
+ * This plugin is designed to be used on dereferenced OpenAPI 3.1 documents.
  *
  * NOTE: this plugin is idempotent
  * @public
@@ -191,6 +201,48 @@ const plugin =
 
             if (isNormalized) {
               schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);
+
+              // dive in and eliminate cycles that might be created by normalization
+              visit(
+                schemaElement,
+                {},
+                {
+                  // @ts-ignore
+                  detectCyclesCallback: <T extends Element>(
+                    node: T,
+                    nodeKey: string | number,
+                    nodeParent: Element | undefined,
+                  ) => {
+                    if (
+                      !nodeParent ||
+                      !isMemberElement(node) ||
+                      !isStringElement(node.key) ||
+                      !node.key.equals('discriminator') ||
+                      !isDiscriminatorElement(node.value)
+                    ) {
+                      return;
+                    }
+
+                    const discriminator = cloneShallow(node.value);
+                    const discriminatorCopy = new DiscriminatorElement();
+
+                    if (discriminator.get('mapping')) {
+                      discriminatorCopy.mapping = discriminator.get('mapping');
+                    }
+
+                    if (discriminator.get('propertyName')) {
+                      discriminatorCopy.propertyName = discriminator.get('propertyName');
+                    }
+
+                    // eslint-disable-next-line no-param-reassign
+                    nodeParent[nodeKey] = new MemberElement(
+                      new StringElement('discriminator'),
+                      discriminatorCopy,
+                    );
+                  },
+                },
+              );
+
               storage!.append(schemaJSONPointer);
             }
           },

@@ -61,6 +61,11 @@ const specHighlightNoQuotes = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-noquotes.yaml'))
   .toString();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const specHighlightDefaultOperation = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'syntax/sample-api-default-operation.yaml'))
+  .toString();
+
 const specInvalidYaml = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'invalidyaml.yaml'))
   .toString();
@@ -791,6 +796,51 @@ describe('apidom-ls-yaml', function () {
         1, 0, 5, 18, 0, 1, 2, 2, 6, 0, 1, 4, 3, 5, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64, 1, 4, 4,
         5, 32, 1, 6, 11, 35, 64, 0, 13, 5, 32, 64, 1, 2, 2, 6, 0, 1, 4, 4, 5, 32, 1, 6, 11, 35, 64,
         0, 13, 5, 32, 64, 1, 2, 2, 6, 0, 1, 4, 3, 5, 16, 1, 6, 11, 35, 64, 0, 13, 4, 32, 64,
+      ],
+    });
+  });
+
+  it('test semantic highlighting for operation default response', async function () {
+    // valid spec
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/specHighlightDefaultOperation.json',
+      'json',
+      0,
+      specHighlightDefaultOperation,
+    );
+
+    const tokens = await languageService.computeSemanticTokens(doc);
+
+    if (tokens.data && tokens.data.length >= 5) {
+      const logBase = (n: number) => Math.log(n) / Math.log(2);
+      for (let i = 0; i < tokens.data.length; i += 5) {
+        // eslint-disable-next-line no-console
+        console.log(
+          `[${tokens.data[i]}, ${tokens.data[i + 1]}, ${tokens.data[i + 2]}, ${
+            tokens.data[i + 3]
+          }, ${tokens.data[i + 4]}] type: ${
+            languageService.getSemanticTokensLegend().tokenTypes[tokens.data[i + 3]]
+          }, mod: ${
+            languageService.getSemanticTokensLegend().tokenModifiers[logBase(tokens.data[i + 4])]
+          } / semTok: +line: ${tokens.data[i]}, off: ${tokens.data[i + 1]}, len: ${
+            tokens.data[i + 2]
+          }`,
+        );
+      }
+    }
+
+    assert.deepEqual(tokens, {
+      data: [
+        0, 0, 7, 16, 0, 0, 0, 7, 2, 0, 1, 0, 4, 4, 0, 1, 2, 5, 35, 64, 0, 7, 30, 32, 64, 1, 2, 11,
+        35, 64, 0, 13, 80, 32, 64, 2, 2, 14, 35, 64, 0, 16, 25, 32, 64, 1, 2, 7, 35, 64, 1, 4, 4,
+        35, 64, 0, 6, 10, 32, 64, 1, 4, 3, 35, 64, 0, 5, 48, 32, 64, 1, 2, 7, 1, 0, 1, 0, 12, 35,
+        64, 1, 2, 11, 35, 64, 0, 13, 27, 32, 64, 1, 2, 3, 35, 64, 0, 5, 18, 32, 64, 1, 0, 7, 25, 0,
+        1, 4, 3, 11, 0, 1, 0, 5, 18, 0, 1, 2, 17, 6, 0, 1, 4, 3, 5, 16, 1, 6, 11, 35, 64, 0, 13, 16,
+        32, 64, 1, 6, 9, 22, 0, 1, 8, 5, 21, 0, 1, 10, 11, 35, 64, 0, 13, 20, 32, 64, 1, 10, 7, 14,
+        0, 1, 12, 16, 15, 0, 1, 14, 6, 23, 0, 1, 16, 4, 35, 64, 0, 6, 5, 32, 64, 1, 12, 15, 15, 0,
+        1, 14, 6, 23, 0, 1, 16, 4, 35, 64, 0, 6, 5, 32, 64, 1, 8, 5, 21, 0, 1, 10, 11, 35, 64, 0,
+        13, 20, 32, 64, 1, 8, 7, 21, 0, 1, 10, 11, 35, 64, 0, 13, 16, 32, 64, 1, 10, 7, 14, 0, 1,
+        12, 16, 15, 0, 1, 14, 6, 23, 0, 1, 16, 4, 35, 64, 0, 6, 5, 32, 64,
       ],
     });
   });

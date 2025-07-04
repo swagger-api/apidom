@@ -2182,7 +2182,86 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.0.4 shape should ref
                                           "content": [
                                             {
                                               "element": "string",
-                                              "content": "fixed-field"
+                                              "content": "patterned-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "201"
+                                        },
+                                        "value": {
+                                          "element": "reference",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "openapi-reference"
+                                                },
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-element"
+                                                }
+                                              ]
+                                            },
+                                            "referenced-element": {
+                                              "element": "string",
+                                              "content": "response"
+                                            }
+                                          },
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "fixed-field"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "$ref"
+                                                },
+                                                "value": {
+                                                  "element": "string",
+                                                  "meta": {
+                                                    "classes": {
+                                                      "element": "array",
+                                                      "content": [
+                                                        {
+                                                          "element": "string",
+                                                          "content": "reference-value"
+                                                        }
+                                                      ]
+                                                    }
+                                                  },
+                                                  "content": "#/components/responses/201"
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "patterned-field"
                                             }
                                           ]
                                         }
@@ -2643,85 +2722,6 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.0.4 shape should ref
                                                       }
                                                     }
                                                   ]
-                                                }
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "member",
-                                      "meta": {
-                                        "classes": {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "string",
-                                              "content": "patterned-field"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "201"
-                                        },
-                                        "value": {
-                                          "element": "reference",
-                                          "meta": {
-                                            "classes": {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "string",
-                                                  "content": "openapi-reference"
-                                                },
-                                                {
-                                                  "element": "string",
-                                                  "content": "reference-element"
-                                                }
-                                              ]
-                                            },
-                                            "referenced-element": {
-                                              "element": "string",
-                                              "content": "response"
-                                            }
-                                          },
-                                          "content": [
-                                            {
-                                              "element": "member",
-                                              "meta": {
-                                                "classes": {
-                                                  "element": "array",
-                                                  "content": [
-                                                    {
-                                                      "element": "string",
-                                                      "content": "fixed-field"
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              "content": {
-                                                "key": {
-                                                  "element": "string",
-                                                  "content": "$ref"
-                                                },
-                                                "value": {
-                                                  "element": "string",
-                                                  "meta": {
-                                                    "classes": {
-                                                      "element": "array",
-                                                      "content": [
-                                                        {
-                                                          "element": "string",
-                                                          "content": "reference-value"
-                                                        }
-                                                      ]
-                                                    }
-                                                  },
-                                                  "content": "#/components/responses/201"
                                                 }
                                               }
                                             }
@@ -3697,7 +3697,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.0.4 shape should ref
                                           "content": [
                                             {
                                               "element": "string",
-                                              "content": "fixed-field"
+                                              "content": "patterned-field"
                                             }
                                           ]
                                         }

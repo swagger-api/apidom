@@ -1,0 +1,37 @@
+openapi: 3.0.4
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+    This is a sample Pet Store Server based on the OpenAPI 3.0 specification.
+  termsOfService: https://swagger.io/terms/
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.12
+externalDocs:
+  description: Find out more about Swagger
+  url: https://swagger.io
+servers:
+  - url: https://petstore3.swagger.io/api/v3
+paths:
+  /pet/findByStatus:
+    get:
+      operationId: findPetsByStatus
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+            application/xml:
+              schema:
+                type: array
+        '400':
+          description: Invalid status value
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                type: array

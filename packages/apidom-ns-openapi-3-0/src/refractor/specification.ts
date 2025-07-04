@@ -69,7 +69,6 @@ import ResponseHeadersVisitor from './visitors/open-api-3-0/response/HeadersVisi
 import ResponseContentVisitor from './visitors/open-api-3-0/response/ContentVisitor.ts';
 import ResponseLinksVisitor from './visitors/open-api-3-0/response/LinksVisitor.ts';
 import ResponsesVisitor from './visitors/open-api-3-0/responses/index.ts';
-import ResponsesDefaultVisitor from './visitors/open-api-3-0/responses/DefaultVisitor.ts';
 import OperationVisitor from './visitors/open-api-3-0/operation/index.ts';
 import OperationTagsVisitor from './visitors/open-api-3-0/operation/TagsVisitor.ts';
 import OperationParametersVisitor from './visitors/open-api-3-0/operation/ParametersVisitor.ts';
@@ -299,9 +298,7 @@ const specification = {
         },
         Responses: {
           $visitor: ResponsesVisitor,
-          fixedFields: {
-            default: ResponsesDefaultVisitor,
-          },
+          fixedFields: {},
         },
         Response: {
           $visitor: ResponseVisitor,

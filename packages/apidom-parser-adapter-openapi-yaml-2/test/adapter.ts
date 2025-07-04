@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import dedent from 'dedent';
-import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
+import { isParseResultElement, hasElementSourceMap, sexprs } from '@swagger-api/apidom-core';
 import { isSwaggerElement } from '@swagger-api/apidom-ns-openapi-2';
 
 import * as adapter from '../src/adapter.ts';
@@ -86,7 +86,7 @@ describe('adapter', function () {
       // @ts-ignore
       const subMappingValue = result.get('mapping').get('sub-mapping');
 
-      assert.instanceOf(subMappingValue.meta.get('sourceMap'), SourceMapElement);
+      assert.isTrue(hasElementSourceMap(subMappingValue));
     });
   });
 

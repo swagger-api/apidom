@@ -531,10 +531,47 @@ If plugins are used, additional traversal is currently needed.
 
 #### Generate stage
 
-We can currently only generate JSON documents from the ApiDOM structure.
+We can generate JSON/YAML documents from the ApiDOM structure.
 It doesn't matter if the original document was originally defined in JSON or YAML.
-Generated JSON documented will have exactly the same semantic information as the original one,
+Generated JSON/YAML documented will have exactly the same semantic information as the original one,
 but the style information from the original document is not preserved (white spaces/comments, etc..).
+
+```mermaid
+flowchart TD
+  %% Input node
+  In["JSON/YAML string"]
+
+  %%--- Parse Stage and internals
+  subgraph Parse_Stage["Parse Stage"]
+    P1["Lexical Analysis<br/>JSON/YAML → CST"]
+    SA["Syntactic Analysis"]
+    SA1["Direct<br/>*CST → Generic ApiDOM*"]
+    SA2["Indirect<br/>*CST → JSON AST → Generic ApiDOM*"]
+
+    P1 --> SA
+    SA --> SA1
+    SA --> SA2
+  end
+
+  %%--- Refract Stage
+  subgraph Refract_Stage["Refract Stage"]
+    R["Generic ApiDOM + plugins → Semantic ApiDOM"]
+  end
+
+  %%--- Generate Stage
+  subgraph Generate_Stage["Generate Stage"]
+    G["Generate JSON/YAML output<br/>(style info lost)"]
+  end
+
+  %% Output node
+  Out["JSON/YAML string"]
+
+  %%--- Connections
+  In --> Parse_Stage
+  Parse_Stage --> Refract_Stage
+  Refract_Stage --> Generate_Stage
+  Generate_Stage --> Out
+```
 
 ---
 

@@ -1,0 +1,16 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "userType",
+          "mapping": {
+            "indirection": "./ex.json#/$defs/User"
+          }
+        }
+      }
+    }
+  }
+}

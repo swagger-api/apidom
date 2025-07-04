@@ -51,6 +51,7 @@ export {
   isServerVariableElement,
   isMediaTypeElement,
   isServersElement,
+  isDiscriminatorElement,
 } from './predicates.ts';
 
 export {

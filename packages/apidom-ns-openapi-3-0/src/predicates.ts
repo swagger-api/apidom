@@ -26,6 +26,7 @@ import SecuritySchemeElement from './elements/SecurityScheme.ts';
 import ServerElement from './elements/Server.ts';
 import ServerVariableElement from './elements/ServerVariable.ts';
 import MediaTypeElement from './elements/MediaType.ts';
+import DiscriminatorElement from './elements/Discriminator.ts';
 // NCE types
 import ServersElement from './elements/nces/Servers.ts';
 
@@ -376,5 +377,18 @@ export const isServersElement = createPredicate(
         isElementType('array', element) &&
         primitiveEq('array', element) &&
         hasClass('servers', element));
+  },
+);
+
+/**
+ * @public
+ */
+export const isDiscriminatorElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is DiscriminatorElement =>
+      element instanceof DiscriminatorElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('discriminator', element) &&
+        primitiveEq('object', element));
   },
 );

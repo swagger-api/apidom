@@ -232,6 +232,12 @@ exports[`adapter should parse 1`] = `
                   (ResponsesElement
                     (MemberElement
                       (StringElement)
+                      (ReferenceElement
+                        (MemberElement
+                          (StringElement)
+                          (StringElement))))
+                    (MemberElement
+                      (StringElement)
                       (ResponseElement
                         (MemberElement
                           (StringElement)
@@ -274,13 +280,7 @@ exports[`adapter should parse 1`] = `
                               (ReferenceElement
                                 (MemberElement
                                   (StringElement)
-                                  (StringElement))))))))
-                    (MemberElement
-                      (StringElement)
-                      (ReferenceElement
-                        (MemberElement
-                          (StringElement)
-                          (StringElement))))))
+                                  (StringElement))))))))))
                 (MemberElement
                   (StringElement)
                   (ObjectElement

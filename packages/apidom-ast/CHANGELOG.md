@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.44](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-07-07)
+
+### Features
+
+- add PoC of handling discriminator for allOf case in OpenAPI 3.1 ([#4959](https://github.com/swagger-api/apidom/issues/4959)) ([4eee665](https://github.com/swagger-api/apidom/commit/4eee66574c9ff4ab08cbd3f89d32247d07cde7e2))
+
 # [1.0.0-beta.43](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-06-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

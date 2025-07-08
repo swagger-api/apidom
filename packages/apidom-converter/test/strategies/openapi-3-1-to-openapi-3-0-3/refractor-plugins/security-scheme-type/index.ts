@@ -2,7 +2,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-parser-adapter-openapi-json-3-0';
-import { AnnotationElement, includesClasses, toJSON, toValue } from '@swagger-api/apidom-core';
+import { AnnotationElement, includesClasses, toJSON } from '@swagger-api/apidom-core';
 import { assert, expect } from 'chai';
 
 import convert from '../../../../../src/index.ts';
@@ -61,20 +61,22 @@ describe('converter', function () {
           const annotation: AnnotationElement = annotations.find((a: AnnotationElement) =>
             a.code?.equals('mutualTLS'),
           );
-          const sourceMap = annotation.meta.get('sourceMap');
-          const { positionStart, positionEnd } = sourceMap;
-          const [startRow, startColumn, startChar] = toValue(positionStart);
-          const [endRow, endColumn, endChar] = toValue(positionEnd);
+          const {
+            startPositionRow,
+            startPositionColumn,
+            startIndex,
+            endPositionRow,
+            endPositionColumn,
+            endIndex,
+          } = annotation;
 
-          assert.isDefined(sourceMap);
+          assert.strictEqual(startPositionRow, 9);
+          assert.strictEqual(startPositionColumn, 32);
+          assert.strictEqual(startIndex, 188);
 
-          assert.strictEqual(startRow, 9);
-          assert.strictEqual(startColumn, 32);
-          assert.strictEqual(startChar, 188);
-
-          assert.strictEqual(endRow, 12);
-          assert.strictEqual(endColumn, 13);
-          assert.strictEqual(endChar, 247);
+          assert.strictEqual(endPositionRow, 12);
+          assert.strictEqual(endPositionColumn, 13);
+          assert.strictEqual(endIndex, 247);
         });
 
         specify(

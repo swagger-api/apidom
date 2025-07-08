@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import dedent from 'dedent';
-import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
+import { sexprs } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 import { refractorPluginReplaceEmptyElement, OpenApi3_0Element } from '../../../../src/index.ts';
@@ -119,12 +119,12 @@ describe('given OpenAPI definition with empty values', function () {
       plugins: [refractorPluginReplaceEmptyElement()],
     }) as OpenApi3_0Element;
     const { info: infoValue } = openApiElement;
-    const sourceMap = infoValue?.meta.get('sourceMap');
-    const { positionStart, positionEnd } = sourceMap;
-    const expectedPosition = [1, 5, 20];
 
-    expect(infoValue?.meta.get('sourceMap')).to.be.an.instanceof(SourceMapElement);
-    expect(positionStart.equals(expectedPosition)).to.be.true;
-    expect(positionEnd.equals(expectedPosition)).to.be.true;
+    expect(infoValue?.startPositionRow).to.equal(1);
+    expect(infoValue?.startPositionColumn).to.equal(5);
+    expect(infoValue?.startIndex).to.equal(20);
+    expect(infoValue?.endPositionRow).to.equal(1);
+    expect(infoValue?.endPositionColumn).to.equal(5);
+    expect(infoValue?.endIndex).to.equal(20);
   });
 });

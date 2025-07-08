@@ -67,7 +67,7 @@
     "benchmark": "=2.1.4",
     "chai": "^5.1.1",
     "copyfiles": "=2.4.1",
-    "core-js": "=3.42.0",
+    "core-js": "=3.44.0",
     "cross-env": "=7.0.3",
     "dedent": "=1.6.0",
     "eslint": "=8.57.0",

@@ -4,7 +4,7 @@ import {
   NumberElement,
   ObjectElement,
   isParseResultElement,
-  isSourceMapElement,
+  hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 
 import File from '../../../../src/File.ts';
@@ -126,7 +126,7 @@ describe('parsers', function () {
             const result = await parser.parse(file);
             const objElement: ObjectElement = result.get(0);
 
-            assert.isTrue(isSourceMapElement(objElement.meta.get('sourceMap')));
+            assert.isTrue(hasElementSourceMap(objElement));
           });
         });
 

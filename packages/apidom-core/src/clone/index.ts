@@ -1,8 +1,9 @@
 import { ArraySlice, ObjectSlice, KeyValuePair, Element } from 'minim';
 
-import { isElement } from '../predicates/index.ts';
+import { hasElementSourceMap, isElement } from '../predicates/index.ts';
 import DeepCloneError from './errors/DeepCloneError.ts';
 import ShallowCloneError from './errors/ShallowCloneError.ts';
+import { assignSourceMap } from '../util.ts';
 
 /**
  * @public
@@ -122,6 +123,10 @@ const cloneShallowElement = <T extends Element>(element: T): T => {
   const copy = new element.constructor();
 
   copy.element = element.element;
+
+  if (hasElementSourceMap(element)) {
+    assignSourceMap(copy, element);
+  }
 
   if (element.meta.length > 0) {
     copy._meta = cloneDeep(element.meta);

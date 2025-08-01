@@ -1,4 +1,4 @@
-import asyncapiSchemaJson from '../json-schema/async-api-26/asyncapi-schema.json';
+import asyncapiSchemaJson from '../json-schema/async-api-26/asyncapi-schema.json' with { type: 'json' };
 import { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
 import { NamespaceVersion } from '../../../apidom-language-types.ts';
 

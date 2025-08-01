@@ -16,7 +16,7 @@ import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validatio
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider.ts';
 import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider.ts';
 import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider.ts';
-import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json';
+import openapiSchemaJson30 from '../src/services/validation/json-schema/open-api-30/openapi-schema-idea-draft7.json' with { type: 'json' };
 import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

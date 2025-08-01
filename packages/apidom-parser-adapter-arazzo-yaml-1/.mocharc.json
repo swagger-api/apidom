@@ -1,5 +1,7 @@
 {
+  "extensions": ["ts"],
+  "loader": "ts-node/esm",
   "recursive": true,
-  "spec": "test/**/*.mjs",
-  "file": ["test/mocha-bootstrap.mjs"]
+  "spec": "test/**/*.ts",
+  "file": ["test/mocha-bootstrap.ts"]
 }

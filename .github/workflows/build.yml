@@ -88,6 +88,8 @@ jobs:
         run: |
           npm run prebuild
           npm run build:es
+      - name: Build typescript declarations
+        run: npm run typescript:declaration
       - name: Execute tests in monorepo
         run: npm run test
 

@@ -43,6 +43,14 @@ and allows tool builders to consume one structure for all formats.
   - [As a unifying structure](#as-a-unifying-structure)
   - [As a queryable structure](#as-a-queryable-structure)
   - [ApiDOM stages](#apidom-stages)
+- [ApiDOM packages](#apidom-packages)
+  - [ApiDOM AST](#apidom-ast)
+  - [ApiDOM Core](#apidom-core)
+  - [Retrieving ApiDOM Elements](#retrieving-apidom-elements)
+  - [ApiDOM Namespaces](#apidom-namespaces)
+  - [ApiDOM Parsers](#apidom-parsers)
+  - [Advanced ApiDOM Manipulations](#advanced-apidom-manipulations)
+  - [ApiDOM Language Service](#apidom-language-service)
 - [License](#license)
 - [Software Bill Of Materials (SBOM)](#software-bill-of-materials-sbom)
 
@@ -107,7 +115,7 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
 ### Usage
 
 Every package of the monorepo has an associated README file demonstrating its purpose and containing
-usage examples.
+usage examples. An overview of available packages is provided in the [ApiDOM packages](#apidom-packages) section.
 
 ### ApiDOM Playground
 
@@ -597,6 +605,112 @@ JSON string -> tree-sitter CST -> generic ApiDOM -> OpenAPI 3.1 ApiDOM -> plugin
 This very closely reflects how [Babel](https://github.com/babel/babel) works ([Babel Plugin Handbook](https://github.com/jamiebuilds/babel-handbook/blob/master/translations/en/plugin-handbook.md)).
 Their transform phase is our refract phase. The only difference is that when plugins are involved, our transform phase
 requires 2 traversals instead of a single one. We can find a way in the future how to fold these 2 traversals into a single one.
+
+## ApiDOM packages
+
+### ApiDOM AST
+
+[@swagger-api/apidom-ast](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ast) contains tools necessary for [syntactic analysis](#syntactic-analysis), which will take a stream of tokens and turn it into an AST representation. The AST represents the structure of input string in a way that makes it easier to work with. The package contains AST nodes for JSON and YAML 1.2 formats and comes with its own traversal algorithm convenient for traversing CST or AST.
+
+### ApiDOM Core
+
+[@swagger-api/apidom-core](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core) is a package that contains tools for manipulating ApiDOM structures. It provides a base ApiDOM namespace, predicates for all primitive and base namespace elements, and algorithms for transforming and handling ApiDOM structures. The available algorithms allow for transcluding, merging, copying, traversing and transforming ApiDOM structures into its different forms.
+
+### Retrieving ApiDOM Elements
+
+It is possible to evaluate [JSON Pointer](https://github.com/swagger-api/apidom/tree/main/packages/apidom-json-pointer), [Relative JSON Pointer](https://github.com/swagger-api/apidom/tree/main/packages/apidom-json-pointer-relative) and [JSONPath expressions](https://github.com/swagger-api/apidom/tree/main/packages/apidom-json-path) against ApiDOM structures. A successful evaluation returns the corresponding ApiDOM Element at the specified location.
+
+### ApiDOM Namespaces
+
+The namespace packages provide ApiDOM namespaces for specifications, consisiting of a number of elements implemented on top of primitive ones. The refractor layer in each namespace allows to transform JavaScript structures or generic ApiDOM into elements from that specific namespace. The elements can be traversed using the `visit` function provided by [apidom-core](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core) package.
+
+Available namespaces:
+
+- [API Design Systems](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-api-design-systems)
+- [Arazzo 1.0.1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-arazzo-1)
+- [AsyncAPI 2.x.y](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2)
+- [JSON Schema Draft 4/5](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-draft-4)
+- [JSON Schema Draft 6](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-draft-6)
+- [JSON Schema Draft 7](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-draft-7)
+- [JSON Schema 2019-09](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-2019-09)
+- [JSON Schema 2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-2020-12)
+- [OpenAPI 2.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-2)
+- [OpenAPI 3.0.x](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-0)
+- [OpenAPI 3.1.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1)
+
+### ApiDOM Parsers
+
+The parser packages provide parser adapters for specifications in JSON and YAML formats, allowing to transform them into generic ApiDOM or specific ApiDOM namespace.
+
+The base parser adapters support [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json) and [YAML 1.2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2) formats. They are responsible for [lexical and syntactic analysis](#parse-stage), transforming the provided string into a generic ApiDOM structure. These base adapters are extended in parser adapters for specifications, enabling parsing of definitions directly into the ApiDOM namespaces for those specifications.
+
+Available parser adapters for ApiDOM namespaces:
+
+- API Design Systems - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-yaml)
+- Arazzo 1.0.1 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-json-1) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-yaml-1)
+- AsyncAPI 2.x.y - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-2) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-2)
+- JSON Schema 2020-12 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-json-2020-12) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-yaml-2020-12)
+- OpenAPI 2.0 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-2) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-2)
+- OpenAPI 3.0.x - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-0) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0)
+- OpenAPI 3.1.0 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-1) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-1)
+
+[@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser) consumes any parser adapter with compatible shape and provides a unified API for parsing. It contains logic of mapping a source string to appropriate media type and a source string with media type to appropriate ApiDOM namespace.
+
+### Advanced ApiDOM manipulations
+
+[@swagger-api/apidom-reference](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference) provides algorithms for semantic ApiDOM manipulations. It contains components enabling parsing, resolving, dereferencing and bundling.
+
+The [parse component](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference#parse-component) implements the default parser plugins, enabling parsing for files located on local filesystems and on the internet. It can parse provided definitions into generic ApiDOM structure or into one of the ApiDOM namespaces.
+
+Available parse strategies:
+
+- JSON format
+- YAML 1.2 format
+- Binary format
+- ApiDOM - JSON
+- API Design Systems - JSON / YAML
+- Arazzo 1.0.1 - JSON / YAML
+- AsyncAPI 2.x.y - JSON / YAML
+- OpenAPI 2.0 - JSON / YAML
+- OpenAPI 3.0.x - JSON / YAML
+- OpenAPI 3.1.0 - JSON / YAML
+
+The [resolve component](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference#resolve-component) provides file resolution and external resolution sub-components. File resolution contains plugins allowing to read files located on local filesystem and on the internet, and provide their content. External resolution resolves external dependencies of a document using a specific external resolution strategy, providing a set of resolved references as a result.
+
+Available external resolution strategies:
+
+- ApiDOM
+- AsyncAPI 2.x.y
+- OpenAPI 2.0
+- OpenAPI 3.0.x
+- OpenAPI 3.1.0
+
+The [dereference component](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference#dereference-component) transcludes referencing elements (internal or external) with referenced elements, using a specific dereference strategy.
+
+Available dereference strategies:
+
+- ApiDOM
+- AsyncAPI 2.x.y
+- OpenAPI 2.0
+- OpenAPI 3.0.x
+- OpenAPI 3.1.0
+
+The [bundle component](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference#bundle-component) allows to package up resources spread across multiple files in a single file (Compound Document) using a specific bundle strategy.
+
+Available bundle strategies:
+
+- OpenAPI 3.1.0
+
+### ApiDOM Language Service
+
+[ApiDOM Language Service](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ls) provides language processing for ApiDOM supported languages for editing experience. It adheres to the LSP Protocol and can therefore be used via LSP Server wrapper, providing editing capabilities to various editors and IDEs. It provides validation, documentation, definitions, completion, semantic highlighting and dereferencing for supported specifications.
+
+ApiDOM Language Service supports:
+
+- AsyncAPI 2.x.y
+- OpenAPI 2.0
+- OpenAPI 3.0.x
+- OpenAPI 3.1.0
 
 ## License
 

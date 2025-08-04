@@ -104,6 +104,28 @@ const customMetadata = {
   linterFunctions: metadata.linterFunctions,
 };
 
+// Defining custom linter functions
+
+const apilintEqualsCustom = (element: Element, expectedValues: string[]) => {
+  if (element) {
+    if (!isStringElement(element)) {
+      return false;
+    }
+
+    return expectedValues.includes(toValue(element));
+  }
+
+  return true;
+};
+
+customMetadata.linterFunctions = {
+  asyncapi: {
+    apilintEqualsCustom,
+  },
+};
+
+// Defining custom rules
+
 const camelCaseTitle = {
   name: 'SB-API-052-title',
   description: 'title MUST follow camelCase',
@@ -120,9 +142,22 @@ const camelCaseTitle = {
   data: {},
 };
 
+const versionEquals = {
+  code: 70202,
+  source: "apilint",
+  message: "version must be equal to one of the specified values",
+  severity: 1,
+  linterFunction: "apilintEqualsCustom",
+  linterParams: ["1.0.0", "2.0.0"],
+  given: "$.info.version",
+  givenFormat: "JSONPATH",
+  marker: "value",
+  data: {},
+};
+
 customMetadata.rules = {
   asyncapi: {
-    lint: [camelCaseTitle],
+    lint: [camelCaseTitle, versionEquals],
   },
 };
 

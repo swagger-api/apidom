@@ -42,6 +42,7 @@ import uniqueItemsTypeLint from './unique-items--type.ts';
 import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import inPathTemplateLint from './in-path-template.ts';
+import uniqueNameLint from './unique-name.ts';
 
 const lints = [
   nameTypeLint,
@@ -81,6 +82,7 @@ const lints = [
   maxLengthTypeLint,
   minLengthTypeLint,
   uniqueItemsTypeLint,
+  uniqueNameLint,
   enumTypeLint,
   multipleOfTypeLint,
   requiredFields3_0__3_1Lint,

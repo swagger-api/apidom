@@ -796,6 +796,24 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintPropertyUniqueSiblingValue',
+    function: (element, elementOrClasses, key) => {
+      const value = toValue(element);
+      const elements = filter((el) => {
+        const classes: string[] = toValue(el.getMetaProperty('classes', []));
+
+        return (
+          (elementOrClasses.includes(el.element) ||
+            classes.every((v) => elementOrClasses.includes(v))) &&
+          isObject(el) &&
+          el.hasKey(key) &&
+          toValue(el.get(key)) === value
+        );
+      }, element.parent?.parent?.parent);
+      return elements.length <= 1;
+    },
+  },
+  {
     functionName: 'apilintChannelParameterExist',
     function: (element: Element): boolean => {
       const referencedElement = toValue(element.getMetaProperty('referenced-element', ''));

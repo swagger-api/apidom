@@ -10,7 +10,7 @@ const parametersTypeLint: LinterMeta = {
   message: 'Name must be unique among all parameters',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintPropertyUniqueSiblingValue',
-  linterParams: [['parameters'], 'name'],
+  linterParams: ['parameters', 'name'],
   marker: 'key',
   markerTarget: 'name',
   target: 'name',

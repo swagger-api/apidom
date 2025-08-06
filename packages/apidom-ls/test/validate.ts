@@ -3714,6 +3714,69 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2.0 / yaml - parameter name should be unique', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-unique-name-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-unique-name-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 9,
+          },
+          start: {
+            character: 10,
+            line: 9,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 15,
+          },
+          start: {
+            character: 10,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - parameter Authorization is ignored', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

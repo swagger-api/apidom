@@ -43,12 +43,14 @@ import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import inPathTemplateLint from './in-path-template.ts';
 import uniqueNameLint from './unique-name.ts';
+import inAuthorizationLint from './in--authorization.ts';
 
 const lints = [
   nameTypeLint,
   nameRequiredLint,
   inEquals2_0Lint,
   inEquals3_0__3_1Lint,
+  inAuthorizationLint,
   inRequiredLint,
   inValidLint,
   descriptionTypeLint,

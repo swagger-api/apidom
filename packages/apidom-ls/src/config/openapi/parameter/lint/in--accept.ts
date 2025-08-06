@@ -3,13 +3,13 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import { OpenAPI3 } from '../../target-specs.ts';
 import ApilintCodes from '../../../codes.ts';
 
-const inContentTypeLint = {
+const inAcceptLint = {
   code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_IN_CONTENT_TYPE,
   source: 'apilint',
   message:
-    'Header Parameter named "Content-Type" is ignored. The values for the "Content-Type" header are defined by `requestBody.content.<media-type>`',
+    'Header Parameter named "Accept" is ignored. The values for the "Accept" header are defined by `requestBody.content.<media-type>`',
   severity: DiagnosticSeverity.Warning,
-  linterParams: ['^(?!\\b(C|c)ontent-(T|t)ype\\b).*$'],
+  linterParams: ['^(?!\\b(A|a)ccept\\b).*$'],
   linterFunction: 'apilintValueRegex',
   marker: 'value',
   target: 'name',
@@ -28,4 +28,4 @@ const inContentTypeLint = {
   targetSpecs: OpenAPI3,
 };
 
-export default inContentTypeLint;
+export default inAcceptLint;

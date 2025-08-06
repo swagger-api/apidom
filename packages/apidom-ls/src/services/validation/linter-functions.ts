@@ -800,10 +800,9 @@ export const standardLinterfunctions: FunctionItem[] = [
     function: (element, elementOrClasses, key) => {
       const value = toValue(element);
 
-      const filterSiblingsOAS2 = (el: Element) =>
-        isString(el) &&
-        (el.parent.key as { content?: string })?.content === key &&
-        el.content === value;
+      const filterSiblingsOAS2 = (
+        el: Element & { key: { content?: string }; content: { value?: string } },
+      ) => isString(el) && el.key?.content === key && toValue(el.content.value) === value;
 
       const filterSiblingsOAS3 = (el: Element) =>
         isObject(el) && el.hasKey(key) && toValue(el.get(key)) === value;

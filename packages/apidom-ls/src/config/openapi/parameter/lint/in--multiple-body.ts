@@ -9,7 +9,7 @@ const inMultipleBody = {
   message: 'Multiple body parameters are not allowed',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintPropertyUniqueSiblingValue',
-  linterParams: [['parameters'], 'in'],
+  linterParams: ['parameters', 'in'],
   marker: 'key',
   markerTarget: 'in',
   target: 'in',

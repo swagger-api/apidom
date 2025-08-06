@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { includesClasses, toValue, SourceMapElement } from '@swagger-api/apidom-core';
+import { includesClasses, hasElementSourceMap } from '@swagger-api/apidom-core';
 
 import * as adapter from '../../../../../src/adapter-node.ts';
 
@@ -21,37 +21,26 @@ describe('given flow mapping pair containing empty fields and explicit tag and a
 
   it('should generate source maps for empty key', async function () {
     const emptyElement = await setupEmptyKeyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
 
-    assert.instanceOf(sourceMapElement, SourceMapElement);
+    assert.isTrue(hasElementSourceMap(emptyElement));
   });
 
   it('should generate proper source map start position for empty key', async function () {
     const emptyElement = await setupEmptyKeyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionStart.get(0)),
-      toValue(sourceMapElement.positionStart.get(1)),
-      toValue(sourceMapElement.positionStart.get(2)),
-    ];
+    const { startPositionRow, startPositionColumn, startIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 13);
-    assert.strictEqual(char, 13);
+    assert.strictEqual(startPositionRow, 0);
+    assert.strictEqual(startPositionColumn, 13);
+    assert.strictEqual(startIndex, 13);
   });
 
   it('should generate proper source map end position for empty key', async function () {
     const emptyElement = await setupEmptyKeyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionEnd.get(0)),
-      toValue(sourceMapElement.positionEnd.get(1)),
-      toValue(sourceMapElement.positionEnd.get(2)),
-    ];
+    const { endPositionRow, endPositionColumn, endIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 13);
-    assert.strictEqual(char, 13);
+    assert.strictEqual(endPositionRow, 0);
+    assert.strictEqual(endPositionColumn, 13);
+    assert.strictEqual(endIndex, 13);
   });
 
   it('should create empty value element', async function () {
@@ -62,36 +51,25 @@ describe('given flow mapping pair containing empty fields and explicit tag and a
 
   it('should generate source maps for empty value', async function () {
     const emptyElement = await setupEmptyValueElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
 
-    assert.instanceOf(sourceMapElement, SourceMapElement);
+    assert.isTrue(hasElementSourceMap(emptyElement));
   });
 
   it('should generate proper source map start position for empty value', async function () {
     const emptyElement = await setupEmptyValueElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionStart.get(0)),
-      toValue(sourceMapElement.positionStart.get(1)),
-      toValue(sourceMapElement.positionStart.get(2)),
-    ];
+    const { startPositionRow, startPositionColumn, startIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 28);
-    assert.strictEqual(char, 28);
+    assert.strictEqual(startPositionRow, 0);
+    assert.strictEqual(startPositionColumn, 28);
+    assert.strictEqual(startIndex, 28);
   });
 
   it('should generate proper source map end position for empty value', async function () {
     const emptyElement = await setupEmptyValueElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionEnd.get(0)),
-      toValue(sourceMapElement.positionEnd.get(1)),
-      toValue(sourceMapElement.positionEnd.get(2)),
-    ];
+    const { endPositionRow, endPositionColumn, endIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 28);
-    assert.strictEqual(char, 28);
+    assert.strictEqual(endPositionRow, 0);
+    assert.strictEqual(endPositionColumn, 28);
+    assert.strictEqual(endIndex, 28);
   });
 });

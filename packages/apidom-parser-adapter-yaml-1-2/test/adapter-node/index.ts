@@ -155,8 +155,12 @@ describe('adapter-node', function () {
           tagKind: 'Scalar',
           nodeCanonicalContent: undefined,
         });
-        assert.include(error.tagPosition?.start, { type: 'point', row: 0, column: 6, char: 6 });
-        assert.include(error.tagPosition?.end, { type: 'point', row: 0, column: 18, char: 18 });
+        expect(error.tagStartPositionRow).to.equal(0);
+        expect(error.tagStartPositionColumn).to.equal(6);
+        expect(error.tagStartPositionIndex).to.equal(6);
+        expect(error.tagEndPositionRow).to.equal(0);
+        expect(error.tagEndPositionColumn).to.equal(18);
+        expect(error.tagEndPositionIndex).to.equal(18);
       }
     });
   });
@@ -177,8 +181,12 @@ describe('adapter-node', function () {
           tagKind: 'Scalar',
           nodeCanonicalContent: 'value',
         });
-        assert.include(error.tagPosition?.start, { type: 'point', row: 0, column: 6, char: 6 });
-        assert.include(error.tagPosition?.end, { type: 'point', row: 0, column: 11, char: 11 });
+        expect(error.tagStartPositionRow).to.equal(0);
+        expect(error.tagStartPositionColumn).to.equal(6);
+        expect(error.tagStartPositionIndex).to.equal(6);
+        expect(error.tagEndPositionRow).to.equal(0);
+        expect(error.tagEndPositionColumn).to.equal(11);
+        expect(error.tagEndPositionIndex).to.equal(11);
       }
     });
   });

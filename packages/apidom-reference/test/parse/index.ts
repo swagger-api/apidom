@@ -1,6 +1,6 @@
 import { Buffer } from 'node:buffer';
 import path from 'node:path';
-import { assert } from 'chai';
+import { assert, expect } from 'chai';
 import { isParseResultElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { fileURLToPath } from 'node:url';
@@ -40,7 +40,12 @@ describe('parse', function () {
       const parseResult = await parse(uri, options);
       const { api } = parseResult;
 
-      assert.isTrue(api?.meta.hasKey('sourceMap'));
+      expect(api?.startPositionRow).to.be.a('number');
+      expect(api?.startPositionColumn).to.be.a('number');
+      expect(api?.startIndex).to.be.a('number');
+      expect(api?.endPositionRow).to.be.a('number');
+      expect(api?.endPositionColumn).to.be.a('number');
+      expect(api?.endIndex).to.be.a('number');
     });
 
     specify('should respect parserOpts during parsing; sourceMap = off', async function () {

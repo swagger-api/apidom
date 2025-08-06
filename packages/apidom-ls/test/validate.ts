@@ -3861,6 +3861,69 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2.0 / yaml - Multiple body parameters are not allowed', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-multiple-body.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-multiple-body.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 13,
+          },
+          start: {
+            character: 10,
+            line: 13,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 16,
+          },
+          start: {
+            character: 10,
+            line: 16,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.1 / yaml - parameter object should be defined within path template', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

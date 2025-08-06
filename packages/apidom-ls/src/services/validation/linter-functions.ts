@@ -799,15 +799,22 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintPropertyUniqueSiblingValue',
     function: (element, elementOrClasses, key) => {
       const value = toValue(element);
+
+      const filterSiblingsOAS2 = (el: Element) =>
+        isString(el) &&
+        (el.parent.key as { content?: string })?.content === key &&
+        el.content === value;
+
+      const filterSiblingsOAS3 = (el: Element) =>
+        isObject(el) && el.hasKey(key) && toValue(el.get(key)) === value;
+
       const elements = filter((el) => {
         const classes: string[] = toValue(el.getMetaProperty('classes', []));
 
         return (
           (elementOrClasses.includes(el.element) ||
             classes.every((v) => elementOrClasses.includes(v))) &&
-          isObject(el) &&
-          el.hasKey(key) &&
-          toValue(el.get(key)) === value
+          (filterSiblingsOAS2(el) || filterSiblingsOAS3(el))
         );
       }, element.parent?.parent?.parent);
       return elements.length <= 1;

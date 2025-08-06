@@ -46,6 +46,7 @@ import uniqueNameLint from './unique-name.ts';
 import inAuthorizationLint from './in--authorization.ts';
 import inContentTypeLint from './in--content-type.ts';
 import inAcceptLint from './in--accept.ts';
+import inMultipleBody from './in--multiple-body.ts';
 
 const lints = [
   nameTypeLint,
@@ -96,6 +97,7 @@ const lints = [
   inPathTemplateLint,
   inContentTypeLint,
   inAcceptLint,
+  inMultipleBody,
 ];
 
 export default lints;

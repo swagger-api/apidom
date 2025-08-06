@@ -3767,6 +3767,53 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - parameter content-type is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-content-type-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-authorization-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150304,
+        data: {},
+        message:
+          'Header Parameter named "Content-Type" is ignored. The values for the "Content-Type" header are defined by `requestBody.content.<media-type>`',
+        range: {
+          end: {
+            character: 28,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.1 / yaml - parameter object should be defined within path template', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

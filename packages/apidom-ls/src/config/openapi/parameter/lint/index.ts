@@ -44,6 +44,7 @@ import multipleOfTypeLint from './multiple-of--type.ts';
 import inPathTemplateLint from './in-path-template.ts';
 import uniqueNameLint from './unique-name.ts';
 import inAuthorizationLint from './in--authorization.ts';
+import inContentTypeLint from './in--content-type.ts';
 
 const lints = [
   nameTypeLint,
@@ -92,6 +93,7 @@ const lints = [
   allowedFields3_0Lint,
   allowedFields3_1Lint,
   inPathTemplateLint,
+  inContentTypeLint,
 ];
 
 export default lints;

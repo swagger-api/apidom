@@ -1116,6 +1116,11 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apilintReferenceNotUsed',
     function: (element) => {
+      const elParent = element.parent?.parent?.parent?.parent;
+      if (!elParent.hasKey || !elParent.hasKey('schemas')) {
+        return true;
+      }
+
       const api = root(element);
       const isReferenceElement = (el: Element) => el.element === 'reference';
       const referenceElements = filter((el) => {

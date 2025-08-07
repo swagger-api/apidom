@@ -1114,6 +1114,22 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintReferenceNotUsed',
+    function: (element) => {
+      const api = root(element);
+      const isReferenceElement = (el: Element) => el.element === 'reference';
+      const referenceElements = filter((el) => {
+        return isReferenceElement(el);
+      }, api);
+      const referenceNames = referenceElements.map((refElement: Element) =>
+        // @ts-expect-error
+        toValue(refElement.get('$ref')).split('/').at(-1),
+      );
+      // @ts-expect-error
+      return referenceNames.includes(toValue(element.parent.key));
+    },
+  },
+  {
     functionName: 'apilintOpenAPIParameterInPathTemplate',
     function: (element: Element) => {
       if (element.element === 'parameter') {

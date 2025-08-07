@@ -81,6 +81,7 @@ import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
+import $refNotUsedLint from './$ref--not-used.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -88,6 +89,7 @@ const schemaLints = [
   $idFormatURILint,
   $refValidLint,
   $refNoSiblingsLint,
+  $refNotUsedLint,
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,
   additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint,

@@ -3001,6 +3001,37 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas / yaml - ref is defined but not used', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/ref-not-used.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 4 }, end: { line: 12, character: 17 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - test editor issue 3626 / inidrect ref', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

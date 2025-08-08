@@ -3032,6 +3032,45 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - requestBody $refs must point to a position where can be legally placed', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-request-bodies.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 20 }, end: { line: 15, character: 88 } },
+        message:
+          'requestBody schema $refs must point to a position where a Schema Object can be legally placed',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - test editor issue 3626 / inidrect ref', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

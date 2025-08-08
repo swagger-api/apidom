@@ -3071,6 +3071,124 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-request-bodies-naming.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    result[1].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'update to #/components/requestBodies/MyBody',
+              action: 'updateValue',
+              functionParams: ['#/components/requestBodies/MyBody'],
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message:
+          'requestBody $refs must point to a position where a requestBody can be legally placed',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming schema', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'ref-request-bodies-naming-schema.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming-schema.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    result[1].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'update to #/components/requestBodies/MyBody',
+              action: 'updateValue',
+              functionParams: ['#/components/requestBodies/MyBody'],
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message:
+          "requestBody $refs cannot point to '#/components/schemas/…', they must point to '#/components/requestBodies/…'",
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - test editor issue 3626 / inidrect ref', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3242,6 +3360,14 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+      {
+        range: { start: { line: 10, character: 4 }, end: { line: 10, character: 7 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 3240300,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

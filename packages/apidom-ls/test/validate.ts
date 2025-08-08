@@ -3792,11 +3792,17 @@ describe('apidom-ls-validate', function () {
   it('oas 2.0 should not allow equivalent paths', async function () {
     const spec = fs
       .readFileSync(
-        path.join(__dirname, 'fixtures', 'validation', 'oas', 'equivalent-paths-not-allowed.yaml'),
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'path-template-equivalent-not-allowed.yaml',
+        ),
       )
       .toString();
     const doc: TextDocument = TextDocument.create(
-      'equivalent-paths-not-allowed.yaml',
+      'path-template-equivalent-not-allowed.yaml',
       'yaml',
       0,
       spec,

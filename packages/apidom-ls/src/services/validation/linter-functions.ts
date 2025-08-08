@@ -1134,7 +1134,7 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'apilintNoEquivalentPaths',
+    functionName: 'apilintOpenAPIPathTemplateNoEquivalent',
     function: (element: Element): boolean => {
       const PATH_TEMPLATES_REGEX = /\{[^}]+\}/g;
       const isFirstOccurrence = (currentKey: string, allKeys: unknown[]) => {

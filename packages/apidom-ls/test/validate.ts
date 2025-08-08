@@ -3788,4 +3788,34 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 2.0 should not allow equivalent paths', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'equivalent-paths-not-allowed.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'equivalent-paths-not-allowed.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Equivalent paths are not allowed.',
+        severity: 1,
+        code: 3040102,
+        source: 'apilint',
+        range: { start: { line: 16, character: 2 }, end: { line: 16, character: 17 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

@@ -1133,4 +1133,24 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintNoEquivalentPaths',
+    function: (element: Element): boolean => {
+      const PATH_TEMPLATES_REGEX = /\{[^}]+\}/g;
+      const isFirstOccurrence = (currentKey: string, allKeys: unknown[]) => {
+        const normalize = (x: string) => x.replace(PATH_TEMPLATES_REGEX, '~~');
+        const currentKeyNormalized = normalize(currentKey);
+        const firstIndex = allKeys.findIndex(
+          (e) => typeof e === 'string' && normalize(e) === currentKeyNormalized,
+        );
+
+        return allKeys[firstIndex] === currentKey;
+      };
+      const paths = element.parent.parent;
+
+      return isStringElement(element) && isObject(paths)
+        ? isFirstOccurrence(element.toValue(), paths.keys())
+        : true;
+    },
+  },
 ];

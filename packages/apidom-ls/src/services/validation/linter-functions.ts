@@ -801,13 +801,13 @@ export const standardLinterfunctions: FunctionItem[] = [
       const value = toValue(element);
 
       const filterSiblingsOAS2 = (
-        el: Element & { key: { content?: string }; content: { value?: string } },
+        el: Element & { key?: { content?: string }; content: { value?: string } },
       ) => isString(el) && el.key?.content === key && toValue(el.content.value) === value;
 
       const filterSiblingsOAS3 = (el: Element) =>
         isObject(el) && el.hasKey(key) && toValue(el.get(key)) === value;
 
-      const elements = filter((el) => {
+      const elements = filter((el: Element) => {
         const classes: string[] = toValue(el.getMetaProperty('classes', []));
 
         return (

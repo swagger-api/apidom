@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /:
+    get:
+      responses:
+        default:
+          description: 'test'
+      parameters:
+        - in: header
+          name: accept
+          content:
+            application/xml: {}

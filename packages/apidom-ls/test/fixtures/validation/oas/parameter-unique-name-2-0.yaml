@@ -1,0 +1,21 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /pets:
+    get:
+      responses:
+      parameters:
+        - name: pathLevel
+          type: string
+          in: query
+          description: tags to filter by
+          schema:
+            type: string
+        - name: pathLevel
+          type: string
+          in: query
+          description: tags to filter by
+          schema:
+            type: string

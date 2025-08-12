@@ -1,0 +1,23 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /foo:
+    get:
+      responses:
+        '200':
+          description: OK
+          headers:
+            X-MyHeader:
+              $ref: '#/components/schemas/MyHeader'
+components:
+  headers:
+    MyHeader:
+      description: ID of the user
+      required: true
+      schema:
+        type: string
+  schemas:
+    MyHeader:
+      description: ID of the user

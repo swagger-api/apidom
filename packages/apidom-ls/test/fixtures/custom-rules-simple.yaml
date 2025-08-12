@@ -6,6 +6,8 @@ paths:
   /keb-ab:
     get:
       operationId: kebab      
+  /endpoint:
+    $ref: '#/components/schemas/User'
 components:
   schemas:
     User:

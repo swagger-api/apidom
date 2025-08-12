@@ -4,6 +4,14 @@
     "title": "test",
     "version": "1.0"
   },
+  "paths": {
+    "/a": {
+      "$ref": "#/components/schemas/a"
+    },
+    "/b": {
+      "$ref": "#/components/schemas/b"
+    }
+  },
   "components": {
     "schemas": {
       "a": {

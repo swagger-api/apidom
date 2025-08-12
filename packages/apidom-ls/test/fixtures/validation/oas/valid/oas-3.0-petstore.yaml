@@ -706,6 +706,8 @@ components:
           description: User Status
           format: int32
           example: 1
+        items:
+          $ref: '#/components/schemas/Customer'
       xml:
         name: user
     Tag:

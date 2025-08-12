@@ -75,6 +75,8 @@ import uniqueItemsNonArrayLint from '../../common/schema/lint/unique-items--non-
 import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts';
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
 import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.ts';
+import $refNotUsedLint from '../../common/schema/lint/$ref--not-used.ts';
+import $ref3RequestBodiesLint from '../../common/schema/lint/$ref-3-0--request-bodies.ts';
 import { OpenAPI31 } from '../target-specs.ts';
 
 const schemaLints = [
@@ -154,6 +156,8 @@ const schemaLints = [
   uniqueItemsTypeLint,
   writeOnlyTypeLint,
   exampleDeprecatedLint,
+  $refNotUsedLint,
+  $ref3RequestBodiesLint,
 ];
 
 export default schemaLints;

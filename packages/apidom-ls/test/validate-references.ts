@@ -114,7 +114,7 @@ describe('reference validation', function () {
           },
         },
         {
-          range: { start: { line: 63, character: 16 }, end: { line: 63, character: 99 } },
+          range: { start: { line: 68, character: 16 }, end: { line: 68, character: 99 } },
           message:
             'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
           severity: 1,
@@ -214,7 +214,7 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 63, character: 16 }, end: { line: 63, character: 99 } },
+            range: { start: { line: 68, character: 16 }, end: { line: 68, character: 99 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,

@@ -436,24 +436,6 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'apilintParentHasKey',
-    function: (element: Element, elementsOrClasses: string[]): boolean => {
-      if (element && !isObject(element)) {
-        return false;
-      }
-      if (element && isObject(element)) {
-        if (
-          element.findElements((e) => !apilintElementOrClass(e, elementsOrClasses), {
-            recursive: false,
-          }).length > 0
-        ) {
-          return false;
-        }
-      }
-      return true;
-    },
-  },
-  {
     functionName: 'apilintArray',
     function: (element: Element): boolean => {
       if (element) {

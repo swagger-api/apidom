@@ -177,6 +177,20 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'parentExistFields',
+    function: (element: Element, keys: string[]): boolean => {
+      const parent = element?.parent?.parent?.parent?.parent;
+      if (parent && isObject(parent)) {
+        for (const key of keys) {
+          if (!parent.hasKey(key)) {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'existAnyOfFields',
     function: (element: Element, keys: string[], allowEmpty: boolean): boolean => {
       if (element && isObject(element)) {
@@ -405,6 +419,24 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintChildrenOfElementsOrClasses',
+    function: (element: Element, elementsOrClasses: string[]): boolean => {
+      if (element && !isObject(element)) {
+        return false;
+      }
+      if (element && isObject(element)) {
+        if (
+          element.findElements((e) => !apilintElementOrClass(e, elementsOrClasses), {
+            recursive: false,
+          }).length > 0
+        ) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintParentHasKey',
     function: (element: Element, elementsOrClasses: string[]): boolean => {
       if (element && !isObject(element)) {
         return false;
@@ -1087,6 +1119,28 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       return true;
+    },
+  },
+  {
+    functionName: 'apilintReferenceNotUsed',
+    function: (element: Element & { content?: { key?: string } }) => {
+      const elParent: Element = element.parent?.parent?.parent?.parent;
+      if (typeof elParent.hasKey !== 'function' || !elParent.hasKey('schemas')) {
+        return true;
+      }
+
+      const api = root(element);
+      const isReferenceElement = (el: Element & { content?: { key?: string } }) =>
+        toValue(el.content.key) === '$ref';
+      const referenceElements = filter((el) => {
+        return isReferenceElement(el);
+      }, api);
+      const referenceNames = referenceElements.map((refElement: Element) =>
+        // @ts-expect-error
+        toValue(refElement.content.value).split('/').at(-1),
+      );
+      // @ts-expect-error
+      return referenceNames.includes(toValue(element.parent.key));
     },
   },
   {

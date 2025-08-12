@@ -42,8 +42,10 @@ import uniqueItemsTypeLint from './unique-items--type.ts';
 import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import inPathTemplateLint from './in-path-template.ts';
+import $ref3ParameterNamingLint from './$ref-3-0--parameter.ts';
 
 const lints = [
+  $ref3ParameterNamingLint,
   nameTypeLint,
   nameRequiredLint,
   inEquals2_0Lint,

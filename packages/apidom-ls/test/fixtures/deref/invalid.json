@@ -48,6 +48,11 @@
                 "schema": {
                   "$ref": "#/components/schemas/exampleRef"
                 }
+              },
+              "text/html": {
+                "schema": {
+                  "$ref": "#/components/schemas/petRef"
+                }
               }
             }
           }

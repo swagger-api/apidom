@@ -1,0 +1,37 @@
+openapi: 3.0.0
+servers:
+  - description: ''
+    url: ''
+info:
+  version: 1.0.0
+  title: Test Schema Properties
+paths:
+  /:
+    post:
+      responses:
+        '200':
+          description: response ok
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropertyToTest'
+components:
+  schemas:
+    PropertyToTest:
+      type: object
+      required:
+        - id
+        - fieldname
+        - fieldDate
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+          writeOnly: true
+        fieldname:
+          type: string
+        fieldDate:
+          type: string
+          format: date-time

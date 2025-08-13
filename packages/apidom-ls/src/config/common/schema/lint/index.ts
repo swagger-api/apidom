@@ -81,6 +81,7 @@ import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
+import enumTypeLint from './enum--type.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -107,6 +108,7 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumTypeLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,

@@ -4391,6 +4391,41 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas / yaml - enum value should conform to its schemas type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-enum-type.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-enum-type.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 16, character: 14 }, end: { line: 19, character: 0 } },
+        data: {},
+        message: "enum value should conform to its schema's type",
+        severity: 2,
+        code: 10075,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

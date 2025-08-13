@@ -19,6 +19,7 @@ import discriminatorTypeOpenAPI3Lint from '../../common/schema/lint/discriminato
 import elseNonIfLint from '../../common/schema/lint/else--non-if.ts';
 import elseTypeLint from '../../common/schema/lint/else--type.ts';
 import enumUniqueLint from '../../common/schema/lint/enum--unique.ts';
+import enumTypeLint from '../../common/schema/lint/enum--type.ts';
 import examplesTypeLint from '../../common/schema/lint/examples--type.ts';
 import exclusiveMaximumTypeNumberLint from '../../common/schema/lint/exclusive-maximum--type-number.ts';
 import exclusiveMaximumTypeBooleanLint from '../../common/schema/lint/exclusive-maximum--type-boolean.ts';
@@ -102,6 +103,7 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumTypeLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,

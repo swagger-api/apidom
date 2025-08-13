@@ -451,7 +451,16 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintArrayOfType',
-    function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
+    function: (
+      element: Element,
+      type: string,
+      nonEmpty?: boolean,
+      useParentType?: boolean,
+    ): boolean => {
+      const elementParent = element?.parent?.parent;
+      const parentType =
+        useParentType && isObject(elementParent) ? toValue(elementParent.get('type')) : undefined;
+
       if (element) {
         const elValue = toValue(element);
         const isArrayVal = Array.isArray(elValue);
@@ -459,7 +468,7 @@ export const standardLinterfunctions: FunctionItem[] = [
           return false;
         }
         if (
-          (element as ArrayElement).findElements((e) => !isType(e, type), {
+          (element as ArrayElement).findElements((e) => !isType(e, parentType ?? type), {
             recursive: false,
           }).length > 0
         ) {

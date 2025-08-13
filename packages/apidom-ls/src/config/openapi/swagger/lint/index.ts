@@ -16,7 +16,6 @@ import securityDefinitionsTypeLint from './security-definitions--type.ts';
 import securityTypeLint from './security--type.ts';
 import tagsTypeLint from './tags--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
-import securityScopeResolved from './security--scope-resolved.ts';
 
 const lints = [
   allowedFieldsLint,
@@ -37,7 +36,6 @@ const lints = [
   securityTypeLint,
   tagsTypeLint,
   externalDocsTypeLint,
-  securityScopeResolved,
 ];
 
 export default lints;

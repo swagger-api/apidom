@@ -30,6 +30,7 @@ import {
   processPath,
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
+import { boolean } from 'vscode-languageserver-protocol/lib/common/utils/is.js';
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
@@ -344,6 +345,29 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
       }
       return true;
+    },
+  },
+  {
+    functionName: 'apilintKeysContainsValue',
+    function: (element: Element, keys: string[], value: unknown): boolean => {
+      if (!isObject(element)) {
+        return true;
+      }
+
+      const fields = keys.map((key) => element.get(key)).filter(Boolean);
+
+      if (fields.length === 0) {
+        return true;
+      }
+      return !fields.every((field) => {
+        const elValue = toValue(field);
+
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && value !== elValue) {
+          return false;
+        }
+        return !(isArrayVal && !elValue.includes(value));
+      });
     },
   },
   {

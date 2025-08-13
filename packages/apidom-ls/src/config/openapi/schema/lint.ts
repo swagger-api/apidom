@@ -77,6 +77,7 @@ import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts'
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
 import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.ts';
 import { OpenAPI31 } from '../target-specs.ts';
+import enumDefaultValueLint from '../../common/schema/lint/enum--default-value.ts';
 
 const schemaLints = [
   ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
@@ -100,6 +101,7 @@ const schemaLints = [
   elseTypeLint,
   enumUniqueLint,
   enumTypeLint,
+  enumDefaultValueLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,

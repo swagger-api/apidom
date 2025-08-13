@@ -82,6 +82,10 @@ import $refNoSiblingsLint from '../../common/schema/lint/$ref--no-siblings.ts';
 import $refValidLint from '../../common/schema/lint/$ref--valid.ts';
 import { OpenAPI31 } from '../target-specs.ts';
 import enumDefaultValueLint from '../../common/schema/lint/enum--default-value.ts';
+import minimumValueLint from '../../common/schema/lint/minimum-maximum--value.ts';
+import minLengthValueLint from '../../common/schema/lint/min-length-max-length--value.ts';
+import minPropertiesValueLint from '../../common/schema/lint/min-properties-max-properties--value.ts';
+import minItemsValueLint from '../../common/schema/lint/min-items-max-items--value.ts';
 
 const schemaLints = [
   ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
@@ -130,6 +134,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumTypeLint,
+  minimumValueLint,
+  minLengthValueLint,
+  minPropertiesValueLint,
+  minItemsValueLint,
   missingCoreFieldsOpenAPI3_1Lint,
   multipleOfTypeLint,
   notTypeLint,

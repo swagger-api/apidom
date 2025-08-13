@@ -590,6 +590,25 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintSchemaMinimumMaximum',
+    function: (element: Element, minProperty: string, maxProperty): boolean => {
+      const elementParent = element?.parent?.parent;
+
+      if (!isObject(elementParent)) {
+        return true;
+      }
+
+      const minimum = toValue(elementParent.get(minProperty));
+      const maximum = toValue(elementParent.get(maxProperty));
+
+      if (typeof minimum !== 'number' || typeof maximum !== 'number') {
+        return true;
+      }
+
+      return minimum <= maximum;
+    },
+  },
+  {
     functionName: 'apilintValidURI',
     function: (element: Element, absolute = false): boolean => {
       if (element) {

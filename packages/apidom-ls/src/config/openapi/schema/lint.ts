@@ -81,6 +81,7 @@ import $ref3RequestBodiesLint from '../../common/schema/lint/$ref-3-0--request-b
 import $refNoSiblingsLint from '../../common/schema/lint/$ref--no-siblings.ts';
 import $refValidLint from '../../common/schema/lint/$ref--valid.ts';
 import { OpenAPI31 } from '../target-specs.ts';
+import enumDefaultValueLint from '../../common/schema/lint/enum--default-value.ts';
 
 const schemaLints = [
   ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
@@ -104,6 +105,7 @@ const schemaLints = [
   elseTypeLint,
   enumUniqueLint,
   enumTypeLint,
+  enumDefaultValueLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,

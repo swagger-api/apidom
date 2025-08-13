@@ -347,6 +347,27 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintContainsDefaultValue',
+    function: (element: Element): boolean => {
+      const elementParent = element?.parent?.parent;
+      const defaultValue = isObject(elementParent)
+        ? toValue(elementParent.get('default'))
+        : undefined;
+
+      if (element && defaultValue !== undefined) {
+        const elValue = toValue(element);
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && defaultValue !== elValue) {
+          return false;
+        }
+        if (isArrayVal && !elValue.includes(defaultValue)) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintUniqueArray',
     function: (element: Element): boolean => {
       if (element) {

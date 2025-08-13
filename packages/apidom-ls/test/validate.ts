@@ -4426,6 +4426,43 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas / yaml - Default values must be present in enum', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-enum-default-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-enum-default-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 16, character: 14 }, end: { line: 18, character: 17 } },
+        data: {},
+        message: 'Default values must be present in enum',
+        severity: 1,
+        code: 10076,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

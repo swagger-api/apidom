@@ -89,6 +89,7 @@ import minimumValueLint from './minimum-maximum--value.ts';
 import minLengthValueLint from './min-length-max-length--value.ts';
 import minPropertiesValueLint from './min-properties-max-properties--value.ts';
 import minItemsValueLint from './min-items-max-items--value.ts';
+import readOnlyWriteOnlyLint from './read-only-write-only.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -169,6 +170,7 @@ const schemaLints = [
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
+  readOnlyWriteOnlyLint,
   requiredDefinedLint,
   requiredNonObjectLint,
   requiredTypeLint,

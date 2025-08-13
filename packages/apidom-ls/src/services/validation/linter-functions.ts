@@ -1153,4 +1153,36 @@ export const standardLinterfunctions: FunctionItem[] = [
         : true;
     },
   },
+  {
+    functionName: 'apilintSecurityScopeResolved',
+    function: (element: Element): boolean => {
+      const api = root(element);
+      const securityDefinitions = typeof api.get === 'function' && api.get('securityDefinitions');
+      if (!securityDefinitions || !isObject(securityDefinitions)) return true;
+
+      const securitySchemes = element.toValue() as unknown;
+      const scopeExists: boolean[] = [];
+      if (securitySchemes && Array.isArray(securitySchemes)) {
+        for (const obj of securitySchemes) {
+          for (const [schemeName, scopesFromSecurity] of Object.entries(obj)) {
+            if (Array.isArray(scopesFromSecurity)) {
+              scopeExists.push(
+                scopesFromSecurity.every((scopeFromSecurity: string) => {
+                  const oneSecurityDefinition = securityDefinitions.get(schemeName);
+                  if (!oneSecurityDefinition) return true;
+
+                  const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
+                  if (!oneSecurityDefinitionScopes) return true;
+
+                  return !!oneSecurityDefinitionScopes.get(scopeFromSecurity);
+                }),
+              );
+            }
+          }
+        }
+      }
+
+      return scopeExists.every((bool) => bool);
+    },
+  },
 ];

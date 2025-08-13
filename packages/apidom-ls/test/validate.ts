@@ -3813,13 +3813,44 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc);
     const expected: Diagnostic[] = [
       {
-        message: 'Equivalent paths are not allowed.',
+        message: 'Equivalent paths are not allowed',
         severity: 1,
         code: 3040102,
         source: 'apilint',
         range: { start: { line: 16, character: 2 }, end: { line: 16, character: 17 } },
       },
     ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 every scope should be resolved', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scopes-unresolved.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scopes-unresolved.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Security scope could not be resolved',
+        severity: 1,
+        code: 3220802,
+        source: 'apilint',
+        range: { start: { line: 21, character: 2 }, end: { line: 22, character: 45 } },
+      },
+    ];
+
     assert.deepEqual(result, expected);
 
     languageService.terminate();

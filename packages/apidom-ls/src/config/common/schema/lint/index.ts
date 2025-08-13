@@ -4,6 +4,7 @@ import $idFormatURILint from './$id--format-uri.ts';
 import $refValidLint from './$ref--valid.ts';
 import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import $ref3RequestBodiesLint from './$ref-3-0--request-bodies.ts';
+import $refNotUsedLint from './$ref--not-used.ts';
 import additionalItemsNonArrayLint from './additional-items--non-array.ts';
 import additionalItemsTypeLint from './additional-items--type.ts';
 import additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint from './additional-items--type-openapi-3-1--asyncapi-2.ts';
@@ -83,7 +84,7 @@ import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
 import enumTypeLint from './enum--type.ts';
-import $refNotUsedLint from './$ref--not-used.ts';
+import enumDefaultValueLint from './enum--default-value.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -112,6 +113,7 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumDefaultValueLint,
   enumTypeLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,

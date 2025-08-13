@@ -3813,7 +3813,7 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc);
     const expected: Diagnostic[] = [
       {
-        message: 'Equivalent paths are not allowed.',
+        message: 'Equivalent paths are not allowed',
         severity: 1,
         code: 3040102,
         source: 'apilint',

@@ -83,6 +83,10 @@ import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
 import enumTypeLint from './enum--type.ts';
 import enumDefaultValueLint from './enum--default-value.ts';
+import minimumValueLint from './minimum-maximum--value.ts';
+import minLengthValueLint from './min-length-max-length--value.ts';
+import minPropertiesValueLint from './min-properties-max-properties--value.ts';
+import minItemsValueLint from './min-items-max-items--value.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -135,6 +139,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumTypeLint,
+  minimumValueLint,
+  minLengthValueLint,
+  minPropertiesValueLint,
+  minItemsValueLint,
   missingCoreFieldsOpenAPI2_0Lint,
   missingCoreFieldsOpenAPI3_0Lint,
   missingCoreFieldsOpenAPI3_1Lint,

@@ -1183,4 +1183,48 @@ export const standardLinterfunctions: FunctionItem[] = [
       return scopeExists.every((bool) => bool);
     },
   },
+  {
+    functionName: 'apilintSecuritySchemeUsed',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const schemeName: string = element.parent.toValue().key;
+        const api = root(element);
+        const securityObjects: Element[] = [];
+        const globalSecurity = typeof api.get === 'function' && api.get('security');
+        if (globalSecurity && isArray(globalSecurity)) {
+          globalSecurity.forEach((secObj) => {
+            if (isObject(secObj)) securityObjects.push(secObj);
+          });
+        }
+        const paths = typeof api.get === 'function' && api.get('paths');
+        if (paths && isObject(paths)) {
+          paths.forEach((pathItem) => {
+            if (isObject(pathItem)) {
+              pathItem.forEach((op) => {
+                if (isObject(op) && op.hasKey('security')) {
+                  const opSecurity = op.get('security');
+                  if (isArray(opSecurity)) {
+                    opSecurity.forEach((secObj) => {
+                      if (isObject(secObj)) securityObjects.push(secObj);
+                    });
+                  }
+                }
+              });
+            }
+          });
+        }
+        // Check if schemeName is used in any security object
+        for (const secObj of securityObjects) {
+          if (isObject(secObj)) {
+            if (secObj.hasKey(schemeName)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      return true;
+    },
+  },
 ];

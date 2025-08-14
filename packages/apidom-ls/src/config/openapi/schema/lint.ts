@@ -88,6 +88,7 @@ import minPropertiesValueLint from '../../common/schema/lint/min-properties-max-
 import minItemsValueLint from '../../common/schema/lint/min-items-max-items--value.ts';
 import readOnlyWriteOnlyLint from '../../common/schema/lint/read-only-write-only-3-0.ts';
 import readOnlyRequiredLint from '../../common/schema/lint/required--read-only-2.ts';
+import patternValueLint from '../../common/schema/lint/pattern--value-2.ts';
 
 const schemaLints = [
   ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
@@ -153,6 +154,7 @@ const schemaLints = [
   patternPropertiesNonObjectLint,
   patternPropertiesTypeLint,
   patternPropertiesValuesTypeLint,
+  patternValueLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
   propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint,

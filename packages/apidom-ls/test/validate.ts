@@ -4765,6 +4765,52 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2/ yaml - \\Z" anchors are not allowed in regular expression patterns', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-reg-exp-anchors.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-reg-exp-anchors.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10083,
+        data: {},
+        message: '\\Z" anchors are not allowed in regular expression patterns',
+        range: {
+          end: {
+            character: 31,
+            line: 10,
+          },
+          start: {
+            character: 13,
+            line: 10,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

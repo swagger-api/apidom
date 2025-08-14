@@ -3791,9 +3791,7 @@ describe('apidom-ls-validate', function () {
 
   it('oas - tags name should have unique values', async function () {
     const spec = fs
-      .readFileSync(
-        path.join(__dirname, 'fixtures', 'validation', 'oas', 'tags-unique-name.yaml'),
-      )
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'tags-unique-name.yaml'))
       .toString();
     const doc: TextDocument = TextDocument.create(
       'foo://bar/tags-unique-name.yaml',
@@ -3804,7 +3802,7 @@ describe('apidom-ls-validate', function () {
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
     const result = await languageService.doValidation(doc);
-     const expected: Diagnostic[] = [
+    const expected: Diagnostic[] = [
       {
         message: 'Tag Objects must have unique `name` field values.',
         severity: 1,
@@ -3825,5 +3823,5 @@ describe('apidom-ls-validate', function () {
     assert.deepEqual(result, expected);
 
     languageService.terminate();
-  })
+  });
 });

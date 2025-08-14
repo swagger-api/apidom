@@ -81,6 +81,15 @@ import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
+import enumTypeLint from './enum--type.ts';
+import enumDefaultValueLint from './enum--default-value.ts';
+import minimumValueLint from './minimum-maximum--value.ts';
+import minLengthValueLint from './min-length-max-length--value.ts';
+import minPropertiesValueLint from './min-properties-max-properties--value.ts';
+import minItemsValueLint from './min-items-max-items--value.ts';
+import readOnlyWriteOnlyLint from './read-only-write-only-3-0.ts';
+import readOnlyRequiredLint from './required--read-only-2.ts';
+import patternValueLint from './pattern--value-2.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -107,6 +116,8 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumDefaultValueLint,
+  enumTypeLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,
@@ -131,6 +142,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumTypeLint,
+  minimumValueLint,
+  minLengthValueLint,
+  minPropertiesValueLint,
+  minItemsValueLint,
   missingCoreFieldsOpenAPI2_0Lint,
   missingCoreFieldsOpenAPI3_0Lint,
   missingCoreFieldsOpenAPI3_1Lint,
@@ -146,6 +161,7 @@ const schemaLints = [
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,
   patternPropertiesTypeLint,
+  patternValueLint,
   patternPropertiesValuesTypeLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
@@ -153,6 +169,8 @@ const schemaLints = [
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
+  readOnlyWriteOnlyLint,
+  readOnlyRequiredLint,
   requiredDefinedLint,
   requiredNonObjectLint,
   requiredTypeLint,

@@ -1,0 +1,14 @@
+swagger: '2.0'
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /pets:
+    $ref: '#/definitions/CoolModel'
+definitions:
+  CoolModel:
+    required:
+      - BadProperty
+    properties:
+      BadProperty:
+        readOnly: true

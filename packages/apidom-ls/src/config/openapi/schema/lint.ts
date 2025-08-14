@@ -19,6 +19,7 @@ import discriminatorTypeOpenAPI3Lint from '../../common/schema/lint/discriminato
 import elseNonIfLint from '../../common/schema/lint/else--non-if.ts';
 import elseTypeLint from '../../common/schema/lint/else--type.ts';
 import enumUniqueLint from '../../common/schema/lint/enum--unique.ts';
+import enumTypeLint from '../../common/schema/lint/enum--type.ts';
 import examplesTypeLint from '../../common/schema/lint/examples--type.ts';
 import exclusiveMaximumTypeNumberLint from '../../common/schema/lint/exclusive-maximum--type-number.ts';
 import exclusiveMaximumTypeBooleanLint from '../../common/schema/lint/exclusive-maximum--type-boolean.ts';
@@ -76,6 +77,14 @@ import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts'
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
 import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.ts';
 import { OpenAPI31 } from '../target-specs.ts';
+import enumDefaultValueLint from '../../common/schema/lint/enum--default-value.ts';
+import minimumValueLint from '../../common/schema/lint/minimum-maximum--value.ts';
+import minLengthValueLint from '../../common/schema/lint/min-length-max-length--value.ts';
+import minPropertiesValueLint from '../../common/schema/lint/min-properties-max-properties--value.ts';
+import minItemsValueLint from '../../common/schema/lint/min-items-max-items--value.ts';
+import readOnlyWriteOnlyLint from '../../common/schema/lint/read-only-write-only-3-0.ts';
+import readOnlyRequiredLint from '../../common/schema/lint/required--read-only-2.ts';
+import patternValueLint from '../../common/schema/lint/pattern--value-2.ts';
 
 const schemaLints = [
   ...compose([jsonSchema202012Lint], assoc(OpenAPI31)),
@@ -98,6 +107,8 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumTypeLint,
+  enumDefaultValueLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,
@@ -122,6 +133,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumTypeLint,
+  minimumValueLint,
+  minLengthValueLint,
+  minPropertiesValueLint,
+  minItemsValueLint,
   missingCoreFieldsOpenAPI3_1Lint,
   multipleOfTypeLint,
   notTypeLint,
@@ -135,12 +150,15 @@ const schemaLints = [
   patternPropertiesNonObjectLint,
   patternPropertiesTypeLint,
   patternPropertiesValuesTypeLint,
+  patternValueLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
   propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint,
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
+  readOnlyWriteOnlyLint,
+  readOnlyRequiredLint,
   requiredDefinedLint,
   requiredNonObjectLint,
   requiredTypeLint,

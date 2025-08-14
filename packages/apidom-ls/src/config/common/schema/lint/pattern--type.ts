@@ -8,10 +8,9 @@ import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
 const patternTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PATTERN,
   source: 'apilint',
-  message: "pattern' value must be a string",
+  message: "pattern' value must be a regular expression",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterFunction: 'apilintValueIsRegex',
   marker: 'value',
   target: 'pattern',
   data: {},

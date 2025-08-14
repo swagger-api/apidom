@@ -23,8 +23,8 @@ securityDefinitions:
     flow: implicit
     authorizationUrl: "https://auth.example.com/authorize"
     scopes:
-      read:people: "Read pets information"
-      write:people: "Write pets information"
+      read:people: "Read people information"
+      write:people: "Write people information"
 security:
   - oauth2: ["read:pets", "write:pets"]
   - secondScheme: ["read:pets", "write:pets"]

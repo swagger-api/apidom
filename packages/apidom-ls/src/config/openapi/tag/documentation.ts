@@ -13,6 +13,8 @@ import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
 const documentation = [
   { target: 'name', docs: '**Required.** The name of the tag.', targetSpecs: OpenAPI2 },
   { target: 'name', docs: '**REQUIRED**. The name of the tag.', targetSpecs: OpenAPI3 },
+  { target: 'name', docs: 'Tag Objects must have unique `name` field values.', targetSpecs: OpenAPI3 },
+  { target: 'name', docs: 'Tag Objects must have unique `name` field values.', targetSpecs: OpenAPI2 },
   {
     target: 'description',
     docs: 'A short description for the tag. [GFM syntax](https://guides.github.com/features/mastering-markdown/#GitHub-flavored-markdown) can be used for rich text representation.',

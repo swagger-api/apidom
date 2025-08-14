@@ -1032,6 +1032,24 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintRequiredReadOnlyInProperties',
+    function: (element: Element): boolean => {
+      if (element && element.parent?.parent && isObject(element.parent?.parent)) {
+        const required = toValue(element) as string[];
+        const properties = element.parent.parent.get('properties') as ObjectElement | undefined;
+        if (required) {
+          for (const r of required) {
+            const requiredProperty = properties?.get(r);
+            if (isObject(requiredProperty)) {
+              return requiredProperty.get('readOnly') === false;
+            }
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintFieldsKeysCasing',
     function: (
       element: Element,

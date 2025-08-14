@@ -4673,7 +4673,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it("oas / yaml - A property MUST NOT be marked 'readOnly' and 'writeOnly' being true", async function () {
+  it("oas 3.0/ yaml - A property MUST NOT be marked 'readOnly' and 'writeOnly' being true", async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -4708,6 +4708,52 @@ describe('apidom-ls-validate', function () {
           start: {
             character: 8,
             line: 27,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2/ yaml - Read only properties cannot be marked as required by a schema', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-read-only-required.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-read-only-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10082,
+        data: {},
+        message: 'Read only properties cannot be marked as required by a schema',
+        range: {
+          end: {
+            character: 19,
+            line: 10,
+          },
+          start: {
+            character: 6,
+            line: 10,
           },
         },
         severity: 1,

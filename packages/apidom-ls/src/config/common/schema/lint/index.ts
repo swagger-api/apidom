@@ -89,6 +89,7 @@ import minPropertiesValueLint from './min-properties-max-properties--value.ts';
 import minItemsValueLint from './min-items-max-items--value.ts';
 import readOnlyWriteOnlyLint from './read-only-write-only-3-0.ts';
 import readOnlyRequiredLint from './required--read-only-2.ts';
+import patternValueLint from './pattern--value-2.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -160,6 +161,7 @@ const schemaLints = [
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,
   patternPropertiesTypeLint,
+  patternValueLint,
   patternPropertiesValuesTypeLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,

@@ -557,6 +557,21 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintValueIsRegex',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const elKey = toValue(element.parent.value as Element);
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const regex = new RegExp(elKey);
+        } catch (e) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintMaxLength',
     function: (element: Element, maxLength: number): boolean => {
       if (element) {
@@ -980,7 +995,7 @@ export const standardLinterfunctions: FunctionItem[] = [
           for (const r of required) {
             const requiredProperty = properties?.get(r);
             if (isObject(requiredProperty)) {
-              return requiredProperty.get('readOnly') === false;
+              return toValue(requiredProperty.get('readOnly')) !== true;
             }
           }
         }

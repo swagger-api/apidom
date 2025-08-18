@@ -1,0 +1,19 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /pets:
+    get:
+      responses:
+      parameters:
+        - name: pathLevel
+          in: query
+          description: tags to filter by
+          schema:
+            type: string
+        - name: pathLevel
+          in: query
+          description: tags to filter by
+          schema:
+            type: string

@@ -30,7 +30,6 @@ import {
   processPath,
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
-import { boolean } from 'vscode-languageserver-protocol/lib/common/utils/is.js';
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];

@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI2 } from '../../target-specs.ts';
 
 const valueEquivalentNotAllowedLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PATH_TEMPLATE_EQUIVALENT_NOT_ALLOWED,
+  code: ApilintCodes.OPENAPI2_PATH_TEMPLATE_VALUE_EQUIVALENT_NOT_ALLOWED,
   source: 'apilint',
   message: 'Equivalent paths are not allowed',
   severity: DiagnosticSeverity.Error,

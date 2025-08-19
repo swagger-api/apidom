@@ -1157,4 +1157,78 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintSecurityScopeResolved',
+    function: (element: Element): boolean => {
+      const api = root(element);
+      const securityDefinitions = typeof api.get === 'function' && api.get('securityDefinitions');
+      if (!securityDefinitions || !isObject(securityDefinitions)) return true;
+
+      const securityRequirements = element.toValue() as unknown;
+      const scopeExists: boolean[] = [];
+      if (securityRequirements) {
+        for (const [schemeName, scopesFromSecurity] of Object.entries(securityRequirements)) {
+          if (Array.isArray(scopesFromSecurity)) {
+            scopeExists.push(
+              scopesFromSecurity.every((scopeFromSecurity: string) => {
+                const oneSecurityDefinition = securityDefinitions.get(schemeName);
+                if (!oneSecurityDefinition) return true;
+
+                const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
+                if (!oneSecurityDefinitionScopes) return true;
+
+                return !!oneSecurityDefinitionScopes.get(scopeFromSecurity);
+              }),
+            );
+          }
+        }
+      }
+
+      return scopeExists.every((bool) => bool);
+    },
+  },
+  {
+    functionName: 'apilintSecuritySchemeUsed',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const schemeName: string = element.parent.toValue().key;
+        const api = root(element);
+        const securityObjects: Element[] = [];
+        const globalSecurity = typeof api.get === 'function' && api.get('security');
+        if (globalSecurity && isArray(globalSecurity)) {
+          globalSecurity.forEach((secObj) => {
+            if (isObject(secObj)) securityObjects.push(secObj);
+          });
+        }
+        const paths = typeof api.get === 'function' && api.get('paths');
+        if (paths && isObject(paths)) {
+          paths.forEach((pathItem) => {
+            if (isObject(pathItem)) {
+              pathItem.forEach((op) => {
+                if (isObject(op) && op.hasKey('security')) {
+                  const opSecurity = op.get('security');
+                  if (isArray(opSecurity)) {
+                    opSecurity.forEach((secObj) => {
+                      if (isObject(secObj)) securityObjects.push(secObj);
+                    });
+                  }
+                }
+              });
+            }
+          });
+        }
+        // Check if schemeName is used in any security object
+        for (const secObj of securityObjects) {
+          if (isObject(secObj)) {
+            if (secObj.hasKey(schemeName)) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      return true;
+    },
+  },
 ];

@@ -16,6 +16,7 @@ import {
   test as testPathTemplate,
   resolve as resolvePathTemplate,
   parse as parsePathTemplate,
+  isIdentical,
 } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
@@ -1136,12 +1137,9 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apilintOpenAPIPathTemplateNoEquivalent',
     function: (element: Element): boolean => {
-      const PATH_TEMPLATES_REGEX = /\{[^}]+\}/g;
       const isFirstOccurrence = (currentKey: string, allKeys: unknown[]) => {
-        const normalize = (x: string) => x.replace(PATH_TEMPLATES_REGEX, '~~');
-        const currentKeyNormalized = normalize(currentKey);
         const firstIndex = allKeys.findIndex(
-          (e) => typeof e === 'string' && normalize(e) === currentKeyNormalized,
+          (e) => typeof e === 'string' && isIdentical(e, currentKey),
         );
 
         return allKeys[firstIndex] === currentKey;

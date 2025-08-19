@@ -1161,7 +1161,7 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintSecurityScopeResolved',
     function: (element: Element): boolean => {
       const api = root(element);
-      const securityDefinitions = typeof api.get === 'function' && api.get('securityDefinitions');
+      const securityDefinitions = isObject(api) && api.get('securityDefinitions');
       if (!securityDefinitions || !isObject(securityDefinitions)) return true;
 
       const securityRequirements = element.toValue() as unknown;
@@ -1194,13 +1194,13 @@ export const standardLinterfunctions: FunctionItem[] = [
         const schemeName: string = element.parent.toValue().key;
         const api = root(element);
         const securityObjects: Element[] = [];
-        const globalSecurity = typeof api.get === 'function' && api.get('security');
+        const globalSecurity = isObject(api) && api.get('security');
         if (globalSecurity && isArray(globalSecurity)) {
           globalSecurity.forEach((secObj) => {
             if (isObject(secObj)) securityObjects.push(secObj);
           });
         }
-        const paths = typeof api.get === 'function' && api.get('paths');
+        const paths = isObject(api) && api.get('paths');
         if (paths && isObject(paths)) {
           paths.forEach((pathItem) => {
             if (isObject(pathItem)) {

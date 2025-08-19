@@ -11,6 +11,7 @@ import {
   isArrayElement,
   includesClasses,
 } from '@swagger-api/apidom-core';
+import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
 import {
   test as testPathTemplate,
@@ -568,6 +569,28 @@ export const standardLinterfunctions: FunctionItem[] = [
         try {
           // eslint-disable-next-line no-new
           new URL(toValue(element), absolute ? undefined : 'http://example.com');
+        } catch (e) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintValidURI_RFC3986',
+    function: (element: Element, absolute = false): boolean => {
+      if (element) {
+        if (!isString(element)) {
+          return false;
+        }
+        try {
+          // eslint-disable-next-line no-new
+          const url = new URL(toValue(element), absolute ? undefined : 'http://example.com');
+
+          const rfc3986Fragment = url.hash ? url.hash.slice(1) : url.pathname;
+          const rest = URIFragmentIdentifier.to(rfc3986Fragment).slice(1);
+
+          return rest === rfc3986Fragment;
         } catch (e) {
           return false;
         }

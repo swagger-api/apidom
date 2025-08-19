@@ -8,9 +8,9 @@ import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
 const $refValidLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_REF,
   source: 'apilint',
-  message: "'$ref' value must be a valid URI-reference",
+  message: "'$ref' value must be an RFC3986-compliant URI reference",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValidURI',
+  linterFunction: 'apilintValidURI_RFC3986',
   marker: 'value',
   target: '$ref',
   data: {},

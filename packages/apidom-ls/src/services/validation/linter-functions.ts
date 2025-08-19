@@ -1131,7 +1131,10 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintReferenceNotUsed',
     function: (element: Element & { content?: { key?: string } }) => {
       const elParent: Element = element.parent?.parent?.parent?.parent;
-      if (typeof elParent.hasKey !== 'function' || !elParent.hasKey('schemas')) {
+      if (
+        (typeof elParent?.hasKey !== 'function' || !elParent.hasKey('schemas')) &&
+        toValue(element?.parent?.parent?.parent?.key) !== 'definitions'
+      ) {
         return true;
       }
 

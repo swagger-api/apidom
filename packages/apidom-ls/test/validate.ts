@@ -3001,7 +3001,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it('oas / yaml - ref is defined but not used', async function () {
+  it('oas / yaml 3.0 - ref is defined but not used', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -3009,9 +3009,14 @@ describe('apidom-ls-validate', function () {
     };
 
     const spec = fs
-      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used.yaml'))
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used-3-0.yaml'))
       .toString();
-    const doc: TextDocument = TextDocument.create('foo://bar/ref-not-used.yaml', 'yaml', 0, spec);
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-not-used-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
 
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
@@ -3020,6 +3025,42 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: { start: { line: 12, character: 4 }, end: { line: 12, character: 17 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml 2.0 - ref is defined but not used', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used-2-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-not-used-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 2 }, end: { line: 11, character: 13 } },
         message: 'Definition was declared but never used in document',
         severity: 2,
         code: 'test',

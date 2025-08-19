@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-json-pointer-relative",
-  "version": "1.0.0-beta.45",
+  "version": "1.0.0-beta.46",
   "description": "Evaluate Relative JSON Pointer expressions against ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -38,9 +38,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.0.0-beta.45",
-    "@swagger-api/apidom-error": "^1.0.0-beta.45",
-    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.45",
+    "@swagger-api/apidom-core": "^1.0.0-beta.46",
+    "@swagger-api/apidom-error": "^1.0.0-beta.46",
+    "@swagger-api/apidom-json-pointer": "^1.0.0-beta.46",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0"

@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
+
+### Bug Fixes
+
+- adjust multiple body rule ([21fe90c](https://github.com/swagger-api/apidom/commit/21fe90c224684dc697d0a6cab5f25f86d61b8bf5))
+- parameter unique name validation for oas2 ([1eb1a38](https://github.com/swagger-api/apidom/commit/1eb1a38fb8cc75797d44cd4d2d7eab3c2a33fc54))
+
+### Features
+
+- migrate multiple body rule ([f2c2bbd](https://github.com/swagger-api/apidom/commit/f2c2bbdf8a56156bcedf5c8fe607fe0b2253c1d2))
+- migrate parameter named "accept" is ignored rule ([028ab12](https://github.com/swagger-api/apidom/commit/028ab129327507bd5fe2e4ba4c0ca2524ac28323))
+- migrate parameter named "Authorization" is ignored rule ([555703b](https://github.com/swagger-api/apidom/commit/555703bfb4a4d29efcae3fdee5562994734d7f06))
+- migrate parameter named "content-type" is ignored rule ([46f0f7a](https://github.com/swagger-api/apidom/commit/46f0f7a3039def5aeb1fa0f1e56c4c20b4ab56d7))
+- migrate unique parameter name ([2da94c7](https://github.com/swagger-api/apidom/commit/2da94c796bd9569991c41642431e48c8243d18d8))
+- migrate unique parameter name ([76a3eb5](https://github.com/swagger-api/apidom/commit/76a3eb54d7b72a93a59b058a8d594a0d4e89da09))
+
 # [1.0.0-beta.45](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-08-01)
 
 **Note:** Version bump only for package apidom-monorepo

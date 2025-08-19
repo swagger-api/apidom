@@ -1146,7 +1146,7 @@ export const standardLinterfunctions: FunctionItem[] = [
 
         return allKeys[firstIndex] === currentKey;
       };
-      const paths = element.parent.parent;
+      const paths = element.parent?.parent;
 
       return isStringElement(element) && isObject(paths)
         ? isFirstOccurrence(element.toValue(), paths.keys())

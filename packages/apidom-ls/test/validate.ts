@@ -3651,6 +3651,342 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - parameter name should be unique', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-unique-name-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-unique-name-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 9,
+          },
+          start: {
+            character: 10,
+            line: 9,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 14,
+          },
+          start: {
+            character: 10,
+            line: 14,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 / yaml - parameter name should be unique', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-unique-name-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-unique-name-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 9,
+          },
+          start: {
+            character: 10,
+            line: 9,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 15,
+          },
+          start: {
+            character: 10,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter Authorization is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameter-in-authorization-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-authorization-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150303,
+        data: {},
+        message:
+          'Header Parameter named "Authorization" is ignored. Use the "securitySchemes" and "security" sections instead to define authorization',
+        range: {
+          end: {
+            character: 29,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter content-type is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-content-type-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-authorization-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150304,
+        data: {},
+        message:
+          'Header Parameter named "Content-Type" is ignored. The values for the "Content-Type" header are defined by `requestBody.content.<media-type>`',
+        range: {
+          end: {
+            character: 28,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter accept is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-accept-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-accept-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150304,
+        data: {},
+        message:
+          'Header Parameter named "Accept" is ignored. The values for the "Accept" header are defined by `requestBody.content.<media-type>`',
+        range: {
+          end: {
+            character: 22,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 / yaml - Multiple body parameters are not allowed', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-multiple-body.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-multiple-body.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 13,
+          },
+          start: {
+            character: 10,
+            line: 13,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 16,
+          },
+          start: {
+            character: 10,
+            line: 16,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.1 / yaml - parameter object should be defined within path template', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

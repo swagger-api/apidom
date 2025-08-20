@@ -11,6 +11,7 @@ import {
   isArrayElement,
   includesClasses,
 } from '@swagger-api/apidom-core';
+import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
 import {
   test as testPathTemplate,
@@ -169,6 +170,20 @@ export const standardLinterfunctions: FunctionItem[] = [
       if (element && isObject(element)) {
         for (const key of keys) {
           if (!element.hasKey(key)) {
+            return false;
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'parentExistFields',
+    function: (element: Element, keys: string[]): boolean => {
+      const parent = element?.parent?.parent?.parent?.parent;
+      if (parent && isObject(parent)) {
+        for (const key of keys) {
+          if (!parent.hasKey(key)) {
             return false;
           }
         }
@@ -554,6 +569,28 @@ export const standardLinterfunctions: FunctionItem[] = [
         try {
           // eslint-disable-next-line no-new
           new URL(toValue(element), absolute ? undefined : 'http://example.com');
+        } catch (e) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintValidURI_RFC3986',
+    function: (element: Element, absolute = false): boolean => {
+      if (element) {
+        if (!isString(element)) {
+          return false;
+        }
+        try {
+          // eslint-disable-next-line no-new
+          const url = new URL(toValue(element), absolute ? undefined : 'http://example.com');
+
+          const rfc3986Fragment = url.hash ? url.hash.slice(1) : url.pathname;
+          const rest = URIFragmentIdentifier.to(rfc3986Fragment).slice(1);
+
+          return rest === rfc3986Fragment;
         } catch (e) {
           return false;
         }
@@ -1111,6 +1148,31 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       return true;
+    },
+  },
+  {
+    functionName: 'apilintReferenceNotUsed',
+    function: (element: Element & { content?: { key?: string } }) => {
+      const elParent: Element = element.parent?.parent?.parent?.parent;
+      if (
+        (typeof elParent?.hasKey !== 'function' || !elParent.hasKey('schemas')) &&
+        toValue(element?.parent?.parent?.parent?.key) !== 'definitions'
+      ) {
+        return true;
+      }
+
+      const api = root(element);
+      const isReferenceElement = (el: Element & { content?: { key?: string } }) =>
+        toValue(el.content.key) === '$ref';
+      const referenceElements = filter((el) => {
+        return isReferenceElement(el);
+      }, api);
+      const referenceNames = referenceElements.map((refElement: Element) =>
+        // @ts-expect-error
+        toValue(refElement.content.value).split('/').at(-1),
+      );
+      // @ts-expect-error
+      return referenceNames.includes(toValue(element.parent.key));
     },
   },
   {

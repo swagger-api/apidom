@@ -1164,27 +1164,28 @@ export const standardLinterfunctions: FunctionItem[] = [
       const securityDefinitions = isObject(api) && api.get('securityDefinitions');
       if (!securityDefinitions || !isObject(securityDefinitions)) return true;
 
-      const securityRequirements = element.toValue() as unknown;
-      const scopeExists: boolean[] = [];
-      if (securityRequirements) {
-        for (const [schemeName, scopesFromSecurity] of Object.entries(securityRequirements)) {
+      const hasScope = (schemeName: string, scopesFromSecurity: string[]) => {
+        const oneSecurityDefinition = securityDefinitions.get(schemeName);
+        if (!oneSecurityDefinition) return true; // returning true, because when key is not found, then keys--defined rule will come into play.
+
+        const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
+        if (!oneSecurityDefinitionScopes) return true; // returning true, because when scopes is not found, then scope--required rule from security scheme will come into play.
+
+        return scopesFromSecurity.every(
+          (scopeFromSecurity: string) => !!oneSecurityDefinitionScopes.get(scopeFromSecurity),
+        );
+      };
+
+      if (isObject(element)) {
+        const securityRequirement = element.toValue();
+        for (const [schemeName, scopesFromSecurity] of Object.entries(securityRequirement)) {
           if (Array.isArray(scopesFromSecurity)) {
-            scopeExists.push(
-              scopesFromSecurity.every((scopeFromSecurity: string) => {
-                const oneSecurityDefinition = securityDefinitions.get(schemeName);
-                if (!oneSecurityDefinition) return true;
-
-                const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
-                if (!oneSecurityDefinitionScopes) return true;
-
-                return !!oneSecurityDefinitionScopes.get(scopeFromSecurity);
-              }),
-            );
+            return hasScope(schemeName, scopesFromSecurity);
           }
         }
       }
 
-      return scopeExists.every((bool) => bool);
+      return true;
     },
   },
   {
@@ -1193,7 +1194,7 @@ export const standardLinterfunctions: FunctionItem[] = [
       if (element && element.parent && isMember(element.parent)) {
         const schemeName: string = element.parent.toValue().key;
         const api = root(element);
-        const securityObjects: Element[] = [];
+        const securityObjects: ObjectElement[] = [];
         const globalSecurity = isObject(api) && api.get('security');
         if (globalSecurity && isArray(globalSecurity)) {
           globalSecurity.forEach((secObj) => {

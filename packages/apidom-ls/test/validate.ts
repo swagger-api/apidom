@@ -4156,13 +4156,18 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it('oas every defined security scheme should be used', async function () {
+  it('oas 2.0 every defined security scheme should be used', async function () {
     const spec = fs
       .readFileSync(
-        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used.yaml'),
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-2-0.yaml'),
       )
       .toString();
-    const doc: TextDocument = TextDocument.create('security-scheme-not-used.yaml', 'yaml', 0, spec);
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
 
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
@@ -4179,6 +4184,94 @@ describe('apidom-ls-validate', function () {
     ];
 
     assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme should be used', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Security Scheme was defined but never used. To apply security, use the `security` section in operations or on the root level of your API definition',
+        severity: 2,
+        code: 14998,
+        source: 'apilint',
+        range: { start: { line: 25, character: 4 }, end: { line: 25, character: 17 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used locally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-locally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-locally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used globally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-globally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-globally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
 
     languageService.terminate();
   });

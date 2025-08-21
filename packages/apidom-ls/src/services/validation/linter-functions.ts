@@ -10,6 +10,7 @@ import {
   ObjectElement,
   isArrayElement,
   includesClasses,
+  isObjectElement,
 } from '@swagger-api/apidom-core';
 import { CompletionItem } from 'vscode-languageserver-types';
 import {
@@ -1192,41 +1193,39 @@ export const standardLinterfunctions: FunctionItem[] = [
     functionName: 'apilintSecuritySchemeUsed',
     function: (element: Element): boolean => {
       if (element && element.parent && isMember(element.parent)) {
-        const schemeName: string = element.parent.toValue().key;
+        const schemeName: string =
+          isStringElement(element.parent.key) && element.parent.key.toValue();
         const api = root(element);
-        const securityObjects: ObjectElement[] = [];
-        const globalSecurity = isObject(api) && api.get('security');
-        if (globalSecurity && isArray(globalSecurity)) {
-          globalSecurity.forEach((secObj) => {
-            if (isObject(secObj)) securityObjects.push(secObj);
-          });
-        }
-        const paths = isObject(api) && api.get('paths');
-        if (paths && isObject(paths)) {
-          paths.forEach((pathItem) => {
-            if (isObject(pathItem)) {
-              pathItem.forEach((op) => {
-                if (isObject(op) && op.hasKey('security')) {
-                  const opSecurity = op.get('security');
-                  if (isArray(opSecurity)) {
-                    opSecurity.forEach((secObj) => {
-                      if (isObject(secObj)) securityObjects.push(secObj);
-                    });
-                  }
-                }
-              });
-            }
-          });
-        }
-        // Check if schemeName is used in any security object
-        for (const secObj of securityObjects) {
-          if (isObject(secObj)) {
+        const globalSecurity: ObjectElement[] = isObject(api) && api.get('security');
+        if (globalSecurity) {
+          for (const secObj of globalSecurity) {
             if (secObj.hasKey(schemeName)) {
               return true;
             }
           }
         }
-        return false;
+        const paths: ObjectElement = isObject(api) && api.get('paths');
+        return !!paths.findElements(
+          (e) => {
+            if (isObjectElement(e)) {
+              if (e.hasKey('security')) {
+                const opSecurity = typeof e.getMember === 'function' && e.getMember('security');
+                if (isArrayElement(opSecurity.value)) {
+                  return !!opSecurity.value.findElements((securityRequirementObject: Element) => {
+                    const securityRequirementValue: Record<string, unknown> =
+                      securityRequirementObject.toValue();
+                    return (
+                      securityRequirementValue[schemeName] &&
+                      Array.isArray(securityRequirementValue[schemeName])
+                    );
+                  }, {}).length;
+                }
+              }
+            }
+            return false;
+          },
+          { recursive: true },
+        ).length;
       }
 
       return true;

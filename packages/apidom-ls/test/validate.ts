@@ -4132,6 +4132,52 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2.0 / yaml - enum value should conform to its parameters type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameters-enum-type-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-enum-type-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3101801,
+        data: {},
+        message: 'enum value should conform to its parameters type',
+        range: {
+          end: {
+            character: 25,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - parameter Authorization is ignored', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -4463,7 +4509,50 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it("oas / yaml - 'minimum' must be lower value than 'maximum'", async function () {
+  it('oas / yaml 2.0 - Default values must be present in enum', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-enum-default-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-enum-default-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 16 }, end: { line: 11, character: 35 } },
+        data: {},
+        message: 'Default values must be present in enum',
+        severity: 1,
+        code: 3101802,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 3.0 - 'minimum' must be lower value than 'maximum'", async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -4511,7 +4600,104 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it("oas / yaml - 'minLength' must be lower value than 'maxLength'", async function () {
+  it("oas / yaml 3.0 - exclusive minimum: 'minimum' must be lower value than 'maximum'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'schema-exclusive-minimum-maximum-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-exclusive-minimum-maximum-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 14, character: 15 }, end: { line: 14, character: 16 } },
+        data: {},
+        message: "'minimum' must be a lower value than 'maximum'",
+        severity: 1,
+        code: 10077,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minimum' must be lower value than 'maximum'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-maximum-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-maximum-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 19 }, end: { line: 11, character: 21 } },
+        data: {},
+        message: "'minimum' must be a lower value than 'maximum'",
+        severity: 1,
+        code: 3110701,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 3.0 - 'minLength' must be lower value than 'maxLength'", async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -4557,6 +4743,49 @@ describe('apidom-ls-validate', function () {
         message: "'minLength' must be a lower value than 'maxLength'",
         severity: 1,
         code: 10078,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minLength' must be lower value than 'maxLength'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-length-maximum-length-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-length-maximum-length-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 21 }, end: { line: 11, character: 23 } },
+        data: {},
+        message: "'minLength' must be a lower value than 'maxLength'",
+        severity: 1,
+        code: 3111301,
         source: 'apilint',
       },
     ];
@@ -4619,6 +4848,49 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it("oas / yaml 2.0 - 'minProperties' must be lower value than 'maxProperties'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-length-maximum-length-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-length-maximum-length-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 21 }, end: { line: 11, character: 23 } },
+        data: {},
+        message: "'minLength' must be a lower value than 'maxLength'",
+        severity: 1,
+        code: 3111301,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it("oas / yaml - 'minItems' must be lower value than 'minItems'", async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -4665,6 +4937,49 @@ describe('apidom-ls-validate', function () {
         message: "'minItems' must be a lower value than 'maxItems'",
         severity: 1,
         code: 10080,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minItems' must be lower value than 'minItems'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-items-maximum-items-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-items-maximum-items-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 20 }, end: { line: 11, character: 22 } },
+        data: {},
+        message: "'minItems' must be a lower value than 'maxItems'",
+        severity: 1,
+        code: 3111001,
         source: 'apilint',
       },
     ];
@@ -4800,6 +5115,61 @@ describe('apidom-ls-validate', function () {
           start: {
             character: 13,
             line: 10,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas 2/ yaml - should have an 'items' if 'type'=array", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-required.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10084,
+        data: {
+          quickFix: [
+            {
+              action: 'addChild',
+              message: "add 'items' field",
+              snippetJson: '"items": {\n  \n  },\n',
+              snippetYaml: 'items: \n  \n',
+            },
+          ],
+        },
+        message: "should have an 'items' if 'type'=array",
+        range: {
+          end: {
+            character: 20,
+            line: 12,
+          },
+          start: {
+            character: 14,
+            line: 12,
           },
         },
         severity: 1,

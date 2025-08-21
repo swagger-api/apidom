@@ -35,6 +35,7 @@ import formatTypeLint from './format--type.ts';
 import ifNonThenLint from './if--non-then.ts';
 import ifTypeLint from './if--type.ts';
 import itemsNonArrayLint from './items--non-array.ts';
+import itemsRequiredLint from './items--required.ts';
 import itemsTypeLint from './items--type.ts';
 import maxItemsNonArrayLint from './max-items--non-array.ts';
 import maxItemsTypeLint from './max-items--type.ts';
@@ -133,6 +134,7 @@ const schemaLints = [
   ifNonThenLint,
   ifTypeLint,
   itemsNonArrayLint,
+  itemsRequiredLint,
   itemsTypeLint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,

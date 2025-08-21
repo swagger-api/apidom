@@ -31,6 +31,7 @@ import formatTypeLint from '../../common/schema/lint/format--type.ts';
 import ifNonThenLint from '../../common/schema/lint/if--non-then.ts';
 import ifTypeLint from '../../common/schema/lint/if--type.ts';
 import itemsNonArrayLint from '../../common/schema/lint/items--non-array.ts';
+import itemsRequiredLint from '../../common/schema/lint/items--required.ts';
 import itemsTypeLint from '../../common/schema/lint/items--type.ts';
 import maxItemsNonArrayLint from '../../common/schema/lint/max-items--non-array.ts';
 import maxItemsTypeLint from '../../common/schema/lint/max-items--type.ts';
@@ -124,6 +125,7 @@ const schemaLints = [
   ifNonThenLint,
   ifTypeLint,
   itemsNonArrayLint,
+  itemsRequiredLint,
   itemsTypeLint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,

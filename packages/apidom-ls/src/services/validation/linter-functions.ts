@@ -639,8 +639,18 @@ export const standardLinterfunctions: FunctionItem[] = [
       const minimum = toValue(elementParent.get(minProperty));
       const maximum = toValue(elementParent.get(maxProperty));
 
+      const isExclusiveMinimumMaximumEnabled =
+        minProperty === 'minimum' &&
+        maxProperty === 'maximum' &&
+        (toValue(elementParent.get('exclusiveMinimum')) ||
+          toValue(elementParent.get('exclusiveMaximum')));
+
       if (typeof minimum !== 'number' || typeof maximum !== 'number') {
         return true;
+      }
+
+      if (isExclusiveMinimumMaximumEnabled) {
+        return minimum < maximum;
       }
 
       return minimum <= maximum;

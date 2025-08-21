@@ -47,8 +47,10 @@ import inAuthorizationLint from './in--authorization.ts';
 import inContentTypeLint from './in--content-type.ts';
 import inAcceptLint from './in--accept.ts';
 import inMultipleBody from './in--multiple-body.ts';
+import $ref3ParameterNamingLint from './$ref-3-0--parameter.ts';
 
 const lints = [
+  $ref3ParameterNamingLint,
   nameTypeLint,
   nameRequiredLint,
   inEquals2_0Lint,

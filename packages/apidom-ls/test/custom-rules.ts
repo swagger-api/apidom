@@ -87,8 +87,8 @@ describe('apidom-ls-validate-custom-rules', function () {
       },
       {
         range: {
-          start: { line: 13, character: 8 },
-          end: { line: 13, character: 17 },
+          start: { line: 15, character: 8 },
+          end: { line: 15, character: 17 },
         },
         message: 'properties MUST follow camelCase',
         severity: 1,
@@ -98,8 +98,8 @@ describe('apidom-ls-validate-custom-rules', function () {
       },
       {
         range: {
-          start: { line: 18, character: 4 },
-          end: { line: 18, character: 7 },
+          start: { line: 20, character: 4 },
+          end: { line: 20, character: 7 },
         },
         message: 'Parameter Object must contain one of the following fields: content, schema',
         severity: 1,
@@ -118,8 +118,8 @@ describe('apidom-ls-validate-custom-rules', function () {
       },
       {
         range: {
-          start: { line: 20, character: 6 },
-          end: { line: 20, character: 10 },
+          start: { line: 22, character: 6 },
+          end: { line: 22, character: 10 },
         },
         message: 'parameter names MUST follow camelCase',
         severity: 1,
@@ -129,8 +129,8 @@ describe('apidom-ls-validate-custom-rules', function () {
       },
       {
         range: {
-          start: { line: 21, character: 4 },
-          end: { line: 21, character: 8 },
+          start: { line: 23, character: 4 },
+          end: { line: 23, character: 8 },
         },
         message: 'Parameter Object must contain one of the following fields: content, schema',
         severity: 1,
@@ -149,8 +149,8 @@ describe('apidom-ls-validate-custom-rules', function () {
       },
       {
         range: {
-          start: { line: 24, character: 4 },
-          end: { line: 24, character: 7 },
+          start: { line: 26, character: 4 },
+          end: { line: 26, character: 7 },
         },
         message: 'Parameter Object must contain one of the following fields: content, schema',
         severity: 1,
@@ -200,7 +200,7 @@ describe('apidom-ls-validate-custom-rules', function () {
     const result = await languageService.doValidation(docOpenapi, validationContext);
     const expected: Diagnostic[] = [
       {
-        range: { start: { line: 23, character: 6 }, end: { line: 23, character: 10 } },
+        range: { start: { line: 25, character: 6 }, end: { line: 25, character: 10 } },
         message: 'parameter names MUST follow camelCase',
         severity: 1,
         code: 20002,
@@ -208,7 +208,7 @@ describe('apidom-ls-validate-custom-rules', function () {
         data: {},
       },
       {
-        range: { start: { line: 32, character: 6 }, end: { line: 32, character: 10 } },
+        range: { start: { line: 34, character: 6 }, end: { line: 34, character: 10 } },
         message: 'parameter names MUST follow camelCase',
         severity: 1,
         code: 20002,
@@ -216,7 +216,7 @@ describe('apidom-ls-validate-custom-rules', function () {
         data: {},
       },
       {
-        range: { start: { line: 16, character: 8 }, end: { line: 16, character: 17 } },
+        range: { start: { line: 18, character: 8 }, end: { line: 18, character: 17 } },
         message: 'keys MUST follow camelCase',
         severity: 1,
         code: 20001,
@@ -224,7 +224,7 @@ describe('apidom-ls-validate-custom-rules', function () {
         data: {},
       },
       {
-        range: { start: { line: 31, character: 4 }, end: { line: 31, character: 7 } },
+        range: { start: { line: 33, character: 4 }, end: { line: 33, character: 7 } },
         message: 'keys MUST follow camelCase',
         severity: 1,
         code: 20001,

@@ -35,8 +35,10 @@ import minItemsTypeLint from './min-items--type.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
+import $ref3HeaderNamingLint from './$ref-3-0--header.ts';
 
 const lints = [
+  $ref3HeaderNamingLint,
   descriptionTypeLint,
   requiredTypeLint,
   deprecatedTypeLint,

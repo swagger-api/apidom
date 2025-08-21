@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const minimumValueLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MINIMUM_VALUE,
@@ -14,7 +14,7 @@ const minimumValueLint: LinterMeta = {
   marker: 'value',
   target: 'minimum',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
 export default minimumValueLint;

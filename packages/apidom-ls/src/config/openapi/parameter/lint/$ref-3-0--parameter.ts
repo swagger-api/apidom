@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../../target-specs.ts';
+import { OpenAPI30 } from '../../target-specs.ts';
 
 const $ref3ParameterNamingLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_REFERENCE_FIELD_$REF_PARAMETER,
@@ -21,7 +21,7 @@ const $ref3ParameterNamingLint: LinterMeta = {
     },
   ],
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI30,
 };
 
 export default $ref3ParameterNamingLint;

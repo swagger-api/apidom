@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const $ref3RequestBodiesLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_REFERENCE_FIELD_$REF_REQUEST_BODIES,
@@ -22,7 +22,7 @@ const $ref3RequestBodiesLint: LinterMeta = {
   marker: 'value',
   target: '$ref',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI30,
 };
 
 export default $ref3RequestBodiesLint;

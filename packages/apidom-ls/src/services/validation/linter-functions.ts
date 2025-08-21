@@ -1271,16 +1271,14 @@ export const standardLinterfunctions: FunctionItem[] = [
           (e) => {
             if (isObjectElement(e)) {
               if (e.hasKey('security')) {
-                const opSecurity = typeof e.getMember === 'function' && e.getMember('security');
-                if (isArrayElement(opSecurity.value)) {
-                  return !!opSecurity.value.findElements((securityRequirementObject: Element) => {
-                    const securityRequirementValue: Record<string, unknown> =
-                      securityRequirementObject.toValue();
-                    return (
-                      securityRequirementValue[schemeName] &&
-                      Array.isArray(securityRequirementValue[schemeName])
-                    );
-                  }, {}).length;
+                const opSecurity = e.get('security');
+                if (isArrayElement(opSecurity)) {
+                  return !!opSecurity.findElements(
+                    (securityRequirementObject) =>
+                      isObjectElement(securityRequirementObject) &&
+                      securityRequirementObject.hasKey(schemeName),
+                    {},
+                  ).length;
                 }
               }
             }

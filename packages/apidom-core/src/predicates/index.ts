@@ -16,7 +16,6 @@ import { included } from 'ramda-adjunct';
 import AnnotationElement from '../elements/Annotation.ts';
 import CommentElement from '../elements/Comment.ts';
 import ParserResultElement from '../elements/ParseResult.ts';
-import SourceMapElement from '../elements/SourceMap.ts';
 import createPredicate, { isElementType as isElementTypeHelper } from './helpers.ts';
 import type { ElementPredicate } from './helpers.ts';
 
@@ -177,19 +176,6 @@ export const isParseResultElement = createPredicate(
 /**
  * @public
  */
-export const isSourceMapElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
-    return (element: unknown): element is SourceMapElement =>
-      element instanceof SourceMapElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('sourceMap', element) &&
-        primitiveEq('array', element));
-  },
-);
-
-/**
- * @public
- */
 export type PrimitiveElement =
   | ObjectElement
   | ArrayElement
@@ -219,8 +205,19 @@ export const isPrimitiveElement: ElementPredicate<PrimitiveElement> = (
 /**
  * @public
  */
-export const hasElementSourceMap = <T extends Element>(element: T): boolean => {
-  return isSourceMapElement(element.meta.get('sourceMap'));
+export const hasElementSourceMap = <T extends Element>(element?: T): boolean => {
+  if (!isElement(element)) {
+    return false;
+  }
+
+  return (
+    Number.isInteger(element.startPositionRow) &&
+    Number.isInteger(element.startPositionColumn) &&
+    Number.isInteger(element.startIndex) &&
+    Number.isInteger(element.endPositionRow) &&
+    Number.isInteger(element.endPositionColumn) &&
+    Number.isInteger(element.endIndex)
+  );
 };
 
 /**

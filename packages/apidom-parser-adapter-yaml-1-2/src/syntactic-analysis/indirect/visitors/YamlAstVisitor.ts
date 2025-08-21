@@ -11,12 +11,12 @@ import {
   isNode as isCSTNode,
   YamlScalar,
   YamlStyle,
+  Node,
 } from '@swagger-api/apidom-ast';
 import {
   ParseResultElement,
   AnnotationElement,
   CommentElement,
-  SourceMapElement,
   Element,
   MemberElement,
   ObjectElement,
@@ -27,6 +27,7 @@ import {
   getNodeType as getNodeTypeApiDOM,
   Namespace,
   createNamespace,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 
 export const keyMap = {
@@ -212,17 +213,12 @@ class YamlAstVisitor {
     return null;
   }
 
-  private maybeAddSourceMap(node: unknown, element: Element): void {
+  private maybeAddSourceMap<T extends Node>(node: T, element: Element): void {
     if (!this.sourceMap) {
       return;
     }
 
-    const sourceMap = new SourceMapElement();
-    // @ts-ignore
-    sourceMap.position = node.position;
-    // @ts-ignore
-    sourceMap.astNode = node;
-    element.meta.set('sourceMap', sourceMap);
+    assignSourceMap(element, node);
   }
 }
 

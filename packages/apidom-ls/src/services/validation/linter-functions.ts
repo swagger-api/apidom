@@ -220,6 +220,7 @@ export const standardLinterfunctions: FunctionItem[] = [
             (e) => {
               const included = keys.includes(toValue((e.parent as MemberElement).key));
               const isExtension =
+                included &&
                 allowExtensionPrefix !== undefined &&
                 toValue((e.parent as MemberElement).key as Element).startsWith(
                   allowExtensionPrefix,

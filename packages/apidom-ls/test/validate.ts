@@ -5181,6 +5181,138 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2/ yaml - `items` must be an object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-2-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: "'items' must be an object",
+        range: {
+          end: {
+            character: 27,
+            line: 12,
+          },
+          start: {
+            character: 19,
+            line: 12,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3/ yaml - `items` must be an object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-3-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: "'items' must be an object",
+        range: {
+          end: {
+            character: 0,
+            line: 16,
+          },
+          start: {
+            character: 18,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.1/ yaml - items must be a schema or array of schemas', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-3-1.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: 'items must be a schema or array of schemas',
+        range: {
+          end: {
+            character: 24,
+            line: 14,
+          },
+          start: {
+            character: 23,
+            line: 14,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

@@ -1,0 +1,13 @@
+swagger: "2.0"
+info:
+  title: Invalid Items
+  version: "1.0"
+paths:
+  /pets:
+    get:
+      responses:
+        default:
+          description: OK
+          schema:
+            type: array
+            items: "string" 

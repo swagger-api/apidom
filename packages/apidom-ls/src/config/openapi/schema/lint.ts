@@ -32,7 +32,8 @@ import ifNonThenLint from '../../common/schema/lint/if--non-then.ts';
 import ifTypeLint from '../../common/schema/lint/if--type.ts';
 import itemsNonArrayLint from '../../common/schema/lint/items--non-array.ts';
 import itemsRequiredLint from '../../common/schema/lint/items--required.ts';
-import itemsTypeLint from '../../common/schema/lint/items--type.ts';
+import itemsTypeOpenAPI31AsyncAPI2Lint from '../../common/schema/lint/items--type-3-1-asyncapi-2.ts';
+import itemsTypeOpenAPI2OpenAPI30Lint from '../../common/schema/lint/items--type-2-0-3-0.ts';
 import maxItemsNonArrayLint from '../../common/schema/lint/max-items--non-array.ts';
 import maxItemsTypeLint from '../../common/schema/lint/max-items--type.ts';
 import maxLengthNonStringLint from '../../common/schema/lint/max-length--non-string.ts';
@@ -126,7 +127,8 @@ const schemaLints = [
   ifTypeLint,
   itemsNonArrayLint,
   itemsRequiredLint,
-  itemsTypeLint,
+  itemsTypeOpenAPI31AsyncAPI2Lint,
+  itemsTypeOpenAPI2OpenAPI30Lint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,
   maxLengthNonStringLint,

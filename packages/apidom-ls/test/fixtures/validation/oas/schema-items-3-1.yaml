@@ -1,0 +1,15 @@
+openapi: 3.1.0
+info:
+  title: Invalid Items
+  version: "1.0"
+paths:
+  /pets:
+    get:
+      responses:
+        default:
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items: 0 

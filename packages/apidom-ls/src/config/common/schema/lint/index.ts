@@ -36,7 +36,8 @@ import ifNonThenLint from './if--non-then.ts';
 import ifTypeLint from './if--type.ts';
 import itemsNonArrayLint from './items--non-array.ts';
 import itemsRequiredLint from './items--required.ts';
-import itemsTypeLint from './items--type.ts';
+import itemsTypeOpenAPI31AsyncAPI2Lint from './items--type-3-1-asyncapi-2.ts';
+import itemsTypeOpenAPI2OpenAPI30Lint from './items--type-2-0-3-0.ts';
 import maxItemsNonArrayLint from './max-items--non-array.ts';
 import maxItemsTypeLint from './max-items--type.ts';
 import maxLengthNonStringLint from './max-length--non-string.ts';
@@ -135,7 +136,8 @@ const schemaLints = [
   ifTypeLint,
   itemsNonArrayLint,
   itemsRequiredLint,
-  itemsTypeLint,
+  itemsTypeOpenAPI31AsyncAPI2Lint,
+  itemsTypeOpenAPI2OpenAPI30Lint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,
   maxLengthNonStringLint,

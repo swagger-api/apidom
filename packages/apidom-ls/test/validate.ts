@@ -4692,4 +4692,66 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas every security requirement should be an array', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-requirement-not-array.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-requirement-not-array.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 27,
+          },
+          start: {
+            character: 4,
+            line: 27,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 40,
+          },
+          start: {
+            character: 10,
+            line: 40,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

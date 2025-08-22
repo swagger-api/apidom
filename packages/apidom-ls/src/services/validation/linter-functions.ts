@@ -10,7 +10,6 @@ import {
   ObjectElement,
   isArrayElement,
   includesClasses,
-  isObjectElement,
 } from '@swagger-api/apidom-core';
 import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
@@ -1269,17 +1268,15 @@ export const standardLinterfunctions: FunctionItem[] = [
         const paths: ObjectElement = isObject(api) && api.get('paths');
         return !!paths.findElements(
           (e) => {
-            if (isObjectElement(e)) {
-              if (e.hasKey('security')) {
-                const opSecurity = e.get('security');
-                if (isArrayElement(opSecurity)) {
-                  return !!opSecurity.findElements(
-                    (securityRequirementObject) =>
-                      isObjectElement(securityRequirementObject) &&
-                      securityRequirementObject.hasKey(schemeName),
-                    {},
-                  ).length;
-                }
+            if (isObject(e) && e.hasKey('security')) {
+              const opSecurity = e.get('security');
+              if (isArray(opSecurity)) {
+                return !!opSecurity.findElements(
+                  (securityRequirementObject) =>
+                    isObject(securityRequirementObject) &&
+                    securityRequirementObject.hasKey(schemeName),
+                  {},
+                ).length;
               }
             }
             return false;

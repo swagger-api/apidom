@@ -3001,6 +3001,361 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas / yaml 3.0 - ref is defined but not used', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used-3-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-not-used-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 4 }, end: { line: 12, character: 17 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml 2.0 - ref is defined but not used', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-not-used-2-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-not-used-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 2 }, end: { line: 11, character: 13 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position where can be legally placed', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-request-bodies.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 15, character: 20 }, end: { line: 15, character: 88 } },
+        message:
+          'requestBody schema $refs must point to a position where a Schema Object can be legally placed',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-request-bodies-naming.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    result[1].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'update to #/components/requestBodies/MyBody',
+              action: 'updateValue',
+              functionParams: ['#/components/requestBodies/MyBody'],
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message:
+          'requestBody $refs must point to a position where a requestBody can be legally placed',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming schema', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'ref-request-bodies-naming-schema.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming-schema.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    result[1].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'update to #/components/requestBodies/MyBody',
+              action: 'updateValue',
+              functionParams: ['#/components/requestBodies/MyBody'],
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 12, character: 14 }, end: { line: 12, character: 43 } },
+        message:
+          "requestBody $refs cannot point to '#/components/schemas/…', they must point to '#/components/requestBodies/…'",
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - OAS3 header $Ref should point to Header Object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-header.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/ref-header.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+    const result = await languageService.doValidation(doc, validationContext);
+
+    result[0].code = 'test';
+
+    const expected: Diagnostic[] = [
+      {
+        code: 'test',
+        data: {
+          quickFix: [
+            {
+              action: 'updateValue',
+              functionParams: ['#/components/headers/MyHeader'],
+              message: 'update to #/components/headers/MyHeader',
+            },
+          ],
+        },
+        message: 'local reference not found',
+        range: {
+          end: {
+            character: 51,
+            line: 12,
+          },
+          start: {
+            character: 20,
+            line: 12,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5260300,
+        data: {},
+        message: 'OAS3 header $Ref should point to Header Object',
+        range: {
+          end: {
+            character: 51,
+            line: 12,
+          },
+          start: {
+            character: 20,
+            line: 12,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - OAS3 parameter $Ref should point to Parameter Object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-parameter.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/ref-parameter.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+    const result = await languageService.doValidation(doc, validationContext);
+
+    result[0].code = 'test';
+
+    const expected: Diagnostic[] = [
+      {
+        code: 'test',
+        data: {
+          quickFix: [],
+        },
+        message: 'local reference not found',
+        range: {
+          end: {
+            character: 45,
+            line: 7,
+          },
+          start: {
+            character: 14,
+            line: 7,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 5260400,
+        data: {},
+        message: 'OAS3 parameter $Ref should point to Parameter Object',
+        range: {
+          end: {
+            character: 45,
+            line: 7,
+          },
+          start: {
+            character: 14,
+            line: 7,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - test editor issue 3626 / inidrect ref', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3022,7 +3377,25 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     result[0].code = 'test';
+    result[1].code = 'test';
     const expected: Diagnostic[] = [
+      {
+        code: 'test',
+        data: {},
+        message: 'Definition was declared but never used in document',
+        range: {
+          end: {
+            character: 7,
+            line: 31,
+          },
+          start: {
+            character: 4,
+            line: 31,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
       {
         range: { start: { line: 39, character: 12 }, end: { line: 39, character: 50 } },
         message: 'local reference not found',
@@ -3172,6 +3545,14 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+      {
+        range: { start: { line: 10, character: 4 }, end: { line: 10, character: 7 } },
+        message: 'Definition was declared but never used in document',
+        severity: 2,
+        code: 3240300,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -3651,6 +4032,342 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - parameter name should be unique', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-unique-name-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-unique-name-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 9,
+          },
+          start: {
+            character: 10,
+            line: 9,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 14,
+          },
+          start: {
+            character: 10,
+            line: 14,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 / yaml - parameter name should be unique', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-unique-name-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-unique-name-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 9,
+          },
+          start: {
+            character: 10,
+            line: 9,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3103000,
+        data: {},
+        message: 'Name must be unique among all parameters',
+        range: {
+          end: {
+            character: 14,
+            line: 15,
+          },
+          start: {
+            character: 10,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter Authorization is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameter-in-authorization-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-authorization-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150303,
+        data: {},
+        message:
+          'Header Parameter named "Authorization" is ignored. Use the "securitySchemes" and "security" sections instead to define authorization',
+        range: {
+          end: {
+            character: 29,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter content-type is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-content-type-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-authorization-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150304,
+        data: {},
+        message:
+          'Header Parameter named "Content-Type" is ignored. The values for the "Content-Type" header are defined by `requestBody.content.<media-type>`',
+        range: {
+          end: {
+            character: 28,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - parameter accept is ignored', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-accept-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-accept-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 5150304,
+        data: {},
+        message:
+          'Header Parameter named "Accept" is ignored. The values for the "Accept" header are defined by `requestBody.content.<media-type>`',
+        range: {
+          end: {
+            character: 22,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 / yaml - Multiple body parameters are not allowed', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-multiple-body.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-multiple-body.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 13,
+          },
+          start: {
+            character: 10,
+            line: 13,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 3100203,
+        data: {},
+        message: 'Multiple body parameters are not allowed',
+        range: {
+          end: {
+            character: 12,
+            line: 16,
+          },
+          start: {
+            character: 10,
+            line: 16,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.1 / yaml - parameter object should be defined within path template', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3782,6 +4499,42 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
         data: {},
         range: { start: { line: 12, character: 17 }, end: { line: 12, character: 22 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas - tags name should have unique values', async function () {
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'tags-unique-name.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/tags-unique-name.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Tag Objects must have unique `name` field values.',
+        severity: 1,
+        code: 3190400,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 5, character: 10 }, end: { line: 5, character: 13 } },
+      },
+      {
+        message: 'Tag Objects must have unique `name` field values.',
+        severity: 1,
+        code: 3190400,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 10, character: 10 }, end: { line: 10, character: 13 } },
       },
     ];
     assert.deepEqual(result, expected);

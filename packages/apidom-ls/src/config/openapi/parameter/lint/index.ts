@@ -42,12 +42,20 @@ import uniqueItemsTypeLint from './unique-items--type.ts';
 import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import inPathTemplateLint from './in-path-template.ts';
+import uniqueNameLint from './unique-name.ts';
+import inAuthorizationLint from './in--authorization.ts';
+import inContentTypeLint from './in--content-type.ts';
+import inAcceptLint from './in--accept.ts';
+import inMultipleBody from './in--multiple-body.ts';
+import $ref3ParameterNamingLint from './$ref-3-0--parameter.ts';
 
 const lints = [
+  $ref3ParameterNamingLint,
   nameTypeLint,
   nameRequiredLint,
   inEquals2_0Lint,
   inEquals3_0__3_1Lint,
+  inAuthorizationLint,
   inRequiredLint,
   inValidLint,
   descriptionTypeLint,
@@ -81,6 +89,7 @@ const lints = [
   maxLengthTypeLint,
   minLengthTypeLint,
   uniqueItemsTypeLint,
+  uniqueNameLint,
   enumTypeLint,
   multipleOfTypeLint,
   requiredFields3_0__3_1Lint,
@@ -88,6 +97,9 @@ const lints = [
   allowedFields3_0Lint,
   allowedFields3_1Lint,
   inPathTemplateLint,
+  inContentTypeLint,
+  inAcceptLint,
+  inMultipleBody,
 ];
 
 export default lints;

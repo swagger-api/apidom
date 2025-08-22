@@ -1,0 +1,38 @@
+swagger: "2.0"
+info:
+  title: Example
+  version: "1.0"
+
+securityDefinitions:
+  oauth2:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: "https://auth.example.com/authorize"
+    scopes:
+      read:pets: "Read pets information"
+      write:pets: "Write pets information"
+  secondScheme:
+    type: oauth2
+    flow: implicit
+    authorizationUrl: "https://auth.example.com/authorize"
+    scopes:
+      read:pets: "Read pets information"
+      write:pets: "Write pets information"
+security:
+  - oauth2: ["read:pets-unresolved", "write:pets"]
+  - secondScheme: ["read:pets", "write:pets"]
+
+paths:
+  /pets:
+    get:
+      responses:
+        "200":
+          description: OK
+
+  /public:
+    get:
+      security: []
+      responses:
+        "200":
+          description: OK
+ 

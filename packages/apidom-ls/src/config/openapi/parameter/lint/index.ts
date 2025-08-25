@@ -48,6 +48,11 @@ import inContentTypeLint from './in--content-type.ts';
 import inAcceptLint from './in--accept.ts';
 import inMultipleBody from './in--multiple-body.ts';
 import $ref3ParameterNamingLint from './$ref-3-0--parameter.ts';
+import enumTypeValue2_0Lint from './enum--type-value-2-0.ts';
+import enumDefaultValue2_0Lint from './enum--default-value-2-0.ts';
+import minItemsValue2_0Lint from './min-items-max-items--value-2-0.ts';
+import minLengthValue2_0Lint from './min-length-max-length--value-2-0.ts';
+import minimumValue2_0Lint from './minimum-maximum--value-2-0.ts';
 
 const lints = [
   $ref3ParameterNamingLint,
@@ -85,12 +90,17 @@ const lints = [
   maximumTypeLint,
   exclusiveMaximumTypeLint,
   minimumTypeLint,
+  minimumValue2_0Lint,
+  minItemsValue2_0Lint,
   exclusiveMinimumTypeLint,
   maxLengthTypeLint,
   minLengthTypeLint,
+  minLengthValue2_0Lint,
   uniqueItemsTypeLint,
   uniqueNameLint,
   enumTypeLint,
+  enumTypeValue2_0Lint,
+  enumDefaultValue2_0Lint,
   multipleOfTypeLint,
   requiredFields3_0__3_1Lint,
   allowedFields2_0Lint,

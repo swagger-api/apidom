@@ -17,6 +17,8 @@ import {
   test as testPathTemplate,
   resolve as resolvePathTemplate,
   parse as parsePathTemplate,
+  isIdentical,
+  parse,
 } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
@@ -30,6 +32,16 @@ import {
   processPath,
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
+
+const getPathParams = (path: string) => {
+  const { ast } = parse(path);
+  const parts: any[] = [];
+  ast.translate(parts);
+
+  return parts
+    .filter(([type]) => type === 'template-expression-param-name')
+    .map(([, name]) => name);
+};
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
@@ -1099,6 +1111,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         let oneOfParametersIsReferenceObject = false;
+        const globalParameterElementNames: string[] = [];
         const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
@@ -1110,16 +1123,29 @@ export const standardLinterfunctions: FunctionItem[] = [
               oneOfParametersIsReferenceObject = true;
             }
             if (isParameterElement(parameter)) {
+              // separate array was needed, because parameterElements is extended in the loop below, but only global ones were needed
+              const name = isObject(parameter) && parameter.get('name');
+              if (name && name.content) {
+                globalParameterElementNames.push(name.content);
+              }
               parameterElements.push(parameter);
             }
           });
         }
 
+        const operationLevelKeys: Record<string, string[]> = {};
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
+            if (isMember(el.parent) && isStringElement(el.parent.key)) {
+              operationLevelKeys[el.parent.key.toValue()] = [];
+            }
             const operationParameterElements = (el as ObjectElement).get('parameters');
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
+                const name = isObject(parameter) && parameter.get('name');
+                if (name && isMember(el.parent) && isStringElement(el.parent.key)) {
+                  operationLevelKeys[el.parent.key.toValue()].push(name.content);
+                }
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;
                 }
@@ -1144,7 +1170,19 @@ export const standardLinterfunctions: FunctionItem[] = [
         const resolvedPathTemplate = resolvePathTemplate(pathTemplate, pathTemplateResolveParams);
         const includesTemplateExpression = testPathTemplate(resolvedPathTemplate, { strict: true });
 
-        return !includesTemplateExpression || oneOfParametersIsReferenceObject;
+        const pathParams: string[] = getPathParams(element.toValue());
+
+        const everyPathParamInOperation = pathParams.every((pathParam) => {
+          if (!globalParameterElementNames.includes(pathParam)) {
+            return Object.values(operationLevelKeys).every((el) => el.includes(pathParam));
+          }
+
+          return true;
+        });
+        return (
+          (everyPathParamInOperation && !includesTemplateExpression) ||
+          oneOfParametersIsReferenceObject
+        );
       }
 
       return true;
@@ -1217,6 +1255,23 @@ export const standardLinterfunctions: FunctionItem[] = [
         );
       }
       return true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIPathTemplateNoEquivalent',
+    function: (element: Element): boolean => {
+      const isFirstOccurrence = (currentKey: string, allKeys: unknown[]) => {
+        const firstIndex = allKeys.findIndex(
+          (e) => typeof e === 'string' && isIdentical(e, currentKey),
+        );
+
+        return allKeys[firstIndex] === currentKey;
+      };
+      const paths = element.parent?.parent;
+
+      return isStringElement(element) && isObject(paths)
+        ? isFirstOccurrence(element.toValue(), paths.keys())
+        : true;
     },
   },
 ];

@@ -18,6 +18,7 @@ import {
   resolve as resolvePathTemplate,
   parse as parsePathTemplate,
   isIdentical,
+  parse,
 } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
@@ -31,6 +32,16 @@ import {
   processPath,
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
+
+const getPathParams = (path: string) => {
+  const { ast } = parse(path);
+  const parts: any[] = [];
+  ast.translate(parts);
+
+  return parts
+    .filter(([type]) => type === 'template-expression-param-name')
+    .map(([, name]) => name);
+};
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
@@ -1100,6 +1111,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         let oneOfParametersIsReferenceObject = false;
+        const globalParameterElementNames: string[] = [];
         const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
@@ -1111,16 +1123,29 @@ export const standardLinterfunctions: FunctionItem[] = [
               oneOfParametersIsReferenceObject = true;
             }
             if (isParameterElement(parameter)) {
+              // separate array was needed, because parameterElements is extended in the loop below, but only global ones were needed
+              if (isObject(parameter)) {
+                globalParameterElementNames.push(parameter.get('name').content);
+              }
               parameterElements.push(parameter);
             }
           });
         }
 
+        const operationLevelKeys: Record<string, string[]> = {};
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
+            if (isMember(el.parent) && isStringElement(el.parent.key)) {
+              operationLevelKeys[el.parent.key.toValue()] = [];
+            }
             const operationParameterElements = (el as ObjectElement).get('parameters');
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
+                if (isObject(parameter)) {
+                  if (isMember(el.parent) && isStringElement(el.parent.key)) {
+                    operationLevelKeys[el.parent.key.toValue()].push(parameter.get('name').content);
+                  }
+                }
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;
                 }
@@ -1145,7 +1170,19 @@ export const standardLinterfunctions: FunctionItem[] = [
         const resolvedPathTemplate = resolvePathTemplate(pathTemplate, pathTemplateResolveParams);
         const includesTemplateExpression = testPathTemplate(resolvedPathTemplate, { strict: true });
 
-        return !includesTemplateExpression || oneOfParametersIsReferenceObject;
+        const pathParams: string[] = getPathParams(element.toValue());
+
+        const everyPathParamInOperation = pathParams.every((pathParam) => {
+          if (!globalParameterElementNames.includes(pathParam)) {
+            return Object.values(operationLevelKeys).every((el) => el.includes(pathParam));
+          }
+
+          return true;
+        });
+        return (
+          (everyPathParamInOperation && !includesTemplateExpression) ||
+          oneOfParametersIsReferenceObject
+        );
       }
 
       return true;

@@ -1124,8 +1124,9 @@ export const standardLinterfunctions: FunctionItem[] = [
             }
             if (isParameterElement(parameter)) {
               // separate array was needed, because parameterElements is extended in the loop below, but only global ones were needed
-              if (isObject(parameter)) {
-                globalParameterElementNames.push(parameter.get('name').content);
+              const name = isObject(parameter) && parameter.get('name');
+              if (name && name.content) {
+                globalParameterElementNames.push(name.content);
               }
               parameterElements.push(parameter);
             }
@@ -1141,10 +1142,9 @@ export const standardLinterfunctions: FunctionItem[] = [
             const operationParameterElements = (el as ObjectElement).get('parameters');
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
-                if (isObject(parameter)) {
-                  if (isMember(el.parent) && isStringElement(el.parent.key)) {
-                    operationLevelKeys[el.parent.key.toValue()].push(parameter.get('name').content);
-                  }
+                const name = isObject(parameter) && parameter.get('name');
+                if (name && isMember(el.parent) && isStringElement(el.parent.key)) {
+                  operationLevelKeys[el.parent.key.toValue()].push(name.content);
                 }
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;

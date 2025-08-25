@@ -10,7 +10,7 @@ const itemsTypeOpenAPI2OpenAPI30Lint: LinterMeta = {
   message: "'items' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['items']],
+  linterParams: [['schema']],
   marker: 'value',
   target: 'items',
   data: {},

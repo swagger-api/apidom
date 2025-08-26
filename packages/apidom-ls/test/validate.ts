@@ -5650,4 +5650,184 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 2.0 / yaml - Parameters cannot have both a "in: body" and "in: formData"', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-overlaps.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-overlaps.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Parameters cannot have both a "in: body" and "in: formData", as "formData" _will_ be the body',
+        severity: 1,
+        code: 3100204,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 9, character: 6 }, end: { line: 9, character: 16 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file' and no consumes - 'multipart/form-data'", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-required.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with parameters of "type: file" must include "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080801,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+      {
+        message:
+          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file' and consumes wrong value", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'operation-type-consumes-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with parameters of "type: file" must include "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080801,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+  it("oas 2.0 / yaml - should complain if 'in:formData` and no consumes - 'multipart/form-data'", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-in-consumes-required.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-in-consumes-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file` and consumes wrong value", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'operation-in-consumes-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-in-consumes-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

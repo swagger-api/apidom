@@ -1,0 +1,15 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /pets:
+    get:
+      responses:
+        default:
+          description: string
+      parameters:
+        - name: pathLevel
+          type: string
+          in: formData
+          description: tags to filter by

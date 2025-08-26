@@ -10,6 +10,9 @@ import consumesTypeLint from './consumes--type.ts';
 import producesTypeLint from './produces--type.ts';
 import parametersTypeLint from './parameters--type.ts';
 import parametersItemsTypeLint from './parameters--items-type.ts';
+import parametersTypeConsumesRequiredLint from './parameters-type-consumes--required.ts';
+import parametersInConsumesRequiredLint from './parameters-in-consumes--required.ts';
+import parametersInOverlapsLint from './parameters-in--overlaps.ts';
 import requestBodyTypeLint from './request-body--type.ts';
 import responsesTypeLint from './responses--type.ts';
 import responsesRequired2_0__3_0Lint from './responses-2-0--3-0--required.ts';
@@ -34,6 +37,9 @@ const lints = [
   producesTypeLint,
   parametersTypeLint,
   parametersItemsTypeLint,
+  parametersTypeConsumesRequiredLint,
+  parametersInConsumesRequiredLint,
+  parametersInOverlapsLint,
   requestBodyTypeLint,
   responsesTypeLint,
   responsesRequired2_0__3_0Lint,

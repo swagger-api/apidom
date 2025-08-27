@@ -406,11 +406,14 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apilintFieldValueOrArray',
     function: (element: Element, key: string, values: string[]): boolean => {
+      const api = root(element) as ObjectElement;
+
       if (element && isObject(element)) {
-        if (!element.get(key)) {
+        if (!element.get(key) && !api.get(key)) {
           return false;
         }
-        const elValue = toValue(element.get(key));
+        const keyToCheck = element.get(key) ?? api.get(key);
+        const elValue = toValue(keyToCheck);
         const isArrayVal = Array.isArray(elValue);
         if (!isArrayVal && !values.includes(elValue)) {
           return false;

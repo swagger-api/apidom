@@ -5708,7 +5708,7 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         message:
-          'Operations with parameters of "type: file" must include "multipart/form-data" in their "consumes" property',
+          'Operations with Parameter of "type: file" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
         severity: 1,
         code: 3080801,
         source: 'apilint',
@@ -5717,7 +5717,7 @@ describe('apidom-ls-validate', function () {
       },
       {
         message:
-          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
         severity: 1,
         code: 3080802,
         source: 'apilint',
@@ -5749,9 +5749,18 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         message:
-          'Operations with parameters of "type: file" must include "multipart/form-data" in their "consumes" property',
+          'Operations with Parameter of "type: file" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
         severity: 1,
         code: 3080801,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+      {
+        message:
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
         source: 'apilint',
         data: {},
         range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
@@ -5786,7 +5795,7 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         message:
-          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
         severity: 1,
         code: 3080802,
         source: 'apilint',
@@ -5818,7 +5827,7 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         message:
-          'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
         severity: 1,
         code: 3080802,
         source: 'apilint',
@@ -5826,6 +5835,62 @@ describe('apidom-ls-validate', function () {
         range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
       },
     ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should not complain if 'type:file` and consumes is defined at root level", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-global-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-global-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should not complain if 'type:file` and wrong global consumes is overridden at operation level", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-override-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-override-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [];
     assert.deepEqual(result, expected);
 
     languageService.terminate();

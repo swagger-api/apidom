@@ -8,7 +8,7 @@ const parametersInConsumesRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_OPERATION_FIELD_PARAMETERS_IN_CONSUMES_REQUIRED,
   source: 'apilint',
   message:
-    'Operation with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+    'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintFieldValueOrArray',
   linterParams: ['consumes', ['multipart/form-data', 'application/x-www-form-urlencoded']],

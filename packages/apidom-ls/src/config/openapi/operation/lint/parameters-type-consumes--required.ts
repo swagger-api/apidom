@@ -8,10 +8,10 @@ const parametersTypeConsumesRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_OPERATION_FIELD_PARAMETERS_TYPE_CONSUMES_REQUIRED,
   source: 'apilint',
   message:
-    'Operations with parameters of "type: file" must include "multipart/form-data" in their "consumes" property',
+    'Operations with Parameter of "type: file" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintFieldValueOrArray',
-  linterParams: ['consumes', ['multipart/form-data']],
+  linterParams: ['consumes', ['multipart/form-data', 'application/x-www-form-urlencoded']],
   marker: 'key',
   conditions: [
     {

@@ -2,11 +2,11 @@ swagger: "2.0"
 info:
   version: 1.0.0
   title: 'test'
+consumes:
+  - application/x-www-form-urlencoded
 paths:
   /pets:
     get:
-      consumes:
-        - application/text
       responses:
         default:
           description: string

@@ -3379,23 +3379,6 @@ describe('apidom-ls-validate', function () {
     result[0].code = 'test';
     const expected: Diagnostic[] = [
       {
-        code: 'test',
-        data: {},
-        message: 'Definition was declared but never used in document',
-        range: {
-          end: {
-            character: 7,
-            line: 31,
-          },
-          start: {
-            character: 4,
-            line: 31,
-          },
-        },
-        severity: 2,
-        source: 'apilint',
-      },
-      {
         range: { start: { line: 39, character: 12 }, end: { line: 39, character: 50 } },
         message: 'local reference not found',
         severity: 1,

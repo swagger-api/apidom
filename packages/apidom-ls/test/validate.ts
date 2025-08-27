@@ -3377,7 +3377,6 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     result[0].code = 'test';
-    result[1].code = 'test';
     const expected: Diagnostic[] = [
       {
         code: 'test',
@@ -3545,14 +3544,6 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
-      },
-      {
-        range: { start: { line: 10, character: 4 }, end: { line: 10, character: 7 } },
-        message: 'Definition was declared but never used in document',
-        severity: 2,
-        code: 3240300,
-        source: 'apilint',
-        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

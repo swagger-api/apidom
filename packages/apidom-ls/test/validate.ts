@@ -3763,51 +3763,6 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it('oas / yaml - every path template should be defined', async function () {
-    const validationContext: ValidationContext = {
-      comments: DiagnosticSeverity.Error,
-      maxNumberOfProblems: 100,
-      relatedInformation: false,
-    };
-
-    const spec = fs
-      .readFileSync(
-        path.join(__dirname, 'fixtures', 'validation', 'oas', 'path-template-all-defined.yaml'),
-      )
-      .toString();
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/path-template-all-defined.yaml',
-      'yaml',
-      0,
-      spec,
-    );
-
-    const languageService: LanguageService = getLanguageService(contextNoSchema);
-
-    const result = await languageService.doValidation(doc, validationContext);
-    const expected: Diagnostic[] = [
-      {
-        code: 3040101,
-        message: 'path template expressions is not matched with Parameter Object(s)',
-        range: {
-          end: {
-            character: 13,
-            line: 5,
-          },
-          start: {
-            character: 2,
-            line: 5,
-          },
-        },
-        severity: 1,
-        source: 'apilint',
-      },
-    ];
-    assert.deepEqual(result, expected as Diagnostic[]);
-
-    languageService.terminate();
-  });
-
   it('oas 2.0 / yaml - every path template should be defined', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3854,6 +3809,13 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: { start: { line: 59, character: 2 }, end: { line: 59, character: 61 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 78, character: 2 }, end: { line: 78, character: 13 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
@@ -3916,6 +3878,13 @@ describe('apidom-ls-validate', function () {
         code: 3040101,
         source: 'apilint',
       },
+      {
+        range: { start: { line: 105, character: 2 }, end: { line: 105, character: 13 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
 
@@ -3968,6 +3937,13 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: { start: { line: 79, character: 2 }, end: { line: 79, character: 61 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 105, character: 2 }, end: { line: 105, character: 13 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,

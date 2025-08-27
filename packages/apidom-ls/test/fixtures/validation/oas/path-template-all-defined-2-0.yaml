@@ -76,3 +76,20 @@ paths:
         required: true
         type: string
         format: uuid
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      parameters:
+        - name: id
+          in: path
+          required: true          
+          type: string
+      responses:
+        '200':
+          description: OK
+    
+    delete:
+      summary: No parameters here (specified in get only)
+      responses:
+        '204':
+          description: No Content

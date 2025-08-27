@@ -29,7 +29,7 @@
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
     "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json && copyfiles -u 2 ../@types/minim.d.ts ./types && node ./scripts/file-replace-bof.js './types/apidom-core.d.ts' '/// <reference path=\"./minim.d.ts\" />\nimport * as minim from \"minim\";'",
-    "test": "NODE_ENV=test ts-mocha",
+    "test": "NODE_ENV=test ts-mocha --exit",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 NODE_ENV=test mocha",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"

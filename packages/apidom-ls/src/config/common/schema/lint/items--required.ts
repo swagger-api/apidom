@@ -2,8 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
-import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const itemsRequiredLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ITEMS_REQUIRED,
@@ -34,7 +33,7 @@ const itemsRequiredLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
 export default itemsRequiredLint;

@@ -218,13 +218,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         if (
           element.findElements(
             (e) => {
-              const included = keys.includes(toValue((e.parent as MemberElement).key));
+              const parentKey = toValue((e.parent as MemberElement).key);
+              const included = keys.includes(parentKey);
               const isExtension =
-                included &&
                 allowExtensionPrefix !== undefined &&
-                toValue((e.parent as MemberElement).key as Element).startsWith(
-                  allowExtensionPrefix,
-                );
+                typeof toValue(parentKey) === 'string' &&
+                toValue(parentKey as Element).startsWith(allowExtensionPrefix);
               return !included && (allowExtensionPrefix === undefined || !isExtension);
             },
             {

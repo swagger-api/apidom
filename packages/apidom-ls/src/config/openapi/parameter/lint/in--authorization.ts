@@ -1,6 +1,6 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
-import { OpenAPI3 } from '../../target-specs.ts';
+import { OpenAPI30 } from '../../target-specs.ts';
 import ApilintCodes from '../../../codes.ts';
 
 const inAuthorizationLint = {
@@ -25,7 +25,7 @@ const inAuthorizationLint = {
       params: ['header'],
     },
   ],
-  targetSpecs: OpenAPI3,
+  targetSpecs: OpenAPI30,
 };
 
 export default inAuthorizationLint;

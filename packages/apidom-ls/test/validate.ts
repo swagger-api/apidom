@@ -3377,25 +3377,7 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     result[0].code = 'test';
-    result[1].code = 'test';
     const expected: Diagnostic[] = [
-      {
-        code: 'test',
-        data: {},
-        message: 'Definition was declared but never used in document',
-        range: {
-          end: {
-            character: 7,
-            line: 31,
-          },
-          start: {
-            character: 4,
-            line: 31,
-          },
-        },
-        severity: 2,
-        source: 'apilint',
-      },
       {
         range: { start: { line: 39, character: 12 }, end: { line: 39, character: 50 } },
         message: 'local reference not found',
@@ -3545,14 +3527,6 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
-      },
-      {
-        range: { start: { line: 10, character: 4 }, end: { line: 10, character: 7 } },
-        message: 'Definition was declared but never used in document',
-        severity: 2,
-        code: 3240300,
-        source: 'apilint',
-        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);

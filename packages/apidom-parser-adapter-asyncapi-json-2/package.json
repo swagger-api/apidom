@@ -26,7 +26,7 @@
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
     "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
-    "test": "NODE_ENV=test ts-mocha",
+    "test": "NODE_ENV=test ts-mocha --exit",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:lexical-analysis": "cross-env BABEL_ENV=es babel ./test/perf/lexical-analysis.ts --out-file ./test/perf/lexical-analysis.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/lexical-analysis.mjs",
     "perf:syntactic-analysis": "cross-env BABEL_ENV=es babel ./test/perf/syntactic-analysis.ts --out-file ./test/perf/syntactic-analysis.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/syntactic-analysis.mjs",

@@ -27,7 +27,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
-    "test": "NODE_ENV=test ts-mocha",
+    "test": "NODE_ENV=test ts-mocha --exit",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:visitor-shortcut": "cross-env BABEL_ENV=es babel ./test/perf/visitor-shortcut.ts --out-file ./test/perf/visitor-shortcut.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/visitor-shortcut.mjs",

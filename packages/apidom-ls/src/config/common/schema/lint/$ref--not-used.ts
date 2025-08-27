@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI3, OpenAPI31 } from '../../../openapi/target-specs.ts';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const $refNotUsedLint: LinterMeta = {
   code: ApilintCodes.OPENAPI2_REFERENCE_NOT_USED,
@@ -13,7 +13,7 @@ const $refNotUsedLint: LinterMeta = {
   linterParams: ['string'],
   marker: 'key',
   data: {},
-  targetSpecs: [...OpenAPI2, ...OpenAPI3, ...OpenAPI31],
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
 export default $refNotUsedLint;

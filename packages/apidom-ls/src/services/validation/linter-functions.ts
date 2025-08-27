@@ -18,7 +18,6 @@ import {
   resolve as resolvePathTemplate,
   parse as parsePathTemplate,
   isIdentical,
-  parse,
 } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
@@ -32,16 +31,6 @@ import {
   processPath,
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
-
-const getPathParams = (path: string) => {
-  const { ast } = parse(path);
-  const parts: any[] = [];
-  ast.translate(parts);
-
-  return parts
-    .filter(([type]) => type === 'template-expression-param-name')
-    .map(([, name]) => name);
-};
 
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
@@ -1111,11 +1100,10 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         let oneOfParametersIsReferenceObject = false;
-        const globalParameterElementNames: string[] = [];
-        const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
+        const pathLevelParameterElements: Element[] = [];
         const pathItemParameterElements = pathItemElement.get('parameters');
         if (isArrayElement(pathItemParameterElements)) {
           pathItemParameterElements.forEach((parameter) => {
@@ -1123,65 +1111,62 @@ export const standardLinterfunctions: FunctionItem[] = [
               oneOfParametersIsReferenceObject = true;
             }
             if (isParameterElement(parameter)) {
-              // separate array was needed, because parameterElements is extended in the loop below, but only global ones were needed
-              const name = isObject(parameter) && parameter.get('name');
-              if (name && name.content) {
-                globalParameterElementNames.push(name.content);
+              if (isObject(parameter)) {
+                const inParam = parameter.get('in');
+                const nameParam = parameter.get('name');
+                if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
+                  pathLevelParameterElements.push(parameter);
+                }
               }
-              parameterElements.push(parameter);
             }
           });
         }
 
-        const operationLevelKeys: Record<string, string[]> = {};
+        const includesTemplateExpression: boolean[] = [];
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
-            if (isMember(el.parent) && isStringElement(el.parent.key)) {
-              operationLevelKeys[el.parent.key.toValue()] = [];
-            }
-            const operationParameterElements = (el as ObjectElement).get('parameters');
+            const operationParameterElements = isObject(el) && el.get('parameters');
+            const currentOperationLevelParameterElements: Element[] = [];
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
-                const name = isObject(parameter) && parameter.get('name');
-                if (name && isMember(el.parent) && isStringElement(el.parent.key)) {
-                  operationLevelKeys[el.parent.key.toValue()].push(name.content);
-                }
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;
                 }
                 if (isParameterElement(parameter)) {
-                  parameterElements.push(parameter);
+                  currentOperationLevelParameterElements.push(parameter);
                 }
               });
             }
+            const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
+            pathLevelParameterElements
+              .concat(currentOperationLevelParameterElements)
+              .forEach((parameter) => {
+                if (isObject(parameter)) {
+                  const inParam = parameter.get('in');
+                  const nameParam = parameter.get('name');
+                  if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
+                    pathTemplateResolveParams[nameParam.content] = 'placeholder';
+                  }
+                }
+              });
+
+            const pathTemplate = toValue(element);
+            const resolvedPathTemplate = resolvePathTemplate(
+              pathTemplate,
+              pathTemplateResolveParams,
+            );
+            includesTemplateExpression.push(
+              testPathTemplate(resolvedPathTemplate, {
+                strict: true,
+              }),
+            );
           }
         });
 
-        const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
-
-        parameterElements.forEach((parameter) => {
-          if (toValue((parameter as ObjectElement).get('in')) === 'path') {
-            pathTemplateResolveParams[toValue((parameter as ObjectElement).get('name'))] =
-              'placeholder';
-          }
-        });
-
-        const pathTemplate = toValue(element);
-        const resolvedPathTemplate = resolvePathTemplate(pathTemplate, pathTemplateResolveParams);
-        const includesTemplateExpression = testPathTemplate(resolvedPathTemplate, { strict: true });
-
-        const pathParams: string[] = getPathParams(element.toValue());
-
-        const everyPathParamInOperation = pathParams.every((pathParam) => {
-          if (!globalParameterElementNames.includes(pathParam)) {
-            return Object.values(operationLevelKeys).every((el) => el.includes(pathParam));
-          }
-
-          return true;
-        });
         return (
-          (everyPathParamInOperation && !includesTemplateExpression) ||
-          oneOfParametersIsReferenceObject
+          (includesTemplateExpression.length
+            ? includesTemplateExpression.every((bool) => !bool)
+            : false) || oneOfParametersIsReferenceObject
         );
       }
 

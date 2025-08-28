@@ -1103,14 +1103,14 @@ export const standardLinterfunctions: FunctionItem[] = [
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
-        const pathLevelParameterElements: Element[] = [];
+        const pathLevelParameterElements: ObjectElement[] = [];
         const pathItemParameterElements = pathItemElement.get('parameters');
         if (isArrayElement(pathItemParameterElements)) {
           pathItemParameterElements.forEach((parameter) => {
             if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
               oneOfParametersIsReferenceObject = true;
             }
-            if (isParameterElement(parameter)) {
+            if (isParameterElement(parameter) && isObject(parameter)) {
               pathLevelParameterElements.push(parameter);
             }
           });
@@ -1120,13 +1120,13 @@ export const standardLinterfunctions: FunctionItem[] = [
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
             const operationParameterElements = isObject(el) && el.get('parameters');
-            const currentOperationLevelParameterElements: Element[] = [];
+            const currentOperationLevelParameterElements: ObjectElement[] = [];
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;
                 }
-                if (isParameterElement(parameter)) {
+                if (isParameterElement(parameter) && isObject(parameter)) {
                   currentOperationLevelParameterElements.push(parameter);
                 }
               });
@@ -1135,12 +1135,10 @@ export const standardLinterfunctions: FunctionItem[] = [
             pathLevelParameterElements
               .concat(currentOperationLevelParameterElements)
               .forEach((parameter) => {
-                if (isObject(parameter)) {
-                  const inParam = parameter.get('in');
-                  const nameParam = parameter.get('name');
-                  if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
-                    pathTemplateResolveParams[nameParam.content] = 'placeholder';
-                  }
+                const inParam = parameter.get('in');
+                const nameParam = parameter.get('name');
+                if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
+                  pathTemplateResolveParams[nameParam.content] = 'placeholder';
                 }
               });
 

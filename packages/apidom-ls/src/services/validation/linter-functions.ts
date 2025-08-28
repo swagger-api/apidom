@@ -1110,15 +1110,7 @@ export const standardLinterfunctions: FunctionItem[] = [
             if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
               oneOfParametersIsReferenceObject = true;
             }
-            if (isParameterElement(parameter)) {
-              if (isObject(parameter)) {
-                const inParam = parameter.get('in');
-                const nameParam = parameter.get('name');
-                if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
-                  pathLevelParameterElements.push(parameter);
-                }
-              }
-            }
+            pathLevelParameterElements.push(parameter);
           });
         }
 
@@ -1164,7 +1156,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         });
 
         return (
-          (includesTemplateExpression.length
+          (includesTemplateExpression.length > 0
             ? includesTemplateExpression.every((bool) => !bool)
             : false) || oneOfParametersIsReferenceObject
         );

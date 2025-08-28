@@ -5437,4 +5437,217 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 2.0 every scope should be resolved', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scopes-unresolved.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scopes-unresolved.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Security scope definition could not be resolved',
+        severity: 1,
+        code: 3220802,
+        source: 'apilint',
+        range: { start: { line: 21, character: 4 }, end: { line: 21, character: 50 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 every defined security scheme should be used', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Security Scheme was defined but never used. To apply security, use the `security` section in operations or on the root level of your API definition',
+        severity: 2,
+        code: 14998,
+        source: 'apilint',
+        range: { start: { line: 20, character: 2 }, end: { line: 20, character: 15 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme should be used', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Security Scheme was defined but never used. To apply security, use the `security` section in operations or on the root level of your API definition',
+        severity: 2,
+        code: 14998,
+        source: 'apilint',
+        range: { start: { line: 25, character: 4 }, end: { line: 25, character: 17 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used locally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-locally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-locally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used globally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-globally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-globally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
+  it('oas every security requirement should be an array', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-requirement-not-array.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-requirement-not-array.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 27,
+          },
+          start: {
+            character: 4,
+            line: 27,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 40,
+          },
+          start: {
+            character: 10,
+            line: 40,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

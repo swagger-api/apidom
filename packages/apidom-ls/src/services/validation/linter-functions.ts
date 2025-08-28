@@ -1334,4 +1334,73 @@ export const standardLinterfunctions: FunctionItem[] = [
       return true;
     },
   },
+  {
+    functionName: 'apilintSecurityScopeResolved',
+    function: (element: Element): boolean => {
+      const api = root(element);
+      const securityDefinitions = isObject(api) && api.get('securityDefinitions');
+      if (!securityDefinitions || !isObject(securityDefinitions)) return true;
+
+      const hasScope = (schemeName: string, scopesFromSecurity: string[]) => {
+        const oneSecurityDefinition = securityDefinitions.get(schemeName);
+        if (!oneSecurityDefinition) return true; // returning true, because when key is not found, then keys--defined rule will come into play.
+
+        const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
+        if (!oneSecurityDefinitionScopes) return true; // returning true, because when scopes is not found, then scope--required rule from security scheme will come into play.
+
+        return scopesFromSecurity.every(
+          (scopeFromSecurity: string) => !!oneSecurityDefinitionScopes.get(scopeFromSecurity),
+        );
+      };
+
+      if (isObject(element)) {
+        const securityRequirement = element.toValue();
+        for (const [schemeName, scopesFromSecurity] of Object.entries(securityRequirement)) {
+          if (Array.isArray(scopesFromSecurity)) {
+            return hasScope(schemeName, scopesFromSecurity);
+          }
+        }
+      }
+
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintSecuritySchemeUsed',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const schemeName: string =
+          isStringElement(element.parent.key) && element.parent.key.toValue();
+        const api = root(element);
+        const globalSecurity: ObjectElement[] = isObject(api) && api.get('security');
+        if (globalSecurity) {
+          for (const secObj of globalSecurity) {
+            if (secObj.hasKey(schemeName)) {
+              return true;
+            }
+          }
+        }
+        const paths: ObjectElement = isObject(api) && api.get('paths');
+        return !!paths.findElements(
+          (e) => {
+            if (isObject(e) && e.hasKey('security')) {
+              const opSecurity = e.get('security');
+              if (isArray(opSecurity)) {
+                return !!opSecurity.findElements(
+                  (securityRequirementObject) =>
+                    isObject(securityRequirementObject) &&
+                    securityRequirementObject.hasKey(schemeName),
+                  {},
+                ).length;
+              }
+            }
+            return false;
+          },
+          { recursive: true },
+        ).length;
+      }
+
+      return true;
+    },
+  },
 ];

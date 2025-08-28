@@ -26,6 +26,7 @@ import flowsTypeLint from './flows--type.ts';
 import flowsRequiredLint from './flows--required.ts';
 import openIdConnectUrlFormatURILint from './open-id-connect-url--format-uri.ts';
 import openIdConnectUrlRequiredLint from './open-id-connect-url--required.ts';
+import keysUsedLint from './keys--used.ts';
 
 const lints = [
   typeEquals2_0Lint,
@@ -57,6 +58,7 @@ const lints = [
   allowedFields2_0Lint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
+  keysUsedLint,
 ];
 
 export default lints;

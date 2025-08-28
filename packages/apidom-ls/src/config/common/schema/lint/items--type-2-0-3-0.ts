@@ -2,20 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
-import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI30, OpenAPI2 } from '../../../openapi/target-specs.ts';
 
-const itemsTypeLint: LinterMeta = {
+const itemsTypeOpenAPI2OpenAPI30Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_ITEMS,
   source: 'apilint',
-  message: 'items must be a schema or array of schemas',
+  message: "'items' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['schema', 'array']],
+  linterParams: [['schema']],
   marker: 'value',
   target: 'items',
   data: {},
-  targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+  targetSpecs: [...OpenAPI2, ...OpenAPI30],
 };
 
-export default itemsTypeLint;
+export default itemsTypeOpenAPI2OpenAPI30Lint;

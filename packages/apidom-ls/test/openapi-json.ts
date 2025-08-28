@@ -513,23 +513,6 @@ describe('apidom-ls', function () {
         source: 'apilint',
       },
       {
-        code: 3240300,
-        data: {},
-        message: 'Definition was declared but never used in document',
-        range: {
-          end: {
-            character: 15,
-            line: 27,
-          },
-          start: {
-            character: 6,
-            line: 27,
-          },
-        },
-        severity: 2,
-        source: 'apilint',
-      },
-      {
         range: { start: { line: 30, character: 10 }, end: { line: 30, character: 14 } },
         message: 'Schema does not include any Schema Object keywords',
         severity: 4,

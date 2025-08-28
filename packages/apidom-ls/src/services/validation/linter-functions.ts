@@ -218,12 +218,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         if (
           element.findElements(
             (e) => {
-              const included = keys.includes(toValue((e.parent as MemberElement).key));
+              const parentKey = toValue((e.parent as MemberElement).key);
+              const included = keys.includes(parentKey);
               const isExtension =
                 allowExtensionPrefix !== undefined &&
-                toValue((e.parent as MemberElement).key as Element).startsWith(
-                  allowExtensionPrefix,
-                );
+                typeof toValue(parentKey) === 'string' &&
+                toValue(parentKey as Element).startsWith(allowExtensionPrefix);
               return !included && (allowExtensionPrefix === undefined || !isExtension);
             },
             {
@@ -347,6 +347,50 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintKeysContainsValue',
+    function: (element: Element, keys: string[], value: unknown): boolean => {
+      if (!isObject(element)) {
+        return true;
+      }
+
+      const fields = keys.map((key) => element.get(key)).filter(Boolean);
+
+      if (fields.length === 0) {
+        return true;
+      }
+      return !fields.every((field) => {
+        const elValue = toValue(field);
+
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && value !== elValue) {
+          return false;
+        }
+        return !(isArrayVal && !elValue.includes(value));
+      });
+    },
+  },
+  {
+    functionName: 'apilintContainsDefaultValue',
+    function: (element: Element): boolean => {
+      const elementParent = element?.parent?.parent;
+      const defaultValue = isObject(elementParent)
+        ? toValue(elementParent.get('default'))
+        : undefined;
+
+      if (element && defaultValue !== undefined) {
+        const elValue = toValue(element);
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && defaultValue !== elValue) {
+          return false;
+        }
+        if (isArrayVal && !elValue.includes(defaultValue)) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintUniqueArray',
     function: (element: Element): boolean => {
       if (element) {
@@ -451,7 +495,16 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintArrayOfType',
-    function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
+    function: (
+      element: Element,
+      type: string,
+      nonEmpty?: boolean,
+      useParentType?: boolean,
+    ): boolean => {
+      const elementParent = element?.parent?.parent;
+      const parentType =
+        useParentType && isObject(elementParent) ? toValue(elementParent.get('type')) : undefined;
+
       if (element) {
         const elValue = toValue(element);
         const isArrayVal = Array.isArray(elValue);
@@ -459,7 +512,7 @@ export const standardLinterfunctions: FunctionItem[] = [
           return false;
         }
         if (
-          (element as ArrayElement).findElements((e) => !isType(e, type), {
+          (element as ArrayElement).findElements((e) => !isType(e, parentType ?? type), {
             recursive: false,
           }).length > 0
         ) {
@@ -518,6 +571,21 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintValueIsRegex',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const elKey = toValue(element.parent.value as Element);
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const regex = new RegExp(elKey);
+        } catch (e) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintMaxLength',
     function: (element: Element, maxLength: number): boolean => {
       if (element) {
@@ -557,6 +625,35 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       return true;
+    },
+  },
+  {
+    functionName: 'apilintSchemaMinimumMaximum',
+    function: (element: Element, minProperty: string, maxProperty): boolean => {
+      const elementParent = element?.parent?.parent;
+
+      if (!isObject(elementParent)) {
+        return true;
+      }
+
+      const minimum = toValue(elementParent.get(minProperty));
+      const maximum = toValue(elementParent.get(maxProperty));
+
+      const isExclusiveMinimumMaximumEnabled =
+        minProperty === 'minimum' &&
+        maxProperty === 'maximum' &&
+        (toValue(elementParent.get('exclusiveMinimum')) ||
+          toValue(elementParent.get('exclusiveMaximum')));
+
+      if (typeof minimum !== 'number' || typeof maximum !== 'number') {
+        return true;
+      }
+
+      if (isExclusiveMinimumMaximumEnabled) {
+        return minimum < maximum;
+      }
+
+      return minimum <= maximum;
     },
   },
   {
@@ -951,6 +1048,24 @@ export const standardLinterfunctions: FunctionItem[] = [
           for (const r of required) {
             if (!properties?.hasKey(r)) {
               return false;
+            }
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintRequiredReadOnlyInProperties',
+    function: (element: Element): boolean => {
+      if (element && element.parent?.parent && isObject(element.parent?.parent)) {
+        const required = toValue(element) as string[];
+        const properties = element.parent.parent.get('properties') as ObjectElement | undefined;
+        if (required) {
+          for (const r of required) {
+            const requiredProperty = properties?.get(r);
+            if (isObject(requiredProperty)) {
+              return toValue(requiredProperty.get('readOnly')) !== true;
             }
           }
         }

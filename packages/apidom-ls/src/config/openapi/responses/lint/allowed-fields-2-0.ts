@@ -19,7 +19,7 @@ const allowedFields2_0Lint: LinterMeta = {
     'Responses Object uses HTTP Status Codes outside of allowed IANA HTTP Status code registry',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['default', ...range(100, 600).map(String)], 'x-'],
+  linterParams: [['default', ...range(100, 600).map(String), ...range(100, 600)], 'x-'],
   marker: 'key',
   targetSpecs: OpenAPI2,
 };

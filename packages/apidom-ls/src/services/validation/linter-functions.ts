@@ -406,17 +406,61 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apilintFieldValueOrArray',
     function: (element: Element, key: string, values: string[]): boolean => {
+      const api = root(element) as ObjectElement;
+
       if (element && isObject(element)) {
-        if (element.get(key)) {
-          const elValue = toValue(element.get(key));
-          const isArrayVal = Array.isArray(elValue);
-          if (!isArrayVal && !values.includes(elValue)) {
-            return false;
-          }
-          if (isArrayVal && !elValue.every((v) => values.includes(v))) {
-            return false;
-          }
+        if (!element.get(key) && !api.get(key)) {
+          return false;
         }
+        const keyToCheck = element.get(key) ?? api.get(key);
+        const elValue = toValue(keyToCheck);
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && !values.includes(elValue)) {
+          return false;
+        }
+        if (isArrayVal && !elValue.every((v) => values.includes(v))) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintHasParameterKeyValue',
+    function: (element: Element, key: string, value: string): boolean => {
+      if (element && isArrayElement(element)) {
+        return (
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get(key)) === value;
+            }
+            return false;
+          }, {}).length > 0
+        );
+      }
+      return false;
+    },
+  },
+  {
+    functionName: 'apilintParametersInOverlaps',
+    function: (element: Element): boolean => {
+      if (element && isArrayElement(element)) {
+        const hasBodyValue =
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get('in')) === 'body';
+            }
+            return false;
+          }, {}).length > 0;
+        const hasFormDataValue =
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get('in')) === 'formData';
+            }
+            return false;
+          }, {}).length > 0;
+
+        return !(hasBodyValue && hasFormDataValue);
       }
       return true;
     },

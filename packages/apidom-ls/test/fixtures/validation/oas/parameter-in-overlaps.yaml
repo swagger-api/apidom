@@ -1,0 +1,23 @@
+swagger: "2.0"
+info:
+  version: "1.0.0"
+  title: "Swagger 2.0"
+paths:
+  /some:
+    post:
+      consumes:
+        - multipart/form-data
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Pet object that needs to be added to the store"
+          required: true
+          schema: {}
+        - in: formData
+          name: "body2"
+          type: 'file'
+      responses:
+        default:
+          description: 'test'
+
+ 

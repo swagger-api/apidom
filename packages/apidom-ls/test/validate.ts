@@ -3377,25 +3377,7 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     result[0].code = 'test';
-    result[1].code = 'test';
     const expected: Diagnostic[] = [
-      {
-        code: 'test',
-        data: {},
-        message: 'Definition was declared but never used in document',
-        range: {
-          end: {
-            character: 7,
-            line: 31,
-          },
-          start: {
-            character: 4,
-            line: 31,
-          },
-        },
-        severity: 2,
-        source: 'apilint',
-      },
       {
         range: { start: { line: 39, character: 12 }, end: { line: 39, character: 50 } },
         message: 'local reference not found',
@@ -3545,14 +3527,6 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
-      },
-      {
-        range: { start: { line: 10, character: 4 }, end: { line: 10, character: 7 } },
-        message: 'Definition was declared but never used in document',
-        severity: 2,
-        code: 3240300,
-        source: 'apilint',
-        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -4179,6 +4153,52 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2.0 / yaml - enum value should conform to its parameters type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameters-enum-type-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-enum-type-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 3101801,
+        data: {},
+        message: 'enum value should conform to its parameters type',
+        range: {
+          end: {
+            character: 25,
+            line: 12,
+          },
+          start: {
+            character: 16,
+            line: 12,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - parameter Authorization is ignored', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -4438,6 +4458,882 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas / yaml - enum value should conform to its schemas type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-enum-type.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-enum-type.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 16, character: 14 }, end: { line: 19, character: 0 } },
+        data: {},
+        message: "enum value should conform to its schema's type",
+        severity: 2,
+        code: 10075,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml - Default values must be present in enum', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-enum-default-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-enum-default-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 16, character: 14 }, end: { line: 18, character: 17 } },
+        data: {},
+        message: 'Default values must be present in enum',
+        severity: 1,
+        code: 10076,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas / yaml 2.0 - Default values must be present in enum', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-enum-default-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-enum-default-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 16 }, end: { line: 11, character: 35 } },
+        data: {},
+        message: 'Default values must be present in enum',
+        severity: 1,
+        code: 3101802,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 3.0 - 'minimum' must be lower value than 'maximum'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-minimum-maximum-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-minimum-maximum-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 13, character: 15 }, end: { line: 13, character: 16 } },
+        data: {},
+        message: "'minimum' must be a lower value than 'maximum'",
+        severity: 1,
+        code: 10077,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 3.0 - exclusive minimum: 'minimum' must be lower value than 'maximum'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'schema-exclusive-minimum-maximum-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-exclusive-minimum-maximum-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 14, character: 15 }, end: { line: 14, character: 16 } },
+        data: {},
+        message: "'minimum' must be a lower value than 'maximum'",
+        severity: 1,
+        code: 10077,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minimum' must be lower value than 'maximum'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-maximum-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-maximum-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 19 }, end: { line: 11, character: 21 } },
+        data: {},
+        message: "'minimum' must be a lower value than 'maximum'",
+        severity: 1,
+        code: 3110701,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 3.0 - 'minLength' must be lower value than 'maxLength'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'schema-minimum-length-maximum-length-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-minimum-length-maximum-length-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 13, character: 17 }, end: { line: 13, character: 18 } },
+        data: {},
+        message: "'minLength' must be a lower value than 'maxLength'",
+        severity: 1,
+        code: 10078,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minLength' must be lower value than 'maxLength'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-length-maximum-length-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-length-maximum-length-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 21 }, end: { line: 11, character: 23 } },
+        data: {},
+        message: "'minLength' must be a lower value than 'maxLength'",
+        severity: 1,
+        code: 3111301,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml - 'minProperties' must be lower value than 'maxProperties'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'schema-minimum-properties-maximum-properties-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-minimum-properties-maximum-properties-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 13, character: 21 }, end: { line: 13, character: 22 } },
+        data: {},
+        message: "'minProperties' must be a lower value than 'maxProperties'",
+        severity: 1,
+        code: 10079,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minProperties' must be lower value than 'maxProperties'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-length-maximum-length-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-length-maximum-length-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 21 }, end: { line: 11, character: 23 } },
+        data: {},
+        message: "'minLength' must be a lower value than 'maxLength'",
+        severity: 1,
+        code: 3111301,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml - 'minItems' must be lower value than 'minItems'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'schema-minimum-items-maximum-items-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-minimum-items-maximum-items-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    result[0].code = 'test';
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 9, character: 16 }, end: { line: 9, character: 47 } },
+        message: 'local reference not found',
+        severity: 1,
+        code: 'test',
+        source: 'apilint',
+        data: {
+          quickFix: [],
+        },
+      },
+      {
+        range: { start: { line: 13, character: 16 }, end: { line: 13, character: 17 } },
+        data: {},
+        message: "'minItems' must be a lower value than 'maxItems'",
+        severity: 1,
+        code: 10080,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas / yaml 2.0 - 'minItems' must be lower value than 'minItems'", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'parameters-minimum-items-maximum-items-value-2-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameters-minimum-items-maximum-items-value-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 11, character: 20 }, end: { line: 11, character: 22 } },
+        data: {},
+        message: "'minItems' must be a lower value than 'maxItems'",
+        severity: 1,
+        code: 3111001,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas 3.0/ yaml - A property MUST NOT be marked 'readOnly' and 'writeOnly' being true", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-read-only-write-only.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-read-only-write-only.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10081,
+        data: {},
+        message: "A property MUST NOT be marked as both 'readOnly' and 'writeOnly' being true",
+        range: {
+          end: {
+            character: 10,
+            line: 27,
+          },
+          start: {
+            character: 8,
+            line: 27,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2/ yaml - Read only properties cannot be marked as required by a schema', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-read-only-required.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-read-only-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10082,
+        data: {},
+        message: 'Read only properties cannot be marked as required by a schema',
+        range: {
+          end: {
+            character: 19,
+            line: 10,
+          },
+          start: {
+            character: 6,
+            line: 10,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2/ yaml - \\Z" anchors are not allowed in regular expression patterns', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-reg-exp-anchors.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-reg-exp-anchors.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10083,
+        data: {},
+        message: '\\Z" anchors are not allowed in regular expression patterns',
+        range: {
+          end: {
+            character: 31,
+            line: 10,
+          },
+          start: {
+            character: 13,
+            line: 10,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it("oas 2/ yaml - should have an 'items' if 'type'=array", async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-required.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10084,
+        data: {
+          quickFix: [
+            {
+              action: 'addChild',
+              message: "add 'items' field",
+              snippetJson: '"items": {\n  \n  },\n',
+              snippetYaml: 'items: \n  \n',
+            },
+          ],
+        },
+        message: "should have an 'items' if 'type'=array",
+        range: {
+          end: {
+            character: 20,
+            line: 12,
+          },
+          start: {
+            character: 14,
+            line: 12,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 2/ yaml - `items` must be an object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-2-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: "'items' must be an object",
+        range: {
+          end: {
+            character: 27,
+            line: 12,
+          },
+          start: {
+            character: 19,
+            line: 12,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3/ yaml - `items` must be an object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-3-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: "'items' must be an object",
+        range: {
+          end: {
+            character: 0,
+            line: 16,
+          },
+          start: {
+            character: 18,
+            line: 15,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.1/ yaml - items must be a schema or array of schemas', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'schema-items-3-1.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-items-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        code: 10018,
+        data: {},
+        message: 'items must be a schema or array of schemas',
+        range: {
+          end: {
+            character: 24,
+            line: 14,
+          },
+          start: {
+            character: 23,
+            line: 14,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -4563,6 +5459,463 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 2.0 every scope should be resolved', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scopes-unresolved.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scopes-unresolved.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Security scope definition could not be resolved',
+        severity: 1,
+        code: 3220802,
+        source: 'apilint',
+        range: { start: { line: 21, character: 4 }, end: { line: 21, character: 50 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 every defined security scheme should be used', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Security Scheme was defined but never used. To apply security, use the `security` section in operations or on the root level of your API definition',
+        severity: 2,
+        code: 14998,
+        source: 'apilint',
+        range: { start: { line: 20, character: 2 }, end: { line: 20, character: 15 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme should be used', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'security-scheme-not-used-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-not-used-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Security Scheme was defined but never used. To apply security, use the `security` section in operations or on the root level of your API definition',
+        severity: 2,
+        code: 14998,
+        source: 'apilint',
+        range: { start: { line: 25, character: 4 }, end: { line: 25, character: 17 } },
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used locally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-locally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-locally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 every defined security scheme used globally', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-scheme-used-globally-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-scheme-used-globally-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
+  it('oas every security requirement should be an array', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'security-requirement-not-array.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'security-requirement-not-array.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 27,
+          },
+          start: {
+            character: 4,
+            line: 27,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+      {
+        code: 14997,
+        message: 'must be an array',
+        range: {
+          end: {
+            character: 28,
+            line: 40,
+          },
+          start: {
+            character: 10,
+            line: 40,
+          },
+        },
+        severity: 1,
+        source: 'apilint',
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 / yaml - Parameters cannot have both a "in: body" and "in: formData"', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'parameter-in-overlaps.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-in-overlaps.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Parameters cannot have both a "in: body" and "in: formData", as "formData" _will_ be the body',
+        severity: 1,
+        code: 3100204,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 9, character: 6 }, end: { line: 9, character: 16 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file' and no consumes - 'multipart/form-data'", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-required.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with Parameter of "type: file" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080801,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+      {
+        message:
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file' and consumes wrong value", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'operation-type-consumes-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with Parameter of "type: file" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080801,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+      {
+        message:
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+  it("oas 2.0 / yaml - should complain if 'in:formData` and no consumes - 'multipart/form-data'", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-in-consumes-required.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-in-consumes-required.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should complain if 'type:file` and consumes wrong value", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'operation-in-consumes-value.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-in-consumes-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message:
+          'Operations with Parameter of "in: formData" must include "application/x-www-form-urlencoded" or "multipart/form-data" in their "consumes" property',
+        severity: 1,
+        code: 3080802,
+        source: 'apilint',
+        data: {},
+        range: { start: { line: 6, character: 4 }, end: { line: 6, character: 7 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should not complain if 'type:file` and consumes is defined at root level", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-global-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-global-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it("oas 2.0 / yaml - should not complain if 'type:file` and wrong global consumes is overridden at operation level", async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'operation-type-consumes-override-value.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-type-consumes-override-value.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
   it('oas 2.0 should not allow equivalent paths', async function () {
     const spec = fs
       .readFileSync(

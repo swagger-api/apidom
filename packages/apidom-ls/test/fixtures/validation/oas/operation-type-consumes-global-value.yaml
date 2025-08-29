@@ -1,0 +1,17 @@
+swagger: "2.0"
+info:
+  version: 1.0.0
+  title: 'test'
+consumes:
+  - application/x-www-form-urlencoded
+paths:
+  /pets:
+    get:
+      responses:
+        default:
+          description: string
+      parameters:
+        - name: pathLevel
+          type: file
+          in: formData
+          description: tags to filter by

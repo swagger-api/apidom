@@ -219,12 +219,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         if (
           element.findElements(
             (e) => {
-              const included = keys.includes(toValue((e.parent as MemberElement).key));
+              const parentKey = toValue((e.parent as MemberElement).key);
+              const included = keys.includes(parentKey);
               const isExtension =
                 allowExtensionPrefix !== undefined &&
-                toValue((e.parent as MemberElement).key as Element).startsWith(
-                  allowExtensionPrefix,
-                );
+                typeof toValue(parentKey) === 'string' &&
+                toValue(parentKey as Element).startsWith(allowExtensionPrefix);
               return !included && (allowExtensionPrefix === undefined || !isExtension);
             },
             {
@@ -348,6 +348,50 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintKeysContainsValue',
+    function: (element: Element, keys: string[], value: unknown): boolean => {
+      if (!isObject(element)) {
+        return true;
+      }
+
+      const fields = keys.map((key) => element.get(key)).filter(Boolean);
+
+      if (fields.length === 0) {
+        return true;
+      }
+      return !fields.every((field) => {
+        const elValue = toValue(field);
+
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && value !== elValue) {
+          return false;
+        }
+        return !(isArrayVal && !elValue.includes(value));
+      });
+    },
+  },
+  {
+    functionName: 'apilintContainsDefaultValue',
+    function: (element: Element): boolean => {
+      const elementParent = element?.parent?.parent;
+      const defaultValue = isObject(elementParent)
+        ? toValue(elementParent.get('default'))
+        : undefined;
+
+      if (element && defaultValue !== undefined) {
+        const elValue = toValue(element);
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && defaultValue !== elValue) {
+          return false;
+        }
+        if (isArrayVal && !elValue.includes(defaultValue)) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintUniqueArray',
     function: (element: Element): boolean => {
       if (element) {
@@ -363,17 +407,61 @@ export const standardLinterfunctions: FunctionItem[] = [
   {
     functionName: 'apilintFieldValueOrArray',
     function: (element: Element, key: string, values: string[]): boolean => {
+      const api = root(element) as ObjectElement;
+
       if (element && isObject(element)) {
-        if (element.get(key)) {
-          const elValue = toValue(element.get(key));
-          const isArrayVal = Array.isArray(elValue);
-          if (!isArrayVal && !values.includes(elValue)) {
-            return false;
-          }
-          if (isArrayVal && !elValue.every((v) => values.includes(v))) {
-            return false;
-          }
+        if (!element.get(key) && !api.get(key)) {
+          return false;
         }
+        const keyToCheck = element.get(key) ?? api.get(key);
+        const elValue = toValue(keyToCheck);
+        const isArrayVal = Array.isArray(elValue);
+        if (!isArrayVal && !values.includes(elValue)) {
+          return false;
+        }
+        if (isArrayVal && !elValue.every((v) => values.includes(v))) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintHasParameterKeyValue',
+    function: (element: Element, key: string, value: string): boolean => {
+      if (element && isArrayElement(element)) {
+        return (
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get(key)) === value;
+            }
+            return false;
+          }, {}).length > 0
+        );
+      }
+      return false;
+    },
+  },
+  {
+    functionName: 'apilintParametersInOverlaps',
+    function: (element: Element): boolean => {
+      if (element && isArrayElement(element)) {
+        const hasBodyValue =
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get('in')) === 'body';
+            }
+            return false;
+          }, {}).length > 0;
+        const hasFormDataValue =
+          element.findElements((el: Element) => {
+            if (isObject(el)) {
+              return toValue(el.get('in')) === 'formData';
+            }
+            return false;
+          }, {}).length > 0;
+
+        return !(hasBodyValue && hasFormDataValue);
       }
       return true;
     },
@@ -452,7 +540,16 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintArrayOfType',
-    function: (element: Element, type: string, nonEmpty?: boolean): boolean => {
+    function: (
+      element: Element,
+      type: string,
+      nonEmpty?: boolean,
+      useParentType?: boolean,
+    ): boolean => {
+      const elementParent = element?.parent?.parent;
+      const parentType =
+        useParentType && isObject(elementParent) ? toValue(elementParent.get('type')) : undefined;
+
       if (element) {
         const elValue = toValue(element);
         const isArrayVal = Array.isArray(elValue);
@@ -460,7 +557,7 @@ export const standardLinterfunctions: FunctionItem[] = [
           return false;
         }
         if (
-          (element as ArrayElement).findElements((e) => !isType(e, type), {
+          (element as ArrayElement).findElements((e) => !isType(e, parentType ?? type), {
             recursive: false,
           }).length > 0
         ) {
@@ -519,6 +616,21 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintValueIsRegex',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const elKey = toValue(element.parent.value as Element);
+        try {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const regex = new RegExp(elKey);
+        } catch (e) {
+          return false;
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintMaxLength',
     function: (element: Element, maxLength: number): boolean => {
       if (element) {
@@ -558,6 +670,35 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       return true;
+    },
+  },
+  {
+    functionName: 'apilintSchemaMinimumMaximum',
+    function: (element: Element, minProperty: string, maxProperty): boolean => {
+      const elementParent = element?.parent?.parent;
+
+      if (!isObject(elementParent)) {
+        return true;
+      }
+
+      const minimum = toValue(elementParent.get(minProperty));
+      const maximum = toValue(elementParent.get(maxProperty));
+
+      const isExclusiveMinimumMaximumEnabled =
+        minProperty === 'minimum' &&
+        maxProperty === 'maximum' &&
+        (toValue(elementParent.get('exclusiveMinimum')) ||
+          toValue(elementParent.get('exclusiveMaximum')));
+
+      if (typeof minimum !== 'number' || typeof maximum !== 'number') {
+        return true;
+      }
+
+      if (isExclusiveMinimumMaximumEnabled) {
+        return minimum < maximum;
+      }
+
+      return minimum <= maximum;
     },
   },
   {
@@ -960,6 +1101,24 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintRequiredReadOnlyInProperties',
+    function: (element: Element): boolean => {
+      if (element && element.parent?.parent && isObject(element.parent?.parent)) {
+        const required = toValue(element) as string[];
+        const properties = element.parent.parent.get('properties') as ObjectElement | undefined;
+        if (required) {
+          for (const r of required) {
+            const requiredProperty = properties?.get(r);
+            if (isObject(requiredProperty)) {
+              return toValue(requiredProperty.get('readOnly')) !== true;
+            }
+          }
+        }
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintFieldsKeysCasing',
     function: (
       element: Element,
@@ -1231,6 +1390,75 @@ export const standardLinterfunctions: FunctionItem[] = [
           ([name, value]) => name === 'template-expression-param-name' && value === parameterName,
         );
       }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintSecurityScopeResolved',
+    function: (element: Element): boolean => {
+      const api = root(element);
+      const securityDefinitions = isObject(api) && api.get('securityDefinitions');
+      if (!securityDefinitions || !isObject(securityDefinitions)) return true;
+
+      const hasScope = (schemeName: string, scopesFromSecurity: string[]) => {
+        const oneSecurityDefinition = securityDefinitions.get(schemeName);
+        if (!oneSecurityDefinition) return true; // returning true, because when key is not found, then keys--defined rule will come into play.
+
+        const oneSecurityDefinitionScopes = oneSecurityDefinition.get('scopes');
+        if (!oneSecurityDefinitionScopes) return true; // returning true, because when scopes is not found, then scope--required rule from security scheme will come into play.
+
+        return scopesFromSecurity.every(
+          (scopeFromSecurity: string) => !!oneSecurityDefinitionScopes.get(scopeFromSecurity),
+        );
+      };
+
+      if (isObject(element)) {
+        const securityRequirement = element.toValue();
+        for (const [schemeName, scopesFromSecurity] of Object.entries(securityRequirement)) {
+          if (Array.isArray(scopesFromSecurity)) {
+            return hasScope(schemeName, scopesFromSecurity);
+          }
+        }
+      }
+
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintSecuritySchemeUsed',
+    function: (element: Element): boolean => {
+      if (element && element.parent && isMember(element.parent)) {
+        const schemeName: string =
+          isStringElement(element.parent.key) && element.parent.key.toValue();
+        const api = root(element);
+        const globalSecurity: ObjectElement[] = isObject(api) && api.get('security');
+        if (globalSecurity) {
+          for (const secObj of globalSecurity) {
+            if (secObj.hasKey(schemeName)) {
+              return true;
+            }
+          }
+        }
+        const paths: ObjectElement = isObject(api) && api.get('paths');
+        return !!paths.findElements(
+          (e) => {
+            if (isObject(e) && e.hasKey('security')) {
+              const opSecurity = e.get('security');
+              if (isArray(opSecurity)) {
+                return !!opSecurity.findElements(
+                  (securityRequirementObject) =>
+                    isObject(securityRequirementObject) &&
+                    securityRequirementObject.hasKey(schemeName),
+                  {},
+                ).length;
+              }
+            }
+            return false;
+          },
+          { recursive: true },
+        ).length;
+      }
+
       return true;
     },
   },

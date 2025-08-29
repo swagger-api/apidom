@@ -1,0 +1,54 @@
+openapi: "3.0.3"
+info:
+  title: Example
+  version: "1.0"
+
+components:
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: "https://auth.example.com/authorize"
+          scopes:
+            read:pets: "Read pets information"
+            write:pets: "Write pets information"
+
+    secondScheme:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: "https://auth.example.com/authorize"
+          scopes:
+            read:pets: "Read pets information"
+            write:pets: "Write pets information"
+
+    usedLocally:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: "https://auth.example.com/authorize"
+          scopes:
+            read:people: "Read people information"
+            write:people: "Write people information"
+
+security:
+  - oauth2: ["read:pets", "write:pets"]
+  - secondScheme: ["read:pets", "write:pets"]
+
+paths:
+  /pets:
+    get:
+      responses:
+        "200":
+          description: OK
+
+  /lic:
+    get:
+      security:
+        - secondScheme: ["read:pets"]
+        - oauth2: ["read:pets"]
+        - usedLocally: ["read:people"]
+      responses:
+        "200":
+          description: OK

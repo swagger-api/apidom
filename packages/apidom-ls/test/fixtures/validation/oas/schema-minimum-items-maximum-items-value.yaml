@@ -1,0 +1,15 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /pets:
+    get:
+      responses:
+        default:
+          $ref: '#/components/schemas/MyNumber'
+components:
+  schemas:
+    MyNumber:
+      minItems: 5
+      maxItems: 2

@@ -17,6 +17,7 @@ import {
   test as testPathTemplate,
   resolve as resolvePathTemplate,
   parse as parsePathTemplate,
+  isIdentical,
 } from 'openapi-path-templating';
 
 // eslint-disable-next-line import/no-cycle
@@ -1258,52 +1259,66 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         let oneOfParametersIsReferenceObject = false;
-        const parameterElements: Element[] = [];
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
+        const pathLevelParameterElements: ObjectElement[] = [];
         const pathItemParameterElements = pathItemElement.get('parameters');
         if (isArrayElement(pathItemParameterElements)) {
           pathItemParameterElements.forEach((parameter) => {
             if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
               oneOfParametersIsReferenceObject = true;
             }
-            if (isParameterElement(parameter)) {
-              parameterElements.push(parameter);
+            if (isParameterElement(parameter) && isObject(parameter)) {
+              pathLevelParameterElements.push(parameter);
             }
           });
         }
 
+        const includesTemplateExpression: boolean[] = [];
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
-            const operationParameterElements = (el as ObjectElement).get('parameters');
+            const operationParameterElements = isObject(el) && el.get('parameters');
+            const currentOperationLevelParameterElements: ObjectElement[] = [];
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
                 if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
                   oneOfParametersIsReferenceObject = true;
                 }
-                if (isParameterElement(parameter)) {
-                  parameterElements.push(parameter);
+                if (isParameterElement(parameter) && isObject(parameter)) {
+                  currentOperationLevelParameterElements.push(parameter);
                 }
               });
             }
+            const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
+            pathLevelParameterElements
+              .concat(currentOperationLevelParameterElements)
+              .forEach((parameter) => {
+                const inParam = parameter.get('in');
+                const nameParam = parameter.get('name');
+                if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
+                  pathTemplateResolveParams[nameParam.content] = 'placeholder';
+                }
+              });
+
+            const pathTemplate = toValue(element);
+            const resolvedPathTemplate = resolvePathTemplate(
+              pathTemplate,
+              pathTemplateResolveParams,
+            );
+            includesTemplateExpression.push(
+              testPathTemplate(resolvedPathTemplate, {
+                strict: true,
+              }),
+            );
           }
         });
 
-        const pathTemplateResolveParams: { [key: string]: 'placeholder' } = {};
-
-        parameterElements.forEach((parameter) => {
-          if (toValue((parameter as ObjectElement).get('in')) === 'path') {
-            pathTemplateResolveParams[toValue((parameter as ObjectElement).get('name'))] =
-              'placeholder';
-          }
-        });
-
-        const pathTemplate = toValue(element);
-        const resolvedPathTemplate = resolvePathTemplate(pathTemplate, pathTemplateResolveParams);
-        const includesTemplateExpression = testPathTemplate(resolvedPathTemplate, { strict: true });
-
-        return !includesTemplateExpression || oneOfParametersIsReferenceObject;
+        return (
+          (includesTemplateExpression.length > 0 &&
+            includesTemplateExpression.every((bool) => !bool)) ||
+          oneOfParametersIsReferenceObject
+        );
       }
 
       return true;
@@ -1445,6 +1460,23 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       return true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIPathTemplateNoEquivalent',
+    function: (element: Element): boolean => {
+      const isFirstOccurrence = (currentKey: string, allKeys: unknown[]) => {
+        const firstIndex = allKeys.findIndex(
+          (e) => typeof e === 'string' && isIdentical(e, currentKey),
+        );
+
+        return allKeys[firstIndex] === currentKey;
+      };
+      const paths = element.parent?.parent;
+
+      return isStringElement(element) && isObject(paths)
+        ? isFirstOccurrence(element.toValue(), paths.keys())
+        : true;
     },
   },
 ];

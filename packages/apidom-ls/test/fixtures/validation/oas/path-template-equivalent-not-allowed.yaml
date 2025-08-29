@@ -1,0 +1,28 @@
+swagger: '2.0'
+info:
+  title: Test API
+  version: 1.0.0
+paths:
+  /items/{id}:
+    get:
+      summary: Get item by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+  /items/{itemId}:
+    get:
+      summary: Get item by itemId
+      parameters:
+        - name: itemId
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: OK
+

@@ -12,7 +12,6 @@ import {
 import AnnotationElement from '../elements/Annotation.ts';
 import CommentElement from '../elements/Comment.ts';
 import ParseResultElement from '../elements/ParseResult.ts';
-import SourceMapElement from '../elements/SourceMap.ts';
 import { createRefractor } from './index.ts';
 
 ObjectElement.refract = createRefractor(ObjectElement);
@@ -27,7 +26,6 @@ RefElement.refract = createRefractor(RefElement);
 AnnotationElement.refract = createRefractor(AnnotationElement);
 CommentElement.refract = createRefractor(CommentElement);
 ParseResultElement.refract = createRefractor(ParseResultElement);
-SourceMapElement.refract = createRefractor(SourceMapElement);
 
 export {
   ObjectElement,
@@ -41,5 +39,4 @@ export {
   AnnotationElement,
   CommentElement,
   ParseResultElement,
-  SourceMapElement,
 };

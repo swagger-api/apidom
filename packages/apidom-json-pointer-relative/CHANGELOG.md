@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
+
+### Features
+
+- **ls:** disable newly added rules for 3.1 spec ([#4997](https://github.com/swagger-api/apidom/issues/4997)) ([d5b16f8](https://github.com/swagger-api/apidom/commit/d5b16f82a916aea70929d2f3ff5be04769d8d8d3))
+
 # [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
 
 **Note:** Version bump only for package @swagger-api/apidom-json-pointer-relative

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
+
+### Features
+
+- add ref validation rules ([#4989](https://github.com/swagger-api/apidom/issues/4989)) ([cbb3446](https://github.com/swagger-api/apidom/commit/cbb3446bb22a9b3a250303256e76eeb69507a23f))
+- add validation ruls for tags to have unique name ([4576ad9](https://github.com/swagger-api/apidom/commit/4576ad9070d7d2224f750ebedf45bffe1b564a3d))
+- **ls:** add schema validation rules ([#4992](https://github.com/swagger-api/apidom/issues/4992)) ([573e52f](https://github.com/swagger-api/apidom/commit/573e52f23618b2bf7edd48a6a4d0601d07edd417))
+- **ls:** add validation rules for formData ([#4998](https://github.com/swagger-api/apidom/issues/4998)) ([ef012f1](https://github.com/swagger-api/apidom/commit/ef012f1ad8e5d1570b46ee28c4f5408dac649465))
+- **ls:** disable newly added rules for 3.1 spec ([#4997](https://github.com/swagger-api/apidom/issues/4997)) ([d5b16f8](https://github.com/swagger-api/apidom/commit/d5b16f82a916aea70929d2f3ff5be04769d8d8d3))
+- **ls:** migrate disallowing equivalent paths in OAS2 ([#4987](https://github.com/swagger-api/apidom/issues/4987)) ([0066f1c](https://github.com/swagger-api/apidom/commit/0066f1c19c3a0ecdf0e2731ad4b43bfdf0cb8f73))
+
 # [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
 
 ### Bug Fixes

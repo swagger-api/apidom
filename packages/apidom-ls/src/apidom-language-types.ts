@@ -106,6 +106,7 @@ export interface LanguageServiceContext {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  refractorPlugins?: RefractorPlugins;
 }
 
 /**
@@ -386,6 +387,11 @@ export interface LinksContext {
   enableTrivialLinkDiscovery?: boolean;
   modifierFunction?: LinksModifierFunction;
 }
+
+/**
+ * @public
+ */
+export type RefractorPlugins = Record<string, (() => unknown)[]>;
 
 /**
  * @public

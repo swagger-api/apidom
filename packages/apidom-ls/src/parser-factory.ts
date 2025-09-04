@@ -18,7 +18,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
 import { setMetadataMap, findNamespace } from './utils/utils.ts';
-import { ContentLanguage, MetadataMaps } from './apidom-language-types.ts';
+import { ContentLanguage, MetadataMaps, RefractorPlugins } from './apidom-language-types.ts';
 
 export interface ParserOptions {
   sourceMap?: boolean;
@@ -33,27 +33,46 @@ export async function parse(
   freeze = true,
   setMetadata = true,
   defaultContentLanguage?: ContentLanguage,
+  refractorPlugins?: RefractorPlugins,
 ): Promise<ParseResultElement> {
   // TODO improve detection mechanism
   const text: string = typeof textDocument === 'string' ? textDocument : textDocument.getText();
   let result;
   const contentLanguage = await findNamespace(text, defaultContentLanguage);
   if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'JSON') {
-    result = await asyncapi2AdapterJson.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['asyncapi-2'] || [])],
+      },
+    };
+
+    result = await asyncapi2AdapterJson.parse(text, options);
   } else if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'YAML') {
     const options: Record<string, unknown> = {
       sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementAsyncAPI2(),
+          ...(refractorPlugins?.['asyncapi-2'] || []),
+        ].filter(Boolean),
+      },
     };
-    if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementAsyncAPI2()] };
-    }
+
     result = await asyncapi2AdapterYaml.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version === '2.0' &&
     contentLanguage.format === 'JSON'
   ) {
-    result = await openapi2AdapterJson.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['openapi-2'] || [])],
+      },
+    };
+
+    result = await openapi2AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version === '2.0' &&
@@ -61,17 +80,28 @@ export async function parse(
   ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementOpenAPI2(),
+          ...(refractorPlugins?.['openapi-2'] || []),
+        ].filter(Boolean),
+      },
     };
-    if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI2()] };
-    }
+
     result = await openapi2AdapterYaml.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version?.startsWith('3.0') &&
     contentLanguage.format === 'JSON'
   ) {
-    result = await openapi3_0AdapterJson.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['openapi-3-0'] || [])],
+      },
+    };
+
+    result = await openapi3_0AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version?.startsWith('3.0') &&
@@ -79,17 +109,28 @@ export async function parse(
   ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementOpenAPI3_0(),
+          ...(refractorPlugins?.['openapi-3-0'] || []),
+        ].filter(Boolean),
+      },
     };
-    if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI3_0()] };
-    }
+
     result = await openapi3_0AdapterYaml.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version?.startsWith('3.1') &&
     contentLanguage.format === 'JSON'
   ) {
-    result = await openapi3_1AdapterJson.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['openapi-3-1'] || [])],
+      },
+    };
+
+    result = await openapi3_1AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version?.startsWith('3.1') &&
@@ -97,10 +138,14 @@ export async function parse(
   ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementOpenAPI3_1(),
+          ...(refractorPlugins?.['openapi-3-1'] || []),
+        ].filter(Boolean),
+      },
     };
-    if (registerPlugins) {
-      options.refractorOpts = { plugins: [refractorPluginReplaceEmptyElementOpenAPI3_1()] };
-    }
+
     result = await openapi3_1AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapterJson.parse(text, { sourceMap: true });

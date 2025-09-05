@@ -412,7 +412,7 @@ export class DefaultCompletionService implements CompletionService {
     // if we cannot parse nothing to do
     if (api === undefined) return completionList;
     const docNs: string = contentLanguage.namespace;
-    const specVersion = getSpecVersion(api);
+    const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
 
     let targetOffset = textModified ? offset - 1 : offset;
     let emptyLine = false;

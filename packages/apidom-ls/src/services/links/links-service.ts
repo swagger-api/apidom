@@ -113,7 +113,7 @@ export class DefaultLinksService implements LinksService {
     const { api } = result;
 
     if (api === undefined) return links;
-    const specVersion = getSpecVersion(api);
+    const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
     debug('DefaultLinksService.doLinks ns', docNs, specVersion);
     const findLinks = (element: Element) => {
       const sm = getSourceMap(element);

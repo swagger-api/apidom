@@ -515,7 +515,7 @@ export class DefaultValidationService implements ValidationService {
     if (!result) return diagnostics;
     const { api } = result;
     if (api === undefined) return diagnostics;
-    const specVersion = getSpecVersion(api);
+    const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
 
     const hasSyntaxErrors = !!diagnostics.length;
 

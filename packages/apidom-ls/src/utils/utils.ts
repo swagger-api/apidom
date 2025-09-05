@@ -166,9 +166,12 @@ export function setMetadataMap(
   }
 }
 
-export function getSpecVersion(root: Element): string {
+export function getSpecVersion(root: Element, defaultVersion?: string): string {
   const el = find((e) => toValue(e.getMetaProperty('classes', []).includes('spec-version')), root);
-  return el ? toValue(el) : '';
+  if (el) {
+    return toValue(el);
+  }
+  return defaultVersion ?? '';
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

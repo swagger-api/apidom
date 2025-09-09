@@ -82,7 +82,7 @@ export class DefaultDefinitionService implements DefinitionService {
             textDocument.getText(),
             this.settings?.defaultContentLanguage,
           );
-          const specVersion = getSpecVersion(api);
+          const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
 
           const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
           const mediaTypePrefix =

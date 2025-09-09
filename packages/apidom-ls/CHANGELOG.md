@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.48](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-09-09)
+
+### Bug Fixes
+
+- fallback to a default version when a spec version is not found ([#5001](https://github.com/swagger-api/apidom/issues/5001)) ([1b62fde](https://github.com/swagger-api/apidom/commit/1b62fdecbdc8522a66da6b968128e8bb4fb619d1))
+
+### Features
+
+- **ls:** add option to pass refractor plugins ([#5003](https://github.com/swagger-api/apidom/issues/5003)) ([f9452f3](https://github.com/swagger-api/apidom/commit/f9452f34cedd05cb57140790029d35756d69b9a1))
+
 # [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
 
 ### Features

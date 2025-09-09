@@ -116,7 +116,7 @@ export class DefaultHoverService implements HoverService {
     if (api === undefined) return undefined;
     const docNs: string = (await findNamespace(text, this.settings?.defaultContentLanguage))
       .namespace;
-    const specVersion = getSpecVersion(api);
+    const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
 
     api.freeze(); // !! freeze and add parent !!
 
@@ -186,7 +186,10 @@ export class DefaultHoverService implements HoverService {
                 textDocument.getText(),
                 this.settings?.defaultContentLanguage,
               );
-              const nonStrictSpecVersion = getSpecVersion(api);
+              const nonStrictSpecVersion = getSpecVersion(
+                api,
+                this.settings?.defaultContentLanguage?.version,
+              );
 
               const format = contentLanguage.format ? contentLanguage.format.toLowerCase() : 'json';
               const mediaTypePrefix =

@@ -37,7 +37,12 @@ The capabilities of the ApiDOM Language Service can be extended by providing cus
 ```ts
 import { DocumentLink } from 'vscode-languageserver-types';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Element } from '@swagger-api/apidom-core';
+import {
+  Element,
+  MemberElement,
+  isStringElement,
+} from "@swagger-api/apidom-core";
+import { InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import { getLanguageService, LinksProvider, config } from '@swagger-api/apidom-ls';
 import type {
   LanguageSettings,
@@ -161,6 +166,21 @@ customMetadata.rules = {
   },
 };
 
+// Defining custom refractor plugins
+
+const refractorPlugin = () => () => ({
+  visitor: {
+    MemberElement(element: MemberElement) {
+      if (
+        isStringElement(element.key) &&
+        element.key.equals("additionalInfo")
+      ) {
+        element.value = InfoElement.refract(element.value);
+      }
+    },
+  },
+});
+
 // Initializing ApiDOM Language Service with custom configuration
 
 const refLinksProvider = new RefLinksProvider();
@@ -168,6 +188,9 @@ const refLinksProvider = new RefLinksProvider();
 const customContext = {
   metadata: customMetadata,
   linksProviders: [refLinksProvider],
+  refractorPlugins: {
+    'asyncapi-2': [refractorPlugin()],
+  }
 };
 
 const languageService = getLanguageService(customContext);

@@ -61,6 +61,7 @@ export type {
   LinterFunction,
   LinterConditionTarget,
   DocumentationMeta,
+  RefractorPlugins,
 } from './apidom-language-types.ts';
 
 export {

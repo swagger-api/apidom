@@ -13,7 +13,6 @@ export { default as MediaTypes } from './media-types.ts';
 
 export { Element, MemberElement, KeyValuePair, ObjectSlice, ArraySlice, refract } from 'minim';
 export type { NamespacePluginOptions, Attributes, Meta } from 'minim';
-export type { PositionRange, Position } from './elements/SourceMap.ts';
 export { default as namespace, Namespace, createNamespace } from './namespace.ts';
 
 export {
@@ -28,7 +27,6 @@ export {
   AnnotationElement,
   CommentElement,
   ParseResultElement,
-  SourceMapElement,
 } from './refractor/registration.ts';
 
 export type { default as createToolbox, Toolbox, basePredicates } from './refractor/toolbox.ts';
@@ -46,7 +44,6 @@ export {
   isRefElement,
   isAnnotationElement,
   isParseResultElement,
-  isSourceMapElement,
   isPrimitiveElement,
   hasElementSourceMap,
   includesSymbols,
@@ -83,7 +80,7 @@ export type { Callback, TraverseOptions } from './traversal/traverse.ts';
 
 export { transclude, default as Transcluder } from './transcluder/index.ts';
 
-export { dereference } from './util.ts';
+export { dereference, assignSourceMap } from './util.ts';
 
 export { cloneShallow, cloneDeep } from './clone/index.ts';
 export { default as CloneError } from './clone/errors/CloneError.ts';

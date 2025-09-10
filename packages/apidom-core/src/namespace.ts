@@ -4,7 +4,6 @@ import { isPlainObject } from 'ramda-adjunct';
 import AnnotationElement from './elements/Annotation.ts';
 import CommentElement from './elements/Comment.ts';
 import ParseResultElement from './elements/ParseResult.ts';
-import SourceMapElement from './elements/SourceMap.ts';
 
 /**
  * @public
@@ -16,7 +15,6 @@ export class Namespace extends MinimNamespace {
     this.register('annotation', AnnotationElement);
     this.register('comment', CommentElement);
     this.register('parseResult', ParseResultElement);
-    this.register('sourceMap', SourceMapElement);
   }
 }
 

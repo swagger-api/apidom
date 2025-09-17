@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert, expect } from 'chai';
 import dedent from 'dedent';
-import { isParseResultElement, SourceMapElement, sexprs } from '@swagger-api/apidom-core';
+import { isParseResultElement, sexprs } from '@swagger-api/apidom-core';
 import { isAsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import * as adapter from '../src/adapter.ts';
@@ -85,13 +85,13 @@ describe('adapter', function () {
       const { result } = await adapter.parse(yamlSource, { sourceMap: true });
       // @ts-ignore
       const infoValue = result.get('info');
-      const sourceMap = infoValue.meta.get('sourceMap');
-      const { positionStart, positionEnd } = sourceMap;
-      const expectedEmptyPosition = [1, 5, 21];
 
-      assert.instanceOf(sourceMap, SourceMapElement);
-      assert.isTrue(positionStart.equals(expectedEmptyPosition));
-      assert.isTrue(positionEnd.equals(expectedEmptyPosition));
+      expect(infoValue?.startPositionRow).to.equal(1);
+      expect(infoValue?.startPositionColumn).to.equal(5);
+      expect(infoValue?.startIndex).to.equal(21);
+      expect(infoValue?.endPositionRow).to.equal(1);
+      expect(infoValue?.endPositionColumn).to.equal(5);
+      expect(infoValue?.endIndex).to.equal(21);
     });
   });
 

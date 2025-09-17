@@ -28,6 +28,7 @@ import {
   StringElement,
   traverse,
   toValue,
+  hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 import { compile, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -109,15 +110,14 @@ export class SourceMap {
 }
 
 export function getSourceMap(element: Element): SourceMap {
-  if (element && element.meta && element.meta.get('sourceMap')) {
-    const sourceMap: [][number] = toValue(element.meta.get('sourceMap')) as [][number];
-    const offset = sourceMap[0][2];
-    const length = sourceMap[1][2] - sourceMap[0][2];
-    const line = sourceMap[0][0];
-    const column = sourceMap[0][1];
-    const endLine = sourceMap[1][0];
-    const endColumn = sourceMap[1][1];
-    const endOffset = sourceMap[1][2];
+  if (element && hasElementSourceMap(element)) {
+    const offset = element.startIndex as number;
+    const length = (element.endIndex as number) - (element.startIndex as number);
+    const line = element.startPositionRow as number;
+    const column = element.startPositionColumn as number;
+    const endLine = element.endPositionRow as number;
+    const endColumn = element.endPositionColumn as number;
+    const endOffset = element.endIndex as number;
     return new SourceMap(offset, length, line, column, endLine, endColumn, endOffset); // TODO ???
   }
   return new SourceMap(1, 2, 0, 1); // TODO ???

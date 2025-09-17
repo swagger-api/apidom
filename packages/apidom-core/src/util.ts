@@ -26,3 +26,32 @@ export const dereference = (
     return val;
   }, object);
 };
+
+type SourceMapContainer = {
+  startPositionRow?: number;
+  startPositionColumn?: number;
+  startIndex?: number;
+  endPositionRow?: number;
+  endPositionColumn?: number;
+  endIndex?: number;
+  [key: string]: any;
+};
+
+/**
+ * @public
+ */
+/* eslint-disable no-param-reassign */
+export const assignSourceMap = (
+  to: SourceMapContainer,
+  from?: SourceMapContainer,
+): SourceMapContainer => {
+  to.startPositionRow = from?.startPositionRow;
+  to.startPositionColumn = from?.startPositionColumn;
+  to.startIndex = from?.startIndex;
+  to.endPositionRow = from?.endPositionRow;
+  to.endPositionColumn = from?.endPositionColumn;
+  to.endIndex = from?.endIndex;
+
+  return to;
+};
+/* eslint-enable no-param-reassign */

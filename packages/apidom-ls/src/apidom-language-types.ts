@@ -27,6 +27,7 @@ import {
   ReferenceParams,
 } from 'vscode-languageserver-protocol';
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
+import { ApiDOMReferenceOptions } from '@swagger-api/apidom-reference';
 
 /**
  * @public
@@ -339,6 +340,7 @@ export interface ValidationContext {
   baseURI?: string;
   referenceValidationMode?: ReferenceValidationMode;
   referenceValidationSequentialProcessing?: boolean;
+  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 /**

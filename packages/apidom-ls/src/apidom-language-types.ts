@@ -108,6 +108,7 @@ export interface LanguageServiceContext {
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
   refractorPlugins?: RefractorPlugins;
+  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 /**
@@ -317,6 +318,7 @@ export interface LanguageSettings {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -340,7 +342,6 @@ export interface ValidationContext {
   baseURI?: string;
   referenceValidationMode?: ReferenceValidationMode;
   referenceValidationSequentialProcessing?: boolean;
-  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 /**

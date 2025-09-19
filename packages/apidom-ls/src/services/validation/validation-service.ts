@@ -237,6 +237,7 @@ export class DefaultValidationService implements ValidationService {
       : 'https://smartbear.com/';
     const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result)! });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
+    const { referenceOptions } = this.settings || {};
 
     for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = new Reference({
@@ -248,17 +249,17 @@ export class DefaultValidationService implements ValidationService {
       try {
         const promise = dereferenceApiDOM(refEl, {
           resolve: {
-            ...(validationContext?.referenceOptions?.resolve ?? {}),
+            ...(referenceOptions?.resolve ?? {}),
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
-            ...(validationContext?.referenceOptions?.parse ?? {}),
+            ...(referenceOptions?.parse ?? {}),
             parsers: cachedParsers,
             mediaType: nameSpace.mediaType,
           },
           dereference: {
-            ...(validationContext?.referenceOptions?.dereference ?? {}),
+            ...(referenceOptions?.dereference ?? {}),
             refSet,
             immutable: false,
           },
@@ -342,6 +343,7 @@ export class DefaultValidationService implements ValidationService {
       : 'https://smartbear.com/';
     const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result) });
     const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
+    const { referenceOptions } = this.settings || {};
 
     for (const [fragmentId, refEl] of refElements.entries()) {
       const referenceElementReference = new Reference({
@@ -354,17 +356,17 @@ export class DefaultValidationService implements ValidationService {
         // eslint-disable-next-line no-await-in-loop
         await dereferenceApiDOM(refEl, {
           resolve: {
-            ...(validationContext?.referenceOptions?.resolve ?? {}),
+            ...(referenceOptions?.resolve ?? {}),
             baseURI: `${baseURI}#reference${fragmentId}`,
             external: !toValue((refEl as ObjectElement).get('$ref')).startsWith('#'),
           },
           parse: {
-            ...(validationContext?.referenceOptions?.parse ?? {}),
+            ...(referenceOptions?.parse ?? {}),
             mediaType: nameSpace.mediaType,
             parsers: cachedParsers,
           },
           dereference: {
-            ...(validationContext?.referenceOptions?.dereference ?? {}),
+            ...(referenceOptions?.dereference ?? {}),
             refSet,
             immutable: false,
           },

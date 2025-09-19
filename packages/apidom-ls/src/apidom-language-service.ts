@@ -95,6 +95,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     symbolsContext: context.symbolsContext,
     colorsContext: context.colorsContext,
     linksContext: context.linksContext,
+    referenceOptions: context.referenceOptions,
   };
   configureServices(languageSettings);
 

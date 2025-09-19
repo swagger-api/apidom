@@ -15,7 +15,7 @@ const $ref3RequestBodiesNamingLint: LinterMeta = {
     {
       targets: [{ path: '$ref' }],
       function: 'apilintValueRegex',
-      params: ['^(?!.*#/components/(requestBodies|schemas)).*$'],
+      params: ['^(?!.*#/components/(requestBodies|schemas))(?!https?://).*$'],
     },
   ],
   marker: 'value',

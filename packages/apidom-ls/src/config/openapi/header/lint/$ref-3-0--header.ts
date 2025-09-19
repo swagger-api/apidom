@@ -15,7 +15,7 @@ const $ref3HeaderNamingLint: LinterMeta = {
     {
       targets: [{ path: '$ref' }],
       function: 'apilintValueRegex',
-      params: ['^(?!.*#/components/headers).*$'],
+      params: ['^(?!.*#/components/headers)(?!https?://).*$'],
     },
   ],
   marker: 'value',

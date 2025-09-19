@@ -1,0 +1,8 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /foo:
+    parameters:
+      - $ref: 'https://api.github.com/users/github/orgs'

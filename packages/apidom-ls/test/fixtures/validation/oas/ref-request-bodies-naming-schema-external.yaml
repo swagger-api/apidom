@@ -1,0 +1,20 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: 'test'
+paths:
+  /:
+    post:
+      responses:
+        default:
+          description: 'test'
+      operationId: myId
+      requestBody:
+        $ref: 'https://api.github.com/users/github/orgs'
+components:
+  requestBodies:
+    MyBody:
+      content:
+        application/json:
+          schema:
+            type: string

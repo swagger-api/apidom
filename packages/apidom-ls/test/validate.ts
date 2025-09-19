@@ -3112,6 +3112,33 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - requestBody $refs must point to a position where can be legally placed should not be reported against external refs', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-request-bodies-external.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-external.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - requestBody $refs must point to a position naming', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3164,6 +3191,40 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming should not be reported against external refs', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'ref-request-bodies-naming-external.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming-external.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.deepEqual(result, []);
 
     languageService.terminate();
   });
@@ -3226,6 +3287,39 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - requestBody $refs must point to a position naming schema should not be reported against external refs', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'ref-request-bodies-naming-schema-external.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-request-bodies-naming-schema-external.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    assert.deepEqual(result, []);
 
     languageService.terminate();
   });
@@ -3296,6 +3390,33 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('oas 3.0 / yaml - OAS3 header $Ref should point to Header Object should not be reported against external refs', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-header-external.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-header-external.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.deepEqual(result, []);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - OAS3 parameter $Ref should point to Parameter Object', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -3352,6 +3473,33 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - OAS3 parameter $Ref should point to Parameter Object should not be reported against external refs', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'ref-parameter-external.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ref-parameter-external.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.deepEqual(result, []);
 
     languageService.terminate();
   });

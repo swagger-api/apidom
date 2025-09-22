@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.49](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-09-22)
+
+### Features
+
+- **ls:** add option to pass down reference options for validation ([#5014](https://github.com/swagger-api/apidom/issues/5014)) ([00f79cb](https://github.com/swagger-api/apidom/commit/00f79cb925105502caeb0fe476c521f13bbf35f9))
+
 # [1.0.0-beta.48](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-09-09)
 
 ### Bug Fixes

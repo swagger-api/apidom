@@ -22,7 +22,7 @@ const $ref3ParameterNamingLint: LinterMeta = {
     {
       targets: [{ path: '$ref' }],
       function: 'apilintValueRegex',
-      params: ['^(?!https?://).*$'],
+      params: ['^(#/).*$'],
     },
   ],
   data: {},

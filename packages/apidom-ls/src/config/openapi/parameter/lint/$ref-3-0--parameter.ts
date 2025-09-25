@@ -19,6 +19,11 @@ const $ref3ParameterNamingLint: LinterMeta = {
       function: 'parentExistFields',
       params: [['paths']],
     },
+    {
+      targets: [{ path: '$ref' }],
+      function: 'apilintValueRegex',
+      params: ['^(#/).*$'],
+    },
   ],
   data: {},
   targetSpecs: OpenAPI30,

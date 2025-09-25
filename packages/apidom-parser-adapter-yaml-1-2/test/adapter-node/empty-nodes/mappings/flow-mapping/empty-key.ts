@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { includesClasses, toValue, SourceMapElement } from '@swagger-api/apidom-core';
+import { includesClasses, hasElementSourceMap } from '@swagger-api/apidom-core';
 
 import * as adapter from '../../../../../src/adapter-node.ts';
 
@@ -19,36 +19,25 @@ describe('given empty node as flow mapping key', function () {
 
   it('should generate source maps', async function () {
     const emptyElement = await setupEmptyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
 
-    assert.instanceOf(sourceMapElement, SourceMapElement);
+    assert.isTrue(hasElementSourceMap(emptyElement));
   });
 
   it('should generate proper source map start position', async function () {
     const emptyElement = await setupEmptyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionStart.get(0)),
-      toValue(sourceMapElement.positionStart.get(1)),
-      toValue(sourceMapElement.positionStart.get(2)),
-    ];
+    const { startPositionRow, startPositionColumn, startIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 1);
-    assert.strictEqual(char, 1);
+    assert.strictEqual(startPositionRow, 0);
+    assert.strictEqual(startPositionColumn, 1);
+    assert.strictEqual(startIndex, 1);
   });
 
   it('should generate proper source map end position', async function () {
     const emptyElement = await setupEmptyElement();
-    const sourceMapElement = emptyElement.meta.get('sourceMap');
-    const [row, column, char] = [
-      toValue(sourceMapElement.positionEnd.get(0)),
-      toValue(sourceMapElement.positionEnd.get(1)),
-      toValue(sourceMapElement.positionEnd.get(2)),
-    ];
+    const { endPositionRow, endPositionColumn, endIndex } = emptyElement;
 
-    assert.strictEqual(row, 0);
-    assert.strictEqual(column, 1);
-    assert.strictEqual(char, 1);
+    assert.strictEqual(endPositionRow, 0);
+    assert.strictEqual(endPositionColumn, 1);
+    assert.strictEqual(endIndex, 1);
   });
 });

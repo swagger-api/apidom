@@ -1,4 +1,10 @@
-import { ObjectElement, hasElementSourceMap, deepmerge, Element } from '@swagger-api/apidom-core';
+import {
+  ObjectElement,
+  hasElementSourceMap,
+  deepmerge,
+  Element,
+  assignSourceMap,
+} from '@swagger-api/apidom-core';
 
 /**
  * @public
@@ -15,21 +21,19 @@ class Visitor {
     Object.assign(this, options);
   }
 
-  // eslint-disable-next-line class-methods-use-this
+  /* eslint-disable class-methods-use-this, no-param-reassign */
   public copyMetaAndAttributes(from: Element, to: Element) {
     if (from.meta.length > 0 || to.meta.length > 0) {
-      // eslint-disable-next-line no-param-reassign
       to.meta = deepmerge(to.meta, from.meta) as ObjectElement;
-      if (hasElementSourceMap(from)) {
-        // avoid deep merging of source maps
-        to.meta.set('sourceMap', from.meta.get('sourceMap'));
-      }
+    }
+    if (hasElementSourceMap(from)) {
+      assignSourceMap(to, from);
     }
     if (from.attributes.length > 0 || from.meta.length > 0) {
-      // eslint-disable-next-line no-param-reassign
       to.attributes = deepmerge(to.attributes, from.attributes) as ObjectElement;
     }
   }
+  /* eslint-enable class-methods-use-this, no-param-reassign */
 }
 
 export default Visitor;

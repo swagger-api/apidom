@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
+
+### Bug Fixes
+
+- **ls:** external refs should not be validated ([#5015](https://github.com/swagger-api/apidom/issues/5015)) ([91312ec](https://github.com/swagger-api/apidom/commit/91312ec1c518a0a14e64e575d686e587e07eeffc))
+
 # [1.0.0-beta.49](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-09-22)
 
 ### Features

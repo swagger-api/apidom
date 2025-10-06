@@ -493,7 +493,7 @@ If multiple plugins with the same visitor method are defined, they run in parall
 
 #### Element identity plugin
 
-`apidom` package comes with `refractorPluginElementIdentity`. When used, this plugin will
+`apidom-core` package comes with `refractorPluginElementIdentity`. When used, this plugin will
 assign unique ID to all elements in ApiDOM tree.
 
 ```js
@@ -528,7 +528,7 @@ objectElement.getMember('a').value.id; // Ki4tWmf9xw9Lwb8MxkXJq1uONmJrmhXifmsI
 
 #### Semantic element identity plugin
 
-`apidom` package comes with `refractorPluginSemanticElementIdentity`. When used, this plugin will
+`apidom-core` package comes with `refractorPluginSemanticElementIdentity`. When used, this plugin will
 assign unique ID to all non-primitive elements in ApiDOM tree. Primitive elements include
 `ObjectElement`, `ArrayElement`, `StringElement`, `BooleanElement`, `NullElement` and `NumberElement`.
 
@@ -574,7 +574,7 @@ objectElement.getMember('info').value.id; // 'OnReGGrO7fMd9ztacvGfwGbOdGKuOFLiQQ
 
 ## Traversal
 
-`apidom` comes with its own traversal algorithm along with couple of convenient abstractions on top of it.
+`apidom-core` comes with its own traversal algorithm along with couple of convenient abstractions on top of it.
 
 ### visit
 
@@ -605,7 +605,7 @@ const newElement = visit(element, visitor); // => ObjectElement<{a: 2}>
 ```
 
 This function originally comes from [@swagger-api/apidom-ast package](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/src/visitor.ts)
-and is originally designed to work with [CST](https://en.wikipedia.org/wiki/Parse_tree). `apidom` package
+and is originally designed to work with [CST](https://en.wikipedia.org/wiki/Parse_tree). `apidom-core` package
 imports it, specializes it to work with ApiDOM and re-export it.
 
 All following algorithms are based on `visit` function.

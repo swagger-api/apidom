@@ -8,6 +8,8 @@ import additionalPropertiesNonObject from '../../common/schema/lint/additional-p
 import additionalPropertiesTypeLint from '../../common/schema/lint/additional-properties--type.ts';
 import allOfTypeLint from '../../common/schema/lint/all-of--type.ts';
 import allOfTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/all-of--type-openapi-3-1--asyncapi-2.ts';
+import allowedFieldsOpenAPI2_0Lint from '../../common/schema/lint/allowed-fields-openapi-2-0.ts';
+import allowedFieldsOpenAPI3_0Lint from '../../common/schema/lint/allowed-fields-openapi-3-0.ts';
 import anyOfTypeLint from '../../common/schema/lint/any-of--type.ts';
 import anyOfTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/any-of--type-openapi-3-1--asyncapi-2.ts';
 import containsNonArrayLint from '../../common/schema/lint/contains--non-array.ts';
@@ -102,6 +104,8 @@ const schemaLints = [
   additionalPropertiesTypeLint,
   allOfTypeLint,
   allOfTypeOpenAPI3_1__AsyncAPI2Lint,
+  allowedFieldsOpenAPI2_0Lint,
+  allowedFieldsOpenAPI3_0Lint,
   anyOfTypeOpenAPI3_1__AsyncAPI2Lint,
   anyOfTypeLint,
   containsNonArrayLint,

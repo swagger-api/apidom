@@ -501,7 +501,7 @@ toValue(openApiElementWithCustomField);
 //           {
 //             in: 'query',
 //             name: 'idempotent',
-//             schema: { type: 'number', examples: [ 2 ] },
+//             schema: { type: 'number', examples: [2] },
 //             examples: { example1: { value: 2 } }
 //           }
 //         ]

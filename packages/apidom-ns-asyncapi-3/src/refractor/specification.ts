@@ -1,5 +1,7 @@
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
 import AsyncApi3Visitor from './visitors/async-api-3/AsyncApi3Visitor.ts';
+import AsyncApiVersionVisitor from './visitors/async-api-3/AsyncApiVersionVisitor.ts';
+import IdentifierVisitor from './visitors/async-api-3/IdentifierVisitor.ts';
 import InfoVisitor from './visitors/async-api-3/info/InfoVisitor.ts';
 import ChannelsVisitor from './visitors/async-api-3/channels/ChannelsVisitor.ts';
 import ComponentsVisitor from './visitors/async-api-3/components/ComponentsVisitor.ts';
@@ -37,6 +39,12 @@ const specification = {
             operations: { $ref: '#/visitors/document/objects/Operation' },
             components: { $ref: '#/visitors/document/objects/Components' },
           },
+        },
+        AsyncApiVersion: {
+          $visitor: AsyncApiVersionVisitor,
+        },
+        Identifier: {
+          $visitor: IdentifierVisitor,
         },
         Info: {
           $visitor: InfoVisitor,

@@ -1,5 +1,6 @@
-import Visitor from '../Visitor.ts';
 import { ObjectElement } from '@swagger-api/apidom-core';
+
+import Visitor from '../../Visitor.ts';
 
 class ReferenceVisitor extends Visitor {
   enter(node: any) {

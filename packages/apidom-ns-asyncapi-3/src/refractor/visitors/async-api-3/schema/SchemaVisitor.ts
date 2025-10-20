@@ -1,4 +1,4 @@
-import Visitor from '../Visitor.ts';
+import Visitor from '../../Visitor.ts';
 
 class SchemaVisitor extends Visitor {}
 

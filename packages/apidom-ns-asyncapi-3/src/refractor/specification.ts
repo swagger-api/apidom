@@ -1,5 +1,4 @@
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
-
 import AsyncApi3Visitor from './visitors/AsyncApi3Visitor.ts';
 import InfoVisitor from './visitors/info/InfoVisitor.ts';
 import ChannelsVisitor from './visitors/channels/ChannelsVisitor.ts';
@@ -23,6 +22,9 @@ const specification = {
     value: FallbackVisitor,
     document: {
       objects: {
+        /**
+         * `AsyncApi 3.0.0` specification elements.
+         */
         AsyncApi: {
           $visitor: AsyncApi3Visitor,
           fixedFields: {
@@ -32,9 +34,8 @@ const specification = {
             servers: { $ref: '#/visitors/document/objects/Servers' },
             defaultContentType: { $ref: '#/visitors/value' },
             channels: { $ref: '#/visitors/document/objects/Channels' },
+            operations: { $ref: '#/visitors/document/objects/Operation' },
             components: { $ref: '#/visitors/document/objects/Components' },
-            tags: { $ref: '#/visitors/document/objects/Tags' },
-            externalDocs: { $ref: '#/visitors/document/objects/ExternalDocumentation' },
           },
         },
         Info: {

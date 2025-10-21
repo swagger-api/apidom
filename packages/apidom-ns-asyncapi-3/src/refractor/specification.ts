@@ -83,7 +83,7 @@ const specification = {
           },
         },
         Servers: {
-          $visitor: ServerVisitor,
+          $visitor: ServerVisitor, // TODO: Should be ServersVisitor ?
           fixedFields: {
             // server entries are dynamic keys - handled by ChannelsVisitor/ServersVisitor in full impl
           },

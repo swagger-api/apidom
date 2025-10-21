@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
+
+### Bug Fixes
+
+- add allowed fields validation for OAS 2.0 and 3.0 ([#5028](https://github.com/swagger-api/apidom/issues/5028)) ([000d050](https://github.com/swagger-api/apidom/commit/000d0502bf1cd9863025de652a304d3ddc1fdc56))
+
 # [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
 
 ### Bug Fixes

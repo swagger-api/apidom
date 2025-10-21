@@ -18,6 +18,8 @@ import OperationVisitor from './visitors/async-api-3/operation/OperationVisitor.
 import OperationMessageVisitor from './visitors/async-api-3/operation/OperationMessageVisitor.ts';
 import SchemaVisitor from './visitors/async-api-3/schema/SchemaVisitor.ts';
 import ReferenceVisitor from './visitors/async-api-3/reference/ReferenceVisitor.ts';
+import ContactVisitor from './visitors/async-api-3/contact/index.ts';
+import LicenseVisitor from './visitors/async-api-3/license/index.ts';
 
 const specification = {
   visitors: {
@@ -52,6 +54,32 @@ const specification = {
             title: { $ref: '#/visitors/value' },
             version: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
+            termsOfService: { $ref: '#/visitors/value' },
+            contact: { $ref: '#/visitors/document/objects/Contact' },
+            license: {
+              $ref: '#/visitors/document/objects/License',
+            },
+            externalDocs: {
+              $ref: '#/visitors/document/objects/ExternalDocumentation',
+            },
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+          },
+        },
+        Contact: {
+          $visitor: ContactVisitor,
+          fixedFields: {
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+            email: { $ref: '#/visitors/value' },
+          },
+        },
+        License: {
+          $visitor: LicenseVisitor,
+          fixedFields: {
+            name: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
           },
         },
         Servers: {
@@ -71,6 +99,10 @@ const specification = {
         },
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,
+          fixedFields: {
+            description: { $ref: '#/visitors/value' },
+            url: { $ref: '#/visitors/value' },
+          },
         },
         Parameters: {
           $visitor: ParametersVisitor,

@@ -1,0 +1,32 @@
+{
+  "asyncapi": "3.0.0",
+  "info": {
+    "title": "Simple API",
+    "version": "1.0.0"
+  },
+  "channels": {
+    "user/signedup": {
+      "publish": {
+        "message": {
+          "name": "UserSignedUp",
+          "payload": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "name": "UserSignedUp",
+        "payload": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

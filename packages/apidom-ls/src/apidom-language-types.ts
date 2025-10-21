@@ -27,6 +27,7 @@ import {
   ReferenceParams,
 } from 'vscode-languageserver-protocol';
 import { Element, ParseResultElement } from '@swagger-api/apidom-core';
+import { ApiDOMReferenceOptions } from '@swagger-api/apidom-reference';
 
 /**
  * @public
@@ -106,6 +107,8 @@ export interface LanguageServiceContext {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  refractorPlugins?: RefractorPlugins;
+  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 /**
@@ -315,6 +318,7 @@ export interface LanguageSettings {
   symbolsContext?: SymbolsContext;
   colorsContext?: ColorsContext;
   linksContext?: LinksContext;
+  referenceOptions?: ApiDOMReferenceOptions;
 }
 
 // export type SeverityLevel = 'error' | 'warning' | 'ignore';
@@ -386,6 +390,11 @@ export interface LinksContext {
   enableTrivialLinkDiscovery?: boolean;
   modifierFunction?: LinksModifierFunction;
 }
+
+/**
+ * @public
+ */
+export type RefractorPlugins = Record<string, (() => unknown)[]>;
 
 /**
  * @public

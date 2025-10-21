@@ -64,7 +64,15 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     metadata = context.metadata;
   }
   const documentCache = getDocumentCache<ParseResultElement>(10, 60, (document) =>
-    parse(document, metadata.metadataMaps, true, true, true, context.defaultContentLanguage),
+    parse(
+      document,
+      metadata.metadataMaps,
+      true,
+      true,
+      true,
+      context.defaultContentLanguage,
+      context.refractorPlugins,
+    ),
   );
 
   const languageSettings: LanguageSettings = {
@@ -87,6 +95,7 @@ export default function getLanguageService(context: LanguageServiceContext): Lan
     symbolsContext: context.symbolsContext,
     colorsContext: context.colorsContext,
     linksContext: context.linksContext,
+    referenceOptions: context.referenceOptions,
   };
   configureServices(languageSettings);
 

@@ -3,6 +3,45 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
+
+### Bug Fixes
+
+- **security:** update Axios to non-vulnerable 1.12.2 version ([#5017](https://github.com/swagger-api/apidom/issues/5017)) ([d527d16](https://github.com/swagger-api/apidom/commit/d527d163325a440f4c73afce4f18be14c57015cf))
+
+# [1.0.0-beta.49](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-09-22)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-beta.48](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-09-09)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
+
+### Features
+
+- **ls:** disable newly added rules for 3.1 spec ([#4997](https://github.com/swagger-api/apidom/issues/4997)) ([d5b16f8](https://github.com/swagger-api/apidom/commit/d5b16f82a916aea70929d2f3ff5be04769d8d8d3))
+
+# [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-beta.45](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-08-01)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-beta.44](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-07-07)
+
+### Features
+
+- add PoC of handling discriminator for allOf case in OpenAPI 3.1 ([#4959](https://github.com/swagger-api/apidom/issues/4959)) ([4eee665](https://github.com/swagger-api/apidom/commit/4eee66574c9ff4ab08cbd3f89d32247d07cde7e2))
+- add PoC of handling discriminator for oneOf/anyOf cases in OpenAPI 3.1 ([#4952](https://github.com/swagger-api/apidom/issues/4952)) ([e8ddbb7](https://github.com/swagger-api/apidom/commit/e8ddbb7522476903a153474cd6a00a2d505735db))
+
 # [1.0.0-beta.43](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-06-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

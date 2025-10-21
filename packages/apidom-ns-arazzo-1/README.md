@@ -52,7 +52,7 @@ isArazzoSpecification1Element(arazzoElement); // => true
 
 ## Traversal
 
-Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom` package.
+Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom-core` package.
 This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-arazzo-1/src/traversal/visitor.ts) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-arazzo-1/src/traversal/visitor.ts).
 To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 

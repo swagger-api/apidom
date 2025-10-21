@@ -1,5 +1,4 @@
 import { propEq } from 'ramda';
-import { options } from '@swagger-api/apidom-reference';
 import * as chai from 'chai';
 import { jestSnapshotPlugin, addSerializer } from 'mocha-chai-jest-snapshot';
 
@@ -7,6 +6,7 @@ import { jestSnapshotPlugin, addSerializer } from 'mocha-chai-jest-snapshot';
 import * as jestApiDOMSerializer from '../../../scripts/jest-serializer-apidom.mjs';
 // @ts-ignore
 import * as jestStringSerializer from '../../../scripts/jest-serializer-string.mjs';
+import { options } from '../src/configuration/saturated.ts';
 
 chai.use(jestSnapshotPlugin());
 addSerializer(jestApiDOMSerializer);

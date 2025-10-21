@@ -6,10 +6,10 @@ import AjvErrors from 'ajv-errors';
 import addFormats from 'ajv-formats';
 
 // eslint-disable-next-line import/no-relative-packages
-import draft7MetaSchema from '../../../../../../node_modules/ajv/dist/refs/json-schema-draft-07.json';
-import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json';
-import openapiSchemaJson31Meta from '../json-schema/open-api-31/openapi-schema-31-meta.json';
-import openapiSchemaJson31Dialect from '../json-schema/open-api-31/openapi-schema-31-dialect.json';
+import draft7MetaSchema from '../../../../../../node_modules/ajv/dist/refs/json-schema-draft-07.json' with { type: 'json' };
+import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json' with { type: 'json' };
+import openapiSchemaJson31Meta from '../json-schema/open-api-31/openapi-schema-31-meta.json' with { type: 'json' };
+import openapiSchemaJson31Dialect from '../json-schema/open-api-31/openapi-schema-31-dialect.json' with { type: 'json' };
 
 let ajvInstance: AjvType;
 let ajv2020Instance: Ajv2020Type;

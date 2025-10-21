@@ -3,6 +3,8 @@ import allowedFieldsOpenAPI3_0Lint from './allowed-fields-openapi-3-0.ts';
 import $idFormatURILint from './$id--format-uri.ts';
 import $refValidLint from './$ref--valid.ts';
 import $refNoSiblingsLint from './$ref--no-siblings.ts';
+import $ref3RequestBodiesLint from './$ref-3-0--request-bodies.ts';
+import $refNotUsedLint from './$ref--not-used.ts';
 import additionalItemsNonArrayLint from './additional-items--non-array.ts';
 import additionalItemsTypeLint from './additional-items--type.ts';
 import additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint from './additional-items--type-openapi-3-1--asyncapi-2.ts';
@@ -33,7 +35,9 @@ import formatTypeLint from './format--type.ts';
 import ifNonThenLint from './if--non-then.ts';
 import ifTypeLint from './if--type.ts';
 import itemsNonArrayLint from './items--non-array.ts';
-import itemsTypeLint from './items--type.ts';
+import itemsRequiredLint from './items--required.ts';
+import itemsTypeOpenAPI31AsyncAPI2Lint from './items--type-3-1-asyncapi-2.ts';
+import itemsTypeOpenAPI2OpenAPI30Lint from './items--type-2-0-3-0.ts';
 import maxItemsNonArrayLint from './max-items--non-array.ts';
 import maxItemsTypeLint from './max-items--type.ts';
 import maxLengthNonStringLint from './max-length--non-string.ts';
@@ -81,6 +85,15 @@ import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
+import enumTypeLint from './enum--type.ts';
+import enumDefaultValueLint from './enum--default-value.ts';
+import minimumValueLint from './minimum-maximum--value.ts';
+import minLengthValueLint from './min-length-max-length--value.ts';
+import minPropertiesValueLint from './min-properties-max-properties--value.ts';
+import minItemsValueLint from './min-items-max-items--value.ts';
+import readOnlyWriteOnlyLint from './read-only-write-only-3-0.ts';
+import readOnlyRequiredLint from './required--read-only-2.ts';
+import patternValueLint from './pattern--value-2.ts';
 
 const schemaLints = [
   allowedFieldsOpenAPI2_0Lint,
@@ -88,6 +101,8 @@ const schemaLints = [
   $idFormatURILint,
   $refValidLint,
   $refNoSiblingsLint,
+  $refNotUsedLint,
+  $ref3RequestBodiesLint,
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,
   additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint,
@@ -107,6 +122,8 @@ const schemaLints = [
   elseNonIfLint,
   elseTypeLint,
   enumUniqueLint,
+  enumDefaultValueLint,
+  enumTypeLint,
   examplesTypeLint,
   exclusiveMaximumTypeNumberLint,
   exclusiveMaximumTypeBooleanLint,
@@ -118,7 +135,9 @@ const schemaLints = [
   ifNonThenLint,
   ifTypeLint,
   itemsNonArrayLint,
-  itemsTypeLint,
+  itemsRequiredLint,
+  itemsTypeOpenAPI31AsyncAPI2Lint,
+  itemsTypeOpenAPI2OpenAPI30Lint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,
   maxLengthNonStringLint,
@@ -131,6 +150,10 @@ const schemaLints = [
   minPropertiesNonObjectLint,
   minPropertiesTypeLint,
   minimumTypeLint,
+  minimumValueLint,
+  minLengthValueLint,
+  minPropertiesValueLint,
+  minItemsValueLint,
   missingCoreFieldsOpenAPI2_0Lint,
   missingCoreFieldsOpenAPI3_0Lint,
   missingCoreFieldsOpenAPI3_1Lint,
@@ -146,6 +169,7 @@ const schemaLints = [
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,
   patternPropertiesTypeLint,
+  patternValueLint,
   patternPropertiesValuesTypeLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
@@ -153,6 +177,8 @@ const schemaLints = [
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
+  readOnlyWriteOnlyLint,
+  readOnlyRequiredLint,
   requiredDefinedLint,
   requiredNonObjectLint,
   requiredTypeLint,

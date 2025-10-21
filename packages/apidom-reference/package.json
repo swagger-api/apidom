@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-reference",
-  "version": "1.0.0-beta.43",
+  "version": "1.0.0-beta.51",
   "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
   "publishConfig": {
     "access": "public",
@@ -241,8 +241,8 @@
     "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' 'test/**/*.mjs' ./dist ./types",
-    "test": "npm run build:es && cross-env BABEL_ENV=es babel test --out-dir test --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward' && cross-env NODE_ENV=test mocha",
+    "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
+    "test": "NODE_ENV=test ts-mocha --exit",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:openapi-3-1-dereference": "cross-env BABEL_ENV=es babel ./test/perf/openapi-3-1-dereference.ts --out-file ./test/perf/openapi-3-1-dereference.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/openapi-3-1-dereference.mjs",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
@@ -258,10 +258,10 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.0.0-beta.43",
-    "@swagger-api/apidom-error": "^1.0.0-beta.43",
+    "@swagger-api/apidom-core": "^1.0.0-beta.51",
+    "@swagger-api/apidom-error": "^1.0.0-beta.51",
     "@types/ramda": "~0.30.0",
-    "axios": "^1.9.0",
+    "axios": "^1.12.2",
     "minimatch": "^7.4.3",
     "process": "^0.11.10",
     "ramda": "~0.30.0",

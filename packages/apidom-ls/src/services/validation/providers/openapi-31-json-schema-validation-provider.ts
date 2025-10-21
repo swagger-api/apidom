@@ -1,4 +1,4 @@
-import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json';
+import openapiSchemaJson31Ajv from '../json-schema/open-api-31/openapi-schema-31-ajv.json' with { type: 'json' };
 import { JsonSchemaValidationProvider } from './json-schema-validation-provider.ts';
 import { NamespaceVersion } from '../../../apidom-language-types.ts';
 

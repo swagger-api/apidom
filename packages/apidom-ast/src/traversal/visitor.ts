@@ -455,6 +455,7 @@ export const visit = (
     nodePredicate = isNode,
     nodeCloneFn = cloneNode,
     detectCycles = true,
+    detectCyclesCallback = null,
   } = {},
 ) => {
   const visitorKeys = keyMap || {};
@@ -531,6 +532,11 @@ export const visit = (
 
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {
+        if (typeof detectCyclesCallback === 'function') {
+          // @ts-ignore
+          detectCyclesCallback(node, key, parent, path, ancestors);
+        }
+
         path.pop();
         continue;
       }
@@ -636,6 +642,7 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
     nodePredicate = isNode,
     nodeCloneFn = cloneNode,
     detectCycles = true,
+    detectCyclesCallback = null,
   } = {},
 ) => {
   const visitorKeys = keyMap || {};
@@ -712,6 +719,11 @@ visit[Symbol.for('nodejs.util.promisify.custom')] = async (
 
       // cycle detected; skipping over a sub-tree to avoid recursion
       if (detectCycles && ancestors.includes(node)) {
+        if (typeof detectCyclesCallback === 'function') {
+          // @ts-ignore
+          detectCyclesCallback(node, key, parent, path, ancestors);
+        }
+
         path.pop();
         continue;
       }

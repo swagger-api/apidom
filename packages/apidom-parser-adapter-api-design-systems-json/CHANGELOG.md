@@ -3,6 +3,40 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.49](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-09-22)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.48](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-09-09)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
+
+### Features
+
+- **ls:** disable newly added rules for 3.1 spec ([#4997](https://github.com/swagger-api/apidom/issues/4997)) ([d5b16f8](https://github.com/swagger-api/apidom/commit/d5b16f82a916aea70929d2f3ff5be04769d8d8d3))
+
+# [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.45](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-08-01)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
+# [1.0.0-beta.44](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-07-07)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json
+
 # [1.0.0-beta.43](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-06-13)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-json

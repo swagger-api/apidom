@@ -1,4 +1,6 @@
 {
-  "recursive": true,
-  "spec": "test/**/*.mjs"
+  "extensions": ["ts"],
+  "spec": ["test/**/*.ts"],
+  "loader": "ts-node/esm",
+  "recursive": true
 }

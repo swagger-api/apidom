@@ -16,6 +16,8 @@ import {
   RefElement,
   BooleanElement,
   Namespace,
+  MemberElement,
+  StringElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import {
@@ -37,6 +39,7 @@ import {
   isSchemaElement,
   isOperationElement,
   isBooleanJsonSchemaElement,
+  OpenApi3_1Element,
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor.ts';
@@ -87,6 +90,7 @@ export interface OpenAPI3_1DereferenceVisitorOptions {
   readonly indirections?: Element[];
   readonly ancestors?: AncestorLineage<Element>;
   readonly refractCache?: Map<string, Element>;
+  readonly allOfDiscriminatorMapping?: Map<string, Element[]>;
 }
 
 /**
@@ -105,6 +109,8 @@ class OpenAPI3_1DereferenceVisitor {
 
   protected readonly refractCache: Map<string, Element>;
 
+  protected readonly allOfDiscriminatorMapping: Map<string, Element[]>;
+
   constructor({
     reference,
     namespace,
@@ -112,6 +118,7 @@ class OpenAPI3_1DereferenceVisitor {
     indirections = [],
     ancestors = new AncestorLineage(),
     refractCache = new Map(),
+    allOfDiscriminatorMapping = new Map(),
   }: OpenAPI3_1DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -119,6 +126,7 @@ class OpenAPI3_1DereferenceVisitor {
     this.options = options;
     this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
+    this.allOfDiscriminatorMapping = allOfDiscriminatorMapping;
   }
 
   protected toBaseURI(uri: string): string {
@@ -179,6 +187,31 @@ class OpenAPI3_1DereferenceVisitor {
 
     return [ancestorsLineage, directAncestors];
   }
+
+  public readonly OpenApi3_1Element = {
+    leave: (
+      openApi3_1Element: OpenApi3_1Element,
+      key: string | number,
+      parent: Element | undefined,
+      path: (string | number)[],
+      ancestors: [Element | Element[]],
+      link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
+    ) => {
+      if (!this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+        return undefined;
+      }
+
+      const openApi3_1ElementCopy = cloneShallow(openApi3_1Element);
+      openApi3_1ElementCopy.setMetaProperty(
+        'allOfDiscriminatorMapping',
+        Object.fromEntries(this.allOfDiscriminatorMapping),
+      );
+
+      link.replaceWith(openApi3_1ElementCopy, mutationReplacer);
+
+      return !parent ? openApi3_1ElementCopy : undefined;
+    },
+  };
 
   public async ReferenceElement(
     referencingElement: ReferenceElement,
@@ -304,6 +337,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -484,6 +518,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -699,6 +734,97 @@ class OpenAPI3_1DereferenceVisitor {
     return !parent ? exampleElementCopy : undefined;
   }
 
+  public async MemberElement(
+    memberElement: MemberElement,
+    key: string | number,
+    parent: Element | undefined,
+    path: (string | number)[],
+    ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
+  ) {
+    const parentElement = ancestors[ancestors.length - 1];
+
+    // skip current MemberElement if its parent is not a DiscriminatorElement
+    if (
+      !isObjectElement(parentElement) ||
+      !parentElement.classes.contains('discriminator-mapping')
+    ) {
+      return undefined;
+    }
+
+    // skip current MemberElement if discriminator mapping dereferencing option is not enabled
+    if (!this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+      return false;
+    }
+
+    // skip current MemberElement if its key or value is not a StringElement
+    if (!isStringElement(memberElement.key) || !isStringElement(memberElement.value)) {
+      return false;
+    }
+
+    // skip current referencing MemberElement as it's already been accessed
+    if (this.indirections.includes(memberElement)) {
+      return false;
+    }
+
+    this.indirections.push(memberElement);
+
+    const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
+    const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
+    const ancestorsSchemaIdentifiers = cloneDeep(
+      parentSchemaElement!.getMetaProperty('ancestorsSchemaIdentifiers'),
+    );
+
+    // get the reference from the MemberElement value
+    const memberElementValue = toValue(memberElement.value);
+    const namePattern = /^[a-zA-Z0-9\\.\\-_]+$/;
+    const memberElementRef = namePattern.test(memberElementValue)
+      ? `#/components/schemas/${memberElementValue}`
+      : memberElementValue;
+
+    // create SchemaElement with the reference from the MemberElement value
+    const schemaElement = new SchemaElement({
+      $ref: memberElementRef,
+    });
+    schemaElement.setMetaProperty('ancestorsSchemaIdentifiers', ancestorsSchemaIdentifiers);
+
+    // append referencing reference to ancestors lineage
+    directAncestors.add(schemaElement);
+
+    const visitor = new OpenAPI3_1DereferenceVisitor({
+      reference: this.reference,
+      namespace: this.namespace,
+      indirections: [...this.indirections],
+      options: this.options,
+      refractCache: this.refractCache,
+      ancestors: ancestorsLineage,
+      allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+    });
+
+    const referencedElement = await visitAsync(schemaElement, visitor, {
+      keyMap,
+      nodeTypeGetter: getNodeType,
+    });
+
+    // remove referencing reference from ancestors lineage
+    directAncestors.delete(schemaElement);
+    this.indirections.pop();
+
+    // annotate MemberElement with referenced schema
+    const memberElementCopy: MemberElement = cloneShallow(memberElement);
+    (memberElementCopy.value as StringElement).setMetaProperty('ref-schema', referencedElement);
+
+    /**
+     * Transclude MemberElement containing referenced schema in its meta.
+     */
+    link.replaceWith(memberElementCopy, mutationReplacer);
+
+    /**
+     * We're at the root of the tree, so we're just replacing the entire tree.
+     */
+    return !parent ? memberElementCopy : undefined;
+  }
+
   public async SchemaElement(
     referencingElement: SchemaElement,
     key: string | number,
@@ -899,6 +1025,7 @@ class OpenAPI3_1DereferenceVisitor {
         options: this.options,
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       });
       referencedElement = await visitAsync(referencedElement, visitor, {
         keyMap,
@@ -919,6 +1046,7 @@ class OpenAPI3_1DereferenceVisitor {
       // annotate referenced element with info about original referencing element
       booleanJsonSchemaElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
+        $refBaseURI,
       });
       // annotate referenced element with info about origin
       booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
@@ -953,6 +1081,7 @@ class OpenAPI3_1DereferenceVisitor {
       // annotate referenced element with info about original referencing element
       mergedElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
+        $refBaseURI,
       });
       // annotate fragment with info about origin
       mergedElement.setMetaProperty('ref-origin', reference.uri);
@@ -961,6 +1090,25 @@ class OpenAPI3_1DereferenceVisitor {
         'ref-referencing-element-id',
         cloneDeep(identityManager.identify(referencingElement)),
       );
+
+      // creating mapping for allOf discriminator
+      if (this.options.dereference.strategyOpts['openapi-3-1']?.dereferenceDiscriminatorMapping) {
+        const parentElement = ancestors[ancestors.length - 1];
+        const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
+        const parentSchemaElementName = parentSchemaElement?.getMetaProperty('schemaName');
+        const mergedElementName = toValue(mergedElement.getMetaProperty('schemaName'));
+
+        if (
+          mergedElementName &&
+          parentSchemaElementName &&
+          // @ts-ignore
+          parentElement?.classes?.contains('json-schema-allOf')
+        ) {
+          const currentMapping = this.allOfDiscriminatorMapping.get(mergedElementName) ?? [];
+          currentMapping.push(parentSchemaElement!);
+          this.allOfDiscriminatorMapping.set(mergedElementName, currentMapping);
+        }
+      }
 
       referencedElement = mergedElement;
     }

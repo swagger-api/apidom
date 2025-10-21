@@ -3,6 +3,73 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
+
+### Bug Fixes
+
+- add allowed fields validation for OAS 2.0 and 3.0 ([#5028](https://github.com/swagger-api/apidom/issues/5028)) ([000d050](https://github.com/swagger-api/apidom/commit/000d0502bf1cd9863025de652a304d3ddc1fdc56))
+
+# [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
+
+### Bug Fixes
+
+- **ls:** external refs should not be validated ([#5015](https://github.com/swagger-api/apidom/issues/5015)) ([91312ec](https://github.com/swagger-api/apidom/commit/91312ec1c518a0a14e64e575d686e587e07eeffc))
+- **security:** update Axios to non-vulnerable 1.12.2 version ([#5017](https://github.com/swagger-api/apidom/issues/5017)) ([d527d16](https://github.com/swagger-api/apidom/commit/d527d163325a440f4c73afce4f18be14c57015cf))
+
+# [1.0.0-beta.49](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.48...v1.0.0-beta.49) (2025-09-22)
+
+### Features
+
+- **ls:** add option to pass down reference options for validation ([#5014](https://github.com/swagger-api/apidom/issues/5014)) ([00f79cb](https://github.com/swagger-api/apidom/commit/00f79cb925105502caeb0fe476c521f13bbf35f9))
+
+# [1.0.0-beta.48](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.47...v1.0.0-beta.48) (2025-09-09)
+
+### Bug Fixes
+
+- fallback to a default version when a spec version is not found ([#5001](https://github.com/swagger-api/apidom/issues/5001)) ([1b62fde](https://github.com/swagger-api/apidom/commit/1b62fdecbdc8522a66da6b968128e8bb4fb619d1))
+
+### Features
+
+- **ls:** add option to pass refractor plugins ([#5003](https://github.com/swagger-api/apidom/issues/5003)) ([f9452f3](https://github.com/swagger-api/apidom/commit/f9452f34cedd05cb57140790029d35756d69b9a1))
+
+# [1.0.0-beta.47](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.46...v1.0.0-beta.47) (2025-09-01)
+
+### Features
+
+- add ref validation rules ([#4989](https://github.com/swagger-api/apidom/issues/4989)) ([cbb3446](https://github.com/swagger-api/apidom/commit/cbb3446bb22a9b3a250303256e76eeb69507a23f))
+- add validation ruls for tags to have unique name ([4576ad9](https://github.com/swagger-api/apidom/commit/4576ad9070d7d2224f750ebedf45bffe1b564a3d))
+- **ls:** add schema validation rules ([#4992](https://github.com/swagger-api/apidom/issues/4992)) ([573e52f](https://github.com/swagger-api/apidom/commit/573e52f23618b2bf7edd48a6a4d0601d07edd417))
+- **ls:** add validation rules for formData ([#4998](https://github.com/swagger-api/apidom/issues/4998)) ([ef012f1](https://github.com/swagger-api/apidom/commit/ef012f1ad8e5d1570b46ee28c4f5408dac649465))
+- **ls:** disable newly added rules for 3.1 spec ([#4997](https://github.com/swagger-api/apidom/issues/4997)) ([d5b16f8](https://github.com/swagger-api/apidom/commit/d5b16f82a916aea70929d2f3ff5be04769d8d8d3))
+- **ls:** migrate disallowing equivalent paths in OAS2 ([#4987](https://github.com/swagger-api/apidom/issues/4987)) ([0066f1c](https://github.com/swagger-api/apidom/commit/0066f1c19c3a0ecdf0e2731ad4b43bfdf0cb8f73))
+
+# [1.0.0-beta.46](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.45...v1.0.0-beta.46) (2025-08-19)
+
+### Bug Fixes
+
+- adjust multiple body rule ([21fe90c](https://github.com/swagger-api/apidom/commit/21fe90c224684dc697d0a6cab5f25f86d61b8bf5))
+- parameter unique name validation for oas2 ([1eb1a38](https://github.com/swagger-api/apidom/commit/1eb1a38fb8cc75797d44cd4d2d7eab3c2a33fc54))
+
+### Features
+
+- migrate multiple body rule ([f2c2bbd](https://github.com/swagger-api/apidom/commit/f2c2bbdf8a56156bcedf5c8fe607fe0b2253c1d2))
+- migrate parameter named "accept" is ignored rule ([028ab12](https://github.com/swagger-api/apidom/commit/028ab129327507bd5fe2e4ba4c0ca2524ac28323))
+- migrate parameter named "Authorization" is ignored rule ([555703b](https://github.com/swagger-api/apidom/commit/555703bfb4a4d29efcae3fdee5562994734d7f06))
+- migrate parameter named "content-type" is ignored rule ([46f0f7a](https://github.com/swagger-api/apidom/commit/46f0f7a3039def5aeb1fa0f1e56c4c20b4ab56d7))
+- migrate unique parameter name ([2da94c7](https://github.com/swagger-api/apidom/commit/2da94c796bd9569991c41642431e48c8243d18d8))
+- migrate unique parameter name ([76a3eb5](https://github.com/swagger-api/apidom/commit/76a3eb54d7b72a93a59b058a8d594a0d4e89da09))
+
+# [1.0.0-beta.45](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.44...v1.0.0-beta.45) (2025-08-01)
+
+**Note:** Version bump only for package apidom-monorepo
+
+# [1.0.0-beta.44](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.43...v1.0.0-beta.44) (2025-07-07)
+
+### Features
+
+- add PoC of handling discriminator for allOf case in OpenAPI 3.1 ([#4959](https://github.com/swagger-api/apidom/issues/4959)) ([4eee665](https://github.com/swagger-api/apidom/commit/4eee66574c9ff4ab08cbd3f89d32247d07cde7e2))
+- add PoC of handling discriminator for oneOf/anyOf cases in OpenAPI 3.1 ([#4952](https://github.com/swagger-api/apidom/issues/4952)) ([e8ddbb7](https://github.com/swagger-api/apidom/commit/e8ddbb7522476903a153474cd6a00a2d505735db))
+
 # [1.0.0-beta.43](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.42...v1.0.0-beta.43) (2025-06-13)
 
 ### Features

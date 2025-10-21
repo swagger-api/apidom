@@ -1,0 +1,41 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "PetResponse": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "pet": "#/components/schemas/Pet",
+            "cat": "#/components/schemas/Cat"
+          }
+        }
+      },
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        },
+        "$ref": "#/components/schemas/Cat"
+      },
+      "Cat": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Pet"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

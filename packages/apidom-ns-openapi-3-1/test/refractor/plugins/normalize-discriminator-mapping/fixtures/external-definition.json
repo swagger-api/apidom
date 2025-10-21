@@ -1,0 +1,18 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "Dog": {
+        "type": "object",
+        "properties": {
+          "petType": {
+            "type": "string"
+          },
+          "barks": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}

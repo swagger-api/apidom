@@ -1,0 +1,7 @@
+{
+  "$defs": {
+    "User": {
+      "$ref": "./ex1.json#/$defs/User"
+    }
+  }
+}

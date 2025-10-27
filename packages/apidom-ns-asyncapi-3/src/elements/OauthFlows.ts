@@ -1,5 +1,5 @@
-import { OAuthFlowElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { OAuthFlowsElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-class OauthFlows extends OAuthFlowElement {}
+class OAuthFlows extends OAuthFlowsElement {}
 
-export default OauthFlows;
+export default OAuthFlows;

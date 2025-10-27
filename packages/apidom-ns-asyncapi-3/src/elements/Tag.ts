@@ -1,34 +1,19 @@
 import { ObjectElement, Attributes, Meta, StringElement } from '@swagger-api/apidom-core';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
+import { TagElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-class Tag extends ObjectElement {
+class Tag extends TagElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'tag';
   }
 
- get name(): StringElement | undefined {
-    return this.get('name');
-  }
-
-  set name(name: StringElement | undefined) {
-    this.set('name', name);
-  }
-
-  get description(): StringElement | undefined {
-    return this.get('description');
-  }
-
-  set description(description: StringElement | undefined) {
-    this.set('description', description);
-  }
-
-  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined {
+  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined | any {
     return this.get('externalDocs');
   }
 
-  set externalDocs(externalDocs: ExternalDocumentationElement | ReferenceElement | undefined) {
+  set externalDocs(externalDocs: ExternalDocumentationElement | ReferenceElement | undefined | any) {
     this.set('externalDocs', externalDocs);
   }
 }

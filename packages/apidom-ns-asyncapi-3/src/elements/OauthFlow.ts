@@ -2,7 +2,7 @@ import { Attributes, Meta, ObjectElement } from '@swagger-api/apidom-core';
 import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import { OAuthFlowElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-class OauthFlow extends OAuthFlowElement {
+class OAuthFlow extends OAuthFlowElement {
 	constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
 		super(content, meta, attributes);
 	 	this.element = 'oauthFlow';
@@ -29,4 +29,4 @@ class OauthFlow extends OAuthFlowElement {
   }
 }
 
-export default OauthFlow;
+export default OAuthFlow;

@@ -32,7 +32,6 @@ const mediaTypes = new AsyncAPIMediaTypes(
   'application/vnd.asyncapi;version=3.0.1',
   'application/vnd.asyncapi+json;version=3.0.1',
   'application/vnd.asyncapi+yaml;version=3.0.1',
-  // Add legacy vendor prefix aliases similar to v2 to aid content negotiation
   'application/vnd.aai.asyncapi;version=3.0.0',
   'application/vnd.aai.asyncapi+json;version=3.0.0',
   'application/vnd.aai.asyncapi+yaml;version=3.0.0',

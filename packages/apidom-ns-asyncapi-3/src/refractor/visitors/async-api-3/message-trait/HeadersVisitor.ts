@@ -12,13 +12,13 @@ import { isMultiFormatSchemaElement } from '../../../../predicates.ts';
 /**
  * @public
  */
-export interface HeadersVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
+export interface DefaultVisitorOptions extends AlternatingVisitorOptions, FallbackVisitorOptions {}
 
 /**
  * @public
  */
-class HeadersVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
-  constructor(options: HeadersVisitorOptions) {
+class DefaultVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
+  constructor(options: DefaultVisitorOptions) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
@@ -46,4 +46,4 @@ class HeadersVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
   }
 }
 
-export default HeadersVisitor;
+export default DefaultVisitor;

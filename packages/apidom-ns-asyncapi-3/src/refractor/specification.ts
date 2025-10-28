@@ -17,7 +17,8 @@ import DefaultContentTypeVisitor from '../elements/DefaultContentType.ts';
 import SecuritySchemesVisitor from './visitors/async-api-3/SecuritySchemesVisitor.ts';
 import ServerVisitor from './visitors/async-api-3/server/ServerVisitor.ts';
 import ServerVariableVisitor from './visitors/async-api-3/server/ServerVariableVisitor.ts';
-import ParametersVisitor from './visitors/async-api-3/ParametersVisitor.ts';
+import ParametersVisitor from './visitors/async-api-3/parameters/index.ts';
+import ParameterVisitor from './visitors/async-api-3/parameter/index.ts';
 import BindingsVisitor from './visitors/async-api-3/BindingsVisitor.ts';
 import TagsVisitor from './visitors/async-api-3/tags/index.ts';
 import ExternalDocumentationVisitor from './visitors/async-api-3/ExternalDocumentationVisitor.ts';
@@ -25,7 +26,7 @@ import ExternalDocumentationVisitor from './visitors/async-api-3/ExternalDocumen
 import OperationVisitor from './visitors/async-api-3/operation/OperationVisitor.ts';
 import OperationsVisitor from './visitors/async-api-3/operations/index.ts';
 import OperationMessagesVisitor from './visitors/async-api-3/operation/MessagesVisitor.ts';
-import OperationBindingsVisitor from './visitors/async-api-3/operation/BindingsVisitor.ts';
+import OperationBindingsVisitor_ from './visitors/async-api-3/operation/BindingsVisitor.ts';
 import OperationTraitsVisitor from './visitors/async-api-3/operation/TraitsVisitor.ts';
 import OperationSecurityVisitor  from './visitors/async-api-3/operation/SecurityVisitor.ts';
 import SchemaVisitor from './visitors/async-api-3/schema/index.ts';
@@ -44,6 +45,15 @@ import MessageCorrelationIdVisitor from './visitors/async-api-3/message/Correlat
 import OperationReplyVisitor from './visitors/async-api-3/operationReply/index.ts';
 import ServersVisitor from './visitors/async-api-3/server/ServersVisitor.ts';
 import MultiFormatSchemaVisitor from './visitors/async-api-3/multiFormatSchema/index.ts'
+import ChannelBindingsVisitor from './visitors/async-api-3/channel-bindings/index.ts';
+import MessageTraitVisitor from './visitors/async-api-3/message-trait/index.ts';
+import MessageTraitHeadersVisitor from './visitors/async-api-3/message-trait/HeadersVisitor.ts';
+import SecuritySchemeVisitor from './visitors/async-api-3/security-scheme/index.ts';
+import OperationBindingsVisitor from './visitors/async-api-3/operation-bindings/index.ts';
+import OAuthFlowVisitor from './visitors/async-api-3/oauth-flow/index.ts';
+import OAuthFlowsVisitor from './visitors/async-api-3/oauth-flows/index.ts';
+import ServerBindingsVisitor from './visitors/async-api-3/server-bindings/index.ts';
+import ChannelAddressExpressionsVisitor from './visitors/async-api-3/channel-address-expression/index.ts';
 
 const specification = {
   visitors: {
@@ -105,7 +115,7 @@ const specification = {
         Servers: {
           $visitor: ServersVisitor,
         },
-         Server: {
+        Server: {
           $visitor: ServerVisitor,
           fixedFields: {
             host: { $ref: '#/visitors/value' },
@@ -133,7 +143,7 @@ const specification = {
             examples: { $ref: '#/visitors/value' },
           },
         },
-         DefaultContentType: {
+        DefaultContentType: {
           $visitor: DefaultContentTypeVisitor,
         },
         Channels: {
@@ -148,11 +158,14 @@ const specification = {
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
             servers: ChannelServersVisitor,
-            parameters: { $ref: '#/visitors/value' },
+            parameters: { $ref: '#/visitors/document/object/Parameters' },
             tags: { $ref: '#/visitors/document/objects/Tags' },
             externalDocs: ExternalDocsVisitor,
             bindings: ChanneBindingsVisitor,
           },
+        },
+        ChannelAddressExpressions: {
+          $visitor: ChannelAddressExpressionsVisitor
         },
         Operations: {
           $visitor: OperationsVisitor,
@@ -168,7 +181,7 @@ const specification = {
             security: OperationSecurityVisitor,
             tags: { $ref: '#/visitors/document/objects/Tags' },
             externalDocs: ExternalDocsVisitor,
-            bindings: OperationBindingsVisitor,
+            bindings: OperationBindingsVisitor_,
             traits: OperationTraitsVisitor,
             message: OperationMessagesVisitor,
             reply: OperationReplyVisitor,
@@ -186,8 +199,142 @@ const specification = {
         Parameters: {
           $visitor: ParametersVisitor,
         },
+        Parameter: {
+          $visitor: ParameterVisitor,
+          fixedFields: {
+            enum: { $ref: '#/visitors/value' },
+            default: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            examples: { $ref: '#/visitors/value' },
+            location: { $ref: '#/visitors/location' },
+          },
+        },
         Bindings: {
           $visitor: BindingsVisitor,
+        },
+        ChannelBindings: {
+          $visitor: ChannelBindingsVisitor,
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/ChannelBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/ChannelBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/ChannelBinding',
+            },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/ChannelBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/ChannelBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/ChannelBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/ChannelBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/ChannelBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/ChannelBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/ChannelBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/ChannelBinding',
+            },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/ChannelBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/ChannelBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/ChannelBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/ChannelBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/ChannelBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/ChannelBinding',
+            },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/ChannelBinding',
+            },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/ChannelBinding',
+            },
+          },
+        },
+        OperationBindings: {
+          $visitor: OperationBindingsVisitor,
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/OperationBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/OperationBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/OperationBinding',
+            },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/OperationBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/OperationBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/OperationBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/OperationBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/OperationBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/OperationBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/OperationBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/OperationBinding',
+            },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/OperationBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/OperationBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/OperationBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/OperationBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/OperationBinding',
+            },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/OperationBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/OperationBinding',
+            },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/OperationBinding',
+            },
+          },
         },
         MessageBindings: {
           $visitor: MessageBindingsVisitor,
@@ -265,7 +412,7 @@ const specification = {
             correlationIds:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.correlationIds,
             replies: { $ref: '#/visitors/value' },
             replyAddresses: { $ref: '#/visitors/value' },
-            tags: { $ref: '#/visitors/document/objects/Tags' },,
+            tags: { $ref: '#/visitors/document/objects/Tags' },
             externalDocs: ExternalDocumentationVisitor,
             operationTraits: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.operationTraits,
             messageTraits:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messageTraits,
@@ -275,7 +422,94 @@ const specification = {
             messageBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messageBindings
           },
         },
-
+        OAuthFlows: {
+          $visitor: OAuthFlowsVisitor,
+          fixedFields: {
+            implicit: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            password: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            clientCredentials: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            authorizationCode: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+          },
+        },
+        OAuthFlow: {
+          $visitor: OAuthFlowVisitor,
+          fixedFields: {
+            authorizationUrl: { $ref: '#/visitors/value' },
+            tokenUrl: { $ref: '#/visitors/value' },
+            refreshUrl: { $ref: '#/visitors/value' },
+            availableScopes: AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.scopes
+          },
+        },
+        ServerBindings: {
+          $visitor: ServerBindingsVisitor,
+          fixedFields: {
+            http: {
+              $ref: '#/visitors/document/objects/bindings/http/ServerBinding',
+            },
+            ws: {
+              $ref: '#/visitors/document/objects/bindings/ws/ServerBinding',
+            },
+            kafka: {
+              $ref: '#/visitors/document/objects/bindings/kafka/ServerBinding',
+            },
+            anypointmq: {
+              $ref: '#/visitors/document/objects/bindings/anypointmq/ServerBinding',
+            },
+            amqp: {
+              $ref: '#/visitors/document/objects/bindings/amqp/ServerBinding',
+            },
+            amqp1: {
+              $ref: '#/visitors/document/objects/bindings/amqp1/ServerBinding',
+            },
+            mqtt: {
+              $ref: '#/visitors/document/objects/bindings/mqtt/ServerBinding',
+            },
+            mqtt5: {
+              $ref: '#/visitors/document/objects/bindings/mqtt5/ServerBinding',
+            },
+            nats: {
+              $ref: '#/visitors/document/objects/bindings/nats/ServerBinding',
+            },
+            jms: {
+              $ref: '#/visitors/document/objects/bindings/jms/ServerBinding',
+            },
+            sns: {
+              $ref: '#/visitors/document/objects/bindings/sns/ServerBinding',
+            },
+            solace: {
+              $ref: '#/visitors/document/objects/bindings/solace/ServerBinding',
+            },
+            sqs: {
+              $ref: '#/visitors/document/objects/bindings/sqs/ServerBinding',
+            },
+            stomp: {
+              $ref: '#/visitors/document/objects/bindings/stomp/ServerBinding',
+            },
+            redis: {
+              $ref: '#/visitors/document/objects/bindings/redis/ServerBinding',
+            },
+            mercure: {
+              $ref: '#/visitors/document/objects/bindings/mercure/ServerBinding',
+            },
+            ibmmq: {
+              $ref: '#/visitors/document/objects/bindings/ibmmq/ServerBinding',
+            },
+            googlepubsub: {
+              $ref: '#/visitors/document/objects/bindings/googlepubsub/ServerBinding',
+            },
+            pulsar: {
+              $ref: '#/visitors/document/objects/bindings/pulsar/ServerBinding',
+            },
+          },
+        },
         SecuritySchemes: {
           $visitor: SecuritySchemesVisitor,
         },
@@ -303,6 +537,26 @@ const specification = {
             bindings: MessageBindingsVisitor,
             examples: MessageExamplesVisitor,
             traits: MessageTraitsVisitor
+          },
+        },
+        MessageTrait: {
+          $visitor: MessageTraitVisitor,
+          fixedFields: {
+            messageId: { $ref: '#/visitors/value' },
+            headers: MessageTraitHeadersVisitor,
+            correlationId: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.correlationId,
+            schemaFormat: { $ref: '#/visitors/value' },
+            contentType: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            title: { $ref: '#/visitors/value' },
+            summary: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            tags: {
+              $ref: '#/visitors/document/objects/Tags',
+            },
+            externalDocs: ExternalDocsVisitor,
+            bindings: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.bindings,
+            examples: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.examples,
           },
         },
         MessageExample: {
@@ -352,6 +606,22 @@ const specification = {
           $visitor: ReferenceVisitor,
           fixedFields: {
             $ref: { $ref: '#/visitors/value' },
+          },
+        },
+        SecurityScheme: {
+          $visitor: SecuritySchemeVisitor,
+          fixedFields: {
+            type: { $ref: '#/visitors/value' },
+            description: { $ref: '#/visitors/value' },
+            name: { $ref: '#/visitors/value' },
+            in: { $ref: '#/visitors/value' },
+            scheme: { $ref: '#/visitors/value' },
+            bearerFormat: { $ref: '#/visitors/value' },
+            flows: {
+              $ref: '#/visitors/document/objects/OAuthFlows',
+            },
+            openIdConnectUrl: { $ref: '#/visitors/value' },
+            scopes: { $ref: '#/visitors/value' },
           },
         },
       },

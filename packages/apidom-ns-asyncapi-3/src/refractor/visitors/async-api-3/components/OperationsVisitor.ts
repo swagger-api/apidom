@@ -21,7 +21,7 @@ class OperationsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
 
   constructor(options:OperationsVisitorOptions) {
     super(options);
-    this.element = new 
+    this.element = new ComponentOperationsElement();
   }
 
   ArrayElement(arrayElement: ArrayElement) {

@@ -4,7 +4,7 @@ import {
  	OAuthFlowsVisitor as OAuthFlowsVisitorType,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import OAuthFlowsElement from '../../../../elements/OAuthFlows.ts';
+import OAuthFlowsElement from '../../../../elements/OauthFlows.ts';
 
 /**
  * @public

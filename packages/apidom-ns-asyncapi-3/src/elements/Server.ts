@@ -1,8 +1,8 @@
-import { ArrayElement, Attributes, Meta, ObjectElement, StringElement } from '@swagger-api/apidom-core';
-import { ServerBindingsElement, ServerElement } from '@swagger-api/apidom-ns-asyncapi-2';
-import TagsElement from './Tags.ts';
+import { Attributes, Meta, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { ServerElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 
 /**
  * @public
@@ -13,8 +13,20 @@ class Server extends ServerElement {
     this.element = 'server';
   }
 
+	get url(): ObjectElement | undefined {
+		throw new UnsupportedOperationError(
+			'url keyword from Core vocabulary has been removed',
+		);
+	}
+
+	set url(url: ObjectElement | undefined) {
+		throw new UnsupportedOperationError(
+			'url keyword from Core vocabulary has been removed',
+		);
+	}
+
 	get host(): StringElement | undefined {
-    return this.get('host');
+		return this.get('host');
   }
 
   set host(host: StringElement | undefined) {
@@ -28,14 +40,6 @@ class Server extends ServerElement {
 	set pathName(pathName: StringElement | undefined) {
 		this.set('pathName', pathName);
 	}
-
-  get description(): StringElement | undefined {
-    return this.get('description');
-  }
-
-  set description(description: StringElement | undefined) {
-    this.set('description', description);
-  }
 
 	get title(): StringElement | undefined {
 		return this.get('title');

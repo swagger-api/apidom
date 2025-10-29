@@ -1,7 +1,7 @@
 import { Mixin } from 'ts-mixer';
-import { ArrayElement, Element, isStringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
-import ChannelServersElement from '../../../../elements/nces/ChannelServers.ts';
+import OperationReplyMessagesElement from '../../../../elements/nces/OperationReplyMessage.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
@@ -9,19 +9,14 @@ import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 /**
  * @public
  */
-export interface ServersVisitorOptions
-  extends SpecificationVisitorOptions,
-    FallbackVisitorOptions {}
+export interface MessagesVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
-/**
- * @public
- */
-class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  declare public readonly element: ChannelServersElement;
+class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+  declare public readonly element: OperationReplyMessagesElement;
 
-  constructor(options: ServersVisitorOptions) {
+  constructor(options: MessagesVisitorOptions) {
     super(options);
-    this.element = new ChannelServersElement();
+    this.element = new OperationReplyMessagesElement();
   }
 
   ArrayElement(arrayElement: ArrayElement) {
@@ -30,7 +25,7 @@ class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
       const element = this.toRefractedElement(specPath, item);
 
       if (isReferenceElement(element)) {
-        element.setMetaProperty('referenced-element', 'channel-servers');
+        element.setMetaProperty('referenced-element', 'operation-reply-messages');
       }
 
       this.element.push(element);
@@ -42,4 +37,4 @@ class ServersVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   }
 }
 
-export default ServersVisitor;
+export default MessagesVisitor;

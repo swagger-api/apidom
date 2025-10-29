@@ -1,5 +1,5 @@
-import { ServerElement } from '@swagger-api/apidom-ns-asyncapi-2'; // TODO: Should be ServersElement ?
+import { ServersElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-class Servers extends ServerElement {}
+class Servers extends ServersElement {}
 
 export default Servers;

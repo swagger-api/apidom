@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.1](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2025-10-27)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1
+
+# [1.0.0-rc.0](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.51...v1.0.0-rc.0) (2025-10-21)
+
+### Performance Improvements
+
+- flatten sourceMap to improve memory usage ([#4964](https://github.com/swagger-api/apidom/issues/4964)) ([bda1edf](https://github.com/swagger-api/apidom/commit/bda1edf7b1b37adc728b8632337b22866e33fa4a))
+
 # [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-1

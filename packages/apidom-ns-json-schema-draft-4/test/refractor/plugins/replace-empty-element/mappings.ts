@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import dedent from 'dedent';
-import { sexprs, SourceMapElement } from '@swagger-api/apidom-core';
+import { sexprs } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 import { refractorPluginReplaceEmptyElement, JSONSchemaElement } from '../../../../src/index.ts';
@@ -125,12 +125,12 @@ describe('given JSON Schema definition with empty values', function () {
       plugins: [refractorPluginReplaceEmptyElement()],
     }) as JSONSchemaElement;
     const { properties: propertiesValue } = jsonSchemaElement;
-    const sourceMap = propertiesValue?.meta.get('sourceMap');
-    const { positionStart, positionEnd } = sourceMap;
-    const expectedPosition = [1, 11, 62];
 
-    expect(propertiesValue?.meta.get('sourceMap')).to.be.an.instanceof(SourceMapElement);
-    expect(positionStart.equals(expectedPosition)).to.be.true;
-    expect(positionEnd.equals(expectedPosition)).to.be.true;
+    expect(propertiesValue?.startPositionRow).to.equal(1);
+    expect(propertiesValue?.startPositionColumn).to.equal(11);
+    expect(propertiesValue?.startIndex).to.equal(62);
+    expect(propertiesValue?.endPositionRow).to.equal(1);
+    expect(propertiesValue?.endPositionColumn).to.equal(11);
+    expect(propertiesValue?.endIndex).to.equal(62);
   });
 });

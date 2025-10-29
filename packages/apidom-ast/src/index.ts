@@ -82,7 +82,7 @@ export type { PointOptions, PositionOptions } from './Position.ts';
 export { default as Error } from './Error.ts';
 export type { ErrorOptions } from './Error.ts';
 export { default as ParseResult } from './ParseResult.ts';
-export { isParseResult, isLiteral, isPoint, isPosition } from './predicates.ts';
+export { isParseResult, isLiteral } from './predicates.ts';
 // AST traversal related exports
 export {
   BREAK,

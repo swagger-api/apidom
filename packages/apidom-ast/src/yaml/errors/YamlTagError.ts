@@ -1,7 +1,6 @@
 import type { ApiDOMErrorOptions } from '@swagger-api/apidom-error';
 
 import YamlSchemaError from './YamlSchemaError.ts';
-import Position from '../../Position.ts';
 import Node from '../../Node.ts';
 
 /**
@@ -11,7 +10,12 @@ export interface YamlTagErrorOptions<T extends Node = Node> extends ApiDOMErrorO
   readonly specificTagName: string;
   readonly explicitTagName: string;
   readonly tagKind: string;
-  readonly tagPosition?: Position;
+  readonly tagStartPositionRow?: number;
+  readonly tagStartPositionColumn?: number;
+  readonly tagStartPositionIndex?: number;
+  readonly tagEndPositionRow?: number;
+  readonly tagEndPositionColumn?: number;
+  readonly tagEndPositionIndex?: number;
   readonly nodeCanonicalContent?: string;
   readonly node?: T;
 }
@@ -26,7 +30,17 @@ class YamlTagError extends YamlSchemaError {
 
   public readonly tagKind!: string;
 
-  public readonly tagPosition?: Position;
+  public readonly tagStartPositionRow?: number;
+
+  public readonly tagStartPositionColumn?: number;
+
+  public readonly tagStartPositionIndex?: number;
+
+  public readonly tagEndPositionRow?: number;
+
+  public readonly tagEndPositionColumn?: number;
+
+  public readonly tagEndPositionIndex?: number;
 
   public readonly nodeCanonicalContent?: string;
 
@@ -39,7 +53,12 @@ class YamlTagError extends YamlSchemaError {
       this.specificTagName = structuredOptions.specificTagName;
       this.explicitTagName = structuredOptions.explicitTagName;
       this.tagKind = structuredOptions.tagKind;
-      this.tagPosition = structuredOptions.tagPosition;
+      this.tagStartPositionRow = structuredOptions.tagStartPositionRow;
+      this.tagStartPositionColumn = structuredOptions.tagStartPositionColumn;
+      this.tagStartPositionIndex = structuredOptions.tagStartPositionIndex;
+      this.tagEndPositionRow = structuredOptions.tagEndPositionRow;
+      this.tagEndPositionColumn = structuredOptions.tagEndPositionColumn;
+      this.tagEndPositionIndex = structuredOptions.tagEndPositionIndex;
       this.nodeCanonicalContent = structuredOptions.nodeCanonicalContent;
       this.node = structuredOptions.node;
     }

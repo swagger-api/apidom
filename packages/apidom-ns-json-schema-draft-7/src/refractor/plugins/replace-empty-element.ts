@@ -9,6 +9,7 @@ import {
   includesClasses,
   cloneDeep,
   toValue,
+  assignSourceMap,
 } from '@swagger-api/apidom-core';
 /**
  * JSON Schema Draft 7 specification elements.
@@ -241,12 +242,14 @@ const plugin = () => () => {
         // no element factory found
         if (typeof elementFactory !== 'function') return undefined;
 
-        return elementFactory.call(
+        const result = elementFactory.call(
           { context },
           undefined,
           cloneDeep(element.meta),
           cloneDeep(element.attributes),
         );
+
+        return assignSourceMap(result, element);
       },
     },
   };

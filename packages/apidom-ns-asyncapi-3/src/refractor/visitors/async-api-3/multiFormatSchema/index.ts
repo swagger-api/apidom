@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { ObjectElement, BooleanElement } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import MultiFormatSchemaElement from '../../../../elements/MultiFormatSchema.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
@@ -12,7 +12,9 @@ import FixedFieldsVisitor, {
 /**
  * @public
  */
-export interface MultiFormatSchemaVisitorOptions extends FixedFieldsVisitorOptions, FallbackVisitorOptions {}
+export interface MultiFormatSchemaVisitorOptions
+  extends FixedFieldsVisitorOptions,
+    FallbackVisitorOptions {}
 
 /**
  * @public
@@ -34,13 +36,6 @@ class MultiFormatSchemaVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor
     this.element = new MultiFormatSchemaElement();
 
     return FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
-  }
-
-  BooleanElement(booleanElement: BooleanElement) {
-    const result = super.enter(booleanElement);
-    this.element.classes.push('boolean-json-MultiFormatSchema');
-
-    return result;
   }
 }
 

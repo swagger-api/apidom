@@ -1,43 +1,44 @@
 import { Mixin } from 'ts-mixer';
-import { ArrayElement, Element, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ComponentOperationsElement from '../../../../elements/nces/ComponentOperations.ts';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public
  */
-export interface OperationsVisitorOptions
-  extends SpecificationVisitorOptions,
-    FallbackVisitorOptions {}
+export interface OperationsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 /**
  * @public
  */
-class OperationsVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
+class OperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: ComponentOperationsElement;
 
-  constructor(options:OperationsVisitorOptions) {
+  declare protected readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'Operation']
+  >;
+
+  constructor(options: OperationsVisitorOptions) {
     super(options);
     this.element = new ComponentOperationsElement();
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'Operation'];
   }
 
-  ArrayElement(arrayElement: ArrayElement) {
-    arrayElement.forEach((item: Element) => {
-      const element = cloneDeep(item);
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-      if (isReferenceElement(element)) {
-        element.classes.push('operations-name');
-      }
-
-      this.element.push(element);
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'operation');
     });
 
-    this.copyMetaAndAttributes(arrayElement, this.element);
-
-    return BREAK;
+    return result;
   }
 }
 

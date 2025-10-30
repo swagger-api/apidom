@@ -1,22 +1,27 @@
-import {
-  specificationObj as AsyncApi2Specification,
-  ChannelsVisitorOptions,
-  ChannelsVisitor as ChannelsVisitorType,
-} from '@swagger-api/apidom-ns-asyncapi-2';
+import { Mixin } from 'ts-mixer';
+import { always } from 'ramda';
 
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import ChannelsElement from '../../../../elements/Channels.ts';
 
-export const BaseChannelsVisitor: typeof ChannelsVisitorType =
-  AsyncApi2Specification.visitors.document.objects.Channels.$visitor;
+/**
+ * @public
+ */
+export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
-export type { ChannelsVisitorOptions };
-
-class ChannelsVisitor extends BaseChannelsVisitor {
+/**
+ * @public
+ */
+class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: ChannelsElement;
+
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Channel']>;
 
   constructor(options: ChannelsVisitorOptions) {
     super(options);
     this.element = new ChannelsElement();
+    this.specPath = always(['document', 'objects', 'Channel']);
   }
 }
 

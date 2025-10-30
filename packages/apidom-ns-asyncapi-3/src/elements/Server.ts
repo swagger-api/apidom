@@ -41,6 +41,14 @@ class Server extends ServerElement {
 		this.set('pathName', pathName);
 	}
 
+  get description(): StringElement | undefined {
+    return this.get('description');
+  }
+
+  set description(description: StringElement | undefined) {
+    this.set('description', description);
+  }
+
 	get title(): StringElement | undefined {
 		return this.get('title');
 	}

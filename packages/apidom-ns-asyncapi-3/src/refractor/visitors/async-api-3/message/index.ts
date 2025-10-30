@@ -52,7 +52,7 @@ class MessageVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
     } else if (mediaTypes.includes(schemaFormat) && isObjectElement(this.element.payload)) {
       this.element.payload = this.toRefractedElement(['document', 'objects', 'Schema'], payload);
     } else if (mediaTypes.includes(multiFormatSchema)) {
-       this.element.payload = this.toRefractedElement(['document', 'objects', 'MultiformatSchema'], payload);
+       this.element.payload = this.toRefractedElement(['document', 'objects', 'MultiFormatSchema'], payload);
     } 
   
     return result;

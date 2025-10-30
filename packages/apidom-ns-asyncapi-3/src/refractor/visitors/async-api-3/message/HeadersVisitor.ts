@@ -6,8 +6,13 @@ import AlternatingVisitor, {
   AlternatingVisitorOptions,
 } from '../../generics/AlternatingVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement, isReferenceLikeElement, isSchemaElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import {
+  isReferenceElement,
+  isReferenceLikeElement,
+  isSchemaElement,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 import { isMultiFormatSchemaElement } from '../../../../predicates.ts';
+import { isMultiFormatSchemaLikeElement } from '../../../predicates.ts';
 
 /**
  * @public
@@ -22,8 +27,11 @@ class HeadersVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },
-      { predicate: isSchemaElement, specPath: ['document', 'objects', 'Schema'] },
-      { predicate: stubTrue, specPath: ['document', 'objects', 'MultiformatSchema'] },
+      {
+        predicate: isMultiFormatSchemaLikeElement,
+        specPath: ['document', 'objects', 'MultiFormatSchema'],
+      },
+      { predicate: stubTrue, specPath: ['document', 'objects', 'Schema'] },
     ];
   }
 
@@ -34,12 +42,12 @@ class HeadersVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
       this.element.setMetaProperty('referenced-element', 'ref-header');
     }
 
-    if(isSchemaElement(this.element)) {
-       this.element.setMetaProperty('schema', 'header-schema');
+    if (isSchemaElement(this.element)) {
+      this.element.setMetaProperty('schema', 'header-schema');
     }
 
-    if(isMultiFormatSchemaElement(this.element)) {
-      this.element.setMetaProperty('schema', 'header-multiformat-schema')
+    if (isMultiFormatSchemaElement(this.element)) {
+      this.element.setMetaProperty('schema', 'header-multiformat-schema');
     }
 
     return result;

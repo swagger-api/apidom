@@ -11,23 +11,30 @@ import ChannelServersVisitor from './visitors/async-api-3/channel/ServersVisitor
 import ExternalDocsVisitor from './visitors/generics/ExternalDocumentationVisitor.ts';
 import ChanneBindingsVisitor from './visitors/async-api-3/channel/BindingsVisitor.ts';
 import ComponentsVisitor from './visitors/async-api-3/components/index.ts';
+import ComponentsChannelsVisitor from './visitors/async-api-3/components/ChannelsVisitor.ts';
+import ComponentsExternalDocumentationVisitor from './visitors/async-api-3/components/ExternalDocumentationVisitor.ts';
+import ComponentsRepliesVisitor from './visitors/async-api-3/components/RepliesVisitor.ts';
+import ComponentsReplyAddressesVisitor from './visitors/async-api-3/components/ReplyAddressesVisitor.ts';
 import ComponentsSchemasVisitor from './visitors/async-api-3/components/SchemasVisitor.ts';
+import ComponentsTagsVisitor from './visitors/async-api-3/components/TagsVisitor.ts';
 import ComponentsOperationsVisitor from './visitors/async-api-3/components/OperationsVisitor.ts';
-import DefaultContentTypeVisitor from '../elements/DefaultContentType.ts';
+import DefaultContentTypeVisitor from './visitors/async-api-3/DefaultContentTypeVisitor.ts';
 import SecuritySchemesVisitor from './visitors/async-api-3/SecuritySchemesVisitor.ts';
 import ServerVisitor from './visitors/async-api-3/server/index.ts';
+import ServerSecurityVisitor from './visitors/async-api-3/server/SecurityVisitor.ts';
 import ServerVariableVisitor from './visitors/async-api-3/server-variable/index.ts';
 import ParametersVisitor from './visitors/async-api-3/parameters/index.ts';
 import ParameterVisitor from './visitors/async-api-3/parameter/index.ts';
 import TagsVisitor from './visitors/async-api-3/tags/index.ts';
 import ExternalDocumentationVisitor from './visitors/async-api-3/external-documentation-object/index.ts';
-
+import ExternalDocumentationOrReferenceVisitor from './visitors/async-api-3/external-documentation-object/ExternalDocumentationOrReferenceVisitor.ts';
 import OperationVisitor from './visitors/async-api-3/operation/OperationVisitor.ts';
 import OperationsVisitor from './visitors/async-api-3/operations/index.ts';
 import OperationMessagesVisitor from './visitors/async-api-3/operation/MessagesVisitor.ts';
 import OperationBindingsVisitor_ from './visitors/async-api-3/operation/BindingsVisitor.ts';
 import OperationTraitsVisitor from './visitors/async-api-3/operation/TraitsVisitor.ts';
-import OperationSecurityVisitor  from './visitors/async-api-3/operation/SecurityVisitor.ts';
+import OperationSecurityVisitor from './visitors/async-api-3/operation/SecurityVisitor.ts';
+import OperationReplyVisitor_ from './visitors/async-api-3/operation/ReplyVisitor.ts';
 import SchemaVisitor from './visitors/async-api-3/schema/index.ts';
 import ReferenceVisitor from './visitors/async-api-3/reference/index.ts';
 import ContactVisitor from './visitors/async-api-3/contact/index.ts';
@@ -37,13 +44,15 @@ import MessagesVisitor from './visitors/async-api-3/messages/index.ts';
 import MessageVisitor from './visitors/async-api-3/message/index.ts';
 import MessageExamplesVisitor from './visitors/async-api-3/message/ExamplesVisitor.ts';
 import MessageExampleVisitor from './visitors/async-api-3/message-example/index.ts';
-import MessageBindingsVisitor from './visitors/async-api-3/message/BindingsVisitor.ts';
+import MessageBindingsVisitor_ from './visitors/async-api-3/message/BindingsVisitor.ts';
 import MessageHeadersVisitor from './visitors/async-api-3/message/HeadersVisitor.ts';
+import MessagePayloadVisitor from './visitors/async-api-3/message/PayloadVisitor.ts';
 import MessageTraitsVisitor from './visitors/async-api-3/message/TraitsVisitor.ts';
 import MessageCorrelationIdVisitor from './visitors/async-api-3/message/CorrelationIdVisitor.ts';
+import MessageBindingsVisitor from './visitors/async-api-3/message-bindings/index.ts';
 import OperationReplyVisitor from './visitors/async-api-3/operation-reply/index.ts';
 import ServersVisitor from './visitors/async-api-3/servers/index.ts';
-import MultiFormatSchemaVisitor from './visitors/async-api-3/multiFormatSchema/index.ts'
+import MultiFormatSchemaVisitor from './visitors/async-api-3/multiFormatSchema/index.ts';
 import ChannelBindingsVisitor from './visitors/async-api-3/channel-bindings/index.ts';
 import MessageTraitVisitor from './visitors/async-api-3/message-trait/index.ts';
 import MessageTraitHeadersVisitor from './visitors/async-api-3/message-trait/HeadersVisitor.ts';
@@ -57,7 +66,107 @@ import OperationTraitVisitor from './visitors/async-api-3/operation-trait/index.
 import OperationReplyAddressVisitor from './visitors/async-api-3/operation-reply-address/index.ts';
 import OperationReplyAddressVisitor_ from './visitors/async-api-3/operation-reply/AddressVisitor.ts';
 import OperationReplyMessagesVisitor from './visitors/async-api-3/operation-reply/MessagesVisitor.ts';
-import { default as schemaInheritedFixedFields } from './visitors/async-api-3/schema/inherited-fixed-fields.ts'
+import { default as schemaInheritedFixedFields } from './visitors/async-api-3/schema/inherited-fixed-fields.ts';
+import CorrelationIDVisitor from './visitors/async-api-3/correlation-id/index.ts';
+import SchemaOrReferenceVisitor from './visitors/async-api-3/schema/SchemaOrReferenceVisitor.ts';
+/**
+ * Binding elements.
+ */
+// AMQP 0-9-1
+import AmqpChannelBindingVisitor from './visitors/async-api-3/bindings/amqp/channel-binding/index.ts';
+import AmqpMessageBindingVisitor from './visitors/async-api-3/bindings/amqp/message-binding/index.ts';
+import AmqpOperationBindingVisitor from './visitors/async-api-3/bindings/amqp/operation-binding/index.ts';
+import AmqpServerBindingVisitor from './visitors/async-api-3/bindings/amqp/server-binding/index.ts';
+// AMQP 1.0
+import Amqp1ChannelBindingVisitor from './visitors/async-api-3/bindings/amqp1/channel-binding/index.ts';
+import Amqp1MessageBindingVisitor from './visitors/async-api-3/bindings/amqp1/message-binding/index.ts';
+import Amqp1OperationBindingVisitor from './visitors/async-api-3/bindings/amqp1/operation-binding/index.ts';
+import Amqp1ServerBindingVisitor from './visitors/async-api-3/bindings/amqp1/server-binding/index.ts';
+// Anypoint MQ
+import AnypointmqChannelBindingVisitor from './visitors/async-api-3/bindings/anypointmq/channel-binding/index.ts';
+import AnypointmqMessageBindingVisitor from './visitors/async-api-3/bindings/anypointmq/message-binding/index.ts';
+import AnypointmqOperationBindingVisitor from './visitors/async-api-3/bindings/anypointmq/operation-binding/index.ts';
+import AnypointmqServerBindingVisitor from './visitors/async-api-3/bindings/anypointmq/server-binding/index.ts';
+// HTTP
+import HttpChannelBindingVisitor from './visitors/async-api-3/bindings/http/channel-binding/index.ts';
+import HttpMessageBindingVisitor from './visitors/async-api-3/bindings/http/message-binding/index.ts';
+import HttpOperationBindingVisitor from './visitors/async-api-3/bindings/http/operation-binding/index.ts';
+import HttpServerBindingVisitor from './visitors/async-api-3/bindings/http/server-binding/index.ts';
+// Google Cloud Pub/Sub
+import GooglepubsubChannelBindingVisitor from './visitors/async-api-3/bindings/googlepubsub/channel-binding/index.ts';
+import GooglepubsubMessageBindingVisitor from './visitors/async-api-3/bindings/googlepubsub/message-binding/index.ts';
+import GooglepubsubOperationBindingVisitor from './visitors/async-api-3/bindings/googlepubsub/operation-binding/index.ts';
+import GooglepubsubServerBindingVisitor from './visitors/async-api-3/bindings/googlepubsub/server-binding/index.ts';
+// IBM MQ
+import IbmmqChannelBindingVisitor from './visitors/async-api-3/bindings/ibmmq/channel-binding/index.ts';
+import IbmmqMessageBindingVisitor from './visitors/async-api-3/bindings/ibmmq/message-binding/index.ts';
+import IbmmqOperationBindingVisitor from './visitors/async-api-3/bindings/ibmmq/operation-binding/index.ts';
+import IbmmqServerBindingVisitor from './visitors/async-api-3/bindings/ibmmq/server-binding/index.ts';
+// JMS
+import JmsChannelBindingVisitor from './visitors/async-api-3/bindings/jms/channel-binding/index.ts';
+import JmsMessageBindingVisitor from './visitors/async-api-3/bindings/jms/message-binding/index.ts';
+import JmsOperationBindingVisitor from './visitors/async-api-3/bindings/jms/operation-binding/index.ts';
+import JmsServerBindingVisitor from './visitors/async-api-3/bindings/jms/server-binding/index.ts';
+// Kafka
+import KafkaChannelBindingVisitor from './visitors/async-api-3/bindings/kafka/channel-binding/index.ts';
+import KafkaMessageBindingVisitor from './visitors/async-api-3/bindings/kafka/message-binding/index.ts';
+import KafkaOperationBindingVisitor from './visitors/async-api-3/bindings/kafka/operation-binding/index.ts';
+import KafkaServerBindingVisitor from './visitors/async-api-3/bindings/kafka/server-binding/index.ts';
+// Mercure
+import MercureChannelBindingVisitor from './visitors/async-api-3/bindings/mercure/channel-binding/index.ts';
+import MercureMessageBindingVisitor from './visitors/async-api-3/bindings/mercure/message-binding/index.ts';
+import MercureOperationBindingVisitor from './visitors/async-api-3/bindings/mercure/operation-binding/index.ts';
+import MercureServerBindingVisitor from './visitors/async-api-3/bindings/mercure/server-binding/index.ts';
+// MQTT
+import MqttChannelBindingVisitor from './visitors/async-api-3/bindings/mqtt/channel-binding/index.ts';
+import MqttMessageBindingVisitor from './visitors/async-api-3/bindings/mqtt/message-binding/index.ts';
+import MqttOperationBindingVisitor from './visitors/async-api-3/bindings/mqtt/operation-binding/index.ts';
+import MqttServerBindingVisitor from './visitors/async-api-3/bindings/mqtt/server-binding/index.ts';
+// MQTT 5
+import Mqtt5ChannelBindingVisitor from './visitors/async-api-3/bindings/mqtt5/channel-binding/index.ts';
+import Mqtt5MessageBindingVisitor from './visitors/async-api-3/bindings/mqtt5/message-binding/index.ts';
+import Mqtt5OperationBindingVisitor from './visitors/async-api-3/bindings/mqtt5/operation-binding/index.ts';
+import Mqtt5ServerBindingVisitor from './visitors/async-api-3/bindings/mqtt5/server-binding/index.ts';
+// NATS
+import NatsChannelBindingVisitor from './visitors/async-api-3/bindings/nats/channel-binding/index.ts';
+import NatsMessageBindingVisitor from './visitors/async-api-3/bindings/nats/message-binding/index.ts';
+import NatsOperationBindingVisitor from './visitors/async-api-3/bindings/nats/operation-binding/index.ts';
+import NatsServerBindingVisitor from './visitors/async-api-3/bindings/nats/server-binding/index.ts';
+// Pulsar
+import PulsarChannelBindingVisitor from './visitors/async-api-3/bindings/pulsar/channel-binding/index.ts';
+import PulsarMessageBindingVisitor from './visitors/async-api-3/bindings/pulsar/message-binding/index.ts';
+import PulsarOperationBindingVisitor from './visitors/async-api-3/bindings/pulsar/operation-binding/index.ts';
+import PulsarServerBindingVisitor from './visitors/async-api-3/bindings/pulsar/server-binding/index.ts';
+// Redis
+import RedisChannelBindingVisitor from './visitors/async-api-3/bindings/redis/channel-binding/index.ts';
+import RedisMessageBindingVisitor from './visitors/async-api-3/bindings/redis/message-binding/index.ts';
+import RedisOperationBindingVisitor from './visitors/async-api-3/bindings/redis/operation-binding/index.ts';
+import RedisServerBindingVisitor from './visitors/async-api-3/bindings/redis/server-binding/index.ts';
+// SNS
+import SnsChannelBindingVisitor from './visitors/async-api-3/bindings/sns/channel-binding/index.ts';
+import SnsMessageBindingVisitor from './visitors/async-api-3/bindings/sns/message-binding/index.ts';
+import SnsOperationBindingVisitor from './visitors/async-api-3/bindings/sns/operation-binding/index.ts';
+import SnsServerBindingVisitor from './visitors/async-api-3/bindings/sns/server-binding/index.ts';
+// Solace
+import SolaceChannelBindingVisitor from './visitors/async-api-3/bindings/solace/channel-binding/index.ts';
+import SolaceMessageBindingVisitor from './visitors/async-api-3/bindings/solace/message-binding/index.ts';
+import SolaceOperationBindingVisitor from './visitors/async-api-3/bindings/solace/operation-binding/index.ts';
+import SolaceServerBindingVisitor from './visitors/async-api-3/bindings/solace/server-binding/index.ts';
+// SQS
+import SqsChannelBindingVisitor from './visitors/async-api-3/bindings/sqs/channel-binding/index.ts';
+import SqsMessageBindingVisitor from './visitors/async-api-3/bindings/sqs/message-binding/index.ts';
+import SqsOperationBindingVisitor from './visitors/async-api-3/bindings/sqs/operation-binding/index.ts';
+import SqsServerBindingVisitor from './visitors/async-api-3/bindings/sqs/server-binding/index.ts';
+// STOMP
+import StompChannelBindingVisitor from './visitors/async-api-3/bindings/stomp/channel-binding/index.ts';
+import StompMessageBindingVisitor from './visitors/async-api-3/bindings/stomp/message-binding/index.ts';
+import StompOperationBindingVisitor from './visitors/async-api-3/bindings/stomp/operation-binding/index.ts';
+import StompServerBindingVisitor from './visitors/async-api-3/bindings/stomp/server-binding/index.ts';
+// WebSocket
+import WebSocketChannelBindingVisitor from './visitors/async-api-3/bindings/ws/channel-binding/index.ts';
+import WebSocketMessageBindingVisitor from './visitors/async-api-3/bindings/ws/message-binding/index.ts';
+import WebSocketOperationBindingVisitor from './visitors/async-api-3/bindings/ws/operation-binding/index.ts';
+import WebSocketServerBindingVisitor from './visitors/async-api-3/bindings/ws/server-binding/index.ts';
 
 const SchemaSpecification = {
   $visitor: SchemaVisitor,
@@ -78,7 +187,8 @@ const SchemaSpecification = {
     definitions: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.definitions,
     // AsyncAPI vocabulary
     discriminator:AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.discriminator,
-    externalDocs: ExternalDocumentationVisitor,
+    externalDocs:
+      AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.externalDocs,
     deprecated: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.deprecated
   },
 };
@@ -94,13 +204,19 @@ const specification = {
         AsyncApi: {
           $visitor: AsyncApi3Visitor,
           fixedFields: {
-            asyncapi: { $ref: '#/visitors/value' },
-            id: { $ref: '#/visitors/value' },
+            asyncapi: {
+              $ref: '#/visitors/document/objects/AsyncApiVersion',
+            },
+            id: {
+              $ref: '#/visitors/document/objects/Identifier',
+            },
             info: { $ref: '#/visitors/document/objects/Info' },
             servers: { $ref: '#/visitors/document/objects/Servers' },
-            defaultContentType: { $ref: '#/visitors/value' },
+            defaultContentType: {
+              $ref: '#/visitors/document/objects/DefaultContentType',
+            },
             channels: { $ref: '#/visitors/document/objects/Channels' },
-            operations: { $ref: '#/visitors/document/objects/Operation' },
+            operations: { $ref: '#/visitors/document/objects/Operations' },
             components: { $ref: '#/visitors/document/objects/Components' },
           },
         },
@@ -119,7 +235,7 @@ const specification = {
             termsOfService:  AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.termsOfService,
             contact: { $ref: '#/visitors/document/objects/Contact' },
             license: { $ref: '#/visitors/document/objects/License' },
-            externalDocs: ExternalDocsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -154,11 +270,11 @@ const specification = {
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             variables:  AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.variables,
-            security: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.security,
+            security: ServerSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
-            externalDocs: ExternalDocumentationVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.bindings,
           },
         },
@@ -181,19 +297,21 @@ const specification = {
           $visitor: ChannelVisitor,
           fixedFields: {
             address: { $ref: '#/visitors/value' },
-            messages: { $ref: '#/visitors/value' },
+            messages: { $ref: '#/visitors/document/objects/Messages' },
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
             servers: ChannelServersVisitor,
-            parameters: { $ref: '#/visitors/document/object/Parameters' },
+            parameters: {
+              $ref: '#/visitors/document/objects/Parameters',
+            },
             tags: { $ref: '#/visitors/document/objects/Tags' },
-            externalDocs: ExternalDocsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: ChanneBindingsVisitor,
           },
         },
         ChannelAddressExpressions: {
-          $visitor: ChannelAddressExpressionsVisitor
+          $visitor: ChannelAddressExpressionsVisitor,
         },
         Messages: {
           $visitor: MessagesVisitor
@@ -205,32 +323,32 @@ const specification = {
           $visitor: OperationVisitor,
           fixedFields: {
             action: { $ref: '#/visitors/value' },
-            channel: { $ref: '#/visitors/value' },
+            channel: { $ref: '#/visitors/document/objects/Reference' },
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
             security: OperationSecurityVisitor,
             tags: { $ref: '#/visitors/document/objects/Tags' },
-            externalDocs: ExternalDocsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: OperationBindingsVisitor_,
             traits: OperationTraitsVisitor,
-            message: OperationMessagesVisitor,
-            reply: OperationReplyVisitor,
+            messages: OperationMessagesVisitor,
+            reply: OperationReplyVisitor_,
           },
         },
         OperationTrait: {
-          $visitors: OperationTraitVisitor,
+          $visitor: OperationTraitVisitor,
           fixedFields: {
             title: { $ref: '#/visitors/value' },
             summary: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.summary,
             description: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.description,
-            security: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.security,
+            security: OperationSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
-            externalDocs: ExternalDocumentationVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.bindings,
-          }
+          },
         },
         OperationReply: {
           $visitor: OperationReplyVisitor,
@@ -245,7 +363,7 @@ const specification = {
           fixedFields: {
             description: { $ref: '#/visitors/value' },
             location: {$ref: '#/visitors/value' }
-          }
+          },
         },
         Parameters: {
           $visitor: ParametersVisitor,
@@ -512,7 +630,7 @@ const specification = {
           $visitor: MessageVisitor,
           fixedFields: {
             headers: MessageHeadersVisitor,
-            payload: { $ref: '#/visitors/document/objects/Schema' },
+            payload: MessagePayloadVisitor,
             correlationId: MessageCorrelationIdVisitor,
             contetType: { $ref: '#/visitors/value' },
             name: { $ref: '#/visitors/value' },
@@ -522,15 +640,16 @@ const specification = {
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
-            externalDocs: ExternalDocumentationVisitor,
-            bindings: MessageBindingsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
+            bindings: MessageBindingsVisitor_,
             examples: MessageExamplesVisitor,
-            traits: MessageTraitsVisitor
+            traits: MessageTraitsVisitor,
           },
         },
         MessageTrait: {
           $visitor: MessageTraitVisitor,
           fixedFields: {
+            messageId: { $ref: '#/visitors/value' },
             headers: MessageTraitHeadersVisitor,
             correlationId: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.correlationId,
             schemaFormat: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.schemaFormat,
@@ -542,7 +661,7 @@ const specification = {
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
-            externalDocs: ExternalDocsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.bindings,
             examples: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.examples,
           },
@@ -564,7 +683,7 @@ const specification = {
           fixedFields: {
             name: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
-            externalDocs: ExternalDocsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
           },
         },
         ExternalDocumentation: {
@@ -574,28 +693,32 @@ const specification = {
             url:  AsyncApi2_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields.url
           },
         },
+        JSONReference: {
+          $ref: '#/visitors/document/objects/Reference',
+        },
         Reference: {
           $visitor: ReferenceVisitor,
           fixedFields: {
             $ref: AsyncApi2_0Specification.visitors.document.objects.Reference.fixedFields.$ref
           },
         },
+        LinkDescription: AsyncApi2_0Specification.visitors.document.objects.LinkDescription,
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
             servers: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.servers,
-            channels: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.channels,
+            channels: ComponentsChannelsVisitor,
             serverVariables:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.serverVariables,
             operations: ComponentsOperationsVisitor,
             messages: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messages,
             securitySchemes: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.securitySchemes,
             parameters: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.parameters,
             correlationIds:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.correlationIds,
-            replies: { $ref: '#/visitors/value' },
-            replyAddresses: { $ref: '#/visitors/value' },
-            tags: { $ref: '#/visitors/document/objects/Tags' },
-            externalDocs: ExternalDocumentationVisitor,
+            replies: ComponentsRepliesVisitor,
+            replyAddresses: ComponentsReplyAddressesVisitor,
+            tags: ComponentsTagsVisitor,
+            externalDocs: ComponentsExternalDocumentationVisitor,
             operationTraits: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.operationTraits,
             messageTraits:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messageTraits,
             serverBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.serverBindings,
@@ -607,11 +730,11 @@ const specification = {
         MultiFormatSchema: {
           $visitor: MultiFormatSchemaVisitor,
           fixedFields: {
-            $shemaFormat: { $ref: '#/visitors/document/objects/SchemaFormat' },
-            $schema: { $ref: '#/visitors/document/objects/Schema' },
-            properties: { $ref: '#/visitors/document/objects/MultiFormatSchema' },
+            schemaFormat: { $ref: '#/visitors/value' },
+            schema: { $ref: '#/visitors/document/objects/Schema' },
           },
         },
+        JSONSchema: SchemaSpecification,
         Schema: SchemaSpecification,
         OAuthFlows: {
           $visitor: OAuthFlowsVisitor,
@@ -659,6 +782,612 @@ const specification = {
             },
             openIdConnectUrl: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.openIdConnectUrl,
             scopes: { $ref: '#/visitors/value' },
+          },
+        },
+        CorrelationID: {
+          $visitor: CorrelationIDVisitor,
+          fixedFields: {
+            description: { $ref: '#/visitors/value' },
+            location: { $ref: '#/visitors/value' },
+          },
+        },
+        bindings: {
+          http: {
+            ServerBinding: {
+              $visitor: HttpServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: HttpChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: HttpOperationBindingVisitor,
+              fixedFields: {
+                type: {
+                  $ref: '#/visitors/value',
+                },
+                method: {
+                  $ref: '#/visitors/value',
+                },
+                query: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: HttpMessageBindingVisitor,
+              fixedFields: {
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          ws: {
+            ServerBinding: {
+              $visitor: WebSocketServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: WebSocketChannelBindingVisitor,
+              fixedFields: {
+                method: {
+                  $ref: '#/visitors/value',
+                },
+                query: SchemaOrReferenceVisitor,
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: WebSocketOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: WebSocketMessageBindingVisitor,
+            },
+          },
+          kafka: {
+            ServerBinding: {
+              $visitor: KafkaServerBindingVisitor,
+              fixedFields: {
+                schemaRegistryUrl: {
+                  $ref: '#/visitors/value',
+                },
+                schemaRegistryVendor: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: KafkaChannelBindingVisitor,
+              fixedFields: {
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+                partitions: {
+                  $ref: '#/visitors/value',
+                },
+                replicas: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: KafkaOperationBindingVisitor,
+              fixedFields: {
+                groupId: SchemaOrReferenceVisitor,
+                clientId: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: KafkaMessageBindingVisitor,
+              fixedFields: {
+                key: SchemaOrReferenceVisitor,
+                schemaIdLocation: {
+                  $ref: '#/visitors/value',
+                },
+                schemaIdPayloadEncoding: {
+                  $ref: '#/visitors/value',
+                },
+                schemaLookupStrategy: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          anypointmq: {
+            ServerBinding: {
+              $visitor: AnypointmqServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: AnypointmqChannelBindingVisitor,
+              fixedFields: {
+                destination: {
+                  $ref: '#/visitors/value',
+                },
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: AnypointmqOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: AnypointmqMessageBindingVisitor,
+              fixedFields: {
+                headers: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          amqp: {
+            ServerBinding: {
+              $visitor: AmqpServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: AmqpChannelBindingVisitor,
+              fixedFields: {
+                is: {
+                  $ref: '#/visitors/value',
+                },
+                exchange: {
+                  $ref: '#/visitors/value',
+                },
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: AmqpOperationBindingVisitor,
+              fixedFields: {
+                expiration: {
+                  $ref: '#/visitors/value',
+                },
+                userId: {
+                  $ref: '#/visitors/value',
+                },
+                cc: {
+                  $ref: '#/visitors/value',
+                },
+                priority: {
+                  $ref: '#/visitors/value',
+                },
+                deliveryMode: {
+                  $ref: '#/visitors/value',
+                },
+                mandatory: {
+                  $ref: '#/visitors/value',
+                },
+                bcc: {
+                  $ref: '#/visitors/value',
+                },
+                replyTo: {
+                  $ref: '#/visitors/value',
+                },
+                timestamp: {
+                  $ref: '#/visitors/value',
+                },
+                ack: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: AmqpMessageBindingVisitor,
+              fixedFields: {
+                contentEncoding: {
+                  $ref: '#/visitors/value',
+                },
+                messageType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          amqp1: {
+            ServerBinding: {
+              $visitor: Amqp1ServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: Amqp1ChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: Amqp1OperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: Amqp1MessageBindingVisitor,
+            },
+          },
+          mqtt: {
+            ServerBinding: {
+              $visitor: MqttServerBindingVisitor,
+              fixedFields: {
+                clientId: {
+                  $ref: '#/visitors/value',
+                },
+                cleanSession: {
+                  $ref: '#/visitors/value',
+                },
+                lastWill: {
+                  $ref: '#/visitors/value',
+                },
+                keepAlive: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: MqttChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: MqttOperationBindingVisitor,
+              fixedFields: {
+                qos: {
+                  $ref: '#/visitors/value',
+                },
+                retain: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: MqttMessageBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          mqtt5: {
+            ServerBinding: {
+              $visitor: Mqtt5ServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: Mqtt5ChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: Mqtt5OperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: Mqtt5MessageBindingVisitor,
+            },
+          },
+          nats: {
+            ServerBinding: {
+              $visitor: NatsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: NatsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: NatsOperationBindingVisitor,
+              fixedFields: {
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: NatsMessageBindingVisitor,
+            },
+          },
+          pulsar: {
+            ServerBinding: {
+              $visitor: PulsarServerBindingVisitor,
+              fixedFields: {
+                tenant: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: PulsarChannelBindingVisitor,
+              fixedFields: {
+                namespace: {
+                  $ref: '#/visitors/value',
+                },
+                persistence: {
+                  $ref: '#/visitors/value',
+                },
+                compaction: {
+                  $ref: '#/visitors/value',
+                },
+                'geo-replication': {
+                  $ref: '#/visitors/value',
+                },
+                retention: {
+                  $ref: '#/visitors/value',
+                },
+                ttl: {
+                  $ref: '#/visitors/value',
+                },
+                deduplication: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: PulsarOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: PulsarMessageBindingVisitor,
+            },
+          },
+          jms: {
+            ServerBinding: {
+              $visitor: JmsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: JmsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: JmsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: JmsMessageBindingVisitor,
+            },
+          },
+          sns: {
+            ServerBinding: {
+              $visitor: SnsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: SnsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SnsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: SnsMessageBindingVisitor,
+            },
+          },
+          solace: {
+            ServerBinding: {
+              $visitor: SolaceServerBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                msgVpn: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: SolaceChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SolaceOperationBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                destinations: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: SolaceMessageBindingVisitor,
+            },
+          },
+          sqs: {
+            ServerBinding: {
+              $visitor: SqsServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: SqsChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: SqsOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: SqsMessageBindingVisitor,
+            },
+          },
+          stomp: {
+            ServerBinding: {
+              $visitor: StompServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: StompChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: StompOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: StompMessageBindingVisitor,
+            },
+          },
+          redis: {
+            ServerBinding: {
+              $visitor: RedisServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: RedisChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: RedisOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: RedisMessageBindingVisitor,
+            },
+          },
+          mercure: {
+            ServerBinding: {
+              $visitor: MercureServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: MercureChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: MercureOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: MercureMessageBindingVisitor,
+            },
+          },
+          googlepubsub: {
+            ServerBinding: {
+              $visitor: GooglepubsubServerBindingVisitor,
+            },
+            ChannelBinding: {
+              $visitor: GooglepubsubChannelBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                labels: {
+                  $ref: '#/visitors/value',
+                },
+                messageRetentionDuration: {
+                  $ref: '#/visitors/value',
+                },
+                messageStoragePolicy: {
+                  $ref: '#/visitors/value',
+                },
+                schemaSettings: {
+                  $ref: '#/visitors/value',
+                },
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: GooglepubsubOperationBindingVisitor,
+            },
+            MessageBinding: {
+              $visitor: GooglepubsubMessageBindingVisitor,
+              fixedFields: {
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+                attributes: {
+                  $ref: '#/visitors/value',
+                },
+                orderingKey: {
+                  $ref: '#/visitors/value',
+                },
+                schema: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+          },
+          ibmmq: {
+            ServerBinding: {
+              $visitor: IbmmqServerBindingVisitor,
+              fixedFields: {
+                groupId: {
+                  $ref: '#/visitors/value',
+                },
+                ccdtQueueManagerName: {
+                  $ref: '#/visitors/value',
+                },
+                cipherSpec: {
+                  $ref: '#/visitors/value',
+                },
+                multiEndpointServer: {
+                  $ref: '#/visitors/value',
+                },
+                heartBeatInterval: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: IbmmqChannelBindingVisitor,
+              fixedFields: {
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+                maxMsgLength: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: IbmmqMessageBindingVisitor,
+              fixedFields: {
+                type: {
+                  $ref: '#/visitors/value',
+                },
+                headers: {
+                  $ref: '#/visitors/value',
+                },
+                description: {
+                  $ref: '#/visitors/value',
+                },
+                expiry: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            OperationBinding: {
+              $visitor: IbmmqOperationBindingVisitor,
+            },
           },
         },
       },

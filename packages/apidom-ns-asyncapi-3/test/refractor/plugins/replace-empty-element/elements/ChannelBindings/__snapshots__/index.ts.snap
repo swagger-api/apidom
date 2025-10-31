@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should refract to semantic ApiDOM tree 1`] = `
+(ChannelBindingsElement
+  (MemberElement
+    (StringElement)
+    (HttpChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (WebSocketChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (KafkaChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (AnypointmqChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (AmqpChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (Amqp1ChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (MqttChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (Mqtt5ChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (NatsChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (JmsChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (SnsChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (SolaceChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (SqsChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (StompChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (RedisChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (MercureChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (IbmmqChannelBindingElement)))
+`;

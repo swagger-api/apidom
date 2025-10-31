@@ -3,12 +3,12 @@ import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 import { OAuthFlowElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 class OAuthFlow extends OAuthFlowElement {
-	constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-		super(content, meta, attributes);
-	 	this.element = 'oauthFlow';
-	}
+  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
+    super(content, meta, attributes);
+    this.element = 'oAuthFlow';
+  }
 
-	get scopes(): ObjectElement | undefined {
+  get scopes(): ObjectElement | undefined {
     throw new UnsupportedOperationError(
       'scopes keyword from Core vocabulary has been renamed to availableScopes.',
     );

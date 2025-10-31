@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements TagElement given externalDocs field of type ExternalDocumentationElement should refract to semantic ApiDOM tree 1`] = `
+(TagElement
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements TagElement given externalDocs field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(TagElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements TagElement should refract to semantic ApiDOM tree 1`] = `
+(TagElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements IbmmqChannelBindingElement should refract to semantic ApiDOM tree 1`] = `
+(IbmmqChannelBindingElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

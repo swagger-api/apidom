@@ -20,27 +20,20 @@ class OperationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
     this.canSupportSpecificationExtensions = true;
   }
 
-	ObjectElement(objectElement: ObjectElement) {
-    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement) as OperationElement;
+  ObjectElement(objectElement: ObjectElement) {
+    const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
 
-    // Retrieve the action from the objectElement
     const action = objectElement.get('action');
 
     if (isStringElement(action)) {
-        const actionValue = action.toValue();
-        if (actionValue === 'send' || actionValue === 'receive') {
-            result.setMetaProperty('operation-action', actionValue);
-        } else {
-            throw new Error(`Invalid action type: ${actionValue}. Expected "send" or "receive".`);
-        }
+      const actionValue = action.toValue();
+      if (actionValue === 'send' || actionValue === 'receive') {
+        this.element.setMetaProperty('operation-action', actionValue);
+      }
     }
 
-    // Set the element to the result after processing
-    this.element = result;
-    this.copyMetaAndAttributes(objectElement, this.element);
-
-    return this.element;
-}
+    return result;
+  }
 }
 
 export default OperationVisitor;

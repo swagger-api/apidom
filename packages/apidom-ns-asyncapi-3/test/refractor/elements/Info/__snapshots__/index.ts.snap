@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements InfoElement given externalDocs field of type ExternalDocumentationElement should refract to semantic ApiDOM tree 1`] = `
+(InfoElement
+  (MemberElement
+    (StringElement)
+    (ExternalDocumentationElement)))
+`;
+
+exports[`refractor elements InfoElement given externalDocs field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(InfoElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements InfoElement given tags field contains list of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(InfoElement
+  (MemberElement
+    (StringElement)
+    (TagsElement
+      (ReferenceElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
+`;
+
+exports[`refractor elements InfoElement given tags field contains list of type TagElement should refract to semantic ApiDOM tree 1`] = `
+(InfoElement
+  (MemberElement
+    (StringElement)
+    (TagsElement
+      (TagElement))))
+`;
+
+exports[`refractor elements InfoElement should refract to semantic ApiDOM tree 1`] = `
+(InfoElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ContactElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (LicenseElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;

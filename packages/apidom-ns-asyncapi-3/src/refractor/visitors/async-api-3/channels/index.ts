@@ -1,22 +1,44 @@
-import {
-  specificationObj as AsyncApi2Specification,
-  ChannelsVisitorOptions,
-  ChannelsVisitor as ChannelsVisitorType,
-} from '@swagger-api/apidom-ns-asyncapi-2';
+import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ChannelsElement from '../../../../elements/Channels.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
-export const BaseChannelsVisitor: typeof ChannelsVisitorType =
-  AsyncApi2Specification.visitors.document.objects.Channels.$visitor;
+/**
+ * @public
+ */
+export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
-export type { ChannelsVisitorOptions };
-
-class ChannelsVisitor extends BaseChannelsVisitor {
+/**
+ * @public
+ */
+class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: ChannelsElement;
+
+  declare protected readonly specPath: SpecPath<
+    ['document', 'objects', 'Reference'] | ['document', 'objects', 'Channel']
+  >;
 
   constructor(options: ChannelsVisitorOptions) {
     super(options);
     this.element = new ChannelsElement();
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'Channel'];
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'channel');
+    });
+
+    return result;
   }
 }
 

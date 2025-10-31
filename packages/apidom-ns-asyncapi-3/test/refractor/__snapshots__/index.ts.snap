@@ -1902,10 +1902,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                 {
                                                   "element": "string",
                                                   "content": "json-schema-draft-7"
-                                                },
-                                                {
-                                                  "element": "string",
-                                                  "content": "json-schema-draft-7"
                                                 }
                                               ]
                                             },
@@ -1921,10 +1917,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                 "classes": {
                                                   "element": "array",
                                                   "content": [
-                                                    {
-                                                      "element": "string",
-                                                      "content": "fixed-field"
-                                                    },
                                                     {
                                                       "element": "string",
                                                       "content": "fixed-field"
@@ -1946,10 +1938,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                         {
                                                           "element": "string",
                                                           "content": "json-schema-type"
-                                                        },
-                                                        {
-                                                          "element": "string",
-                                                          "content": "json-schema-type"
                                                         }
                                                       ]
                                                     }
@@ -1964,10 +1952,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                 "classes": {
                                                   "element": "array",
                                                   "content": [
-                                                    {
-                                                      "element": "string",
-                                                      "content": "fixed-field"
-                                                    },
                                                     {
                                                       "element": "string",
                                                       "content": "fixed-field"
@@ -1989,10 +1973,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                         {
                                                           "element": "string",
                                                           "content": "json-schema-properties"
-                                                        },
-                                                        {
-                                                          "element": "string",
-                                                          "content": "json-schema-properties"
                                                         }
                                                       ]
                                                     }
@@ -2004,10 +1984,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                         "classes": {
                                                           "element": "array",
                                                           "content": [
-                                                            {
-                                                              "element": "string",
-                                                              "content": "patterned-field"
-                                                            },
                                                             {
                                                               "element": "string",
                                                               "content": "patterned-field"
@@ -2036,18 +2012,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                 },
                                                                 {
                                                                   "element": "string",
-                                                                  "content": "json-reference"
-                                                                },
-                                                                {
-                                                                  "element": "string",
-                                                                  "content": "asyncapi-reference"
-                                                                },
-                                                                {
-                                                                  "element": "string",
-                                                                  "content": "reference-element"
-                                                                },
-                                                                {
-                                                                  "element": "string",
                                                                   "content": "reference-element"
                                                                 }
                                                               ]
@@ -2064,10 +2028,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                 "classes": {
                                                                   "element": "array",
                                                                   "content": [
-                                                                    {
-                                                                      "element": "string",
-                                                                      "content": "fixed-field"
-                                                                    },
                                                                     {
                                                                       "element": "string",
                                                                       "content": "fixed-field"
@@ -2089,10 +2049,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                         {
                                                                           "element": "string",
                                                                           "content": "reference-value"
-                                                                        },
-                                                                        {
-                                                                          "element": "string",
-                                                                          "content": "reference-value"
                                                                         }
                                                                       ]
                                                                     }
@@ -2111,10 +2067,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                         "classes": {
                                                           "element": "array",
                                                           "content": [
-                                                            {
-                                                              "element": "string",
-                                                              "content": "patterned-field"
-                                                            },
                                                             {
                                                               "element": "string",
                                                               "content": "patterned-field"
@@ -2143,18 +2095,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                 },
                                                                 {
                                                                   "element": "string",
-                                                                  "content": "json-reference"
-                                                                },
-                                                                {
-                                                                  "element": "string",
-                                                                  "content": "asyncapi-reference"
-                                                                },
-                                                                {
-                                                                  "element": "string",
-                                                                  "content": "reference-element"
-                                                                },
-                                                                {
-                                                                  "element": "string",
                                                                   "content": "reference-element"
                                                                 }
                                                               ]
@@ -2174,10 +2114,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                     {
                                                                       "element": "string",
                                                                       "content": "fixed-field"
-                                                                    },
-                                                                    {
-                                                                      "element": "string",
-                                                                      "content": "fixed-field"
                                                                     }
                                                                   ]
                                                                 }
@@ -2193,10 +2129,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                                                     "classes": {
                                                                       "element": "array",
                                                                       "content": [
-                                                                        {
-                                                                          "element": "string",
-                                                                          "content": "reference-value"
-                                                                        },
                                                                         {
                                                                           "element": "string",
                                                                           "content": "reference-value"

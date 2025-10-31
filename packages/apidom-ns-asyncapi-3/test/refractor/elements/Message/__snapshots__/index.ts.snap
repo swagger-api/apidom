@@ -127,7 +127,7 @@ exports[`refractor elements given payload field of type MultiFormatSchemaElement
 (MessageElement
   (MemberElement
     (StringElement)
-    (SchemaElement
+    (MultiFormatSchemaElement
       (MemberElement
         (StringElement)
         (StringElement))

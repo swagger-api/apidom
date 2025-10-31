@@ -731,7 +731,7 @@ const specification = {
           $visitor: MultiFormatSchemaVisitor,
           fixedFields: {
             schemaFormat: { $ref: '#/visitors/value' },
-            schema: { $ref: '#/visitors/document/objects/Schema' },
+            schema: { $ref: '#/visitors/value' },
           },
         },
         JSONSchema: SchemaSpecification,

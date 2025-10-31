@@ -1,5 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements MultiFormatSchemaElement given schema of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(MultiFormatSchemaElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements MultiFormatSchemaElement given unsupported schemaFormat should refract to semantic ApiDOM tree 1`] = `
+(MultiFormatSchemaElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;
+
+exports[`refractor elements MultiFormatSchemaElement given unsupported schemaFormat with referenced schema should refract to semantic ApiDOM tree 1`] = `
+(MultiFormatSchemaElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
 exports[`refractor elements MultiFormatSchemaElement should refract to semantic ApiDOM tree 1`] = `
 (MultiFormatSchemaElement
   (MemberElement

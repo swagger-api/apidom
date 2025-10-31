@@ -223,23 +223,7 @@
       }
     },
     "user/loggedout": {
-      "$ref": "https://outside.com/#/path/to/channelItem",
-      "description": "This channel is used to exchange messages about users logging out",
-      "parameters": {
-        "userId": {
-          "description": "parameter description",
-          "schema": {
-            "type": "integer"
-          },
-          "location": "http://example.com"
-        },
-        "userIdRef": {
-          "$ref": "#/components/parameters/userId"
-        }
-      },
-      "bindings": {
-        "jms": {}
-      }
+      "$ref": "https://outside.com/#/path/to/channel"
     }
   },
   "components": {
@@ -270,9 +254,6 @@
     "parameters": {
       "Parameter1": {
         "description": "parameter description",
-        "schema": {
-          "type": "integer"
-        },
         "location": "http://example.com"
       },
       "Parameter2": {
@@ -381,5 +362,97 @@
       }
     }
   },
-  "operations": {}
+  "operations": {
+    "onUserSignUp": {
+      "title": "User sign up",
+      "summary": "Action to sign a user up.",
+      "description": "A longer description",
+      "channel": {
+        "$ref": "#/channels/userSignup"
+      },
+      "action": "send",
+      "tags": [
+        {
+          "name": "operationTag",
+          "description": "operationTag description",
+          "externalDocs": {
+            "description": "description of operationTag external docs",
+            "url": "https://example.com/operationTag"
+          }
+        }
+      ],
+      "bindings": {
+        "kafka": {}
+      },
+      "traits": [
+        {
+          "title": "Operation trait title",
+          "description": "Operation trait description",
+          "summary": "Operation trait summary",
+          "bindings": {
+            "kafka": {}
+          },
+          "security": [
+            {
+              "petstore_auth": {
+                "type": "apiKey",
+                "description": "Petstore Auth description",
+                "name": "Petstore Auth",
+                "in": "password",
+                "scheme": "Authorization",
+                "bearerFormat": "JWT",
+                "flows": {
+                  "implicit": {},
+                  "password": {},
+                  "clientCredentials": {},
+                  "authorizationCode": {}
+                },
+                "openIdConnectUrl": "security-scheme-openIdConnectUrl",
+                "scopes": ["write:pets", "read:pets"]
+              }
+            }
+          ],
+          "externalDocs": {
+            "description": "Find more info here",
+            "url": "https://example.com"
+          }
+        }
+      ],
+      "security": [
+        {
+          "petstore_auth": {
+            "type": "apiKey",
+            "description": "Petstore Auth description",
+            "name": "Petstore Auth",
+            "in": "password",
+            "scheme": "Authorization",
+            "bearerFormat": "JWT",
+            "flows": {
+              "implicit": {},
+              "password": {},
+              "clientCredentials": {},
+              "authorizationCode": {}
+            },
+            "openIdConnectUrl": "security-scheme-openIdConnectUrl",
+            "scopes": ["write:pets", "read:pets"]
+          }
+        }
+      ],
+      "externalDocs": {
+        "description": "Find more info here",
+        "url": "https://example.com"
+      },
+      "messages": [{ "$ref": "#/components/messages/Message1" }],
+      "reply": {
+        "address": {
+          "description": "Reply address description",
+          "location": "http://example.com/reply"
+        },
+        "channel": {
+          "$ref": "#/components/channels/channel1"
+        },
+        "messages": [{ "$ref": "#/components/messages/Message1" }]
+      }
+    }
+  }
 }

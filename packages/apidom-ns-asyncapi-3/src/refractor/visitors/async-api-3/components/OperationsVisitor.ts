@@ -2,7 +2,7 @@ import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import ComponentOperationsElement from '../../../../elements/nces/ComponentOperations.ts';
+import ComponentsOperationsElement from '../../../../elements/nces/ComponentsOperations.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
@@ -15,7 +15,7 @@ export interface OperationsVisitorOptions extends MapVisitorOptions, FallbackVis
  * @public
  */
 class OperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
-  declare public readonly element: ComponentOperationsElement;
+  declare public readonly element: ComponentsOperationsElement;
 
   declare protected readonly specPath: SpecPath<
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Operation']
@@ -23,7 +23,7 @@ class OperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
 
   constructor(options: OperationsVisitorOptions) {
     super(options);
-    this.element = new ComponentOperationsElement();
+    this.element = new ComponentsOperationsElement();
     this.specPath = (element: unknown) =>
       isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']

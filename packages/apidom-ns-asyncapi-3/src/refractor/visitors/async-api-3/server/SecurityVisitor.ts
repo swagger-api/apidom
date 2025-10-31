@@ -4,6 +4,7 @@ import { isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import ServerSecurityElement from '../../../../elements/nces/ServerSecurity.ts';
 
 /**
  * @public
@@ -16,11 +17,11 @@ export interface SecurityVisitorOptions
  * @public
  */
 class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
-  declare public readonly element: ArrayElement;
+  declare public readonly element: ServerSecurityElement;
 
   constructor(options: SecurityVisitorOptions) {
     super(options);
-    this.element = new ArrayElement();
+    this.element = new ServerSecurityElement();
   }
 
   ArrayElement(arrayElement: ArrayElement) {

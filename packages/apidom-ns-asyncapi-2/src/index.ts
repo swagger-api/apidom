@@ -866,6 +866,7 @@ export { default as MessageTraitsElement } from './elements/nces/MessageTraits.t
 export { default as OperationMessageElement } from './elements/nces/OperationMessage.ts';
 export { default as OperationSecurityElement } from './elements/nces/OperationSecurity.ts';
 export { default as OperationTraitsElement } from './elements/nces/OperationTraits.ts';
+export { default as ServerSecurityElement } from './elements/nces/ServerSecurity.ts';
 
 export type { default as ChannelItemsServersElement } from './elements/nces/ChannelItemsServers.ts';
 export type { default as ComponentsChannelBindingsElement } from './elements/nces/ComponentsChannelBindings.ts';
@@ -884,5 +885,4 @@ export type { default as MessageTraitExamplesElement } from './elements/nces/Mes
 export type { default as OAuthFlowScopesElement } from './elements/nces/OAuthFlowScopes.ts';
 export type { default as OperationMessageMapElement } from './elements/nces/OperationMessageMap.ts';
 export type { default as OperationTraitSecurityElement } from './elements/nces/OperationTraitSecurity.ts';
-export type { default as ServerSecurityElement } from './elements/nces/ServerSecurity.ts';
 export type { default as ServerVariablesElement } from './elements/nces/ServerVariables.ts';

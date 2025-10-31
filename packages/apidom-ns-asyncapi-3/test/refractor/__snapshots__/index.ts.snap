@@ -10,10 +10,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
         {
           "element": "string",
           "content": "api"
-        },
-        {
-          "element": "string",
-          "content": "api"
         }
       ]
     }
@@ -643,6 +639,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
         },
         "value": {
           "element": "servers",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "servers"
+                }
+              ]
+            }
+          },
           "content": [
             {
               "element": "member",
@@ -1036,6 +1043,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                         },
                         "value": {
                           "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "server-security"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
                               "element": "securityScheme",
@@ -3813,7 +3831,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                               "content": [
                                 {
                                   "element": "string",
-                                  "content": "channel-server-names-list"
+                                  "content": "channel-servers"
                                 }
                               ]
                             }
@@ -4182,10 +4200,44 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                   "content": "user/loggedout"
                 },
                 "value": {
-                  "element": "channel",
+                  "element": "reference",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "json-reference"
+                        },
+                        {
+                          "element": "string",
+                          "content": "asyncapi-reference"
+                        },
+                        {
+                          "element": "string",
+                          "content": "reference-element"
+                        }
+                      ]
+                    },
+                    "referenced-element": {
+                      "element": "string",
+                      "content": "channel"
+                    }
+                  },
                   "content": [
                     {
                       "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
                       "content": {
                         "key": {
                           "element": "string",
@@ -4193,298 +4245,18 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                         },
                         "value": {
                           "element": "string",
-                          "content": "https://outside.com/#/path/to/channelItem"
-                        }
-                      }
-                    },
-                    {
-                      "element": "member",
-                      "meta": {
-                        "classes": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "string",
-                              "content": "fixed-field"
-                            }
-                          ]
-                        }
-                      },
-                      "content": {
-                        "key": {
-                          "element": "string",
-                          "content": "description"
-                        },
-                        "value": {
-                          "element": "string",
-                          "content": "This channel is used to exchange messages about users logging out"
-                        }
-                      }
-                    },
-                    {
-                      "element": "member",
-                      "meta": {
-                        "classes": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "string",
-                              "content": "fixed-field"
-                            }
-                          ]
-                        }
-                      },
-                      "content": {
-                        "key": {
-                          "element": "string",
-                          "content": "parameters"
-                        },
-                        "value": {
-                          "element": "parameters",
-                          "content": [
-                            {
-                              "element": "member",
-                              "meta": {
-                                "classes": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "string",
-                                      "content": "patterned-field"
-                                    }
-                                  ]
-                                }
-                              },
-                              "content": {
-                                "key": {
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
                                   "element": "string",
-                                  "content": "userId"
-                                },
-                                "value": {
-                                  "element": "parameter",
-                                  "content": [
-                                    {
-                                      "element": "member",
-                                      "meta": {
-                                        "classes": {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "string",
-                                              "content": "fixed-field"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "description"
-                                        },
-                                        "value": {
-                                          "element": "string",
-                                          "content": "parameter description"
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "member",
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "schema"
-                                        },
-                                        "value": {
-                                          "element": "object",
-                                          "content": [
-                                            {
-                                              "element": "member",
-                                              "content": {
-                                                "key": {
-                                                  "element": "string",
-                                                  "content": "type"
-                                                },
-                                                "value": {
-                                                  "element": "string",
-                                                  "content": "integer"
-                                                }
-                                              }
-                                            }
-                                          ]
-                                        }
-                                      }
-                                    },
-                                    {
-                                      "element": "member",
-                                      "meta": {
-                                        "classes": {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "string",
-                                              "content": "fixed-field"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "location"
-                                        },
-                                        "value": {
-                                          "element": "string",
-                                          "content": "http://example.com"
-                                        }
-                                      }
-                                    }
-                                  ]
+                                  "content": "reference-value"
                                 }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "meta": {
-                                "classes": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "string",
-                                      "content": "patterned-field"
-                                    }
-                                  ]
-                                }
-                              },
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "userIdRef"
-                                },
-                                "value": {
-                                  "element": "reference",
-                                  "meta": {
-                                    "classes": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "string",
-                                          "content": "json-reference"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "asyncapi-reference"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "reference-element"
-                                        }
-                                      ]
-                                    },
-                                    "referenced-element": {
-                                      "element": "string",
-                                      "content": "parameter"
-                                    }
-                                  },
-                                  "content": [
-                                    {
-                                      "element": "member",
-                                      "meta": {
-                                        "classes": {
-                                          "element": "array",
-                                          "content": [
-                                            {
-                                              "element": "string",
-                                              "content": "fixed-field"
-                                            }
-                                          ]
-                                        }
-                                      },
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "$ref"
-                                        },
-                                        "value": {
-                                          "element": "string",
-                                          "meta": {
-                                            "classes": {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "string",
-                                                  "content": "reference-value"
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          "content": "#/components/parameters/userId"
-                                        }
-                                      }
-                                    }
-                                  ]
-                                }
-                              }
+                              ]
                             }
-                          ]
-                        }
-                      }
-                    },
-                    {
-                      "element": "member",
-                      "meta": {
-                        "classes": {
-                          "element": "array",
-                          "content": [
-                            {
-                              "element": "string",
-                              "content": "fixed-field"
-                            }
-                          ]
-                        }
-                      },
-                      "content": {
-                        "key": {
-                          "element": "string",
-                          "content": "bindings"
-                        },
-                        "value": {
-                          "element": "channelBindings",
-                          "content": [
-                            {
-                              "element": "member",
-                              "meta": {
-                                "classes": {
-                                  "element": "array",
-                                  "content": [
-                                    {
-                                      "element": "string",
-                                      "content": "fixed-field"
-                                    }
-                                  ]
-                                }
-                              },
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "jms"
-                                },
-                                "value": {
-                                  "element": "jmsChannelBinding",
-                                  "meta": {
-                                    "classes": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "string",
-                                          "content": "channel-binding"
-                                        }
-                                      ]
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          ]
+                          },
+                          "content": "https://outside.com/#/path/to/channel"
                         }
                       }
                     }
@@ -5154,33 +4926,6 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                 "value": {
                                   "element": "string",
                                   "content": "parameter description"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "schema"
-                                },
-                                "value": {
-                                  "element": "object",
-                                  "content": [
-                                    {
-                                      "element": "member",
-                                      "content": {
-                                        "key": {
-                                          "element": "string",
-                                          "content": "type"
-                                        },
-                                        "value": {
-                                          "element": "string",
-                                          "content": "integer"
-                                        }
-                                      }
-                                    }
-                                  ]
                                 }
                               }
                             },
@@ -6941,14 +6686,14 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                   "content": "operations"
                 },
                 "value": {
-                  "element": "array",
+                  "element": "object",
                   "meta": {
                     "classes": {
                       "element": "array",
                       "content": [
                         {
                           "element": "string",
-                          "content": "component-operations-list"
+                          "content": "components-operations"
                         }
                       ]
                     }
@@ -7014,6 +6759,10 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                   "content": "reference-element"
                                 }
                               ]
+                            },
+                            "referenced-element": {
+                              "element": "string",
+                              "content": "operation"
                             }
                           },
                           "content": [
@@ -7662,7 +7411,1586 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                 }
               ]
             }
-          }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "patterned-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "onUserSignUp"
+                },
+                "value": {
+                  "element": "operation",
+                  "meta": {
+                    "operation-action": {
+                      "element": "string",
+                      "content": "send"
+                    }
+                  },
+                  "content": [
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "title"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "User sign up"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "summary"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "Action to sign a user up."
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "description"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "A longer description"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "channel"
+                        },
+                        "value": {
+                          "element": "reference",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
+                                }
+                              ]
+                            },
+                            "referenced-element": {
+                              "element": "string",
+                              "content": "channel"
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "$ref"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": "#/channels/userSignup"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "action"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "send"
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "tags"
+                        },
+                        "value": {
+                          "element": "tags",
+                          "content": [
+                            {
+                              "element": "tag",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "name"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "operationTag"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "description"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "operationTag description"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "externalDocs"
+                                    },
+                                    "value": {
+                                      "element": "externalDocumentation",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "description of operationTag external docs"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "url"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "https://example.com/operationTag"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "bindings"
+                        },
+                        "value": {
+                          "element": "operationBindings",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "kafka"
+                                },
+                                "value": {
+                                  "element": "kafkaOperationBinding",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-binding"
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "traits"
+                        },
+                        "value": {
+                          "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "operation-traits"
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "operationTrait",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "title"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "Operation trait title"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "description"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "Operation trait description"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "summary"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "content": "Operation trait summary"
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "bindings"
+                                    },
+                                    "value": {
+                                      "element": "operationBindings",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "kafka"
+                                            },
+                                            "value": {
+                                              "element": "kafkaOperationBinding",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "operation-binding"
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "security"
+                                    },
+                                    "value": {
+                                      "element": "array",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "operation-security"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "securityScheme",
+                                          "content": [
+                                            {
+                                              "element": "member",
+                                              "content": {
+                                                "key": {
+                                                  "element": "string",
+                                                  "content": "petstore_auth"
+                                                },
+                                                "value": {
+                                                  "element": "object",
+                                                  "content": [
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "type"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "apiKey"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "description"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "Petstore Auth description"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "name"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "Petstore Auth"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "in"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "password"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "scheme"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "Authorization"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "bearerFormat"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "JWT"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "flows"
+                                                        },
+                                                        "value": {
+                                                          "element": "object",
+                                                          "content": [
+                                                            {
+                                                              "element": "member",
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "implicit"
+                                                                },
+                                                                "value": {
+                                                                  "element": "object"
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element": "member",
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "password"
+                                                                },
+                                                                "value": {
+                                                                  "element": "object"
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element": "member",
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "clientCredentials"
+                                                                },
+                                                                "value": {
+                                                                  "element": "object"
+                                                                }
+                                                              }
+                                                            },
+                                                            {
+                                                              "element": "member",
+                                                              "content": {
+                                                                "key": {
+                                                                  "element": "string",
+                                                                  "content": "authorizationCode"
+                                                                },
+                                                                "value": {
+                                                                  "element": "object"
+                                                                }
+                                                              }
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "openIdConnectUrl"
+                                                        },
+                                                        "value": {
+                                                          "element": "string",
+                                                          "content": "security-scheme-openIdConnectUrl"
+                                                        }
+                                                      }
+                                                    },
+                                                    {
+                                                      "element": "member",
+                                                      "content": {
+                                                        "key": {
+                                                          "element": "string",
+                                                          "content": "scopes"
+                                                        },
+                                                        "value": {
+                                                          "element": "array",
+                                                          "content": [
+                                                            {
+                                                              "element": "string",
+                                                              "content": "write:pets"
+                                                            },
+                                                            {
+                                                              "element": "string",
+                                                              "content": "read:pets"
+                                                            }
+                                                          ]
+                                                        }
+                                                      }
+                                                    }
+                                                  ]
+                                                }
+                                              }
+                                            }
+                                          ]
+                                        }
+                                      ]
+                                    }
+                                  }
+                                },
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "externalDocs"
+                                    },
+                                    "value": {
+                                      "element": "externalDocumentation",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "Find more info here"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "url"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "https://example.com"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "security"
+                        },
+                        "value": {
+                          "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "operation-security"
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "securityScheme",
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "petstore_auth"
+                                    },
+                                    "value": {
+                                      "element": "object",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "type"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "apiKey"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "description"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "Petstore Auth description"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "Petstore Auth"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "password"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "scheme"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "Authorization"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "bearerFormat"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "JWT"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "flows"
+                                            },
+                                            "value": {
+                                              "element": "object",
+                                              "content": [
+                                                {
+                                                  "element": "member",
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "implicit"
+                                                    },
+                                                    "value": {
+                                                      "element": "object"
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element": "member",
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "password"
+                                                    },
+                                                    "value": {
+                                                      "element": "object"
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element": "member",
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "clientCredentials"
+                                                    },
+                                                    "value": {
+                                                      "element": "object"
+                                                    }
+                                                  }
+                                                },
+                                                {
+                                                  "element": "member",
+                                                  "content": {
+                                                    "key": {
+                                                      "element": "string",
+                                                      "content": "authorizationCode"
+                                                    },
+                                                    "value": {
+                                                      "element": "object"
+                                                    }
+                                                  }
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "openIdConnectUrl"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "security-scheme-openIdConnectUrl"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "scopes"
+                                            },
+                                            "value": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "write:pets"
+                                                },
+                                                {
+                                                  "element": "string",
+                                                  "content": "read:pets"
+                                                }
+                                              ]
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "externalDocs"
+                        },
+                        "value": {
+                          "element": "externalDocumentation",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "description"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "Find more info here"
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "url"
+                                },
+                                "value": {
+                                  "element": "string",
+                                  "content": "https://example.com"
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "messages"
+                        },
+                        "value": {
+                          "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "operation-message"
+                                }
+                              ]
+                            }
+                          },
+                          "content": [
+                            {
+                              "element": "reference",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "json-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "asyncapi-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                },
+                                "referenced-element": {
+                                  "element": "string",
+                                  "content": "operation-message"
+                                }
+                              },
+                              "content": [
+                                {
+                                  "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": {
+                                    "key": {
+                                      "element": "string",
+                                      "content": "$ref"
+                                    },
+                                    "value": {
+                                      "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": "#/components/messages/Message1"
+                                    }
+                                  }
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      }
+                    },
+                    {
+                      "element": "member",
+                      "meta": {
+                        "classes": {
+                          "element": "array",
+                          "content": [
+                            {
+                              "element": "string",
+                              "content": "fixed-field"
+                            }
+                          ]
+                        }
+                      },
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "reply"
+                        },
+                        "value": {
+                          "element": "operationReply",
+                          "content": [
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "address"
+                                },
+                                "value": {
+                                  "element": "operationReplyAddress",
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "description"
+                                        },
+                                        "value": {
+                                          "element": "string",
+                                          "content": "Reply address description"
+                                        }
+                                      }
+                                    },
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "location"
+                                        },
+                                        "value": {
+                                          "element": "string",
+                                          "content": "http://example.com/reply"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "channel"
+                                },
+                                "value": {
+                                  "element": "reference",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "asyncapi-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "reference-element"
+                                        }
+                                      ]
+                                    },
+                                    "referenced-element": {
+                                      "element": "string",
+                                      "content": "channel"
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
+                                      "content": {
+                                        "key": {
+                                          "element": "string",
+                                          "content": "$ref"
+                                        },
+                                        "value": {
+                                          "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": "#/components/channels/channel1"
+                                        }
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            },
+                            {
+                              "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "messages"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-reply-message"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "reference",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "json-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "asyncapi-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "reference-element"
+                                            }
+                                          ]
+                                        },
+                                        "referenced-element": {
+                                          "element": "string",
+                                          "content": "operation-reply-messages"
+                                        }
+                                      },
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "$ref"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-value"
+                                                    }
+                                                  ]
+                                                }
+                                              },
+                                              "content": "#/components/messages/Message1"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
+                            }
+                          ]
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
         }
       }
     }

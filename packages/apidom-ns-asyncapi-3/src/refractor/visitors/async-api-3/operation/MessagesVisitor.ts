@@ -30,7 +30,7 @@ class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
       const element = this.toRefractedElement(specPath, item);
 
       if (isReferenceElement(element)) {
-        element.setMetaProperty('referenced-element', 'operation-messages');
+        element.setMetaProperty('referenced-element', 'operation-message');
       }
 
       this.element.push(element);

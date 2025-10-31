@@ -189,7 +189,7 @@ exports[`refractor elements ComponentsElement should refract to semantic ApiDOM 
             (StringElement))))))
   (MemberElement
     (StringElement)
-    (ArrayElement
+    (ObjectElement
       (MemberElement
         (StringElement)
         (OperationElement))

@@ -35,6 +35,7 @@ import OperationBindingsVisitor_ from './visitors/async-api-3/operation/Bindings
 import OperationTraitsVisitor from './visitors/async-api-3/operation/TraitsVisitor.ts';
 import OperationSecurityVisitor from './visitors/async-api-3/operation/SecurityVisitor.ts';
 import OperationReplyVisitor_ from './visitors/async-api-3/operation/ReplyVisitor.ts';
+import OperationChannelVisitor from './visitors/async-api-3/operation/ChannelVisitor.ts';
 import SchemaVisitor from './visitors/async-api-3/schema/index.ts';
 import ReferenceVisitor from './visitors/async-api-3/reference/index.ts';
 import ContactVisitor from './visitors/async-api-3/contact/index.ts';
@@ -323,7 +324,7 @@ const specification = {
           $visitor: OperationVisitor,
           fixedFields: {
             action: { $ref: '#/visitors/value' },
-            channel: { $ref: '#/visitors/document/objects/Reference' },
+            channel: OperationChannelVisitor,
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
@@ -354,7 +355,7 @@ const specification = {
           $visitor: OperationReplyVisitor,
           fixedFields: {
             address: OperationReplyAddressVisitor_,
-            channel: { $ref: '#/visitors/document/objects/Reference' },
+            channel: OperationChannelVisitor,
             messages: OperationReplyMessagesVisitor
           },
         },

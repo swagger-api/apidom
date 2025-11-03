@@ -6,7 +6,28 @@ export { default } from './namespace.ts';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
-export { isAsyncApiVersionElement } from './predicates.ts';
+export {
+  isAsyncApi3Element,
+  isAsyncApiVersionElement,
+  isChannelBindingsElement,
+  isChannelElement,
+  isChannelsElement,
+  isComponentsElement,
+  isContactElement,
+  isIdentifierElement,
+  isInfoElement,
+  isLicenseElement,
+  isMultiFormatSchemaElement,
+  isOperationElement,
+  isParameterElement,
+  isParametersElement,
+  isReferenceElement,
+  isSchemaElement,
+  isServerElement,
+  isServerBindingsElement,
+  isServersElement,
+  isServerVariableElement,
+} from './predicates.ts';
 
 export {
   /**

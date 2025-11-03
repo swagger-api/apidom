@@ -1,5 +1,6 @@
-import { createPredicate, isElement } from '@swagger-api/apidom-core';
+import { createPredicate } from '@swagger-api/apidom-core';
 
+import AsyncApi3Element from './elements/AsyncApi3.ts';
 import AsyncApiVersionElement from './elements/AsyncApiVersion.ts';
 import MultiFormatSchemaElement from './elements/MultiFormatSchema.ts';
 import ChannelBindingsElement from './elements/ChannelBindings.ts';
@@ -23,8 +24,16 @@ import ServerVariableElement from './elements/ServerVariable.ts';
 /**
  * @public
  */
-export const isAsyncApi3Element = (node: unknown) =>
-  isElement(node) && node.element === 'asyncApi3';
+export const isAsyncApi3Element = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
+    return (element: unknown): element is AsyncApi3Element =>
+      element instanceof AsyncApi3Element ||
+      (hasBasicElementProps(element) &&
+        isElementType('asyncApi3', element) &&
+        primitiveEq('object', element) &&
+        hasClass('api', element));
+  },
+);
 
 /**
  * @public

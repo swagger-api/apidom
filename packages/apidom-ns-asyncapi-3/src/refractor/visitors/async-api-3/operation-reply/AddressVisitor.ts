@@ -6,8 +6,8 @@ import AlternatingVisitor, {
   AlternatingVisitorOptions,
 } from '../../generics/AlternatingVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
-
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public

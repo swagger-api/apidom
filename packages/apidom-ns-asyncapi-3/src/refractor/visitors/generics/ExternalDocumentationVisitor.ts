@@ -1,12 +1,11 @@
 import { Mixin } from 'ts-mixer';
-import { ObjectElement, BREAK } from '@swagger-api/apidom-core';
-import ExternalDocumentationElement from '../../../elements/ExternalDocumentation.ts';
-import ReferenceElement from '../../../elements/Reference.ts';
-import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
-import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import AlternatingVisitor from './AlternatingVisitor.ts';
 import { T as stubTrue } from 'ramda';
+import { isReferenceLikeElement } from '../../predicates.ts';
 
 export interface ExternalDocumentationVisitorOptions
   extends SpecificationVisitorOptions,

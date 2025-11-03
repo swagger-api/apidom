@@ -23,6 +23,7 @@ class ServersVisitor extends BaseServersVisitor {
   constructor(options: ServersVisitorOptions) {
     super(options);
     this.element = new ServersElement();
+    this.element.classes.push('servers');
   }
 }
 

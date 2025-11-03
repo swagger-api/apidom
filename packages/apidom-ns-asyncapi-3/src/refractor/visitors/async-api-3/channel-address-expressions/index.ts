@@ -8,7 +8,7 @@ import PatternedFieldsVisitor, {
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import MessageElement from '../../../../elements/Message.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
-import { isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public

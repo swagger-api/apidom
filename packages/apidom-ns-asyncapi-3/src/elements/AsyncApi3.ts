@@ -10,7 +10,6 @@ class AsyncApi3 extends AsyncApi2Element {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'asyncApi3';
-    this.classes.push('api');
   }
   
   get tags(): TagsElement | undefined {

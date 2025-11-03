@@ -51,7 +51,7 @@ import OperationsElement from '../../elements/Operations.ts';
 import TagElement from '../../elements/Tag.ts';
 import MessageExampleElement from '../../elements/MessageExample.ts';
 import ReferenceElement from '../../elements/Reference.ts';
-
+import MultiFormatSchemaElement from '../../elements/MultiFormatSchema.ts';
 // binding elements
 import AmqpChannelBindingElement from '../../elements/bindings/amqp/AmqpChannelBinding.ts';
 import AmqpMessageBindingElement from '../../elements/bindings/amqp/AmqpMessageBinding.ts';
@@ -159,7 +159,6 @@ import {
   ComponentsServersElement,
   MessageTraitExamplesElement,
   OperationMessageMapElement,
-  SecurityRequirementElement,
   ServerSecurityElement,
   ServerVariablesElement
 } from '@swagger-api/apidom-ns-asyncapi-2';
@@ -656,18 +655,7 @@ const schema: Record<string, any> = {
       return new MessageTraitsElement(...args);
     },
     payload(...args: any[]) {
-      const { context: messageElement } = this as { context: MessageElement };
-      const schemaFormat = defaultTo(mediaTypes.latest(), toValue(messageElement.get('schemaFormat')));
-      const multiFormatSchema = defaultTo(mediaTypes.latest(), toValue(messageElement.get('multiFormatSchema')));
-      if (mediaTypes.includes(schemaFormat)) {
-        return new SchemaElement(...args);
-      }
-
-      if (mediaTypes.includes(multiFormatSchema)) {
-        return new SchemaElement(...args);
-      }
-
-      return new ObjectElement(...args);
+      return new SchemaElement(...args);
     },
   },
 
@@ -764,6 +752,22 @@ const schema: Record<string, any> = {
     },
     tags(...args: any[]) {
       return new TagsElement(...args);
+    },
+  },
+
+  MultiFormatSchemaElement: {
+    schema(...args: any[]) {
+      const { context: multiFormatSchemaElement } = this as { context: MultiFormatSchemaElement };
+      const schemaFormat = defaultTo(
+        mediaTypes.latest(),
+        toValue(multiFormatSchemaElement.schemaFormat),
+      );
+
+      if (mediaTypes.includes(schemaFormat)) {
+        return new SchemaElement(...args);
+      }
+
+      return new ObjectElement(...args);
     },
   },
 
@@ -1088,7 +1092,7 @@ const schema: Record<string, any> = {
 
   [ServerSecurityElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new SecurityRequirementElement(...args);
+      return new SecuritySchemeElement(...args);
     },
   },
 
@@ -1100,7 +1104,7 @@ const schema: Record<string, any> = {
 
   [OperationSecurityElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new SecurityRequirementElement(...args);
+      return new SecuritySchemeElement(...args);
     },
   },
 
@@ -1142,7 +1146,7 @@ const schema: Record<string, any> = {
 
   [ChannelServersElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new StringElement(...args);
+      return new ReferenceElement(...args);
     },
   },
 

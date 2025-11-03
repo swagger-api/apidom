@@ -4,6 +4,8 @@ export type { Format } from './media-types.ts';
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
 
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
+
 export { isAsyncApiVersionElement } from './predicates.ts';
 
 export {

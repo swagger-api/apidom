@@ -48,7 +48,6 @@ export const keyMap = {
   ParametersElement: ['content'],
   ReferenceElement: ['content'],
   SchemaElement: ['content'],
-  SecurityRequirementElement: ['content'],
   SecuritySchemeElement: ['content'],
   ServerElement: ['content'],
   ServerBindingsElement: ['content'],

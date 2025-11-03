@@ -23,14 +23,16 @@ describe('given empty value instead of SecuritySchemeElement', function () {
   });
 });
 
-describe('given empty values instead of OperationTraitElement', function () {
+describe('given empty values instead of MessageTraitElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
           asyncapi: 3.0.0
           channels:
             "user/subscribe":
-              traits:
-                -
+              messages:
+                userSubscribed:
+                  traits:
+                    -
         `;
     const apiDOM = await parse(yamlDefinition);
     const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
@@ -47,10 +49,9 @@ describe('given empty values instead of ReferenceElement', function () {
           asyncapi: 3.0.0
           channels:
             "user/subscribe":
-              subscribe:
-                messages:
-                  -
-                  -
+              servers:
+                -
+                -
         `;
     const apiDOM = await parse(yamlDefinition);
     const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
@@ -67,11 +68,12 @@ describe('given empty values instead of TagElement', function () {
           asyncapi: 3.0.0
           channels:
             "user/subscribe":
-              traits:
-                -
-                  tags:
-                    -
-                    -
+              messages:
+                userSubscribed:
+                  traits:
+                    - 
+                      tags:
+                        -
         `;
     const apiDOM = await parse(yamlDefinition);
     const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
@@ -90,7 +92,6 @@ describe('given empty values instead of SchemaElement for allOf keyword', functi
             schemas:
               Schema1:
                 allOf:
-                 -
                  -
         `;
     const apiDOM = await parse(yamlDefinition);

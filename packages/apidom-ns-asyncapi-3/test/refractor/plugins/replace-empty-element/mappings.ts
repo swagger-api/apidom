@@ -76,6 +76,24 @@ describe('given empty value instead of Message.payload.schema with unsupported s
   });
 });
 
+describe('given empty value instead of Message.payload with unspecified schema format', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 3.0.0
+          components:
+            messages:
+                userSignUp:
+                  payload:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
 describe('given empty value instead for AsyncAPI.components.schemas', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`

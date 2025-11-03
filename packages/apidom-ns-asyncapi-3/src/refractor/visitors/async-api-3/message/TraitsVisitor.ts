@@ -4,7 +4,7 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import MessageTraitsElement from '../../../../elements/nces/MessageTraits.ts';
-import { isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public

@@ -1,10 +1,11 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { isReferenceElement, isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import ChannelsElement from '../../../../elements/Channels.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import ChannelsElement from '../../../../elements/Channels.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public
@@ -21,6 +22,8 @@ class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
     ['document', 'objects', 'Reference'] | ['document', 'objects', 'Channel']
   >;
 
+  declare protected readonly canSupportSpecificationExtensions: false;
+
   constructor(options: ChannelsVisitorOptions) {
     super(options);
     this.element = new ChannelsElement();
@@ -28,6 +31,7 @@ class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
       isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Channel'];
+    this.canSupportSpecificationExtensions = false;
   }
 
   ObjectElement(objectElement: ObjectElement) {

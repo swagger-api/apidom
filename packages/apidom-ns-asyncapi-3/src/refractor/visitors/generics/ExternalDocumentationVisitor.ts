@@ -11,6 +11,9 @@ export interface ExternalDocumentationVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ExternalDocumentationVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
  constructor(options: ExternalDocumentationVisitorOptions) {
     super(options);

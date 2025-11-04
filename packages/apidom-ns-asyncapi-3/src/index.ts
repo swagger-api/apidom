@@ -147,4 +147,4 @@ export {
   WebSocketMessageBindingElement,
   WebSocketOperationBindingElement,
   WebSocketServerBindingElement,
-} from './refractor/registration.ts'
+} from './refractor/registration.ts';

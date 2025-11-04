@@ -11,6 +11,9 @@ export const BaseMessageBindingsVisitor: typeof MessageBindingsVisitorType =
 
 export type { MessageBindingsVisitorOptions };
 
+/**
+ * @public
+ */
 class MessageBindingsVisitor extends BaseMessageBindingsVisitor {
   declare public readonly element: MessageBindingsElement;
 

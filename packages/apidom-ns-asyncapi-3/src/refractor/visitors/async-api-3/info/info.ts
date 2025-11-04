@@ -11,6 +11,9 @@ export const BaseInfoVisitor: typeof InfoVisitorType =
 
 export type { InfoVisitorOptions };
 
+/**
+ * @public
+ */
 class InfoVisitor extends BaseInfoVisitor {
   declare public readonly element: InfoElement;
 

@@ -7,6 +7,9 @@ import FixedFieldsVisitor from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor from '../../FallbackVisitor.ts';
 import { always } from 'ramda';
 
+/**
+ * @public
+ */
 class OperationReplyVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   declare public readonly element: OperationReplyElement;
 

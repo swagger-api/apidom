@@ -11,6 +11,9 @@ export const BaseParametersVisitor: typeof ParametersVisitorType =
 
 export type { ParametersVisitorOptions };
 
+/**
+ * @public
+ */
 class ParametersVisitor extends BaseParametersVisitor {
   declare public readonly element: ParametersElement;
 

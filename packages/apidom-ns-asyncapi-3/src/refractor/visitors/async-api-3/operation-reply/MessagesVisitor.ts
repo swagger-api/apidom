@@ -11,6 +11,9 @@ import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
  */
 export interface MessagesVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   declare public readonly element: OperationReplyMessagesElement;
 

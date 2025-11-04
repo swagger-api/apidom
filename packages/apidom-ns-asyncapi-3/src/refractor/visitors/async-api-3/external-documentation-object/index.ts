@@ -11,6 +11,9 @@ export const BaseExternalDocumentationVisitor: typeof ExternalDocumentationVisit
 
 export type { ExternalDocumentationVisitorOptions };
 
+/**
+ * @public
+ */
 class ExternalDocumentationVisitor extends BaseExternalDocumentationVisitor {
 	declare public readonly element: ExternalDocumentationElement;
 

@@ -2,6 +2,9 @@ import { Attributes, Meta } from '@swagger-api/apidom-core';
 import { SecuritySchemeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import type { ArrayElement } from '@swagger-api/apidom-core';
 
+/**
+ * @public
+ */
 class SecurityScheme extends SecuritySchemeElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

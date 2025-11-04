@@ -11,6 +11,9 @@ export const BaseOperationTraitVisitor: typeof OperationTraitVisitorType =
 
 export type { OperationTraitVisitorOptions };
 
+/**
+ * @public
+ */
 class OperationTraitVisitor extends BaseOperationTraitVisitor {
   declare public readonly element: OperationTraitElement;
 

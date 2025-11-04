@@ -11,6 +11,9 @@ export const BaseMessageTraitVisitor: typeof MessageTraitVisitorType =
 
 export type { MessageTraitVisitorOptions };
 
+/**
+ * @public
+ */
 class MessageTraitVisitor extends BaseMessageTraitVisitor {
   declare public readonly element: MessageTraitElement;
 

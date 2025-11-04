@@ -11,6 +11,9 @@ export const BaseSecuritySchemeVisitor: typeof SecuritySchemeVisitorType =
 
 export type { SecuritySchemeVisitorOptions };
 
+/**
+ * @public
+ */
 class SecuritySchemeVisitor extends BaseSecuritySchemeVisitor {
   declare public readonly element: SecuritySchemeElement;
 

@@ -1,8 +1,11 @@
-import { ObjectElement, Attributes, Meta, StringElement } from '@swagger-api/apidom-core';
+import { Attributes, Meta } from '@swagger-api/apidom-core';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
 import { TagElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
+/**
+ * @public
+ */
 class Tag extends TagElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);

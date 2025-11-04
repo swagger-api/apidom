@@ -5,6 +5,7 @@ import {
   isAsyncApi3Element,
   isAsyncApiVersionElement,
   isChannelElement,
+  isChannelBindingsElement,
   isChannelsElement,
   isComponentsElement,
   isContactElement,
@@ -12,25 +13,32 @@ import {
   isInfoElement,
   isLicenseElement,
   isMultiFormatSchemaElement,
+  isOperationElement,
   isParameterElement,
+  isParametersElement,
   isReferenceElement,
   isSchemaElement,
   isServerElement,
+  isServerBindingsElement,
   isServersElement,
   isServerVariableElement,
   AsyncApi3Element,
   AsyncApiVersionElement,
   ChannelElement,
+  ChannelBindingsElement,
   ChannelsElement,
   ComponentsElement,
   ContactElement,
   IdentifierElement,
   InfoElement,
   LicenseElement,
+  OperationElement,
   ParameterElement,
+  ParametersElement,
   ReferenceElement,
   SchemaElement,
   ServerElement,
+  ServerBindingsElement,
   ServersElement,
   ServerVariableElement,
   MultiFormatSchemaElement,
@@ -820,7 +828,7 @@ describe('predicates', function () {
         },
       };
 
-      const parameterItemElementSwan = {
+      const parameterElementSwan = {
         _storedElement: undefined,
         _content: undefined,
         primitive() {
@@ -829,7 +837,60 @@ describe('predicates', function () {
       };
 
       assert.isTrue(isParameterElement(parameterElementDuck));
-      assert.isFalse(isParameterElement(parameterItemElementSwan));
+      assert.isFalse(isParameterElement(parameterElementSwan));
+    });
+  });
+
+  context('isParametersElement', function () {
+    context('given ParametersElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ParametersElement();
+
+        assert.isTrue(isParametersElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ParametersSubElement extends ParametersElement {}
+
+        assert.isTrue(isParametersElement(new ParametersSubElement()));
+      });
+    });
+
+    context('given non ParametersElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isParametersElement(1));
+        assert.isFalse(isParametersElement(null));
+        assert.isFalse(isParametersElement(undefined));
+        assert.isFalse(isParametersElement({}));
+        assert.isFalse(isParametersElement([]));
+        assert.isFalse(isParametersElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const parametersElementDuck = {
+        _storedElement: 'parameters',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const parametersElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isParametersElement(parametersElementDuck));
+      assert.isFalse(isParametersElement(parametersElementSwan));
     });
   });
 
@@ -883,6 +944,165 @@ describe('predicates', function () {
 
       assert.isTrue(isReferenceElement(referenceElementDuck));
       assert.isFalse(isReferenceElement(referenceElementSwan));
+    });
+  });
+
+  context('isOperationElement', function () {
+    context('given OperationElement instance value', function () {
+      specify('should return true', function () {
+        const element = new OperationElement();
+
+        assert.isTrue(isOperationElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class OperationSubElement extends OperationElement {}
+
+        assert.isTrue(isOperationElement(new OperationSubElement()));
+      });
+    });
+
+    context('given non OperationElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isOperationElement(1));
+        assert.isFalse(isOperationElement(null));
+        assert.isFalse(isOperationElement(undefined));
+        assert.isFalse(isOperationElement({}));
+        assert.isFalse(isOperationElement([]));
+        assert.isFalse(isOperationElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const operationElementDuck = {
+        _storedElement: 'operation',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const operationElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isOperationElement(operationElementDuck));
+      assert.isFalse(isOperationElement(operationElementSwan));
+    });
+  });
+
+  context('isChannelBindingsElement', function () {
+    context('given ChannelBindingsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ChannelBindingsElement();
+
+        assert.isTrue(isChannelBindingsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ChannelBindingsSubElement extends ChannelBindingsElement {}
+
+        assert.isTrue(isChannelBindingsElement(new ChannelBindingsSubElement()));
+      });
+    });
+
+    context('given non ChannelBindingsElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isChannelBindingsElement(1));
+        assert.isFalse(isChannelBindingsElement(null));
+        assert.isFalse(isChannelBindingsElement(undefined));
+        assert.isFalse(isChannelBindingsElement({}));
+        assert.isFalse(isChannelBindingsElement([]));
+        assert.isFalse(isChannelBindingsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const channelBindingsElementDuck = {
+        _storedElement: 'channelBindings',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const channelBindingsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isChannelBindingsElement(channelBindingsElementDuck));
+      assert.isFalse(isChannelBindingsElement(channelBindingsElementSwan));
+    });
+  });
+
+  context('isServerBindingsElement', function () {
+    context('given ServerBindingsElement instance value', function () {
+      specify('should return true', function () {
+        const element = new ServerBindingsElement();
+
+        assert.isTrue(isServerBindingsElement(element));
+      });
+    });
+
+    context('given subtype instance value', function () {
+      specify('should return true', function () {
+        class ServerBindingsSubElement extends ServerBindingsElement {}
+
+        assert.isTrue(isServerBindingsElement(new ServerBindingsSubElement()));
+      });
+    });
+
+    context('given non ServerBindingsElement instance value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isServerBindingsElement(1));
+        assert.isFalse(isServerBindingsElement(null));
+        assert.isFalse(isServerBindingsElement(undefined));
+        assert.isFalse(isServerBindingsElement({}));
+        assert.isFalse(isServerBindingsElement([]));
+        assert.isFalse(isServerBindingsElement('string'));
+      });
+    });
+
+    specify('should support duck-typing', function () {
+      const serverBindingsElementDuck = {
+        _storedElement: 'serverBindings',
+        _content: [],
+        primitive() {
+          return 'object';
+        },
+        get element() {
+          return this._storedElement;
+        },
+      };
+
+      const serverBindingsElementSwan = {
+        _storedElement: undefined,
+        _content: undefined,
+        primitive() {
+          return 'swan';
+        },
+      };
+
+      assert.isTrue(isServerBindingsElement(serverBindingsElementDuck));
+      assert.isFalse(isServerBindingsElement(serverBindingsElementSwan));
     });
   });
 });

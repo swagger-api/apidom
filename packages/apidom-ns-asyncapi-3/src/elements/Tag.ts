@@ -1,7 +1,8 @@
 import { Attributes, Meta } from '@swagger-api/apidom-core';
+import { TagElement } from '@swagger-api/apidom-ns-asyncapi-2';
+
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
-import { TagElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public
@@ -16,7 +17,9 @@ class Tag extends TagElement {
     return this.get('externalDocs');
   }
 
-  set externalDocs(externalDocs: ExternalDocumentationElement | ReferenceElement | undefined | any) {
+  set externalDocs(
+    externalDocs: ExternalDocumentationElement | ReferenceElement | undefined | any,
+  ) {
     this.set('externalDocs', externalDocs);
   }
 }

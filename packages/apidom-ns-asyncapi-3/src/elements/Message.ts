@@ -1,10 +1,18 @@
 import { Attributes, Meta, ObjectElement, StringElement } from '@swagger-api/apidom-core';
-import { CorrelationIDElement, ExternalDocumentationElement, MessageBindingsElement, MessageElement, TagsElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import {
+  CorrelationIDElement,
+  ExternalDocumentationElement,
+  MessageBindingsElement,
+  TagsElement,
+} from '@swagger-api/apidom-ns-asyncapi-2';
+
 import MultiformatSchemaElement from './MultiFormatSchema.ts';
 import SchemaElement from './Schema.ts';
 import ReferenceElement from './Reference.ts';
 import MessageExampleElement from './MessageExample.ts';
 import MessageTrait from './MessageTrait.ts';
+
+/* eslint-disable class-methods-use-this */
 
 /**
  * @public
@@ -16,18 +24,18 @@ class Message extends ObjectElement {
   }
 
   get headers(): MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined {
-    return this.get('headers')
+    return this.get('headers');
   }
 
-  set headers(headers: MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined ) {
-    this.set('headers', headers)
+  set headers(headers: MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined) {
+    this.set('headers', headers);
   }
 
-  get payload(): MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined  {
+  get payload(): MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined {
     return this.get('payload');
   }
 
-  set payload(payload: MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined ) {
+  set payload(payload: MultiformatSchemaElement | SchemaElement | ReferenceElement | undefined) {
     this.set('payload', payload);
   }
 
@@ -87,15 +95,14 @@ class Message extends ObjectElement {
     this.set('tags', tags);
   }
 
-  
-  get externalDocs(): ExternalDocumentationElement | ReferenceElement |  undefined {
+  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined {
     return this.get('externalDocs');
   }
 
-  set externalDocs(externalDocs: ExternalDocumentationElement |ReferenceElement | undefined) {
+  set externalDocs(externalDocs: ExternalDocumentationElement | ReferenceElement | undefined) {
     this.set('externalDocs', externalDocs);
   }
-  
+
   get bindings(): MessageBindingsElement | ReferenceElement | undefined {
     return this.get('bindings');
   }

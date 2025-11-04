@@ -1,4 +1,4 @@
-import { OperationBindingsElement } from "@swagger-api/apidom-ns-asyncapi-2";
+import { OperationBindingsElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public

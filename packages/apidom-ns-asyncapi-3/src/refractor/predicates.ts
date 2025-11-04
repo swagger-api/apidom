@@ -1,5 +1,11 @@
 import { startsWith } from 'ramda';
-import { MemberElement, ObjectElement, isObjectElement, isStringElement, toValue } from '@swagger-api/apidom-core';
+import {
+  MemberElement,
+  ObjectElement,
+  isObjectElement,
+  isStringElement,
+  toValue,
+} from '@swagger-api/apidom-core';
 
 export const isReferenceObject = (node: any) => {
   if (!node || typeof node !== 'object') return false;
@@ -40,7 +46,6 @@ export const isMultiFormatSchemaLikeElement = (
 ): element is MultiFormatSchemaLikeElement => {
   return isObjectElement(element) && element.hasKey('schemaFormat');
 };
-
 
 export default {
   isReferenceObject,

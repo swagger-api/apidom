@@ -1,4 +1,4 @@
-import { MessageExampleElement } from "@swagger-api/apidom-ns-asyncapi-2";
+import { MessageExampleElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public

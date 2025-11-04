@@ -1,14 +1,13 @@
 import { Mixin } from 'ts-mixer';
 import { T as stubTrue } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import AlternatingVisitor, {
   AlternatingVisitorOptions,
 } from '../../generics/AlternatingVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import { isReferenceLikeElement } from '../../../predicates.ts';
-
 
 /**
  * @public

@@ -1,4 +1,4 @@
-import { MessageBindingsElement } from "@swagger-api/apidom-ns-asyncapi-2";
+import { MessageBindingsElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public

@@ -1,4 +1,5 @@
 import { createPredicate, isElement } from '@swagger-api/apidom-core';
+
 import MultiFormatSchemaElement from './elements/MultiFormatSchema.ts';
 import AsyncApiVersionElement from './elements/AsyncApiVersion.ts';
 import ChannelBindingsElement from './elements/ChannelBindings.ts';
@@ -15,7 +16,7 @@ import ParameterElement from './elements/Parameter.ts';
 import ReferenceElement from './elements/Reference.ts';
 import SchemaElement from './elements/Schema.ts';
 import ServerElement from './elements/Server.ts';
-import ServersElement from './elements/Server.ts';
+import ServersElement from './elements/Servers.ts';
 import ServerBindingsElement from './elements/ServerBindings.ts';
 import ServerVariableElement from './elements/ServerVariable.ts';
 

@@ -1,15 +1,17 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import OperationReplyMessagesElement from '../../../../elements/nces/OperationReplyMessage.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public
  */
-export interface MessagesVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
+export interface MessagesVisitorOptions
+  extends SpecificationVisitorOptions,
+    FallbackVisitorOptions {}
 
 /**
  * @public

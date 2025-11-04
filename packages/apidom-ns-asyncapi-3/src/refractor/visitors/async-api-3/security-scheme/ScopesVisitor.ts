@@ -8,9 +8,7 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 /**
  * @public
  */
-export interface ScopesVisitorOptions
-  extends SpecificationVisitorOptions,
-    FallbackVisitorOptions {}
+export interface ScopesVisitorOptions extends SpecificationVisitorOptions, FallbackVisitorOptions {}
 
 /**
  * @public

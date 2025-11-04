@@ -12,6 +12,25 @@ import {
   isStringElement,
   toValue,
 } from '@swagger-api/apidom-core';
+import {
+  ComponentsChannelBindingsElement,
+  ComponentsCorrelationIDsElement,
+  ComponentsMessageBindingsElement,
+  ComponentsMessageTraitsElement,
+  ComponentsMessagesElement,
+  ComponentsOperationBindingsElement,
+  ComponentsOperationTraitsElement,
+  ComponentsParametersElement,
+  ComponentsSecuritySchemesElement,
+  ComponentsServerBindingsElement,
+  ComponentsServerVariablesElement,
+  ComponentsServersElement,
+  MessageTraitExamplesElement,
+  OperationMessageMapElement,
+  SecurityRequirementElement,
+  ServerSecurityElement,
+  ServerVariablesElement,
+} from '@swagger-api/apidom-ns-asyncapi-2';
 
 import mediaTypes from '../../media-types.ts';
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion.ts';
@@ -51,7 +70,6 @@ import OperationsElement from '../../elements/Operations.ts';
 import TagElement from '../../elements/Tag.ts';
 import MessageExampleElement from '../../elements/MessageExample.ts';
 import ReferenceElement from '../../elements/Reference.ts';
-
 // binding elements
 import AmqpChannelBindingElement from '../../elements/bindings/amqp/AmqpChannelBinding.ts';
 import AmqpMessageBindingElement from '../../elements/bindings/amqp/AmqpMessageBinding.ts';
@@ -129,7 +147,6 @@ import WebSocketChannelBindingElement from '../../elements/bindings/ws/WebSocket
 import WebSocketMessageBindingElement from '../../elements/bindings/ws/WebSocketMessageBinding.ts';
 import WebSocketOperationBindingElement from '../../elements/bindings/ws/WebSocketOperationBinding.ts';
 import WebSocketServerBindingElement from '../../elements/bindings/ws/WebSocketServerBinding.ts';
-
 // nces / helper collections
 import ComponentsOperationsElement from '../../elements/nces/ComponentsOperations.ts';
 import ChannelServersElement from '../../elements/nces/ChannelServers.ts';
@@ -142,28 +159,7 @@ import OperationSecurityElement from '../../elements/nces/OperationSecurity.ts';
 import OperationTraitsElement from '../../elements/nces/OperationTraits.ts';
 import OperationTraitSecurityElement from '../../elements/nces/OperationTraitSecurity.ts';
 import SecuritySchemeScopesElement from '../../elements/nces/SecuritySchemeScopes.ts';
-
 // borrowed AsyncAPI 2 NCEs
-import {
-  ComponentsChannelBindingsElement,
-  ComponentsCorrelationIDsElement,
-  ComponentsMessageBindingsElement,
-  ComponentsMessageTraitsElement,
-  ComponentsMessagesElement,
-  ComponentsOperationBindingsElement,
-  ComponentsOperationTraitsElement,
-  ComponentsParametersElement,
-  ComponentsSecuritySchemesElement,
-  ComponentsServerBindingsElement,
-  ComponentsServerVariablesElement,
-  ComponentsServersElement,
-  MessageTraitExamplesElement,
-  OperationMessageMapElement,
-  SecurityRequirementElement,
-  ServerSecurityElement,
-  ServerVariablesElement
-} from '@swagger-api/apidom-ns-asyncapi-2';
-
 import { getNodeType } from '../../traversal/visitor.ts';
 /**
  * This plugin targets YAML 1.2 empty nodes. When a mapping value is omitted,
@@ -306,7 +302,7 @@ const schema: Record<string, any> = {
   },
 
   ChannelAddressExpressionsElement: {
-     '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: any[]) {
       return new ChannelAddressExpressionsElement(...args);
     },
   },
@@ -377,7 +373,7 @@ const schema: Record<string, any> = {
     },
   },
 
-   ParametersElement: {
+  ParametersElement: {
     '[key: *]': function key(...args: any[]) {
       return new ParameterElement(...args);
     },
@@ -512,7 +508,6 @@ const schema: Record<string, any> = {
     },
   },
 
-
   OperationBindingsElement: {
     http(...args: any[]) {
       return new HttpOperationBindingElement(...args);
@@ -573,7 +568,7 @@ const schema: Record<string, any> = {
     },
   },
 
-   MessageBindingsElement: {
+  MessageBindingsElement: {
     http(...args: any[]) {
       return new HttpMessageBindingElement(...args);
     },
@@ -657,8 +652,14 @@ const schema: Record<string, any> = {
     },
     payload(...args: any[]) {
       const { context: messageElement } = this as { context: MessageElement };
-      const schemaFormat = defaultTo(mediaTypes.latest(), toValue(messageElement.get('schemaFormat')));
-      const multiFormatSchema = defaultTo(mediaTypes.latest(), toValue(messageElement.get('multiFormatSchema')));
+      const schemaFormat = defaultTo(
+        mediaTypes.latest(),
+        toValue(messageElement.get('schemaFormat')),
+      );
+      const multiFormatSchema = defaultTo(
+        mediaTypes.latest(),
+        toValue(messageElement.get('multiFormatSchema')),
+      );
       if (mediaTypes.includes(schemaFormat)) {
         return new SchemaElement(...args);
       }
@@ -754,7 +755,7 @@ const schema: Record<string, any> = {
       return new ComponentsOperationsElement(...args);
     },
     replies(...args: any[]) {
-       return new OperationReplyElement(...args);
+      return new OperationReplyElement(...args);
     },
     replyAddresses(...args: any[]) {
       return new OperationReplyAddressElement(...args);
@@ -848,14 +849,13 @@ const schema: Record<string, any> = {
     },
   },
 
-
   SecuritySchemeElement: {
     flows(...args: any[]) {
       return new OAuthFlowsElement(...args);
     },
     scopes(...args: any[]) {
       return new ArrayElement(...args);
-    }, 
+    },
   },
 
   OAuthFlowsElement: {

@@ -1,7 +1,7 @@
 import {
   specificationObj as AsyncApi2Specification,
   ReferenceVisitorOptions,
- ReferenceVisitor as ReferenceVisitorType,
+  ReferenceVisitor as ReferenceVisitorType,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ReferenceElement from '../../../../elements/Reference.ts';

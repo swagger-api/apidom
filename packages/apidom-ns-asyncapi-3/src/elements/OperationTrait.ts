@@ -1,14 +1,11 @@
-import {
-  StringElement,
-  Attributes,
-  Meta,
-  ObjectElement,
-} from '@swagger-api/apidom-core';
+import { StringElement, Attributes, Meta, ObjectElement } from '@swagger-api/apidom-core';
+import { OperationTraitElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
-import { OperationTraitElement } from '@swagger-api/apidom-ns-asyncapi-2';
-import { UnsupportedOperationError } from '@swagger-api/apidom-error';
+
+/* eslint-disable class-methods-use-this */
 
 /**
  * @public
@@ -19,17 +16,17 @@ class OperationTrait extends OperationTraitElement {
     this.element = 'operationTrait';
   }
 
-get operationId(): ObjectElement | undefined {
-  throw new UnsupportedOperationError(
-    'operationId keyword from Core vocabulary has been removed',
-  );
-}
+  get operationId(): ObjectElement | undefined {
+    throw new UnsupportedOperationError(
+      'operationId keyword from Core vocabulary has been removed',
+    );
+  }
 
-set operationId(operationId: ObjectElement | undefined) {
-  throw new UnsupportedOperationError(
-    'operationId keyword from Core vocabulary has been removed',
-  );
-}
+  set operationId(operationId: ObjectElement | undefined) {
+    throw new UnsupportedOperationError(
+      'operationId keyword from Core vocabulary has been removed',
+    );
+  }
 
   get title(): StringElement | undefined {
     return this.get('title');
@@ -39,11 +36,13 @@ set operationId(operationId: ObjectElement | undefined) {
     this.set('title', title);
   }
 
-  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined | any{
+  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined | any {
     return this.get('externalDocs');
   }
 
-  set externalDocs(externalDocs: ExternalDocumentationElement | ReferenceElement | undefined | any) {
+  set externalDocs(
+    externalDocs: ExternalDocumentationElement | ReferenceElement | undefined | any,
+  ) {
     this.set('externalDocs', externalDocs);
   }
 }

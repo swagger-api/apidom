@@ -18,7 +18,6 @@ class SecurityScheme extends SecuritySchemeElement {
   set scopes(scopes: ArrayElement | undefined) {
     this.set('scopes', scopes);
   }
-   
 }
 
 export default SecurityScheme;

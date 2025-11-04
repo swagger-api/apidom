@@ -1,7 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import {
-  ObjectElement,
-} from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 import { always } from 'ramda';
 
 import ChannelElement from '../../../../elements/Channel.ts';
@@ -17,7 +15,7 @@ class ChannelVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   constructor(options: any) {
     super(options);
     this.element = new ChannelElement();
-    this.specPath = always(['document','objects','Channel']); 
+    this.specPath = always(['document', 'objects', 'Channel']);
     this.canSupportSpecificationExtensions = true;
   }
 

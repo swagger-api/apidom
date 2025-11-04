@@ -24,7 +24,7 @@ class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
     this.element = new OperationSecurityElement();
   }
 
-   ArrayElement(arrayElement: ArrayElement) {
+  ArrayElement(arrayElement: ArrayElement) {
     arrayElement.forEach((item: Element) => {
       let element;
 

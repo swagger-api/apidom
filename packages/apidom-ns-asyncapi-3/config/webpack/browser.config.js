@@ -1,4 +1,5 @@
 import path from 'node:path';
+
 import { nonMinimizeTrait, minimizeTrait } from './traits.config.js';
 
 const browser = {

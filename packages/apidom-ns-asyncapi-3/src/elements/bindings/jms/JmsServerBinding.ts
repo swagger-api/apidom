@@ -1,7 +1,7 @@
 import { JmsServerBindingElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
- * @public 
+ * @public
  */
 class JmsServerBinding extends JmsServerBindingElement {}
 

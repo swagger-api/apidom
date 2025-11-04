@@ -36,7 +36,7 @@ import MessageTraitVisitor from './visitors/async-api-3/message-trait/index.ts';
 import MessageTraitsVisitor from './visitors/async-api-3/message/TraitsVisitor.ts';
 import MessageVisitor from './visitors/async-api-3/message/index.ts';
 import MessagesVisitor from './visitors/async-api-3/messages/index.ts';
-import MultiFormatSchemaVisitor from './visitors/async-api-3/multiFormatSchema/index.ts'
+import MultiFormatSchemaVisitor from './visitors/async-api-3/multiFormatSchema/index.ts';
 import OAuthFlowVisitor from './visitors/async-api-3/oauth-flow/index.ts';
 import OAuthFlowsVisitor from './visitors/async-api-3/oauth-flows/index.ts';
 import OperationBindingsVisitor from './visitors/async-api-3/operation-bindings/index.ts';
@@ -48,7 +48,7 @@ import OperationReplyAddressVisitor from './visitors/async-api-3/operation-reply
 import OperationReplyAddressVisitor_ from './visitors/async-api-3/operation-reply/AddressVisitor.ts';
 import OperationReplyMessagesVisitor from './visitors/async-api-3/operation-reply/MessagesVisitor.ts';
 import OperationReplyVisitor from './visitors/async-api-3/operation-reply/index.ts';
-import OperationSecurityVisitor  from './visitors/async-api-3/operation/SecurityVisitor.ts';
+import OperationSecurityVisitor from './visitors/async-api-3/operation/SecurityVisitor.ts';
 import OperationTraitVisitor from './visitors/async-api-3/operation-trait/index.ts';
 import OperationTraitsVisitor from './visitors/async-api-3/operation/TraitsVisitor.ts';
 import OperationVisitor from './visitors/async-api-3/operation/index.ts';
@@ -65,8 +65,7 @@ import ServerVisitor from './visitors/async-api-3/server/index.ts';
 import ServersVisitor from './visitors/async-api-3/servers/index.ts';
 import TagVisitor from './visitors/async-api-3/tag/index.ts';
 import TagsVisitor from './visitors/async-api-3/tags/index.ts';
-import { default as schemaInheritedFixedFields } from './visitors/async-api-3/schema/inherited-fixed-fields.ts'
-
+import schemaInheritedFixedFields from './visitors/async-api-3/schema/inherited-fixed-fields.ts';
 /**
  * Binding elements.
  */
@@ -180,14 +179,17 @@ const SchemaSpecification = {
     items: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.items,
     // validation Keywords for Objects
     properties: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.properties,
-    patternProperties: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.patternProperties,
-    dependencies: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.dependencies,
+    patternProperties:
+      AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.patternProperties,
+    dependencies:
+      AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.dependencies,
     // validation Vocabulary for Schema Re-Use With "definitions"
     definitions: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.definitions,
     // AsyncAPI vocabulary
-    discriminator:AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.discriminator,
+    discriminator:
+      AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.discriminator,
     externalDocs: ExternalDocumentationVisitor,
-    deprecated: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.deprecated
+    deprecated: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.deprecated,
   },
 };
 
@@ -223,10 +225,12 @@ const specification = {
         Info: {
           $visitor: InfoVisitor,
           fixedFields: {
-            title:  AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.title,
+            title: AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.title,
             version: AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.version,
-            description:  AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.description,
-            termsOfService:  AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.termsOfService,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.description,
+            termsOfService:
+              AsyncApi2_0Specification.visitors.document.objects.Info.fixedFields.termsOfService,
             contact: { $ref: '#/visitors/document/objects/Contact' },
             license: { $ref: '#/visitors/document/objects/License' },
             tags: {
@@ -238,16 +242,16 @@ const specification = {
         Contact: {
           $visitor: ContactVisitor,
           fixedFields: {
-            name:  AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.name,
-            url:  AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.url,
-            email:  AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.email
+            name: AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.name,
+            url: AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.url,
+            email: AsyncApi2_0Specification.visitors.document.objects.Contact.fixedFields.email,
           },
         },
         License: {
           $visitor: LicenseVisitor,
           fixedFields: {
             name: AsyncApi2_0Specification.visitors.document.objects.License.fixedFields.name,
-            url: AsyncApi2_0Specification.visitors.document.objects.License.fixedFields.url
+            url: AsyncApi2_0Specification.visitors.document.objects.License.fixedFields.url,
           },
         },
         Servers: {
@@ -257,28 +261,40 @@ const specification = {
           $visitor: ServerVisitor,
           fixedFields: {
             host: { $ref: '#/visitors/value' },
-            protocol: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.protocol,
-            protocolVersion: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.protocolVersion,
+            protocol:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.protocol,
+            protocolVersion:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.protocolVersion,
             pathname: { $ref: '#/visitors/value' },
-            description: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.description,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.description,
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
-            variables:  AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.variables,
-            security: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.security,
+            variables:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.variables,
+            security:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.security,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
             externalDocs: ExternalDocumentationOrReferenceVisitor,
-            bindings: AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.bindings,
+            bindings:
+              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.bindings,
           },
         },
         ServerVariable: {
           $visitor: ServerVariableVisitor,
           fixedFields: {
-            enum: AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields.enum,
-            default: AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields.default,
-            description: AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields.description,
-            examples: AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields.examples
+            enum: AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields
+              .enum,
+            default:
+              AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields.default,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields
+                .description,
+            examples:
+              AsyncApi2_0Specification.visitors.document.objects.ServerVariable.fixedFields
+                .examples,
           },
         },
         DefaultContentType: {
@@ -303,10 +319,10 @@ const specification = {
           },
         },
         ChannelAddressExpressions: {
-          $visitor: ChannelAddressExpressionsVisitor
+          $visitor: ChannelAddressExpressionsVisitor,
         },
         Messages: {
-          $visitor: MessagesVisitor
+          $visitor: MessagesVisitor,
         },
         Operations: {
           $visitor: OperationsVisitor,
@@ -332,30 +348,37 @@ const specification = {
           $visitors: OperationTraitVisitor,
           fixedFields: {
             title: { $ref: '#/visitors/value' },
-            summary: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.summary,
-            description: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.description,
-            security: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.security,
+            summary:
+              AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.summary,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields
+                .description,
+            security:
+              AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields
+                .security,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
             externalDocs: ExternalDocumentationOrReferenceVisitor,
-            bindings: AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields.bindings,
-          }
+            bindings:
+              AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields
+                .bindings,
+          },
         },
         OperationReply: {
           $visitor: OperationReplyVisitor,
           fixedFields: {
             address: OperationReplyAddressVisitor_,
             channel: OperationChannelVisitor,
-            messages: OperationReplyMessagesVisitor
+            messages: OperationReplyMessagesVisitor,
           },
         },
         OperationReplyAddress: {
           $visitor: OperationReplyAddressVisitor,
           fixedFields: {
             description: { $ref: '#/visitors/value' },
-            location: {$ref: '#/visitors/value' }
-          }
+            location: { $ref: '#/visitors/value' },
+          },
         },
         Parameters: {
           $visitor: ParametersVisitor,
@@ -635,35 +658,51 @@ const specification = {
             externalDocs: ExternalDocumentationVisitor,
             bindings: MessageBindingsVisitor,
             examples: MessageExamplesVisitor,
-            traits: MessageTraitsVisitor
+            traits: MessageTraitsVisitor,
           },
         },
         MessageTrait: {
           $visitor: MessageTraitVisitor,
           fixedFields: {
             headers: MessageTraitHeadersVisitor,
-            correlationId: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.correlationId,
-            schemaFormat: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.schemaFormat,
-            contentType:AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.contentType,
+            correlationId:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields
+                .correlationId,
+            schemaFormat:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields
+                .schemaFormat,
+            contentType:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields
+                .contentType,
             name: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.name,
-            title: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.title,
-            summary: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.summary,
-            description: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.description,
+            title:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.title,
+            summary:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.summary,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields
+                .description,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
             externalDocs: ExternalDocumentationOrReferenceVisitor,
-            bindings: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.bindings,
-            examples: AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.examples,
+            bindings:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.bindings,
+            examples:
+              AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields.examples,
           },
         },
         MessageExample: {
           $visitor: MessageExampleVisitor,
           fixedFields: {
-            headers: AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.headers,
-            payload: AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.payload,
-            name: AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.name,
-            summary: AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.summary
+            headers:
+              AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.headers,
+            payload:
+              AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.payload,
+            name: AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields
+              .name,
+            summary:
+              AsyncApi2_0Specification.visitors.document.objects.MessageExample.fixedFields.summary,
           },
         },
         Tags: {
@@ -680,38 +719,62 @@ const specification = {
         ExternalDocumentation: {
           $visitor: ExternalDocumentationVisitor,
           fixedFields: {
-            description: AsyncApi2_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields.description,
-            url:  AsyncApi2_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields.url
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.ExternalDocumentation.fixedFields
+                .description,
+            url: AsyncApi2_0Specification.visitors.document.objects.ExternalDocumentation
+              .fixedFields.url,
           },
         },
         Reference: {
           $visitor: ReferenceVisitor,
           fixedFields: {
-            $ref: AsyncApi2_0Specification.visitors.document.objects.Reference.fixedFields.$ref
+            $ref: AsyncApi2_0Specification.visitors.document.objects.Reference.fixedFields.$ref,
           },
         },
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {
             schemas: ComponentsSchemasVisitor,
-            servers: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.servers,
+            servers:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.servers,
             channels: ComponentsChannelsVisitor,
-            serverVariables:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.serverVariables,
+            serverVariables:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .serverVariables,
             operations: ComponentsOperationsVisitor,
-            messages: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messages,
-            securitySchemes: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.securitySchemes,
-            parameters: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.parameters,
-            correlationIds:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.correlationIds,
+            messages:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messages,
+            securitySchemes:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .securitySchemes,
+            parameters:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.parameters,
+            correlationIds:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .correlationIds,
             replies: ComponentsRepliesVisitor,
             replyAddresses: ComponentsReplyAddressesVisitor,
             tags: ComponentsTagsVisitor,
             externalDocs: ComponentsExternalDocumentationVisitor,
-            operationTraits: AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.operationTraits,
-            messageTraits:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messageTraits,
-            serverBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.serverBindings,
-            channelBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.channelBindings,
-            operationBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.operationBindings,
-            messageBindings:  AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields.messageBindings
+            operationTraits:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .operationTraits,
+            messageTraits:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .messageTraits,
+            serverBindings:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .serverBindings,
+            channelBindings:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .channelBindings,
+            operationBindings:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .operationBindings,
+            messageBindings:
+              AsyncApi2_0Specification.visitors.document.objects.Components.fixedFields
+                .messageBindings,
           },
         },
         MultiFormatSchema: {
@@ -726,17 +789,26 @@ const specification = {
         SecurityScheme: {
           $visitor: SecuritySchemeVisitor,
           fixedFields: {
-            type: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.type,
-            description: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.description,
-            name: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.name,
+            type: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields
+              .type,
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .description,
+            name: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields
+              .name,
             in: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.in,
-            scheme: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.scheme,
-            bearerFormat: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.bearerFormat,
+            scheme:
+              AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.scheme,
+            bearerFormat:
+              AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .bearerFormat,
             flows: {
               $ref: '#/visitors/document/objects/OAuthFlows',
             },
-            openIdConnectUrl: AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields.openIdConnectUrl,
-            scopes: SecuritySchemeScopesVisitor
+            openIdConnectUrl:
+              AsyncApi2_0Specification.visitors.document.objects.SecurityScheme.fixedFields
+                .openIdConnectUrl,
+            scopes: SecuritySchemeScopesVisitor,
           },
         },
         OAuthFlows: {
@@ -759,17 +831,25 @@ const specification = {
         OAuthFlow: {
           $visitor: OAuthFlowVisitor,
           fixedFields: {
-            authorizationUrl:AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.authorizationUrl,
-            tokenUrl: AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.tokenUrl,
-            refreshUrl: AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.refreshUrl,
-            availableScopes: AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.scopes
+            authorizationUrl:
+              AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields
+                .authorizationUrl,
+            tokenUrl:
+              AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.tokenUrl,
+            refreshUrl:
+              AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.refreshUrl,
+            availableScopes:
+              AsyncApi2_0Specification.visitors.document.objects.OAuthFlow.fixedFields.scopes,
           },
         },
         CorrelationID: {
           $visitor: CorrelationIDVisitor,
           fixedFields: {
-            description: AsyncApi2_0Specification.visitors.document.objects.CorrelationID.fixedFields.description,
-            location: AsyncApi2_0Specification.visitors.document.objects.CorrelationID.fixedFields.location
+            description:
+              AsyncApi2_0Specification.visitors.document.objects.CorrelationID.fixedFields
+                .description,
+            location:
+              AsyncApi2_0Specification.visitors.document.objects.CorrelationID.fixedFields.location,
           },
         },
         bindings: {

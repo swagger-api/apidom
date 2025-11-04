@@ -1,7 +1,7 @@
 import { SnsChannelBindingElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
- * @public 
+ * @public
  */
 class SnsChannelBinding extends SnsChannelBindingElement {}
 

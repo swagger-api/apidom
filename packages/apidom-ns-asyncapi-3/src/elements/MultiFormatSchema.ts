@@ -10,13 +10,13 @@ class MultiFormatSchema extends ObjectElement {
   }
 
   get schemaFormat(): StringElement | undefined {
-    return this.get('schemaForamt')
+    return this.get('schemaForamt');
   }
 
-  set schemaFormat(schemaFormat: StringElement | undefined ) {
-     this.set('schemaFormat', schemaFormat);
+  set schemaFormat(schemaFormat: StringElement | undefined) {
+    this.set('schemaFormat', schemaFormat);
   }
-  
+
   get schema() {
     return this.get('schema');
   }

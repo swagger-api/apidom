@@ -12,7 +12,7 @@ describe('refractor', function () {
           title: 'channel-item-title',
           summary: 'channel-item-summary',
           description: 'channel-item-description',
-          servers: ['server1', 'server2'],
+          servers: [{ $ref: '#/path/to/server1' }, { $ref: '#/path/to/server2' }],
         });
 
         expect(sexprs(channelElement)).toMatchSnapshot();

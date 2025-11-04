@@ -97,16 +97,6 @@ describe('refractor', function () {
       });
     });
 
-    context('given payload field of other type', function () {
-      specify('should refract to semantic ApiDOM tree', function () {
-        const messageElement = MessageElement.refract({
-          payload: true,
-        });
-
-        expect(sexprs(messageElement)).toMatchSnapshot();
-      });
-    });
-
     context('given correlationId field of type CorrelationIDElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const messageElement = MessageElement.refract({

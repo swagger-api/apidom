@@ -4,11 +4,10 @@ import {
   SchemaOrReferenceVisitorOptions,
   SchemaOrReferenceVisitor as SchemaOrReferenceVisitorType,
 } from '@swagger-api/apidom-ns-json-schema-draft-7';
-
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import SchemaElement from '../../../../elements/Schema.ts';
 import JSONReferenceElement from '../../../../elements/Reference.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 export type { SchemaOrReferenceVisitorOptions };
 

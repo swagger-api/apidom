@@ -1,7 +1,7 @@
 import {
   specificationObj as AsyncApi2Specification,
-	OAuthFlowVisitorOptions,
- 	OAuthFlowVisitor as OAuthFlowVisitorType,
+  OAuthFlowVisitorOptions,
+  OAuthFlowVisitor as OAuthFlowVisitorType,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import OAuthFlowElement from '../../../../elements/OauthFlow.ts';

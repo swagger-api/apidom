@@ -1,18 +1,22 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { T as stubTrue } from 'ramda';
+
 import { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import AlternatingVisitor from './AlternatingVisitor.ts';
-import { T as stubTrue } from 'ramda';
 import { isReferenceLikeElement } from '../../predicates.ts';
 
 export interface ExternalDocumentationVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
+/**
+ * @public
+ */
 class ExternalDocumentationVisitor extends Mixin(AlternatingVisitor, FallbackVisitor) {
- constructor(options: ExternalDocumentationVisitorOptions) {
+  constructor(options: ExternalDocumentationVisitorOptions) {
     super(options);
     this.alternator = [
       { predicate: isReferenceLikeElement, specPath: ['document', 'objects', 'Reference'] },

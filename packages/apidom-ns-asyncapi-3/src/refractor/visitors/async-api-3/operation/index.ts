@@ -10,7 +10,9 @@ import FallbackVisitor from '../../FallbackVisitor.ts';
  */
 class OperationVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   declare public element: OperationElement;
+
   declare protected readonly specPath: SpecPath<['document', 'objects', 'Operation']>;
+
   declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: any) {

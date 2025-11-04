@@ -11,6 +11,9 @@ export const BaseCorrelationIDVisitor: typeof CorrelationIDVisitorType =
 
 export type { CorrelationIDVisitorOptions };
 
+/**
+ * @public
+ */
 class CorrelationIDVisitor extends BaseCorrelationIDVisitor {
   declare public readonly element: CorrelationIDElement;
 

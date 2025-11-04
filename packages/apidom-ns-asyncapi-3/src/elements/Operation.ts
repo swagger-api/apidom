@@ -5,6 +5,7 @@ import {
   ObjectElement,
   StringElement,
 } from '@swagger-api/apidom-core';
+
 import ReferenceElement from './Reference.ts';
 import OperationTraitElement from './OperationTrait.ts';
 
@@ -80,7 +81,6 @@ class Operation extends ObjectElement {
   set traits(OperationTrait: OperationTraitElement | undefined) {
     this.set('traits', OperationTrait);
   }
- 
 }
 
 export default Operation;

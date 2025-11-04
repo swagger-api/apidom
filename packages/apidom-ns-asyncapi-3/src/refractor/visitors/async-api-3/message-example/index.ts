@@ -11,6 +11,9 @@ export const BaseMessageExampleVisitor: typeof MessageExampleVisitorType =
 
 export type { MessageExampleVisitorOptions };
 
+/**
+ * @public
+ */
 class MessageExampleVisitor extends BaseMessageExampleVisitor {
   declare public readonly element: MessageExampleElement;
 

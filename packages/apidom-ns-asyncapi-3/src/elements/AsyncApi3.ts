@@ -1,7 +1,14 @@
-import {  Attributes, Meta } from '@swagger-api/apidom-core';
+import { Attributes, Meta } from '@swagger-api/apidom-core';
 import { UnsupportedOperationError } from '@swagger-api/apidom-error';
-import { ExternalDocumentationElement, AsyncApi2Element, TagsElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import {
+  ExternalDocumentationElement,
+  AsyncApi2Element,
+  TagsElement,
+} from '@swagger-api/apidom-ns-asyncapi-2';
+
 import OperationElement from './Operation.ts';
+
+/* eslint-disable class-methods-use-this */
 
 /**
  * @public
@@ -11,7 +18,7 @@ class AsyncApi3 extends AsyncApi2Element {
     super(content, meta, attributes);
     this.element = 'asyncApi3';
   }
-  
+
   get tags(): TagsElement | undefined {
     throw new UnsupportedOperationError(
       'TagsElement keyword from Core vocabulary has been moved to Info.',
@@ -19,11 +26,11 @@ class AsyncApi3 extends AsyncApi2Element {
   }
 
   set tags(tags: TagsElement | undefined) {
-   throw new UnsupportedOperationError(
+    throw new UnsupportedOperationError(
       'TagsElement keyword from Core vocabulary has been moved to Info.',
     );
   }
-  
+
   get externalDocs(): ExternalDocumentationElement | undefined {
     throw new UnsupportedOperationError(
       'ExternalDocsElement keyword from Core vocabulary has been moved to Info.',
@@ -31,7 +38,7 @@ class AsyncApi3 extends AsyncApi2Element {
   }
 
   set externalDocs(externalDocs: ExternalDocumentationElement | undefined) {
-   throw new UnsupportedOperationError(
+    throw new UnsupportedOperationError(
       'ExternalDocsElement keyword from Core vocabulary has been moved to Info.',
     );
   }

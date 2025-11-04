@@ -4,50 +4,49 @@ import { ObjectElement, StringElement, ArrayElement } from '@swagger-api/apidom-
  * @public
  */
 class Parameter extends ObjectElement {
-	constructor(content: any = {}, meta?: any, attributes?: any) {
-		super(content, meta, attributes);
-		this.element = 'parameter';
-	}
+  constructor(content: any = {}, meta?: any, attributes?: any) {
+    super(content, meta, attributes);
+    this.element = 'parameter';
+  }
 
-	get enum(): ArrayElement| undefined {
-		return this.get('enum');
-	}
-	
-	set enum(value: ArrayElement | undefined) {
-		this.set('enum', value);
-	}
+  get enum(): ArrayElement | undefined {
+    return this.get('enum');
+  }
 
-	get default(): StringElement | undefined {
-		return this.get('default');
-	}
+  set enum(value: ArrayElement | undefined) {
+    this.set('enum', value);
+  }
 
-	set default(value: StringElement | undefined) {
-		this.set('default', value);
-	}
+  get default(): StringElement | undefined {
+    return this.get('default');
+  }
 
-	get description(): StringElement | undefined {
-		return this.get('description');
-	}
+  set default(value: StringElement | undefined) {
+    this.set('default', value);
+  }
 
-	set description(value: StringElement | undefined) {
-		this.set('description', value);
-	}
+  get description(): StringElement | undefined {
+    return this.get('description');
+  }
 
-	get examples(): ArrayElement | undefined {
-		return this.get('examples');
-	}
+  set description(value: StringElement | undefined) {
+    this.set('description', value);
+  }
 
-	set examples(value: ArrayElement | undefined) {
-		this.set('examples', value);
-	}
+  get examples(): ArrayElement | undefined {
+    return this.get('examples');
+  }
 
-	get location(): StringElement | undefined {
-		return this.get('location');
-	}
-	
-	set location(value: StringElement | undefined) {
-		this.set('location', value);
-	}
+  set examples(value: ArrayElement | undefined) {
+    this.set('examples', value);
+  }
 
+  get location(): StringElement | undefined {
+    return this.get('location');
+  }
+
+  set location(value: StringElement | undefined) {
+    this.set('location', value);
+  }
 }
- export default Parameter;
+export default Parameter;

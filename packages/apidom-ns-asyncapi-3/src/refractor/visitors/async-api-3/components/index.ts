@@ -11,6 +11,9 @@ export const BaseComponentsVisitor: typeof ComponentsVisitorType =
 
 export type { ComponentsVisitorOptions };
 
+/**
+ * @public
+ */
 class ComponentsVisitor extends BaseComponentsVisitor {
   declare public readonly element: ComponentsElement;
 

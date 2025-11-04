@@ -1,5 +1,6 @@
 import { Attributes, Meta, StringElement } from '@swagger-api/apidom-core';
-import {ChannelsElement } from '@swagger-api/apidom-ns-asyncapi-2';
+import { ChannelsElement } from '@swagger-api/apidom-ns-asyncapi-2';
+
 import ChannelElement from './Channel.ts';
 
 /**
@@ -12,13 +13,13 @@ class Channels extends ChannelsElement {
   }
 
   get channel(): ChannelElement | undefined {
-     return this.get('channel');
-   }
- 
-  set channel(channel: ChannelElement | undefined) {
-     this.set('channel', channel);
+    return this.get('channel');
   }
- 
+
+  set channel(channel: ChannelElement | undefined) {
+    this.set('channel', channel);
+  }
+
   get $ref(): StringElement | undefined {
     return this.get('$ref');
   }

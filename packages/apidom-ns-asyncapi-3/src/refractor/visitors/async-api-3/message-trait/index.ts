@@ -7,10 +7,13 @@ import {
 import MessageTraitElement from '../../../../elements/MessageTrait.ts';
 
 export const BaseMessageTraitVisitor: typeof MessageTraitVisitorType =
-  AsyncApi2Specification.visitors.document.objects. MessageTrait.$visitor;
+  AsyncApi2Specification.visitors.document.objects.MessageTrait.$visitor;
 
 export type { MessageTraitVisitorOptions };
 
+/**
+ * @public
+ */
 class MessageTraitVisitor extends BaseMessageTraitVisitor {
   declare public readonly element: MessageTraitElement;
 

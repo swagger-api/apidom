@@ -11,6 +11,9 @@ export const BaseServerBindingsVisitor: typeof ServerBindingsVisitorType =
 
 export type { ServerBindingsVisitorOptions };
 
+/**
+ * @public
+ */
 class ServerBindingsVisitor extends BaseServerBindingsVisitor {
   declare public readonly element: ServerBindingsElement;
 

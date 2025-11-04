@@ -13,6 +13,9 @@ export const BaseSchemaVisitor: typeof SchemaVisitorType =
 
 export type { SchemaVisitorOptions };
 
+/**
+ * @public
+ */
 class SchemaVisitor extends BaseSchemaVisitor {
   declare public element: SchemaElement;
 

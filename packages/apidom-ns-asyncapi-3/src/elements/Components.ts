@@ -1,6 +1,7 @@
 import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
-import TagsElement from './Tags.ts';
 import { ComponentsElement } from '@swagger-api/apidom-ns-asyncapi-2';
+
+import TagsElement from './Tags.ts';
 
 /**
  * @public
@@ -9,7 +10,7 @@ class Components extends ComponentsElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
     this.element = 'components';
-  } 
+  }
 
   get operations(): ObjectElement | undefined {
     return this.get('operations');

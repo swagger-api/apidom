@@ -1,4 +1,4 @@
-import { ChannelBindingsElement } from "@swagger-api/apidom-ns-asyncapi-2";
+import { ChannelBindingsElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public

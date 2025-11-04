@@ -1,5 +1,6 @@
 import { Attributes, Meta } from '@swagger-api/apidom-core';
 import { InfoElement } from '@swagger-api/apidom-ns-asyncapi-2';
+
 import TagsElement from './Tags.ts';
 import ExternalDocumentationElement from './ExternalDocumentation.ts';
 import ReferenceElement from './Reference.ts';
@@ -21,7 +22,7 @@ class Info extends InfoElement {
     this.set('tags', tags);
   }
 
-  get externalDocs(): ExternalDocumentationElement | ReferenceElement |  undefined {
+  get externalDocs(): ExternalDocumentationElement | ReferenceElement | undefined {
     return this.get('externalDocs');
   }
 

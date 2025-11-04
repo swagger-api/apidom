@@ -11,6 +11,9 @@ export const BaseOperationBindingsVisitor: typeof OperationBindingsVisitorType =
 
 export type { OperationBindingsVisitorOptions };
 
+/**
+ * @public
+ */
 class OperationBindingsVisitor extends BaseOperationBindingsVisitor {
   declare public readonly element: OperationBindingsElement;
 

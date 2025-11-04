@@ -1,10 +1,10 @@
 import { Mixin } from 'ts-mixer';
-import { ArrayElement, Element, isStringElement, BREAK, cloneDeep } from '@swagger-api/apidom-core';
+import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
+import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import ChannelServersElement from '../../../../elements/nces/ChannelServers.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 /**
  * @public

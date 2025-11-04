@@ -7,7 +7,6 @@ import FixedFieldsVisitor, {
   FixedFieldsVisitorOptions,
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
-import { isStringElement, ObjectElement } from '@swagger-api/apidom-core';
 
 /**
  * @public
@@ -20,14 +19,14 @@ export interface TagVisitorOptions extends FixedFieldsVisitorOptions, FallbackVi
 class TagVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
   declare public readonly element: TagElement;
 
-  declare protected readonly specPath: SpecPath<['document','objects','Tag']>;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'Tag']>;
 
   declare protected readonly canSupportSpecificationExtensions: true;
 
   constructor(options: TagVisitorOptions) {
     super(options);
     this.element = new TagElement();
-    this.specPath = always(['document','objects', 'Tag']); 
+    this.specPath = always(['document', 'objects', 'Tag']);
     this.canSupportSpecificationExtensions = true;
   }
 }

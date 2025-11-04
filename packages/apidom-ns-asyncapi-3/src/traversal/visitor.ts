@@ -26,7 +26,7 @@ export const keyMap = {
   ComponentsElement: ['content'],
   ContactElement: ['content'],
   CorrelationIDElement: ['content'],
-  DefaultContentType: [],
+  DefaultContentTypeElement: [],
   ExternalDocumentationElement: ['content'],
   InfoElement: ['content'],
   LicenseElement: ['content'],

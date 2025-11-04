@@ -1,10 +1,10 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import ChannelsElement from '../../../../elements/Channels.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**

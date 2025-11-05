@@ -1,4 +1,3 @@
-import { range } from 'ramda';
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
@@ -11,11 +10,7 @@ const requiredFields3_0__3_1Lint: LinterMeta = {
   source: 'apilint',
   message: 'Responses Object should define at least one response',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'existAnyOfFields',
-  linterParams: [
-    ['default', '1XX', '2XX', '3XX', '4XX', '5XX', ...range(100, 600).map(String)],
-    false,
-  ],
+  linterFunction: 'apilintOpenAPIEmptyResponses',
   marker: 'key',
   targetSpecs: OpenAPI3,
 };

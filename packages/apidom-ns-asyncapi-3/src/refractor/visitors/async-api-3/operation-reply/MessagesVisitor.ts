@@ -2,7 +2,7 @@ import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 import { isReferenceElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import OperationReplyMessagesElement from '../../../../elements/nces/OperationReplyMessage.ts';
+import OperationReplyMessagesElement from '../../../../elements/nces/OperationReplyMessages.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 
@@ -30,7 +30,7 @@ class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
       const element = this.toRefractedElement(specPath, item);
 
       if (isReferenceElement(element)) {
-        element.setMetaProperty('referenced-element', 'operation-reply-messages');
+        element.setMetaProperty('referenced-element', 'operation-reply-message');
       }
 
       this.element.push(element);

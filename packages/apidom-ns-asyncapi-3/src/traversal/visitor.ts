@@ -22,7 +22,6 @@ export const keyMap = {
   ChannelBindingsElement: ['content'],
   ChannelElement: ['content'],
   ChannelsElement: ['content'],
-  ChannelAddressExpressionsElement: ['content'],
   ComponentsElement: ['content'],
   ContactElement: ['content'],
   CorrelationIDElement: ['content'],

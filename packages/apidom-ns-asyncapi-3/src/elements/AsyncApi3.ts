@@ -6,7 +6,7 @@ import {
   TagsElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import OperationElement from './Operation.ts';
+import OperationsElement from './Operations.ts';
 
 /* eslint-disable class-methods-use-this */
 
@@ -21,34 +21,34 @@ class AsyncApi3 extends AsyncApi2Element {
 
   get tags(): TagsElement | undefined {
     throw new UnsupportedOperationError(
-      'TagsElement keyword from Core vocabulary has been moved to Info.',
+      'tags keyword has been moved to info',
     );
   }
 
   set tags(tags: TagsElement | undefined) {
     throw new UnsupportedOperationError(
-      'TagsElement keyword from Core vocabulary has been moved to Info.',
+      'tags keyword has been moved to info',
     );
   }
 
   get externalDocs(): ExternalDocumentationElement | undefined {
     throw new UnsupportedOperationError(
-      'ExternalDocsElement keyword from Core vocabulary has been moved to Info.',
+      'externalDocs keyword has been moved to info.',
     );
   }
 
   set externalDocs(externalDocs: ExternalDocumentationElement | undefined) {
     throw new UnsupportedOperationError(
-      'ExternalDocsElement keyword from Core vocabulary has been moved to Info.',
+      'externalDocs keyword has been moved to info.',
     );
   }
 
-  get operations(): OperationElement {
+  get operations(): OperationsElement | undefined {
     return this.get('operations');
   }
 
-  set operations(val) {
-    this.set('operations', val);
+  set operations(operations: OperationsElement | undefined) {
+    this.set('operations', operations);
   }
 }
 

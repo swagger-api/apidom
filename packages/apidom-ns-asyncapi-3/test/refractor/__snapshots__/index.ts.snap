@@ -8633,7 +8633,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                               "content": [
                                 {
                                   "element": "string",
-                                  "content": "operation-message"
+                                  "content": "operation-messages"
                                 }
                               ]
                             }
@@ -8909,7 +8909,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                       "content": [
                                         {
                                           "element": "string",
-                                          "content": "operation-reply-message"
+                                          "content": "operation-reply-messages"
                                         }
                                       ]
                                     }
@@ -8937,7 +8937,7 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                         },
                                         "referenced-element": {
                                           "element": "string",
-                                          "content": "operation-reply-messages"
+                                          "content": "operation-reply-message"
                                         }
                                       },
                                       "content": [

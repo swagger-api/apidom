@@ -3,13 +3,13 @@ import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import OperationMessagesElement from '../../../../elements/nces/OperationMessage.ts';
+import OperationMessagesElement from '../../../../elements/nces/OperationMessages.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
 
 /**
  * @public
  */
-export interface OperationMessageVisitorOptions
+export interface OperationMessagesVisitorOptions
   extends SpecificationVisitorOptions,
     FallbackVisitorOptions {}
 
@@ -19,13 +19,13 @@ export interface OperationMessageVisitorOptions
 class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
   declare public readonly element: OperationMessagesElement;
 
-  constructor(options: OperationMessageVisitorOptions) {
+  constructor(options: OperationMessagesVisitorOptions) {
     super(options);
     this.element = new OperationMessagesElement();
   }
 
   ArrayElement(arrayElement: ArrayElement) {
-    arrayElement.forEach((item: Element) => {
+    arrayElement.forEach((item: Element): void => {
       const specPath = ['document', 'objects', 'Reference'];
       const element = this.toRefractedElement(specPath, item);
 

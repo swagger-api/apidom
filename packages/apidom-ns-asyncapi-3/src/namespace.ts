@@ -3,7 +3,6 @@ import { NamespacePluginOptions } from '@swagger-api/apidom-core';
 import AsyncApi3Element from './elements/AsyncApi3.ts';
 import AsyncApiVersionElement from './elements/AsyncApiVersion.ts';
 import ChannelElement from './elements/Channel.ts';
-import ChannelAddressExpressionsElement from './elements/ChannelAddressExpressions.ts';
 import ChannelBindingsElement from './elements/ChannelBindings.ts';
 import ChannelsElement from './elements/Channels.ts';
 import ComponentsElement from './elements/Components.ts';
@@ -148,7 +147,6 @@ const asyncApi3 = {
     base.register('asyncApi3', AsyncApi3Element);
     base.register('asyncApiVersion', AsyncApiVersionElement);
     base.register('channel', ChannelElement);
-    base.register('channelAddressExpressions', ChannelAddressExpressionsElement);
     base.register('channelBindings', ChannelBindingsElement);
     base.register('channels', ChannelsElement);
     base.register('components', ComponentsElement);

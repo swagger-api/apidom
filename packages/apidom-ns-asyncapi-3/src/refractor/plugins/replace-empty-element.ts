@@ -1,4 +1,3 @@
-import { defaultTo } from 'ramda';
 import {
   ArrayElement,
   ObjectElement,
@@ -26,20 +25,16 @@ import {
   ComponentsServerVariablesElement,
   ComponentsServersElement,
   MessageTraitExamplesElement,
-  OperationMessageMapElement,
-  SecurityRequirementElement,
   ServerSecurityElement,
   ServerVariablesElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import mediaTypes from '../../media-types.ts';
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion.ts';
 import IdentifierElement from '../../elements/Identifier.ts';
 import InfoElement from '../../elements/Info.ts';
 import ServersElement from '../../elements/Servers.ts';
 import DefaultContentTypeElement from '../../elements/DefaultContentType.ts';
 import ChannelsElement from '../../elements/Channels.ts';
-import ChannelAddressExpressionsElement from '../../elements/ChannelAddressExpressions.ts';
 import ComponentsElement from '../../elements/Components.ts';
 import TagsElement from '../../elements/Tags.ts';
 import ExternalDocumentationElement from '../../elements/ExternalDocumentation.ts';
@@ -70,6 +65,8 @@ import OperationsElement from '../../elements/Operations.ts';
 import TagElement from '../../elements/Tag.ts';
 import MessageExampleElement from '../../elements/MessageExample.ts';
 import ReferenceElement from '../../elements/Reference.ts';
+import ComponentsRepliesElement from '../../elements/nces/ComponentsReplies.ts';
+import ComponentsReplyAddressesElement from '../../elements/nces/ComponentsReplyAddresses.ts';
 // binding elements
 import AmqpChannelBindingElement from '../../elements/bindings/amqp/AmqpChannelBinding.ts';
 import AmqpMessageBindingElement from '../../elements/bindings/amqp/AmqpMessageBinding.ts';
@@ -153,8 +150,8 @@ import ChannelServersElement from '../../elements/nces/ChannelServers.ts';
 import ComponentsSchemasElement from '../../elements/nces/ComponentsSchemas.ts';
 import MessageExamplesElement from '../../elements/nces/MessageExamples.ts';
 import MessageTraitsElement from '../../elements/nces/MessageTraits.ts';
-import OperationMessageElement from '../../elements/nces/OperationMessage.ts';
-import OperationReplyMessageElement from '../../elements/nces/OperationReplyMessage.ts';
+import OperationMessagesElement from '../../elements/nces/OperationMessages.ts';
+import OperationReplyMessagesElement from '../../elements/nces/OperationReplyMessages.ts';
 import OperationSecurityElement from '../../elements/nces/OperationSecurity.ts';
 import OperationTraitsElement from '../../elements/nces/OperationTraits.ts';
 import OperationTraitSecurityElement from '../../elements/nces/OperationTraitSecurity.ts';
@@ -301,12 +298,6 @@ const schema: Record<string, any> = {
     },
   },
 
-  ChannelAddressExpressionsElement: {
-    '[key: *]': function key(...args: any[]) {
-      return new ChannelAddressExpressionsElement(...args);
-    },
-  },
-
   MessagesElement: {
     '[key: *]': function key(...args: any[]) {
       return new MessageElement(...args);
@@ -339,7 +330,7 @@ const schema: Record<string, any> = {
       return new OperationSecurityElement(...args);
     },
     messages(...args: any[]) {
-      return new OperationMessageElement(...args);
+      return new OperationMessagesElement(...args);
     },
     reply(...args: any[]) {
       return new OperationReplyElement(...args);
@@ -368,8 +359,8 @@ const schema: Record<string, any> = {
     channel(...args: any[]) {
       return new ReferenceElement(...args);
     },
-    message(...args: any[]) {
-      return new OperationReplyMessageElement(...args);
+    messages(...args: any[]) {
+      return new OperationReplyMessagesElement(...args);
     },
   },
 
@@ -651,25 +642,8 @@ const schema: Record<string, any> = {
       return new MessageTraitsElement(...args);
     },
     payload(...args: any[]) {
-      const { context: messageElement } = this as { context: MessageElement };
-      const schemaFormat = defaultTo(
-        mediaTypes.latest(),
-        toValue(messageElement.get('schemaFormat')),
-      );
-      const multiFormatSchema = defaultTo(
-        mediaTypes.latest(),
-        toValue(messageElement.get('multiFormatSchema')),
-      );
-      if (mediaTypes.includes(schemaFormat)) {
-        return new SchemaElement(...args);
-      }
-
-      if (mediaTypes.includes(multiFormatSchema)) {
-        return new SchemaElement(...args);
-      }
-
-      return new ObjectElement(...args);
-    },
+      return new SchemaElement(...args);
+    }
   },
 
   MessageTraitElement: {
@@ -1088,7 +1062,7 @@ const schema: Record<string, any> = {
 
   [ServerSecurityElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new SecurityRequirementElement(...args);
+      return new SecuritySchemeElement(...args);
     },
   },
 
@@ -1100,23 +1074,17 @@ const schema: Record<string, any> = {
 
   [OperationSecurityElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new SecurityRequirementElement(...args);
+      return new SecuritySchemeElement(...args);
     },
   },
 
-  [OperationMessageMapElement.primaryClass]: {
-    oneOf(...args: any[]) {
-      return new OperationMessageElement(...args);
-    },
-  },
-
-  [OperationMessageElement.primaryClass]: {
+  [OperationMessagesElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new MessageElement(...args);
+      return new OperationMessagesElement(...args);
     },
   },
 
-  [OperationReplyMessageElement.primaryClass]: {
+  [OperationReplyMessagesElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
       return new ReferenceElement(...args);
     },
@@ -1136,7 +1104,7 @@ const schema: Record<string, any> = {
 
   [MessageTraitExamplesElement.primaryClass]: {
     '<*>': function asterisk(...args: any[]) {
-      return new MessageTraitExamplesElement(...args);
+      return new MessageExampleElement(...args);
     },
   },
 
@@ -1145,20 +1113,14 @@ const schema: Record<string, any> = {
       return new StringElement(...args);
     },
   },
-
-  [SecuritySchemeScopesElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
-      return new StringElement(...args);
-    },
-  },
-
-  'components-operation-replies': {
+  
+  [ComponentsRepliesElement.primaryClass]: {
     '[key: *]': function key(...args: any[]) {
       return new OperationReplyElement(...args);
     },
   },
 
-  'components-operation-reply-addresses': {
+  [ComponentsReplyAddressesElement.primaryClass]: {
     '[key: *]': function key(...args: any[]) {
       return new OperationReplyAddressElement(...args);
     },
@@ -1190,9 +1152,9 @@ const schema: Record<string, any> = {
 };
 
 const findElementFactory = (ancestor: any, keyName: string) => {
-  const elementType = getNodeType(ancestor); // @ts-ignore
-  const keyMapping = schema[elementType] || schema[toValue(ancestor.classes.first)];
-
+  const elementType = getNodeType(ancestor)  
+  const keyMapping = schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]; 
+  
   return typeof keyMapping === 'undefined'
     ? undefined
     : Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
@@ -1206,7 +1168,7 @@ const plugin = () => () => ({
       if (!isEmptyElement(element)) return undefined;
 
       const lineage = [...ancestors, parent].filter(isElement);
-      const parentElement = lineage[lineage.length - 1]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+      const parentElement = lineage.at(-1);
       let elementFactory;
       let context;
 
@@ -1214,7 +1176,7 @@ const plugin = () => () => ({
         context = element;
         elementFactory = findElementFactory(parentElement, '<*>');
       } else if (isMemberElement(parentElement)) {
-        context = lineage[lineage.length - 2]; // @TODO(vladimir.gorej@gmail.com): can be replaced by Array.prototype.at in future
+        context = lineage.at(-2); 
         elementFactory = findElementFactory(context, toValue(parentElement.key));
       }
 

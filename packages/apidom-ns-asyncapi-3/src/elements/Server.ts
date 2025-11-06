@@ -16,11 +16,11 @@ class Server extends ServerElement {
     this.element = 'server';
   }
 
-  get url(): ObjectElement | undefined {
+  get url(): StringElement | undefined {
     throw new UnsupportedOperationError('url keyword from Core vocabulary has been removed');
   }
 
-  set url(url: ObjectElement | undefined) {
+  set url(url: StringElement | undefined) {
     throw new UnsupportedOperationError('url keyword from Core vocabulary has been removed');
   }
 

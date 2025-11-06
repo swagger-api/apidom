@@ -74,11 +74,11 @@ class Operation extends ObjectElement {
     this.set('messages', message);
   }
 
-  get traits(): OperationTraitElement | undefined {
+  get traits(): ArrayElement | undefined {
     return this.get('traits');
   }
 
-  set traits(OperationTrait: OperationTraitElement | undefined) {
+  set traits(OperationTrait: ArrayElement | undefined) {
     this.set('traits', OperationTrait);
   }
 }

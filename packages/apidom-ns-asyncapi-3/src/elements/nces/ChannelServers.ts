@@ -1,4 +1,5 @@
 import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
+
 /**
  * @public
  */

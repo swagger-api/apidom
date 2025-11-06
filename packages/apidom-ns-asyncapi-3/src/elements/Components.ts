@@ -21,11 +21,11 @@ class Components extends ComponentsElement {
   }
 
   get replies(): ObjectElement | undefined {
-    return this.get('reply');
+    return this.get('replies');
   }
 
   set replies(replies: ObjectElement | undefined) {
-    this.set('reply', replies);
+    this.set('replies', replies);
   }
 
   get replyAddresses(): ObjectElement | undefined {

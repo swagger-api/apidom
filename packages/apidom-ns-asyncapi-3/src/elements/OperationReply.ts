@@ -28,12 +28,12 @@ class OperationReply extends ObjectElement {
     this.set('channel', channel);
   }
 
-  get message(): ArrayElement | undefined {
-    return this.get('message');
+  get messages(): ArrayElement | undefined {
+    return this.get('messages');
   }
 
-  set message(message: ArrayElement | undefined) {
-    this.set('message', message);
+  set messages(messages: ArrayElement | undefined) {
+    this.set('messages', messages);
   }
 }
 

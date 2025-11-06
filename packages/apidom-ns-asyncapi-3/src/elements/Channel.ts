@@ -61,7 +61,7 @@ class Channel extends ObjectElement {
     return this.get('servers');
   }
 
-  set servers(servers: import('@swagger-api/apidom-core').ArrayElement | undefined) {
+  set servers(servers: ArrayElement | undefined) {
     this.set('servers', servers);
   }
 

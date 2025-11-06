@@ -6150,7 +6150,7 @@ describe('apidom-ls-validate', function () {
       {
         message: 'Responses Object should define at least one response',
         severity: 1,
-        code: 5140002,
+        code: 3250001,
         source: 'apilint',
         range: { start: { line: 7, character: 6 }, end: { line: 7, character: 15 } },
       },

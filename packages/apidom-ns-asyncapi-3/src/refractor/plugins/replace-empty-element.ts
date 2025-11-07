@@ -195,976 +195,980 @@ import { getNodeType } from '../../traversal/visitor.ts';
 const isEmptyElement = (element: unknown): element is StringElement =>
   isStringElement(element) && includesClasses(['yaml-e-node', 'yaml-e-scalar'], element);
 
-const schema: Record<string, any> = {
+const schema: Record<string, unknown> = {
   AsyncApi3Element: {
-    asyncapi(...args: any[]) {
+    asyncapi(...args: string[]) {
       return new AsyncApiVersionElement(...args);
     },
-    identifier(...args: any[]) {
+    identifier(...args: string[]) {
       return new IdentifierElement(...args);
     },
-    info(...args: any[]) {
+    info(...args: Record<string, unknown>[]) {
       return new InfoElement(...args);
     },
-    servers(...args: any[]) {
+    servers(...args: Record<string, unknown>[]) {
       return new ServersElement(...args);
     },
-    defaultContentType(...args: any[]) {
+    defaultContentType(...args: string[]) {
       return new DefaultContentTypeElement(...args);
     },
-    channels(...args: any[]) {
+    channels(...args: Record<string, unknown>[]) {
       return new ChannelsElement(...args);
     },
-    components(...args: any[]) {
+    components(...args: Record<string, unknown>[]) {
       return new ComponentsElement(...args);
     },
-    operations(...args: any[]) {
+    operations(...args: Record<string, unknown>[]) {
       return new OperationsElement(...args);
     },
   },
 
   InfoElement: {
-    contact(...args: any[]) {
+    contact(...args: Record<string, unknown>[]) {
       return new ContactElement(...args);
     },
-    license(...args: any[]) {
+    license(...args: Record<string, unknown>[]) {
       return new LicenseElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
   },
 
   ServersElement: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ServerElement(...args);
     },
   },
 
   ServerElement: {
-    variables(...args: any[]) {
+    variables(...args: Record<string, unknown>[]) {
       return new ServerVariablesElement(...args);
     },
-    security(...args: any[]) {
+    security(...args: ConstructorParameters<typeof ServerSecurityElement>) {
       return new ServerSecurityElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new ServerBindingsElement(...args);
     },
   },
 
   ServerVariableElement: {
-    enum(...args: any[]) {
+    enum(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
-    examples(...args: any[]) {
+    examples(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },
 
   ChannelsElement: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ChannelElement(...args);
     },
   },
 
   ChannelElement: {
-    servers(...args: any[]) {
+    servers(...args: ConstructorParameters<typeof ChannelServersElement>) {
       return new ChannelServersElement(...args);
     },
-    parameters(...args: any[]) {
+    parameters(...args: Record<string, unknown>[]) {
       return new ParametersElement(...args);
     },
-    messages(...args: any[]) {
+    messages(...args: Record<string, unknown>[]) {
       return new MessagesElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new ChannelBindingsElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement> ) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
   },
 
   MessagesElement: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new MessageElement(...args);
     },
   },
 
   OperationsElement: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationElement(...args);
     },
   },
 
   OperationElement: {
-    channel(...args: any[]) {
+    channel(...args: Record<string, unknown>[]) {
       return new ReferenceElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof ChannelServersElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new OperationBindingsElement(...args);
     },
-    traits(...args: any[]) {
+    traits(...args: ConstructorParameters<typeof OperationTraitsElement>) {
       return new OperationTraitsElement(...args);
     },
-    security(...args: any[]) {
+    security(...args: ConstructorParameters<typeof OperationSecurityElement>) {
       return new OperationSecurityElement(...args);
     },
-    messages(...args: any[]) {
+    messages(...args: ConstructorParameters<typeof OperationMessagesElement>) {
       return new OperationMessagesElement(...args);
     },
-    reply(...args: any[]) {
+    reply(...args: Record<string, unknown>[]) {
       return new OperationReplyElement(...args);
     },
   },
 
   OperationTraitElement: {
-    security(...args: any[]) {
+    security(...args: ConstructorParameters<typeof OperationTraitSecurityElement>) {
       return new OperationTraitSecurityElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new OperationBindingsElement(...args);
     },
   },
 
   OperationReplyElement: {
-    address(...args: any[]) {
+    address(...args: Record<string, unknown>[]) {
       return new OperationReplyAddressElement(...args);
     },
-    channel(...args: any[]) {
+    channel(...args: Record<string, unknown>[]) {
       return new ReferenceElement(...args);
     },
-    messages(...args: any[]) {
+    messages(...args: ConstructorParameters<typeof OperationReplyMessagesElement>) {
       return new OperationReplyMessagesElement(...args);
     },
   },
 
   ParametersElement: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: unknown[]) {
       return new ParameterElement(...args);
     },
   },
 
   ParameterElement: {
-    enum(...args: any[]) {
+    enum(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
-    examples(...args: any[]) {
+    examples(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },
 
   ServerBindingsElement: {
-    http(...args: any[]) {
+    http(...args: Record<string, unknown>[]) {
       return new HttpServerBindingElement(...args);
     },
-    ws(...args: any[]) {
+    ws(...args: Record<string, unknown>[]) {
       return new WebSocketServerBindingElement(...args);
     },
-    kafka(...args: any[]) {
+    kafka(...args: Record<string, unknown>[]) {
       return new KafkaServerBindingElement(...args);
     },
-    anypointmq(...args: any[]) {
+    anypointmq(...args: Record<string, unknown>[]) {
       return new AnypointmqServerBindingElement(...args);
     },
-    amqp(...args: any[]) {
+    amqp(...args: Record<string, unknown>[]) {
       return new AmqpServerBindingElement(...args);
     },
-    amqp1(...args: any[]) {
+    amqp1(...args: Record<string, unknown>[]) {
       return new Amqp1ServerBindingElement(...args);
     },
-    mqtt(...args: any[]) {
+    mqtt(...args: Record<string, unknown>[]) {
       return new MqttServerBindingElement(...args);
     },
-    mqtt5(...args: any[]) {
+    mqtt5(...args: Record<string, unknown>[]) {
       return new Mqtt5ServerBindingElement(...args);
     },
-    nats(...args: any[]) {
+    nats(...args: Record<string, unknown>[]) {
       return new NatsServerBindingElement(...args);
     },
-    jms(...args: any[]) {
+    jms(...args: Record<string, unknown>[]) {
       return new JmsServerBindingElement(...args);
     },
-    sns(...args: any[]) {
+    sns(...args: Record<string, unknown>[]) {
       return new SnsServerBindingElement(...args);
     },
-    solace(...args: any[]) {
+    solace(...args: Record<string, unknown>[]) {
       return new SolaceServerBindingElement(...args);
     },
-    sqs(...args: any[]) {
+    sqs(...args: Record<string, unknown>[]) {
       return new SqsServerBindingElement(...args);
     },
-    stomp(...args: any[]) {
+    stomp(...args: Record<string, unknown>[]) {
       return new StompServerBindingElement(...args);
     },
-    redis(...args: any[]) {
+    redis(...args: Record<string, unknown>[]) {
       return new RedisServerBindingElement(...args);
     },
-    mercure(...args: any[]) {
+    mercure(...args: Record<string, unknown>[]) {
       return new MercureServerBindingElement(...args);
     },
-    ibmmq(...args: any[]) {
+    ibmmq(...args: Record<string, unknown>[]) {
       return new IbmmqServerBindingElement(...args);
     },
-    googlepubsub(...args: any[]) {
+    googlepubsub(...args: Record<string, unknown>[]) {
       return new GooglepubsubServerBindingElement(...args);
     },
-    pulsar(...args: any[]) {
+    pulsar(...args: Record<string, unknown>[]) {
       return new PulsarServerBindingElement(...args);
     },
   },
 
   ChannelBindingsElement: {
-    http(...args: any[]) {
+    http(...args: Record<string, unknown>[]) {
       return new HttpChannelBindingElement(...args);
     },
-    ws(...args: any[]) {
+    ws(...args: Record<string, unknown>[]) {
       return new WebSocketChannelBindingElement(...args);
     },
-    kafka(...args: any[]) {
+    kafka(...args: Record<string, unknown>[]) {
       return new KafkaChannelBindingElement(...args);
     },
-    anypointmq(...args: any[]) {
+    anypointmq(...args: Record<string, unknown>[]) {
       return new AnypointmqChannelBindingElement(...args);
     },
-    amqp(...args: any[]) {
+    amqp(...args: Record<string, unknown>[]) {
       return new AmqpChannelBindingElement(...args);
     },
-    amqp1(...args: any[]) {
+    amqp1(...args: Record<string, unknown>[]) {
       return new Amqp1ChannelBindingElement(...args);
     },
-    mqtt(...args: any[]) {
+    mqtt(...args: Record<string, unknown>[]) {
       return new MqttChannelBindingElement(...args);
     },
-    mqtt5(...args: any[]) {
+    mqtt5(...args: Record<string, unknown>[]) {
       return new Mqtt5ChannelBindingElement(...args);
     },
-    nats(...args: any[]) {
+    nats(...args: Record<string, unknown>[]) {
       return new NatsChannelBindingElement(...args);
     },
-    jms(...args: any[]) {
+    jms(...args: Record<string, unknown>[]) {
       return new JmsChannelBindingElement(...args);
     },
-    sns(...args: any[]) {
+    sns(...args: Record<string, unknown>[]) {
       return new SnsChannelBindingElement(...args);
     },
-    solace(...args: any[]) {
+    solace(...args: Record<string, unknown>[]) {
       return new SolaceChannelBindingElement(...args);
     },
-    sqs(...args: any[]) {
+    sqs(...args: Record<string, unknown>[]) {
       return new SqsChannelBindingElement(...args);
     },
-    stomp(...args: any[]) {
+    stomp(...args: Record<string, unknown>[]) {
       return new StompChannelBindingElement(...args);
     },
-    redis(...args: any[]) {
+    redis(...args: Record<string, unknown>[]) {
       return new RedisChannelBindingElement(...args);
     },
-    mercure(...args: any[]) {
+    mercure(...args: Record<string, unknown>[]) {
       return new MercureChannelBindingElement(...args);
     },
-    ibmmq(...args: any[]) {
+    ibmmq(...args: Record<string, unknown>[]) {
       return new IbmmqChannelBindingElement(...args);
     },
-    googlepubsub(...args: any[]) {
+    googlepubsub(...args: Record<string, unknown>[]) {
       return new GooglepubsubChannelBindingElement(...args);
     },
-    pulsar(...args: any[]) {
+    pulsar(...args: Record<string, unknown>[]) {
       return new PulsarChannelBindingElement(...args);
     },
   },
 
   OperationBindingsElement: {
-    http(...args: any[]) {
+    http(...args: Record<string, unknown>[]) {
       return new HttpOperationBindingElement(...args);
     },
-    ws(...args: any[]) {
+    ws(...args: Record<string, unknown>[]) {
       return new WebSocketOperationBindingElement(...args);
     },
-    kafka(...args: any[]) {
+    kafka(...args: Record<string, unknown>[]) {
       return new KafkaOperationBindingElement(...args);
     },
-    anypointmq(...args: any[]) {
+    anypointmq(...args: Record<string, unknown>[]) {
       return new AnypointmqOperationBindingElement(...args);
     },
-    amqp(...args: any[]) {
+    amqp(...args: Record<string, unknown>[]) {
       return new AmqpOperationBindingElement(...args);
     },
-    amqp1(...args: any[]) {
+    amqp1(...args: Record<string, unknown>[]) {
       return new Amqp1OperationBindingElement(...args);
     },
-    mqtt(...args: any[]) {
+    mqtt(...args: Record<string, unknown>[]) {
       return new MqttOperationBindingElement(...args);
     },
-    mqtt5(...args: any[]) {
+    mqtt5(...args: Record<string, unknown>[]) {
       return new Mqtt5OperationBindingElement(...args);
     },
-    nats(...args: any[]) {
+    nats(...args: Record<string, unknown>[]) {
       return new NatsOperationBindingElement(...args);
     },
-    jms(...args: any[]) {
+    jms(...args: Record<string, unknown>[]) {
       return new JmsOperationBindingElement(...args);
     },
-    sns(...args: any[]) {
+    sns(...args: Record<string, unknown>[]) {
       return new SnsOperationBindingElement(...args);
     },
-    solace(...args: any[]) {
+    solace(...args: Record<string, unknown>[]) {
       return new SolaceOperationBindingElement(...args);
     },
-    sqs(...args: any[]) {
+    sqs(...args: Record<string, unknown>[]) {
       return new SqsOperationBindingElement(...args);
     },
-    stomp(...args: any[]) {
+    stomp(...args: Record<string, unknown>[]) {
       return new StompOperationBindingElement(...args);
     },
-    redis(...args: any[]) {
+    redis(...args: Record<string, unknown>[]) {
       return new RedisOperationBindingElement(...args);
     },
-    mercure(...args: any[]) {
+    mercure(...args: Record<string, unknown>[]) {
       return new MercureOperationBindingElement(...args);
     },
-    googlepubsub(...args: any[]) {
+    googlepubsub(...args: Record<string, unknown>[]) {
       return new GooglepubsubOperationBindingElement(...args);
     },
-    ibmmq(...args: any[]) {
+    ibmmq(...args: Record<string, unknown>[]) {
       return new IbmmqOperationBindingElement(...args);
     },
-    pulsar(...args: any[]) {
+    pulsar(...args: Record<string, unknown>[]) {
       return new PulsarOperationBindingElement(...args);
     },
   },
 
   MessageBindingsElement: {
-    http(...args: any[]) {
+    http(...args: Record<string, unknown>[]) {
       return new HttpMessageBindingElement(...args);
     },
-    ws(...args: any[]) {
+    ws(...args: Record<string, unknown>[]) {
       return new WebSocketMessageBindingElement(...args);
     },
-    kafka(...args: any[]) {
+    kafka(...args: Record<string, unknown>[]) {
       return new KafkaMessageBindingElement(...args);
     },
-    anypointmq(...args: any[]) {
+    anypointmq(...args: Record<string, unknown>[]) {
       return new AnypointmqMessageBindingElement(...args);
     },
-    amqp(...args: any[]) {
+    amqp(...args: Record<string, unknown>[]) {
       return new AmqpMessageBindingElement(...args);
     },
-    amqp1(...args: any[]) {
+    amqp1(...args: Record<string, unknown>[]) {
       return new Amqp1MessageBindingElement(...args);
     },
-    mqtt(...args: any[]) {
+    mqtt(...args: Record<string, unknown>[]) {
       return new MqttMessageBindingElement(...args);
     },
-    mqtt5(...args: any[]) {
+    mqtt5(...args: Record<string, unknown>[]) {
       return new Mqtt5MessageBindingElement(...args);
     },
-    nats(...args: any[]) {
+    nats(...args: Record<string, unknown>[]) {
       return new NatsMessageBindingElement(...args);
     },
-    jms(...args: any[]) {
+    jms(...args: Record<string, unknown>[]) {
       return new JmsMessageBindingElement(...args);
     },
-    sns(...args: any[]) {
+    sns(...args: Record<string, unknown>[]) {
       return new SnsMessageBindingElement(...args);
     },
-    solace(...args: any[]) {
+    solace(...args: Record<string, unknown>[]) {
       return new SolaceMessageBindingElement(...args);
     },
-    sqs(...args: any[]) {
+    sqs(...args: Record<string, unknown>[]) {
       return new SqsMessageBindingElement(...args);
     },
-    stomp(...args: any[]) {
+    stomp(...args: Record<string, unknown>[]) {
       return new StompMessageBindingElement(...args);
     },
-    redis(...args: any[]) {
+    redis(...args: Record<string, unknown>[]) {
       return new RedisMessageBindingElement(...args);
     },
-    mercure(...args: any[]) {
+    mercure(...args: Record<string, unknown>[]) {
       return new MercureMessageBindingElement(...args);
     },
-    ibmmq(...args: any[]) {
+    ibmmq(...args: Record<string, unknown>[]) {
       return new IbmmqMessageBindingElement(...args);
     },
-    googlepubsub(...args: any[]) {
+    googlepubsub(...args: Record<string, unknown>[]) {
       return new GooglepubsubMessageBindingElement(...args);
     },
-    pulsar(...args: any[]) {
+    pulsar(...args: Record<string, unknown>[]) {
       return new PulsarMessageBindingElement(...args);
     },
   },
 
   MessageElement: {
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    correlationId(...args: any[]) {
+    correlationId(...args: Record<string, unknown>[]) {
       return new CorrelationIDElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new MessageBindingsElement(...args);
     },
-    examples(...args: any[]) {
+    examples(...args: ConstructorParameters<typeof MessageExamplesElement>) {
       return new MessageExamplesElement(...args);
     },
-    traits(...args: any[]) {
+    traits(...args: ConstructorParameters<typeof MessageTraitsElement>) {
       return new MessageTraitsElement(...args);
     },
-    payload(...args: any[]) {
+    payload(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     }
   },
 
   MessageTraitElement: {
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    correlationId(...args: any[]) {
+    correlationId(...args: Record<string, unknown>[]) {
       return new CorrelationIDElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    bindings(...args: any[]) {
+    bindings(...args: Record<string, unknown>[]) {
       return new MessageBindingsElement(...args);
     },
-    examples(...args: any[]) {
+    examples(...args: ConstructorParameters<typeof MessageExamplesElement>) {
       return new MessageExamplesElement(...args);
     },
   },
 
   MessageExampleElement: {
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   TagsElement: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new TagElement(...args);
     },
   },
 
   TagElement: {
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
   },
 
   ComponentsElement: {
-    schemas(...args: any[]) {
+    schemas(...args: Record<string, unknown>[]) {
       return new ComponentsSchemasElement(...args);
     },
-    servers(...args: any[]) {
+    servers(...args: Record<string, unknown>[]) {
       return new ComponentsServersElement(...args);
     },
-    serverVariables(...args: any[]) {
+    serverVariables(...args: Record<string, unknown>[]) {
       return new ComponentsServerVariablesElement(...args);
     },
-    messages(...args: any[]) {
+    messages(...args: Record<string, unknown>[]) {
       return new ComponentsMessagesElement(...args);
     },
-    securitySchemes(...args: any[]) {
+    securitySchemes(...args: Record<string, unknown>[]) {
       return new ComponentsSecuritySchemesElement(...args);
     },
-    parameters(...args: any[]) {
+    parameters(...args: Record<string, unknown>[]) {
       return new ComponentsParametersElement(...args);
     },
-    correlationIds(...args: any[]) {
+    correlationIds(...args: Record<string, unknown>[]) {
       return new ComponentsCorrelationIDsElement(...args);
     },
-    operationTraits(...args: any[]) {
+    operationTraits(...args: Record<string, unknown>[]) {
       return new ComponentsOperationTraitsElement(...args);
     },
-    messageTraits(...args: any[]) {
+    messageTraits(...args: Record<string, unknown>[]) {
       return new ComponentsMessageTraitsElement(...args);
     },
-    serverBindings(...args: any[]) {
+    serverBindings(...args: Record<string, unknown>[]) {
       return new ComponentsServerBindingsElement(...args);
     },
-    channelBindings(...args: any[]) {
+    channelBindings(...args: Record<string, unknown>[]) {
       return new ComponentsChannelBindingsElement(...args);
     },
-    operationBindings(...args: any[]) {
+    operationBindings(...args: Record<string, unknown>[]) {
       return new ComponentsOperationBindingsElement(...args);
     },
-    messageBindings(...args: any[]) {
+    messageBindings(...args: Record<string, unknown>[]) {
       return new ComponentsMessageBindingsElement(...args);
     },
-    operations(...args: any[]) {
+    operations(...args: Record<string, unknown>[]) {
       return new ComponentsOperationsElement(...args);
     },
-    replies(...args: any[]) {
+    replies(...args: Record<string, unknown>[]) {
       return new OperationReplyElement(...args);
     },
-    replyAddresses(...args: any[]) {
+    replyAddresses(...args: Record<string, unknown>[]) {
       return new OperationReplyAddressElement(...args);
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
-    tags(...args: any[]) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
   },
 
   SchemaElement: {
-    allOf(...args: any[]) {
+    allOf(...args: ConstructorParameters<typeof ArrayElement>) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-allOf');
       return element;
     },
-    anyOf(...args: any[]) {
+    anyOf(...args: ConstructorParameters<typeof ArrayElement>) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-anyOf');
       return element;
     },
-    oneOf(...args: any[]) {
+    oneOf(...args: ConstructorParameters<typeof ArrayElement>) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-oneOf');
       return element;
     },
-    not(...args: any[]) {
+    not(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    if(...args: any[]) {
+    if(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    then(...args: any[]) {
+    then(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    else(...args: any[]) {
+    else(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    enum(...args: any[]) {
+    enum(...args: ConstructorParameters<typeof ArrayElement> ) {
       return new ArrayElement(...args);
     },
-    items(...args: any[]) {
+    items(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    additionalItems(...args: any[]) {
+    additionalItems(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    contains(...args: any[]) {
+    contains(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    required(...args: any[]) {
+    required(...args: ConstructorParameters<typeof ArrayElement>) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-required');
       return element;
     },
-    properties(...args: any[]) {
+    properties(...args: Record<string, unknown>[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-properties');
       return element;
     },
-    patternProperties(...args: any[]) {
+    patternProperties(...args: Record<string, unknown>[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-patternProperties');
       return element;
     },
-    additionalProperties(...args: any[]) {
+    additionalProperties(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    dependencies(...args: any[]) {
+    dependencies(...args: Record<string, unknown>[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-dependencies');
       return element;
     },
-    propertyNames(...args: any[]) {
+    propertyNames(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    examples(...args: any[]) {
+    examples(...args: ConstructorParameters<typeof ArrayElement>) {
       const element = new ArrayElement(...args);
       element.classes.push('json-schema-examples');
       return element;
     },
-    definitions(...args: any[]) {
+    definitions(...args: Record<string, unknown>[]) {
       const element = new ObjectElement(...args);
       element.classes.push('json-schema-definitions');
       return element;
     },
-    externalDocs(...args: any[]) {
+    externalDocs(...args: Record<string, unknown>[]) {
       return new ExternalDocumentationElement(...args);
     },
   },
 
   SecuritySchemeElement: {
-    flows(...args: any[]) {
+    flows(...args: Record<string, unknown>[]) {
       return new OAuthFlowsElement(...args);
     },
-    scopes(...args: any[]) {
+    scopes(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },
 
   OAuthFlowsElement: {
-    implicit(...args: any[]) {
+    implicit(...args: Record<string, unknown>[]) {
       return new OAuthFlowElement(...args);
     },
-    password(...args: any[]) {
+    password(...args: Record<string, unknown>[]) {
       return new OAuthFlowElement(...args);
     },
-    clientCredentials(...args: any[]) {
+    clientCredentials(...args: Record<string, unknown>[]) {
       return new OAuthFlowElement(...args);
     },
-    authorizationCode(...args: any[]) {
+    authorizationCode(...args: Record<string, unknown>[]) {
       return new OAuthFlowElement(...args);
     },
   },
 
   OAuthFlowElement: {
-    availableScopes(...args: any[]) {
+    availableScopes(...args: ConstructorParameters<typeof SecuritySchemeScopesElement>) {
       return new SecuritySchemeScopesElement(...args);
     },
   },
 
   HttpOperationBindingElement: {
-    query(...args: any[]) {
+    query(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   HttpMessageBindingElement: {
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   WebSocketChannelBindingElement: {
-    query(...args: any[]) {
+    query(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   KafkaOperationBindingElement: {
-    groupId(...args: any[]) {
+    groupId(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    clientId(...args: any[]) {
+    clientId(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   KafkaMessageBindingElement: {
-    key(...args: any[]) {
+    key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   AnypointmqMessageBindingElement: {
-    headers(...args: any[]) {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   AmqpChannelBindingElement: {
-    exchange(...args: any[]) {
+    exchange(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    queue(...args: any[]) {
+    queue(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   AmqpOperationBindingElement: {
-    cc(...args: any[]) {
+    cc(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
-    bcc(...args: any[]) {
+    bcc(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },
 
   IbmmqChannelBindingElement: {
-    queue(...args: any[]) {
+    queue(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    topic(...args: any[]) {
+    topic(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   MqttServerBindingElement: {
-    lastWill(...args: any[]) {
+    lastWill(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   SolaceOperationBindingElement: {
-    destinations(...args: any[]) {
+    destinations(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },
 
   GooglepubsubChannelBindingElement: {
-    labels(...args: any[]) {
+    labels(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    messageStoragePolicy(...args: any[]) {
+    messageStoragePolicy(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    schemaSettings(...args: any[]) {
+    schemaSettings(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   GooglepubsubMessageBindingElement: {
-    attributes(...args: any[]) {
+    attributes(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    schema(...args: any[]) {
+    schema(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   PulsarChannelBindingElement: {
-    'geo-replication': function geoReplication(...args: any[]) {
+    'geo-replication': function geoReplication(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
-    retention(...args: any[]) {
+    retention(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
 
   [ComponentsSchemasElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   [ComponentsServersElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ServerElement(...args);
     },
   },
 
   [ComponentsServerVariablesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ServerVariableElement(...args);
     },
   },
 
   [ComponentsMessagesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new MessageElement(...args);
     },
   },
 
   [ComponentsSecuritySchemesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new SecuritySchemeElement(...args);
     },
   },
 
   [ComponentsParametersElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ParameterElement(...args);
     },
   },
 
   [ComponentsCorrelationIDsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new CorrelationIDElement(...args);
     },
   },
 
   [ComponentsOperationTraitsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationTraitElement(...args);
     },
   },
 
   [ComponentsMessageTraitsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new MessageTraitElement(...args);
     },
   },
 
   [ComponentsServerBindingsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ServerBindingsElement(...args);
     },
   },
 
   [ComponentsChannelBindingsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ChannelBindingsElement(...args);
     },
   },
 
   [ComponentsOperationBindingsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationBindingsElement(...args);
     },
   },
 
   [ComponentsOperationsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationBindingsElement(...args);
     },
   },
 
   [ComponentsMessageBindingsElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new MessageBindingsElement(...args);
     },
   },
 
   [ComponentsOperationsElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new OperationElement(...args);
     },
   },
 
   [ServerVariablesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new ServerVariableElement(...args);
     },
   },
 
   [ServerSecurityElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new SecuritySchemeElement(...args);
     },
   },
 
   [OperationTraitsElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new OperationTraitElement(...args);
     },
   },
 
   [OperationSecurityElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new SecuritySchemeElement(...args);
     },
   },
 
   [OperationMessagesElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: ConstructorParameters<typeof OperationMessagesElement>) {
       return new OperationMessagesElement(...args);
     },
   },
 
   [OperationReplyMessagesElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new ReferenceElement(...args);
     },
   },
 
   [MessageExamplesElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new MessageExampleElement(...args);
     },
   },
 
   [MessageTraitsElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new MessageTraitElement(...args);
     },
   },
 
   [MessageTraitExamplesElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new MessageExampleElement(...args);
     },
   },
 
   [ChannelServersElement.primaryClass]: {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: string[]) {
       return new StringElement(...args);
     },
   },
   
   [ComponentsRepliesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationReplyElement(...args);
     },
   },
 
   [ComponentsReplyAddressesElement.primaryClass]: {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationReplyAddressElement(...args);
     },
   },
 
   'json-schema-properties': {
-    '[key: *]': function key(...args: any[]) {
+    '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   'json-schema-allOf': {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   'json-schema-anyOf': {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 
   'json-schema-oneOf': {
-    '<*>': function asterisk(...args: any[]) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
 };
 
-const findElementFactory = (ancestor: any, keyName: string) => {
+const findElementFactory = (ancestor: any , keyName: string) => {
   const elementType = getNodeType(ancestor)  
-  const keyMapping = schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]; 
-  
-  return typeof keyMapping === 'undefined'
-    ? undefined
-    : Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
-      ? keyMapping['[key: *]']
-      : keyMapping[keyName];
+  const keyMapping = (schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]) as Record<string, unknown> | unknown | undefined ; 
+
+  if (keyMapping == null || typeof keyMapping !== 'object') {
+    return undefined;
+  }
+
+  return Object.prototype.hasOwnProperty.call(keyMapping, '[key: *]')
+    ? (keyMapping as Record<string, unknown>)['[key: *]']
+    : (keyMapping as Record<string, unknown>)[keyName];
 };
 
 const plugin = () => () => ({
   visitor: {
-    StringElement(element: StringElement, key: any, parent: any, path: any, ancestors: any[]) {
+    StringElement(
+      element: StringElement, 
+      key: unknown, parent: unknown, path: unknown, ancestors: Record<string, unknown>[] | unknown[]) {
       if (!isEmptyElement(element)) return undefined;
 
       const lineage = [...ancestors, parent].filter(isElement);

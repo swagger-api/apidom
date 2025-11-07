@@ -23,23 +23,23 @@ class MessagesVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
     super(options);
     this.element = new OperationMessagesElement();
   }
-  
+
   ArrayElement(arrayElement: ArrayElement) {
-      arrayElement.forEach((item: Element): void => {
-        const specPath = ['document', 'objects', 'Reference'];
-        const element = this.toRefractedElement(specPath, item);
-  
-        if (isReferenceElement(element)) {
-          element.setMetaProperty('referenced-element', 'operation-messages');
-        }
-  
-        this.element.push(element);
-      });
-  
-      this.copyMetaAndAttributes(arrayElement, this.element);
-  
-      return BREAK;
-    }
+    arrayElement.forEach((item: Element): void => {
+      const specPath = ['document', 'objects', 'Reference'];
+      const element = this.toRefractedElement(specPath, item);
+
+      if (isReferenceElement(element)) {
+        element.setMetaProperty('referenced-element', 'operation-message');
+      }
+
+      this.element.push(element);
+    });
+
+    this.copyMetaAndAttributes(arrayElement, this.element);
+
+    return BREAK;
+  }
 }
 
 export default MessagesVisitor;

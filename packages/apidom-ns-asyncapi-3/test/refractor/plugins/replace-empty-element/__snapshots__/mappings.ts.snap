@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given AsyncAPI definition with no empty values should do nothing 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (IdentifierElement)))
+`;
+
+exports[`given empty value instead for AsyncAPI.components.schemas should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement)))))
+`;
+
+exports[`given empty value instead for AsyncAPI.components.schemas.* should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement)))))))
+`;
+
+exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement)))))))))))
+`;
+
+exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement
+      (MemberElement
+        (StringElement)
+        (ContactElement)))))
+`;
+
+exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement)))
+`;
+
+exports[`given empty value instead of Message.payload with unspecified schema format should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (MessageElement
+              (MemberElement
+                (StringElement)
+                (SchemaElement)))))))))
+`;
+
+exports[`given empty value instead of Message.payload.schema with supported schema format should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (MessageElement
+              (MemberElement
+                (StringElement)
+                (MultiFormatSchemaElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement)))))))))))
+`;
+
+exports[`given empty value instead of Message.payload.schema with unsupported schema format should replace empty value with generic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (MessageElement
+              (MemberElement
+                (StringElement)
+                (MultiFormatSchemaElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
+                  (MemberElement
+                    (StringElement)
+                    (ObjectElement)))))))))))
+`;

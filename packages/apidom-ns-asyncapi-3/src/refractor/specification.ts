@@ -8,24 +8,25 @@ import ChannelBindingsVisitor from './visitors/async-api-3/channel-bindings/inde
 import ChannelServersVisitor from './visitors/async-api-3/channel/ServersVisitor.ts';
 import ChannelVisitor from './visitors/async-api-3/channel/index.ts';
 import ChannelsVisitor from './visitors/async-api-3/channels/index.ts';
-import ComponentsOperationsVisitor from './visitors/async-api-3/components/OperationsVisitor.ts';
-import ComponentsSchemasVisitor from './visitors/async-api-3/components/SchemasVisitor.ts';
 import ComponentsChannelsVisitor from './visitors/async-api-3/components/ChannelsVisitor.ts';
 import ComponentsExternalDocumentationVisitor from './visitors/async-api-3/components/ExternalDocumentationVisitor.ts';
+import ComponentsOperationsVisitor from './visitors/async-api-3/components/OperationsVisitor.ts';
 import ComponentsRepliesVisitor from './visitors/async-api-3/components/RepliesVisitor.ts';
 import ComponentsReplyAddressesVisitor from './visitors/async-api-3/components/ReplyAddressesVisitor.ts';
+import ComponentsSchemasVisitor from './visitors/async-api-3/components/SchemasVisitor.ts';
 import ComponentsTagsVisitor from './visitors/async-api-3/components/TagsVisitor.ts';
 import ComponentsVisitor from './visitors/async-api-3/components/index.ts';
 import ContactVisitor from './visitors/async-api-3/contact/index.ts';
 import CorrelationIDVisitor from './visitors/async-api-3/correlation-id/index.ts';
-import DefaultContentTypeVisitor from '../elements/DefaultContentType.ts';
+import DefaultContentTypeVisitor from './visitors/async-api-3/DefaultContentTypeVisitor.ts';
 import ExternalDocumentationOrReferenceVisitor from './visitors/async-api-3/external-documentation-object/ExternalDocumentationOrReferenceVisitor.ts';
 import ExternalDocumentationVisitor from './visitors/async-api-3/external-documentation-object/index.ts';
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
 import IdentifierVisitor from './visitors/async-api-3/IdentifierVisitor.ts';
 import InfoVisitor from './visitors/async-api-3/info/info.ts';
 import LicenseVisitor from './visitors/async-api-3/license/index.ts';
-import MessageBindingsVisitor from './visitors/async-api-3/message/BindingsVisitor.ts';
+import MessageBindingsVisitor from './visitors/async-api-3/message-bindings/index.ts';
+import MessageBindingsVisitor_ from './visitors/async-api-3/message/BindingsVisitor.ts';
 import MessageCorrelationIdVisitor from './visitors/async-api-3/message/CorrelationIdVisitor.ts';
 import MessageExampleVisitor from './visitors/async-api-3/message-example/index.ts';
 import MessageExamplesVisitor from './visitors/async-api-3/message/ExamplesVisitor.ts';
@@ -56,10 +57,12 @@ import OperationsVisitor from './visitors/async-api-3/operations/index.ts';
 import ParameterVisitor from './visitors/async-api-3/parameter/index.ts';
 import ParametersVisitor from './visitors/async-api-3/parameters/index.ts';
 import ReferenceVisitor from './visitors/async-api-3/reference/index.ts';
+import SchemaOrReferenceVisitor from './visitors/async-api-3/schema/SchemaOrReferenceVisitor.ts';
 import SchemaVisitor from './visitors/async-api-3/schema/index.ts';
 import SecuritySchemeScopesVisitor from './visitors/async-api-3/security-scheme/ScopesVisitor.ts';
 import SecuritySchemeVisitor from './visitors/async-api-3/security-scheme/index.ts';
 import ServerBindingsVisitor from './visitors/async-api-3/server-bindings/index.ts';
+import ServerSecurityVisitor from './visitors/async-api-3/server/SecurityVisitor.ts';
 import ServerVariableVisitor from './visitors/async-api-3/server-variable/index.ts';
 import ServerVisitor from './visitors/async-api-3/server/index.ts';
 import ServersVisitor from './visitors/async-api-3/servers/index.ts';
@@ -164,7 +167,6 @@ import WebSocketChannelBindingVisitor from './visitors/async-api-3/bindings/ws/c
 import WebSocketMessageBindingVisitor from './visitors/async-api-3/bindings/ws/message-binding/index.ts';
 import WebSocketOperationBindingVisitor from './visitors/async-api-3/bindings/ws/operation-binding/index.ts';
 import WebSocketServerBindingVisitor from './visitors/async-api-3/bindings/ws/server-binding/index.ts';
-import SchemaOrReferenceVisitor from './visitors/async-api-3/schema/SchemaOrReferenceVisitor.ts';
 
 const SchemaSpecification = {
   $visitor: SchemaVisitor,
@@ -204,8 +206,12 @@ const specification = {
         AsyncApi: {
           $visitor: AsyncApi3Visitor,
           fixedFields: {
-            asyncapi: { $ref: '#/visitors/docuemnt/objects/AsyncApiVersion' },
-            id: { $ref: '#/visitors/docuemnt/objects/Identifier' },
+            asyncapi: {
+              $ref: '#/visitors/document/objects/AsyncApiVersion',
+            },
+            id: {
+              $ref: '#/visitors/document/objects/Identifier',
+            },
             info: { $ref: '#/visitors/document/objects/Info' },
             servers: { $ref: '#/visitors/document/objects/Servers' },
             defaultContentType: {
@@ -272,8 +278,7 @@ const specification = {
             summary: { $ref: '#/visitors/value' },
             variables:
               AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.variables,
-            security:
-              AsyncApi2_0Specification.visitors.document.objects.Server.fixedFields.security,
+            security: ServerSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -340,12 +345,12 @@ const specification = {
             externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: OperationBindingsVisitor_,
             traits: OperationTraitsVisitor,
-            message: OperationMessagesVisitor,
+            messages: OperationMessagesVisitor,
             reply: OperationReplyVisitor_,
           },
         },
         OperationTrait: {
-          $visitors: OperationTraitVisitor,
+          $visitor: OperationTraitVisitor,
           fixedFields: {
             title: { $ref: '#/visitors/value' },
             summary:
@@ -353,9 +358,7 @@ const specification = {
             description:
               AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields
                 .description,
-            security:
-              AsyncApi2_0Specification.visitors.document.objects.OperationTrait.fixedFields
-                .security,
+            security: OperationSecurityVisitor,
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
@@ -655,8 +658,8 @@ const specification = {
             tags: {
               $ref: '#/visitors/document/objects/Tags',
             },
-            externalDocs: ExternalDocumentationVisitor,
-            bindings: MessageBindingsVisitor,
+            externalDocs: ExternalDocumentationOrReferenceVisitor,
+            bindings: MessageBindingsVisitor_,
             examples: MessageExamplesVisitor,
             traits: MessageTraitsVisitor,
           },
@@ -664,6 +667,7 @@ const specification = {
         MessageTrait: {
           $visitor: MessageTraitVisitor,
           fixedFields: {
+            messageId: { $ref: '#/visitors/value' },
             headers: MessageTraitHeadersVisitor,
             correlationId:
               AsyncApi2_0Specification.visitors.document.objects.MessageTrait.fixedFields
@@ -726,12 +730,16 @@ const specification = {
               .fixedFields.url,
           },
         },
+        JSONReference: {
+          $ref: '#/visitors/document/objects/Reference',
+        },
         Reference: {
           $visitor: ReferenceVisitor,
           fixedFields: {
             $ref: AsyncApi2_0Specification.visitors.document.objects.Reference.fixedFields.$ref,
           },
         },
+        LinkDescription: AsyncApi2_0Specification.visitors.document.objects.LinkDescription,
         Components: {
           $visitor: ComponentsVisitor,
           fixedFields: {

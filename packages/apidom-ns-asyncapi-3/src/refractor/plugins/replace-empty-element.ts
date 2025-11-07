@@ -1,3 +1,4 @@
+import { defaultTo } from 'ramda';
 import {
   ArrayElement,
   ObjectElement,
@@ -29,6 +30,7 @@ import {
   ServerVariablesElement,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
+import mediaTypes from '../../media-types.ts';
 import AsyncApiVersionElement from '../../elements/AsyncApiVersion.ts';
 import IdentifierElement from '../../elements/Identifier.ts';
 import InfoElement from '../../elements/Info.ts';
@@ -65,6 +67,7 @@ import OperationsElement from '../../elements/Operations.ts';
 import TagElement from '../../elements/Tag.ts';
 import MessageExampleElement from '../../elements/MessageExample.ts';
 import ReferenceElement from '../../elements/Reference.ts';
+import MultiFormatSchemaElement from '../../elements/MultiFormatSchema.ts';
 import ComponentsRepliesElement from '../../elements/nces/ComponentsReplies.ts';
 import ComponentsReplyAddressesElement from '../../elements/nces/ComponentsReplyAddresses.ts';
 // binding elements
@@ -156,7 +159,6 @@ import OperationSecurityElement from '../../elements/nces/OperationSecurity.ts';
 import OperationTraitsElement from '../../elements/nces/OperationTraits.ts';
 import OperationTraitSecurityElement from '../../elements/nces/OperationTraitSecurity.ts';
 import SecuritySchemeScopesElement from '../../elements/nces/SecuritySchemeScopes.ts';
-// borrowed AsyncAPI 2 NCEs
 import { getNodeType } from '../../traversal/visitor.ts';
 /**
  * This plugin targets YAML 1.2 empty nodes. When a mapping value is omitted,
@@ -643,7 +645,7 @@ const schema: Record<string, unknown> = {
     },
     payload(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
-    }
+    },
   },
 
   MessageTraitElement: {
@@ -739,6 +741,22 @@ const schema: Record<string, unknown> = {
     },
     tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
+    },
+  },
+
+  MultiFormatSchemaElement: {
+    schema(...args: any[]) {
+      const { context: multiFormatSchemaElement } = this as { context: MultiFormatSchemaElement };
+      const schemaFormat = defaultTo(
+        mediaTypes.latest(),
+        toValue(multiFormatSchemaElement.schemaFormat),
+      );
+
+      if (mediaTypes.includes(schemaFormat)) {
+        return new SchemaElement(...args);
+      }
+
+      return new ObjectElement(...args);
     },
   },
 
@@ -1079,9 +1097,10 @@ const schema: Record<string, unknown> = {
   },
 
   [OperationMessagesElement.primaryClass]: {
-    '<*>': function asterisk(...args: ConstructorParameters<typeof OperationMessagesElement>) {
-      return new OperationMessagesElement(...args);
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
+      return new ReferenceElement(...args);
     },
+  
   },
 
   [OperationReplyMessagesElement.primaryClass]: {
@@ -1109,11 +1128,11 @@ const schema: Record<string, unknown> = {
   },
 
   [ChannelServersElement.primaryClass]: {
-    '<*>': function asterisk(...args: string[]) {
-      return new StringElement(...args);
+    '<*>': function asterisk(...args: Record<string, unknown>[] ) {
+      return new ReferenceElement(...args);
     },
   },
-  
+
   [ComponentsRepliesElement.primaryClass]: {
     '[key: *]': function key(...args: Record<string, unknown>[]) {
       return new OperationReplyElement(...args);
@@ -1152,7 +1171,7 @@ const schema: Record<string, unknown> = {
 };
 
 const findElementFactory = (ancestor: any , keyName: string) => {
-  const elementType = getNodeType(ancestor)  
+  const elementType = getNodeType(ancestor);
   const keyMapping = (schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]) as Record<string, unknown> | unknown | undefined ; 
 
   if (keyMapping == null || typeof keyMapping !== 'object') {
@@ -1164,6 +1183,9 @@ const findElementFactory = (ancestor: any , keyName: string) => {
     : (keyMapping as Record<string, unknown>)[keyName];
 };
 
+/**
+ * @public
+ */
 const plugin = () => () => ({
   visitor: {
     StringElement(
@@ -1180,7 +1202,7 @@ const plugin = () => () => ({
         context = element;
         elementFactory = findElementFactory(parentElement, '<*>');
       } else if (isMemberElement(parentElement)) {
-        context = lineage.at(-2); 
+        context = lineage.at(-2);
         elementFactory = findElementFactory(context, toValue(parentElement.key));
       }
 

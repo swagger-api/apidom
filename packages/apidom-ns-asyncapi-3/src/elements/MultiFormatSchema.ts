@@ -6,11 +6,11 @@ import { Attributes, Meta, ObjectElement, StringElement } from '@swagger-api/api
 class MultiFormatSchema extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'multiformatSchema';
+    this.element = 'multiFormatSchema';
   }
 
   get schemaFormat(): StringElement | undefined {
-    return this.get('schemaForamt');
+    return this.get('schemaFormat');
   }
 
   set schemaFormat(schemaFormat: StringElement | undefined) {

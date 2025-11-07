@@ -14,12 +14,14 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  * @public
  */
 export const keyMap = {
+  /**
+   * `AsyncApi 3.0.0` specification elements.
+   */
   AsyncApi3Element: ['content'],
   AsyncApiVersionElement: [],
   ChannelBindingsElement: ['content'],
   ChannelElement: ['content'],
   ChannelsElement: ['content'],
-  ChannelAddressExpressionsElement: ['content'],
   ComponentsElement: ['content'],
   ContactElement: ['content'],
   CorrelationIDElement: ['content'],
@@ -32,18 +34,19 @@ export const keyMap = {
   MessageExampleElement: ['content'],
   MessageBindingsElement: ['content'],
   MessageTraitElement: ['content'],
+  MultiFormatSchemaElement: ['content'],
   OAuthFlowElement: ['content'],
   OAuthFlowsElement: ['content'],
   OperationsElement: ['content'],
   OperationElement: ['content'],
   OperationBindingsElement: ['content'],
+  OperationReplyElement: ['content'],
+  OperationReplyAddressElement: ['content'],
   OperationTraitElement: ['content'],
   ParameterElement: ['content'],
   ParametersElement: ['content'],
   ReferenceElement: ['content'],
   SchemaElement: ['content'],
-  MultiFormatSchemaElement: ['content'],
-  SecurityRequirementElement: ['content'],
   SecuritySchemeElement: ['content'],
   ServerElement: ['content'],
   ServerBindingsElement: ['content'],
@@ -51,11 +54,6 @@ export const keyMap = {
   ServerVariableElement: ['content'],
   TagElement: ['content'],
   TagsElement: ['content'],
-
-  // operation-reply/address
-  OperationReplyElement: ['content'],
-  OperationReplyAddressElement: ['content'],
-
   /**
    * Binding elements.
    */

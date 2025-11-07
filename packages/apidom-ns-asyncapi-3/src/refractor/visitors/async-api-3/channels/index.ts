@@ -1,26 +1,21 @@
 import { Mixin } from 'ts-mixer';
 import { ObjectElement } from '@swagger-api/apidom-core';
 
-import PatternedFieldsVisitor, {
-  PatternedFieldsVisitorOptions,
-  SpecPath,
-} from '../../generics/PatternedFieldsVisitor.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import ChannelsElement from '../../../../elements/Channels.ts';
-import ReferenceElement from '../../../../elements/Reference.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public
  */
-export interface ChannelsVisitorOptions
-  extends PatternedFieldsVisitorOptions,
-    FallbackVisitorOptions {}
+export interface ChannelsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 /**
  * @public
  */
-class ChannelsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+class ChannelsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: ChannelsElement;
 
   declare protected readonly specPath: SpecPath<
@@ -32,17 +27,15 @@ class ChannelsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
   constructor(options: ChannelsVisitorOptions) {
     super(options);
     this.element = new ChannelsElement();
-    this.element.classes.push('servers');
-    this.specPath = (element: unknown) => {
-      return isReferenceLikeElement(element)
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'Channel'];
-    };
     this.canSupportSpecificationExtensions = false;
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    const result = PatternedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
     // @ts-ignore
     this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {

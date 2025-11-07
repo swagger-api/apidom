@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.3](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2025-11-07)
+
+### Bug Fixes
+
+- error when parsing large definitions ([#5045](https://github.com/swagger-api/apidom/issues/5045)) ([eddcaca](https://github.com/swagger-api/apidom/commit/eddcaca52a715d4881dc91efeb956e4b760ba399))
+
 # [1.0.0-rc.2](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2025-11-07)
 
 ### Features

@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor elements OperationReplyElement given address field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(OperationReplyElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements OperationReplyElement should refract to semantic ApiDOM tree 1`] = `
+(OperationReplyElement
+  (MemberElement
+    (StringElement)
+    (OperationReplyAddressElement))
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ReferenceElement
+        (MemberElement
+          (StringElement)
+          (StringElement))))))
+`;

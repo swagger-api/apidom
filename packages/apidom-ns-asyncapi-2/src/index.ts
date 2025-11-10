@@ -17,7 +17,7 @@ export type { Format } from './media-types.ts';
 // eslint-disable-next-line no-restricted-exports
 export { default } from './namespace.ts';
 
-export type { default as specificationObj } from './refractor/specification.ts';
+export { default as specificationObj } from './refractor/specification.ts';
 
 export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
@@ -646,8 +646,8 @@ export type {
   PropertiesVisitorOptions as SchemaPropertiesVisitorOptions,
   JSONSchemaPropertiesVisitor,
 } from './refractor/visitors/async-api-2/schema/PropertiesVisitor.ts';
+export { default as SchemaOrReferenceVisitor } from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor.ts';
 export type {
-  default as SchemaOrReferenceVisitor,
   SchemaOrReferenceVisitorOptions,
   JSONSchemaOrJSONReferenceVisitor,
 } from './refractor/visitors/async-api-2/schema/SchemaOrReferenceVisitor.ts';
@@ -859,29 +859,29 @@ export {
   WebSocketServerBindingElement,
 } from './refractor/registration.ts';
 
-export type { default as ChannelItemsServersElement } from './elements/nces/ChannelItemsServers.ts';
-export type { default as ComponentsChannelBindingsElement } from './elements/nces/ComponentsChannelBindings.ts';
-export type { default as ComponentsChannelsElement } from './elements/nces/ComponentsChannels.ts';
-export type { default as ComponentsCorrelationIDsElement } from './elements/nces/ComponentsCorrelationIDs.ts';
-export type { default as ComponentsMessageBindingsElement } from './elements/nces/ComponentsMessageBindings.ts';
-export type { default as ComponentsMessagesElement } from './elements/nces/ComponentsMessages.ts';
-export type { default as ComponentsMessageTraitsElement } from './elements/nces/ComponentsMessageTraits.ts';
-export type { default as ComponentsOperationBindingsElement } from './elements/nces/ComponentsOperationBindings.ts';
-export type { default as ComponentsOperationTraitsElement } from './elements/nces/ComponentsOperationTraits.ts';
-export type { default as ComponentsParametersElement } from './elements/nces/ComponentsParameters.ts';
-export type { default as ComponentsSchemasElement } from './elements/nces/ComponentsSchemas.ts';
-export type { default as ComponentsSecuritySchemesElement } from './elements/nces/ComponentsSecuritySchemes.ts';
-export type { default as ComponentsServerBindingsElement } from './elements/nces/ComponentsServerBindings.ts';
-export type { default as ComponentsServersElement } from './elements/nces/ComponentsServers.ts';
-export type { default as ComponentsServerVariablesElement } from './elements/nces/ComponentsServerVariables.ts';
-export type { default as MessageExamplesElement } from './elements/nces/MessageExamples.ts';
-export type { default as MessageTraitExamplesElement } from './elements/nces/MessageTraitExamples.ts';
-export type { default as MessageTraitsElement } from './elements/nces/MessageTraits.ts';
-export type { default as OAuthFlowScopesElement } from './elements/nces/OAuthFlowScopes.ts';
-export type { default as OperationMessageElement } from './elements/nces/OperationMessage.ts';
-export type { default as OperationMessageMapElement } from './elements/nces/OperationMessageMap.ts';
-export type { default as OperationSecurityElement } from './elements/nces/OperationSecurity.ts';
-export type { default as OperationTraitsElement } from './elements/nces/OperationTraits.ts';
-export type { default as OperationTraitSecurityElement } from './elements/nces/OperationTraitSecurity.ts';
-export type { default as ServerSecurityElement } from './elements/nces/ServerSecurity.ts';
-export type { default as ServerVariablesElement } from './elements/nces/ServerVariables.ts';
+export { default as ChannelItemsServersElement } from './elements/nces/ChannelItemsServers.ts';
+export { default as ComponentsChannelBindingsElement } from './elements/nces/ComponentsChannelBindings.ts';
+export { default as ComponentsChannelsElement } from './elements/nces/ComponentsChannels.ts';
+export { default as ComponentsCorrelationIDsElement } from './elements/nces/ComponentsCorrelationIDs.ts';
+export { default as ComponentsMessageBindingsElement } from './elements/nces/ComponentsMessageBindings.ts';
+export { default as ComponentsMessagesElement } from './elements/nces/ComponentsMessages.ts';
+export { default as ComponentsMessageTraitsElement } from './elements/nces/ComponentsMessageTraits.ts';
+export { default as ComponentsOperationBindingsElement } from './elements/nces/ComponentsOperationBindings.ts';
+export { default as ComponentsOperationTraitsElement } from './elements/nces/ComponentsOperationTraits.ts';
+export { default as ComponentsParametersElement } from './elements/nces/ComponentsParameters.ts';
+export { default as ComponentsSchemasElement } from './elements/nces/ComponentsSchemas.ts';
+export { default as ComponentsSecuritySchemesElement } from './elements/nces/ComponentsSecuritySchemes.ts';
+export { default as ComponentsServerBindingsElement } from './elements/nces/ComponentsServerBindings.ts';
+export { default as ComponentsServersElement } from './elements/nces/ComponentsServers.ts';
+export { default as ComponentsServerVariablesElement } from './elements/nces/ComponentsServerVariables.ts';
+export { default as MessageExamplesElement } from './elements/nces/MessageExamples.ts';
+export { default as MessageTraitsElement } from './elements/nces/MessageTraits.ts';
+export { default as MessageTraitExamplesElement } from './elements/nces/MessageTraitExamples.ts';
+export { default as OAuthFlowScopesElement } from './elements/nces/OAuthFlowScopes.ts';
+export { default as OperationMessageElement } from './elements/nces/OperationMessage.ts';
+export { default as OperationMessageMapElement } from './elements/nces/OperationMessageMap.ts';
+export { default as OperationSecurityElement } from './elements/nces/OperationSecurity.ts';
+export { default as ServerVariablesElement } from './elements/nces/ServerVariables.ts';
+export { default as OperationTraitsElement } from './elements/nces/OperationTraits.ts';
+export { default as OperationTraitSecurityElement } from './elements/nces/OperationTraitSecurity.ts';
+export { default as ServerSecurityElement } from './elements/nces/ServerSecurity.ts';

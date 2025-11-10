@@ -20,27 +20,19 @@ class AsyncApi3 extends AsyncApi2Element {
   }
 
   get tags(): TagsElement | undefined {
-    throw new UnsupportedOperationError(
-      'tags keyword has been moved to info',
-    );
+    throw new UnsupportedOperationError('tags keyword has been moved to info');
   }
 
   set tags(tags: TagsElement | undefined) {
-    throw new UnsupportedOperationError(
-      'tags keyword has been moved to info',
-    );
+    throw new UnsupportedOperationError('tags keyword has been moved to info');
   }
 
   get externalDocs(): ExternalDocumentationElement | undefined {
-    throw new UnsupportedOperationError(
-      'externalDocs keyword has been moved to info.',
-    );
+    throw new UnsupportedOperationError('externalDocs keyword has been moved to info.');
   }
 
   set externalDocs(externalDocs: ExternalDocumentationElement | undefined) {
-    throw new UnsupportedOperationError(
-      'externalDocs keyword has been moved to info.',
-    );
+    throw new UnsupportedOperationError('externalDocs keyword has been moved to info.');
   }
 
   get operations(): OperationsElement | undefined {

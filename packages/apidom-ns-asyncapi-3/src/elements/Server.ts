@@ -1,4 +1,4 @@
-import { Attributes, Meta, ObjectElement, StringElement } from '@swagger-api/apidom-core';
+import { Attributes, Meta, StringElement } from '@swagger-api/apidom-core';
 import { ServerElement } from '@swagger-api/apidom-ns-asyncapi-2';
 import { UnsupportedOperationError } from '@swagger-api/apidom-error';
 

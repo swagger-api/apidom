@@ -292,7 +292,7 @@ const schema: Record<string, unknown> = {
     bindings(...args: Record<string, unknown>[]) {
       return new ChannelBindingsElement(...args);
     },
-    tags(...args: ConstructorParameters<typeof TagsElement> ) {
+    tags(...args: ConstructorParameters<typeof TagsElement>) {
       return new TagsElement(...args);
     },
     externalDocs(...args: Record<string, unknown>[]) {
@@ -788,7 +788,7 @@ const schema: Record<string, unknown> = {
     else(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
-    enum(...args: ConstructorParameters<typeof ArrayElement> ) {
+    enum(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
     items(...args: Record<string, unknown>[]) {
@@ -974,7 +974,9 @@ const schema: Record<string, unknown> = {
   },
 
   PulsarChannelBindingElement: {
-    'geo-replication': function geoReplication(...args: ConstructorParameters<typeof ArrayElement>) {
+    'geo-replication': function geoReplication(
+      ...args: ConstructorParameters<typeof ArrayElement>
+    ) {
       return new ArrayElement(...args);
     },
     retention(...args: Record<string, unknown>[]) {
@@ -1100,7 +1102,6 @@ const schema: Record<string, unknown> = {
     '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new ReferenceElement(...args);
     },
-  
   },
 
   [OperationReplyMessagesElement.primaryClass]: {
@@ -1128,7 +1129,7 @@ const schema: Record<string, unknown> = {
   },
 
   [ChannelServersElement.primaryClass]: {
-    '<*>': function asterisk(...args: Record<string, unknown>[] ) {
+    '<*>': function asterisk(...args: Record<string, unknown>[]) {
       return new ReferenceElement(...args);
     },
   },
@@ -1170,9 +1171,12 @@ const schema: Record<string, unknown> = {
   },
 };
 
-const findElementFactory = (ancestor: any , keyName: string) => {
+const findElementFactory = (ancestor: any, keyName: string) => {
   const elementType = getNodeType(ancestor);
-  const keyMapping = (schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]) as Record<string, unknown> | unknown | undefined ; 
+  const keyMapping = (schema[elementType ?? ''] || schema[toValue(ancestor.classes.first)]) as
+    | Record<string, unknown>
+    | unknown
+    | undefined;
 
   if (keyMapping == null || typeof keyMapping !== 'object') {
     return undefined;
@@ -1189,8 +1193,12 @@ const findElementFactory = (ancestor: any , keyName: string) => {
 const plugin = () => () => ({
   visitor: {
     StringElement(
-      element: StringElement, 
-      key: unknown, parent: unknown, path: unknown, ancestors: Record<string, unknown>[] | unknown[]) {
+      element: StringElement,
+      key: unknown,
+      parent: unknown,
+      path: unknown,
+      ancestors: Record<string, unknown>[] | unknown[],
+    ) {
       if (!isEmptyElement(element)) return undefined;
 
       const lineage = [...ancestors, parent].filter(isElement);

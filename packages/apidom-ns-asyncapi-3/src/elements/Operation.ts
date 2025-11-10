@@ -7,7 +7,6 @@ import {
 } from '@swagger-api/apidom-core';
 
 import ReferenceElement from './Reference.ts';
-import OperationTraitElement from './OperationTrait.ts';
 
 /**
  * @public

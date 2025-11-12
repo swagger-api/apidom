@@ -22,7 +22,7 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
 ## AsyncApi 2.x.y namespace
 
 AsyncApi 2.x.y namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2/src/elements) implemented on top
-of [primitive ones](https://github.com/refractproject/minim/tree/main/lib/primitives).
+of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
 import { createNamespace } from '@swagger-api/apidom-core';
@@ -62,7 +62,7 @@ isAsyncApi2Element(asyncApiElement); // => true
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom-core` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L4).
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L16) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-asyncapi-2/src/traversal/visitor.ts#L6).
 To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 
 ```js
@@ -193,41 +193,41 @@ Only fully implemented specification objects should be checked here.
 
 ### Specification Objects
 
-- [x] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SObject)
-- [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SVersionString)
-- [x] [Identifier](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
-- [x] [Info Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#A2SIdString)
-- [x] [Contact Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#contactObject)
-- [x] [License Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#license-object)
-- [x] [Servers Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serversObject)
-- [x] [Server Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverObject)
-- [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverVariableObject)
-- [x] [Default Content Type](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#defaultContentTypeString)
-- [x] [Channels Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelsObject)
-- [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channelItemObject)
-- [x] [Operation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationObject)
-- [x] [Operation Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operationTraitObject)
-- [x] [Message Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageObject)
-- [x] [Message Trait Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageTraitObject)
-- [x] [Message Example Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageExampleObject)
-- [x] [Tags Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tagsObject)
-- [x] [Tag Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#tag-object)
-- [x] [External Documentation Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#externalDocumentationObject)
-- [x] [Components Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#componentsObject)
-- [x] [Reference Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#referenceObject)
-- [x] [Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject)
-- [x] [Security Scheme Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#securitySchemeObject)
-- [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#security-requirement-object)
-- [x] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flows-object)
-- [x] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#oauth-flow-object)
-- [x] [Server Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#serverBindingsObject)
-- [x] [Parameters Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parametersObject)
-- [x] [Parameter Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#parameterObject)
-- [x] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#channel-bindings-object)
-- [x] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#operation-bindings-object)
-- [x] [Message Bindings Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#messageBindingsObject)
-- [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#correlationIdObject)
-- [x] [Specification Extension](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#specificationExtensions)
+- [x] [AsyncAPI Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#asyncapi-object)
+- [x] [AsyncAPI Version String](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#asyncapi-version-string)
+- [x] [Identifier](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#identifier)
+- [x] [Info Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#info-object)
+- [x] [Contact Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#contact-object)
+- [x] [License Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#license-object)
+- [x] [Servers Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#servers-object)
+- [x] [Server Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#server-object)
+- [x] [Server Variable Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#server-variable-object)
+- [x] [Default Content Type](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#default-content-type)
+- [x] [Channels Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#channels-object)
+- [x] [Channel Item Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#channel-item-object)
+- [x] [Operation Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#operation-object)
+- [x] [Operation Trait Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#operation-trait-object)
+- [x] [Message Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#message-object)
+- [x] [Message Trait Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#message-trait-object)
+- [x] [Message Example Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#-message-example-object)
+- [x] [Tags Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#tags-object)
+- [x] [Tag Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#tag-object)
+- [x] [External Documentation Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#external-documentation-object)
+- [x] [Components Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#components-object)
+- [x] [Reference Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#reference-object)
+- [x] [Schema Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#schema-object)
+- [x] [Security Scheme Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#security-scheme-object)
+- [x] [Security Requirement Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#security-requirement-object)
+- [x] [OAuth Flows Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#oauth-flows-object)
+- [x] [OAuth Flow Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#oauth-flow-object)
+- [x] [Server Bindings Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#server-bindings-object)
+- [x] [Parameters Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#parameters-object)
+- [x] [Parameter Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#parameter-object)
+- [x] [Channel Bindings Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#channel-bindings-object)
+- [x] [Operation Bindings Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#operation-bindings-object)
+- [x] [Message Bindings Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#message-bindings-object)
+- [x] [Correlation ID Object](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#correlation-id-object)
+- [x] [Specification Extension](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md#specification-extensions)
 
 ### Binding Objects
 

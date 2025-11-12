@@ -2,7 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-arazzo-json-1-0` is a parser adapter for the [Arazzo 1.0.1 specification](https://spec.openapis.org/arazzo/latest.html#version-1-0-1) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [Arazzo 1.x.y Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-arazzo-1#refractors).
 
 ## Installation
@@ -34,7 +34,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-arazzo-json-1/src/adapter.ts#L13) is based on a regular expression matching required Arazzo 1.0.1 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-arazzo-json-1/src/adapter.ts#L18) is based on a regular expression matching required Arazzo 1.0.1 specification symbols in JSON format.
 
 ### namespace
 

@@ -21,6 +21,7 @@ describe('adapter', function () {
 
   context('given definition in JSON format', function () {
     // TODO: Fix and enable.
+    // eslint-disable-next-line mocha/no-skipped-tests
     xspecify('should detect proper media type', async function () {
       assert.isTrue(await adapter.detect(jsonSpec));
     });
@@ -33,6 +34,7 @@ describe('adapter', function () {
   });
 
   // TODO: Fix and enable
+  // eslint-disable-next-line mocha/no-skipped-tests
   xit('should parse', async function () {
     const parseResult = await adapter.parse(yamlSpec, { sourceMap: true });
 
@@ -91,6 +93,7 @@ describe('adapter', function () {
     });
 
     // TODO: Fix and enable.
+    // eslint-disable-next-line mocha/no-skipped-tests
     xspecify('should reject invalid version ranges', function () {
       assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.01.0'));
       assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.1.013'));

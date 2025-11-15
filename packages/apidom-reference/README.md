@@ -1053,7 +1053,7 @@ await readFile('/home/user/oas.json', {
   }
 });
 ```
-New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HTTPResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
+New resolver plugins can be based on two predefined abstract classes: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HTTPResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HTTPResolver.ts).
 
 ##### Manipulating resolver plugins
 
@@ -1408,7 +1408,7 @@ await resolve('/home/user/oas.json', {
   }
 });
 ```
-New strategies can be based on a predefined stamp called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
+New strategies can be based on a predefined abstract class called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
 
 ##### Manipulating external resolution strategies
 
@@ -1813,7 +1813,7 @@ await dereference('/home/user/oas.json', {
 });
 ```
 
-New strategies can be based on a predefined stamp called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
+New strategies can be based on a predefined abstract class called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
 
 ##### Manipulating dereference strategies
 
@@ -2051,7 +2051,7 @@ await bundle('/home/user/oas.json', {
 });
 ```
 
-New strategies can be based on a predefined stamp called [BundleStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/bundle/strategies/BundleStrategy.ts).
+New strategies can be based on a predefined abstract class called [BundleStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/bundle/strategies/BundleStrategy.ts).
 
 ##### Manipulating bundle strategies
 

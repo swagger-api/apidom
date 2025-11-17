@@ -7,9 +7,9 @@ import { isAsyncApi3Element } from '@swagger-api/apidom-ns-asyncapi-3';
 
 import * as adapter from '../src/adapter.ts';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const jsonSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.json')).toString();
-const yamlSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-api.yaml')).toString();
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const jsonSpec = fs.readFileSync(path.join(dirname, 'fixtures', 'sample-api.json')).toString();
+const yamlSpec = fs.readFileSync(path.join(dirname, 'fixtures', 'sample-api.yaml')).toString();
 
 describe('adapter', function () {
   context('given definition in JSON format', function () {

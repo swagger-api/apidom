@@ -5,8 +5,8 @@ import type { Deferred, Event } from 'benchmark';
 import { lexicalAnalysis } from '@swagger-api/apidom-parser-adapter-json';
 import { fileURLToPath } from 'node:url';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const fixturePath = path.join(__dirname, 'fixtures/asyncapi.json');
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const fixturePath = path.join(dirname, 'fixtures/asyncapi.json');
 const source = fs.readFileSync(fixturePath).toString();
 
 const options = {

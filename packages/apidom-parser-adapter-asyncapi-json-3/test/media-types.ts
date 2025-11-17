@@ -12,6 +12,5 @@ describe('given adapter is used in parser', function () {
 
       assert.strictEqual(mediaType, 'application/vnd.aai.asyncapi+json;version=3.0.0');
     });
-
   });
 });

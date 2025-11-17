@@ -6,8 +6,8 @@ import type { Event } from 'benchmark';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import { AsyncApi3Element } from '@swagger-api/apidom-ns-asyncapi-3';
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const fixturePath = path.join(__dirname, 'fixtures/asyncapi.json');
+const dirname = path.dirname(fileURLToPath(import.meta.url));
+const fixturePath = path.join(dirname, 'fixtures/asyncapi.json');
 const source = fs.readFileSync(fixturePath).toString();
 const pojo = JSON.parse(source);
 const genericObjectElement = new ObjectElement(pojo);

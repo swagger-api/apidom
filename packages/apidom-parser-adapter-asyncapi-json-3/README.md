@@ -39,11 +39,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 3.6.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 3.0.0 specification symbols in JSON format.
 
 ### namespace
 
-This adapter exposes an instance of [AsyncApi 3.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-3#asyncapi-2xy-namespace).
+This adapter exposes an instance of [AsyncApi 3.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-3#asyncapi-3xy-namespace).
 
 ### parse
 
@@ -90,5 +90,5 @@ const parser = new ApiDOMParser();
 
 parser.use(asyncApiJsonAdapter);
 
-const parseResult = await parser.parse('{"asyncapi": "3.6.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
+const parseResult = await parser.parse('{"asyncapi": "3.0.1"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
 ```

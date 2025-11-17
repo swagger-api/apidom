@@ -13,7 +13,7 @@ const browser = {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-asyncapi-json-3.browser.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterAsyncApiJson2',
+    library: 'apidomParserAdapterAsyncApiJson3',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],
@@ -57,7 +57,7 @@ const browserMin = {
     path: path.resolve('./dist'),
     filename: 'apidom-parser-adapter-asyncapi-json-3.browser.min.js',
     libraryTarget: 'umd',
-    library: 'apidomParserAdapterAsyncApiJson2',
+    library: 'apidomParserAdapterAsyncApiJson3',
   },
   resolve: {
     extensions: ['.ts', '.mjs', '.js', '.json'],

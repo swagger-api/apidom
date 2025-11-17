@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import Benchmark from 'benchmark';
 import type { Event } from 'benchmark';
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { AsyncApi2Element } from '@swagger-api/apidom-ns-asyncapi-2';
+import { AsyncApi3Element } from '@swagger-api/apidom-ns-asyncapi-3';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixturePath = path.join(__dirname, 'fixtures/asyncapi.json');
@@ -17,7 +17,7 @@ const options = {
   minSamples: 600,
   expected: '103 ops/sec ±0.92% (668 runs sampled)',
   fn() {
-    AsyncApi2Element.refract(genericObjectElement);
+    AsyncApi3Element.refract(genericObjectElement);
   },
 };
 

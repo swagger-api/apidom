@@ -1,369 +1,458 @@
 {
-  "openapi": "3.0.4",
+  "asyncapi": "3.0.0",
+  "id": "urn:com:smartylighting:streetlights:server",
   "info": {
-    "title": "Sample Pet Store App",
-    "description": "This is a sample server for a pet store.",
-    "termsOfService": "https://example.com/terms/",
+    "title": "AsyncAPI Sample App",
+    "version": "1.0.1",
+    "description": "This is a sample server.",
+    "termsOfService": "http://asyncapi.org/terms/",
     "contact": {
       "name": "API Support",
-      "url": "https://www.example.com/support",
-      "email": "support@example.com"
+      "url": "http://www.asyncapi.org/support",
+      "email": "support@asyncapi.org"
     },
     "license": {
       "name": "Apache 2.0",
-      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
     },
-    "version": "1.0.1"
+    "tags": [
+      {
+        "name": "topLevelTag",
+        "description": "topLevelTag description",
+        "externalDocs": {
+          "description": "description of topLevelTag external docs",
+          "url": "https://example.com/topLevelTag"
+        }
+      }
+    ],
+    "externalDocs": {
+      "description": "description of this document external docs",
+      "url": "https://example.com/document"
+    }
   },
-  "servers": [
-    {
-      "url": "{username}.gigantic-server.com",
-      "description": "Production server",
+  "servers": {
+    "production": {
+      "host": "{username}.gigantic-server.com",
+      "protocol": "kafka",
+      "protocolVersion": "1.0.0",
+      "pathname": "/v2",
+      "description": "Production server description",
+      "title": "Production server",
+      "summary": "Production server summary.",
       "variables": {
         "username": {
           "enum": ["demo", "demo1", "demo2"],
           "default": "demo",
-          "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
-        }
-      }
-    }
-  ],
-  "paths": {
-    "/path1": {
-      "summary": "path1 summary",
-      "description": "path1 description",
-      "get": {},
-      "put": {
-        "tags": ["tag1", "tag2"],
-        "summary": "path2 components item summary",
-        "description": "path2 components item description",
-        "externalDocs": {
-          "description": "external documentation 1",
-          "url": "https://example.com/external-doc1"
-        },
-        "operationId": "path-1-put",
-        "parameters": [
-          {
-            "name": "parameter3",
-            "in": "query",
-            "description": "parameter3 description",
-            "required": false,
-            "deprecated": false,
-            "allowEmptyValue": true
-          },
-          {
-            "$ref": "#/components/parameters/parameter2"
-          }
-        ],
-        "requestBody": {
-          "description": "request body description",
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              },
-              "example": {
-                "a": "b"
-              },
-              "examples": {
-                "example1": {
-                  "summary": "example 1 summary",
-                  "description": "example 1 description",
-                  "value": "c",
-                  "externalValue": "https://example1.com/"
-                },
-                "example2": {
-                  "$ref": "#/components/examples/example3"
-                }
-              },
-              "encoding": {
-                "historyMetadata": {
-                  "contentType": "application/json",
-                  "headers": {
-                    "X-Rate-Limit-Limit": {
-                      "description": "x-rate limit description",
-                      "schema": {
-                        "type": "integer"
-                      }
-                    },
-                    "Content-Type": {
-                      "$ref": "#/components/headers/Content-Type"
-                    }
-                  },
-                  "style": "simple",
-                  "explode": true,
-                  "allowReserved": true
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "default": {
-            "description": "default response",
-            "content": {
-              "application/json": {}
-            },
-            "links": {
-              "link1": {
-                "operationRef": "https://example.com/external-link",
-                "operationId": "operationId-1",
-                "parameters": {
-                  "parameter1": "{$url}"
-                },
-                "requestBody": "{$method}",
-                "description": "link 1 description",
-                "server": {}
-              },
-              "link2": {
-                "$ref": "#/components/links/link3"
-              }
-            }
-          },
-          "201": {
-            "$ref": "#/components/responses/201"
-          }
-        },
-        "callbacks": {
-          "myCallback1": {
-            "{$request.query.queryUrl}": {
-              "post": {
-                "requestBody": {
-                  "description": "Callback payload",
-                  "content": {
-                    "application/json": {
-                      "schema": {
-                        "type": "object"
-                      }
-                    }
-                  }
-                },
-                "responses": {
-                  "200": {
-                    "description": "callback successfully processed"
-                  }
-                }
-              }
-            }
-          },
-          "myCallback2": {
-            "$ref": "#/components/callbacks/callback1"
-          }
-        },
-        "deprecated": false,
-        "security": [
-          {
-            "petstore_auth": [
-              "write:pets",
-              "read:pets"
-            ]
-          }
-        ],
-        "servers": [
-          {
-            "url": "{username}.gigantic-server.com",
-            "description": "Production server",
-            "variables": {
-              "username": {
-                "enum": ["demo", "demo1", "demo2"],
-                "default": "demo",
-                "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
-              }
-            }
-          }
-        ]
-      },
-      "post": {
-        "requestBody": {
-          "$ref": "#/components/requestBodies/requestBody1"
-        },
-        "responses": {
-          "default": {
-            "$ref": "#/components/responses/201"
-          }
+          "description": "This value is assigned by the service provider, in this example `gigantic-server.com`",
+          "examples": ["demo", "demo1", "demo2"]
         }
       },
-      "delete": {},
-      "options": {},
-      "head": {},
-      "patch": {},
-      "trace": {},
-      "servers": [
+      "security": [
         {
-          "url": "{username}.gigantic-server.com",
-          "description": "Production server",
-          "variables": {
-            "username": {
-              "enum": ["demo", "demo1", "demo2"],
-              "default": "demo",
-              "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
-            }
+          "petstore_auth": {
+            "type": "apiKey",
+            "description": "Petstore Auth description",
+            "name": "Petstore Auth",
+            "in": "password",
+            "scheme": "Authorization",
+            "bearerFormat": "JWT",
+            "flows": {
+              "implicit": {},
+              "password": {},
+              "clientCredentials": {},
+              "authorizationCode": {}
+            },
+            "openIdConnectUrl": "security-scheme-openIdConnectUrl",
+            "scopes": ["write:pets", "read:pets"]
           }
         }
       ],
-      "parameters": [
+      "bindings": {
+        "kafka": {}
+      },
+      "tags": [
         {
-          "name": "parameter1",
-          "in": "query",
-          "description": "parameter1 description",
-          "required": false,
-          "deprecated": false,
-          "allowEmptyValue": true
-        },
-        {
-          "$ref": "#/components/parameters/parameter2"
+          "name": "serversLevelTag",
+          "description": "serversLevelTag description",
+          "externalDocs": {
+            "description": "description of serversLevelTag external docs",
+            "url": "https://example.com/serversLevelTag"
+          }
         }
       ]
     },
-    "/path2": {
-      "$ref": "#/components/pathItems/path2"
+    "development": {
+      "host": "gigantic-server.com",
+      "protocol": "kafka",
+      "bindings": {
+        "jms": {}
+      }
+    }
+  },
+  "defaultContentType": "application/json",
+  "channels": {
+    "userSignedUp": {
+      "address": "users.{userId}",
+      "title": "Users channel",
+      "description": "This channel is used to exchange messages about user events.",
+      "summary": "Exchange messages about user events.",
+      "messages": {
+        "userSignedUp": {
+          "headers": {
+            "type": "object"
+          },
+          "payload": {
+            "type": "object",
+            "properties": {
+              "user": {
+                "$ref": "#/components/schemas/user"
+              },
+              "signup": {
+                "$ref": "#/components/schemas/signup"
+              }
+            }
+          },
+          "correlationId": {
+            "description": "correlation id description",
+            "location": "http://asyncapi.com/"
+          },
+          "contentType": "application/json",
+          "name": "name of the message",
+          "title": "title of the message",
+          "summary": "summary of the message",
+          "description": "A longer description of the message",
+          "tags": [
+            {
+              "name": "tag3",
+              "description": "description of tag3",
+              "externalDocs": {
+                "description": "description of tag 3 external docs",
+                "url": "https://example.com/tag3"
+              }
+            }
+          ],
+          "externalDocs": {
+            "description": "description of message 1 external docs",
+            "url": "https://example.com/message-1-external-docs"
+          },
+          "bindings": {
+            "kafka": {
+              "key": {
+                "type": "integer"
+              },
+              "bindingVersion": "0.1.0"
+            }
+          },
+          "examples": [
+            {
+              "headers": { "Content-Type": "application/json" },
+              "payload": "{\"a\":\"b\"}",
+              "name": "example name",
+              "summary": "example summary"
+            }
+          ],
+          "traits": [
+            {
+              "headers": {
+                "type": "object"
+              },
+              "correlationId": {
+                "description": "correlation id description",
+                "location": "http://asyncapi.com/"
+              },
+              "contentType": "application/json",
+              "name": "name of the message trait",
+              "title": "title of the message trait",
+              "summary": "summary of the message trait",
+              "description": "A longer description of the message trait",
+              "tags": [
+                {
+                  "name": "tag4",
+                  "description": "description of tag4",
+                  "externalDocs": {
+                    "description": "description of tag 4 external docs",
+                    "url": "https://example.com/tag4"
+                  }
+                }
+              ],
+              "externalDocs": {
+                "description": "description of message 1 trait external docs",
+                "url": "https://example.com/message-1-trait-external-docs"
+              },
+              "bindings": {
+                "kafka": {
+                  "key": {
+                    "type": "integer"
+                  },
+                  "bindingVersion": "0.1.0"
+                }
+              },
+              "examples": [
+                {
+                  "headers": { "Content-Type": "application/json" },
+                  "payload": "{\"a\":\"b\"}",
+                  "name": "example name",
+                  "summary": "example summary"
+                }
+              ]
+            }
+          ]
+        }
+      },
+      "parameters": {
+        "userId": {
+          "description": "User identifier"
+        }
+      },
+      "servers": [
+        { "$ref": "#/servers/rabbitmqInProd" },
+        { "$ref": "#/servers/rabbitmqInStaging" }
+      ],
+      "bindings": {
+        "amqp": {}
+      },
+      "tags": [
+        {
+          "name": "user",
+          "description": "User-related messages"
+        }
+      ],
+      "externalDocs": {
+        "description": "Find more info here",
+        "url": "https://example.com"
+      }
+    },
+    "user/loggedout": {
+      "$ref": "https://outside.com/#/path/to/channel"
     }
   },
   "components": {
     "schemas": {
-      "schema1": {
+      "Schema1": {
         "type": "object"
       },
-      "schema2": {
-        "$ref": "#/components/schemas/schema1"
+      "Schema2": {
+        "$ref": "#/components/schemas/Schema1"
+      },
+      "Schema3": {
+        "schemaFormat": "application/vnd.aai.asyncapi;version=3.0.0",
+        "schema": {}
       }
     },
-    "responses": {
-      "201": {
-        "description": "201 description",
-        "headers": {
-          "Content-Type": {
-            "description": "The number of allowed requests in the current period",
-            "schema": {
-              "type": "integer"
-            }
-          }
-        }
-      },
-      "400": {
-        "$ref": "#/components/responses/201"
-      }
-    },
-    "parameters": {
-      "parameter2": {
-        "name": "parameter2",
-        "in": "query",
-        "description": "parameter2 description",
-        "required": false,
-        "deprecated": false,
-        "allowEmptyValue": true,
-        "content": {
-          "application/json": {}
-        }
-      },
-      "parameter3": {
-        "$ref": "#/components/parameters/parameter2"
-      }
-    },
-    "examples": {
-      "example3": {
-        "summary": "example 3 summary",
-        "description": "example 3 description",
-        "value": "c",
-        "externalValue": "https://example3.com/"
-      },
-      "example4": {
-        "$ref": "#/components/examples/example3"
-      }
-    },
-    "requestBodies": {
-      "requestBody1": {
-        "description": "request body 1 description",
-        "required": true,
-        "content": {
-          "application/json": {}
-        }
-      },
-      "requestBody2": {
-        "$ref": "#/components/requestBodies/requestBody1"
-      }
-    },
-    "headers": {
-      "Content-Type": {
-        "description": "The number of allowed requests in the current period",
-        "schema": {
-          "type": "integer"
-        }
-      },
-      "X-Custom-Header": {
-        "$ref": "#/components/headers/Content-Type"
+    "messages": {
+      "Message1": {},
+      "Message2": {
+        "$ref": "#/components/messages/Message1"
       }
     },
     "securitySchemes": {
-      "securityScheme1": {
-        "type": "http",
-        "description": "security scheme description",
-        "name": "apiKey",
-        "in": "apiKey",
-        "scheme": "http",
-        "flows": {
-          "implicit": {
-            "authorizationUrl": "https://authorization-url.com/"
-          }
-        }
-      },
-      "securityScheme2": {
-        "$ref": "#/components/securitySchemes/securityScheme1"
+      "SecurityScheme1": {},
+      "SecurityScheme2": {
+        "$ref": "#/components/securitySchemes/SecurityScheme1"
       }
     },
-    "links": {
-      "link3": {
-        "description": "link 3 description"
+    "parameters": {
+      "Parameter1": {
+        "description": "parameter description",
+        "location": "http://example.com"
       },
-      "link4": {
-        "$ref": "#/components/links/link4"
+      "Parameter2": {
+        "$ref": "#/components/parameters/Parameter1"
       }
     },
-    "callbacks": {
-      "callback1": {
-        "{$request.query.queryUrl}": {
-          "put": {
-            "requestBody": {
-              "description": "Callback payload",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "object"
-                  }
-                }
-              }
-            },
-            "responses": {
-              "200": {
-                "description": "callback successfully processed"
-              }
-            }
-          }
-        }
+    "correlationIds": {
+      "CorrelationID1": {},
+      "CorrelationID2": {
+        "$ref": "#/components/correlationIds/CorrelationID1"
+      }
+    },
+    "operationTraits": {
+      "OperationTrait1": {},
+      "OperationTrait2": {
+        "$ref": "#/components/operationTraits/OperationTrait1"
+      }
+    },
+    "messageTraits": {
+      "MessageTrait1": {},
+      "MessageTrait2": {
+        "$ref": "#/components/messageTraits/MessageTrait1"
+      }
+    },
+    "serverBindings": {
+      "ServerBinding1": {
+        "kafka": {}
       },
-      "callback2": {
-        "$ref": "#/components/callbacks/callback1"
+      "ServerBinding2": {
+        "$ref": "#/components/serverBindings/ServerBinding1"
+      }
+    },
+    "channelBindings": {
+      "ChannelBinding1": {
+        "kafka": {}
+      },
+      "ChannelBinding2": {
+        "$ref": "#/components/channelBindings/ChannelBinding1"
+      }
+    },
+    "operationBindings": {
+      "OperationBinding1": {
+        "kafka": {}
+      },
+      "OperationBinding2": {
+        "$ref": "#/components/operationBindings/OperationBinding1"
+      }
+    },
+    "messageBindings": {
+      "MessageBinding1": {
+        "kafka": {}
+      },
+      "MessageBinding2": {
+        "$ref": "#/components/messageBindings/MessageBinding1"
+      }
+    },
+    "servers": {
+      "server1": {},
+      "server2": {
+        "$ref": "#/components/servers/server1"
+      }
+    },
+    "serverVariables": {
+      "port": {
+        "enum": ["8883", "8884"],
+        "default": "8883"
+      },
+      "port1": {
+        "$ref": "#/components/serverVariables/port"
+      }
+    },
+    "channels": {
+      "channel1": {},
+      "channel2": {
+        "$ref": "#/components/channels/channel1"
+      }
+    },
+    "operations": {
+      "SignUp1": {},
+      "SignUp2": {
+        "$ref": "#/components/operations/SignUp1"
+      }
+    },
+    "replies": {
+      "UserReply1": {},
+      "UserReply2": {
+        "$ref": "#/components/replies/UserReply1"
+      }
+    },
+    "replyAddresses": {
+      "UserReplyAddress1": {},
+      "UserReplyAddress2": {
+        "$ref": "#/components/replyAddresses/UserReplyAddress1"
+      }
+    },
+    "externalDocs": {
+      "ExternalDoc1": {},
+      "ExternalDoc2": {
+        "$ref": "#/components/externalDocs/ExternalDoc1"
+      }
+    },
+    "tags": {
+      "UserTag1": {},
+      "UserTag2": {
+        "$ref": "#/components/tags/UserTag1"
       }
     }
   },
-  "security": [
-    {
-      "api_key": []
-    }
-  ],
-  "tags": [
-    {
-      "name": "tag1",
-      "description": "tag1 description",
+  "operations": {
+    "onUserSignUp": {
+      "title": "User sign up",
+      "summary": "Action to sign a user up.",
+      "description": "A longer description",
+      "channel": {
+        "$ref": "#/channels/userSignup"
+      },
+      "action": "send",
+      "tags": [
+        {
+          "name": "operationTag",
+          "description": "operationTag description",
+          "externalDocs": {
+            "description": "description of operationTag external docs",
+            "url": "https://example.com/operationTag"
+          }
+        }
+      ],
+      "bindings": {
+        "kafka": {}
+      },
+      "traits": [
+        {
+          "title": "Operation trait title",
+          "description": "Operation trait description",
+          "summary": "Operation trait summary",
+          "bindings": {
+            "kafka": {}
+          },
+          "security": [
+            {
+              "petstore_auth": {
+                "type": "apiKey",
+                "description": "Petstore Auth description",
+                "name": "Petstore Auth",
+                "in": "password",
+                "scheme": "Authorization",
+                "bearerFormat": "JWT",
+                "flows": {
+                  "implicit": {},
+                  "password": {},
+                  "clientCredentials": {},
+                  "authorizationCode": {}
+                },
+                "openIdConnectUrl": "security-scheme-openIdConnectUrl",
+                "scopes": ["write:pets", "read:pets"]
+              }
+            }
+          ],
+          "externalDocs": {
+            "description": "Find more info here",
+            "url": "https://example.com"
+          }
+        }
+      ],
+      "security": [
+        {
+          "petstore_auth": {
+            "type": "apiKey",
+            "description": "Petstore Auth description",
+            "name": "Petstore Auth",
+            "in": "password",
+            "scheme": "Authorization",
+            "bearerFormat": "JWT",
+            "flows": {
+              "implicit": {},
+              "password": {},
+              "clientCredentials": {},
+              "authorizationCode": {}
+            },
+            "openIdConnectUrl": "security-scheme-openIdConnectUrl",
+            "scopes": ["write:pets", "read:pets"]
+          }
+        }
+      ],
       "externalDocs": {
-        "description": "external docs tag description",
-        "url": "https://example.com/extenral-docs-tag"
+        "description": "Find more info here",
+        "url": "https://example.com"
+      },
+      "messages": [{ "$ref": "#/components/messages/Message1" }],
+      "reply": {
+        "address": {
+          "description": "Reply address description",
+          "location": "http://example.com/reply"
+        },
+        "channel": {
+          "$ref": "#/components/channels/channel1"
+        },
+        "messages": [{ "$ref": "#/components/messages/Message1" }]
       }
     }
-  ],
-  "externalDocs": {
-    "description": "external docs top level description",
-    "url": "https://example.com/extenral-docs-top-level"
   }
 }

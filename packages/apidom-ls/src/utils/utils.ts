@@ -6,6 +6,7 @@ import * as openapi31xAdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi31xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -833,6 +834,19 @@ export async function findNamespace(
       version,
       format: 'YAML',
       mediaType: asyncapi2AdapterYaml.mediaTypes.findBy(version, 'yaml'),
+    };
+  }
+
+  if (await asyncapi3AdapterJson.detect(text)) {
+    const asyncapi3JsonMatch = text.match(asyncapi3AdapterJson.detectionRegExp)!;
+    const groups = asyncapi3JsonMatch.groups!;
+    const version = groups.version_json;
+
+    return {
+      namespace: 'asyncapi',
+      version,
+      format: 'JSON',
+      mediaType: asyncapi3AdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
 

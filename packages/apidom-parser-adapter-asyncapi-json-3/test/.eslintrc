@@ -1,5 +1,55 @@
 {
+  "env": {
+    "mocha": true
+  },
+  "globals": {
+    "document": true
+  },
+  "plugins": [
+    "mocha"
+  ],
   "rules": {
-    "@typescript-eslint/no-var-requires": 0
+    "no-void": 0,
+    "func-names": 0,
+    "prefer-arrow-callback": 0,
+    "no-array-constructor": 0,
+    "prefer-rest-params": 0,
+    "no-new-wrappers": 0,
+    "mocha/no-skipped-tests": 2,
+    "mocha/handle-done-callback": 2,
+    "mocha/valid-suite-description": 2,
+    "mocha/no-mocha-arrows": 2,
+    "mocha/no-hooks-for-single-case": 2,
+    "mocha/no-sibling-hooks": 2,
+    "mocha/no-top-level-hooks": 2,
+    "mocha/no-identical-title": 2,
+    "mocha/no-nested-tests": 2,
+    "mocha/no-exclusive-tests": 2,
+    "no-underscore-dangle": 0,
+    "import/no-relative-packages": 0,
+    "@typescript-eslint/naming-convention": [
+      "error",
+      {
+        "selector": "variable",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"],
+        "leadingUnderscore": "forbid"
+      },
+      {
+        "selector": "variable",
+        "format": null,
+        "filter": {
+          "regex": "^__dirname$",
+          "match": true
+        }
+      },
+      {
+        "selector": "variable",
+        "format": null,
+        "filter": {
+          "regex": "^__filename$",
+          "match": true
+        }
+      }
+    ]
   }
 }

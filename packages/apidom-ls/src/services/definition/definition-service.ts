@@ -133,7 +133,7 @@ export class DefaultDefinitionService implements DefinitionService {
       }
       // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
       const refTarget = jsonPointerEvaluate<Element>(api, URIFragmentIdentifier.from(ref));
-      const nodeSourceMap = getSourceMap(refTarget);
+      const nodeSourceMap = getSourceMap(refTarget?.parent ?? refTarget);
       const range = Range.create(
         textDocument.positionAt(nodeSourceMap.offset),
         textDocument.positionAt(nodeSourceMap.endOffset || nodeSourceMap.offset + 1),

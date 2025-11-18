@@ -303,10 +303,10 @@ Only fully implemented specification objects should be checked here.
 
 #### SNS
 
-- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#server-binding-object)
-- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#channel-binding-object)
-- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#operation-binding-object)
-- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/README.md#message-binding-object)
+- [x] [Server Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#server-binding-object)
+- [x] [Channel Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#channel-binding-object)
+- [x] [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#operation-binding-object)
+- [x] [Message Binding Object](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#message-binding-object)
 
 #### Solace
 

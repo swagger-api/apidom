@@ -12,7 +12,7 @@
 
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [AsyncApi 2.x.y Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#refractors).
 
 ## Installation
@@ -54,7 +54,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 2.6.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-2/src/adapter.ts#L18) is based on a regular expression matching required AsyncApi 2.6.0 specification symbols in JSON format.
 
 ### namespace
 

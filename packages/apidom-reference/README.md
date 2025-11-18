@@ -370,7 +370,7 @@ This parser is uniquely identified by `binary` name.
 #### Parser plugins execution order
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
-by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L22) option.
+by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L32) option.
 Every plugin is pulled from `options.parse.parsers` option, and it's `canParse` method is called to determine
 whether the plugin can parse the URI. If `canParse` returns `true`, `parse` method of plugin is called
 and result from parsing is returned. No subsequent parser plugins are run. If `canParse` returns
@@ -1095,7 +1095,7 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 
 **Externally resolving an ApiDOM fragment:**
 
-When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/options/index.ts#L94)
 resolve option needs to be provided to have a starting point for external dependency resolution.
 `mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
 
@@ -1149,7 +1149,7 @@ Supported media types:
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
-External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md) definitions.
 
 Supported media types:
 
@@ -1236,7 +1236,7 @@ Supported media types:
 ##### External resolution strategies execution order
 
 It's important to understand that default external resolution strategies are run in specific order. The order is determined
-by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L41) option.
+by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
 Every strategy is pulled from `options.resolve.strategies` option and its `canResolve` method is called to determine
 whether the strategy can externally resolve the URI. If `canResolve` returns `true`, `resolve` method of strategy is called
 and result from external resolution is returned. No subsequent strategies  are run. If `canResolve` returns
@@ -1450,7 +1450,7 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
 
 **Dereferencing an ApiDOM fragment:**
 
-When dereferencing an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+When dereferencing an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/options/index.ts#L94)
 resolve option needs to be provided to have a starting point for external dependency resolution.
 `mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
 
@@ -1607,7 +1607,7 @@ Supported media types:
 ##### Dereference strategies execution order
 
 It's important to understand that default dereference strategies are run in specific order. The order is determined
-by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L88) option.
+by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L64) option.
 Every strategy is pulled from `options.dereference.strategies` option and it's `canDereference` method is called to determine
 whether the strategy can dereference the URI. If `canDereference` returns `true`, `dereference` method of strategy is called
 and result from dereferencing is returned. No subsequent strategies  are run. If `canDereference` returns

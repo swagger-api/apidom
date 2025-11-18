@@ -1479,4 +1479,17 @@ export const standardLinterfunctions: FunctionItem[] = [
         : true;
     },
   },
+  {
+    functionName: 'apilintOpenAPIEmptyResponses',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        if (!element.keys() || element.keys().length === 0) {
+          return false;
+        }
+
+        return element.keys().some((k) => typeof k !== 'string' || !k.startsWith('x-'));
+      }
+      return true;
+    },
+  },
 ];

@@ -88,7 +88,7 @@ const replace = new NumberElement(4);
 transclude(search, replace, element); // => ArrayElement<[1, 4, 3]>
 ```
 
-When multiple transclusions are going to be performed use [Transcluder stamp](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/transcluder/Transcluder.ts)
+When multiple transclusions are going to be performed use [Transcluder class](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/transcluder/Transcluder.ts)
 for optimal performance.
 
 ```js
@@ -97,7 +97,7 @@ import { Transcluder, ArrayElement, NumberElement } from '@swagger-api/apidom-co
 const element = new ArrayElement([1, 2, 3]);
 const search = element.get(1);
 const replace = new NumberElement(4);
-const transcluder = Transcluder({ element });
+const transcluder = new Transcluder({ element });
 
 transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 ```

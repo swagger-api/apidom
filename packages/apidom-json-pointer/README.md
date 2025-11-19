@@ -22,7 +22,142 @@ expects only ApiDOM as the first argument.
 import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
+### Evaluating
 
+```js
+import { ObjectElement } from '@swagger-api/apidom-core';
+import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
+
+const apidom = new ObjectElement({ a: { b: 'c' } });
+const result =  evaluate(apidom, '/a/b');
+// => StringElement('c')
+```
+
+### Parsing
+
+Parses JSON Pointer into a list of tokens, which can be accessed through the `tree` property of the parse result.
+
+```js
+import { parse } from '@swagger-api/apidom-json-pointer/modern';
+
+const parseResult = parse('/a/b');
+// =>
+// {
+//   result: {
+//     success: true,
+//     state: 101,
+//     stateName: 'MATCH',
+//     length: 4,
+//     matched: 4,
+//     maxMatched: 4,
+//     maxTreeDepth: 8,
+//     nodeHits: 31
+//   },
+//   tree: [ 'a', 'b' ],
+//   stats: undefined,
+//   trace: undefined
+// }
+```
+
+### Compiling
+
+Compiles a list of tokens into JSON Pointer.
+
+```js
+import { compile } from '@swagger-api/apidom-json-pointer/modern';
+
+const jsonPointer = compile(['a', 'b']); // => '/a/b'
+```
+
+### Escaping
+
+Escapes/unescapes tokens of JSON Pointer.
+
+```js
+import { escape, unescape } from '@swagger-api/apidom-json-pointer/modern';
+
+escape('~a/'); // => '~0a~1'
+unescape('~0a~1'); // => '~a/'
+```
+
+### Transforming URI to JSON Pointer
+
+Handles case of [URI Fragment Identifier Representation](https://datatracker.ietf.org/doc/html/rfc6901#section-6).
+
+```js
+import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
+
+URIFragmentIdentifier.fromURIReference('https://example.com/path/#/a/b'); // => '/a/b'
+```
+
+### Validating
+
+Validates a JSON Pointer and its tokens.
+
+```js
+import {
+  testJSONPointer,
+  testReferenceToken,
+  testArrayLocation,
+  testArrayIndex,
+  testArrayDash,
+} from '@swagger-api/apidom-json-pointer/modern';
+
+testJSONPointer('/a/b'); // => true
+testReferenceToken('a'); // => true
+testArrayLocation('0'); // => true
+testArrayLocation('-'); // => true
+testArrayIndex('0'); // => true
+testArrayDash('-'); // => true
+```
+
+### Errors
+
+JSONPointerError is the base class for all JSON Pointer errors.
+
+```js
+import { JSONPointerError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If an invalid list of tokens is supplied to `compile` function, `JSONPointerCompileError` is thrown.
+
+```js
+import { JSONPointerCompileError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If an invalid JSON Pointer is supplied to `evaluate` function, `JSONPointerEvaluateError`
+is thrown.
+
+```js
+import { JSONPointerEvaluateError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
+ApiDOM fragment because it is not an object or an array, `JSONPointerTypeError` is thrown.
+
+```js
+import { JSONPointerTypeError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
+ApiDOM fragment because the key does not exist in the object, `JSONPointerKeyError` is thrown.
+
+```js
+import { JSONPointerKeyError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
+ApiDOM fragment because the index does not exist in the array, `JSONPointerIndexError` is thrown.
+
+```js
+import { JSONPointerIndexError } from '@swagger-api/apidom-json-pointer/modern';
+```
+
+If an error occurs in `parse` function, `JSONPointerParseError` is thrown. 
+
+```js
+import { JSONPointerParseError } from '@swagger-api/apidom-json-pointer/modern';
+```
 
 ## Legacy API
 
@@ -52,7 +187,7 @@ const result =  evaluate('/a/b', apidom);
 
 ### Parsing
 
-Parses JSON Pointer into list of tokens.
+Parses JSON Pointer into a list of tokens.
 
 ```js
 import { parse } from '@swagger-api/apidom-json-pointer';
@@ -62,7 +197,7 @@ const tokens = parse('/a/b'); // => ['a', 'b']
 
 ### Compiling
 
-Compiles list of tokens into JSON Pointer.
+Compiles a list of tokens into JSON Pointer.
 
 ```js
 import { compile } from '@swagger-api/apidom-json-pointer';
@@ -93,14 +228,14 @@ uriToPointer('https://example.com/path/#/a/b'); // => '/a/b'
 
 ### Invalid JSON Pointers
 
-If invalid JSON Pointer is supplied to `parse` or `evaluate` functions, `InvalidJsonPointerError`
+If an invalid JSON Pointer is supplied to `parse` or `evaluate` functions, `InvalidJsonPointerError`
 is thrown.
 
 ```js
 import { InvalidJsonPointerError } from '@swagger-api/apidom-json-pointer';
 ```
 
-If valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
 ApiDOM fragment, `EvaluationJsonPointerError` is thrown.
 
 ```js

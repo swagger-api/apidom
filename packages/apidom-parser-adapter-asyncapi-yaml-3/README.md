@@ -5,7 +5,7 @@
 - [AsyncAPI 3.0.0 specification](https://github.com/asyncapi/spec/blob/v3.0.0/spec/asyncapi.md)
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 
 [//]: # (// TODO: The below link does not have content yet.)
 which is then refracted with [AsyncApi 3.x.y Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-3#refractors).

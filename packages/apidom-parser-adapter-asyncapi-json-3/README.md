@@ -31,16 +31,14 @@ Defines list of media types that this parser adapter recognizes.
 [
   'application/vnd.aai.asyncapi;version=3.0.0',
   'application/vnd.aai.asyncapi+json;version=3.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=3.0.0',
   'application/vnd.aai.asyncapi;version=3.0.1',
   'application/vnd.aai.asyncapi+json;version=3.0.1',
-  'application/vnd.aai.asyncapi+yaml;version=3.0.1',
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 3.0.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L18) is based on a regular expression matching required AsyncApi 3.0.0 specification symbols in JSON format.
 
 ### namespace
 

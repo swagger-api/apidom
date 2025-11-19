@@ -13,7 +13,7 @@ export { default as mediaTypes } from './media-types.ts';
  * @public
  */
 export const detectionRegExp =
-  /(?<YAML>^(["']?)asyncapi\2\s*:\s*(["']?)(?<version_yaml>3\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))\3(?:\s+|$))|(?<JSON>"asyncapi"\s*:\s*"(?<version_json>2\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))")/m;
+  /(?<YAML>^(["']?)asyncapi\2\s*:\s*(["']?)(?<version_yaml>3\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))\3(?:\s+|$))|(?<JSON>"asyncapi"\s*:\s*"(?<version_json>3\.(?:[1-9]\d*|0)\.(?:[1-9]\d*|0))")/m;
 
 /**
  * @public

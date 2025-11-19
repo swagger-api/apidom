@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-asyncapi-yaml-3",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-rc.3",
   "description": "Parser adapter for parsing YAML documents into AsyncAPI 3.x.y namespace.",
   "publishConfig": {
     "access": "public",

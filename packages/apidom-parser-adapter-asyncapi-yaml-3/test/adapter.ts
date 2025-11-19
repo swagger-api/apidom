@@ -31,9 +31,7 @@ describe('adapter', function () {
     });
   });
 
-  // TODO: Fix and enable
-  // eslint-disable-next-line mocha/no-skipped-tests
-  xit('should parse', async function () {
+  it('should parse', async function () {
     const parseResult = await adapter.parse(yamlSpec, { sourceMap: true });
 
     assert.isTrue(isParseResultElement(parseResult));

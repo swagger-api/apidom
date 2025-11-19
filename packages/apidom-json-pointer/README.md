@@ -125,35 +125,31 @@ If an invalid list of tokens is supplied to `compile` function, `JSONPointerComp
 import { JSONPointerCompileError } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
-If an invalid JSON Pointer is supplied to `evaluate` function, `JSONPointerEvaluateError`
-is thrown.
+If an invalid JSON Pointer is supplied to `evaluate` function, `JSONPointerEvaluateError` is thrown.
 
 ```js
 import { JSONPointerEvaluateError } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
-If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
-ApiDOM fragment because it is not an object or an array, `JSONPointerTypeError` is thrown.
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against ApiDOM fragment because it is not an object or an array, `JSONPointerTypeError` is thrown.
 
 ```js
 import { JSONPointerTypeError } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
-If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
-ApiDOM fragment because the key does not exist in the object, `JSONPointerKeyError` is thrown.
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against ApiDOM fragment because the key does not exist in the object, `JSONPointerKeyError` is thrown.
 
 ```js
 import { JSONPointerKeyError } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
-If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against
-ApiDOM fragment because the index does not exist in the array, `JSONPointerIndexError` is thrown.
+If a valid JSON Pointer is supplied to `evaluate` function and the pointer cannot be evaluated against ApiDOM fragment because the index does not exist in the array, `JSONPointerIndexError` is thrown. 
 
 ```js
 import { JSONPointerIndexError } from '@swagger-api/apidom-json-pointer/modern';
 ```
 
-If an error occurs in `parse` function, `JSONPointerParseError` is thrown. 
+If an error occurs in `parse` function, `JSONPointerParseError` is thrown.
 
 ```js
 import { JSONPointerParseError } from '@swagger-api/apidom-json-pointer/modern';

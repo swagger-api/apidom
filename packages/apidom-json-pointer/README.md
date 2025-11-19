@@ -13,7 +13,7 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
 ## Modern API
 
 This is the recommended API for use in new projects. It is fully compliant with [RFC 6901](https://datatracker.ietf.org/doc/html/rfc6901) and supports all aspects of JSON Pointer.
-Uses [@swaggerexpert/json-pointer](https://www.npmjs.com/package/@swaggerexpert/json-pointer) under the hood and fully reflects its API.
+Uses [@swaggerexpert/json-pointer](https://www.npmjs.com/package/@swaggerexpert/json-pointer) under the hood and fully reflects its API. For additional options, consult the `@swaggerexpert/json-pointer` [documentation](https://www.npmjs.com/package/@swaggerexpert/json-pointer#usage).
 
 Evaluation is contextual to [ApiDOM realm](https://github.com/swaggerexpert/json-pointer?tab=readme-ov-file#apidom-evaluation-realm) - meaning `evaluate` function
 expects only ApiDOM as the first argument.
@@ -111,7 +111,7 @@ testArrayIndex('0'); // => true
 testArrayDash('-'); // => true
 ```
 
-### Errors
+### Invalid JSON Pointers
 
 JSONPointerError is the base class for all JSON Pointer errors.
 

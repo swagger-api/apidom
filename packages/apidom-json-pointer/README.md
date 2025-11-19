@@ -113,7 +113,7 @@ testArrayDash('-'); // => true
 
 ### Invalid JSON Pointers
 
-JSONPointerError is the base class for all JSON Pointer errors.
+`JSONPointerError` is the base class for all JSON Pointer errors.
 
 ```js
 import { JSONPointerError } from '@swagger-api/apidom-json-pointer/modern';

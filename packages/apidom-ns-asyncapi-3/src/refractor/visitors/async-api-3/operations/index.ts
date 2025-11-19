@@ -11,6 +11,7 @@ import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.t
 import OperationsElement from '../../../../elements/Operations.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
 import { isReferenceElement } from '../../../../predicates.ts';
+import MapVisitor from '../../generics/MapVisitor.ts';
 
 /**
  * @public
@@ -22,7 +23,7 @@ export interface OperationsVisitorOptions
 /**
  * @public
  */
-class OperationsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+class OperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: OperationsElement;
 
   declare protected readonly specPath: SpecPath<
@@ -41,8 +42,6 @@ class OperationsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
         : ['document', 'objects', 'Operation'];
     };
     this.canSupportSpecificationExtensions = false;
-    // @ts-ignore
-    this.fieldPatternPredicate = test(/^[A-Za-z0-9_-]+$/);
   }
 
   ObjectElement(objectElement: ObjectElement) {

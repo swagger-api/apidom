@@ -39,7 +39,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-yaml-3/src/adapter.ts#L13) is based on a regular expression matching required AsyncApi 3.x.y specification symbols in YAML format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-yaml-3/src/adapter.ts#L21) is based on a regular expression matching required AsyncApi 3.x.y specification symbols in YAML format.
 
 ### namespace
 

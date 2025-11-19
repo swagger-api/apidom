@@ -1,5 +1,4 @@
 import { Mixin } from 'ts-mixer';
-import { test } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 

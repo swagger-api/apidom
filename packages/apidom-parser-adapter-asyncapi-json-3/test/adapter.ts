@@ -88,7 +88,7 @@ describe('adapter', function () {
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "2.5.0"'));
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "2.6.01"'));
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "3.6.01"'));
-      assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "3.6.01"'));
+      assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "3.06.0"'));
     });
   });
 });

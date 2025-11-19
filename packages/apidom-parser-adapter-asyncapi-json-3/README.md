@@ -2,10 +2,11 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-json-3` is a parser adapter for following AsyncAPI specification versions defined in [JSON format](https://www.json.org/json-en.html):
 
-
+- [AsyncAPI 3.0.0 specification](https://github.com/asyncapi/spec/blob/v3.0.0/spec/asyncapi.md)
+- [AsyncAPI 3.0.1 specification](https://github.com/asyncapi/spec/blob/v3.0.1/spec/asyncapi.md)
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [AsyncApi 3.x.y Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-3#refractors).
 
 ## Installation
@@ -75,7 +76,7 @@ await detect('{"asyncapi": "3.0.1"}'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('{"asyncapi": "3.6.0"}', { sourceMap: true });
+const parseResult = await parse('{"asyncapi": "3.0.0"}', { sourceMap: true });
 ```
 
 ### Indirect usage

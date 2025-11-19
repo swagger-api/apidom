@@ -42,8 +42,7 @@
   },
   "homepage": "https://github.com/swagger-api/apidom#readme",
   "workspaces": [
-    "./packages/*",
-    "./packages/apidom-parser-adapter-asyncapi-json-3"
+    "./packages/*"
   ],
   "devDependencies": {
     "@babel/cli": "=7.28.0",

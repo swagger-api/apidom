@@ -1,0 +1,7 @@
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
+/dist
+/types
+/NOTICE
+/swagger-api-apidom-parser-adapter-asyncapi-json-3-*.tgz

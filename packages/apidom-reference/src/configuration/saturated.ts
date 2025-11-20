@@ -26,6 +26,7 @@ import OpenAPI2DereferenceStrategy from '../dereference/strategies/openapi-2/ind
 import OpenAPI3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0/index.ts';
 import OpenAPI3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1/index.ts';
 import AsyncAPI2DereferenceStrategy from '../dereference/strategies/asyncapi-2/index.ts';
+import AsyncAPI3DereferenceStrategy from '../dereference/strategies/asyncapi-3/index.ts';
 import OpenAPI3_1BundleStrategy from '../bundle/strategies/openapi-3-1/index.ts';
 import { options } from '../index.ts';
 
@@ -66,6 +67,7 @@ options.dereference.strategies = [
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
+  new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ];
 

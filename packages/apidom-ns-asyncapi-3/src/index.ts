@@ -29,6 +29,8 @@ export {
   isServerVariableElement,
 } from './predicates.ts';
 
+export { keyMap, getNodeType } from './traversal/visitor.ts';
+
 export {
   /**
    * AsyncApi 3.0.0 specification elements.

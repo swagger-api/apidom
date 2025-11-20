@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-asyncapi-3",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-rc.3",
   "description": "AsyncAPI 3.x.y namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",

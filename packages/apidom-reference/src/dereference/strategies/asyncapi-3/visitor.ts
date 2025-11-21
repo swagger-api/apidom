@@ -147,7 +147,6 @@ class AsyncAPI3DereferenceVisitor {
       });
       refSet.add(immutableReference);
     }
-    // eslint-disable-next-line no-debugger
     return mutableReference;
   }
 

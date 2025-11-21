@@ -3,7 +3,6 @@ import {
   isElement,
   isMemberElement,
   isPrimitiveElement,
-  isStringElement,
   IdentityManager,
   cloneDeep,
   cloneShallow,
@@ -21,13 +20,7 @@ import {
   isReferenceLikeElement,
   getNodeType,
 } from '@swagger-api/apidom-ns-asyncapi-2';
-import {
-  keyMap,
-  ChannelElement,
-  isReferenceElement,
-  ReferenceElement,
-  isChannelElement,
-} from '@swagger-api/apidom-ns-asyncapi-3';
+import { keyMap, isReferenceElement, ReferenceElement } from '@swagger-api/apidom-ns-asyncapi-3';
 
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';

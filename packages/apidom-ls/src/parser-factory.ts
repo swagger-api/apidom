@@ -5,6 +5,7 @@ import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
@@ -54,6 +55,19 @@ export async function parse(
     };
 
     result = await asyncapi2AdapterJson.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('3.') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['asyncapi-3'] || [])],
+      },
+    };
+
+    result = await asyncapi3AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'asyncapi' &&
     (contentLanguage.version?.startsWith('2.') || !contentLanguage.version) &&

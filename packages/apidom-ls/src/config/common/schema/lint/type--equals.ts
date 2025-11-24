@@ -8,7 +8,7 @@ const typeEqualsLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message:
-    'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer',
+    'should be equal to one of the allowed values allowedValues: array, boolean, integer, number, object, string'
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['boolean', 'object', 'array', 'number', 'string', 'integer']],

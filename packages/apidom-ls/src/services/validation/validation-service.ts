@@ -162,7 +162,6 @@ export class DefaultValidationService implements ValidationService {
       const rules = this.settings?.metadata?.rules;
 
       if (!rules || !rules[docNs]?.lint) {
-        this.lintingRulesSemanticCache.set(cacheKey, meta);
         return meta;
       }
 
@@ -187,7 +186,6 @@ export class DefaultValidationService implements ValidationService {
     } catch (e) {
       console.log('error in retrieving semantic rules', e);
     }
-    this.lintingRulesSemanticCache.set(cacheKey, meta);
     return meta;
   }
 
@@ -691,6 +689,7 @@ export class DefaultValidationService implements ValidationService {
         set.forEach((s) => {
           // get linter meta from meta
           const semanticLintingRules = this.getLintingRulesSemantic(api, s, docNs);
+          this.lintingRulesSemanticCache.set(`${docNs}-${s}`, semanticLintingRules);
           if (semanticLintingRules && semanticLintingRules.length > 0) {
             for (const meta of semanticLintingRules) {
               this.processRule(

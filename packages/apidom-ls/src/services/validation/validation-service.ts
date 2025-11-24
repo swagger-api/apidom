@@ -74,6 +74,8 @@ export class DefaultValidationService implements ValidationService {
 
   private quickFixesMap: Record<string, QuickFixData[]> = {};
 
+  private lintingRulesSemanticCache: Map<string, LinterMeta[]> = new Map();
+
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
@@ -143,6 +145,12 @@ export class DefaultValidationService implements ValidationService {
   }
 
   private getLintingRulesSemantic(doc: Element, symbol: string, docNs: string): LinterMeta[] {
+    const cacheKey = `${docNs}-${symbol}`;
+
+    if (this.lintingRulesSemanticCache.has(cacheKey)) {
+      return this.lintingRulesSemanticCache.get(cacheKey)!;
+    }
+
     let meta: LinterMeta[] = [];
     const elementMeta = toValue(doc.meta.get('metadataMap')?.get(symbol)?.get('lint'));
     if (elementMeta) {
@@ -152,10 +160,12 @@ export class DefaultValidationService implements ValidationService {
     // get namespace rules with `given` populated as array
     try {
       if (!this.settings?.metadata?.rules) {
+        this.lintingRulesSemanticCache.set(cacheKey, meta);
         return meta;
       }
       const rules = this.settings?.metadata?.rules;
       if (!rules[docNs]?.lint) {
+        this.lintingRulesSemanticCache.set(cacheKey, meta);
         return meta;
       }
       meta = meta.concat(
@@ -179,6 +189,7 @@ export class DefaultValidationService implements ValidationService {
     } catch (e) {
       console.log('error in retrieving semantic rules', e);
     }
+    this.lintingRulesSemanticCache.set(cacheKey, meta);
     return meta;
   }
 

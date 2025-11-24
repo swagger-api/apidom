@@ -6,7 +6,7 @@ Supported versions:
 - 2021-05-07
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [API Design Systems Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-api-design-systems#refractors).
 
 ## Installation
@@ -36,7 +36,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-api-design-systems-yaml/src/adapter.ts#L11) is based on a regular expression matching required API Design Systems specification symbols in YAML format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-api-design-systems-yaml/src/adapter.ts#L21) is based on a regular expression matching required API Design Systems specification symbols in YAML format.
 
 ### namespace
 

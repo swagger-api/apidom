@@ -289,7 +289,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -409,7 +409,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -528,7 +528,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -861,7 +861,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1066,7 +1066,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1204,7 +1204,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1469,7 +1469,7 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1636,7 +1636,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1717,7 +1717,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1798,7 +1798,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1879,7 +1879,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1960,7 +1960,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2041,7 +2041,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2122,7 +2122,7 @@ describe('apidom-ls-validate', function () {
               },
             },
             message:
-              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',

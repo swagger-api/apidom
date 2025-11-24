@@ -1,0 +1,8 @@
+{
+  "extensions": ["ts"],
+  "loader": "ts-node/esm",
+  "recursive": true,
+  "spec": "test/**/*.mjs",
+  "file": ["test/mocha-bootstrap.ts"],
+  "ignore": ["test/perf/**/*.ts"]
+}

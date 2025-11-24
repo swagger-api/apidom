@@ -2,7 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-json-schema-json-2020-12` is a parser adapter for the [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
-to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [JSON Schema 2020-12 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-json-schema-2020-12#refractors).
 
 ## Installation
@@ -32,7 +32,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json-schema-json-2020-12/src/adapter.ts#L13) is based on a regular expression matching required JSON Schema 2020-12 symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json-schema-json-2020-12/src/adapter.ts#L18) is based on a regular expression matching required JSON Schema 2020-12 symbols in JSON format.
 
 ### namespace
 

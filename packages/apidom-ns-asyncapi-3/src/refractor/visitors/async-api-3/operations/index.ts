@@ -1,12 +1,8 @@
 import { Mixin } from 'ts-mixer';
-import { test } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import { isReferenceLikeElement } from '@swagger-api/apidom-ns-asyncapi-2';
 
-import PatternedFieldsVisitor, {
-  PatternedFieldsVisitorOptions,
-  SpecPath,
-} from '../../generics/PatternedFieldsVisitor.ts';
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import OperationsElement from '../../../../elements/Operations.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';
@@ -15,14 +11,12 @@ import { isReferenceElement } from '../../../../predicates.ts';
 /**
  * @public
  */
-export interface OperationsVisitorOptions
-  extends PatternedFieldsVisitorOptions,
-    FallbackVisitorOptions {}
+export interface OperationsVisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
 
 /**
  * @public
  */
-class OperationsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
+class OperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   declare public readonly element: OperationsElement;
 
   declare protected readonly specPath: SpecPath<
@@ -41,12 +35,10 @@ class OperationsVisitor extends Mixin(PatternedFieldsVisitor, FallbackVisitor) {
         : ['document', 'objects', 'Operation'];
     };
     this.canSupportSpecificationExtensions = false;
-    // @ts-ignore
-    this.fieldPatternPredicate = test(/^[A-Za-z0-9_-]+$/);
   }
 
   ObjectElement(objectElement: ObjectElement) {
-    const result = PatternedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
     // @ts-ignore
     this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {

@@ -159,15 +159,13 @@ export class DefaultValidationService implements ValidationService {
     }
     // get namespace rules with `given` populated as array
     try {
-      if (!this.settings?.metadata?.rules) {
-        this.lintingRulesSemanticCache.set(cacheKey, meta);
-        return meta;
-      }
       const rules = this.settings?.metadata?.rules;
-      if (!rules[docNs]?.lint) {
+
+      if (!rules || !rules[docNs]?.lint) {
         this.lintingRulesSemanticCache.set(cacheKey, meta);
         return meta;
       }
+
       meta = meta.concat(
         rules[docNs]!.lint!.filter((r) => {
           const matchesArray =

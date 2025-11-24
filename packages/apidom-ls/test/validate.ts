@@ -5201,11 +5201,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 10,
-            line: 27,
+            line: 30,
           },
           start: {
             character: 8,
-            line: 27,
+            line: 30,
           },
         },
         severity: 1,

@@ -356,9 +356,10 @@ export const standardLinterfunctions: FunctionItem[] = [
 
       const fields = keys.map((key) => element.get(key)).filter(Boolean);
 
-      if (fields.length === 0) {
+      if (fields.length !== keys.length) {
         return true;
       }
+
       return !fields.every((field) => {
         const elValue = toValue(field);
 

@@ -10,7 +10,7 @@ const typeEqualsOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message:
-    'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer null',
+    'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['null', 'boolean', 'object', 'array', 'number', 'string', 'integer'], true],

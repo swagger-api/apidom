@@ -37,6 +37,7 @@ describe('apidom-ls-detect', function () {
     const contentLanguage: ContentLanguage = {
       namespace: 'asyncapi',
       mediaType: 'application/vnd.aai.asyncapi+yaml',
+      version: '2.0.0',
     };
 
     // valid spec

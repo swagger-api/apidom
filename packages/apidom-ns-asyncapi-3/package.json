@@ -7,7 +7,10 @@
     "registry": "https://registry.npmjs.org"
   },
   "type": "module",
-  "sideEffects": [],
+  "sideEffects": [
+    "./src/refractor/registration.mjs",
+    "./src/refractor/registration.cjs"
+  ],
   "main": "./src/index.cjs",
   "exports": {
     "types": "./types/apidom-ns-asyncapi-3.d.ts",

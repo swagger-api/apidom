@@ -99,6 +99,8 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
  $ npm install @swagger-api/apidom-parser-adapter-arazzo-yaml-1
  $ npm install @swagger-api/apidom-parser-adapter-asyncapi-json-2
  $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-2
+ $ npm install @swagger-api/apidom-parser-adapter-asyncapi-json-3
+ $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-3
  $ npm install @swagger-api/apidom-parser-adapter-json
  $ npm install @swagger-api/apidom-parser-adapter-json-schema-json-2020-12
  $ npm install @swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12
@@ -649,6 +651,7 @@ Available parser adapters for ApiDOM namespaces:
 - API Design Systems - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-yaml)
 - Arazzo 1.0.1 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-json-1) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-yaml-1)
 - AsyncAPI 2.x.y - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-2) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-2)
+- AsyncAPI 3.x.y - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-3) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-3)
 - JSON Schema 2020-12 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-json-2020-12) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-yaml-2020-12)
 - OpenAPI 2.0 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-2) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-2)
 - OpenAPI 3.0.x - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-json-3-0) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-openapi-yaml-3-0)

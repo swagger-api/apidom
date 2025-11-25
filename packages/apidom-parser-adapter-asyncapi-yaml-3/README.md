@@ -31,9 +31,7 @@ Defines list of media types that this parser adapter recognizes.
 ```js
 [
   'application/vnd.aai.asyncapi;version=3.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=3.0.0',
-  'application/vnd.aai.asyncapi;version=3.0.1',
-  'application/vnd.aai.asyncapi+yaml;version=3.0.1',
+  'application/vnd.aai.asyncapi+yaml;version=3.0.0'
 ]
 ```
 

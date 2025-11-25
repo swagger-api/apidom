@@ -14,7 +14,9 @@ import OpenAPIYAML3_0Parser from '../parse/parsers/openapi-yaml-3-0/index.ts';
 import OpenAPIJSON3_1Parser from '../parse/parsers/openapi-json-3-1/index.ts';
 import OpenAPIYAML3_1Parser from '../parse/parsers/openapi-yaml-3-1/index.ts';
 import AsyncAPIJSON2Parser from '../parse/parsers/asyncapi-json-2/index.ts';
+import AsyncAPIJSON3Parser from '../parse/parsers/asyncapi-json-3/index.ts';
 import AsyncAPIYAML2Parser from '../parse/parsers/asyncapi-yaml-2/index.ts';
+import AsyncAPIYAML3Parser from '../parse/parsers/asyncapi-yaml-3/index.ts';
 import ArazzoJSON1Parser from '../parse/parsers/arazzo-json-1/index.ts';
 import ArazzoYAML1Parser from '../parse/parsers/arazzo-yaml-1/index.ts';
 import APIDOMJSONParser from '../parse/parsers/apidom-json/index.ts';
@@ -38,7 +40,9 @@ options.parse.parsers = [
   new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),

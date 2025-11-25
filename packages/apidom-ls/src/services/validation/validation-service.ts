@@ -461,7 +461,7 @@ export class DefaultValidationService implements ValidationService {
     if (
       nameSpace.namespace === 'asyncapi' &&
       nameSpace.version &&
-      ['3.0.0', '3.0.1'].includes(nameSpace.version)
+      ['3.0.0'].includes(nameSpace.version)
     ) {
       return [];
     }

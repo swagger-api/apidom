@@ -288,7 +288,8 @@ describe('apidom-ls-validate', function () {
             character: 35,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -407,7 +408,8 @@ describe('apidom-ls-validate', function () {
             character: 29,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -525,7 +527,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -857,7 +860,8 @@ describe('apidom-ls-validate', function () {
             character: 35,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1061,7 +1065,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1198,7 +1203,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1462,7 +1468,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1628,7 +1635,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1708,7 +1716,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1788,7 +1797,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1868,7 +1878,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1948,7 +1959,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2028,7 +2040,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2108,7 +2121,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',

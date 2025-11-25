@@ -44,7 +44,7 @@ export async function parse(
   const contentLanguage = await findNamespace(text, defaultContentLanguage);
   if (
     contentLanguage.namespace === 'asyncapi' &&
-    (contentLanguage.version?.startsWith('2.') || !contentLanguage.version) &&
+    contentLanguage.version?.startsWith('2.') &&
     contentLanguage.format === 'JSON'
   ) {
     const options: Record<string, unknown> = {
@@ -70,7 +70,7 @@ export async function parse(
     result = await asyncapi3AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'asyncapi' &&
-    (contentLanguage.version?.startsWith('2.') || !contentLanguage.version) &&
+    contentLanguage.version?.startsWith('2.') &&
     contentLanguage.format === 'YAML'
   ) {
     const options: Record<string, unknown> = {

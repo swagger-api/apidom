@@ -386,8 +386,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
@@ -433,8 +433,8 @@ options.parse.parsers = [
   new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
@@ -458,7 +458,7 @@ import OpenAPIYAML3_0Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
-import AsyncAPIJSON3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncAPIJSON3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-3';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
 import AsyncAPIYAML3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-3';
 import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-json-1';
@@ -481,8 +481,8 @@ await parse('/home/user/oas.json', {
       new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
       new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
-      new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
       new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
       new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),

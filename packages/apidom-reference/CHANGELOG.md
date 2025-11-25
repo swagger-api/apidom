@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0-rc.4](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2025-11-25)
+
+### Features
+
+- **apidom-reference:** resolve references async v3 ([#5051](https://github.com/swagger-api/apidom/issues/5051)) ([1932078](https://github.com/swagger-api/apidom/commit/1932078a7a4cd21203cf075599c46621ee9c189e))
+
 # [1.0.0-rc.3](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2025-11-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

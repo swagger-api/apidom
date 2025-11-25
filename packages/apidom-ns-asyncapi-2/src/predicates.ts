@@ -28,7 +28,7 @@ import ServerVariableElement from './elements/ServerVariable.ts';
 export const isAsyncApi2Element = createPredicate(
   ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
     return (element: unknown): element is AsyncApi2Element =>
-      element instanceof AsyncApi2Element ||
+      (element instanceof AsyncApi2Element && element.constructor === AsyncApi2Element) ||
       (hasBasicElementProps(element) &&
         isElementType('asyncApi2', element) &&
         primitiveEq('object', element) &&

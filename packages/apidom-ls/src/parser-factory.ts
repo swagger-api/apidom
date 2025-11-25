@@ -57,19 +57,6 @@ export async function parse(
     result = await asyncapi2AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'asyncapi' &&
-    contentLanguage.version?.startsWith('3.') &&
-    contentLanguage.format === 'JSON'
-  ) {
-    const options: Record<string, unknown> = {
-      sourceMap: true,
-      refractorOpts: {
-        plugins: [...(refractorPlugins?.['asyncapi-3'] || [])],
-      },
-    };
-
-    result = await asyncapi3AdapterJson.parse(text, options);
-  } else if (
-    contentLanguage.namespace === 'asyncapi' &&
     contentLanguage.version?.startsWith('2.') &&
     contentLanguage.format === 'YAML'
   ) {
@@ -84,6 +71,19 @@ export async function parse(
     };
 
     result = await asyncapi2AdapterYaml.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('3.') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['asyncapi-3'] || [])],
+      },
+    };
+
+    result = await asyncapi3AdapterJson.parse(text, options);
   } else if (
     contentLanguage.namespace === 'asyncapi' &&
     contentLanguage.version?.startsWith('3.') &&

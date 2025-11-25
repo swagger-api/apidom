@@ -428,7 +428,7 @@ const defTestInput = [
           line: 54,
         },
         start: {
-          character: 13,
+          character: 6,
           line: 52,
         },
       },

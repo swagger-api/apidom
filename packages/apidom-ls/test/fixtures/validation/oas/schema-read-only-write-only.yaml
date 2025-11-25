@@ -16,6 +16,9 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/PropertyToTest'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/PropertyToTestNoError'
 components:
   schemas:
     PropertyToTest:
@@ -30,6 +33,22 @@ components:
           format: uuid
           readOnly: true
           writeOnly: true
+        fieldname:
+          type: string
+        fieldDate:
+          type: string
+          format: date-time
+    PropertyToTestNoError:
+      type: object
+      required:
+        - id
+        - fieldname
+        - fieldDate
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
         fieldname:
           type: string
         fieldDate:

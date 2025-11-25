@@ -2,8 +2,8 @@
 
 `@swagger-api/apidom-parser-adapter-json` is a parser adapter for the [JSON format](https://www.json.org/json-en.html).
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
-ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers/2-basic-parsing.html#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis) and
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace) is produced.
 
 ## Installation
 
@@ -16,7 +16,7 @@ via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ## Parse phases
 
-The parse stage takes JSON string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
+The parse stage takes JSON string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace).
 There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
 
 ### Lexical Analysis
@@ -27,8 +27,8 @@ Lexical Analysis will take a JSON string and turn it into a stream of tokens.
 ### Syntactic Analysis
 
 Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis)
-and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers/2-basic-parsing.html#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace) is produced.
 
 #### [Direct Syntactical analysis](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis/direct)
 
@@ -43,7 +43,7 @@ const parseResult = await parse('{"prop": "value"}', {
 });
 ```
 
-#### [Indirect Syntactic analysis]((https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis/indirect))
+#### [Indirect Syntactic analysis](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/syntactic-analysis/indirect)
 
 This analysis turns trees-sitter CST into [JSON AST](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ast#json-ast-nodes) representation.
 Then JSON AST is turned into ApiDOM. Two traversals are required, which makes indirect analysis less performant than direct one.
@@ -72,11 +72,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/adapter.ts#L3) is based on using [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse) to indicate whether the provided source string is or isn't JSON string.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json/src/adapter-node.ts#L23) is based on a regular expression matching valid JSON data types to indicate whether the provided source string is or isn't JSON string.
 
 ### namespace
 
-This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
+This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace).
 
 ### parse
 

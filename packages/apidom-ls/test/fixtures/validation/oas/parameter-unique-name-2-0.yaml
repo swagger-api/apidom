@@ -6,6 +6,8 @@ paths:
   /pets:
     get:
       responses:
+        '200':
+          description: ok
       parameters:
         - name: pathLevel
           type: string

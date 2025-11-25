@@ -2,8 +2,8 @@
 
 `@swagger-api/apidom-parser-adapter-yaml-1-2` is a parser adapter for the [YAML 1.2 format](https://yaml.org/spec/1.2/spec.html).
 
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis) and
-ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers/2-basic-parsing.html#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis) and
+ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace) is produced.
 
 ## Installation
 
@@ -16,7 +16,7 @@ via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ## Parse phases
 
-The parse stage takes YAML string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
+The parse stage takes YAML string and produces ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace).
 There are two phases of parsing: **Lexical Analysis** and **Syntactic Analysis**.
 
 ### Lexical Analysis
@@ -27,8 +27,8 @@ Lexical Analysis will take a YAML string and turn it into a stream of tokens.
 ### Syntactic Analysis
 
 Syntactic Analysis will take a stream of tokens and turn it into an ApiDOM representation.
-[CST](https://tree-sitter.github.io/tree-sitter/using-parsers#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis)
-and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) is produced.
+[CST](https://tree-sitter.github.io/tree-sitter/using-parsers/2-basic-parsing.html#syntax-nodes) produced by lexical analysis is [syntactically analyzed](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/syntactic-analysis)
+and ApiDOM structure using [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace) is produced.
 
 ## Parser adapter API
 
@@ -45,13 +45,11 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/adapter.ts#L3) of this parser adapter
-always returns `false`. The reason is that it's almost impossible to detect if a source string is YAML without actually parsing it.
-Don't rely on this function, rather use `mediaType` instead and please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#word-on-detect-vs-mediatypes).
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-yaml-1-2/src/adapter-node.ts#L14) of this parser adapter uses [lexical analysis](#lexical-analysis) to indicate whether the provided source string is YAML.
 
 ### namespace
 
-This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace).
+This adapter exposes an instance of [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace).
 
 ### parse
 
@@ -84,6 +82,8 @@ const parseResult = await parse('prop: value', { sourceMap: true });
 ```
 
 ### Indirect usage
+
+You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';

@@ -14,7 +14,7 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
 
 ## Base namespace
 
-Base namespace consists of [four higher order elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core/src/elements) implemented on top
+Base namespace consists of [three higher order elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core/src/elements) implemented on top
 of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
@@ -88,7 +88,7 @@ const replace = new NumberElement(4);
 transclude(search, replace, element); // => ArrayElement<[1, 4, 3]>
 ```
 
-When multiple transclusions are going to be performed use [Transcluder stamp](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/transcluder/Transcluder.ts)
+When multiple transclusions are going to be performed use [Transcluder class](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/transcluder/Transcluder.ts)
 for optimal performance.
 
 ```js
@@ -97,7 +97,7 @@ import { Transcluder, ArrayElement, NumberElement } from '@swagger-api/apidom-co
 const element = new ArrayElement([1, 2, 3]);
 const search = element.get(1);
 const replace = new NumberElement(4);
-const transcluder = Transcluder({ element });
+const transcluder = new Transcluder({ element });
 
 transcluder.transclude(search, replace); // => ArrayElement<[1, 4, 3]>
 ```
@@ -578,14 +578,14 @@ objectElement.getMember('info').value.id; // 'OnReGGrO7fMd9ztacvGfwGbOdGKuOFLiQQ
 
 ### visit
 
-[visit](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/traversal/visitor.ts#L104-L103) will walk through an AST using a depth first traversal, calling
+[visit](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/traversal/visitor.ts#L128) will walk through an AST using a depth first traversal, calling
 the visitor's enter function at each node in the traversal, and calling the
 leave function after visiting that node and all of its child nodes.
 
 By returning different values from the enter and leave functions, the
 behavior of the visitor can be altered, including skipping over a sub-tree of
 the ApiDOM (by returning false), editing the ApiDOM by returning a value or null
-to remove the value, or to stop the whole traversal by returning [BREAK](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/index.ts#L52).
+to remove the value, or to stop the whole traversal by returning [BREAK](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/src/traversal/visitor.ts#L52).
 
 When using `visit` to edit an ApiDOM, the original ApiDOM will not be modified, and
 a new version of the ApiDOM with the changes applied will be returned from the
@@ -604,7 +604,7 @@ const element = new ObjectElement({ a: 1 });
 const newElement = visit(element, visitor); // => ObjectElement<{a: 2}>
 ```
 
-This function originally comes from [@swagger-api/apidom-ast package](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/src/visitor.ts)
+This function originally comes from [@swagger-api/apidom-ast package](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/src/traversal/visitor.ts)
 and is originally designed to work with [CST](https://en.wikipedia.org/wiki/Parse_tree). `apidom-core` package
 imports it, specializes it to work with ApiDOM and re-export it.
 

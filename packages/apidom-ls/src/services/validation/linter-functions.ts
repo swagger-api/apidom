@@ -356,9 +356,10 @@ export const standardLinterfunctions: FunctionItem[] = [
 
       const fields = keys.map((key) => element.get(key)).filter(Boolean);
 
-      if (fields.length === 0) {
+      if (fields.length !== keys.length) {
         return true;
       }
+
       return !fields.every((field) => {
         const elValue = toValue(field);
 
@@ -1477,6 +1478,19 @@ export const standardLinterfunctions: FunctionItem[] = [
       return isStringElement(element) && isObject(paths)
         ? isFirstOccurrence(element.toValue(), paths.keys())
         : true;
+    },
+  },
+  {
+    functionName: 'apilintOpenAPIEmptyResponses',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        if (!element.keys() || element.keys().length === 0) {
+          return false;
+        }
+
+        return element.keys().some((k) => typeof k !== 'string' || !k.startsWith('x-'));
+      }
+      return true;
     },
   },
 ];

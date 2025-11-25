@@ -18,10 +18,10 @@ containing following 4 properties (2 required, 2 optional):
 
 Property | Type | Default | Description
 --- | --- | --- | ---
-<a name="detect"></a>`detect` | `(source: String) => Boolean` | `undefined` | This method is called from a parser with a single argument of string that is going to be parsed. Returns a boolean value indicating if the source string was recognized by the parser adapter. It can be defined either as [synchronous](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing#synchronous_javascript) or [asynchronous function](https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Asynchronous/Introducing#asynchronous_javascript).
+<a name="detect"></a>`detect` | `(source: String) => Boolean` | `undefined` | This method is called from a parser with a single argument of string that is going to be parsed. Returns a boolean value indicating if the source string was recognized by the parser adapter. It can be defined either as [synchronous](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Introducing#synchronous_programming) or [asynchronous function](https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS).
 <a name="mediaTypes"></a>`mediaTypes` | `String[]` | `undefined` | This is a property of parser adapter that contains list of supported [media types](https://www.iana.org/assignments/media-types/media-types.xhtml) by this parser adapter. Note that other media types that are not officially registered by [iana](https://www.iana.org/) can be used as well.
 <a name="namespace"></a>`namespace` | `Namespace` | | **REQUIRED** An ApiDOM namespace instance.
-<a name="parse"></a>`parse` | `(source: String, options = {}) => ParseResult` |  | **REQUIRED** This method should contain logic of actual parsing and should return instance of [ParseResult Element](https://github.com/swagger-api/apidom/blob/main/packages/apidom/src/elements/ParseResult.ts).
+<a name="parse"></a>`parse` | `(source: String, options = {}) => ParseResult` |  | **REQUIRED** This method should contain logic of actual parsing and should return instance of [ParseResult Element](https://github.com/swagger-api/apidom/blob/main/packages/apidom-core/src/elements/ParseResult.ts).
 
 Now, let's mount some adapters:
 
@@ -39,7 +39,7 @@ parser.use(yamlParserAdapter);
 ## Finding an appropriate ApiDOM namespace
 
 ApiDOM parser contains logic of mapping a `source string` + `mediaType` to appropriate ApiDOM namespace.
-It will return either [base namespace instance](https://github.com/swagger-api/apidom/tree/main/packages/apidom#base-namespace) or a specific one like [OpenApi 3.1.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace) or [AsyncApi 2.6.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
+It will return either [base namespace instance](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace) or a specific one like [OpenApi 3.1.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#openapi-310-namespace) or [AsyncApi 2.6.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2#asyncapi-2xy-namespace).
 
 ```js
 import ApiDOMParser from '@swagger-api/apidom-parser';

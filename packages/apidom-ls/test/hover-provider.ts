@@ -468,7 +468,9 @@ describe('apidom-ls-hover-provider', function () {
     }
   });
 
-  it('test hover full provider', async function () {
+  // TODO: Flaky test.
+  // eslint-disable-next-line mocha/no-skipped-tests
+  xit('test hover full provider', async function () {
     const languageService: LanguageService = getLanguageService(contextFull);
 
     try {

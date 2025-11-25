@@ -5,11 +5,14 @@ import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
+import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
 import * as adapterYaml from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementAsyncAPI3 } from '@swagger-api/apidom-ns-asyncapi-3';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementAsyncAPI2 } from '@swagger-api/apidom-ns-asyncapi-2';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI2 } from '@swagger-api/apidom-ns-openapi-2';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_0 } from '@swagger-api/apidom-ns-openapi-3-0';
@@ -39,7 +42,11 @@ export async function parse(
   const text: string = typeof textDocument === 'string' ? textDocument : textDocument.getText();
   let result;
   const contentLanguage = await findNamespace(text, defaultContentLanguage);
-  if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'JSON') {
+  if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('2.') &&
+    contentLanguage.format === 'JSON'
+  ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
       refractorOpts: {
@@ -48,7 +55,11 @@ export async function parse(
     };
 
     result = await asyncapi2AdapterJson.parse(text, options);
-  } else if (contentLanguage.namespace === 'asyncapi' && contentLanguage.format === 'YAML') {
+  } else if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('2.') &&
+    contentLanguage.format === 'YAML'
+  ) {
     const options: Record<string, unknown> = {
       sourceMap: true,
       refractorOpts: {
@@ -60,6 +71,35 @@ export async function parse(
     };
 
     result = await asyncapi2AdapterYaml.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('3.') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['asyncapi-3'] || [])],
+      },
+    };
+
+    result = await asyncapi3AdapterJson.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'asyncapi' &&
+    contentLanguage.version?.startsWith('3.') &&
+    contentLanguage.format === 'YAML'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementAsyncAPI3(),
+          ...(refractorPlugins?.['asyncapi-3'] || []),
+        ].filter(Boolean),
+      },
+    };
+
+    result = await asyncapi3AdapterYaml.parse(text, options);
   } else if (
     contentLanguage.namespace === 'openapi' &&
     contentLanguage.version === '2.0' &&

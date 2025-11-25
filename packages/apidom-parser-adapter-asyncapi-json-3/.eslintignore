@@ -1,0 +1,8 @@
+/**/*.js
+/**/*.mjs
+/**/*.cjs
+/dist
+/types
+/config
+/.nyc_output
+/node_modules

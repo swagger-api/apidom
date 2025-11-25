@@ -93,10 +93,20 @@
       "require": "./src/parse/parsers/asyncapi-json-2/index.cjs",
       "types": "./types/parse/parsers/asyncapi-json-2/index.d.ts"
     },
+    "./parse/parsers/asyncapi-json-3": {
+      "import": "./src/parse/parsers/asyncapi-json-3/index.mjs",
+      "require": "./src/parse/parsers/asyncapi-json-3/index.cjs",
+      "types": "./types/parse/parsers/asyncapi-json-3/index.d.ts"
+    },
     "./parse/parsers/asyncapi-yaml-2": {
       "import": "./src/parse/parsers/asyncapi-yaml-2/index.mjs",
       "require": "./src/parse/parsers/asyncapi-yaml-2/index.cjs",
       "types": "./types/parse/parsers/asyncapi-yaml-2/index.d.ts"
+    },
+    "./parse/parsers/asyncapi-yaml-3": {
+      "import": "./src/parse/parsers/asyncapi-yaml-3/index.mjs",
+      "require": "./src/parse/parsers/asyncapi-yaml-3/index.cjs",
+      "types": "./types/parse/parsers/asyncapi-yaml-3/index.d.ts"
     },
     "./parse/parsers/arazzo-json-1": {
       "import": "./src/parse/parsers/arazzo-json-1/index.mjs",

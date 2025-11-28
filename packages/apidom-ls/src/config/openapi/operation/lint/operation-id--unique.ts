@@ -10,7 +10,7 @@ const operationIdUniqueLint: LinterMeta = {
   message: "operationId' must be unique among all operations",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintPropertyUniqueValue',
-  linterParams: [['operation'], 'operationId'],
+  linterParams: [['operation'], 'operationId', 'propertyValues'],
   marker: 'key',
   markerTarget: 'operationId',
   target: 'operationId',

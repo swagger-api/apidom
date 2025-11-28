@@ -10,7 +10,7 @@ const $refNotUsedLint: LinterMeta = {
   message: 'Definition was declared but never used in document',
   severity: DiagnosticSeverity.Warning,
   linterFunction: 'apilintReferenceNotUsed',
-  linterParams: ['string'],
+  linterParams: ['referenceNames'],
   marker: 'key',
   data: {},
   targetSpecs: [...OpenAPI2, ...OpenAPI30],

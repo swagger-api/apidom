@@ -76,6 +76,10 @@ export class DefaultValidationService implements ValidationService {
 
   private lintingRulesSemanticCache: Map<string, LinterMeta[]> = new Map();
 
+  private referenceNamesCache: string[] = [];
+
+  private propertyValuesCache: Map<string, string[]> = new Map();
+
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
@@ -838,6 +842,9 @@ export class DefaultValidationService implements ValidationService {
       }
     }
 
+    this.referenceNamesCache = [];
+    this.propertyValuesCache.clear();
+
     return diagnostics;
   }
 
@@ -894,7 +901,19 @@ export class DefaultValidationService implements ValidationService {
               Array.isArray(meta.linterParams) &&
               meta.linterParams.length > 0
             ) {
-              const params = [targetElement].concat(meta.linterParams);
+              const params = [targetElement].concat(
+                meta.linterParams.map((param) => {
+                  if (param === 'referenceNames') {
+                    return this.referenceNamesCache;
+                  }
+
+                  if (param === 'propertyValues') {
+                    return this.propertyValuesCache;
+                  }
+
+                  return param;
+                }),
+              );
               lintRes = lintFunc(...params) as boolean;
             } else {
               lintRes = lintFunc(targetElement) as boolean;

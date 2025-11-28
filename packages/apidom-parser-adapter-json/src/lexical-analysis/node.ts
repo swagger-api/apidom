@@ -1,9 +1,8 @@
-import Parser, { Tree } from 'tree-sitter';
-// @ts-ignore
+import Parser, { Language, Tree } from 'tree-sitter';
 import JSONLanguage from 'tree-sitter-json';
 
 const parser = new Parser();
-parser.setLanguage(JSONLanguage);
+parser.setLanguage(JSONLanguage as Language);
 
 /**
  * Lexical Analysis of source string using TreeSitter.

@@ -116,11 +116,11 @@ exports[`refractor elements ChannelElement should refract to semantic ApiDOM tre
   (MemberElement
     (StringElement)
     (ArrayElement
-      (ReferenceElement
+      (ObjectElement
         (MemberElement
           (StringElement)
           (StringElement)))
-      (ReferenceElement
+      (ObjectElement
         (MemberElement
           (StringElement)
           (StringElement))))))

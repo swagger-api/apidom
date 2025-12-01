@@ -7,7 +7,8 @@ import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 const typeEqualsLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
-  message: 'type must be one of allowed values',
+  message:
+    'should be equal to one of the allowed values allowedValues: array, boolean, integer, number, object, string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['boolean', 'object', 'array', 'number', 'string', 'integer']],

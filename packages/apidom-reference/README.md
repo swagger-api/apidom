@@ -848,7 +848,7 @@ const string = buffer.toString('utf-8');
 ##### Resolver plugins execution order
 
 It's important to understand that default resolver plugins are run in specific order. The order is determined
-by the [options.resolve.resolvers]https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
+by the [options.resolve.resolvers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
 Every plugin is pulled from `options.resolve.resolvers` option, and it's `canRead` method is called to determine
 whether the plugin can resolve the URI. If `canRead` returns `true`, `read` method of plugin is called
 and result from reading the file is returned. No subsequent resolver plugins are run.
@@ -1268,7 +1268,7 @@ It's possible to **change** strategies **order globally** by mutating global `re
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
-import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom/index.ts';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
@@ -1287,7 +1287,7 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
-import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom/index.ts';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';

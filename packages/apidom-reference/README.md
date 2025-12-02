@@ -370,7 +370,7 @@ This parser is uniquely identified by `binary` name.
 #### Parser plugins execution order
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
-by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L32) option.
+by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L35) option.
 Every plugin is pulled from `options.parse.parsers` option, and it's `canParse` method is called to determine
 whether the plugin can parse the URI. If `canParse` returns `true`, `parse` method of plugin is called
 and result from parsing is returned. No subsequent parser plugins are run. If `canParse` returns
@@ -848,7 +848,7 @@ const string = buffer.toString('utf-8');
 ##### Resolver plugins execution order
 
 It's important to understand that default resolver plugins are run in specific order. The order is determined
-by the [options.resolve.resolvers]https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L36) option.
+by the [options.resolve.resolvers]https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
 Every plugin is pulled from `options.resolve.resolvers` option, and it's `canRead` method is called to determine
 whether the plugin can resolve the URI. If `canRead` returns `true`, `read` method of plugin is called
 and result from reading the file is returned. No subsequent resolver plugins are run.
@@ -1246,7 +1246,7 @@ Supported media types:
 ##### External resolution strategies execution order
 
 It's important to understand that default external resolution strategies are run in specific order. The order is determined
-by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
+by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L61) option.
 Every strategy is pulled from `options.resolve.strategies` option and its `canResolve` method is called to determine
 whether the strategy can externally resolve the URI. If `canResolve` returns `true`, `resolve` method of strategy is called
 and result from external resolution is returned. No subsequent strategies  are run. If `canResolve` returns
@@ -1259,6 +1259,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new ApiDOMResolveStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1267,6 +1268,7 @@ It's possible to **change** strategies **order globally** by mutating global `re
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom/index.ts';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
@@ -1277,6 +1279,7 @@ options.resolve.strategies = [
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new ApiDOMResolveStrategy(),
 ];
 ```
 
@@ -1284,6 +1287,7 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom/index.ts';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
@@ -1300,6 +1304,7 @@ await resolve('/home/user/oas.json', {
       new OpenAPI2ResolveStrategy(),
       new OpenAPI3_0ResolveStrategy(),
       new OpenAPI3_1ResolveStrategy(),
+      new ApiDOMResolveStrategy(),
     ]
   }
 });
@@ -1617,7 +1622,7 @@ Supported media types:
 ##### Dereference strategies execution order
 
 It's important to understand that default dereference strategies are run in specific order. The order is determined
-by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L64) option.
+by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L69) option.
 Every strategy is pulled from `options.dereference.strategies` option and it's `canDereference` method is called to determine
 whether the strategy can dereference the URI. If `canDereference` returns `true`, `dereference` method of strategy is called
 and result from dereferencing is returned. No subsequent strategies  are run. If `canDereference` returns
@@ -1630,6 +1635,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
+  new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ]
 ```
@@ -1640,6 +1646,7 @@ It's possible to **change** strategies **order globally** by mutating global `de
 ```js
 import { options } from '@swagger-api/apidom-reference';
 import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import AsyncAPI3DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-3';
 import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
 import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
 import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
@@ -1650,6 +1657,7 @@ options.dereference.strategies = [
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
+  new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ];
 ```
@@ -1659,6 +1667,7 @@ To **change** the strategies **order** on ad-hoc basis:
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
 import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import AsyncAPI3DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-3';
 import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
 import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
 import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
@@ -1672,6 +1681,7 @@ await dereference('/home/user/oas.json', {
   dereference: {
     strategies: [
       new AsyncAPI2DereferenceStrategy(),
+      new AsyncAPI3DereferenceStrategy(),
       new OpenAPI2DereferenceStrategy(),
       new OpenAPI3_0DereferenceStrategy(),
       new OpenAPI3_1DereferenceStrategy(),
@@ -1913,7 +1923,7 @@ Supported media types:
 ##### Bundle strategies execution order
 
 It's important to understand that default bundle strategies are run in specific order. The order is determined
-by the `options.bundle.strategies` option.
+by the [options.bundle.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L78) option.
 Every strategy is pulled from `options.bundle.strategies` option, and it's `canBundle` method is called to determine
 whether the strategy can bundle the URI. If `canBundle` returns `true`, `bundle` method of strategy is called
 and result from bundling is returned. No subsequent strategies are run. If `canBundle` returns

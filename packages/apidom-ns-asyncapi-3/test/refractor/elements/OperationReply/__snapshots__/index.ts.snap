@@ -17,14 +17,14 @@ exports[`refractor elements OperationReplyElement should refract to semantic Api
     (OperationReplyAddressElement))
   (MemberElement
     (StringElement)
-    (ReferenceElement
+    (ObjectElement
       (MemberElement
         (StringElement)
         (StringElement))))
   (MemberElement
     (StringElement)
     (ArrayElement
-      (ReferenceElement
+      (ObjectElement
         (MemberElement
           (StringElement)
           (StringElement))))))

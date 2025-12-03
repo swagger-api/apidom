@@ -438,9 +438,8 @@ describe('apidom-ls-hover-provider', function () {
     logLevel,
   };
 
-  // TODO: Flaky test.
-  // eslint-disable-next-line mocha/no-skipped-tests
-  xit('test hover ref provider', async function () {
+  it('test hover ref provider', async function () {
+    this.timeout(10000);
     let languageService: LanguageService = getLanguageService(contextAsyncRef);
 
     try {
@@ -468,9 +467,8 @@ describe('apidom-ls-hover-provider', function () {
     }
   });
 
-  // TODO: Flaky test.
-  // eslint-disable-next-line mocha/no-skipped-tests
-  xit('test hover full provider', async function () {
+  it('test hover full provider', async function () {
+    this.timeout(10000);
     const languageService: LanguageService = getLanguageService(contextFull);
 
     try {

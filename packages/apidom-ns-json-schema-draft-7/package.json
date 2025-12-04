@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-json-schema-draft-7",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0",
   "description": "JSON Schema Draft 7 namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -42,9 +42,9 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.0.0-rc.4",
-    "@swagger-api/apidom-error": "^1.0.0-rc.4",
-    "@swagger-api/apidom-ns-json-schema-draft-6": "^1.0.0-rc.4",
+    "@swagger-api/apidom-core": "^1.0.0",
+    "@swagger-api/apidom-error": "^1.0.0",
+    "@swagger-api/apidom-ns-json-schema-draft-6": "^1.0.0",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",

@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.0.0](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.4...v1.0.0) (2025-12-03)
+
+### Features
+
+- **apidom-ns-asyncapi-3:** disable resolving references ([#5058](https://github.com/swagger-api/apidom/issues/5058)) ([63f7261](https://github.com/swagger-api/apidom/commit/63f7261ad1745eade2d4ad2aa5553c62de9c1908))
+- **apidom-reference:** parser for unit tests ([#5056](https://github.com/swagger-api/apidom/issues/5056)) ([9fa445c](https://github.com/swagger-api/apidom/commit/9fa445cc8bb85696c13ba83498a254afcda20ba3))
+
 # [1.0.0-rc.4](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2025-11-25)
 
 ### Features

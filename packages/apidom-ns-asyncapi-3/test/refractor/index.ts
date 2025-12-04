@@ -41,7 +41,7 @@ describe('refractor', function () {
         visitor: {
           AsyncApiVersionElement(element: AsyncApiVersionElement) {
             // @ts-ignore
-            element.content = '3.0.1'; // eslint-disable-line no-param-reassign
+            element.content = '3.0.0'; // eslint-disable-line no-param-reassign
           },
         },
         post() {},
@@ -237,7 +237,7 @@ describe('refractor', function () {
             plugins: [plugin1],
           });
 
-          assert.deepEqual(toValue(asyncApiElement), { asyncapi: '3.0.1' });
+          assert.deepEqual(toValue(asyncApiElement), { asyncapi: '3.0.0' });
         });
       });
 

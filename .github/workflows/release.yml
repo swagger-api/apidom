@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
-          npx lerna version prerelease --preid rc --no-private --yes --force-publish
+          npx lerna version --no-private --yes --conventional-graduate --force-publish
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

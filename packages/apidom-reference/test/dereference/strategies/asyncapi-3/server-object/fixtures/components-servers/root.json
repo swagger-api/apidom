@@ -1,0 +1,14 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "servers": {
+      "server1": {
+        "host": "host",
+        "protocol": "protocol"
+      },
+      "server2": {
+        "$ref": "#/components/servers/server1"
+      }
+    }
+  }
+}

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/swagger-api/apidom/compare/v1.0.0...v1.0.1) (2025-12-05)
+
+### Performance Improvements
+
+- **ls:** add cache for linting functions ([#5057](https://github.com/swagger-api/apidom/issues/5057)) ([c892835](https://github.com/swagger-api/apidom/commit/c892835cf03f9940d510743f1195a3dad841808f))
+
 # [1.0.0](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.4...v1.0.0) (2025-12-03)
 
 ### Features

@@ -1,0 +1,11 @@
+{
+  "asyncapi": "3.0.0",
+  "servers": {
+    "server1": {
+      "host": "http://example.com"
+    },
+    "server2": {
+      "$ref": "#/servers/server1"
+    }
+  }
+}

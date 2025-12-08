@@ -54,8 +54,8 @@ isSwaggerElement(swaggerElement); // => true
 
 ## Traversal
 
-Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-2/src/traversal/visitor.ts#L11) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-2/src/traversal/visitor.ts#L4).
+Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom-core` package.
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-2/src/traversal/visitor.ts#L24) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-2/src/traversal/visitor.ts#L6).
 To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 
 ```js
@@ -205,7 +205,7 @@ Only fully implemented specification objects should be checked here.
 - [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-schema-object)
 - [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-xml-object)
 - [x] [Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-definitions-object)
-- [x] [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-paramters-definitions-object)
+- [x] [Parameters Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-parameters-definitions-object)
 - [x] [Responses Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-responses-definitions-object)
 - [x] [Security Definitions Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-definitions-object)
 - [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#user-content-security-scheme-object)

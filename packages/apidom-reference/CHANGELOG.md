@@ -3,6 +3,47 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.1](https://github.com/swagger-api/apidom/compare/v1.0.0...v1.0.1) (2025-12-05)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.4...v1.0.0) (2025-12-03)
+
+### Features
+
+- **apidom-reference:** parser for unit tests ([#5056](https://github.com/swagger-api/apidom/issues/5056)) ([9fa445c](https://github.com/swagger-api/apidom/commit/9fa445cc8bb85696c13ba83498a254afcda20ba3))
+- **apidom-reference:** test server object resolve ([#5059](https://github.com/swagger-api/apidom/issues/5059)) ([a22a823](https://github.com/swagger-api/apidom/commit/a22a823a4fb6ab34c6d32bbae07a6a05fb3d7a92))
+
+# [1.0.0-rc.4](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.3...v1.0.0-rc.4) (2025-11-25)
+
+### Features
+
+- **apidom-reference:** resolve references async v3 ([#5051](https://github.com/swagger-api/apidom/issues/5051)) ([1932078](https://github.com/swagger-api/apidom/commit/1932078a7a4cd21203cf075599c46621ee9c189e))
+
+# [1.0.0-rc.3](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.2...v1.0.0-rc.3) (2025-11-07)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-rc.2](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.1...v1.0.0-rc.2) (2025-11-07)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
+# [1.0.0-rc.1](https://github.com/swagger-api/apidom/compare/v1.0.0-rc.0...v1.0.0-rc.1) (2025-10-27)
+
+### Bug Fixes
+
+- update optional dependencies in apidom-reference ([#5037](https://github.com/swagger-api/apidom/issues/5037)) ([9b15c21](https://github.com/swagger-api/apidom/commit/9b15c215ae00f4de576e240603d42bd0ba9e28db))
+
+# [1.0.0-rc.0](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.51...v1.0.0-rc.0) (2025-10-21)
+
+### Performance Improvements
+
+- flatten sourceMap to improve memory usage ([#4964](https://github.com/swagger-api/apidom/issues/4964)) ([bda1edf](https://github.com/swagger-api/apidom/commit/bda1edf7b1b37adc728b8632337b22866e33fa4a))
+
+# [1.0.0-beta.51](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.50...v1.0.0-beta.51) (2025-10-14)
+
+**Note:** Version bump only for package @swagger-api/apidom-reference
+
 # [1.0.0-beta.50](https://github.com/swagger-api/apidom/compare/v1.0.0-beta.49...v1.0.0-beta.50) (2025-09-26)
 
 ### Bug Fixes

@@ -3,6 +3,5 @@
 /test/**/*.mjs
 /dist
 /types
-/wasm
 /NOTICE
 /swagger-api-apidom-parser-adapter-json-*.tgz

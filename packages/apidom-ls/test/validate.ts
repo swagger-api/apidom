@@ -288,7 +288,8 @@ describe('apidom-ls-validate', function () {
             character: 35,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -407,7 +408,8 @@ describe('apidom-ls-validate', function () {
             character: 29,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -525,7 +527,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -857,7 +860,8 @@ describe('apidom-ls-validate', function () {
             character: 35,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1061,7 +1065,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1198,7 +1203,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1462,7 +1468,8 @@ describe('apidom-ls-validate', function () {
             character: 23,
           },
         },
-        message: 'type must be one of allowed values',
+        message:
+          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
         severity: 1,
         code: 10001,
         source: 'apilint',
@@ -1628,7 +1635,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1708,7 +1716,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1788,7 +1797,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1868,7 +1878,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -1948,7 +1959,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2028,7 +2040,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -2108,7 +2121,8 @@ describe('apidom-ls-validate', function () {
                 character: 23,
               },
             },
-            message: 'type must be one of allowed values',
+            message:
+              'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
             severity: 1,
             code: 10001,
             source: 'apilint',
@@ -4205,11 +4219,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 14,
-            line: 9,
+            line: 11,
           },
           start: {
             character: 10,
-            line: 9,
+            line: 11,
           },
         },
         severity: 1,
@@ -4222,11 +4236,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 14,
-            line: 14,
+            line: 16,
           },
           start: {
             character: 10,
-            line: 14,
+            line: 16,
           },
         },
         severity: 1,
@@ -4268,11 +4282,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 14,
-            line: 9,
+            line: 11,
           },
           start: {
             character: 10,
-            line: 9,
+            line: 11,
           },
         },
         severity: 1,
@@ -4285,11 +4299,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 14,
-            line: 15,
+            line: 17,
           },
           start: {
             character: 10,
-            line: 15,
+            line: 17,
           },
         },
         severity: 1,
@@ -5187,11 +5201,11 @@ describe('apidom-ls-validate', function () {
         range: {
           end: {
             character: 10,
-            line: 27,
+            line: 30,
           },
           start: {
             character: 8,
-            line: 27,
+            line: 30,
           },
         },
         severity: 1,
@@ -6093,6 +6107,66 @@ describe('apidom-ls-validate', function () {
         code: 3040102,
         source: 'apilint',
         range: { start: { line: 16, character: 2 }, end: { line: 16, character: 17 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 2.0 - Responses Object should define at least one response', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'responses-required-fields-2-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/responses-required-fields-2-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Responses Object should define at least one response',
+        severity: 1,
+        code: 3250001,
+        source: 'apilint',
+        range: { start: { line: 7, character: 6 }, end: { line: 7, character: 15 } },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.x - Responses Object should define at least one response', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'responses-required-fields-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/responses-required-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: 'Responses Object should define at least one response',
+        severity: 1,
+        code: 3250001,
+        source: 'apilint',
+        range: { start: { line: 7, character: 6 }, end: { line: 7, character: 15 } },
       },
     ];
     assert.deepEqual(result, expected);

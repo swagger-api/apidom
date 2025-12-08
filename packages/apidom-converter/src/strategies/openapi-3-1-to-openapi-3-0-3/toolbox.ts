@@ -1,4 +1,10 @@
-import { Element, Meta, Attributes, AnnotationElement } from '@swagger-api/apidom-core';
+import {
+  Element,
+  Meta,
+  Attributes,
+  AnnotationElement,
+  assignSourceMap,
+} from '@swagger-api/apidom-core';
 import { createToolbox as createToolboxOpenAPI31 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 const createToolbox = () => {
@@ -6,7 +12,7 @@ const createToolbox = () => {
 
   const copySourceMap = <T extends Element, U extends Element>(from: T, to: U): void => {
     if (openAPI31Toolbox.predicates.hasElementSourceMap(from)) {
-      to.meta.set('sourceMap', from.meta.get('sourceMap'));
+      assignSourceMap(to, from);
     }
   };
 

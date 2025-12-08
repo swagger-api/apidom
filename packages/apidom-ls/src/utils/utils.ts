@@ -6,6 +6,8 @@ import * as openapi31xAdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi31xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
+import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
+import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -28,6 +30,7 @@ import {
   StringElement,
   traverse,
   toValue,
+  hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 import { compile, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { TextDocument } from 'vscode-languageserver-textdocument';
@@ -109,15 +112,14 @@ export class SourceMap {
 }
 
 export function getSourceMap(element: Element): SourceMap {
-  if (element && element.meta && element.meta.get('sourceMap')) {
-    const sourceMap: [][number] = toValue(element.meta.get('sourceMap')) as [][number];
-    const offset = sourceMap[0][2];
-    const length = sourceMap[1][2] - sourceMap[0][2];
-    const line = sourceMap[0][0];
-    const column = sourceMap[0][1];
-    const endLine = sourceMap[1][0];
-    const endColumn = sourceMap[1][1];
-    const endOffset = sourceMap[1][2];
+  if (element && hasElementSourceMap(element)) {
+    const offset = element.startIndex as number;
+    const length = (element.endIndex as number) - (element.startIndex as number);
+    const line = element.startPositionRow as number;
+    const column = element.startPositionColumn as number;
+    const endLine = element.endPositionRow as number;
+    const endColumn = element.endPositionColumn as number;
+    const endOffset = element.endIndex as number;
     return new SourceMap(offset, length, line, column, endLine, endColumn, endOffset); // TODO ???
   }
   return new SourceMap(1, 2, 0, 1); // TODO ???
@@ -833,6 +835,31 @@ export async function findNamespace(
       version,
       format: 'YAML',
       mediaType: asyncapi2AdapterYaml.mediaTypes.findBy(version, 'yaml'),
+    };
+  }
+  if (await asyncapi3AdapterYaml.detect(text)) {
+    const asyncapi3YamlMatch = text.match(asyncapi3AdapterYaml.detectionRegExp)!;
+    const groups = asyncapi3YamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
+    return {
+      namespace: 'asyncapi',
+      version,
+      format: 'YAML',
+      mediaType: asyncapi3AdapterYaml.mediaTypes.findBy(version, 'yaml'),
+    };
+  }
+
+  if (await asyncapi3AdapterJson.detect(text)) {
+    const asyncapi3JsonMatch = text.match(asyncapi3AdapterJson.detectionRegExp)!;
+    const groups = asyncapi3JsonMatch.groups!;
+    const version = groups.version_json;
+
+    return {
+      namespace: 'asyncapi',
+      version,
+      format: 'JSON',
+      mediaType: asyncapi3AdapterJson.mediaTypes.findBy(version, 'json'),
     };
   }
 

@@ -1,14 +1,18 @@
-import { TreeCursor as NodeTreeCursor, Point as NodePoint } from 'tree-sitter';
-import { TreeCursor as WebTreeCursor, Point as WebPoint } from 'web-tree-sitter';
+import { TreeCursor as NodeTreeCursor } from 'tree-sitter';
+import { TreeCursor as WebTreeCursor } from 'web-tree-sitter';
 
 class TreeCursorSyntaxNode {
   public readonly type: string;
 
-  public readonly startPosition: NodePoint | WebPoint;
+  public readonly startPositionRow: number;
 
-  public readonly endPosition: NodePoint | WebPoint;
+  public readonly startPositionColumn: number;
 
   public readonly startIndex: number;
+
+  public readonly endPositionRow: number;
+
+  public readonly endPositionColumn: number;
 
   public readonly endIndex: number;
 
@@ -26,9 +30,11 @@ class TreeCursorSyntaxNode {
 
   constructor(cursor: NodeTreeCursor | WebTreeCursor) {
     this.type = cursor.nodeType;
-    this.startPosition = cursor.startPosition;
-    this.endPosition = cursor.endPosition;
+    this.startPositionRow = cursor.startPosition.row;
+    this.startPositionColumn = cursor.startPosition.column;
     this.startIndex = cursor.startIndex;
+    this.endPositionRow = cursor.endPosition.row;
+    this.endPositionColumn = cursor.endPosition.column;
     this.endIndex = cursor.endIndex;
     this.text = cursor.nodeText;
     this.isNamed = cursor.nodeIsNamed;

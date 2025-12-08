@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           registry-url: https://registry.npmjs.org
@@ -36,7 +36,7 @@ jobs:
         run: |
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
-          npx lerna version prerelease --preid beta --no-private --yes --force-publish
+          npx lerna version --no-private --yes --force-publish
         env:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
@@ -52,12 +52,12 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           registry-url: https://registry.npmjs.org

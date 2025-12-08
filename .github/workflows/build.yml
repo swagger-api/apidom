@@ -17,12 +17,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0 # necessary for linting commit messages
           ref: ${{ github.event.pull_request.head.sha }} # necessary to check out pull request HEAD commit instead of merge commit
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'npm'
@@ -38,9 +38,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'npm'
@@ -57,9 +57,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'npm'
@@ -75,9 +75,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Use Node.js 22
-        uses: actions/setup-node@v5
+        uses: actions/setup-node@v6
         with:
           node-version: 22.14.0
           cache: 'npm'
@@ -97,9 +97,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v5
+    - uses: actions/checkout@v6
     - name: Use Node.js 22
-      uses: actions/setup-node@v5
+      uses: actions/setup-node@v6
       with:
         node-version: 22.14.0
         cache: 'npm'
@@ -113,7 +113,7 @@ jobs:
       working-directory: ./packages/apidom-playground
     - name: Upload build artifacts from ApiDOM Playground
       if: github.ref == 'refs/heads/main'
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v5
       with:
         name: build
         path: ./packages/apidom-playground/build

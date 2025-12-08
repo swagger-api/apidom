@@ -370,7 +370,7 @@ This parser is uniquely identified by `binary` name.
 #### Parser plugins execution order
 
 It's important to understand that default parser plugins are run in specific order. The order is determined
-by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L22) option.
+by the [options.parse.parsers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L35) option.
 Every plugin is pulled from `options.parse.parsers` option, and it's `canParse` method is called to determine
 whether the plugin can parse the URI. If `canParse` returns `true`, `parse` method of plugin is called
 and result from parsing is returned. No subsequent parser plugins are run. If `canParse` returns
@@ -387,6 +387,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -410,7 +412,9 @@ import OpenAPIYAML3_0Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncAPIJSON3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-3';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import AsyncAPIYAML3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-3';
 import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-json-1';
 import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
@@ -430,6 +434,8 @@ options.parse.parsers = [
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
+  new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -452,7 +458,9 @@ import OpenAPIYAML3_0Parser from '@swagger-api/apidom-reference/parse/parsers/op
 import OpenAPIJSON3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-json-3-1';
 import OpenAPIYAML3_1Parser from '@swagger-api/apidom-reference/parse/parsers/openapi-yaml-3-1'
 import AsyncAPIJSON2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-2';
+import AsyncAPIJSON3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-json-3';
 import AsyncAPIYAML2Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-2';
+import AsyncAPIYAML3Parser from '@swagger-api/apidom-reference/parse/parsers/asyncapi-yaml-3';
 import ArazzoJSON1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-json-1';
 import ArazzoYAML1Parser from '@swagger-api/apidom-reference/parse/parsers/arazzo-yaml-1';
 import APIDOMJSONParser from '@swagger-api/apidom-reference/parse/parsers/apidom-json';
@@ -474,6 +482,8 @@ await parse('/home/user/oas.json', {
       new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
       new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
+      new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),
+      new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
       new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
       new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
       new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -838,7 +848,7 @@ const string = buffer.toString('utf-8');
 ##### Resolver plugins execution order
 
 It's important to understand that default resolver plugins are run in specific order. The order is determined
-by the [options.resolve.resolvers]https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L36) option.
+by the [options.resolve.resolvers](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L56) option.
 Every plugin is pulled from `options.resolve.resolvers` option, and it's `canRead` method is called to determine
 whether the plugin can resolve the URI. If `canRead` returns `true`, `read` method of plugin is called
 and result from reading the file is returned. No subsequent resolver plugins are run.
@@ -1053,7 +1063,7 @@ await readFile('/home/user/oas.json', {
   }
 });
 ```
-New resolver plugins can be based on two predefined stamps: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HTTPResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HttpResolver.ts).
+New resolver plugins can be based on two predefined abstract classes: [Resolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/Resolver.ts) and [HTTPResolver](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/HTTPResolver.ts).
 
 ##### Manipulating resolver plugins
 
@@ -1095,7 +1105,7 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 
 **Externally resolving an ApiDOM fragment:**
 
-When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+When externally resolving an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/options/index.ts#L94)
 resolve option needs to be provided to have a starting point for external dependency resolution.
 `mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
 
@@ -1149,7 +1159,7 @@ Supported media types:
 
 ##### [asyncapi-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/asyncapi-2)
 
-External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [AsyncApi 2.x.y](https://github.com/asyncapi/spec/blob/v2.6.0/spec/asyncapi.md) definitions.
 
 Supported media types:
 
@@ -1236,7 +1246,7 @@ Supported media types:
 ##### External resolution strategies execution order
 
 It's important to understand that default external resolution strategies are run in specific order. The order is determined
-by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/ba888d711a4292e8ed0b72e343c4902a4bf0d45a/packages/apidom-reference/src/configuration/saturated.ts#L41) option.
+by the [options.resolve.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L61) option.
 Every strategy is pulled from `options.resolve.strategies` option and its `canResolve` method is called to determine
 whether the strategy can externally resolve the URI. If `canResolve` returns `true`, `resolve` method of strategy is called
 and result from external resolution is returned. No subsequent strategies  are run. If `canResolve` returns
@@ -1249,6 +1259,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new ApiDOMResolveStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.
@@ -1257,6 +1268,7 @@ It's possible to **change** strategies **order globally** by mutating global `re
 
 ```js
 import { options } from '@swagger-api/apidom-reference';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
@@ -1267,6 +1279,7 @@ options.resolve.strategies = [
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new ApiDOMResolveStrategy(),
 ];
 ```
 
@@ -1274,6 +1287,7 @@ To **change** the strategies **order** on ad-hoc basis:
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
+import ApiDOMResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/apidom';
 import AsyncAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/asyncapi-2';
 import OpenAPI2ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-2';
 import OpenAPI3_0ResolveStrategy from '@swagger-api/apidom-reference/resolve/strategies/openapi-3-0';
@@ -1290,6 +1304,7 @@ await resolve('/home/user/oas.json', {
       new OpenAPI2ResolveStrategy(),
       new OpenAPI3_0ResolveStrategy(),
       new OpenAPI3_1ResolveStrategy(),
+      new ApiDOMResolveStrategy(),
     ]
   }
 });
@@ -1408,7 +1423,7 @@ await resolve('/home/user/oas.json', {
   }
 });
 ```
-New strategies can be based on a predefined stamp called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
+New strategies can be based on a predefined abstract class called [ResolveStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/strategies/ResolveStrategy.ts).
 
 ##### Manipulating external resolution strategies
 
@@ -1450,7 +1465,7 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
 
 **Dereferencing an ApiDOM fragment:**
 
-When dereferencing an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/blob/91763fa4ad876375a413e7049c28c2031c7bbe83/apidom/packages/apidom-reference/src/options/index.ts#L47)
+When dereferencing an ApiDOM fragment, [baseURI](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/options/index.ts#L94)
 resolve option needs to be provided to have a starting point for external dependency resolution.
 `mediaType` parse option is unnecessary as we can directly assert the type of ApiDOM fragment.
 
@@ -1607,7 +1622,7 @@ Supported media types:
 ##### Dereference strategies execution order
 
 It's important to understand that default dereference strategies are run in specific order. The order is determined
-by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/b3a391481360004d3d4a56c1467cece557442ec8/apidom/packages/apidom-reference/src/options/index.ts#L88) option.
+by the [options.dereference.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L69) option.
 Every strategy is pulled from `options.dereference.strategies` option and it's `canDereference` method is called to determine
 whether the strategy can dereference the URI. If `canDereference` returns `true`, `dereference` method of strategy is called
 and result from dereferencing is returned. No subsequent strategies  are run. If `canDereference` returns
@@ -1620,6 +1635,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
+  new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ]
 ```
@@ -1630,6 +1646,7 @@ It's possible to **change** strategies **order globally** by mutating global `de
 ```js
 import { options } from '@swagger-api/apidom-reference';
 import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import AsyncAPI3DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-3';
 import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
 import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
 import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
@@ -1640,6 +1657,7 @@ options.dereference.strategies = [
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
+  new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ];
 ```
@@ -1649,6 +1667,7 @@ To **change** the strategies **order** on ad-hoc basis:
 ```js
 import { dereference } from '@swagger-api/apidom-reference';
 import AsyncAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-2';
+import AsyncAPI3DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/asyncapi-3';
 import OpenAPI2DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-2';
 import OpenAPI3_0DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
 import OpenAPI3_1DereferenceStrategy from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-1';
@@ -1662,6 +1681,7 @@ await dereference('/home/user/oas.json', {
   dereference: {
     strategies: [
       new AsyncAPI2DereferenceStrategy(),
+      new AsyncAPI3DereferenceStrategy(),
       new OpenAPI2DereferenceStrategy(),
       new OpenAPI3_0DereferenceStrategy(),
       new OpenAPI3_1DereferenceStrategy(),
@@ -1813,7 +1833,7 @@ await dereference('/home/user/oas.json', {
 });
 ```
 
-New strategies can be based on a predefined stamp called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
+New strategies can be based on a predefined abstract class called [DereferenceStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/dereference/strategies/DereferenceStrategy.ts).
 
 ##### Manipulating dereference strategies
 
@@ -1903,7 +1923,7 @@ Supported media types:
 ##### Bundle strategies execution order
 
 It's important to understand that default bundle strategies are run in specific order. The order is determined
-by the `options.bundle.strategies` option.
+by the [options.bundle.strategies](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/configuration/saturated.ts#L78) option.
 Every strategy is pulled from `options.bundle.strategies` option, and it's `canBundle` method is called to determine
 whether the strategy can bundle the URI. If `canBundle` returns `true`, `bundle` method of strategy is called
 and result from bundling is returned. No subsequent strategies are run. If `canBundle` returns
@@ -2051,7 +2071,7 @@ await bundle('/home/user/oas.json', {
 });
 ```
 
-New strategies can be based on a predefined stamp called [BundleStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/bundle/strategies/BundleStrategy.ts).
+New strategies can be based on a predefined abstract class called [BundleStrategy](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/bundle/strategies/BundleStrategy.ts).
 
 ##### Manipulating bundle strategies
 

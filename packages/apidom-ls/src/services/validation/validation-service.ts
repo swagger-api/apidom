@@ -74,6 +74,12 @@ export class DefaultValidationService implements ValidationService {
 
   private quickFixesMap: Record<string, QuickFixData[]> = {};
 
+  private lintingRulesSemanticCache: Map<string, LinterMeta[]> = new Map();
+
+  private referenceNamesCache: string[] = [];
+
+  private propertyValuesCache: Map<string, string[]> = new Map();
+
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
@@ -143,6 +149,12 @@ export class DefaultValidationService implements ValidationService {
   }
 
   private getLintingRulesSemantic(doc: Element, symbol: string, docNs: string): LinterMeta[] {
+    const cacheKey = `${docNs}-${symbol}`;
+
+    if (this.lintingRulesSemanticCache.has(cacheKey)) {
+      return this.lintingRulesSemanticCache.get(cacheKey)!;
+    }
+
     let meta: LinterMeta[] = [];
     const elementMeta = toValue(doc.meta.get('metadataMap')?.get(symbol)?.get('lint'));
     if (elementMeta) {
@@ -151,13 +163,12 @@ export class DefaultValidationService implements ValidationService {
     }
     // get namespace rules with `given` populated as array
     try {
-      if (!this.settings?.metadata?.rules) {
-        return meta;
-      }
       const rules = this.settings?.metadata?.rules;
-      if (!rules[docNs]?.lint) {
+
+      if (!rules || !rules[docNs]?.lint) {
         return meta;
       }
+
       meta = meta.concat(
         rules[docNs]!.lint!.filter((r) => {
           const matchesArray =
@@ -450,6 +461,14 @@ export class DefaultValidationService implements ValidationService {
 
     let processedText;
     const nameSpace = await findNamespace(text, this.settings?.defaultContentLanguage);
+    // TODO: Turned off validation, because we will implement it in the future.
+    if (
+      nameSpace.namespace === 'asyncapi' &&
+      nameSpace.version &&
+      ['3.0.0'].includes(nameSpace.version)
+    ) {
+      return [];
+    }
     let docNs: string = nameSpace.namespace;
     // no API document has been parsed
     if (result.annotations) {
@@ -674,6 +693,7 @@ export class DefaultValidationService implements ValidationService {
         set.forEach((s) => {
           // get linter meta from meta
           const semanticLintingRules = this.getLintingRulesSemantic(api, s, docNs);
+          this.lintingRulesSemanticCache.set(`${docNs}-${s}`, semanticLintingRules);
           if (semanticLintingRules && semanticLintingRules.length > 0) {
             for (const meta of semanticLintingRules) {
               this.processRule(
@@ -822,6 +842,9 @@ export class DefaultValidationService implements ValidationService {
       }
     }
 
+    this.referenceNamesCache = [];
+    this.propertyValuesCache.clear();
+
     return diagnostics;
   }
 
@@ -878,7 +901,19 @@ export class DefaultValidationService implements ValidationService {
               Array.isArray(meta.linterParams) &&
               meta.linterParams.length > 0
             ) {
-              const params = [targetElement].concat(meta.linterParams);
+              const params = [targetElement].concat(
+                meta.linterParams.map((param) => {
+                  if (param === 'referenceNames') {
+                    return this.referenceNamesCache;
+                  }
+
+                  if (param === 'propertyValues') {
+                    return this.propertyValuesCache;
+                  }
+
+                  return param;
+                }),
+              );
               lintRes = lintFunc(...params) as boolean;
             } else {
               lintRes = lintFunc(targetElement) as boolean;

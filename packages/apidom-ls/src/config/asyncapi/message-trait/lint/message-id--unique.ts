@@ -9,7 +9,7 @@ const messageIdUniqueLint: LinterMeta = {
   message: "messageID' must be unique among all messages",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintPropertyUniqueValue',
-  linterParams: [['message', 'messageTrait'], 'messageId'],
+  linterParams: [['message', 'messageTrait'], 'messageId', 'propertyValues'],
   marker: 'key',
   markerTarget: 'messageId',
   target: 'messageId',

@@ -10,6 +10,8 @@ import {
   ObjectElement,
   isArrayElement,
   includesClasses,
+  isObjectElement,
+  traverse,
 } from '@swagger-api/apidom-core';
 import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
@@ -956,22 +958,42 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintPropertyUniqueValue',
-    function: (element: Element, elementOrClasses: string[], key: string): boolean => {
+    function: (
+      element: Element,
+      elementOrClasses: string[],
+      key: string,
+      propertyValues: Map<string, string[]>,
+    ): boolean => {
       const api = root(element);
       const value = toValue(element);
-      const elements: ArraySlice = filter((el: Element) => {
-        const classes: string[] = toValue(el.getMetaProperty('classes', []));
-        return (
-          (elementOrClasses.includes(el.element) ||
-            classes.every((v) => elementOrClasses.includes(v))) &&
-          isObject(el) &&
-          el.hasKey(key) &&
-          toValue(el.get(key)) === value
-        );
-      }, api);
-      if (elements.length > 1) {
+      const cacheKey = elementOrClasses.join(',');
+
+      if (!propertyValues.has(cacheKey)) {
+        traverse((el: Element) => {
+          const classes: ArrayElement = el.getMetaProperty('classes', []);
+          if (
+            (elementOrClasses.includes(el.element) ||
+              classes.filter((classElement: Element) =>
+                elementOrClasses.includes(toValue(classElement)),
+              ).length === classes.length) &&
+            isObject(el) &&
+            el.hasKey(key)
+          ) {
+            const elValue = toValue(el.get(key));
+            const cachedValues = propertyValues.get(cacheKey) ?? [];
+
+            cachedValues.push(elValue);
+            propertyValues.set(cacheKey, cachedValues);
+          }
+        }, api);
+      }
+
+      const cachedValues = propertyValues.get(cacheKey) ?? [];
+
+      if (cachedValues.filter((cachedValue) => cachedValue === value).length > 1) {
         return false;
       }
+
       return true;
     },
   },
@@ -1327,7 +1349,7 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintReferenceNotUsed',
-    function: (element: Element & { content?: { key?: string } }) => {
+    function: (element: Element & { content?: { key?: string } }, referenceNames: string[]) => {
       const elParent: Element = element.parent?.parent?.parent?.parent;
       if (
         (typeof elParent?.hasKey !== 'function' || !elParent.hasKey('schemas')) &&
@@ -1336,17 +1358,29 @@ export const standardLinterfunctions: FunctionItem[] = [
         return true;
       }
 
-      const api = root(element);
-      const isReferenceElement = (el: Element & { content?: { key?: string } }) =>
-        toValue(el.content.key) === '$ref';
-      const referenceElements = filter((el) => {
-        return isReferenceElement(el);
-      }, api);
-      const referenceNames = referenceElements.map((refElement: Element) =>
-        // @ts-expect-error
-        toValue(refElement.content.value).split('/').at(-1),
-      );
-      // @ts-expect-error
+      if (referenceNames.length === 0) {
+        const api = root(element);
+        const isReferenceElement = (el: Element & { content?: { key?: string } }) => {
+          if (!isObjectElement(el) || !el.hasKey('$ref')) {
+            return false;
+          }
+
+          const $ref = el.get('$ref');
+
+          return isStringElement($ref) && toValue($ref).startsWith('#');
+        };
+
+        const referenceElements = filter((el) => {
+          return isReferenceElement(el);
+        }, api);
+
+        referenceNames.push(
+          ...referenceElements.map((refElement: ObjectElement) =>
+            toValue(refElement.get('$ref')).split('/').at(-1),
+          ),
+        );
+      }
+
       return referenceNames.includes(toValue(element.parent.key));
     },
   },

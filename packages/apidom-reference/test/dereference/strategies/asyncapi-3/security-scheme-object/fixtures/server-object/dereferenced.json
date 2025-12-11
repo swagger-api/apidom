@@ -1,0 +1,10 @@
+[{
+  "asyncapi": "3.0.0",
+  "servers": {
+    "server1": {
+			"security": [{ "type": "string"}]
+			
+		}
+  },
+   "SecuritySchemes": { "type": "string" }
+}]

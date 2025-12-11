@@ -1,0 +1,18 @@
+[{
+  "asyncapi": "3.0.0",
+  "components": {
+    "operations": {
+      "operation1": {
+        "security": {
+          "type": "string"
+        }
+      },
+      "operation2": {
+         "security": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}]
+

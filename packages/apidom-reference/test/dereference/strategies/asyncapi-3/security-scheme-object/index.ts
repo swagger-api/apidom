@@ -27,6 +27,45 @@ describe('dereference', function () {
             assert.deepEqual(toValue(actual), expected);
           });
         });
+        context('given in servers/security field', function () {
+          const fixturePath = path.join(rootFixturePath, 'server-object');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+        context('given in operation/security field', function () {
+          const fixturePath = path.join(rootFixturePath, 'operation-object');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+        context('given in operationTraits/security field', function () {
+          const fixturePath = path.join(rootFixturePath, 'operation-trait-object');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
       });
     });
   });

@@ -3,14 +3,14 @@
   "components": {
     "operations": {
       "operation1": {
-        "security": {
+        "security": [{
           "type": "string"
-        }
+        }]
       },
       "operation2": {
-         "security": {
+         "security": [{
           "type": "string"
-        }
+        }]
       }
     }
   }

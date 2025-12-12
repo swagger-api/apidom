@@ -3,16 +3,15 @@
   "components": {
     "operationTraits": {
       "operationTrait1": {
-        "bindings": {
-          "kafka": {}
-        }
+        "security": [{
+          "type": "apiKey"
+         }]
       },
       "operationTrait2": {
-        "bindings": {
-          "kafka": {}
-        }
+        "security": [{
+          "type": "apiKey"
+         }]
+      }
     }
   }
-}
 }]
-

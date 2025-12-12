@@ -2,9 +2,10 @@
   "asyncapi": "3.0.0",
   "servers": {
     "server1": {
-			"security":  [{ "$ref": "#/SecuritySchemes" }]
-			
-		}
-  },
-  "SecuritySchemes": { "type": "string" }
+			"security":  [{ "$ref": "#/servers/server2/security/0" }]
+     },
+    "server2": {
+			"security":  [{ "type": "apiKey" }]
+     }
+  }
 }

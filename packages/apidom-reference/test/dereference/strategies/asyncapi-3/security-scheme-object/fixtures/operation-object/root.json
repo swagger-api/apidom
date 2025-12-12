@@ -3,12 +3,14 @@
   "components": {
     "operations": {
       "operation1": {
-        "security": {
+        "security": [{
           "type": "string"
-        }
+        }]
       },
       "operation2": {
-        "$ref": "#/components/operations/operation1"
+       "security": [{
+          "$ref": "#/components/operations/operation1/security/0"
+        }]
       }
     }
   }

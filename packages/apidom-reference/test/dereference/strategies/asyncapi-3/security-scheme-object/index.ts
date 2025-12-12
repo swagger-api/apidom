@@ -35,7 +35,7 @@ describe('dereference', function () {
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            
+
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
             assert.deepEqual(toValue(actual), expected);
           });
@@ -48,7 +48,7 @@ describe('dereference', function () {
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            
+
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
             assert.deepEqual(toValue(actual), expected);
           });
@@ -61,7 +61,7 @@ describe('dereference', function () {
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },
             });
-            
+
             const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
             assert.deepEqual(toValue(actual), expected);
           });

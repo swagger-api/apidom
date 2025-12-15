@@ -107,6 +107,14 @@ class OpenAPI3_0DereferenceVisitor {
     this.refractCache = refractCache;
   }
 
+  protected handleDereferenceError(error: unknown, refEl: Element) {
+    if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
+      return undefined;
+    }
+    throw error;
+  }
+
   protected toBaseURI(uri: string): string {
     return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
   }
@@ -196,15 +204,28 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
 
-    const reference = await this.toReference(toValue(referencingElement.$ref));
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(referencingElement.$ref));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
     this.indirections.push(referencingElement);
 
     const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
-    // possibly non-semantic fragment
-    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    let referencedElement;
+
+    try {
+      // possibly non-semantic fragment
+      referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -231,14 +252,16 @@ class OpenAPI3_0DereferenceVisitor {
 
     // detect direct or circular reference
     if (referencingElement === referencedElement) {
-      throw new ApiDOMError('Recursive Reference Object detected');
+      const error = new ApiDOMError('Recursive Reference Object detected');
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect maximum depth of dereferencing
     if (this.indirections.length > this.options.dereference.maxDepth) {
-      throw new MaximumDereferenceDepthError(
+      const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -246,8 +269,11 @@ class OpenAPI3_0DereferenceVisitor {
       reference.refSet!.circular = true;
 
       if (this.options.dereference.circular === 'error') {
-        throw new ApiDOMError('Circular reference detected');
-      } else if (this.options.dereference.circular === 'replace') {
+        const error = new ApiDOMError('Circular reference detected');
+        return this.handleDereferenceError(error, referencingElement);
+      }
+
+      if (this.options.dereference.circular === 'replace') {
         const refElement = new RefElement(referencedElement.id, {
           type: 'reference',
           uri: reference.uri,
@@ -368,15 +394,28 @@ class OpenAPI3_0DereferenceVisitor {
       return undefined;
     }
 
-    const reference = await this.toReference(toValue(referencingElement.$ref));
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(referencingElement.$ref));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
     this.indirections.push(referencingElement);
 
     const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
-    // possibly non-semantic referenced element
-    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    let referencedElement;
+
+    try {
+      // possibly non-semantic referenced element
+      referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -395,14 +434,16 @@ class OpenAPI3_0DereferenceVisitor {
 
     // detect direct or circular reference
     if (referencingElement === referencedElement) {
-      throw new ApiDOMError('Recursive Path Item Object reference detected');
+      const error = new ApiDOMError('Recursive Path Item Object reference detected');
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect maximum depth of dereferencing
     if (this.indirections.length > this.options.dereference.maxDepth) {
-      throw new MaximumDereferenceDepthError(
+      const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -410,8 +451,11 @@ class OpenAPI3_0DereferenceVisitor {
       reference.refSet!.circular = true;
 
       if (this.options.dereference.circular === 'error') {
-        throw new ApiDOMError('Circular reference detected');
-      } else if (this.options.dereference.circular === 'replace') {
+        const error = new ApiDOMError('Circular reference detected');
+        return this.handleDereferenceError(error, referencingElement);
+      }
+
+      if (this.options.dereference.circular === 'replace') {
         const refElement = new RefElement(referencedElement.id, {
           type: 'path-item',
           uri: reference.uri,
@@ -527,9 +571,10 @@ class OpenAPI3_0DereferenceVisitor {
 
     // operationRef and operationId fields are mutually exclusive
     if (isStringElement(linkElement.operationRef) && isStringElement(linkElement.operationId)) {
-      throw new ApiDOMError(
+      const error = new ApiDOMError(
         'LinkElement operationRef and operationId fields are mutually exclusive.',
       );
+      return this.handleDereferenceError(error, linkElement);
     }
 
     let operationElement: Element | undefined;
@@ -552,9 +597,15 @@ class OpenAPI3_0DereferenceVisitor {
         return undefined;
       }
 
-      const reference = await this.toReference(toValue(linkElement.operationRef));
+      let reference: Reference;
 
-      operationElement = evaluate<Element>(reference.value.result, jsonPointer);
+      try {
+        reference = await this.toReference(toValue(linkElement.operationRef));
+        operationElement = evaluate<Element>(reference.value.result, jsonPointer);
+      } catch (error) {
+        return this.handleDereferenceError(error, linkElement);
+      }
+
       // applying semantics to a referenced element
       if (isPrimitiveElement(operationElement)) {
         const cacheKey = `operation-${toValue(identityManager.identify(operationElement))}`;
@@ -587,7 +638,14 @@ class OpenAPI3_0DereferenceVisitor {
 
     if (isStringElement(linkElement.operationId)) {
       const operationId = toValue(linkElement.operationId);
-      const reference = await this.toReference(url.unsanitize(this.reference.uri));
+      let reference: Reference;
+
+      try {
+        reference = await this.toReference(url.unsanitize(this.reference.uri));
+      } catch (error) {
+        return this.handleDereferenceError(error, linkElement);
+      }
+
       operationElement = find(
         (e) =>
           isOperationElement(e) && isElement(e.operationId) && e.operationId.equals(operationId),
@@ -595,7 +653,8 @@ class OpenAPI3_0DereferenceVisitor {
       );
       // OperationElement not found by its operationId
       if (isUndefined(operationElement)) {
-        throw new ApiDOMError(`OperationElement(operationId=${operationId}) not found.`);
+        const error = new ApiDOMError(`OperationElement(operationId=${operationId}) not found.`);
+        return this.handleDereferenceError(error, linkElement);
       }
 
       const linkElementCopy = cloneShallow(linkElement);
@@ -630,9 +689,10 @@ class OpenAPI3_0DereferenceVisitor {
 
     // value and externalValue fields are mutually exclusive
     if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
-      throw new ApiDOMError(
+      const error = new ApiDOMError(
         'ExampleElement value and externalValue fields are mutually exclusive.',
       );
+      return this.handleDereferenceError(error, exampleElement);
     }
 
     const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
@@ -650,7 +710,13 @@ class OpenAPI3_0DereferenceVisitor {
       return undefined;
     }
 
-    const reference = await this.toReference(toValue(exampleElement.externalValue));
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(exampleElement.externalValue));
+    } catch (error) {
+      return this.handleDereferenceError(error, exampleElement);
+    }
 
     // shallow clone of the referenced element
     const valueElement = cloneShallow(reference.value.result as Element);

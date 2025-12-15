@@ -98,6 +98,14 @@ class AsyncAPI3DereferenceVisitor {
     this.refractCache = refractCache;
   }
 
+  protected handleDereferenceError(error: unknown, refEl: Element) {
+    if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
+      return undefined;
+    }
+    throw error;
+  }
+
   protected toBaseURI(uri: string): string {
     return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
   }
@@ -185,15 +193,30 @@ class AsyncAPI3DereferenceVisitor {
       // skip traversing this reference and all it's child elements
       return false;
     }
-    const reference = await this.toReference(toValue(referencingElement.$ref));
+
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(referencingElement.$ref));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
     this.indirections.push(referencingElement);
 
     const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
-    // possibly non-semantic fragment
-    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    let referencedElement: Element;
+
+    try {
+      // possibly non-semantic fragment
+      referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -220,14 +243,16 @@ class AsyncAPI3DereferenceVisitor {
 
     // detect direct or circular reference
     if (referencingElement === referencedElement) {
-      throw new ApiDOMError('Recursive Reference Object detected');
+      const error = new ApiDOMError('Recursive Reference Object detected');
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect maximum depth of dereferencing
     if (this.indirections.length > this.options.dereference.maxDepth) {
-      throw new MaximumDereferenceDepthError(
+      const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -235,8 +260,11 @@ class AsyncAPI3DereferenceVisitor {
       reference.refSet!.circular = true;
 
       if (this.options.dereference.circular === 'error') {
-        throw new ApiDOMError('Circular reference detected');
-      } else if (this.options.dereference.circular === 'replace') {
+        const error = new ApiDOMError('Circular reference detected');
+        return this.handleDereferenceError(error, referencingElement);
+      }
+
+      if (this.options.dereference.circular === 'replace') {
         const refElement = new RefElement(referencedElement.id, {
           type: 'reference',
           uri: reference.uri,

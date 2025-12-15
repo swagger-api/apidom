@@ -50,6 +50,11 @@ enum PerfLabels {
   START = 'doValidation',
 }
 
+interface DereferenceError extends Error {
+  jsonPointer?: string;
+  cause?: DereferenceError;
+}
+
 export interface ValidationService {
   doValidation(
     textDocument: TextDocument,
@@ -223,6 +228,23 @@ export class DefaultValidationService implements ValidationService {
     while (errorCause?.cause) {
       errorCause = errorCause.cause;
     }
+    const pointerString = errorCause.jsonPointer ? ` at "${errorCause.jsonPointer}"` : '';
+
+    if (errorCause.message) {
+      return `${errorCause.name}: ${errorCause.message}`;
+    }
+    return errorCause.name + pointerString;
+  }
+
+  private static buildReferenceErrorMessageFromDereferenceError(
+    ex: DereferenceError,
+  ): string | boolean {
+    let errorCause = ex.cause ?? ex;
+
+    while (errorCause?.cause) {
+      errorCause = errorCause.cause;
+    }
+
     const pointerString = errorCause.jsonPointer ? ` at "${errorCause.jsonPointer}"` : '';
 
     if (errorCause.message) {
@@ -429,6 +451,121 @@ export class DefaultValidationService implements ValidationService {
           }
         }
       }
+    }
+    return diagnostics;
+  }
+
+  private async validateReferencesContinueOnError(
+    result: Element,
+    doc: Element,
+    textDocument: TextDocument,
+    nameSpace: ContentLanguage,
+    validationContext?: ValidationContext,
+  ): Promise<Diagnostic[]> {
+    const diagnostics: Diagnostic[] = [];
+    const pointersMap: Record<string, Pointer[]> = {};
+    const dereferenceErrors: {
+      error: DereferenceError;
+      refEl: Element;
+    }[] = [];
+
+    const baseURI = validationContext?.baseURI
+      ? validationContext?.baseURI
+      : 'https://smartbear.com/';
+    const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result)! });
+    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
+    const { referenceOptions } = this.settings || {};
+
+    const refSet = new ReferenceSet({ refs: [apiReference] });
+
+    const context = !validationContext ? this.settings?.validationContext : validationContext;
+    const refValidationMode =
+      !context || !context.referenceValidationMode
+        ? ReferenceValidationMode.LEGACY
+        : // eslint-disable-next-line no-bitwise
+          context.referenceValidationMode | ReferenceValidationMode.LEGACY;
+
+    try {
+      await dereferenceApiDOM(result, {
+        resolve: {
+          ...(referenceOptions?.resolve ?? {}),
+          baseURI,
+          external: refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
+        },
+        parse: {
+          ...(referenceOptions?.parse ?? {}),
+          parsers: cachedParsers,
+          mediaType: nameSpace.mediaType,
+        },
+        dereference: {
+          ...(referenceOptions?.dereference ?? {}),
+          refSet,
+          immutable: false,
+          dereferenceOpts: {
+            continueOnError: true,
+            errors: dereferenceErrors,
+          },
+        },
+      });
+
+      const codeDate = Date.now();
+      const codes: string[] = [];
+
+      for (const dereferenceError of dereferenceErrors) {
+        const message = DefaultValidationService.buildReferenceErrorMessageFromDereferenceError(
+          dereferenceError.error,
+        );
+        if (message) {
+          const refElement = dereferenceError.refEl;
+          if (refElement as Element) {
+            const refValueElement = (refElement as ObjectElement).get('$ref');
+            const referencedElement = toValue(refElement.getMetaProperty('referenced-element', ''));
+            let pointers = pointersMap[referencedElement];
+            if (!pointers) {
+              pointers = localReferencePointers(doc, referencedElement, true);
+              // eslint-disable-next-line no-param-reassign
+              pointersMap[referencedElement] = pointers;
+            }
+            const lintSm = getSourceMap(refValueElement);
+            const location = { offset: lintSm.offset, length: lintSm.length };
+            const range = Range.create(
+              textDocument.positionAt(location.offset),
+              textDocument.positionAt(location.offset + location.length),
+            );
+            const code = `${location.offset.toString()}-${location.length.toString()}-${codeDate}`;
+            const diagnostic = Diagnostic.create(
+              range,
+              `Reference Error - ${message}`,
+              DiagnosticSeverity.Error,
+              code,
+              'apilint',
+            );
+
+            diagnostic.source = 'apilint';
+            diagnostic.data = {
+              quickFix: [],
+            } as LinterMetaData;
+            for (const p of pointers) {
+              // @ts-ignore
+              if (refValueElement !== p.ref && !p.isRef) {
+                diagnostic.data.quickFix.push({
+                  message: `update to ${p.ref}`,
+                  action: 'updateValue',
+                  functionParams: [p.ref],
+                });
+              }
+            }
+            this.quickFixesMap[code] = diagnostic.data.quickFix;
+
+            if (!codes.includes(code)) {
+              codes.push(code);
+              diagnostics.push(diagnostic);
+            }
+          }
+        }
+      }
+    } catch (ex) {
+      console.error('error dereferencing', ex);
     }
     return diagnostics;
   }
@@ -713,7 +850,17 @@ export class DefaultValidationService implements ValidationService {
     };
     traverse(lint, api);
     if (refValidationMode !== ReferenceValidationMode.LEGACY) {
-      if (refValidationSerialProcessing) {
+      if (context?.referenceValidationContinueOnError) {
+        diagnostics.push(
+          ...(await this.validateReferencesContinueOnError(
+            result,
+            api,
+            textDocument,
+            nameSpace,
+            context,
+          )),
+        );
+      } else if (refValidationSerialProcessing) {
         diagnostics.push(
           ...(await this.validateReferencesSequential(
             refElements,

@@ -5,6 +5,7 @@ import AsyncApiVersionVisitor from './visitors/async-api-3/AsyncApiVersionVisito
 import ChanneBindingsVisitor from './visitors/async-api-3/channel/BindingsVisitor.ts';
 import ChannelAddressExpressionsVisitor from './visitors/async-api-3/channel-address-expressions/index.ts';
 import ChannelBindingsVisitor from './visitors/async-api-3/channel-bindings/index.ts';
+import ChannelServersVisitor from './visitors/async-api-3/channel/ServersVisitor.ts';
 import ChannelVisitor from './visitors/async-api-3/channel/index.ts';
 import ChannelsVisitor from './visitors/async-api-3/channels/index.ts';
 import ComponentsChannelsVisitor from './visitors/async-api-3/components/ChannelsVisitor.ts';
@@ -41,9 +42,12 @@ import OAuthFlowVisitor from './visitors/async-api-3/oauth-flow/index.ts';
 import OAuthFlowsVisitor from './visitors/async-api-3/oauth-flows/index.ts';
 import OperationBindingsVisitor from './visitors/async-api-3/operation-bindings/index.ts';
 import OperationBindingsVisitor_ from './visitors/async-api-3/operation/BindingsVisitor.ts';
+import OperationChannelVisitor from './visitors/async-api-3/operation/ChannelVisitor.ts';
+import OperationMessagesVisitor from './visitors/async-api-3/operation/MessagesVisitor.ts';
 import OperationReplyVisitor_ from './visitors/async-api-3/operation/ReplyVisitor.ts';
 import OperationReplyAddressVisitor from './visitors/async-api-3/operation-reply-address/index.ts';
 import OperationReplyAddressVisitor_ from './visitors/async-api-3/operation-reply/AddressVisitor.ts';
+import OperationReplyMessagesVisitor from './visitors/async-api-3/operation-reply/MessagesVisitor.ts';
 import OperationReplyVisitor from './visitors/async-api-3/operation-reply/index.ts';
 import OperationSecurityVisitor from './visitors/async-api-3/operation/SecurityVisitor.ts';
 import OperationTraitVisitor from './visitors/async-api-3/operation-trait/index.ts';
@@ -312,7 +316,7 @@ const specification = {
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
-            servers: { $ref: '#/visitors/value' },
+            servers: ChannelServersVisitor,
             parameters: { $ref: '#/visitors/document/objects/Parameters' },
             tags: { $ref: '#/visitors/document/objects/Tags' },
             externalDocs: ExternalDocumentationOrReferenceVisitor,
@@ -332,7 +336,7 @@ const specification = {
           $visitor: OperationVisitor,
           fixedFields: {
             action: { $ref: '#/visitors/value' },
-            channel: { $ref: '#/visitors/value' },
+            channel: OperationChannelVisitor,
             title: { $ref: '#/visitors/value' },
             summary: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
@@ -341,7 +345,7 @@ const specification = {
             externalDocs: ExternalDocumentationOrReferenceVisitor,
             bindings: OperationBindingsVisitor_,
             traits: OperationTraitsVisitor,
-            messages: { $ref: '#/visitors/value' },
+            messages: OperationMessagesVisitor,
             reply: OperationReplyVisitor_,
           },
         },
@@ -368,8 +372,8 @@ const specification = {
           $visitor: OperationReplyVisitor,
           fixedFields: {
             address: OperationReplyAddressVisitor_,
-            channel: { $ref: '#/visitors/value' },
-            messages: { $ref: '#/visitors/value' },
+            channel: OperationChannelVisitor,
+            messages: OperationReplyMessagesVisitor,
           },
         },
         OperationReplyAddress: {

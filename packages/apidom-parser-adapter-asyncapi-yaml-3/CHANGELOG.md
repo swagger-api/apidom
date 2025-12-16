@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.0.2](https://github.com/swagger-api/apidom/compare/v1.0.1...v1.0.2) (2025-12-16)
+
+### Reverts
+
+- Revert "feat(apidom-ns-asyncapi-3): disable resolving references" (#5072) ([154b824](https://github.com/swagger-api/apidom/commit/154b824e215cb353ece4894685e56948c6a04024)), closes [#5072](https://github.com/swagger-api/apidom/issues/5072) [#5058](https://github.com/swagger-api/apidom/issues/5058)
+
 ## [1.0.1](https://github.com/swagger-api/apidom/compare/v1.0.0...v1.0.1) (2025-12-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-yaml-3

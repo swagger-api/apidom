@@ -388,7 +388,8 @@ class OpenAPI3_1DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         isReferenceElement(referencedElement) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -601,7 +602,8 @@ class OpenAPI3_1DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -1198,7 +1200,8 @@ class OpenAPI3_1DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         (isSchemaElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage

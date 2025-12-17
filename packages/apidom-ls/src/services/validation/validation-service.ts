@@ -477,20 +477,15 @@ export class DefaultValidationService implements ValidationService {
     const { referenceOptions } = this.settings || {};
 
     const refSet = new ReferenceSet({ refs: [apiReference] });
-
     const context = !validationContext ? this.settings?.validationContext : validationContext;
-    const refValidationMode =
-      !context || !context.referenceValidationMode
-        ? ReferenceValidationMode.LEGACY
-        : // eslint-disable-next-line no-bitwise
-          context.referenceValidationMode | ReferenceValidationMode.LEGACY;
 
     try {
       await dereferenceApiDOM(result, {
         resolve: {
           ...(referenceOptions?.resolve ?? {}),
           baseURI,
-          external: refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
+          external:
+            context?.referenceValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL,
         },
         parse: {
           ...(referenceOptions?.parse ?? {}),
@@ -504,6 +499,7 @@ export class DefaultValidationService implements ValidationService {
           dereferenceOpts: {
             continueOnError: true,
             errors: dereferenceErrors,
+            skipNestedExternal: true,
           },
         },
       });

@@ -12,6 +12,7 @@ import {
   Element,
   BooleanElement,
   RefElement,
+  ObjectElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
@@ -104,6 +105,27 @@ class AsyncAPI3DereferenceVisitor {
       return undefined;
     }
     throw error;
+  }
+
+  protected getNestedVisitorOptions(referencingElement: ObjectElement): ReferenceOptions {
+    return {
+      ...this.options,
+      resolve: {
+        ...this.options.resolve,
+        external:
+          this.options.dereference?.dereferenceOpts?.skipNestedExternal &&
+          toValue(referencingElement.get('$ref')).startsWith('#')
+            ? false
+            : this.options.resolve.external,
+      },
+      dereference: {
+        ...this.options.dereference,
+        dereferenceOpts: {
+          ...this.options.dereference?.dereferenceOpts,
+          continueOnError: false,
+        },
+      },
+    };
   }
 
   protected toBaseURI(uri: string): string {
@@ -214,6 +236,7 @@ class AsyncAPI3DereferenceVisitor {
       // possibly non-semantic fragment
       referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     } catch (error) {
+      this.indirections.pop();
       return this.handleDereferenceError(error, referencingElement);
     }
 
@@ -244,6 +267,7 @@ class AsyncAPI3DereferenceVisitor {
     // detect direct or circular reference
     if (referencingElement === referencedElement) {
       const error = new ApiDOMError('Recursive Reference Object detected');
+      this.indirections.pop();
       return this.handleDereferenceError(error, referencingElement);
     }
 
@@ -252,6 +276,7 @@ class AsyncAPI3DereferenceVisitor {
       const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      this.indirections.pop();
       return this.handleDereferenceError(error, referencingElement);
     }
 
@@ -261,6 +286,7 @@ class AsyncAPI3DereferenceVisitor {
 
       if (this.options.dereference.circular === 'error') {
         const error = new ApiDOMError('Circular reference detected');
+        this.indirections.pop();
         return this.handleDereferenceError(error, referencingElement);
       }
 
@@ -296,7 +322,8 @@ class AsyncAPI3DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         isReferenceElement(referencedElement) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -306,14 +333,19 @@ class AsyncAPI3DereferenceVisitor {
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
-        options: this.options,
+        options: this.getNestedVisitorOptions(referencingElement),
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
       });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
+      try {
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+      } catch (error) {
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement);
+      }
 
       // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);

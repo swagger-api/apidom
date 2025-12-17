@@ -1,0 +1,25 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "schemas": {
+        "exampleSchema": {
+          "tags": [
+            {
+              "name": "exampleTag",
+              "externalDocs": {
+                "$ref": "#/components/externalDocs/commonExternalDocs"
+              }
+            }
+          ]
+        }
+      },
+      "externalDocs": {
+        "commonExternalDocs": {
+          "url": "https://example.com/docs",
+          "description": "External documentation for channel"
+        }
+      }
+    }
+  }
+]

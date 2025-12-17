@@ -1,0 +1,23 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "channels": {
+      "channel1": {
+        "address": "users/signup"
+      }
+    },
+    "components": {
+      "channels": {
+        "channel1": {
+          "address": "users/signup"
+        }
+      },
+      "externalDocs": {
+        "externalDoc1": {
+          "description": "External documentation for channel",
+          "url": "https://example.com/docs"
+        }
+      }
+    }
+  }
+]

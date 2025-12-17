@@ -1,0 +1,27 @@
+{
+  "asyncapi": "3.0.0",
+  "operations": {
+    "getExample": {
+      "externalDocs": {
+        "$ref": "#/components/externalDocs/commonExternalDocs"
+      },
+      "channel": {
+        "$ref": "#/components/channels/channel1"
+      },
+      "action": "send"
+    }
+  },
+  "components": {
+    "channels": {
+      "channel1": {
+        "address": "users/signup"
+      }
+    },
+    "externalDocs": {
+      "commonExternalDocs": {
+        "url": "https://example.com/docs",
+        "description": "External documentation for channel"
+      }
+    }
+  }
+}

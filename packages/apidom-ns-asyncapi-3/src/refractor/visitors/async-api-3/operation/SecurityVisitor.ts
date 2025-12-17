@@ -30,7 +30,7 @@ class SecurityVisitor extends Mixin(SpecificationVisitor, FallbackVisitor) {
 
       if (isReferenceLikeElement(item)) {
         element = this.toRefractedElement(['document', 'objects', 'Reference'], item);
-        element.setMetaProperty('referenced-element', 'operationSecurity');
+        element.setMetaProperty('referenced-element', 'securityScheme');
       } else {
         element = this.toRefractedElement(['document', 'objects', 'SecurityScheme'], item);
       }

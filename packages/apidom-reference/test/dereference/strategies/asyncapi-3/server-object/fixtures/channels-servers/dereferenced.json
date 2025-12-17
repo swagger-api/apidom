@@ -3,7 +3,7 @@
     "asyncapi": "3.0.0",
     "channels": {
       "channel1": {
-        "servers": [{ "$ref": "#/servers/server1" }]
+        "servers": [{ "host": "http://example.com" }]
       }
     },
     "servers": {

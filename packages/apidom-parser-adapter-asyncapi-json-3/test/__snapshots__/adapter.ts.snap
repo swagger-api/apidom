@@ -460,11 +460,11 @@ exports[`adapter should parse 1`] = `
             (MemberElement
               (StringElement)
               (ArrayElement
-                (ObjectElement
+                (ReferenceElement
                   (MemberElement
                     (StringElement)
                     (StringElement)))
-                (ObjectElement
+                (ReferenceElement
                   (MemberElement
                     (StringElement)
                     (StringElement)))))
@@ -785,7 +785,7 @@ exports[`adapter should parse 1`] = `
               (StringElement))
             (MemberElement
               (StringElement)
-              (ObjectElement
+              (ReferenceElement
                 (MemberElement
                   (StringElement)
                   (StringElement))))
@@ -953,7 +953,7 @@ exports[`adapter should parse 1`] = `
             (MemberElement
               (StringElement)
               (ArrayElement
-                (ObjectElement
+                (ReferenceElement
                   (MemberElement
                     (StringElement)
                     (StringElement)))))
@@ -971,14 +971,14 @@ exports[`adapter should parse 1`] = `
                       (StringElement))))
                 (MemberElement
                   (StringElement)
-                  (ObjectElement
+                  (ReferenceElement
                     (MemberElement
                       (StringElement)
                       (StringElement))))
                 (MemberElement
                   (StringElement)
                   (ArrayElement
-                    (ObjectElement
+                    (ReferenceElement
                       (MemberElement
                         (StringElement)
                         (StringElement)))))))))))))

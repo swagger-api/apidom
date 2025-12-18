@@ -1,18 +1,18 @@
 {
   "asyncapi": "3.0.0",
-  "components": {
-    "schemas": {
-      "exampleSchema": {
-        "tags": [
-          {
-            "name": "exampleTag",
-            "externalDocs": {
-              "$ref": "#/components/externalDocs/commonExternalDocs"
-            }
-          }
-        ]
+  "info": {
+    "title": "Example API",
+    "version": "1.0.0",
+    "tags": [
+      {
+        "name": "exampleTag",
+        "externalDocs": {
+          "$ref": "#/components/externalDocs/commonExternalDocs"
+        }
       }
-    },
+    ]
+  },
+  "components": {
     "externalDocs": {
       "commonExternalDocs": {
         "url": "https://example.com/docs",

@@ -2,26 +2,12 @@
   "asyncapi": "3.0.0",
   "channels": {
     "channel1": {
-      "address": "users/signup",
-      "messages": {
-        "message1": {
-          "payload": {
-            "type": "object"
-          }
-        }
-      },
       "externalDocs": {
         "$ref": "#/components/externalDocs/externalDoc1"
-      },
-      "$ref": "#/components/channels/channel1"
+      }
     }
   },
   "components": {
-    "channels": {
-      "channel1": {
-        "address": "users/signup"
-      }
-    },
     "externalDocs": {
       "externalDoc1": {
         "url": "https://example.com/docs",

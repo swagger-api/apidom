@@ -1,27 +1,21 @@
-{
-  "asyncapi": "3.0.0",
-  "operations": {
-    "getExample": {
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
       "externalDocs": {
-        "$ref": "#/components/externalDocs/commonExternalDocs"
-      },
-      "channel": {
-        "$ref": "#/components/channels/channel1"
-      },
-      "action": "send"
-    }
-  },
-  "components": {
-    "channels": {
-      "channel1": {
-        "address": "users/signup"
+        "commonExternalDocs": {
+          "description": "External documentation for channel",
+          "url": "https://example.com/docs"
+        }
       }
     },
-    "externalDocs": {
-      "commonExternalDocs": {
-        "url": "https://example.com/docs",
-        "description": "External documentation for channel"
+    "operations": {
+      "getExample": {
+        "externalDocs": {
+          "description": "External documentation for channel",
+          "url": "https://example.com/docs"
+        }
       }
     }
   }
-}
+]

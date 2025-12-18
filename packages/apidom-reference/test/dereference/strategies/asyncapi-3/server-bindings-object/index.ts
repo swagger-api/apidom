@@ -14,7 +14,20 @@ describe('dereference', function () {
   context('strategies', function () {
     context('asyncapi-3', function () {
       context('Server Bindings Object', function () {
-        context('given in components/securitySchemes field', function () {
+        context('given in components/serverBindings field', function () {
+          const fixturePath = path.join(rootFixturePath, 'components-server-bindings');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+        context('given in server/bindings field', function () {
           const fixturePath = path.join(rootFixturePath, 'server-object');
 
           specify('should dereference', async function () {

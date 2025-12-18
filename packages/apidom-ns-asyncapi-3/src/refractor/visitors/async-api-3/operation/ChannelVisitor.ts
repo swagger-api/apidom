@@ -34,12 +34,12 @@ class ChannelVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   ObjectElement(objectElement: ObjectElement) {
     const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
-    
+
     if (isReferenceLikeElement(objectElement)) {
       this.element.classes.push('reference-element');
       this.element.setMetaProperty('referenced-element', 'channel');
     }
-    
+
     return result;
   }
 }

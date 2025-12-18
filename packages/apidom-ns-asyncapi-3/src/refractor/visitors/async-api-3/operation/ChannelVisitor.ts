@@ -1,6 +1,6 @@
 import { Mixin } from 'ts-mixer';
 import { always } from 'ramda';
-import { ObjectElement, isStringElement } from '@swagger-api/apidom-core';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ReferenceElement from '../../../../elements/Reference.ts';
 import FixedFieldsVisitor, {
@@ -8,6 +8,7 @@ import FixedFieldsVisitor, {
   SpecPath,
 } from '../../generics/FixedFieldsVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceLikeElement } from '../../../predicates.ts';
 
 /**
  * @public
@@ -33,13 +34,12 @@ class ChannelVisitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
 
   ObjectElement(objectElement: ObjectElement) {
     const result = FixedFieldsVisitor.prototype.ObjectElement.call(this, objectElement);
-
-    // mark this ReferenceElement with reference metadata
-    if (isStringElement(this.element.$ref)) {
+    
+    if (isReferenceLikeElement(objectElement)) {
       this.element.classes.push('reference-element');
       this.element.setMetaProperty('referenced-element', 'channel');
     }
-
+    
     return result;
   }
 }

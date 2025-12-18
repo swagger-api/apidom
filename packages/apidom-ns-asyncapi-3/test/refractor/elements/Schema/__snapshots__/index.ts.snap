@@ -80,6 +80,12 @@ exports[`refractor elements SchemaElement given fields of type ReferenceElement 
     (ReferenceElement
       (MemberElement
         (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
         (StringElement)))))
 `;
 

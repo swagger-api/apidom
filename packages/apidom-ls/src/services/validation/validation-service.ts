@@ -519,7 +519,6 @@ export class DefaultValidationService implements ValidationService {
             let pointers = pointersMap[referencedElement];
             if (!pointers) {
               pointers = localReferencePointers(doc, referencedElement, true);
-              // eslint-disable-next-line no-param-reassign
               pointersMap[referencedElement] = pointers;
             }
             const lintSm = getSourceMap(refValueElement);
@@ -540,9 +539,8 @@ export class DefaultValidationService implements ValidationService {
             diagnostic.source = 'apilint';
             diagnostic.data = {
               quickFix: [],
-            } as LinterMetaData;
+            } satisfies LinterMetaData;
             for (const p of pointers) {
-              // @ts-ignore
               if (refValueElement !== p.ref && !p.isRef) {
                 diagnostic.data.quickFix.push({
                   message: `update to ${p.ref}`,

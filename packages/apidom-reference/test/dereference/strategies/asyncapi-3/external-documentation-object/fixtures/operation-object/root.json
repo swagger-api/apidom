@@ -1,21 +1,18 @@
-[
-  {
-    "asyncapi": "3.0.0",
-    "components": {
+{
+  "asyncapi": "3.0.0",
+  "operations": {
+    "getExample": {
       "externalDocs": {
-        "commonExternalDocs": {
-          "description": "External documentation for channel",
-          "url": "https://example.com/docs"
-        }
+        "$ref": "#/components/externalDocs/commonExternalDocs"
       }
-    },
-    "operations": {
-      "getExample": {
-        "externalDocs": {
-          "description": "External documentation for channel",
-          "url": "https://example.com/docs"
-        }
+    }
+  },
+  "components": {
+    "externalDocs": {
+      "commonExternalDocs": {
+        "url": "https://example.com/docs",
+        "description": "External documentation for channel"
       }
     }
   }
-]
+}

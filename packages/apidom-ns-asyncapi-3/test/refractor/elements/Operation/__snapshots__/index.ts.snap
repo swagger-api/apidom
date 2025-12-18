@@ -128,13 +128,13 @@ exports[`refractor elements OperationElement should refract to semantic ApiDOM t
   (MemberElement
     (StringElement)
     (ArrayElement
-      (ObjectElement
+      (ReferenceElement
         (MemberElement
           (StringElement)
           (StringElement)))))
   (MemberElement
     (StringElement)
-    (ObjectElement
+    (ReferenceElement
       (MemberElement
         (StringElement)
         (StringElement)))))

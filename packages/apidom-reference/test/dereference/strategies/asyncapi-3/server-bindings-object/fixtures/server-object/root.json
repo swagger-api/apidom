@@ -1,0 +1,18 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "serverBindings": {
+      "serverBinding1": {
+        "kafka": {}
+      }
+    },
+    "servers": {
+      "server1": {
+        "url": "http://example.com",
+        "bindings": {
+          "$ref": "#/components/serverBindings/serverBinding1"
+        }
+      }
+    }
+  }
+}

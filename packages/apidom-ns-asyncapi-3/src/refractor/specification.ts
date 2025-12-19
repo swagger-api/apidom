@@ -190,7 +190,7 @@ const SchemaSpecification = {
     // AsyncAPI vocabulary
     discriminator:
       AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.discriminator,
-    externalDocs: ExternalDocumentationVisitor,
+    externalDocs: ExternalDocumentationOrReferenceVisitor,
     deprecated: AsyncApi2_0Specification.visitors.document.objects.Schema.fixedFields.deprecated,
   },
 };

@@ -342,6 +342,7 @@ export interface ValidationContext {
   baseURI?: string;
   referenceValidationMode?: ReferenceValidationMode;
   referenceValidationSequentialProcessing?: boolean;
+  referenceValidationContinueOnError?: boolean;
 }
 
 /**

@@ -1,0 +1,21 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "multiFormatSchema1": {
+        "schemaFormat": "application/vnd.aai.asyncapi;version=3.0.0",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "property1": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "multiFormatSchema2": {
+        "$ref": "#/components/schemas/multiFormatSchema1"
+      }
+    }
+  }
+}

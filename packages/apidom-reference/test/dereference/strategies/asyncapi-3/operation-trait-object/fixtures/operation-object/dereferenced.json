@@ -1,0 +1,22 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "operationTraits": {
+        "operationTrait1": {
+          "description": "operation trait 1 description"
+        }
+      }
+    },
+    "operations": {
+      "user/signedup": {
+        "action": "receive",
+        "traits": [
+          {
+            "description": "operation trait 1 description"
+          }
+        ]
+      }
+    }
+  }
+]

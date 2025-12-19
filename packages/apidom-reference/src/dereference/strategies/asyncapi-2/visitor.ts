@@ -13,6 +13,7 @@ import {
   Element,
   BooleanElement,
   RefElement,
+  ObjectElement,
 } from '@swagger-api/apidom-core';
 import { ApiDOMError } from '@swagger-api/apidom-error';
 import { evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
@@ -101,6 +102,35 @@ class AsyncAPI2DereferenceVisitor {
     this.options = options;
     this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
+  }
+
+  protected handleDereferenceError(error: unknown, refEl: Element) {
+    if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
+      return undefined;
+    }
+    throw error;
+  }
+
+  protected getNestedVisitorOptions(referencingElement: ObjectElement): ReferenceOptions {
+    return {
+      ...this.options,
+      resolve: {
+        ...this.options.resolve,
+        external:
+          this.options.dereference?.dereferenceOpts?.skipNestedExternal &&
+          toValue(referencingElement.get('$ref')).startsWith('#')
+            ? false
+            : this.options.resolve.external,
+      },
+      dereference: {
+        ...this.options.dereference,
+        dereferenceOpts: {
+          ...this.options.dereference?.dereferenceOpts,
+          continueOnError: false,
+        },
+      },
+    };
   }
 
   protected toBaseURI(uri: string): string {
@@ -192,15 +222,30 @@ class AsyncAPI2DereferenceVisitor {
       return false;
     }
 
-    const reference = await this.toReference(toValue(referencingElement.$ref));
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(referencingElement.$ref));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
     this.indirections.push(referencingElement);
 
     const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
-    // possibly non-semantic fragment
-    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    let referencedElement: Element;
+
+    try {
+      // possibly non-semantic fragment
+      referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -227,14 +272,18 @@ class AsyncAPI2DereferenceVisitor {
 
     // detect direct or circular reference
     if (referencingElement === referencedElement) {
-      throw new ApiDOMError('Recursive Reference Object detected');
+      const error = new ApiDOMError('Recursive Reference Object detected');
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect maximum depth of dereferencing
     if (this.indirections.length > this.options.dereference.maxDepth) {
-      throw new MaximumDereferenceDepthError(
+      const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement);
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -242,8 +291,12 @@ class AsyncAPI2DereferenceVisitor {
       reference.refSet!.circular = true;
 
       if (this.options.dereference.circular === 'error') {
-        throw new ApiDOMError('Circular reference detected');
-      } else if (this.options.dereference.circular === 'replace') {
+        const error = new ApiDOMError('Circular reference detected');
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement);
+      }
+
+      if (this.options.dereference.circular === 'replace') {
         const refElement = new RefElement(referencedElement.id, {
           type: 'reference',
           uri: reference.uri,
@@ -275,7 +328,8 @@ class AsyncAPI2DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         isReferenceElement(referencedElement) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -285,14 +339,19 @@ class AsyncAPI2DereferenceVisitor {
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
-        options: this.options,
+        options: this.getNestedVisitorOptions(referencingElement),
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
       });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
+      try {
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+      } catch (error) {
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement);
+      }
 
       // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);
@@ -386,15 +445,30 @@ class AsyncAPI2DereferenceVisitor {
       return undefined;
     }
 
-    const reference = await this.toReference(toValue(referencingElement.$ref));
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(toValue(referencingElement.$ref));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
 
     this.indirections.push(referencingElement);
 
     const jsonPointer = URIFragmentIdentifier.fromURIReference($refBaseURI);
 
-    // possibly non-semantic referenced element
-    let referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    let referencedElement: Element;
+
+    try {
+      // possibly non-semantic referenced element
+      referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement);
+    }
+
     referencedElement.id = identityManager.identify(referencedElement);
 
     /**
@@ -413,14 +487,18 @@ class AsyncAPI2DereferenceVisitor {
 
     // detect direct or indirect reference
     if (referencingElement === referencedElement) {
-      throw new ApiDOMError('Recursive Channel Item Object reference detected');
+      const error = new ApiDOMError('Recursive Channel Item Object reference detected');
+      this.indirections.pop();
+      this.handleDereferenceError(error, referencingElement);
     }
 
     // detect maximum depth of dereferencing
     if (this.indirections.length > this.options.dereference.maxDepth) {
-      throw new MaximumDereferenceDepthError(
+      const error = new MaximumDereferenceDepthError(
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
+      this.indirections.pop();
+      this.handleDereferenceError(error, referencingElement);
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -461,7 +539,8 @@ class AsyncAPI2DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         (isChannelItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-        shouldDetectCircular) &&
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -471,14 +550,19 @@ class AsyncAPI2DereferenceVisitor {
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
-        options: this.options,
+        options: this.getNestedVisitorOptions(referencingElement),
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
       });
-      referencedElement = await visitAsync(referencedElement, visitor, {
-        keyMap,
-        nodeTypeGetter: getNodeType,
-      });
+      try {
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+      } catch (error) {
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement);
+      }
 
       // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);

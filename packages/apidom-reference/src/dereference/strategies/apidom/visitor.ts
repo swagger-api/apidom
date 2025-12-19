@@ -58,6 +58,14 @@ class ApiDOMDereferenceVisitor {
     this.options = options;
   }
 
+  protected handleDereferenceError(error: unknown, refEl: Element) {
+    if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
+      return undefined;
+    }
+    throw error;
+  }
+
   protected toBaseURI(uri: string): string {
     return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
   }
@@ -128,24 +136,37 @@ class ApiDOMDereferenceVisitor {
       return false;
     }
 
-    const reference = await this.toReference(refNormalizedURI);
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(refNormalizedURI);
+    } catch (error) {
+      return this.handleDereferenceError(error, refElement);
+    }
+
     const refBaseURI = url.resolve(retrievalURI, refNormalizedURI);
     const elementID = URIFragmentIdentifier.fromURIReference(refBaseURI);
-    let referencedElement: unknown | Element | undefined = evaluate(
-      elementID,
-      reference.value.result as Element,
-    );
+    let referencedElement: unknown | Element | undefined;
+
+    try {
+      referencedElement = evaluate(elementID, reference.value.result as Element);
+    } catch (error) {
+      return this.handleDereferenceError(error, refElement);
+    }
 
     if (!isElement(referencedElement)) {
-      throw new ApiDOMError(`Referenced element with id="${elementID}" was not found`);
+      const error = new ApiDOMError(`Referenced element with id="${elementID}" was not found`);
+      return this.handleDereferenceError(error, refElement);
     }
 
     if (refElement === referencedElement) {
-      throw new ApiDOMError('RefElement cannot reference itself');
+      const error = new ApiDOMError('RefElement cannot reference itself');
+      return this.handleDereferenceError(error, refElement);
     }
 
     if (isRefElement(referencedElement)) {
-      throw new ApiDOMError('RefElement cannot reference another RefElement');
+      const error = new ApiDOMError('RefElement cannot reference another RefElement');
+      return this.handleDereferenceError(error, refElement);
     }
 
     if (isExternalReference) {

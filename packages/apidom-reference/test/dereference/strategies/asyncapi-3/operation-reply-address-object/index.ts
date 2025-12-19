@@ -14,8 +14,8 @@ describe('dereference', function () {
   context('strategies', function () {
     context('asyncapi-3', function () {
       context('Operation Reply Address Object', function () {
-        context('given in Operation Object', function () {
-          const fixturePath = path.join(rootFixturePath, 'operation-object');
+        context('given in Operation Reply Object', function () {
+          const fixturePath = path.join(rootFixturePath, 'operation-reply-object');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

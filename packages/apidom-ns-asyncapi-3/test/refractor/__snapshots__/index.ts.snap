@@ -3825,12 +3825,57 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                         },
                         "value": {
                           "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "channel-servers"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
-                              "element": "object",
+                              "element": "reference",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "json-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "asyncapi-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                },
+                                "referenced-element": {
+                                  "element": "string",
+                                  "content": "channel-servers"
+                                }
+                              },
                               "content": [
                                 {
                                   "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": {
                                     "key": {
                                       "element": "string",
@@ -3838,6 +3883,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                     },
                                     "value": {
                                       "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": "#/servers/rabbitmqInProd"
                                     }
                                   }
@@ -3845,10 +3901,44 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                               ]
                             },
                             {
-                              "element": "object",
+                              "element": "reference",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "json-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "asyncapi-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                },
+                                "referenced-element": {
+                                  "element": "string",
+                                  "content": "channel-servers"
+                                }
+                              },
                               "content": [
                                 {
                                   "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": {
                                     "key": {
                                       "element": "string",
@@ -3856,6 +3946,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                     },
                                     "value": {
                                       "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": "#/servers/rabbitmqInStaging"
                                     }
                                   }
@@ -7430,10 +7531,44 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                           "content": "channel"
                         },
                         "value": {
-                          "element": "object",
+                          "element": "reference",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "json-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "asyncapi-reference"
+                                },
+                                {
+                                  "element": "string",
+                                  "content": "reference-element"
+                                }
+                              ]
+                            },
+                            "referenced-element": {
+                              "element": "string",
+                              "content": "channel"
+                            }
+                          },
                           "content": [
                             {
                               "element": "member",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "fixed-field"
+                                    }
+                                  ]
+                                }
+                              },
                               "content": {
                                 "key": {
                                   "element": "string",
@@ -7441,6 +7576,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                 },
                                 "value": {
                                   "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "#/channels/userSignup"
                                 }
                               }
@@ -8481,12 +8627,57 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                         },
                         "value": {
                           "element": "array",
+                          "meta": {
+                            "classes": {
+                              "element": "array",
+                              "content": [
+                                {
+                                  "element": "string",
+                                  "content": "operation-messages"
+                                }
+                              ]
+                            }
+                          },
                           "content": [
                             {
-                              "element": "object",
+                              "element": "reference",
+                              "meta": {
+                                "classes": {
+                                  "element": "array",
+                                  "content": [
+                                    {
+                                      "element": "string",
+                                      "content": "json-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "asyncapi-reference"
+                                    },
+                                    {
+                                      "element": "string",
+                                      "content": "reference-element"
+                                    }
+                                  ]
+                                },
+                                "referenced-element": {
+                                  "element": "string",
+                                  "content": "operation-message"
+                                }
+                              },
                               "content": [
                                 {
                                   "element": "member",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "fixed-field"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": {
                                     "key": {
                                       "element": "string",
@@ -8494,6 +8685,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                     },
                                     "value": {
                                       "element": "string",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "reference-value"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": "#/components/messages/Message1"
                                     }
                                   }
@@ -8617,10 +8819,44 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                   "content": "channel"
                                 },
                                 "value": {
-                                  "element": "object",
+                                  "element": "reference",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "json-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "asyncapi-reference"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "reference-element"
+                                        }
+                                      ]
+                                    },
+                                    "referenced-element": {
+                                      "element": "string",
+                                      "content": "channel"
+                                    }
+                                  },
                                   "content": [
                                     {
                                       "element": "member",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "fixed-field"
+                                            }
+                                          ]
+                                        }
+                                      },
                                       "content": {
                                         "key": {
                                           "element": "string",
@@ -8628,6 +8864,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                         },
                                         "value": {
                                           "element": "string",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "reference-value"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": "#/components/channels/channel1"
                                         }
                                       }
@@ -8656,12 +8903,57 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                 },
                                 "value": {
                                   "element": "array",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-reply-messages"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": [
                                     {
-                                      "element": "object",
+                                      "element": "reference",
+                                      "meta": {
+                                        "classes": {
+                                          "element": "array",
+                                          "content": [
+                                            {
+                                              "element": "string",
+                                              "content": "json-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "asyncapi-reference"
+                                            },
+                                            {
+                                              "element": "string",
+                                              "content": "reference-element"
+                                            }
+                                          ]
+                                        },
+                                        "referenced-element": {
+                                          "element": "string",
+                                          "content": "operation-reply-message"
+                                        }
+                                      },
                                       "content": [
                                         {
                                           "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
                                           "content": {
                                             "key": {
                                               "element": "string",
@@ -8669,6 +8961,17 @@ exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should re
                                             },
                                             "value": {
                                               "element": "string",
+                                              "meta": {
+                                                "classes": {
+                                                  "element": "array",
+                                                  "content": [
+                                                    {
+                                                      "element": "string",
+                                                      "content": "reference-value"
+                                                    }
+                                                  ]
+                                                }
+                                              },
                                               "content": "#/components/messages/Message1"
                                             }
                                           }

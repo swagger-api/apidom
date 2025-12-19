@@ -43,7 +43,7 @@ describe('dereference', function () {
         context('given in channels/servers field', function () {
           const fixturePath = path.join(rootFixturePath, 'channels-servers');
 
-          specify('should not dereference', async function () {
+          specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
             const actual = await dereference(rootFilePath, {
               parse: { mediaType: mediaTypes.latest('json') },

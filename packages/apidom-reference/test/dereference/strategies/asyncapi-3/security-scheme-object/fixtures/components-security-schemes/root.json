@@ -1,0 +1,13 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "securitySchemes": {
+      "scheme1": {
+        "type": "apiKey"
+      },
+      "scheme2": {
+        "$ref": "#/components/securitySchemes/scheme1"
+      }
+    }
+  }
+}

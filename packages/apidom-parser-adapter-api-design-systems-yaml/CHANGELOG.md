@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-api-design-systems-yaml
+
 ## [1.0.2](https://github.com/swagger-api/apidom/compare/v1.0.1...v1.0.2) (2025-12-16)
 
 ### Reverts

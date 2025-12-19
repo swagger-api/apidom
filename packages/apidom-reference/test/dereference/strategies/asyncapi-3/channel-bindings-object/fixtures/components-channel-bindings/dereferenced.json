@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "channelBindings": {
+        "channelBindings1": {
+          "kafka": {}
+        },
+        "channelBindings2": {
+          "kafka": {}
+        }
+      }
+    }
+  }
+]

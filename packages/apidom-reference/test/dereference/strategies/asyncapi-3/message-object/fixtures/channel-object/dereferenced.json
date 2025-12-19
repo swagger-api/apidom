@@ -1,0 +1,29 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "channels": {
+      "channel1": {
+        "messages": {
+          "UserSignedUp": {
+            "name": "userSignedUp",
+            "title": "User signed up event",
+            "summary": "Inform about a new user",
+            "contentType": "application/json",
+            "payload": {}
+          }
+        }
+      }
+    },
+    "components": {
+      "messages": {
+        "UserSignedUp": {
+          "name": "userSignedUp",
+          "title": "User signed up event",
+          "summary": "Inform about a new user",
+          "contentType": "application/json",
+          "payload": {}
+        }
+      }
+    }
+  }
+]

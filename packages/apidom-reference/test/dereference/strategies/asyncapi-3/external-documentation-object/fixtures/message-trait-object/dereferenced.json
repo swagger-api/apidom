@@ -1,0 +1,21 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "messageTraits": {
+        "messageTrait1": {
+          "externalDocs": {
+            "url": "https://example.com/docs",
+            "description": "External documentation for channel"
+          }
+        }
+      },
+      "externalDocs": {
+        "externalDoc1": {
+          "url": "https://example.com/docs",
+          "description": "External documentation for channel"
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "parameters": {
+      "parameter1": {
+        "description": "parameter 1 description",
+        "default": "default value"
+      }
+    }
+  },
+  "channels": {
+    "channel1": {
+      "parameters": {
+        "parameter1": {
+          "$ref": "#/components/parameters/parameter1"
+        }
+      }
+    }
+  }
+}

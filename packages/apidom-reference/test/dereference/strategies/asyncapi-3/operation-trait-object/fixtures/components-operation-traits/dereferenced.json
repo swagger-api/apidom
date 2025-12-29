@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "operationTraits": {
+        "operationTrait1": {
+          "description": "operation trait 1 description"
+        },
+        "operationTrait2": {
+          "description": "operation trait 1 description"
+        }
+      }
+    }
+  }
+]

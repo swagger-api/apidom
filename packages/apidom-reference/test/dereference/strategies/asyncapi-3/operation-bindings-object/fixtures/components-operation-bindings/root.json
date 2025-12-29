@@ -1,0 +1,13 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "operationBindings": {
+      "operationBindings1": {
+        "kafka": {}
+      },
+      "operationBindings2": {
+        "$ref": "#/components/operationBindings/operationBindings1"
+      }
+    }
+  }
+}

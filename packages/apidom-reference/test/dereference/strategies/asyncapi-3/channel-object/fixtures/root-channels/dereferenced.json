@@ -1,0 +1,11 @@
+[{
+  "asyncapi": "3.0.0",
+  "channels": {
+    "channel1": {
+      "address": "string"
+    },
+		"channel2": {
+      "address": "string"
+    }
+  }
+}]

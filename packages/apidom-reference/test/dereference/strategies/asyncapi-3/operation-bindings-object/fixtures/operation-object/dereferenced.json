@@ -1,0 +1,20 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "operationBindings": {
+        "operationBindings1": {
+          "kafka": {}
+        }
+      }
+    },
+    "operations": {
+      "user/signedup": {
+        "action": "receive",
+        "bindings": {
+          "kafka": {}
+        }
+      }
+    }
+  }
+]

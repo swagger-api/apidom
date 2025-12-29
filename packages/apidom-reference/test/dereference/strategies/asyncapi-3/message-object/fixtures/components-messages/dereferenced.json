@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "messages": {
+        "UserSignedUp": {
+          "name": "userLoggedOut"
+        },
+        "UserLoggedOut": {
+          "name": "userLoggedOut"
+        }
+      }
+    }
+  }
+]

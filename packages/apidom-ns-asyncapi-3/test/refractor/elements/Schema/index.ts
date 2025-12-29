@@ -117,6 +117,7 @@ describe('refractor', function () {
             // validation Keywords for Objects
             additionalProperties: { $ref: '#/components/schemas/Schema1' },
             propertyNames: { $ref: '#/components/schemas/Schema1' },
+            externalDocs: { $ref: '#/components/schemas/Schema1' },
           });
 
           expect(sexprs(schemaElement)).toMatchSnapshot();

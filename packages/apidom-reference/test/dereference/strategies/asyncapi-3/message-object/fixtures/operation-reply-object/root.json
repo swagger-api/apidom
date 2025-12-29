@@ -1,0 +1,26 @@
+{
+  "asyncapi": "3.0.0",
+  "operations": {
+    "user/signedup": {
+      "action": "receive",
+      "reply": {
+        "messages": [
+          {
+            "$ref": "#/components/messages/UserSignedUp"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "messages": {
+      "UserSignedUp": {
+        "name": "userSignedUp",
+        "title": "User signed up event",
+        "summary": "Inform about a new user",
+        "contentType": "application/json",
+        "payload": {}
+      }
+    }
+  }
+}

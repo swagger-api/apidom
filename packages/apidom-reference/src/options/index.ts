@@ -42,6 +42,7 @@ export interface ReferenceDereferenceOptions {
   circular: 'ignore' | 'replace' | 'error';
   circularReplacer: (ref: RefElement) => unknown;
   immutable: boolean;
+  dereferenceOpts: Record<string, any>;
 }
 
 /**
@@ -193,6 +194,10 @@ const defaultOptions: ReferenceOptions = {
      * false - the dereferencing process will be mutable
      */
     immutable: true,
+    /**
+     * These options are available in dereference strategy visitors.
+     */
+    dereferenceOpts: {},
   },
   bundle: {
     /**

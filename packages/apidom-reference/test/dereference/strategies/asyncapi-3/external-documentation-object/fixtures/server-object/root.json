@@ -1,0 +1,20 @@
+{
+  "asyncapi": "3.0.0",
+  "servers": {
+    "exampleServer": {
+      "host": "example.com",
+      "protocol": "https",
+      "externalDocs": {
+        "$ref": "#/components/externalDocs/commonExternalDocs"
+      }
+    }
+  },
+  "components": {
+    "externalDocs": {
+      "commonExternalDocs": {
+        "url": "https://example.com/docs",
+        "description": "External documentation for channel"
+      }
+    }
+  }
+}

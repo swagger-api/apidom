@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "operations": {
+        "operation1": {
+          "action": "send"
+        },
+        "operation2": {
+          "action": "send"
+        }
+      }
+    }
+  }
+]

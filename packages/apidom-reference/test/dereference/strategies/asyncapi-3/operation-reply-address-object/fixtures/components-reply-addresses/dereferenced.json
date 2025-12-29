@@ -1,0 +1,17 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "replyAddresses": {
+        "address1": {
+          "description": "address 1 description",
+          "location": "$message.header#/replyTo"
+        },
+        "address2": {
+          "description": "address 1 description",
+          "location": "$message.header#/replyTo"
+        }
+      }
+    }
+  }
+]

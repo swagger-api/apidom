@@ -1,0 +1,13 @@
+{
+  "asyncapi": "2.6.0",
+  "components": {
+    "schemas": {
+      "schema1": {
+        "title": "title of schema 1"
+      },
+      "schema2": {
+        "$ref": "#/components/schemas/schema1"
+      }
+    }
+  }
+}

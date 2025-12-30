@@ -1,0 +1,21 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "replies": {
+      "reply1": {
+        "address": {
+          "description": "reply 1 address description",
+          "location": "$message.header#/replyTo"
+        }
+      }
+    }
+  },
+  "operations": {
+    "user/signedup": {
+      "action": "receive",
+      "reply": {
+        "$ref": "#/components/replies/reply1"
+      }
+    }
+  }
+}

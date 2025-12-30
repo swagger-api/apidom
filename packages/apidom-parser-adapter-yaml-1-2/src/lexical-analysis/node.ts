@@ -1,10 +1,8 @@
-import Parser, { Tree } from 'tree-sitter';
-// @ts-ignore
+import Parser, { Language, Tree } from 'tree-sitter';
 import YAMLLanguage from '@tree-sitter-grammars/tree-sitter-yaml';
 
 const parser = new Parser();
-// @ts-ignore
-parser.setLanguage(YAMLLanguage);
+parser.setLanguage(YAMLLanguage as Language);
 
 /**
  * Lexical Analysis of source string using TreeSitter.

@@ -1,4 +1,4 @@
-ARG VARIANT="22-bookworm"
+ARG VARIANT="24-bookworm"
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:1-${VARIANT}
 
 # Install 24.12.0 version of Node.js using nvm

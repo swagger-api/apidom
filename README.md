@@ -133,7 +133,7 @@ ApiDOM Playground is available at [https://swagger-api.github.io/apidom/](https:
 This is a monorepo for all ApiDOM packages. All the code is written in [TypeScript](https://www.typescriptlang.org/).
 All the information necessary for working with monorepo can be found in this [article](https://vladimirgorej.com/blog/things-i-have-learned-maintaining-javascript-monorepo-with-lerna/).
 
-Assuming [prerequisites](#prerequisites) are already installed, [Node.js](https://nodejs.org/) `>=22.14.0` and `npm >=10.9.2`
+Assuming [prerequisites](#prerequisites) are already installed, [Node.js](https://nodejs.org/) `>=24.12.0` and `npm >=11.6.2`
 are the minimum required versions that this repo runs on, but we recommend using the latest version of Node.js@22.
 
 ### Setting up

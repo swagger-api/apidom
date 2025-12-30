@@ -1,4 +1,4 @@
-FROM node:22.14.0-bookworm
+FROM node:24.12.0-bookworm
 
 # use bash as default shell
 SHELL ["/bin/bash", "-c"]

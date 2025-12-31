@@ -13,9 +13,9 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 describe('dereference', function () {
   context('strategies', function () {
     context('asyncapi-3', function () {
-      context('Parameter Object', function () {
-        context('given in Channel Object', function () {
-          const fixturePath = path.join(rootFixturePath, 'channel-object');
+      context('Message Trait Object', function () {
+        context('given in components/messageTraits field', function () {
+          const fixturePath = path.join(rootFixturePath, 'components-message-trait');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');
@@ -28,8 +28,8 @@ describe('dereference', function () {
           });
         });
 
-        context('given in components/parameters field', function () {
-          const fixturePath = path.join(rootFixturePath, 'components-parameters');
+        context('given in messageObject/messageTraits field', function () {
+          const fixturePath = path.join(rootFixturePath, 'message-object');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

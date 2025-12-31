@@ -1,0 +1,17 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "messageTraits": {
+      "messageTrait1": {
+        "bindings": {
+          "$ref": "#/components/messageBindings/messageBinding1"
+        }
+      }
+    },
+    "messageBindings": {
+      "messageBinding1": {
+        "kafka": {}
+      }
+    }
+  }
+}

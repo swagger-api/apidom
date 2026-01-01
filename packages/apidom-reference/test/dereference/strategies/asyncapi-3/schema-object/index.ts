@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { toValue } from '@swagger-api/apidom-core';
-import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-2';
+import { mediaTypes } from '@swagger-api/apidom-ns-asyncapi-3';
 import { fileURLToPath } from 'node:url';
 
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -12,8 +12,8 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 
 describe('dereference', function () {
   context('strategies', function () {
-    context('asyncapi-2', function () {
-      context('Schema Object', function () {
+    context('asyncapi-3', function () {
+      context.only('Schema Object', function () {
         context('given in components/schemas field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-schemas');
 

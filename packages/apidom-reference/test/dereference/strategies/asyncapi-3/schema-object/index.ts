@@ -13,7 +13,7 @@ const rootFixturePath = path.join(__dirname, 'fixtures');
 describe('dereference', function () {
   context('strategies', function () {
     context('asyncapi-3', function () {
-      context.only('Schema Object', function () {
+      context('Schema Object', function () {
         context('given in components/schemas field', function () {
           const fixturePath = path.join(rootFixturePath, 'components-schemas');
 

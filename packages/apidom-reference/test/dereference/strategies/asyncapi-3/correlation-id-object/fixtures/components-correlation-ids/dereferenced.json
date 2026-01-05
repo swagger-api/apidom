@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "correlationIds": {
+        "correlationId1": {
+          "description": "correlation object description 1"
+        },
+        "correlationId2": {
+          "description": "correlation object description 1"
+        }
+      }
+    }
+  }
+]

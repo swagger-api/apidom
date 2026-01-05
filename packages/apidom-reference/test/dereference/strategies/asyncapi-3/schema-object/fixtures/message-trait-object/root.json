@@ -1,0 +1,17 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "schema1": {
+        "title": "schema 1"
+      }
+    },
+    "messageTraits": {
+      "messageTrait1": {
+        "headers": {
+          "$ref": "#/components/schemas/schema1"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "schemas": {
+      "schema1": {
+        "title": "schema 1"
+      },
+      "schema2": {
+        "title": "schema 2"
+      }
+    },
+    "messages": {
+      "message1": {
+        "headers": {
+          "$ref": "#/components/schemas/schema1"
+        },
+        "payload": {
+           "$ref": "#/components/schemas/schema2"
+        }
+      }
+    }
+  }
+}

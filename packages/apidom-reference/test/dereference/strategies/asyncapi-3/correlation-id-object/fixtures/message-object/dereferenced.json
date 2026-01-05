@@ -1,0 +1,19 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "correlationIds": {
+        "correlationId1": {
+          "description": "correlation object description 1"
+        }
+      },
+      "messages": {
+        "UserLoggedOut": {
+          "correlationId": {
+            "description": "correlation object description 1"
+          }
+        }
+      }
+    }
+  }
+]

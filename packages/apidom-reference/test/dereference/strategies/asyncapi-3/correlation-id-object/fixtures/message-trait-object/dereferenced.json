@@ -1,0 +1,19 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "correlationIds": {
+        "correlationId1": {
+          "description": "correlation object description 1"
+        }
+      },
+      "messageTraits": {
+        "messageTrait1": {
+          "correlationId": {
+            "description": "correlation object description 1"
+          }
+        }
+      }
+    }
+  }
+]

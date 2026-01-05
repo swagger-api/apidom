@@ -1,0 +1,15 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "schemas": {
+        "schema1": {
+          "title": "title of schema 1"
+        },
+        "schema2": {
+          "title": "title of schema 1"
+        }
+      }
+    }
+  }
+]

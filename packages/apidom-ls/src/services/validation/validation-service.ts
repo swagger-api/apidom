@@ -11,7 +11,13 @@ import {
 } from '@swagger-api/apidom-core';
 import { CodeActionKind, CodeActionParams } from 'vscode-languageserver-protocol';
 import { evaluate, evaluateMulti } from '@swagger-api/apidom-json-path';
-import { dereferenceApiDOM, Reference, ReferenceSet, options } from '@swagger-api/apidom-reference';
+import {
+  dereferenceApiDOM,
+  Reference,
+  ReferenceSet,
+  options,
+  Parser,
+} from '@swagger-api/apidom-reference';
 
 import {
   APIDOM_LINTER,
@@ -85,9 +91,12 @@ export class DefaultValidationService implements ValidationService {
 
   private propertyValuesCache: Map<string, string[]> = new Map();
 
+  private readonly cachedParsers: Parser[] = [];
+
   public constructor() {
     this.validationEnabled = true;
     this.commentSeverity = undefined;
+    this.cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
   }
 
   private static createCachedParser(parser: any) {
@@ -269,7 +278,6 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
     const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result)! });
-    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
     const { referenceOptions } = this.settings || {};
 
     for (const [fragmentId, refEl] of refElements.entries()) {
@@ -288,7 +296,7 @@ export class DefaultValidationService implements ValidationService {
           },
           parse: {
             ...(referenceOptions?.parse ?? {}),
-            parsers: cachedParsers,
+            parsers: this.cachedParsers,
             mediaType: nameSpace.mediaType,
           },
           dereference: {
@@ -375,7 +383,6 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
     const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result) });
-    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
     const { referenceOptions } = this.settings || {};
 
     for (const [fragmentId, refEl] of refElements.entries()) {
@@ -396,7 +403,7 @@ export class DefaultValidationService implements ValidationService {
           parse: {
             ...(referenceOptions?.parse ?? {}),
             mediaType: nameSpace.mediaType,
-            parsers: cachedParsers,
+            parsers: this.cachedParsers,
           },
           dereference: {
             ...(referenceOptions?.dereference ?? {}),
@@ -473,7 +480,6 @@ export class DefaultValidationService implements ValidationService {
       ? validationContext?.baseURI
       : 'https://smartbear.com/';
     const apiReference = new Reference({ uri: baseURI, value: cloneDeep(result)! });
-    const cachedParsers = options.parse.parsers.map(DefaultValidationService.createCachedParser);
     const { referenceOptions } = this.settings || {};
 
     const refSet = new ReferenceSet({ refs: [apiReference] });
@@ -489,7 +495,7 @@ export class DefaultValidationService implements ValidationService {
         },
         parse: {
           ...(referenceOptions?.parse ?? {}),
-          parsers: cachedParsers,
+          parsers: this.cachedParsers,
           mediaType: nameSpace.mediaType,
         },
         dereference: {

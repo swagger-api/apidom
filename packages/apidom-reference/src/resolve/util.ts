@@ -9,10 +9,91 @@ import type { ReferenceOptions } from '../options/index.ts';
 
 const CACHE_NAME = 'apidom-file-cache';
 
+const getCacheFileResult = async ({
+  cacheKey,
+  cacheTTL,
+}: {
+  cacheKey: string;
+  cacheTTL: number;
+}) => {
+  if (cacheTTL === 0) {
+    return { cachedResult: null, cachedError: null };
+  }
+  try {
+    const cache = await caches.open(CACHE_NAME);
+    const response = await cache.match(cacheKey);
+
+    if (response) {
+      const { cachedResult, cachedError, timestamp } = await response.json();
+      const now = Date.now();
+
+      // Check if the cache is still valid
+      if (now - timestamp < cacheTTL) {
+        return { cachedResult, cachedError };
+      }
+
+      await cache.delete(cacheKey);
+    }
+  } catch (error) {
+    // If parsing cache fails, continue with normal parsing
+    console.log('There was an error parsing the response');
+    return { cachedResult: null, cachedError: null };
+  }
+  return { cachedResult: null, cachedError: null };
+};
+
+const setCacheFileResult = async ({
+  cacheKey,
+  result,
+  error,
+  cacheTTL,
+}: {
+  cacheKey: string;
+  result: unknown;
+  error: unknown;
+  cacheTTL: number;
+}) => {
+  if (cacheTTL === 0) {
+    return;
+  }
+  try {
+    const cacheData = {
+      cachedResult: result,
+      cachedError: error,
+      timestamp: Date.now(),
+    };
+
+    const cache = await caches.open(CACHE_NAME);
+    const response = new Response(JSON.stringify(cacheData), {
+      headers: { 'Content-Type': 'application/json' },
+    });
+
+    await cache.put(cacheKey, response);
+  } catch (err) {
+    // Silently fail if CacheStorage is not available
+    console.error('CacheStorage is not available');
+  }
+};
+
 /**
  * Reads the given file, using the configured resolver plugins.
  */
-export const readFile = async (file: File, options: ReferenceOptions): Promise<Buffer> => {
+// eslint-disable-next-line import/prefer-default-export
+export const readFile = async (file: File, options: ReferenceOptions): Promise<string> => {
+  const { cacheTTL = 0 } = options.resolve.resolverOpts;
+
+  const cacheKey = `read_${file.uri}`;
+
+  const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
+
+  if (cachedResult !== null) {
+    return cachedResult;
+  }
+
+  if (cachedError !== null) {
+    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: cachedError });
+  }
+
   const optsBoundResolvers: Resolver[] = options.resolve.resolvers.map((resolver) => {
     const clonedResolver = Object.create(resolver);
     return Object.assign(clonedResolver, options.resolve.resolverOpts);
@@ -31,71 +112,18 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
 
   try {
     const { result } = await plugins.run('read', [file], resolvers);
-    return result;
+
+    const stringifiedData = new File({ ...file, data: result }).toString();
+    await setCacheFileResult({ cacheKey, result: stringifiedData, error: null, cacheTTL });
+
+    return stringifiedData;
   } catch (error: any) {
-    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: error });
-  }
-};
-
-export const getCacheFileResult = async ({
-  cacheKey,
-  fileCacheTTL,
-}: {
-  cacheKey: string;
-  fileCacheTTL: number;
-}) => {
-  if (fileCacheTTL === 0) {
-    return null;
-  }
-  try {
-    const cache = await caches.open(CACHE_NAME);
-    const response = await cache.match(cacheKey);
-
-    if (response) {
-      const { result, timestamp } = await response.json();
-      const now = Date.now();
-
-      // Check if the cache is still valid
-      if (now - timestamp < fileCacheTTL) {
-        return result;
-      }
-
-      await cache.delete(cacheKey);
-    }
-  } catch (error) {
-    // If parsing cache fails, continue with normal parsing
-    console.log('There was an error parsing the response');
-    return null;
-  }
-  return null;
-};
-
-export const setCacheFileResult = async ({
-  cacheKey,
-  result,
-  fileCacheTTL,
-}: {
-  cacheKey: string;
-  result: unknown;
-  fileCacheTTL: number;
-}) => {
-  if (fileCacheTTL === 0) {
-    return;
-  }
-  try {
-    const cacheData = {
-      result,
-      timestamp: Date.now(),
-    };
-
-    const cache = await caches.open(CACHE_NAME);
-    const response = new Response(JSON.stringify(cacheData), {
-      headers: { 'Content-Type': 'application/json' },
+    await setCacheFileResult({
+      cacheKey,
+      result: null,
+      error: error?.cause?.cause ?? error?.cause ?? error,
+      cacheTTL,
     });
-
-    await cache.put(cacheKey, response);
-  } catch (error) {
-    // Silently fail if CacheStorage is not available
-    console.error('CacheStorage is not available');
+    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: error });
   }
 };

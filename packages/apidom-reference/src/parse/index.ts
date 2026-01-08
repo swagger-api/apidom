@@ -7,7 +7,7 @@ import * as plugins from '../util/plugins.ts';
 import Parser from './parsers/Parser.ts';
 import ParseError from '../errors/ParseError.ts';
 import UnmatchedResolverError from '../errors/UnmatchedResolverError.ts';
-import { readFile, getCacheFileResult, setCacheFileResult } from '../resolve/util.ts';
+import { readFile } from '../resolve/util.ts';
 import type { ReferenceOptions } from '../options/index.ts';
 
 /**
@@ -59,23 +59,7 @@ const parse = async (uri: string, options: ReferenceOptions): Promise<ParseResul
     uri: url.sanitize(url.stripHash(uri)),
     mediaType: options.parse.mediaType,
   });
-
-  const { fileCacheTTL = 0 } = options.parse.parserOpts;
-
-  const cacheKey = `read_${file.uri}`;
-
-  const cachedResult = await getCacheFileResult({ cacheKey, fileCacheTTL });
-  const isCacheEmpty = cachedResult === null;
-
-  let data;
-
-  if (isCacheEmpty) {
-    data = await readFile(file, options);
-    const stringedData = new File({ ...file, data }).toString();
-    await setCacheFileResult({ cacheKey, result: stringedData, fileCacheTTL });
-  } else {
-    data = cachedResult;
-  }
+  const data = await readFile(file, options);
 
   return parseFile(new File({ ...file, data }), options);
 };

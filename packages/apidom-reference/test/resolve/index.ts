@@ -2,6 +2,7 @@ import path from 'node:path';
 import { assert } from 'chai';
 import { mediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { fileURLToPath } from 'node:url';
+import sinon from 'sinon';
 
 import { resolve, resolveApiDOM, parse } from '../../src/index.ts';
 import FileResolver from '../../src/resolve/resolvers/file/index-node.ts';
@@ -215,6 +216,134 @@ describe('resolve', function () {
       } catch (error) {
         assert.instanceOf(error, ParseError);
       }
+    });
+  });
+
+  context('given cacheTTL option', function () {
+    let mockCacheStorage: any;
+    let originalCaches: any;
+    let mockCache: any;
+
+    beforeEach(function () {
+      // Save original caches
+      originalCaches = globalThis.caches;
+
+      // Create mock cache storage
+      mockCache = new Map();
+      mockCacheStorage = {
+        match: async (key: string) => {
+          return mockCache.get(key);
+        },
+        put: async (key: string, response: Response) => {
+          mockCache.set(key, response);
+        },
+        delete: async (key: string) => {
+          return mockCache.delete(key);
+        },
+      };
+
+      // Mock global caches
+      globalThis.caches = {
+        open: async () => mockCacheStorage,
+      } as any;
+    });
+
+    afterEach(function () {
+      // Restore original caches
+      globalThis.caches = originalCaches;
+    });
+
+    specify('should save the result to cache', async function () {
+      sinon.spy(mockCacheStorage, 'put');
+      const uri = path.join(
+        __dirname,
+        'strategies',
+        'openapi-3-1',
+        'reference-object',
+        'fixtures',
+        'external-only',
+        'root.json',
+      );
+      await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: {
+          resolverOpts: {
+            cacheTTL: 1000,
+          },
+        },
+      });
+
+      assert.isTrue(mockCacheStorage.put.calledTwice);
+    });
+
+    specify('should read the result from cache on second call', async function () {
+      sinon.spy(mockCacheStorage, 'match');
+      const uri = path.join(
+        __dirname,
+        'strategies',
+        'openapi-3-1',
+        'reference-object',
+        'fixtures',
+        'external-only',
+        'root.json',
+      );
+
+      const refSet = await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: {
+          resolverOpts: {
+            cacheTTL: 1000,
+          },
+        },
+      });
+
+      const res1 = await mockCacheStorage.match.getCall(0).returnValue;
+      const res2 = await mockCacheStorage.match.getCall(1).returnValue;
+
+      assert.isTrue(res1 === undefined);
+      assert.isTrue(res2 === undefined);
+
+      const cachedRefSet = await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: {
+          resolverOpts: {
+            cacheTTL: 1000,
+          },
+        },
+      });
+
+      const res3 = await mockCacheStorage.match.getCall(2).returnValue;
+      const res4 = await mockCacheStorage.match.getCall(3).returnValue;
+
+      assert.isTrue(res3 !== undefined);
+      assert.isTrue(res4 !== undefined);
+
+      assert.strictEqual(refSet.size, 2);
+      assert.strictEqual(cachedRefSet.size, 2);
+    });
+
+    specify('should not save the result to cache when cacheTTL equals 0', async function () {
+      sinon.spy(mockCacheStorage, 'put');
+      const uri = path.join(
+        __dirname,
+        'strategies',
+        'openapi-3-1',
+        'reference-object',
+        'fixtures',
+        'external-only',
+        'root.json',
+      );
+      const refSet = await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: {
+          resolverOpts: {
+            cacheTTL: 0,
+          },
+        },
+      });
+
+      assert.isTrue(mockCacheStorage.put.notCalled);
+      assert.strictEqual(refSet.size, 2);
     });
   });
 });

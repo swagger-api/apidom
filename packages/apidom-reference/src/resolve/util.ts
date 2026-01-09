@@ -79,7 +79,7 @@ const setCacheFileResult = async ({
  * Reads the given file, using the configured resolver plugins.
  */
 // eslint-disable-next-line import/prefer-default-export
-export const readFile = async (file: File, options: ReferenceOptions): Promise<string> => {
+export const readFile = async (file: File, options: ReferenceOptions): Promise<Buffer | string> => {
   const { cacheTTL = 0 } = options.resolve.resolverOpts;
 
   const cacheKey = `read_${file.uri}`;
@@ -116,7 +116,7 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<s
     const stringifiedData = new File({ ...file, data: result }).toString();
     await setCacheFileResult({ cacheKey, result: stringifiedData, error: null, cacheTTL });
 
-    return stringifiedData;
+    return result;
   } catch (error: any) {
     await setCacheFileResult({
       cacheKey,

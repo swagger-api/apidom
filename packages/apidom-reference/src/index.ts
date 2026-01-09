@@ -71,7 +71,7 @@ export { default as UnmatchedResolverError } from './errors/UnmatchedResolverErr
 /**
  * @public
  */
-export const readFile = async (uri: string, options = {}): Promise<string> => {
+export const readFile = async (uri: string, options = {}): Promise<Buffer | string> => {
   const mergedOptions = mergeOptions(defaultOptions, options);
   const file = new File({ uri: url.sanitize(uri) });
 

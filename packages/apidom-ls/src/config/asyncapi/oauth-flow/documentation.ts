@@ -1,3 +1,5 @@
+import { AsyncAPI2, AsyncAPI3 } from "../target-specs.ts";
+
 const documentation = [
   {
     target: 'authorizationUrl',
@@ -14,9 +16,20 @@ const documentation = [
   {
     target: 'scopes',
     docs: '**REQUIRED.** The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it.',
+    targetSpecs: AsyncAPI2
+  },
+  {
+    target: 'availableScopes',
+    docs: '**REQUIRED.** The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it.',
+    targetSpecs: AsyncAPI3
   },
   {
     docs: '#### [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject)\n\nConfiguration details for a supported OAuth Flow\n\n##### Fixed Fields\nField Name | Type | Applies To | Description\n---|:---:|---|---\nauthorizationUrl | `string` | `oauth2` (`"implicit"`, `"authorizationCode"`) | **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of an absolute URL.\ntokenUrl | `string` | `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`) | **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of an absolute URL.\nrefreshUrl | `string` | `oauth2` | The URL to be used for obtaining refresh tokens. This MUST be in the form of an absolute URL.\nscopes | Map[`string`, `string`] | `oauth2` | **REQUIRED**. The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it.\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.6.0#specificationExtensions).\n\n##### OAuth Flow Object Examples\n\n```JSON\n{\n  "type": "oauth2",\n  "flows": {\n    "implicit": {\n      "authorizationUrl": "https://example.com/api/oauth/dialog",\n      "scopes": {\n        "write:pets": "modify pets in your account",\n        "read:pets": "read your pets"\n      }\n    },\n    "authorizationCode": {\n      "authorizationUrl": "https://example.com/api/oauth/dialog",\n      "tokenUrl": "https://example.com/api/oauth/token",\n      "scopes": {\n        "write:pets": "modify pets in your account",\n        "read:pets": "read your pets"\n      }\n    }\n  }\n}\n```\n\n```YAML\ntype: oauth2\nflows:\n  implicit:\n    authorizationUrl: https://example.com/api/oauth/dialog\n    scopes:\n      write:pets: modify pets in your account\n      read:pets: read your pets\n  authorizationCode:\n    authorizationUrl: https://example.com/api/oauth/dialog\n    tokenUrl: https://example.com/api/oauth/token\n    scopes:\n      write:pets: modify pets in your account\n      read:pets: read your pets\n```',
+    targetSpecs: AsyncAPI2
   },
+  {
+    docs: '#### [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject)\n\nConfiguration details for a supported OAuth Flow\n\n##### Fixed Fields\n\n| Field Name | Type | Applies To | Description |\n| --- | --- | --- | --- |\n| authorizationUrl | `string` | `oauth2` (`"implicit"`, `"authorizationCode"`) | **REQUIRED**. The authorization URL to be used for this flow. This MUST be in the form of an absolute URL. |\n| tokenUrl | `string` | `oauth2` (`"password"`, `"clientCredentials"`, `"authorizationCode"`) | **REQUIRED**. The token URL to be used for this flow. This MUST be in the form of an absolute URL. |\n| refreshUrl | `string` | `oauth2` | The URL to be used for obtaining refresh tokens. This MUST be in the form of an absolute URL. |\n| availableScopes | Map\\[`string`, `string`\\] | `oauth2` | **REQUIRED**. The available scopes for the OAuth2 security scheme. A map between the scope name and a short description for it. |\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#specificationExtensions).\n\n##### OAuth Flow Object Examples\n\n\\\nJSON\n```json\n{\n  "authorizationUrl": "https://example.com/api/oauth/dialog",\n  "tokenUrl": "https://example.com/api/oauth/token",\n  "availableScopes": {\n    "write:pets": "modify pets in your account",\n    "read:pets": "read your pets"\n  }\n}\n```\n\n\\\nYAML\n```yaml\nauthorizationUrl: https://example.com/api/oauth/dialog\ntokenUrl: https://example.com/api/oauth/token\navailableScopes:\n  write:pets: modify pets in your account\n  read:pets: read your pets\n```',
+    targetSpecs: AsyncAPI3
+  }
 ];
 export default documentation;

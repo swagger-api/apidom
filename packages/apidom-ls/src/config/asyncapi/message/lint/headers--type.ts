@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const headersTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MESSAGE_FIELD_HEADERS_TYPE,
@@ -13,6 +14,7 @@ const headersTypeLint: LinterMeta = {
   marker: 'value',
   target: 'headers',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default headersTypeLint;

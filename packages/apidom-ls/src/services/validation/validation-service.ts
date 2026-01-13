@@ -592,14 +592,6 @@ export class DefaultValidationService implements ValidationService {
 
     let processedText;
     const nameSpace = await findNamespace(text, this.settings?.defaultContentLanguage);
-    // TODO: Turned off validation, because we will implement it in the future.
-    if (
-      nameSpace.namespace === 'asyncapi' &&
-      nameSpace.version &&
-      ['3.0.0'].includes(nameSpace.version)
-    ) {
-      return [];
-    }
     let docNs: string = nameSpace.namespace;
     // no API document has been parsed
     if (result.annotations) {

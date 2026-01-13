@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const securityItemsTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_OPERATION_TRAIT_FIELD_SECURITY_ITEMS_TYPE,
@@ -13,6 +14,7 @@ const securityItemsTypeLint: LinterMeta = {
   marker: 'key',
   target: 'security',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default securityItemsTypeLint;

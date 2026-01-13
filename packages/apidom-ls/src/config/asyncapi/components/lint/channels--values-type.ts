@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const channelsValuesTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_COMPONENTS_FIELD_CHANNELS_VALUES_TYPE,
@@ -14,6 +15,7 @@ const channelsValuesTypeLint: LinterMeta = {
   markerTarget: 'channels',
   target: 'channels',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default channelsValuesTypeLint;

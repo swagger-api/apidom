@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const locationRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_CORRELATION_ID_FIELD_LOCATION_REQUIRED,
@@ -21,6 +22,7 @@ const locationRequiredLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default locationRequiredLint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const inEqualsHttpApiKeyLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_IN_EQUALS_HTTP_API_KEY,
@@ -19,6 +20,7 @@ const inEqualsHttpApiKeyLint: LinterMeta = {
       params: ['httpApiKey'],
     },
   ],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default inEqualsHttpApiKeyLint;

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const nameRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_TAG_FIELD_NAME_REQUIRED,
@@ -21,6 +22,7 @@ const nameRequiredLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: AsyncAPI2,
 };
 
 export default nameRequiredLint;

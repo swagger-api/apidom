@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const externalDocsTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_DEFAULT_CONTENT_TYPE_TYPE,
@@ -13,6 +14,7 @@ const externalDocsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'externalDocs',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default externalDocsTypeLint;

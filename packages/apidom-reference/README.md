@@ -780,7 +780,6 @@ import { resolve } from '@swagger-api/apidom-reference';
 await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   resolve: {
     resolverOpts: {
-      fileCacheTTL: 0,
       axiosConfig: {
         timeout: 10000,
         withCredentials: false,
@@ -921,7 +920,6 @@ Some resolver plugins accept additional options. It's possible to **change** res
 import { options, readFile } from '@swagger-api/apidom-reference';
 
 options.resolve.resolverOpts = {
-  fileCacheTTL: 0,
   axiosConfig: {
     timeout: 10000,
   },
@@ -938,7 +936,6 @@ import { readFile } from '@swagger-api/apidom-reference';
 await readFile('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
   resolve: {
     resolverOpts: {
-      fileCacheTTL: 0,
       axiosConfig: {
         timeout: 10000,
       },
@@ -1117,7 +1114,6 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   resolve: {
     resolverOpts: {
-      fileCacheTTL: 0,
       axiosConfig: {
         timeout: 10
       },
@@ -1478,7 +1474,6 @@ await dereference('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/m
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   resolve: {
     resolverOpts: {
-      fileCacheTTL: 0,
       axiosConfig: {
         timeout: 10
       },
@@ -1917,7 +1912,6 @@ await bundle('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/e
   parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
   resolve: {
     resolverOpts: {
-      fileCacheTTL: 0,
       axiosConfig: {
         timeout: 10
       },

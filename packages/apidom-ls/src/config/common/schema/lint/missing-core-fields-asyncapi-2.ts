@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 
 const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MISSING_CORE_FIELDS,
@@ -71,7 +71,7 @@ const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
       params: [['schema']],
     },
   ],
-  targetSpecs: AsyncAPI2,
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default missingCoreFieldsAsyncAPI2Lint;

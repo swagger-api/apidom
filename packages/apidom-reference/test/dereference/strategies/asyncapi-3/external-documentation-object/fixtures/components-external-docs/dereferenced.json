@@ -1,0 +1,17 @@
+[
+  {
+    "asyncapi": "3.0.0",
+    "components": {
+      "externalDocs": {
+        "commonExternalDocs": {
+          "description": "External documentation for channel",
+          "url": "https://example.com/docs"
+        },
+        "commonExternalDocs2": {
+          "description": "External documentation for channel",
+          "url": "https://example.com/docs"
+        }
+      }
+    }
+  }
+]

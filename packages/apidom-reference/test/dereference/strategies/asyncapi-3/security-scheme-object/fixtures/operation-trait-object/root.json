@@ -1,0 +1,18 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "operationTraits": {
+      "operationTrait1": {
+        "security": [{
+          "type": "apiKey"
+         }]
+      },
+      "operationTrait2": {
+        "security": [{
+          "$ref": "#/components/operationTraits/operationTrait1/security/0"
+         }]
+      }
+    }
+  }
+}
+

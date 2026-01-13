@@ -1,0 +1,14 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "messageTraits": {
+      "messageTrait1": {
+        "title": "Example trait",
+        "contentType": "application/json"
+      },
+      "messageTrait2": {
+        "$ref": "#/components/messageTraits/messageTrait1"
+      }
+    }
+  }
+}

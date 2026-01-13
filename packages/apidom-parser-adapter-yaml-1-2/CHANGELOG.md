@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
+
+## [1.0.2](https://github.com/swagger-api/apidom/compare/v1.0.1...v1.0.2) (2025-12-16)
+
+### Reverts
+
+- Revert "chore(release): cut the v1.0.2 release [skip ci]" (#5073) ([2b2bdcc](https://github.com/swagger-api/apidom/commit/2b2bdcc2e6e7d3c11d4e168d339e2d8f11f41334)), closes [#5073](https://github.com/swagger-api/apidom/issues/5073)
+
 ## [1.0.1](https://github.com/swagger-api/apidom/compare/v1.0.0...v1.0.1) (2025-12-05)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2

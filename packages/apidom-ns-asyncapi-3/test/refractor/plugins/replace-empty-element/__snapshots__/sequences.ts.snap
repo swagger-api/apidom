@@ -54,8 +54,8 @@ exports[`given empty values instead of ReferenceElement should replace empty val
           (MemberElement
             (StringElement)
             (ArrayElement
-              (StringElement)
-              (StringElement))))))))
+              (ReferenceElement)
+              (ReferenceElement))))))))
 `;
 
 exports[`given empty values instead of SchemaElement for allOf keyword should replace empty values with semantic elements 1`] = `

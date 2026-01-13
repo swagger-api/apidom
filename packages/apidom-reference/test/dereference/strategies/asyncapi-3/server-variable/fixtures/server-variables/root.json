@@ -1,0 +1,19 @@
+{
+  "asyncapi": "3.0.0",
+  "components": {
+    "servers": {
+      "server1": {
+        "host": "http://example.com",
+        "protocol": "protocol",
+        "variables": {
+          "variable1": {
+            "enum": ["a", "b", "c"]
+          },
+          "variable2": {
+            "$ref": "#/components/servers/server1/variables/variable1"
+          }
+        }
+      }
+    }
+  }
+}

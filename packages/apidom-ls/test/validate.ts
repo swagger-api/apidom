@@ -6173,4 +6173,1504 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('asyncapi 3.0 - AsyncAPI Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'root-fields-required-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/root-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        message: "should always have a 'info' section",
+        severity: 1,
+        code: 2010501,
+        source: 'apilint',
+        range: { start: { line: 0, character: 0 }, end: { line: 0, character: 5 } },
+        data: {
+          quickFix: [
+            {
+              action: 'addChild',
+              message: "add 'info' section",
+              snippetJson: '"info": {\n  \n  },\n',
+              snippetYaml: 'info: \n  \n',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - AsyncAPI Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'root-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/root-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 5, character: 4 },
+          end: { line: 5, character: 7 },
+        },
+        message: "'id' value must be a valid URI",
+        severity: 1,
+        code: 2010400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 1, character: 6 },
+          end: { line: 1, character: 10 },
+        },
+        message: 'info must be an object',
+        severity: 1,
+        code: 2010500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 9 },
+          end: { line: 6, character: 13 },
+        },
+        message: 'servers must be an object',
+        severity: 1,
+        code: 2010600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 4, character: 20 },
+          end: { line: 4, character: 23 },
+        },
+        message: "'defaultContentType' value must be a string",
+        severity: 1,
+        code: 2010300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 2, character: 10 },
+          end: { line: 2, character: 14 },
+        },
+        message: 'channels must be an object',
+        severity: 1,
+        code: 2010101,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 3, character: 12 },
+          end: { line: 3, character: 16 },
+        },
+        message: 'components must be an object',
+        severity: 1,
+        code: 2010200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Channel Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 17 },
+          end: { line: 6, character: 20 },
+        },
+        message: "description' value must be a string",
+        severity: 1,
+        code: 2020100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 10 },
+        },
+        message: '"parameters" must be of Parameters Object shape',
+        severity: 1,
+        code: 2020200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 4 },
+          end: { line: 7, character: 12 },
+        },
+        message: 'bindings must be an object',
+        severity: 1,
+        code: 2020300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Channel Bindings Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'channel-bindings-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-bindings-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 11, character: 12 },
+          end: { line: 11, character: 16 },
+        },
+        message: '"http" must be a HTTP Channel Binding',
+        severity: 1,
+        code: 180100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: '"amqp" must be a AMQP Channel Binding',
+        severity: 1,
+        code: 180500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 13 },
+          end: { line: 8, character: 17 },
+        },
+        message: '"amqp1" must be a AMQP 1.0 Channel Binding',
+        severity: 1,
+        code: 180600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 18 },
+          end: { line: 9, character: 22 },
+        },
+        message: '"anypointmq" must be a Anypoint MQ Channel Binding',
+        severity: 1,
+        code: 180400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 13 },
+          end: { line: 12, character: 17 },
+        },
+        message: '"ibmmq" must be a IBM MQ Channel Binding',
+        severity: 1,
+        code: 181700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 11 },
+          end: { line: 13, character: 15 },
+        },
+        message: '"jms" must be a JMS Channel Binding',
+        severity: 1,
+        code: 181000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 13 },
+          end: { line: 14, character: 17 },
+        },
+        message: '"kafka" must be a Kafka Channel Binding',
+        severity: 1,
+        code: 180300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 15 },
+          end: { line: 15, character: 19 },
+        },
+        message: '"mercure" must be a Mercure Channel Binding',
+        severity: 1,
+        code: 181600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 16, character: 12 },
+          end: { line: 16, character: 16 },
+        },
+        message: '"mqtt" must be a MQTT Channel Binding',
+        severity: 1,
+        code: 180700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 13 },
+          end: { line: 17, character: 17 },
+        },
+        message: '"mqtt5" must be a MQTT 5 Channel Binding',
+        severity: 1,
+        code: 180800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 12 },
+          end: { line: 18, character: 16 },
+        },
+        message: '"nats" must be a NATS Channel Binding',
+        severity: 1,
+        code: 180900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 20, character: 13 },
+          end: { line: 20, character: 17 },
+        },
+        message: '"redis" must be a Redis Channel Binding',
+        severity: 1,
+        code: 181500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 21, character: 11 },
+          end: { line: 21, character: 15 },
+        },
+        message: '"sns" must be a SNS Channel Binding',
+        severity: 1,
+        code: 181100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 14 },
+          end: { line: 22, character: 18 },
+        },
+        message: '"solace" must be a Solace Channel Binding',
+        severity: 1,
+        code: 181200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 11 },
+          end: { line: 23, character: 15 },
+        },
+        message: '"sqs" must be a SQS Channel Binding',
+        severity: 1,
+        code: 181300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 13 },
+          end: { line: 24, character: 17 },
+        },
+        message: '"stomp" must be a STOMP Channel Binding',
+        severity: 1,
+        code: 181400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 25, character: 10 },
+          end: { line: 25, character: 14 },
+        },
+        message: '"ws" must be a WebSockets Channel Binding',
+        severity: 1,
+        code: 180200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 20 },
+          end: { line: 10, character: 24 },
+        },
+        message: '"googlepubsub" must be a Google Cloud Pub/Sub Channel Binding',
+        severity: 1,
+        code: 181900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 14 },
+          end: { line: 19, character: 18 },
+        },
+        message: '"pulsar" must be a Pulsar Channel Binding',
+        severity: 1,
+        code: 182000,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Channel Bindings Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'channel-bindings-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-bindings-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Channel Bindings Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-bindings-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-bindings-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 181800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 4 },
+          end: { line: 9, character: 12 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 181801,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Components Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'components-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/components-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 25, character: 2 },
+          end: { line: 25, character: 9 },
+        },
+        message: '"servers" values must be Server object',
+        severity: 1,
+        code: 260200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 2 },
+          end: { line: 23, character: 17 },
+        },
+        message: '"servers" members must be Server Variable object',
+        severity: 1,
+        code: 260300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 2 },
+          end: { line: 13, character: 10 },
+        },
+        message: '"messages" members must be Message object',
+        severity: 1,
+        code: 260500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 2 },
+          end: { line: 19, character: 17 },
+        },
+        message: '"securitySchemes" members must be Security Scheme Object',
+        severity: 1,
+        code: 260600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 2 },
+          end: { line: 17, character: 12 },
+        },
+        message: '"parameters" members must be Parameter object',
+        severity: 1,
+        code: 260700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 2 },
+          end: { line: 7, character: 16 },
+        },
+        message: '"correlationIds" members must be Correlation ID Object',
+        severity: 1,
+        code: 260800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 2 },
+          end: { line: 11, character: 15 },
+        },
+        message: '"messageTraits" members must be Security Scheme Object',
+        severity: 1,
+        code: 261000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 21, character: 2 },
+          end: { line: 21, character: 16 },
+        },
+        message: '"serverBindings" members must be Server Bindings Object',
+        severity: 1,
+        code: 261100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 17 },
+        },
+        message: '"channelBindings" values must be of Channel Bindings Object shape',
+        severity: 1,
+        code: 261200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 2 },
+          end: { line: 15, character: 19 },
+        },
+        message: '"operationBindings" members must be Operation Bindings Object',
+        severity: 1,
+        code: 261300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 2 },
+          end: { line: 9, character: 17 },
+        },
+        message: '"messageBindings" members must be Message Bindings Object',
+        severity: 1,
+        code: 261400,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Components Object keys pattern', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'components-keys-pattern-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/components-keys-pattern-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 0 },
+          end: { line: 4, character: 10 },
+        },
+        message: 'components keys must match the regular expression: `^[a-zA-Z0-9\\.\\-_]+$`',
+        severity: 1,
+        code: 260001,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 14 },
+          end: { line: 6, character: 17 },
+        },
+        message: "'protocol' must be a string",
+        severity: 1,
+        code: 100200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 21 },
+          end: { line: 9, character: 24 },
+        },
+        message: "'protocolVersion' must be a string",
+        severity: 1,
+        code: 100300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 17 },
+          end: { line: 8, character: 20 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 100400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 15 },
+          end: { line: 11, character: 18 },
+        },
+        message: 'variables must be an object',
+        severity: 1,
+        code: 100600,
+        source: 'apilint',
+        data: {},
+      },
+      // TODO: adjust once server variable type validation is fixed
+      {
+        range: {
+          start: { line: 11, character: 4 },
+          end: { line: 11, character: 13 },
+        },
+        message: "variables' values must be of Server Variable Object shape",
+        severity: 1,
+        code: 100601,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 9 },
+        },
+        message: 'tags must be an array of Tags',
+        severity: 1,
+        code: 100900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 14 },
+          end: { line: 7, character: 17 },
+        },
+        message: 'bindings must be an object',
+        severity: 1,
+        code: 1007000,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'server-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 9 },
+        },
+        message: "should always have a 'protocol'",
+        severity: 1,
+        code: 100201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'protocol'",
+              action: 'addChild',
+              snippetYaml: 'protocol: \n    ',
+              snippetJson: '"protocol": "",\n      ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/server-ref-3-0.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 10 },
+          end: { line: 6, character: 14 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 100800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 2 },
+          end: { line: 7, character: 9 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 100801,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Bindings Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'server-bindings-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-bindings-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 13, character: 12 },
+          end: { line: 13, character: 16 },
+        },
+        message: '"http" must be a HTTP Server Binding',
+        severity: 1,
+        code: 170100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 12 },
+          end: { line: 9, character: 16 },
+        },
+        message: '"amqp" must be a AMQP Server Binding',
+        severity: 1,
+        code: 170500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 13 },
+          end: { line: 10, character: 17 },
+        },
+        message: '"amqp1" must be a AMQP 1.0 Server Binding',
+        severity: 1,
+        code: 170600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 18 },
+          end: { line: 11, character: 22 },
+        },
+        message: '"anypointmq" must be a Anypoint MQ Server Binding',
+        severity: 1,
+        code: 170400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 13 },
+          end: { line: 14, character: 17 },
+        },
+        message: '"ibmmq" must be a IBM MQ Server Binding',
+        severity: 1,
+        code: 171700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 11 },
+          end: { line: 15, character: 15 },
+        },
+        message: '"jms" must be a JMS Server Binding',
+        severity: 1,
+        code: 171000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 16, character: 13 },
+          end: { line: 16, character: 17 },
+        },
+        message: '"kafka" must be a Kafka Server Binding',
+        severity: 1,
+        code: 170300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 15 },
+          end: { line: 17, character: 19 },
+        },
+        message: '"mercure" must be a Mercure Server Binding',
+        severity: 1,
+        code: 171600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 12 },
+          end: { line: 18, character: 16 },
+        },
+        message: '"mqtt" must be a MQTT Server Binding',
+        severity: 1,
+        code: 170700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 13 },
+          end: { line: 19, character: 17 },
+        },
+        message: '"mqtt5" must be a MQTT 5 Server Binding',
+        severity: 1,
+        code: 170800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 20, character: 12 },
+          end: { line: 20, character: 16 },
+        },
+        message: '"nats" must be a NATS Server Binding',
+        severity: 1,
+        code: 170900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 13 },
+          end: { line: 22, character: 17 },
+        },
+        message: '"redis" must be a Redis Server Binding',
+        severity: 1,
+        code: 171500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 11 },
+          end: { line: 23, character: 15 },
+        },
+        message: '"sns" must be a SNS Server Binding',
+        severity: 1,
+        code: 171100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 14 },
+          end: { line: 24, character: 18 },
+        },
+        message: '"solace" must be a Solace Server Binding',
+        severity: 1,
+        code: 171200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 25, character: 11 },
+          end: { line: 25, character: 15 },
+        },
+        message: '"sqs" must be a SQS Server Binding',
+        severity: 1,
+        code: 171300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 26, character: 13 },
+          end: { line: 26, character: 17 },
+        },
+        message: '"stomp" must be a STOMP Server Binding',
+        severity: 1,
+        code: 171400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 27, character: 10 },
+          end: { line: 27, character: 14 },
+        },
+        message: '"ws" must be a WebSockets Server Binding',
+        severity: 1,
+        code: 170200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 20 },
+          end: { line: 12, character: 24 },
+        },
+        message: '"googlepubsub" must be a IBM MQ Server Binding',
+        severity: 1,
+        code: 171900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 21, character: 14 },
+          end: { line: 21, character: 18 },
+        },
+        message: '"pulsar" must be a Pulsar Server Binding',
+        severity: 1,
+        code: 172000,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Bindings Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'server-bindings-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-bindings-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 12 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Bindings Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-bindings-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-bindings-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 12 },
+          end: { line: 9, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 171800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 4 },
+          end: { line: 13, character: 12 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 171801,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Variable Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'server-variable-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-variable-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 6 },
+          end: { line: 9, character: 10 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Server Variable Object fields type', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'server-variable-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-variable-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 12, character: 14 },
+          end: { line: 12, character: 17 },
+        },
+        message: "enum' value must be an array of strings",
+        severity: 1,
+        code: 110100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 17 },
+          end: { line: 10, character: 20 },
+        },
+        message: "'default' must be a string",
+        severity: 1,
+        code: 110200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 21 },
+          end: { line: 11, character: 24 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 110300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 18 },
+          end: { line: 13, character: 21 },
+        },
+        message: "examples' value must be an array of strings",
+        severity: 1,
+        code: 110400,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  // TODO: fix server variable type validation
+  // eslint-disable-next-line mocha/no-skipped-tests
+  it.skip('asyncapi 3.0 - Server Variable Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-variable-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-variable-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Servers Object keys pattern and values type', async function () {
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'servers-3-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/servers-3-0.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 0 },
+          end: { line: 4, character: 7 },
+        },
+        message: 'servers keys must match the following field pattern: ^[A-Za-z0-9_\\-]+$',
+        severity: 1,
+        code: 50001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 4, character: 0 },
+          end: { line: 4, character: 7 },
+        },
+        message: 'Servers Object values must be of Server Object shape',
+        severity: 1,
+        code: 50002,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Tag Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/tag-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 15 },
+        },
+        message: "'name' value must be a string",
+        severity: 1,
+        code: 240100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 5, character: 19 },
+          end: { line: 5, character: 22 },
+        },
+        message: "'description' value must be a string",
+        severity: 1,
+        code: 240200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 20 },
+          end: { line: 6, character: 23 },
+        },
+        message: 'externalDocs must be an object',
+        severity: 1,
+        code: 240300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Tags Object items type', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tags-items-type-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/tags-items-type-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 2 },
+          end: { line: 4, character: 6 },
+        },
+        message: 'Tags Object items must be of Tag Object shape',
+        severity: 1,
+        code: 60001,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

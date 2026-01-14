@@ -4,7 +4,8 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../target-specs.ts';
 
-const urlRequiredLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const urlRequired2_0__2_6Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_EXTERNAL_DOCUMENTATION_FIELD_URL_REQUIRED,
   source: 'apilint',
   message: "should always have a 'url'",
@@ -25,4 +26,4 @@ const urlRequiredLint: LinterMeta = {
   targetSpecs: AsyncAPI2,
 };
 
-export default urlRequiredLint;
+export default urlRequired2_0__2_6Lint;

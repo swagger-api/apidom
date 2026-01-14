@@ -6,7 +6,8 @@ import { AsyncAPI2 } from '../../target-specs.ts';
 
 // TODO(vladimir.gorej@gmail.com): this should be moved to linting rules of Parameters Object
 
-const keyExistsInChannelLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const keyExistsInChannel2_0__2_6Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_PARAMETER_KEY_EXISTS_IN_CHANNEL,
   source: 'apilint',
   message: 'parameter key must be defined in channel name',
@@ -17,4 +18,4 @@ const keyExistsInChannelLint: LinterMeta = {
   targetSpecs: AsyncAPI2,
 };
 
-export default keyExistsInChannelLint;
+export default keyExistsInChannel2_0__2_6Lint;

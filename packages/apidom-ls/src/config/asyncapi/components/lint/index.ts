@@ -6,10 +6,10 @@ import externalDocsValuesTypeLint from './externalDocs--values-type.ts';
 import repliesValuesTypeLint from './replies--values-type.ts';
 import replyAddressesValuesTypeLint from './reply-addresses--values-type.ts';
 import tagsValuesTypeLint from './tags--values-type.ts';
-import schemasValuesTypeLint from './schemas--values-type.ts';
+import schemasValuesType2_0__2_6Lint from './schemas--values-type-2-0--2-6.ts';
 import serversValuesTypeLint from './servers--values-type.ts';
 import serverVariablesValuesType from './server-variables--values-type.ts';
-import channelsValuesTypeLint from './channels--values-type.ts';
+import channelsValuesType2_0__2_6Lint from './channels--values-type-2-0--2-6.ts';
 import messagesValuesTypeLint from './messages--values-type.ts';
 import securitySchemesValuesType from './security-schemes--values-type.ts';
 import parametersValuesType from './parameters--values-type.ts';
@@ -32,10 +32,10 @@ const lints = [
   repliesValuesTypeLint,
   replyAddressesValuesTypeLint,
   tagsValuesTypeLint,
-  schemasValuesTypeLint,
+  schemasValuesType2_0__2_6Lint,
   serversValuesTypeLint,
   serverVariablesValuesType,
-  channelsValuesTypeLint,
+  channelsValuesType2_0__2_6Lint,
   channelsValuesType3_0Lint,
   messagesValuesTypeLint,
   securitySchemesValuesType,

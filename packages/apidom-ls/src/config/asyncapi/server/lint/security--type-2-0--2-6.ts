@@ -2,8 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
-const securityTypeLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const securityType2_0__2_6Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SERVER_FIELD_SECURITY_TYPE,
   source: 'apilint',
   message: 'security must be an array of Security Requirement Objects',
@@ -13,6 +15,7 @@ const securityTypeLint: LinterMeta = {
   marker: 'key',
   target: 'security',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
-export default securityTypeLint;
+export default securityType2_0__2_6Lint;

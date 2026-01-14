@@ -23,7 +23,7 @@ const lints = [
   allowedFieldsLint,
   allowedFieldsLint3_0,
   tagsTypeLint,
-  externalDocsTypeLint
+  externalDocsTypeLint,
 ];
 
 export default lints;

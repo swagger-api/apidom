@@ -1,6 +1,4 @@
-import {
-  ApidomCompletionItem,
-} from '../../../apidom-language-types.ts';
+import { ApidomCompletionItem } from '../../../apidom-language-types.ts';
 
 const completion: ApidomCompletionItem[] = [];
 

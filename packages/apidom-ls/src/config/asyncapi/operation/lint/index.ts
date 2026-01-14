@@ -29,7 +29,7 @@ const lints = [
   messagesTypeLint,
   allowedFields2_0__2_3Lint,
   allowedFields2_4__2_6Lint,
-  allowedFields3_0Lint
+  allowedFields3_0Lint,
 ];
 
 export default lints;

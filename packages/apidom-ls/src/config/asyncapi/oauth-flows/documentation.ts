@@ -24,11 +24,11 @@ const documentation = [
   },
   {
     docs: '#### [OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowsObject)\n\nAllows configuration of the supported OAuth Flows.\n\n##### Fixed Fields\nField Name | Type | Description\n---|:---:|---\nimplicit| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject) | Configuration for the OAuth Implicit flow.\npassword| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject) | Configuration for the OAuth Resource Owner Protected Credentials flow\nclientCredentials| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject) | Configuration for the OAuth Client Credentials flow.\nauthorizationCode| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#oauthFlowObject) | Configuration for the OAuth Authorization Code flow.\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.6.0#specificationExtensions).',
-    targetSpecs: AsyncAPI2
+    targetSpecs: AsyncAPI2,
   },
   {
     docs: '#### [OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowsObject)\n\nAllows configuration of the supported OAuth Flows.\n\n##### Fixed Fields\nField Name | Type | Description\n---|:---:|---\nimplicit| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject) | Configuration for the OAuth Implicit flow.\npassword| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject) | Configuration for the OAuth Resource Owner Protected Credentials flow\nclientCredentials| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject) | Configuration for the OAuth Client Credentials flow.\nauthorizationCode| [OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject) | Configuration for the OAuth Authorization Code flow.\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#specificationExtensions).',
-    targetSpecs: AsyncAPI3
+    targetSpecs: AsyncAPI3,
   },
 ];
 export default documentation;

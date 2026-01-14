@@ -14,6 +14,6 @@ export const AsyncAPI2 = [
   ...AsyncAPI230,
   ...AsyncAPI240,
   ...AsyncAPI250,
-  ...AsyncAPI260
+  ...AsyncAPI260,
 ];
-export const AsyncAPI3 = [...AsyncAPI300]
+export const AsyncAPI3 = [...AsyncAPI300];

@@ -15,7 +15,7 @@ const lints = [
   $refValidLint,
   $refNoSiblingsLint,
   allowedFieldsLint,
-  allowedFields3_0Lint
+  allowedFields3_0Lint,
 ];
 
 export default lints;

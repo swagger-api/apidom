@@ -6,7 +6,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const typeEqualsOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {
+const typeEqualsOpenAPI3_1__AsyncAPI2__3Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message:
@@ -58,4 +58,4 @@ const typeEqualsOpenAPI3_1__AsyncAPI2Lint: LinterMeta = {
   targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
 };
 
-export default typeEqualsOpenAPI3_1__AsyncAPI2Lint;
+export default typeEqualsOpenAPI3_1__AsyncAPI2__3Lint;

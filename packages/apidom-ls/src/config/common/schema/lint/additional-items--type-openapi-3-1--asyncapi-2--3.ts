@@ -5,17 +5,18 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
-const itemsTypeOpenAPI31AsyncAPI2Lint: LinterMeta = {
-  code: ApilintCodes.SCHEMA_ITEMS,
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const additionalItemsTypeOpenAPI3_1__AsyncAPI2__3Lint: LinterMeta = {
+  code: ApilintCodes.SCHEMA_ADDITIONALITEMS,
   source: 'apilint',
-  message: 'items must be a schema or array of schemas',
+  message: 'additionalItems must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['schema', 'array']],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
-  target: 'items',
+  target: 'additionalItems',
   data: {},
-  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
+  targetSpecs: [...OpenAPI31, ...AsyncAPI2, ...AsyncAPI3],
 };
 
-export default itemsTypeOpenAPI31AsyncAPI2Lint;
+export default additionalItemsTypeOpenAPI3_1__AsyncAPI2__3Lint;

@@ -3,18 +3,18 @@ import { compose, assoc } from '../../json-schema/2020-12/target-specs.ts';
 // below are older rule variants that need to be replaced
 import additionalItemsNonArrayLint from '../../common/schema/lint/additional-items--non-array.ts';
 import additionalItemsTypeLint from '../../common/schema/lint/additional-items--type.ts';
-import additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/additional-items--type-openapi-3-1--asyncapi-2.ts';
+import additionalItemsTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/additional-items--type-openapi-3-1--asyncapi-2--3.ts';
 import additionalPropertiesNonObject from '../../common/schema/lint/additional-properties--non-object.ts';
 import additionalPropertiesTypeLint from '../../common/schema/lint/additional-properties--type.ts';
 import allOfTypeLint from '../../common/schema/lint/all-of--type.ts';
-import allOfTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/all-of--type-openapi-3-1--asyncapi-2.ts';
+import allOfTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/all-of--type-openapi-3-1--asyncapi-2--3.ts';
 import allowedFieldsOpenAPI2_0Lint from '../../common/schema/lint/allowed-fields-openapi-2-0.ts';
 import allowedFieldsOpenAPI3_0Lint from '../../common/schema/lint/allowed-fields-openapi-3-0.ts';
 import anyOfTypeLint from '../../common/schema/lint/any-of--type.ts';
-import anyOfTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/any-of--type-openapi-3-1--asyncapi-2.ts';
+import anyOfTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/any-of--type-openapi-3-1--asyncapi-2--3.ts';
 import containsNonArrayLint from '../../common/schema/lint/contains--non-array.ts';
 import containsTypeLint from '../../common/schema/lint/contains--type.ts';
-import containsTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/contains--type-openapi-3-1--asyncapi-2.ts';
+import containsTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/contains--type-openapi-3-1--asyncapi-2--3.ts';
 import descriptionTypeLint from '../../common/schema/lint/description--type.ts';
 import discriminatorExistInRequiredLint from '../../common/schema/lint/discriminator--exist-in-required.ts';
 import discriminatorTypeOpenAPI3Lint from '../../common/schema/lint/discriminator--type-openapi-3.ts';
@@ -34,7 +34,7 @@ import ifNonThenLint from '../../common/schema/lint/if--non-then.ts';
 import ifTypeLint from '../../common/schema/lint/if--type.ts';
 import itemsNonArrayLint from '../../common/schema/lint/items--non-array.ts';
 import itemsRequiredLint from '../../common/schema/lint/items--required.ts';
-import itemsTypeOpenAPI31AsyncAPI2Lint from '../../common/schema/lint/items--type-3-1-asyncapi-2.ts';
+import itemsTypeOpenAPI31AsyncAPI2__3Lint from '../../common/schema/lint/items--type-3-1-asyncapi-2--3.ts';
 import itemsTypeOpenAPI2OpenAPI30Lint from '../../common/schema/lint/items--type-2-0-3-0.ts';
 import maxItemsNonArrayLint from '../../common/schema/lint/max-items--non-array.ts';
 import maxItemsTypeLint from '../../common/schema/lint/max-items--type.ts';
@@ -51,11 +51,11 @@ import minimumTypeLint from '../../common/schema/lint/minimum--type.ts';
 import missingCoreFieldsOpenAPI3_1Lint from '../../common/schema/lint/missing-core-fields-openapi-3-1.ts';
 import multipleOfTypeLint from '../../common/schema/lint/multiple-of--type.ts';
 import notTypeLint from '../../common/schema/lint/not--type.ts';
-import notTypeOpenAPI3_1_AsyncAPI2Lint from '../../common/schema/lint/not--type-openapi-3-1-asyncapi-2.ts';
+import notTypeOpenAPI3_1_AsyncAPI2__3Lint from '../../common/schema/lint/not--type-openapi-3-1-asyncapi-2--3.ts';
 import nullableTypeLint from '../../common/schema/lint/nullable--type.ts';
 import nullableNotRecommendedLint from '../../common/schema/lint/nullable--not-recommended.ts';
 import oneOfTypeLint from '../../common/schema/lint/one-of--type.ts';
-import oneOfTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/one-of--type-openapi-3-1--asyncapi-2.ts';
+import oneOfTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/one-of--type-openapi-3-1--asyncapi-2--3.ts';
 import patternTypeLint from '../../common/schema/lint/pattern--type.ts';
 import patternPropertiesKeysRegexpLint from '../../common/schema/lint/pattern-properties--keys-regexp.ts';
 import patternPropertiesNonObjectLint from '../../common/schema/lint/pattern-properties--non-object.ts';
@@ -63,7 +63,7 @@ import patternPropertiesTypeLint from '../../common/schema/lint/pattern-properti
 import patternPropertiesValuesTypeLint from '../../common/schema/lint/pattern-properties--values-type.ts';
 import propertiesTypeLint from '../../common/schema/lint/properties--type.ts';
 import propertiesValuesTypeLint from '../../common/schema/lint/properties--values-type.ts';
-import propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/properties--values-type-openapi-3-1--asyncapi-2.ts';
+import propertiesValuesTypeOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/properties--values-type-openapi-3-1--asyncapi-2--3.ts';
 import propertyNamesNonObjectLint from '../../common/schema/lint/property-names--non-object.ts';
 import propertyNamesTypeLint from '../../common/schema/lint/property-names--type.ts';
 import readOnlyTypeLint from '../../common/schema/lint/read-only--type.ts';
@@ -75,7 +75,7 @@ import thenTypeLint from '../../common/schema/lint/then--type.ts';
 import titleTypeLint from '../../common/schema/lint/title--type.ts';
 import typeTypeLint from '../../common/schema/lint/type--type.ts';
 import typeEqualsLint from '../../common/schema/lint/type--equals.ts';
-import typeEqualsOpenAPI3_1__AsyncAPI2Lint from '../../common/schema/lint/type--equals-openapi-3-1--asyncapi-2.ts';
+import typeEqualsOpenAPI3_1__AsyncAPI2__3Lint from '../../common/schema/lint/type--equals-openapi-3-1--asyncapi-2--3.ts';
 import uniqueItemsNonArrayLint from '../../common/schema/lint/unique-items--non-array.ts';
 import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts';
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
@@ -99,18 +99,18 @@ const schemaLints = [
 
   additionalItemsNonArrayLint,
   additionalItemsTypeLint,
-  additionalItemsTypeOpenAPI3_1__AsyncAPI2Lint,
+  additionalItemsTypeOpenAPI3_1__AsyncAPI2__3Lint,
   additionalPropertiesNonObject,
   additionalPropertiesTypeLint,
   allOfTypeLint,
-  allOfTypeOpenAPI3_1__AsyncAPI2Lint,
+  allOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
   allowedFieldsOpenAPI2_0Lint,
   allowedFieldsOpenAPI3_0Lint,
-  anyOfTypeOpenAPI3_1__AsyncAPI2Lint,
+  anyOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
   anyOfTypeLint,
   containsNonArrayLint,
   containsTypeLint,
-  containsTypeOpenAPI3_1__AsyncAPI2Lint,
+  containsTypeOpenAPI3_1__AsyncAPI2__3Lint,
   descriptionTypeLint,
   discriminatorExistInRequiredLint,
   discriminatorTypeOpenAPI3Lint,
@@ -131,7 +131,7 @@ const schemaLints = [
   ifTypeLint,
   itemsNonArrayLint,
   itemsRequiredLint,
-  itemsTypeOpenAPI31AsyncAPI2Lint,
+  itemsTypeOpenAPI31AsyncAPI2__3Lint,
   itemsTypeOpenAPI2OpenAPI30Lint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,
@@ -152,11 +152,11 @@ const schemaLints = [
   missingCoreFieldsOpenAPI3_1Lint,
   multipleOfTypeLint,
   notTypeLint,
-  notTypeOpenAPI3_1_AsyncAPI2Lint,
+  notTypeOpenAPI3_1_AsyncAPI2__3Lint,
   nullableTypeLint,
   nullableNotRecommendedLint,
   oneOfTypeLint,
-  oneOfTypeOpenAPI3_1__AsyncAPI2Lint,
+  oneOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
   patternTypeLint,
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,
@@ -165,7 +165,7 @@ const schemaLints = [
   patternValueLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
-  propertiesValuesTypeOpenAPI3_1__AsyncAPI2Lint,
+  propertiesValuesTypeOpenAPI3_1__AsyncAPI2__3Lint,
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
@@ -179,7 +179,7 @@ const schemaLints = [
   titleTypeLint,
   typeTypeLint,
   typeEqualsLint,
-  typeEqualsOpenAPI3_1__AsyncAPI2Lint,
+  typeEqualsOpenAPI3_1__AsyncAPI2__3Lint,
   uniqueItemsNonArrayLint,
   uniqueItemsTypeLint,
   writeOnlyTypeLint,

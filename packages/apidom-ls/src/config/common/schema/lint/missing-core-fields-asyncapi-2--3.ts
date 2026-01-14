@@ -4,7 +4,8 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 
-const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const missingCoreFieldsAsyncAPI2__3Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MISSING_CORE_FIELDS,
   source: 'apilint',
   message: 'Schema does not include any Schema Object keywords',
@@ -74,4 +75,4 @@ const missingCoreFieldsAsyncAPI2Lint: LinterMeta = {
   targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
-export default missingCoreFieldsAsyncAPI2Lint;
+export default missingCoreFieldsAsyncAPI2__3Lint;

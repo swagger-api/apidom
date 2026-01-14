@@ -21,7 +21,7 @@ import channelBindingsValuesTypeLint from './channel-bindings--values-type.ts';
 import operationBindingsValuesType from './operation-bindings--values-type.ts';
 import messageBindingsValuesType from './message-bindings--values-type.ts';
 import keysPatternLint from './keys--pattern.ts';
-import channels3_0ValuesTypeLint from './channels-3-0--values-type.ts';
+import channelsValuesType3_0Lint from './channels--values-type-3-0.ts';
 
 const lints = [
   allowedFields2_0__2_2Lint,
@@ -36,7 +36,7 @@ const lints = [
   serversValuesTypeLint,
   serverVariablesValuesType,
   channelsValuesTypeLint,
-  channels3_0ValuesTypeLint,
+  channelsValuesType3_0Lint,
   messagesValuesTypeLint,
   securitySchemesValuesType,
   parametersValuesType,

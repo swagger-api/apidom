@@ -3,8 +3,8 @@ import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import messageIdType from './message-id--type.ts';
 import headersTypeLint from './headers--type.ts';
-import headers3_0TypeLint from './headers-3-0--type.ts';
-import payload3_0TypeLint from './payload-3-0--type.ts';
+import headersType3_0Lint from './headers--type-3-0.ts';
+import payloadType3_0Lint from './payload--type-3-0.ts';
 import correlationIdType from './correlation-id--type.ts';
 import schemaFormatTypeLint from './schema-format--type.ts';
 import contentTypeLint from './content-type--type.ts';
@@ -26,8 +26,8 @@ const lints = [
   allowedFields3_0Lint,
   messageIdType,
   headersTypeLint,
-  headers3_0TypeLint,
-  payload3_0TypeLint,
+  headersType3_0Lint,
+  payloadType3_0Lint,
   correlationIdType,
   schemaFormatTypeLint,
   contentTypeLint,

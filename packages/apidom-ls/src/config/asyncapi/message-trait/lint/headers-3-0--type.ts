@@ -1,11 +1,8 @@
-
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const headers3_0TypeLint: LinterMeta = {
-  //add remaining lint docs here
-  targetSpecs: [
-		{ namespace: 'asyncapi', version: '3.0.0' }
-	],
+  // add remaining lint docs here
+  targetSpecs: [{ namespace: 'asyncapi', version: '3.0.0' }],
 };
 
 export default headers3_0TypeLint;

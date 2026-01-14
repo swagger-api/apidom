@@ -1,0 +1,28 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  server1:
+    host: example.com
+    protocol: http
+    bindings:
+      amqp: test
+      amqp1: test
+      anypointmq: test
+      googlepubsub: test
+      http: test
+      ibmmq: test
+      jms: test
+      kafka: test
+      mercure: test
+      mqtt: test
+      mqtt5: test
+      nats: test
+      pulsar: test
+      redis: test
+      sns: test
+      solace: test
+      sqs: test
+      stomp: test
+      ws: test

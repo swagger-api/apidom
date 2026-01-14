@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  channel1:
+    bindings:
+      $ref: '//'
+  channel2:
+    bindings:
+      $ref: '#/channels/channel1/bindings'
+      x-test: 123

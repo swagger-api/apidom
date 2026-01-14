@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
 const descriptionTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_CHANNEL_ITEM_FIELD_DESCRIPTION_TYPE,
+  code: ApilintCodes.ASYNCAPI3_CHANNEL_FIELD_DESCRIPTION_TYPE,
   source: 'apilint',
   message: "description' value must be a string",
   severity: DiagnosticSeverity.Error,

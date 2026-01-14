@@ -2,7 +2,7 @@ import allowedFields2_0__2_1Lint from './allowed-fields-2-0--2-1.ts';
 import allowedFields2_2Lint from './allowed-fields-2-2.ts';
 import allowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4.ts';
 import allowedFields2_5Lint from './allowed-fields-2-5.ts';
-import allowedFields2_6Lint from './allowed-fields-2-6.ts';
+import allowedFields2_6__3_0Lint from './allowed-fields-2-6--3-0.ts';
 import $refValidLint from './$ref--valid.ts';
 import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import httpTypeLint from './http--type.ts';
@@ -30,7 +30,7 @@ const lints = [
   allowedFields2_2Lint,
   allowedFields2_3__2_4Lint,
   allowedFields2_5Lint,
-  allowedFields2_6Lint,
+  allowedFields2_6__3_0Lint,
   $refValidLint,
   $refNoSiblingsLint,
   httpTypeLint,

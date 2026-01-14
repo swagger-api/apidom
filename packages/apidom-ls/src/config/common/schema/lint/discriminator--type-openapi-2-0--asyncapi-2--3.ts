@@ -6,7 +6,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI2 } from '../../../openapi/target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const discriminatorTypeOpenAPI2_0__AsyncAPI2Lint: LinterMeta = {
+const discriminatorTypeOpenAPI2_0__AsyncAPI2__3Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_DISCRIMINATOR,
   source: 'apilint',
   message: "'discriminator' value must be a string",
@@ -19,4 +19,4 @@ const discriminatorTypeOpenAPI2_0__AsyncAPI2Lint: LinterMeta = {
   targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2],
 };
 
-export default discriminatorTypeOpenAPI2_0__AsyncAPI2Lint;
+export default discriminatorTypeOpenAPI2_0__AsyncAPI2__3Lint;

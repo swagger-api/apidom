@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/swagger-api/apidom/compare/v1.1.0...v1.2.0) (2026-01-14)
+
+### Bug Fixes
+
+- **deps:** align the tree-sitter version ([#5023](https://github.com/swagger-api/apidom/issues/5023)) ([eaf23ab](https://github.com/swagger-api/apidom/commit/eaf23ab94e39e87b88b25c717092852a7e48f1a2))
+
+### Features
+
+- **resolve:** add caching for references ([#5093](https://github.com/swagger-api/apidom/issues/5093)) ([edbc4e3](https://github.com/swagger-api/apidom/commit/edbc4e3b6f4b81f4a46ec41f4f7a166d701ff066))
+
 # [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
 
 ### Bug Fixes

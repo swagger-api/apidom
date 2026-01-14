@@ -744,6 +744,25 @@ await resolve('/home/user/oas.json', {
 });
 ```
 
+###### Caching results from remote files
+
+The `cacheTTL` option controls caching behavior for files resolved from remote URLs or local filesystem paths. When
+set to a value greater than `0`, resolved file contents are cached using
+the [Cache Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) for the specified time-to-live (TTL)
+duration in milliseconds.
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+
+await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/examples/v3.1/webhook-example.json', {
+  resolve: {
+    resolverOpts: {
+      cacheTTL: 60 * 1000, // store the result in a cache for 60 seconds
+    },
+  },
+});
+```
+
 ##### [HTTPResolverAxios](https://github.com/swagger-api/apidom/blob/main/packages/apidom-reference/src/resolve/resolvers/http-axios)
 
 This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.

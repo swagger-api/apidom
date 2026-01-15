@@ -9289,9 +9289,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  // TODO: fix parameter object validation
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('asyncapi 3.0 - Parameters Object keys pattern and values type', async function () {
+  it('asyncapi 3.0 - Parameters Object keys pattern and values type', async function () {
     const spec = fs
       .readFileSync(
         path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameters-3-0.yaml'),
@@ -9305,23 +9303,24 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 4, character: 0 },
-          end: { line: 4, character: 7 },
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
         },
-        message: 'parameters keys must match the following field pattern: ^[A-Za-z0-9_\\-]+$',
+        message:
+          'Parameters Object keys must match the following field pattern: ^[A-Za-z0-9_\\-]+$',
         severity: 1,
-        code: 50001,
+        code: 150001,
         source: 'apilint',
         data: {},
       },
       {
         range: {
-          start: { line: 4, character: 0 },
-          end: { line: 4, character: 7 },
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
         },
         message: 'Parameters Object values must be of Parameter Object shape',
         severity: 1,
-        code: 50002,
+        code: 150002,
         source: 'apilint',
         data: {},
       },

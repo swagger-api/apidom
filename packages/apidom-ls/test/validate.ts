@@ -7504,6 +7504,337 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Message Bindings Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-bindings-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-bindings-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 11, character: 12 },
+          end: { line: 11, character: 16 },
+        },
+        message: '"http" must be a HTTP Message Binding',
+        severity: 1,
+        code: 200100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: '"amqp" must be a AMQP Message Binding',
+        severity: 1,
+        code: 200500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 13 },
+          end: { line: 8, character: 17 },
+        },
+        message: '"amqp1" must be a AMQP 1.0 Message Binding',
+        severity: 1,
+        code: 200600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 18 },
+          end: { line: 9, character: 22 },
+        },
+        message: '"anypointmq" must be a Anypoint MQ Message Binding',
+        severity: 1,
+        code: 200400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 13 },
+          end: { line: 12, character: 17 },
+        },
+        message: '"ibmmq" must be a IBM MQ Message Binding',
+        severity: 1,
+        code: 201700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 20 },
+          end: { line: 10, character: 24 },
+        },
+        message: '"googlepubsub" must be a GooglePubSub Message Binding',
+        severity: 1,
+        code: 201900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 11 },
+          end: { line: 13, character: 15 },
+        },
+        message: '"jms" must be a JMS Message Binding',
+        severity: 1,
+        code: 201000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 13 },
+          end: { line: 14, character: 17 },
+        },
+        message: '"kafka" must be a Kafka Message Binding',
+        severity: 1,
+        code: 200300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 15 },
+          end: { line: 15, character: 19 },
+        },
+        message: '"mercure" must be a Mercure Message Binding',
+        severity: 1,
+        code: 201600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 16, character: 12 },
+          end: { line: 16, character: 16 },
+        },
+        message: '"mqtt" must be a MQTT Message Binding',
+        severity: 1,
+        code: 200700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 13 },
+          end: { line: 17, character: 17 },
+        },
+        message: '"mqtt5" must be a MQTT 5 Message Binding',
+        severity: 1,
+        code: 200800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 12 },
+          end: { line: 18, character: 16 },
+        },
+        message: '"nats" must be a NATS Message Binding',
+        severity: 1,
+        code: 200900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 14 },
+          end: { line: 19, character: 18 },
+        },
+        message: '"pulsar" must be a Pulsar Message Binding',
+        severity: 1,
+        code: 202000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 20, character: 13 },
+          end: { line: 20, character: 17 },
+        },
+        message: '"redis" must be a Redis Message Binding',
+        severity: 1,
+        code: 201500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 21, character: 11 },
+          end: { line: 21, character: 15 },
+        },
+        message: '"sns" must be a SNS Message Binding',
+        severity: 1,
+        code: 201100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 14 },
+          end: { line: 22, character: 18 },
+        },
+        message: '"solace" must be a Solace Message Binding',
+        severity: 1,
+        code: 201200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 11 },
+          end: { line: 23, character: 15 },
+        },
+        message: '"sqs" must be a SQS Message Binding',
+        severity: 1,
+        code: 201300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 13 },
+          end: { line: 24, character: 17 },
+        },
+        message: '"stomp" must be a STOMP Message Binding',
+        severity: 1,
+        code: 201400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 25, character: 10 },
+          end: { line: 25, character: 14 },
+        },
+        message: '"ws" must be a WebSockets Message Binding',
+        severity: 1,
+        code: 200200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Bindings Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-bindings-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-bindings-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 20 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Bindings Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'message-bindings-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-bindings-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 201800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 20 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 201801,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - OAuth Flow Object fields types', async function () {
     const spec = fs
       .readFileSync(
@@ -7973,7 +8304,7 @@ describe('apidom-ls-validate', function () {
           start: { line: 19, character: 14 },
           end: { line: 19, character: 18 },
         },
-        message: '"pulsar" must be a Pulsar Server Binding',
+        message: '"pulsar" must be a Pulsar Operation Binding',
         severity: 1,
         code: 192000,
         source: 'apilint',

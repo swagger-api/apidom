@@ -12,7 +12,7 @@ const locationTypeLint: LinterMeta = {
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'name',
+  target: 'location',
   data: {},
   targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };

@@ -12,6 +12,12 @@ const locationRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['location'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

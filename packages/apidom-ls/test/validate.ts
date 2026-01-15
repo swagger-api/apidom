@@ -7504,6 +7504,226 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Message Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'message-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 21 },
+          end: { line: 9, character: 24 },
+        },
+        message: "'correlationId' must be a Correlation ID",
+        severity: 1,
+        code: 210300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 19 },
+          end: { line: 8, character: 22 },
+        },
+        message: "'contentType' value must be a string",
+        severity: 1,
+        code: 210500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 12 },
+          end: { line: 13, character: 15 },
+        },
+        message: "'name' value must be a string",
+        severity: 1,
+        code: 210600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 16, character: 13 },
+          end: { line: 16, character: 16 },
+        },
+        message: "'title' value must be a string",
+        severity: 1,
+        code: 210700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 15 },
+          end: { line: 14, character: 18 },
+        },
+        message: "'summary' value must be a string",
+        severity: 1,
+        code: 210800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 19 },
+          end: { line: 10, character: 22 },
+        },
+        message: "'description' value must be a string",
+        severity: 1,
+        code: 210900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: 'tags must be an array of Tags',
+        severity: 1,
+        code: 211000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 20 },
+          end: { line: 12, character: 23 },
+        },
+        message: 'externalDocs must be an object',
+        severity: 1,
+        code: 211100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 6 },
+          end: { line: 7, character: 14 },
+        },
+        message: 'bindings must be an object',
+        severity: 1,
+        code: 211200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: "'examples' must be an array of Message Example Objects",
+        severity: 1,
+        code: 211300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: "'examples' must be an array of Message Example Objects",
+        severity: 1,
+        code: 211301,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: "'traits' must be an array of Message Trait Objects",
+        severity: 1,
+        code: 211400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: "'traits' must be an array of Message Trait Objects",
+        severity: 1,
+        code: 211401,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'message-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 211500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 12 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 211501,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Message Example Object fields types', async function () {
     const spec = fs
       .readFileSync(

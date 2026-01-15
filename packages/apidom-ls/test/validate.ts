@@ -9277,6 +9277,429 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Security Scheme Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'security-scheme-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/security-scheme-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 12, character: 12 },
+          end: { line: 12, character: 15 },
+        },
+        message:
+          'type must be one of allowed values: userPassword, apiKey, X509, symmetricEncryption, asymmetricEncryption, httpApiKey, http, oauth2, openIdConnect, plain, scramSha256, scramSha512, gssapi',
+        severity: 1,
+        code: 270101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "update to 'userPassword'",
+              action: 'updateValue',
+              functionParams: ['userPassword'],
+            },
+            {
+              message: "update to 'apiKey'",
+              action: 'updateValue',
+              functionParams: ['apiKey'],
+            },
+            {
+              message: "update to 'X509'",
+              action: 'updateValue',
+              functionParams: ['X509'],
+            },
+            {
+              message: "update to 'symmetricEncryption'",
+              action: 'updateValue',
+              functionParams: ['symmetricEncryption'],
+            },
+            {
+              message: "update to 'asymmetricEncryption'",
+              action: 'updateValue',
+              functionParams: ['asymmetricEncryption'],
+            },
+            {
+              message: "update to 'httpApiKey'",
+              action: 'updateValue',
+              functionParams: ['httpApiKey'],
+            },
+            {
+              message: "update to 'http'",
+              action: 'updateValue',
+              functionParams: ['http'],
+            },
+            {
+              message: "update to 'oauth2'",
+              action: 'updateValue',
+              functionParams: ['oauth2'],
+            },
+            {
+              message: "update to 'openIdConnect'",
+              action: 'updateValue',
+              functionParams: ['openIdConnect'],
+            },
+            {
+              message: "update to 'plain'",
+              action: 'updateValue',
+              functionParams: ['plain'],
+            },
+            {
+              message: "update to 'scramSha256'",
+              action: 'updateValue',
+              functionParams: ['scramSha256'],
+            },
+            {
+              message: "update to 'scramSha512'",
+              action: 'updateValue',
+              functionParams: ['scramSha512'],
+            },
+            {
+              message: "update to 'gssapi'",
+              action: 'updateValue',
+              functionParams: ['gssapi'],
+            },
+            {
+              message: 'clear',
+              action: 'updateValue',
+              functionParams: [''],
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 8, character: 19 },
+          end: { line: 8, character: 22 },
+        },
+        message: "'description' value must be a string",
+        severity: 1,
+        code: 270200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 14 },
+          end: { line: 11, character: 17 },
+        },
+        message: "'scheme' must be a string",
+        severity: 1,
+        code: 270500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 20 },
+          end: { line: 7, character: 23 },
+        },
+        message: "'bearerFormat' must be a string",
+        severity: 1,
+        code: 270600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 13 },
+          end: { line: 9, character: 16 },
+        },
+        message: "'flows' must be an object",
+        severity: 1,
+        code: 270700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 24 },
+          end: { line: 10, character: 28 },
+        },
+        message: "'openIdConnectUrl' value must be a valid URL",
+        severity: 1,
+        code: 270800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 10 },
+          end: { line: 15, character: 13 },
+        },
+        message: 'in must be one of allowed values',
+        severity: 1,
+        code: 270304,
+        source: 'apilint',
+      },
+      {
+        range: {
+          start: { line: 18, character: 12 },
+          end: { line: 18, character: 15 },
+        },
+        message: "'name' must be a string",
+        severity: 1,
+        code: 270300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 10 },
+          end: { line: 19, character: 13 },
+        },
+        message: 'in must be one of allowed values',
+        severity: 1,
+        code: 270305,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Security Scheme Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'security-scheme-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/security-scheme-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 4 },
+          end: { line: 7, character: 19 },
+        },
+        message: "should always have a 'type'",
+        severity: 1,
+        code: 270102,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'type' field",
+              action: 'addChild',
+              snippetYaml: 'type: \n  ',
+              snippetJson: '"type": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 9, character: 4 },
+          end: { line: 9, character: 19 },
+        },
+        message: "should always have a 'in' when type=apiKey",
+        severity: 1,
+        code: 270302,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'in' field",
+              action: 'addChild',
+              snippetYaml: 'in: \n  ',
+              snippetJson: '"in": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 12, character: 4 },
+          end: { line: 12, character: 19 },
+        },
+        message: "should always have a 'name'",
+        severity: 1,
+        code: 270301,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'name' field",
+              action: 'addChild',
+              snippetYaml: 'name: \n  ',
+              snippetJson: '"name": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 12, character: 4 },
+          end: { line: 12, character: 19 },
+        },
+        message: "should always have a 'in' when type=httpApiKey",
+        severity: 1,
+        code: 270303,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'in' field",
+              action: 'addChild',
+              snippetYaml: 'in: \n  ',
+              snippetJson: '"in": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 15, character: 4 },
+          end: { line: 15, character: 19 },
+        },
+        message: "should always have a 'scheme' when type=http",
+        severity: 1,
+        code: 270501,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'in' field",
+              action: 'addChild',
+              snippetYaml: 'scheme: \n  ',
+              snippetJson: '"scheme": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 18, character: 4 },
+          end: { line: 18, character: 19 },
+        },
+        message: "should always have a 'flows'",
+        severity: 1,
+        code: 270701,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'flows' field",
+              action: 'addChild',
+              snippetYaml: 'flows: \n  ',
+              snippetJson: '"flows": {},\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 21, character: 4 },
+          end: { line: 21, character: 19 },
+        },
+        message: "should always have a 'openIdConnectUrl'",
+        severity: 1,
+        code: 270801,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'openIdConnectUrl' field",
+              action: 'addChild',
+              snippetYaml: 'openIdConnectUrl: \n  ',
+              snippetJson: '"openIdConnectUrl": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Security Scheme Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'security-scheme-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/security-scheme-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 270900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 19 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 270901,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Server Object fields types', async function () {
     const spec = fs
       .readFileSync(

@@ -7504,6 +7504,107 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Message Example Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-example-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-example-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 19 },
+          end: { line: 10, character: 22 },
+        },
+        message: "'headers' must be an object",
+        severity: 1,
+        code: 230100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 16 },
+          end: { line: 8, character: 19 },
+        },
+        message: "'name' value must be a string",
+        severity: 1,
+        code: 230200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 19 },
+          end: { line: 9, character: 22 },
+        },
+        message: "'summary' value must be a string",
+        severity: 1,
+        code: 230300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Example Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-example-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-example-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 10 },
+          end: { line: 9, character: 0 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Message Bindings Object fields types', async function () {
     const spec = fs
       .readFileSync(

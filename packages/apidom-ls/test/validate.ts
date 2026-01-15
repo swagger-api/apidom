@@ -7747,6 +7747,343 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Operation Bindings Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-bindings-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-bindings-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 11, character: 12 },
+          end: { line: 11, character: 16 },
+        },
+        message: '"http" must be a HTTP Operation Binding',
+        severity: 1,
+        code: 190100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: '"amqp" must be a AMQP Operation Binding',
+        severity: 1,
+        code: 190500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 13 },
+          end: { line: 8, character: 17 },
+        },
+        message: '"amqp1" must be a AMQP 1.0 Operation Binding',
+        severity: 1,
+        code: 190600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 18 },
+          end: { line: 9, character: 22 },
+        },
+        message: '"anypointmq" must be a Anypoint MQ Operation Binding',
+        severity: 1,
+        code: 190400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 11 },
+          end: { line: 13, character: 15 },
+        },
+        message: '"jms" must be a JMS Operation Binding',
+        severity: 1,
+        code: 191000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 13 },
+          end: { line: 14, character: 17 },
+        },
+        message: '"kafka" must be a Kafka Operation Binding',
+        severity: 1,
+        code: 190300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 15 },
+          end: { line: 15, character: 19 },
+        },
+        message: '"mercure" must be a Mercure Operation Binding',
+        severity: 1,
+        code: 191600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 16, character: 12 },
+          end: { line: 16, character: 16 },
+        },
+        message: '"mqtt" must be a MQTT Operation Binding',
+        severity: 1,
+        code: 190700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 13 },
+          end: { line: 17, character: 17 },
+        },
+        message: '"mqtt5" must be a MQTT 5 Operation Binding',
+        severity: 1,
+        code: 190800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 12 },
+          end: { line: 18, character: 16 },
+        },
+        message: '"nats" must be a NATS Operation Binding',
+        severity: 1,
+        code: 190900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 20, character: 13 },
+          end: { line: 20, character: 17 },
+        },
+        message: '"redis" must be a Redis Operation Binding',
+        severity: 1,
+        code: 191500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 21, character: 11 },
+          end: { line: 21, character: 15 },
+        },
+        message: '"sns" must be a SNS Operation Binding',
+        severity: 1,
+        code: 191100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 14 },
+          end: { line: 22, character: 18 },
+        },
+        message: '"solace" must be a Solace Operation Binding',
+        severity: 1,
+        code: 191200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 11 },
+          end: { line: 23, character: 15 },
+        },
+        message: '"sqs" must be a SQS Operation Binding',
+        severity: 1,
+        code: 191300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 13 },
+          end: { line: 24, character: 17 },
+        },
+        message: '"stomp" must be a STOMP Operation Binding',
+        severity: 1,
+        code: 191400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 25, character: 10 },
+          end: { line: 25, character: 14 },
+        },
+        message: '"ws" must be a WebSockets Operation Binding',
+        severity: 1,
+        code: 190200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 13 },
+          end: { line: 12, character: 17 },
+        },
+        message: '"ibmmq" must be a IBM MQ Operation Binding',
+        severity: 1,
+        code: 191800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 20 },
+          end: { line: 10, character: 24 },
+        },
+        message: '"googlepubsub" must be a Google Cloud Pub/Sub Operation Binding',
+        severity: 1,
+        code: 191900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 14 },
+          end: { line: 19, character: 18 },
+        },
+        message: '"pulsar" must be a Pulsar Server Binding',
+        severity: 1,
+        code: 192000,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Bindings Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-bindings-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-bindings-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 22 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Bindings Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-bindings-ref-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-bindings-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 191700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 22 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 191701,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   // TODO: fix parameter object validation
   // eslint-disable-next-line mocha/no-skipped-tests
   it.skip('asyncapi 3.0 - Parameters Object keys pattern and values type', async function () {

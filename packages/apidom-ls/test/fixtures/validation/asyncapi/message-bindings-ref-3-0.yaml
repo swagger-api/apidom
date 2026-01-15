@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  messageBindings:
+    messageBindings1:
+      $ref: '//'
+    messageBindings2:
+      $ref: '#/components/messageBindings/messageBindings1'
+      x-test: 123

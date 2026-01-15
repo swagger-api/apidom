@@ -17,6 +17,7 @@ import mercureTypeLint from './mercure--type.ts';
 import mqttTypeLint from './mqtt--type.ts';
 import mqtt5TypeLint from './mqtt5--type.ts';
 import natsTypeLint from './nats--type.ts';
+import pulsarTypeLint from './pulsar--type.ts';
 import redisTypeLint from './redis--type.ts';
 import snsTypeLint from './sns--type.ts';
 import solaceTypeLint from './solace--type.ts';
@@ -44,6 +45,7 @@ const lints = [
   mqttTypeLint,
   mqtt5TypeLint,
   natsTypeLint,
+  pulsarTypeLint,
   redisTypeLint,
   snsTypeLint,
   solaceTypeLint,

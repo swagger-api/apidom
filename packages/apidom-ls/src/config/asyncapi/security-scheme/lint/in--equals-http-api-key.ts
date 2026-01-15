@@ -7,7 +7,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 const inEqualsHttpApiKeyLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_IN_EQUALS_HTTP_API_KEY,
   source: 'apilint',
-  message: 'type must be one of allowed values',
+  message: 'in must be one of allowed values',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [['query', 'header', 'cookie']],

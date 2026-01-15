@@ -8603,6 +8603,112 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Operation Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 15 },
+          end: { line: 10, character: 18 },
+        },
+        message: "summary' value must be a string",
+        severity: 1,
+        code: 130200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 19 },
+          end: { line: 8, character: 22 },
+        },
+        message: "description' value must be a string",
+        severity: 1,
+        code: 130300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 6 },
+          end: { line: 11, character: 10 },
+        },
+        message: 'tags must be an array',
+        severity: 1,
+        code: 130500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 9, character: 20 },
+          end: { line: 9, character: 23 },
+        },
+        message: 'externalDocs must be an object',
+        severity: 1,
+        code: 130600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 6 },
+          end: { line: 7, character: 14 },
+        },
+        message: 'bindings must be an object',
+        severity: 1,
+        code: 130700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: 'traits must be an array of Operation Trait Objects',
+        severity: 1,
+        code: 130800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: 'traits must be an array of Operation Trait Objects',
+        severity: 1,
+        code: 130801,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Operation Bindings Object fields types', async function () {
     const spec = fs
       .readFileSync(

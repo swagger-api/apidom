@@ -7,7 +7,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 const descriptionTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_EXTERNAL_DOCUMENTATION_FIELD_DESCRIPTION_TYPE,
   source: 'apilint',
-  message: "description' value must be a string",
+  message: "'description' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

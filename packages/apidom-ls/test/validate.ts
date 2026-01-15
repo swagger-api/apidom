@@ -6880,6 +6880,915 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Contact Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'contact-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/contact-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 2 },
+          end: { line: 4, character: 9 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Contact Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'contact-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/contact-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 5, character: 10 },
+          end: { line: 5, character: 13 },
+        },
+        message: "'name' must be a string",
+        severity: 1,
+        code: 80100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 11 },
+          end: { line: 7, character: 15 },
+        },
+        message: "'email' must be a valid email",
+        severity: 1,
+        code: 80200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 9 },
+          end: { line: 6, character: 13 },
+        },
+        message: "'url' value must be a valid URL",
+        severity: 1,
+        code: 80300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Correlation ID Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'correlation-id-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/correlation-id-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 18 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Correlation ID Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'correlation-id-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/correlation-id-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 19 },
+          end: { line: 8, character: 22 },
+        },
+        message: "'description' value must be a string",
+        severity: 1,
+        code: 310100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 16 },
+          end: { line: 7, character: 19 },
+        },
+        message: "'location' value must be a string",
+        severity: 1,
+        code: 310200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Correlation ID Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'correlation-id-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/correlation-id-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 18 },
+        },
+        message: "should always have a 'location'",
+        severity: 1,
+        code: 310201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'location' field",
+              action: 'addChild',
+              snippetYaml: 'location: \n  ',
+              snippetJson: '"location": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Correlation ID Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'correlation-id-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/correlation-id-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 310300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 18 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 310301,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - External Documentation Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'external-docs-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/external-docs-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 19 },
+          end: { line: 8, character: 22 },
+        },
+        message: "'description' value must be a string",
+        severity: 1,
+        code: 250100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 11 },
+          end: { line: 7, character: 15 },
+        },
+        message: "'url' value must be a valid URL",
+        severity: 1,
+        code: 250200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Info Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'info-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/info-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 2, character: 9 },
+          end: { line: 2, character: 12 },
+        },
+        message: 'title must be a string',
+        severity: 1,
+        code: 70100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 3, character: 11 },
+          end: { line: 3, character: 14 },
+        },
+        message: 'version must be a string',
+        severity: 1,
+        code: 70200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 5, character: 15 },
+          end: { line: 5, character: 18 },
+        },
+        message: 'description must be a string',
+        severity: 1,
+        code: 70300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 18 },
+          end: { line: 7, character: 21 },
+        },
+        message: 'termsOfService MUST be in the format of a URL.',
+        severity: 1,
+        code: 70400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 4, character: 11 },
+          end: { line: 4, character: 14 },
+        },
+        message: 'contact must be an object',
+        severity: 1,
+        code: 70500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 11 },
+          end: { line: 6, character: 14 },
+        },
+        message: 'license must be an object',
+        severity: 1,
+        code: 70600,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Info Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'info-fields-required-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/info-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 1, character: 0 },
+          end: { line: 1, character: 4 },
+        },
+        message: "should always have a 'version'",
+        severity: 1,
+        code: 70201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: 'version: \n  ',
+              snippetJson: '"version": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 1, character: 0 },
+          end: { line: 1, character: 4 },
+        },
+        message: "should always have a 'title'",
+        severity: 1,
+        code: 70101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'title' field",
+              action: 'addChild',
+              snippetYaml: 'title: \n  ',
+              snippetJson: '"title": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - License Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'license-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/license-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 2 },
+          end: { line: 4, character: 9 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - License Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'license-fields-types-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/license-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 5, character: 10 },
+          end: { line: 5, character: 13 },
+        },
+        message: "'name' must be a string",
+        severity: 1,
+        code: 90100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 9 },
+          end: { line: 6, character: 13 },
+        },
+        message: "'url' value must be a valid URL",
+        severity: 1,
+        code: 90200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - License Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'license-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/license-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 2 },
+          end: { line: 4, character: 9 },
+        },
+        message: "should always have a 'name' value",
+        severity: 1,
+        code: 90101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'name' section",
+              action: 'addChild',
+              snippetYaml: 'name: \n    ',
+              snippetJson: '"name": "",\n      ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - OAuth Flow Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'oauth-flow-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/oauth-flow-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 28 },
+          end: { line: 10, character: 32 },
+        },
+        message: "'authorizationUrl' value must be a valid URL",
+        severity: 1,
+        code: 290100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 20 },
+          end: { line: 11, character: 24 },
+        },
+        message: "'tokenUrl' value must be a valid URL",
+        severity: 1,
+        code: 290200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 22 },
+          end: { line: 12, character: 26 },
+        },
+        message: "'refreshUrl' value must be a valid URL",
+        severity: 1,
+        code: 290300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - OAuth Flow Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'oauth-flow-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/oauth-flow-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 8 },
+          end: { line: 9, character: 16 },
+        },
+        message: "should always have a 'authorizationUrl'",
+        severity: 1,
+        code: 290101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'authorizationUrl' field",
+              action: 'addChild',
+              snippetYaml: 'authorizationUrl: \n  ',
+              snippetJson: '"authorizationUrl": "",\n    ',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 9, character: 8 },
+          end: { line: 9, character: 16 },
+        },
+        message: "should always have a 'tokenUrl'",
+        severity: 1,
+        code: 290201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'tokenUrl' field",
+              action: 'addChild',
+              snippetYaml: 'tokenUrl: \n  ',
+              snippetJson: '"tokenUrl": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - OAuth Flows Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'oauth-flows-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/oauth-flows-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 6 },
+          end: { line: 8, character: 11 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - OAuth Flows Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'oauth-flows-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/oauth-flows-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 18 },
+          end: { line: 9, character: 22 },
+        },
+        message: "'implicit' must be an object",
+        severity: 1,
+        code: 280100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 18 },
+          end: { line: 10, character: 22 },
+        },
+        message: "'password' must be an object",
+        severity: 1,
+        code: 280200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 27 },
+          end: { line: 11, character: 31 },
+        },
+        message: "'clientCredentials' must be an object",
+        severity: 1,
+        code: 280300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 27 },
+          end: { line: 12, character: 31 },
+        },
+        message: "'authorizationCode' must be an object",
+        severity: 1,
+        code: 280400,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  // TODO: fix parameter object validation
+  // eslint-disable-next-line mocha/no-skipped-tests
+  it.skip('asyncapi 3.0 - Parameters Object keys pattern and values type', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameters-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/parameters-3-0.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 4, character: 0 },
+          end: { line: 4, character: 7 },
+        },
+        message: 'parameters keys must match the following field pattern: ^[A-Za-z0-9_\\-]+$',
+        severity: 1,
+        code: 50001,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 4, character: 0 },
+          end: { line: 4, character: 7 },
+        },
+        message: 'Parameters Object values must be of Parameter Object shape',
+        severity: 1,
+        code: 50002,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Server Object fields types', async function () {
     const spec = fs
       .readFileSync(
@@ -7522,7 +8431,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  // TODO: fix server variable type validation
+  // TODO: fix server variable type validation in Server Object
   // eslint-disable-next-line mocha/no-skipped-tests
   it.skip('asyncapi 3.0 - Server Variable Object reference rules', async function () {
     const spec = fs

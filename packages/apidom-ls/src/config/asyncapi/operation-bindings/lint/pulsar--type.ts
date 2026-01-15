@@ -7,7 +7,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 const pulsarTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_OPERATION_BINDINGS_FIELD_PULSAR_TYPE,
   source: 'apilint',
-  message: '"pulsar" must be a WebSockets Operation Binding',
+  message: '"pulsar" must be a Pulsar Server Binding',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: [['pulsarOperationBinding']],

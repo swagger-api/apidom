@@ -6359,6 +6359,60 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Channel Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 10 },
+          end: { line: 6, character: 14 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 2020400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 7, character: 2 },
+          end: { line: 7, character: 10 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 2020401,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Channel Bindings Object fields types', async function () {
     const spec = fs
       .readFileSync(

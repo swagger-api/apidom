@@ -15,6 +15,7 @@ const documentation = [
   {
     target: 'messageId',
     docs: 'Unique string used to identify the message. The id MUST be unique among all messages described in the API. The messageId value is **case-sensitive**. Tools and libraries MAY use the messageId to uniquely identify a message, therefore, it is RECOMMENDED to follow common programming naming conventions.',
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'headers',
@@ -25,10 +26,6 @@ const documentation = [
     target: 'headers',
     docs: '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nSchema definition of the application headers. Schema MUST be a map of key-value pairs. It **MUST NOT** define the protocol headers. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
     targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'payload',
-    docs: 'Definition of the message payload. It can be of any type but defaults to [Schema object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject). It must match the schema format, including encoding type - e.g Avro should be inlined as either a YAML or JSON object NOT a string to be parsed as YAML or JSON.',
   },
   {
     target: 'correlationId',
@@ -58,18 +55,27 @@ const documentation = [
   {
     target: 'name',
     docs: 'A machine-friendly name for the message.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'title',
     docs: 'A human-friendly title for the message.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'summary',
     docs: 'A short summary of what the message is about.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'description',
     docs: 'A verbose explanation of the message. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+  },
+  {
+    target: 'externalDocs',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'bindings',

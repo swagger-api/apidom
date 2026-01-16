@@ -450,6 +450,17 @@ describe('asyncapi channel test', function () {
         source: 'apilint',
         data: {},
       },
+      {
+        range: {
+          start: { line: 44, character: 4 },
+          end: { line: 44, character: 14 },
+        },
+        message: 'Parameters Object values must be of Parameter Object shape',
+        severity: 1,
+        code: 150002,
+        source: 'apilint',
+        data: {},
+      },
     ] as Diagnostic[]);
   });
 });

@@ -12,3 +12,4 @@ servers:
         $ref: '//'
       path:
         $ref: '#/servers/server1/variables/port'
+        x-test: 123

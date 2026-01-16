@@ -10395,9 +10395,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  // TODO: fix server variable type validation in Server Object
-  // eslint-disable-next-line mocha/no-skipped-tests
-  it.skip('asyncapi 3.0 - Server Variable Object reference rules', async function () {
+  it('asyncapi 3.0 - Server Variable Object reference rules', async function () {
     const spec = fs
       .readFileSync(
         path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-variable-ref-3-0.yaml'),
@@ -10413,7 +10411,39 @@ describe('apidom-ls-validate', function () {
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
     const result = await languageService.doValidation(doc);
-    const expected: Diagnostic[] = [];
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 11, character: 14 },
+          end: { line: 11, character: 18 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 110500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 6 },
+          end: { line: 12, character: 10 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 110501,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
     assert.deepEqual(result, expected);
 
     languageService.terminate();

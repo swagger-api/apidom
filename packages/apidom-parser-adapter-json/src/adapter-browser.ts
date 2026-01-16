@@ -27,7 +27,11 @@ export const detect = async (source: string): Promise<boolean> => {
 
   try {
     const cst = await lexicalAnalysis(source);
-    return cst.rootNode.type !== 'ERROR';
+    const isError = cst.rootNode.type !== 'ERROR';
+
+    cst.delete();
+
+    return isError;
   } catch {
     return false;
   }
@@ -64,6 +68,8 @@ export const parse: ParseFunction = async (
   } else {
     apiDOM = syntacticAnalysisDirect(cst, { sourceMap });
   }
+
+  cst.delete();
 
   return apiDOM;
 };

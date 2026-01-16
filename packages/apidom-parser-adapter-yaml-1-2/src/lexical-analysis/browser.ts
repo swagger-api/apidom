@@ -10,12 +10,6 @@ let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
 let currentTree: Tree | null = null;
 
-// clear the old Wasm-allocated tree & reset the parser state
-const releaseResources = () => {
-  currentTree?.delete();
-  parser?.reset();
-};
-
 /**
  * Lexical Analysis of source string using WebTreeSitter.
  * This is WebAssembly version of TreeSitters Lexical Analysis.
@@ -25,8 +19,6 @@ const releaseResources = () => {
  * @public
  */
 const analyze = async (source: string): Promise<Tree> => {
-  releaseResources();
-
   if (parser === null && parserInitLock === null) {
     // acquire lock
     parserInitLock = Parser.init()
@@ -51,6 +43,9 @@ const analyze = async (source: string): Promise<Tree> => {
   }
 
   currentTree = parser.parse(source);
+
+  parser.reset();
+
   return currentTree;
 };
 

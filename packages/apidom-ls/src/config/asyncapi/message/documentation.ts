@@ -40,7 +40,12 @@ const documentation = [
   {
     target: 'correlationId',
     docs: '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    target: 'correlationId',
+    docs: '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'schemaFormat',
@@ -74,18 +79,28 @@ const documentation = [
   },
   {
     target: 'externalDocs',
-    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
     targetSpecs: AsyncAPI3,
   },
   {
     target: 'bindings',
     docs: '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    target: 'bindings',
+    docs: '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'examples',
     docs: '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    target: 'examples',
+    docs: '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'traits',

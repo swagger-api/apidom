@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
+
+### Bug Fixes
+
+- **ns-asyncapi-2:** add missing reference metadata to server variables ([#5098](https://github.com/swagger-api/apidom/issues/5098)) ([0984114](https://github.com/swagger-api/apidom/commit/09841140b5f6f0a0b2620533892a38466804d4e3))
+
 ## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-2

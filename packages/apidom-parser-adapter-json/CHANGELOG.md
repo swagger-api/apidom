@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
+
+### Bug Fixes
+
+- **parser:** fix tree being deleted before analysis completion ([#5099](https://github.com/swagger-api/apidom/issues/5099)) ([5bf6eaf](https://github.com/swagger-api/apidom/commit/5bf6eaf99d04eccef8a4c563afe03e206a3c0df7))
+
 ## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
 
 ### Bug Fixes

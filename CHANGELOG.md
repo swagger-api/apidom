@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
+
+### Bug Fixes
+
+- **parser:** clear the old Wasm-allocated tree to prevent memory leaks ([#5097](https://github.com/swagger-api/apidom/issues/5097)) ([fd160a7](https://github.com/swagger-api/apidom/commit/fd160a7453c15bc160c04a1325aecd845f6d4882))
+
 # [1.2.0](https://github.com/swagger-api/apidom/compare/v1.1.0...v1.2.0) (2026-01-14)
 
 ### Bug Fixes

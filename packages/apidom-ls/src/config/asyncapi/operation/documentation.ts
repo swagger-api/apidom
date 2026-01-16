@@ -30,15 +30,22 @@ const documentation = [
   {
     target: 'summary',
     docs: 'A short summary of what the operation is about.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'description',
     docs: 'A verbose explanation of the operation. [CommonMark syntax](http://spec.commonmark.org/) can be used for rich text representation.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'security',
     docs: '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms are associated with this operation. Only one of the security requirement objects MUST be satisfied to authorize an operation. In cases where Server Security also applies, it MUST also be satisfied.',
     targetSpecs: AsyncAPI2,
+  },
+  {
+    target: 'externalDocs',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this operation.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'security',
@@ -68,6 +75,7 @@ const documentation = [
   {
     target: 'message',
     docs: '[Message Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject) &#124; Map["oneOf", [[Message Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)]]\n\\\n\\\nA definition of the message that will be published or received by this operation. Map containing a single `oneOf` key is allowed here to specify multiple messages. However, **a message MUST be valid only against one of the message objects.**',
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'messages',

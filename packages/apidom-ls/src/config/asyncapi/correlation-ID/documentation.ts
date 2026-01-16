@@ -4,6 +4,7 @@ const documentation = [
   {
     target: 'description',
     docs: 'A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'location',

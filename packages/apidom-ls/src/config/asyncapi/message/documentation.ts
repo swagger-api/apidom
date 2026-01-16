@@ -40,6 +40,7 @@ const documentation = [
   {
     target: 'correlationId',
     docs: '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'schemaFormat',
@@ -49,30 +50,42 @@ const documentation = [
   {
     target: 'contentType',
     docs: "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v2.6.0#defaultContentTypeString) field.",
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'name',
     docs: 'A machine-friendly name for the message.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'title',
     docs: 'A human-friendly title for the message.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'summary',
     docs: 'A short summary of what the message is about.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'description',
     docs: 'A verbose explanation of the message. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+  },
+  {
+    target: 'externalDocs',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'bindings',
     docs: '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'examples',
     docs: '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'traits',

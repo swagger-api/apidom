@@ -15,18 +15,22 @@ const documentation = [
   {
     target: 'title',
     docs: '**REQUIRED.** The title of the application.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'version',
     docs: '**REQUIRED.** Provides the version of the application API (not to be confused with the specification version).',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'description',
     docs: 'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'termsOfService',
     docs: 'A URL to the Terms of Service for the API. This MUST be in the form of an absolute URL.',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'tags',

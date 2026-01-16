@@ -36,7 +36,7 @@ class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   ObjectElement(objectElement: ObjectElement) {
     const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
 
-    // @ts-ignore
+    // @ts-expect-error
     this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
       referenceElement.setMetaProperty('referenced-element', 'serverVariable');
     });

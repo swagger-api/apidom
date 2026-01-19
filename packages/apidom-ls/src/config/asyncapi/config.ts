@@ -1,10 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../codes.ts';
-/**
- * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
- */
 import asyncapi2Meta from './asyncapi2/meta.ts';
+import asyncapi3Meta from './asyncapi3/meta.ts';
 import asyncapiVersionMeta from './async-api-version/meta.ts';
 import meta from '../common/schema/meta.ts';
 import identifierMeta from './identifier/meta.ts';
@@ -154,9 +152,6 @@ export default {
       },
     ],
   },
-  /**
-   * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
-   */
   identifier: identifierMeta,
   defaultContentType: defaultContentTypeMeta,
   info: infoMeta,
@@ -169,6 +164,7 @@ export default {
   channelBindings: channelBindingsMeta,
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,
+  asyncApi3: asyncapi3Meta,
   asyncApiVersion: asyncapiVersionMeta,
   parameters: parametersMeta,
   parameter: parameterMeta,

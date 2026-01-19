@@ -1,4 +1,5 @@
 import allowedFieldsLint from './allowed-fields.ts';
+import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import typeRequiredLint from './type--required.ts';
 import typeEqualsLint2_0Lint from './type--equals-2-0.ts';
 import typeEqualsLint2_1__2_6Lint from './type--equals-2-1--2-6.ts';
@@ -40,6 +41,7 @@ const lints = [
   $refNoSiblingsLint,
   $refValidLint,
   allowedFieldsLint,
+  allowedFields3_0Lint,
 ];
 
 export default lints;

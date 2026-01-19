@@ -1,0 +1,7 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+  license:
+    name: test
+    test: 123

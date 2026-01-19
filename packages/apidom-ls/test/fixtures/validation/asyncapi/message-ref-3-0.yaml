@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  messages:
+    message1:
+      $ref: '//'
+    message2:
+      $ref: '#/components/messages/message1'
+      x-test: 123

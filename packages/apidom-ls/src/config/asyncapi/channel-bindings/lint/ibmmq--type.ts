@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
 
 const ibmmqTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_CHANNEL_BINDINGS_FIELD_IBMMQ_TYPE,
@@ -20,6 +21,7 @@ const ibmmqTypeLint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.4.0' },
     { namespace: 'asyncapi', version: '2.5.0' },
     { namespace: 'asyncapi', version: '2.6.0' },
+    ...AsyncAPI3,
   ],
 };
 

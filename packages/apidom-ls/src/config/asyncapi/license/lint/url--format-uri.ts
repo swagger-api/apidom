@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const urlFormatURILint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_LICENSE_FIELD_URL_FORMAT_URI,
@@ -12,6 +13,7 @@ const urlFormatURILint: LinterMeta = {
   marker: 'value',
   target: 'url',
   data: {},
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default urlFormatURILint;

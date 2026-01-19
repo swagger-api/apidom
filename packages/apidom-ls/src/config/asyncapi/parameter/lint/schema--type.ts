@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const schemaTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_PARAMETER_FIELD_SCHEMA_TYPE,
@@ -13,6 +14,7 @@ const schemaTypeLint: LinterMeta = {
   marker: 'value',
   target: 'schema',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default schemaTypeLint;

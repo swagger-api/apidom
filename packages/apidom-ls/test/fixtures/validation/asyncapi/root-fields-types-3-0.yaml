@@ -1,0 +1,7 @@
+asyncapi: 3.0.0
+info: test
+channels: test
+components: test
+defaultContentType: 123
+id: 123
+servers: test

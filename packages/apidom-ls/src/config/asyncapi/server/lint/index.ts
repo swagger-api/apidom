@@ -14,8 +14,8 @@ import protocolVersionType from './protocol-version--type.ts';
 import descriptionTypeLint from './description--type.ts';
 import variablesTypeLint from './variables--type.ts';
 import variablesValuesTypeLint from './variables--values-type.ts';
-import securityTypeLint from './security--type.ts';
-import securityItemsTypeLint from './security--items-type.ts';
+import securityType2_0__2_6Lint from './security--type-2-0--2-6.ts';
+import securityItemsType2_0__2_6Lint from './security--items-type-2-0--2-6.ts';
 import tagsTypeLint from './tags--type.ts';
 import bindingsTypeLint from './bindings--type.ts';
 import $refValidLint from './$ref--valid.ts';
@@ -35,8 +35,8 @@ const lints = [
   descriptionTypeLint,
   variablesTypeLint,
   variablesValuesTypeLint,
-  securityTypeLint,
-  securityItemsTypeLint,
+  securityType2_0__2_6Lint,
+  securityItemsType2_0__2_6Lint,
   tagsTypeLint,
   bindingsTypeLint,
   allowedFields2_0__2_4Lint,

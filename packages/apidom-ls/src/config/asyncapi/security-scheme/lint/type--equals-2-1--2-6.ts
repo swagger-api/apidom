@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const typeEqualsLint2_1__2_6Lint: LinterMeta = {
@@ -112,6 +113,7 @@ const typeEqualsLint2_1__2_6Lint: LinterMeta = {
     { namespace: 'asyncapi', version: '2.4.0' },
     { namespace: 'asyncapi', version: '2.5.0' },
     { namespace: 'asyncapi', version: '2.6.0' },
+    ...AsyncAPI3,
   ],
 };
 

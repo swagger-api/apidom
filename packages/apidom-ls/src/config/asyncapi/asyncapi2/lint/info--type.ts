@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const infoTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_INFO_TYPE,
@@ -13,6 +14,7 @@ const infoTypeLint: LinterMeta = {
   marker: 'value',
   target: 'info',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default infoTypeLint;

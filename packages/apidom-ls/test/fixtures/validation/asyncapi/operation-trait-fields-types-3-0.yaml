@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  operationTraits:
+    operationTrait1:
+      bindings: 123
+      description: 123
+      externalDocs: 123
+      summary: 123
+      tags: 123

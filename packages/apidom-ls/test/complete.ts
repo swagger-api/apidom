@@ -252,7 +252,7 @@ describe('apidom-ls-complete', function () {
       { textDocument: doc, position: pos },
       completionContext,
     );
-    console.log("......RESULT......:", result)
+    console.log('......RESULT......:', result);
     assert.deepEqual(result, completionTestInputValue[3] as CompletionList);
   });
 

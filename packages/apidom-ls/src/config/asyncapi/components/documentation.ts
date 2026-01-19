@@ -14,7 +14,7 @@ const documentation = [
   {
     target: 'servers',
     docs: 'Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Objects](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serverObject).',
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'servers',

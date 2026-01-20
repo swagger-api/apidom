@@ -8,6 +8,7 @@ import treeSitterJson from '../../wasm/tree-sitter-json.wasm';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
+let currentTree: Tree | null = null;
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
@@ -41,7 +42,11 @@ const analyze = async (source: string): Promise<Tree> => {
     );
   }
 
-  return parser.parse(source);
+  currentTree = parser.parse(source);
+
+  parser.reset();
+
+  return currentTree;
 };
 
 export default analyze;

@@ -23,6 +23,11 @@ const documentation = [
     targetSpecs: AsyncAPI3,
   },
   {
+    target: 'channel',
+    docs: '[Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\n**Required**. A `$ref` pointer to the definition of the channel in which this operation is performed. If the operation is located in the root [Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject), it MUST point to a channel definition located in the root [Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject), and MUST NOT point to a channel definition located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject) or anywhere else. If the operation is located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject), it MAY point to a [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject) in any location.',
+    targetSpecs: AsyncAPI3,
+  },
+  {
     target: 'title',
     docs: 'A human-friendly title for the operation.',
     targetSpecs: AsyncAPI3,

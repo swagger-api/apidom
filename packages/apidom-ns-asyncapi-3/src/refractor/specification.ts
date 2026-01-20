@@ -167,6 +167,7 @@ import WebSocketChannelBindingVisitor from './visitors/async-api-3/bindings/ws/c
 import WebSocketMessageBindingVisitor from './visitors/async-api-3/bindings/ws/message-binding/index.ts';
 import WebSocketOperationBindingVisitor from './visitors/async-api-3/bindings/ws/operation-binding/index.ts';
 import WebSocketServerBindingVisitor from './visitors/async-api-3/bindings/ws/server-binding/index.ts';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor.ts';
 
 const SchemaSpecification = {
   $visitor: SchemaVisitor,
@@ -1459,6 +1460,9 @@ const specification = {
             },
           },
         },
+      },
+      extension: {
+        $visitor: SpecificationExtensionVisitor,
       },
     },
   },

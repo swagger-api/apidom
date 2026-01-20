@@ -85,9 +85,7 @@ jobs:
       - name: Install dependencies
         run: npm ci --engine-strict=false
       - name: Build monorepo for testing
-        run: |
-          npm run prebuild
-          npm run build:es
+        run: npm run build:es
       - name: Build typescript declarations
         run: npm run typescript:declaration
       - name: Execute tests in monorepo

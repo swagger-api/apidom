@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const $refValidLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_CHANNEL_BINDINGS_FIELD_$REF_VALID,
@@ -12,6 +13,7 @@ const $refValidLint: LinterMeta = {
   marker: 'value',
   target: '$ref',
   data: {},
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default $refValidLint;

@@ -1,0 +1,13 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  securitySchemes:
+    securityScheme1:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: '//'
+          tokenUrl: '//'
+          refreshUrl: '//'

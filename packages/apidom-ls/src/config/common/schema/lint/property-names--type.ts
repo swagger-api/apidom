@@ -3,7 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 
 const propertyNamesTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_PROPERTYNAMES,
@@ -15,7 +15,7 @@ const propertyNamesTypeLint: LinterMeta = {
   marker: 'value',
   target: 'propertyNames',
   data: {},
-  targetSpecs: [...OpenAPI31, ...AsyncAPI2],
+  targetSpecs: [...OpenAPI31, ...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default propertyNamesTypeLint;

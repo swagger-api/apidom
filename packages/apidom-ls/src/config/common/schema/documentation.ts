@@ -205,8 +205,7 @@ const documentation = [
   {
     target: 'contentMediaType',
     docs: 'The value of this property **must** be a media type, as defined by <xref target="RFC2046">RFC 2046</xref>. This property defines the media type of instances which this schema defines.\n\n  ----  \n\nThe value of this property **MUST** be a string.\n\n  ----  \n\nThe value of this property **SHOULD** be ignored if the instance described is not a string.\n\n  ----  \n\nIf the "contentEncoding" property is not present, but the instance value is a string, then the value of this property **SHOULD** specify a text document type, and the character set **SHOULD** be the character set into which the JSON string value was decoded (for which the default is Unicode).',
-    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
-    ...AsyncAPI3,
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3, ...AsyncAPI3],
   },
   {
     target: 'example',

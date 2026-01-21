@@ -1,0 +1,20 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  securitySchemes:
+    securityScheme1:
+      bearerFormat: 123
+      description: 123
+      flows: 123
+      openIdConnectUrl: '//'
+      scheme: 123
+      type: 123
+    securityScheme2:
+      type: apiKey
+      in: 123
+    securityScheme3:
+      type: httpApiKey
+      name: 123
+      in: 123

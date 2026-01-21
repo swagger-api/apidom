@@ -1,0 +1,9 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  parameters:
+    parameter1:
+      description: 123
+      location: 123

@@ -1,0 +1,18 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  messages:
+    message1:
+      bindings: 123
+      contentType: 123
+      correlationId: 123
+      description: 123
+      examples: 123
+      externalDocs: 123
+      name: 123
+      summary: 123
+      tags: 123
+      title: 123
+      traits: 123

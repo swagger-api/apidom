@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const serversKeysDefinedLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_CHANNEL_ITEM_FIELD_SERVERS_KEYS_DEFINED,
@@ -14,6 +15,7 @@ const serversKeysDefinedLint: LinterMeta = {
   markerTarget: 'servers',
   marker: 'key',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default serversKeysDefinedLint;

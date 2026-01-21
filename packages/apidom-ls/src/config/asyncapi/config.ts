@@ -10,6 +10,7 @@ import defaultContentTypeMeta from './default-content-type/meta.ts';
 import securitySchemeMeta from './security-scheme/meta.ts';
 import infoMeta from './info/meta.ts';
 import contactMeta from './contact/meta.ts';
+import channelMeta from './channel/meta.ts';
 import channelItemMeta from './channel-item/meta.ts';
 import channelBindingsMeta from './channel-bindings/meta.ts';
 import serversMeta from './servers/meta.ts';
@@ -165,6 +166,7 @@ export default {
   operation: operationMeta,
   operationBindings: operationBindingsMeta,
   operationTrait: operationTraitMeta,
+  channel: channelMeta,
   channelItem: channelItemMeta,
   channelBindings: channelBindingsMeta,
   channels: channelsMeta,

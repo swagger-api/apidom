@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: '**REQUIRED.** The title of the application.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'version',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED.** Provides the version of the application API (not to be confused with the specification version).',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'description',
@@ -42,6 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A short description of the application. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'termsOfService',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A URL to the Terms of Service for the API. This MUST be in the form of an absolute URL.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'contact',
@@ -68,6 +73,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'contact',
+    insertText: 'contact',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Contact Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#contactObject)\n\\\n\\\nContact information for the exposed API.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'license',
@@ -81,6 +101,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[License Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'license',
+    insertText: 'license',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[License Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#licenseObject)\n\\\n\\\nLicense information for the exposed API.',
+    },
+    targetSpecs: AsyncAPI3,
   },
 ];
 

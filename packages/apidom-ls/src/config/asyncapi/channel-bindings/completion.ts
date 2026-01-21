@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to an Channel Bindings',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'http',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'ws',
@@ -42,6 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets#channel)\n\\\n\\\nProtocol-specific information for a WebSockets channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'kafka',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka#channel)\n\\\n\\\nProtocol-specific information for a Kafka channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'anypointmq',
@@ -74,6 +79,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -88,6 +94,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp#channel)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'amqp1',
@@ -101,6 +108,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt',
@@ -114,6 +122,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt5',
@@ -127,6 +136,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'nats',
@@ -140,6 +150,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'jms',
@@ -153,6 +164,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'sns',
@@ -166,6 +178,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'solace',
@@ -184,6 +197,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -198,6 +212,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'stomp',
@@ -211,6 +226,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'redis',
@@ -224,6 +240,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mercure',
@@ -244,6 +261,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -265,6 +283,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -282,6 +301,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -296,7 +316,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Pulsar Channel Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#channel-binding-object)\n\\\n\\\n\tProtocol-specific information for a Pulsar channel.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }],
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
   },
 ];
 

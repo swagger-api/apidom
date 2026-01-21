@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'An enumeration of string values to be used if the substitution options are from a limited set.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'default',
@@ -30,6 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The default value to use for substitution, and to send, if an alternate value is not supplied.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'description',
@@ -43,6 +46,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'An optional description for the server variable. [CommonMark syntax](https://spec.commonmark.org/) **MAY** be used for rich text representation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'examples',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'An array of examples of the server variable.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: '$ref',
@@ -67,6 +72,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a server variable',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
 ];
 

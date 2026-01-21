@@ -1,9 +1,12 @@
 import { Mixin } from 'ts-mixer';
+import { ObjectElement } from '@swagger-api/apidom-core';
 
 import ServerVariablesElement from '../../../../elements/nces/ServerVariables.ts';
 import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
 import { isReferenceLikeElement } from '../../../predicates.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
+import ReferenceElement from '../../../../elements/Reference.ts';
 
 /**
  * @public
@@ -28,6 +31,17 @@ class VariablesVisitor extends Mixin(MapVisitor, FallbackVisitor) {
         ? ['document', 'objects', 'Reference']
         : ['document', 'objects', 'ServerVariable'];
     };
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // @ts-expect-error
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      referenceElement.setMetaProperty('referenced-element', 'serverVariable');
+    });
+
+    return result;
   }
 }
 

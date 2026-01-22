@@ -146,18 +146,43 @@ The skill references these packages as examples:
 - **Medium**: `apidom-ns-openapi-3-1` (34 elements, JSON Schema integration)
 - **Complex**: `apidom-ns-asyncapi-3` (131 elements, protocol bindings)
 
-## Next Steps After Using the Skill
+## Available Skills
 
-After creating a namespace package, you'll typically need to:
+### 1. `/add-namespace` - Add Namespace Package
 
-1. **Create parser adapters**:
-   - `apidom-parser-adapter-{spec}-json-{version}`
-   - `apidom-parser-adapter-{spec}-yaml-{version}`
+Creates a complete namespace package for a new API specification version.
 
-2. **Add to apidom-reference**:
-   - Parse plugins
-   - Dereference strategies
+**When to use**: Adding support for a new API specification or major version.
+
+**What it creates**:
+- Complete namespace package with all elements, visitors, and predicates
+- Test structure with examples
+- Build configurations
+
+### 2. `/add-parser-adapter` - Add Parser Adapter Packages
+
+Creates parser adapter packages for existing namespaces and integrates them with apidom-reference.
+
+**When to use**: After creating a namespace or when parser adapters are missing.
+
+**What it creates**:
+- JSON and YAML parser adapter packages
+- Parser classes in apidom-reference
+- Integration with saturated configuration
+- Complete test suites
+
+## Next Steps After Using the Skills
+
+### After creating a namespace package (`/add-namespace`):
+
+1. **Create parser adapters** using `/add-parser-adapter`:
+   - Generates both JSON and YAML adapters
+   - Integrates with apidom-reference automatically
+
+2. **Add advanced features** (manual):
+   - Dereference strategies in apidom-reference
    - Resolution strategies
+   - Bundle strategies (if applicable)
 
 3. **Add to apidom-ls** (Language Server):
    - Validation rules
@@ -168,6 +193,18 @@ After creating a namespace package, you'll typically need to:
 4. **Update swagger-editor** (if applicable):
    - Import namespace
    - Add preview plugin
+
+### After creating parser adapters (`/add-parser-adapter`):
+
+1. **Test integration**:
+   - Use parsers with apidom-reference
+   - Test detection and parsing
+   - Verify media type handling
+
+2. **Add advanced parsing features** (optional):
+   - Custom resolve strategies
+   - Dereference strategies
+   - Bundle strategies
 
 ## Troubleshooting
 

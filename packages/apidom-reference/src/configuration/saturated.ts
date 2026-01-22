@@ -13,6 +13,8 @@ import OpenAPIJSON3_0Parser from '../parse/parsers/openapi-json-3-0/index.ts';
 import OpenAPIYAML3_0Parser from '../parse/parsers/openapi-yaml-3-0/index.ts';
 import OpenAPIJSON3_1Parser from '../parse/parsers/openapi-json-3-1/index.ts';
 import OpenAPIYAML3_1Parser from '../parse/parsers/openapi-yaml-3-1/index.ts';
+import OpenAPIJSON3_2Parser from '../parse/parsers/openapi-json-3-2/index.ts';
+import OpenAPIYAML3_2Parser from '../parse/parsers/openapi-yaml-3-2/index.ts';
 import AsyncAPIJSON2Parser from '../parse/parsers/asyncapi-json-2/index.ts';
 import AsyncAPIJSON3Parser from '../parse/parsers/asyncapi-json-3/index.ts';
 import AsyncAPIYAML2Parser from '../parse/parsers/asyncapi-yaml-2/index.ts';
@@ -39,6 +41,8 @@ options.parse.parsers = [
   new OpenAPIYAML3_0Parser({ allowEmpty: true, sourceMap: false }),
   new OpenAPIJSON3_1Parser({ allowEmpty: true, sourceMap: false }),
   new OpenAPIYAML3_1Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIJSON3_2Parser({ allowEmpty: true, sourceMap: false }),
+  new OpenAPIYAML3_2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIYAML2Parser({ allowEmpty: true, sourceMap: false }),
   new AsyncAPIJSON3Parser({ allowEmpty: true, sourceMap: false }),

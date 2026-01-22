@@ -165,6 +165,58 @@ Each package generates five types of build artifacts (all are polymorphic - work
 3. **`dist/` directory**: UMD bundles (minified and un-minified) - for browsers
 4. **`types/` directory**: TypeScript declarations generated from source
 
+### Standard Package Files
+
+**IMPORTANT**: When creating a new package, always include these standard files:
+
+#### .gitignore
+Every package must have a `.gitignore` file to exclude build artifacts and dependencies from version control. Copy from an existing similar package (e.g., `apidom-parser-adapter-openapi-json-3-1/.gitignore`).
+
+Typical contents:
+```gitignore
+# Build artifacts
+src/**/*.mjs
+src/**/*.cjs
+dist/
+types/
+
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+```
+
+#### README.md
+Every package must have a README.md with:
+- Package name and description
+- Installation instructions
+- Usage examples
+- API documentation (or link to generated docs)
+- License information
+
+Use existing packages as templates for structure and content.
+
+#### CHANGELOG.md
+Every package must have a CHANGELOG.md following the format:
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [1.0.0] - YYYY-MM-DD
+
+### Added
+- Initial release
+- [List key features]
+```
+
+Maintain the changelog as the package evolves, following semantic versioning principles.
+
 ### Key Patterns
 
 #### Element Structure

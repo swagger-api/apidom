@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-security-requirements should have idempotent characteristics 1`] = `
+Object {
+  openapi: 3.1.0,
+  paths: Object {
+    /: Object {
+      get: Object {},
+    },
+  },
+  security: Array [
+    Object {
+      petstore_auth: Array [
+        write:pets,
+        read:pets,
+      ],
+    },
+  ],
+}
+`;

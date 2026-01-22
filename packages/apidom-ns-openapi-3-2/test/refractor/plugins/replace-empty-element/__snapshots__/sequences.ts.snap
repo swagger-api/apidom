@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given empty value instead of SecurityRequirementElement should replace empty value with semantic element 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement))))
+`;
+
+exports[`given empty value instead of ServerElement should replace empty value with semantic element 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ServerElement))))
+`;
+
+exports[`given empty values instead of SchemaElement for allOf keyword should replace empty values with semantic elements 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SchemaElement))))))))))
+`;
+
+exports[`given multiple empty values instead of TagElement should replace empty values with semantic elements 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (TagElement)
+      (TagElement))))
+`;

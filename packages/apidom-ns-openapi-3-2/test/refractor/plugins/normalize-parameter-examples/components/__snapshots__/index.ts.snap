@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object is defined in Components.parameters should skip the Parameter Object from normalization 1`] = `
+Object {
+  components: Object {
+    parameters: Object {
+      parameter1: Object {
+        example: 2,
+        in: query,
+        name: param1,
+        schema: Object {
+          example: 1,
+          type: number,
+        },
+      },
+    },
+  },
+  openapi: 3.1.0,
+}
+`;
+
+exports[`refractor plugins normalize-parameter-examples given Parameter Object is defined in Components.pathItems should skip the Parameter Object from normalization 1`] = `
+Object {
+  components: Object {
+    pathItems: Object {
+      pathItem1: Object {
+        parameters: Array [
+          Object {
+            examples: Object {
+              example1: Object {
+                value: 2,
+              },
+            },
+            in: query,
+            name: param1,
+            schema: Object {
+              example: 1,
+              type: number,
+            },
+          },
+        ],
+      },
+    },
+  },
+  openapi: 3.1.0,
+}
+`;

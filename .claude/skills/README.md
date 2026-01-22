@@ -70,6 +70,41 @@ Claude will:
 - Namespace package must be built
 - Know the specification version field name (e.g., "openapi", "asyncapi")
 
+### `/update-ls-config` - Update Language Service Config
+
+Updates apidom-ls configuration for a namespace package by generating completion, documentation, and lint configurations.
+
+**Usage:**
+```
+/update-ls-config
+```
+
+Claude will:
+1. Analyze the selected namespace package structure
+2. Extract element definitions and properties
+3. Generate autocomplete configuration
+4. Generate hover documentation configuration
+5. Generate validation/lint rules
+6. Integrate with apidom-ls configuration
+
+**When to use:**
+- After creating a new namespace package
+- After updating an existing namespace with new elements
+- When IDE support (autocomplete, hover, validation) is needed for a specification version
+
+**What it creates:**
+- `packages/apidom-ls/src/config/{spec}/{version}/` directory structure
+- `completion.ts` - Autocomplete suggestions for all properties
+- `documentation.ts` - Hover documentation for complex properties
+- `lint/` directory - Validation rules for type checking and required fields
+- `meta.ts` - Aggregates all configuration
+- Updates to target-specs.ts and main config files
+
+**Prerequisites:**
+- Namespace package must exist and be built
+- Parser adapter packages should exist (recommended)
+- Access to specification documentation for generating docs
+
 ## Using Skills
 
 Skills are invoked using slash commands in Claude Code:

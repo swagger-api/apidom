@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -43,7 +43,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A short summary of the API.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'description',

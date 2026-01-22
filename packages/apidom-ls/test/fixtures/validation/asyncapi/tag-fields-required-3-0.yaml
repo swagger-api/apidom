@@ -1,0 +1,13 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+tags:
+  # Valid tag with required 'name' field
+  - name: user
+    description: User operations
+  # Invalid tag - missing required 'name' field - should trigger error
+  - description: Missing name tag

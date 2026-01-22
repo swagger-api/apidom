@@ -5,6 +5,7 @@ export const AsyncAPI230 = [{ namespace: 'asyncapi', version: '2.3.0' }];
 export const AsyncAPI240 = [{ namespace: 'asyncapi', version: '2.4.0' }];
 export const AsyncAPI250 = [{ namespace: 'asyncapi', version: '2.5.0' }];
 export const AsyncAPI260 = [{ namespace: 'asyncapi', version: '2.6.0' }];
+export const AsyncAPI300 = [{ namespace: 'asyncapi', version: '3.0.0' }];
 
 export const AsyncAPI2 = [
   ...AsyncAPI200,
@@ -15,3 +16,4 @@ export const AsyncAPI2 = [
   ...AsyncAPI250,
   ...AsyncAPI260,
 ];
+export const AsyncAPI3 = [...AsyncAPI300];

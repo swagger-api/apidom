@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  server1:
+    protocol: 123
+    bindings: 123
+    description: 123
+    protocolVersion: 123
+    tags: 123
+    variables: 123

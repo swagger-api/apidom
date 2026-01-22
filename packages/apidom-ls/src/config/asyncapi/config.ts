@@ -1,10 +1,8 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../codes.ts';
-/**
- * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
- */
 import asyncapi2Meta from './asyncapi2/meta.ts';
+import asyncapi3Meta from './asyncapi3/meta.ts';
 import asyncapiVersionMeta from './async-api-version/meta.ts';
 import meta from '../common/schema/meta.ts';
 import identifierMeta from './identifier/meta.ts';
@@ -12,6 +10,7 @@ import defaultContentTypeMeta from './default-content-type/meta.ts';
 import securitySchemeMeta from './security-scheme/meta.ts';
 import infoMeta from './info/meta.ts';
 import contactMeta from './contact/meta.ts';
+import channelMeta from './channel/meta.ts';
 import channelItemMeta from './channel-item/meta.ts';
 import channelBindingsMeta from './channel-bindings/meta.ts';
 import serversMeta from './servers/meta.ts';
@@ -37,6 +36,11 @@ import tagMeta from './tag/meta.ts';
 import correlationIDMeta from './correlation-ID/meta.ts';
 import oAuthFlowsMeta from './oauth-flows/meta.ts';
 import oAuthFlowMeta from './oauth-flow/meta.ts';
+import messagesMeta from './messages/meta.ts';
+import operationsMeta from './operations/meta.ts';
+import operationReplyMeta from './operation-reply/meta.ts';
+import operationReplyAddressMeta from './operation-reply-address/meta.ts';
+import multiFormatSchemaMeta from './multi-format-schema/meta.ts';
 /**
  * Binding metas.
  */
@@ -154,9 +158,6 @@ export default {
       },
     ],
   },
-  /**
-   * AsyncApi >= 2.0.0 <=2.6.0 specification metas.
-   */
   identifier: identifierMeta,
   defaultContentType: defaultContentTypeMeta,
   info: infoMeta,
@@ -165,10 +166,12 @@ export default {
   operation: operationMeta,
   operationBindings: operationBindingsMeta,
   operationTrait: operationTraitMeta,
+  channel: channelMeta,
   channelItem: channelItemMeta,
   channelBindings: channelBindingsMeta,
   channels: channelsMeta,
   asyncApi2: asyncapi2Meta,
+  asyncApi3: asyncapi3Meta,
   asyncApiVersion: asyncapiVersionMeta,
   parameters: parametersMeta,
   parameter: parameterMeta,
@@ -190,6 +193,11 @@ export default {
   correlationID: correlationIDMeta,
   oAuthFlows: oAuthFlowsMeta,
   oAuthFlow: oAuthFlowMeta,
+  messages: messagesMeta,
+  operations: operationsMeta,
+  operationReply: operationReplyMeta,
+  operationReplyAddress: operationReplyAddressMeta,
+  multiFormatSchema: multiFormatSchemaMeta,
   /**
    * Binding metas.
    */

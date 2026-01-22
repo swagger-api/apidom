@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const asyncapiRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_ASYNC_API_FIELD_ASYNCAPI_REQUIRED,
@@ -21,6 +22,7 @@ const asyncapiRequiredLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: AsyncAPI2,
 };
 
 export default asyncapiRequiredLint;

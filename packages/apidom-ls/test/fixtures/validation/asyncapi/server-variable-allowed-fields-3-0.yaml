@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  server1:
+    host: example.com:{port}
+    protocol: http
+    variables:
+      port:
+        test: 123

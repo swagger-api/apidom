@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a message trait',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'messageId',
@@ -47,6 +49,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject) \\\n\\\nSchema definition of the application headers. Schema MUST be of type "object". It **MUST NOT** define the protocol headers.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'headers',
+    insertText: 'headers',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nSchema definition of the application headers. Schema MUST be a map of key-value pairs. It **MUST NOT** define the protocol headers. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'correlationId',
@@ -60,6 +77,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'correlationId',
+    insertText: 'correlationId',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'schemaFormat',
@@ -73,6 +105,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A string containing the name of the schema format/language used to define the message payload. If omitted, implementations should parse the payload as a [Schema object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject).',
     },
+    targetSpecs: AsyncAPI2,
   },
   {
     label: 'contentType',
@@ -86,6 +119,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v2.6.0#defaultContentTypeString) field.",
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'contentType',
+    insertText: 'contentType',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v3.0.0#defaultContentTypeString) field.",
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'name',
@@ -98,6 +146,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A machine-friendly name for the message.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'title',
@@ -110,6 +159,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A human-friendly title for the message.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'summary',
@@ -122,6 +172,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A short summary of what the message is about.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'description',
@@ -135,6 +186,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A verbose explanation of the message. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'tags',
@@ -148,6 +200,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#tagsObject)\n\\\n\\\nA list of tags for API documentation control. Tags can be used for logical grouping of messages.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'tags',
+    insertText: 'tags',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of messages.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'externalDocs',
@@ -161,6 +228,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this message.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'bindings',
@@ -174,6 +256,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'bindings',
+    insertText: 'bindings',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'examples',
@@ -187,6 +284,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'examples',
+    insertText: 'examples',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'schemaFormat',
@@ -406,6 +518,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -415,6 +528,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -424,6 +538,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -433,6 +548,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -442,6 +558,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -451,6 +568,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -460,6 +578,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -469,6 +588,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     target: 'schemaFormat',
@@ -478,6 +598,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     label: 'application/json',
@@ -488,6 +609,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0001',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/xml',
@@ -498,6 +620,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0002',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/yaml',
@@ -508,6 +631,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0003',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/x-www-form-urlencoded',
@@ -518,6 +642,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0004',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/octet-stream',
@@ -528,6 +653,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0005',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/pdf',
@@ -538,6 +664,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0006',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/zip',
@@ -548,6 +675,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0007',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'application/gzip',
@@ -558,6 +686,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0008',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'multipart/form-data',
@@ -568,6 +697,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0009',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/plain',
@@ -578,6 +708,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0010',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/plain;charset=utf-8',
@@ -588,6 +719,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0011',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/html',
@@ -598,6 +730,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0012',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/xml',
@@ -608,6 +741,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0013',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/csv',
@@ -618,6 +752,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0014',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/javascript',
@@ -628,6 +763,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0015',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'text/css',
@@ -638,6 +774,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0016',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'image/png',
@@ -648,6 +785,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0017',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'image/jpeg',
@@ -658,6 +796,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0018',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'image/gif',
@@ -668,6 +807,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0019',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'image/bmp',
@@ -678,6 +818,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0020',
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
 ];
 

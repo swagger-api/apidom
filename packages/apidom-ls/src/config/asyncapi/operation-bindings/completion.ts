@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to an Operation Bindings',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'http',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[HTTP Operation Binding](https://github.com/asyncapi/bindings/blob/master/http#operation)\n\\\n\\\nProtocol-specific information for an HTTP operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'ws',
@@ -42,6 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[WebSockets Operation Binding](https://github.com/asyncapi/bindings/blob/master/websockets#operation)\n\\\n\\\nProtocol-specific information for a WebSockets operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'kafka',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Kafka Operation Binding](https://github.com/asyncapi/bindings/blob/master/kafka#operation)\n\\\n\\\nProtocol-specific information for a Kafka operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'anypointmq',
@@ -74,6 +79,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -88,6 +94,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp#operation)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'amqp1',
@@ -101,6 +108,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP 1.0 Operation Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#operation)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt',
@@ -114,6 +122,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT Operation Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#operation)\n\\\n\\\nProtocol-specific information for an MQTT operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt5',
@@ -127,6 +136,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT 5 Operation Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#operation)\n\\\n\\\nProtocol-specific information for an MQTT 5 operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'nats',
@@ -140,6 +150,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[NATS Operation Binding](https://github.com/asyncapi/bindings/blob/master/nats#operation)\n\\\n\\\nProtocol-specific information for a NATS operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'jms',
@@ -153,6 +164,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[JMS Operation Binding](https://github.com/asyncapi/bindings/blob/master/jms#operation)\n\\\n\\\nProtocol-specific information for a JMS operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'sns',
@@ -166,6 +178,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SNS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sns#operation)\n\\\n\\\nProtocol-specific information for an SNS operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'solace',
@@ -184,6 +197,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -198,6 +212,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SQS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sqs#operation)\n\\\n\\\nProtocol-specific information for an SQS operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'stomp',
@@ -211,6 +226,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[STOMP Operation Binding](https://github.com/asyncapi/bindings/blob/master/stomp#operation)\n\\\n\\\nProtocol-specific information for a STOMP operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'redis',
@@ -224,6 +240,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Redis Operation Binding](https://github.com/asyncapi/bindings/blob/master/redis#operation)\n\\\n\\\nProtocol-specific information for a Redis operation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mercure',
@@ -244,6 +261,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -261,6 +279,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -278,6 +297,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -292,7 +312,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Pulsar Operation Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#operation-binding-fields)\n\\\n\\\nProtocol-specific information for a Pulsar operation.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }],
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
   },
 ];
 

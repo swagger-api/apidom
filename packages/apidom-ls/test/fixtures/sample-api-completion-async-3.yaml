@@ -1,0 +1,10 @@
+asyncapi: "3.0.0"
+info:
+  
+  title: AsyncAPI Sample API
+  
+  version: 0.1.9
+components:
+  schemas:
+    userSignedUpPayload:
+      type: object

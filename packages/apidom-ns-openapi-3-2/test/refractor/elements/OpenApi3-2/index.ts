@@ -8,9 +8,9 @@ describe('refractor', function () {
     context('OpenApi3_2Element', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const openApiElement = OpenApi3_2Element.refract({
-          openapi: '3.1.0',
+          openapi: '3.2.0',
           info: {},
-          jsonSchemaDialect: 'https://spec.openapis.org/oas/3.1/dialect/base',
+          jsonSchemaDialect: 'https://spec.openapis.org/oas/3.2/dialect/base',
           servers: [{}],
           paths: {},
           webhooks: {

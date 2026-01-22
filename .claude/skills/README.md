@@ -37,6 +37,39 @@ Claude will guide you through:
 - Identify if you can base on an existing namespace
 - List all element types and their properties
 
+### `/add-parser-adapter` - Add Parser Adapter Packages
+
+Creates parser adapter packages for existing namespaces and integrates them with apidom-reference.
+
+**Usage:**
+```
+/add-parser-adapter
+```
+
+Claude will:
+1. Discover namespaces without parser adapters
+2. Present options for which namespace to add parsers for
+3. Generate both JSON and YAML parser adapter packages
+4. Create integration code in apidom-reference
+5. Build and test the new parsers
+
+**When to use:**
+- After creating a new namespace with `/add-namespace`
+- When an existing namespace lacks parser adapters
+- To enable parsing support for a namespace in apidom-reference
+
+**What it creates:**
+- `packages/apidom-parser-adapter-{spec}-json-{version}/` package
+- `packages/apidom-parser-adapter-{spec}-yaml-{version}/` package
+- Parser classes in `packages/apidom-reference/src/parse/parsers/`
+- Integration with apidom-reference saturated configuration
+- Complete tests for all parsers
+
+**Prerequisites:**
+- Target namespace package must exist
+- Namespace package must be built
+- Know the specification version field name (e.g., "openapi", "asyncapi")
+
 ## Using Skills
 
 Skills are invoked using slash commands in Claude Code:

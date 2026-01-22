@@ -1,0 +1,52 @@
+{
+  "openapi": "3.1.0",
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        },
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "Test1": "#/components/schemas/Cat",
+            "Test2": "#/components/schemas/Dog"
+          }
+        }
+      },
+      "Cat": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Pet"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "meows": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      },
+      "Dog": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Pet"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "barks": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

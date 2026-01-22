@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-security-requirements given Operation Object is defined in Components.callbacks should skip the Operation from normalization 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (CallbackElement
+              (MemberElement
+                (StringElement)
+                (PathItemElement
+                  (MemberElement
+                    (StringElement)
+                    (OperationElement)))))))))))
+`;
+
+exports[`refractor plugins normalize-security-requirements given Operation Object is defined inside Components.pathItems should skip the Operation from normalization 1`] = `
+(OpenApi3_1Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ArrayElement
+            (StringElement)
+            (StringElement))))))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (PathItemElement
+              (MemberElement
+                (StringElement)
+                (OperationElement)))))))))
+`;

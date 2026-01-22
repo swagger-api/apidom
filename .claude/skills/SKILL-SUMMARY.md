@@ -171,6 +171,18 @@ Creates parser adapter packages for existing namespaces and integrates them with
 - Integration with saturated configuration
 - Complete test suites
 
+### 3. `/update-ls-config` - Update Language Service Config
+
+Updates apidom-ls configuration for a namespace package by analyzing structure and generating IDE support files.
+
+**When to use**: After creating/updating a namespace package to add IDE support.
+
+**What it creates**:
+- Autocomplete configuration (completion.ts)
+- Hover documentation (documentation.ts)
+- Validation rules (lint/ directory)
+- Integration with apidom-ls configuration
+
 ## Next Steps After Using the Skills
 
 ### After creating a namespace package (`/add-namespace`):
@@ -179,16 +191,16 @@ Creates parser adapter packages for existing namespaces and integrates them with
    - Generates both JSON and YAML adapters
    - Integrates with apidom-reference automatically
 
-2. **Add advanced features** (manual):
+2. **Add IDE support** using `/update-ls-config`:
+   - Generates autocomplete configuration
+   - Generates hover documentation
+   - Generates validation rules
+   - Integrates with apidom-ls
+
+3. **Add advanced features** (manual):
    - Dereference strategies in apidom-reference
    - Resolution strategies
    - Bundle strategies (if applicable)
-
-3. **Add to apidom-ls** (Language Server):
-   - Validation rules
-   - Documentation providers
-   - Completion providers
-   - Semantic tokens
 
 4. **Update swagger-editor** (if applicable):
    - Import namespace

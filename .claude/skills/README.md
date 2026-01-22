@@ -1,0 +1,116 @@
+# Claude Code Skills for ApiDOM
+
+This directory contains Claude Code skills for common development tasks in the ApiDOM monorepo.
+
+## Available Skills
+
+### `/add-namespace` - Add Namespace Package
+
+Creates a complete namespace package for a new API specification version.
+
+**Usage:**
+```
+/add-namespace
+```
+
+Claude will guide you through:
+1. Gathering specification information
+2. Creating the package structure
+3. Generating all required files
+4. Setting up tests
+5. Building and validating the package
+
+**When to use:**
+- Adding support for a new API specification (e.g., RAML, API Blueprint)
+- Adding a new major version of an existing spec (e.g., OpenAPI 4.0)
+
+**What it creates:**
+- Complete `packages/apidom-ns-{spec}-{version}/` directory
+- All element classes with proper types
+- Visitor implementations
+- Predicates for type checking
+- Test structure with examples
+- Configuration files (package.json, tsconfig, webpack)
+
+**Prerequisites:**
+- Thoroughly understand the specification document
+- Identify if you can base on an existing namespace
+- List all element types and their properties
+
+## Using Skills
+
+Skills are invoked using slash commands in Claude Code:
+
+```bash
+/add-namespace
+```
+
+Claude will then interactively guide you through the process, asking for required information and generating all necessary files.
+
+## Creating New Skills
+
+To create a new skill:
+
+1. Create a markdown file in `.claude/skills/` directory
+2. Use the following structure:
+
+```markdown
+# Skill Name
+
+**Skill Name:** `skill-command`
+**Description:** Brief description
+
+## Overview
+Detailed description of what the skill does
+
+## When to Use
+List scenarios when this skill should be used
+
+## Prerequisites
+List any prerequisites
+
+## Skill Instructions
+Step-by-step instructions for Claude to follow
+
+### Phase 1: Title
+Instructions...
+
+### Phase 2: Title
+Instructions...
+
+## Important Patterns
+Key patterns and conventions to follow
+
+## Troubleshooting
+Common issues and solutions
+
+## References
+Related documentation
+```
+
+3. Test the skill by invoking it: `/skill-command`
+
+## Skill Development Guidelines
+
+When creating skills for ApiDOM:
+
+1. **Follow established patterns**: Study existing packages to understand conventions
+2. **Be comprehensive**: Include all necessary files and configurations
+3. **Provide templates**: Include code templates with placeholders
+4. **Add validation**: Include steps to verify the generated code works
+5. **Document patterns**: Explain naming conventions and architectural decisions
+6. **Reference examples**: Point to existing packages as references
+
+## Related Documentation
+
+- **CLAUDE.md**: Project-specific instructions for Claude Code
+- **Namespace Packages**: `packages/apidom-ns-*/` directories
+
+## Contributing
+
+To improve existing skills or add new ones:
+
+1. Test the skill thoroughly on real use cases
+2. Update documentation to reflect any changes
+3. Add troubleshooting sections for common issues
+4. Include references to related code examples

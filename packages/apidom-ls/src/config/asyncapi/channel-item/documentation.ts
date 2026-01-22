@@ -8,7 +8,7 @@
  * contain significant information.
  */
 
-import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2 } from '../target-specs.ts';
 
 const documentation = [
   {
@@ -44,60 +44,6 @@ const documentation = [
   {
     docs: '#### [Channel Item Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#channelItemObject)\n\nDescribes the operations available on a single channel.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n$ref | `string` | Allows for an external definition of this channel item. The referenced structure MUST be in the format of a [Channel Item Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#channelItemObject). If there are conflicts between the referenced definition and this Channel Item\'s definition, the behavior is *undefined*. **Deprecated:** Usage of the `$ref` property has been deprecated.\ndescription | `string` | An optional description of this channel item. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.\nservers | [`string`] | The servers on which this channel is available, specified as an optional unordered list of names (string keys) of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serverObject) defined in the [Servers Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serversObject) (a map). If `servers` is absent or empty then this channel must be available on all servers defined in the [Servers Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serversObject).\nsubscribe | [Operation Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#operationObject) | A definition of the SUBSCRIBE operation, which defines the messages produced by the application and sent to the channel.\npublish | [Operation Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#operationObject) | A definition of the PUBLISH operation, which defines the messages consumed by the application from the channel.\nparameters | [Parameters Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#parametersObject) | A map of the parameters included in the channel name. It SHOULD be present only when using channels with expressions (as defined by [RFC 6570 section 2.2](https://tools.ietf.org/html/rfc6570#section-2.2)).\nbindings | [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject) | A map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v2.6.0#specificationExtensions).\n\n##### Channel Item Object Example\n\n\n\\\nJSON\n```json\n{\n  "description": "This channel is used to exchange messages about users signing up",\n  "subscribe": {\n    "summary": "A user signed up.",\n    "message": {\n      "description": "A longer description of the message",\n      "payload": {\n        "type": "object",\n        "properties": {\n          "user": {\n            "$ref": "#/components/schemas/user"\n          },\n          "signup": {\n            "$ref": "#/components/schemas/signup"\n          }\n        }\n      }\n    }\n  },\n  "bindings": {\n    "amqp": {\n      "is": "queue",\n      "queue": {\n        "exclusive": true\n      }\n    }\n  }\n}\n```\n\n\n\\\nYAML\n```yaml\ndescription: This channel is used to exchange messages about users signing up\nsubscribe:\n  summary: A user signed up.\n  message:\n    description: A longer description of the message\n    payload:\n      type: object\n      properties:\n        user:\n          $ref: "#/components/schemas/user"\n        signup:\nbindings:\n  amqp:\n    is: queue\n    queue:\n      exclusive: true\n```\n\nUsing `oneOf` to specify multiple messages per operation:\n\n```json\n{\n  "subscribe": {\n    "message": {\n      "oneOf": [\n        { "$ref": "#/components/messages/signup" },\n        { "$ref": "#/components/messages/login" }\n      ]\n    }\n  }\n}\n```\n\n```yaml\nsubscribe:\n  message:\n    oneOf:\n      - $ref: \'#/components/messages/signup\'\n      - $ref: \'#/components/messages/login\'\n```\n\n\nUsing explicit by-name references to the servers on which the channel is available:\n\n```json\n{\n  "description": "This application publishes WebUICommand messages to an AMQP queue on RabbitMQ brokers in the Staging and Production environments.",\n  "servers": [\n    "rabbitmqBrokerInProd",\n    "rabbitmqBrokerInStaging",\n  ],\n  "subscribe": {\n    "message": {\n      "$ref": "#/components/messages/WebUICommand"\n    }\n  },\n  "bindings": {\n    "amqp": {\n      "is": "queue"\n    }\n  }\n}\n```\n\n```yaml\ndescription: This application publishes WebUICommand messages to an AMQP queue on RabbitMQ brokers in the Staging and Production environments.\nservers:\n  - rabbitmqBrokerInProd\n  - rabbitmqBrokerInStaging\nsubscribe:\n  message:\n    $ref: "#/components/messages/WebUICommand"\nbindings:\n  amqp:\n    is: queue\n```',
     targetSpecs: AsyncAPI2,
-  },
-  {
-    target: 'address',
-    docs: 'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions).',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'messages',
-    docs: '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'title',
-    docs: 'A human-friendly title for the channel.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'summary',
-    docs: 'A short summary of the channel.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'description',
-    docs: 'An optional description of this channel. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'servers',
-    docs: '[[Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn array of $ref pointers to the definition of the servers in which this channel is available. If the channel is located in the [root Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject), it MUST point to a subset of server definitions located in the [root Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serversObject), and MUST NOT point to a subset of server definitions located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject) or anywhere else. If the channel is located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject), it MAY point to a [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject) in any location. If `servers` is absent or empty, this channel MUST be available on all the servers defined in the [Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serversObject).',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'parameters',
-    docs: '[Parameters Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#parametersObject)\n\\\n\\\nA map of the parameters included in the channel address. It MUST be present only when the address contains [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions).',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'tags',
-    docs: '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping of channels.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'externalDocs',
-    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this channel.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'bindings',
-    docs: '[Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    docs: '#### [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject)\n\nDescribes a shared communication channel.',
-    targetSpecs: AsyncAPI3,
   },
 ];
 export default documentation;

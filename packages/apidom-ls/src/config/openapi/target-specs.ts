@@ -14,4 +14,5 @@ export const OpenAPI30 = [
   ...OpenAPI304,
 ];
 export const OpenAPI31 = [{ namespace: 'openapi', version: '3.1.0' }];
-export const OpenAPI3 = [...OpenAPI30, ...OpenAPI31];
+export const OpenAPI32 = [{ namespace: 'openapi', version: '3.2.0' }];
+export const OpenAPI3 = [...OpenAPI30, ...OpenAPI31, ...OpenAPI32];

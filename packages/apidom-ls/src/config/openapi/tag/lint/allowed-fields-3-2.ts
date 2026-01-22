@@ -2,17 +2,18 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31 } from '../../target-specs.ts';
+import { OpenAPI32 } from '../../target-specs.ts';
 
-const allowedFieldsLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const allowedFields3_2Lint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['name', 'description', 'externalDocs'], 'x-'],
+  linterParams: [['name', 'description', 'externalDocs', 'summary', 'parent', 'kind'], 'x-'],
   marker: 'key',
-  targetSpecs: [...OpenAPI2, ...OpenAPI30, ...OpenAPI31],
+  targetSpecs: OpenAPI32,
 };
 
-export default allowedFieldsLint;
+export default allowedFields3_2Lint;

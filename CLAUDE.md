@@ -217,6 +217,232 @@ All notable changes to this project will be documented in this file.
 
 Maintain the changelog as the package evolves, following semantic versioning principles.
 
+#### .mocharc.json
+Every package with tests must have a `.mocharc.json` file to configure the test runner. This file tells mocha where to find test files and how to execute them.
+
+**CRITICAL**: Without this file, the `npm test` command will fail silently or not find any tests.
+
+Copy from an existing package and use this standard configuration:
+```json
+{
+  "extensions": ["ts"],
+  "loader": "ts-node/esm",
+  "recursive": true,
+  "spec": "test/**/*.ts",
+  "file": ["test/mocha-bootstrap.ts"],
+  "ignore": ["test/perf/**/*.ts"]
+}
+```
+
+This configuration:
+- Uses TypeScript files directly in tests
+- Loads test files recursively from `test/` directory
+- Runs the mocha bootstrap file before tests
+- Ignores performance test files
+
+### Creating a New Package
+
+When creating a new package in the monorepo, follow this checklist:
+
+#### 1. Choose Package Type and Name
+
+Follow the naming conventions:
+- **Namespace packages**: `apidom-ns-{spec}-{version}` (e.g., `apidom-ns-openapi-3-2`)
+- **Parser adapters**: `apidom-parser-adapter-{spec}-{format}-{version}` (e.g., `apidom-parser-adapter-openapi-json-3-2`)
+- **Core packages**: `apidom-{function}` (e.g., `apidom-core`, `apidom-ast`)
+
+#### 2. Copy Template from Similar Package
+
+Find the most similar existing package and copy its structure:
+```bash
+# Example: Creating a new OpenAPI 3.2 JSON parser adapter
+cp -r packages/apidom-parser-adapter-openapi-json-3-1 packages/apidom-parser-adapter-openapi-json-3-2
+cd packages/apidom-parser-adapter-openapi-json-3-2
+```
+
+#### 3. Update package.json
+
+Modify the following fields:
+- `name`: Update to new package name (e.g., `@swagger-api/apidom-parser-adapter-openapi-json-3-2`)
+- `description`: Update to reflect the new package
+- `unpkg`: Update the bundle filename
+- `main`, `exports.require`: Update `.cjs` file path
+- `exports.import`: Update `.mjs` file path
+- `exports.types`, `types`: Update `.d.ts` file path
+- `dependencies`: Update namespace versions if needed (e.g., `@swagger-api/apidom-ns-openapi-3-2`)
+- `files`: Update type declaration filename
+
+#### 4. Create Required Configuration Files
+
+**CRITICAL**: Create these files or tests will not work:
+
+##### .mocharc.json
+```json
+{
+  "extensions": ["ts"],
+  "loader": "ts-node/esm",
+  "recursive": true,
+  "spec": "test/**/*.ts",
+  "file": ["test/mocha-bootstrap.ts"],
+  "ignore": ["test/perf/**/*.ts"]
+}
+```
+
+##### .gitignore
+```gitignore
+# Build artifacts
+src/**/*.mjs
+src/**/*.cjs
+dist/
+types/
+
+# Dependencies
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+```
+
+##### test/mocha-bootstrap.ts
+```typescript
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { config } from 'chai';
+import { jestSnapshotPlugin } from 'mocha-chai-jest-snapshot';
+import chai from 'chai';
+
+config.truncateThreshold = Infinity;
+chai.use(jestSnapshotPlugin());
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+before(function () {
+  jestSnapshotPlugin.setTestName(path.basename(this.currentTest?.file || ''));
+  jestSnapshotPlugin.setFilename(path.join(__dirname, '__snapshots__', 'file.ts.snap'));
+});
+```
+
+#### 5. Update Test Files
+
+##### For Parser Adapter Packages
+Update `test/media-types.ts` to test through the parser integration:
+
+```typescript
+import { assert } from 'chai';
+import ApiDOMParser from '@swagger-api/apidom-parser';
+
+import * as openApiJsonAdapter from '../src/adapter.ts';
+
+describe('given adapter is used in parser', function () {
+  const parser = new ApiDOMParser().use(openApiJsonAdapter);
+
+  context('given OpenAPI 3.2.0 definition in JSON format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.2.0"}');
+
+      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.2.0');
+    });
+  });
+});
+```
+
+**Do NOT** test the media types object directly with `assert.isArray()` - always test through parser integration.
+
+##### For YAML Parser Adapters
+Use YAML format in test:
+```typescript
+const mediaType = await parser.findMediaType('openapi: "3.2.0"');
+assert.strictEqual(mediaType, 'application/vnd.oai.openapi+yaml;version=3.2.0');
+```
+
+#### 6. Update Source Files
+
+Update source files to reference the correct version and namespace:
+- Update version strings in detection patterns
+- Update imports to reference correct namespace package
+- Update media type version identifiers
+- Update comments and documentation
+
+#### 7. Create Documentation Files
+
+##### README.md
+```markdown
+# @swagger-api/apidom-parser-adapter-openapi-json-3-2
+
+Parser adapter for parsing JSON documents into OpenAPI 3.2.x namespace.
+
+## Installation
+
+```bash
+npm install @swagger-api/apidom-parser-adapter-openapi-json-3-2
+```
+
+## Usage
+
+```javascript
+import * as adapter from '@swagger-api/apidom-parser-adapter-openapi-json-3-2';
+
+const parseResult = await adapter.parse('{"openapi": "3.2.0"}');
+```
+
+## License
+
+Apache-2.0
+```
+
+##### CHANGELOG.md
+```markdown
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+## [1.0.0] - YYYY-MM-DD
+
+### Added
+- Initial release
+- Support for OpenAPI 3.2.x JSON parsing
+```
+
+#### 8. Build and Test
+
+```bash
+# From package directory
+npm run build
+npm run test
+npm run lint
+npm run typescript:check-types
+```
+
+**IMPORTANT**: Fix any failing tests before committing. Common issues:
+- Snapshot mismatches (run with `UPDATE_SNAPSHOT=1` to update)
+- Wrong element types in predicates
+- Incorrect media type versions
+- Missing dependencies
+
+#### 9. Register in Monorepo
+
+If creating a parser adapter, register it in `apidom-parser`:
+1. Add dependency to `packages/apidom-parser/package.json`
+2. Import and register in `packages/apidom-parser/src/index.ts`
+
+If creating a namespace, register it in `apidom-reference`:
+1. Add dependency to `packages/apidom-reference/package.json`
+2. Import and register in refractor registry
+
+#### 10. Common Pitfalls to Avoid
+
+- **Missing `.mocharc.json`**: Tests will not run without this file
+- **Wrong test pattern**: Don't test media types object directly; test through parser integration
+- **Incorrect version references**: Update all version strings (package.json, source, tests)
+- **Snapshot mismatches**: When copying from another version, snapshots will need updating
+- **Missing test bootstrap**: Ensure `test/mocha-bootstrap.ts` exists
+- **Wrong namespace imports**: Update all imports to reference the correct version namespace
+- **Incomplete package.json updates**: Update all file paths and names consistently
+
 ### Key Patterns
 
 #### Element Structure

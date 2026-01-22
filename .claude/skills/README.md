@@ -119,10 +119,18 @@ Claude will then interactively guide you through the process, asking for require
 
 To create a new skill:
 
-1. Create a markdown file in `.claude/skills/` directory
-2. Use the following structure:
+1. Create a directory in `.claude/skills/` with your skill name (e.g., `my-skill/`)
+2. Create a `SKILL.md` file inside the directory
+3. Add YAML frontmatter at the top with metadata:
 
 ```markdown
+---
+name: my-skill
+description: Brief description of what the skill does
+disable-model-invocation: false
+user-invocable: true
+---
+
 # Skill Name
 
 **Skill Name:** `skill-command`
@@ -156,7 +164,18 @@ Common issues and solutions
 Related documentation
 ```
 
-3. Test the skill by invoking it: `/skill-command`
+4. Test the skill by invoking it: `/my-skill`
+
+### YAML Frontmatter Fields
+
+- `name`: Command name for the skill (required)
+- `description`: What the skill does - Claude uses this to decide when to apply it (recommended)
+- `disable-model-invocation`: Set to `true` to prevent Claude auto-triggering (default: `false`)
+- `user-invocable`: Set to `false` to hide from `/` menu (default: `true`)
+- `allowed-tools`: Tools Claude can use without asking permission (optional)
+- `model`: Specific model to use when skill is active (optional)
+- `context`: Set to `fork` to run in isolated subagent context (optional)
+- `agent`: Subagent type like `Explore`, `Plan`, `general-purpose` (optional)
 
 ## Skill Development Guidelines
 

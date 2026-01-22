@@ -1,3 +1,10 @@
+---
+name: update-ls-config
+description: Updates apidom-ls configuration for a namespace package by analyzing the namespace structure and creating completion, documentation, and lint configurations
+disable-model-invocation: false
+user-invocable: true
+---
+
 # Update Language Service Config Skill
 
 **Skill Name:** `update-ls-config`

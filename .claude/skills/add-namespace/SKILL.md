@@ -1,3 +1,10 @@
+---
+name: add-namespace
+description: Creates a new namespace package for a new API specification version in the ApiDOM monorepo
+disable-model-invocation: false
+user-invocable: true
+---
+
 # Add Namespace Package Skill
 
 **Skill Name:** `add-namespace`

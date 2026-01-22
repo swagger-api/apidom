@@ -1,3 +1,10 @@
+---
+name: add-parser-adapter
+description: Creates parser adapter packages for existing ApiDOM namespace packages and integrates them with apidom-reference
+disable-model-invocation: false
+user-invocable: true
+---
+
 # Add Parser Adapter Skill
 
 **Skill Name:** `add-parser-adapter`

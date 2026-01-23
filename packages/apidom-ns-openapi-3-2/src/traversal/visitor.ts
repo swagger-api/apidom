@@ -35,7 +35,7 @@ export const keyMap = {
   MediaTypeElement: ['content'],
   OAuthFlowElement: ['content'],
   OAuthFlowsElement: ['content'],
-  OpenApi3_1Element: ['content'],
+  OpenApi3_2Element: ['content'],
   OperationElement: ['content'],
   ParameterElement: ['content'],
   PathItemElement: ['content'],

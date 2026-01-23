@@ -17,9 +17,9 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: 1,
+                  example: 3,
                   examples: Array [
-                    2,
+                    3,
                   ],
                   type: number,
                 },
@@ -29,6 +29,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -50,7 +55,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: 1,
+                  example: 2,
                   type: number,
                 },
               },
@@ -59,6 +64,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -81,7 +91,7 @@ Object {
                 },
                 schema: Object {
                   examples: Array [
-                    1,
+                    2,
                   ],
                   type: number,
                 },
@@ -91,6 +101,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -107,9 +122,9 @@ Object {
               content-type: Object {
                 example: 3,
                 schema: Object {
-                  example: 1,
+                  example: 3,
                   examples: Array [
-                    2,
+                    3,
                   ],
                   type: number,
                 },
@@ -119,6 +134,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -135,7 +155,7 @@ Object {
               content-type: Object {
                 example: 2,
                 schema: Object {
-                  example: 1,
+                  example: 2,
                   type: number,
                 },
               },
@@ -144,6 +164,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -161,7 +186,7 @@ Object {
                 example: 2,
                 schema: Object {
                   examples: Array [
-                    1,
+                    2,
                   ],
                   type: number,
                 },
@@ -171,6 +196,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -191,9 +221,9 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: 1,
+                  example: 3,
                   examples: Array [
-                    2,
+                    3,
                   ],
                   type: number,
                 },
@@ -203,6 +233,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -223,7 +258,7 @@ Object {
                   },
                 },
                 schema: Object {
-                  example: 1,
+                  example: 2,
                   type: number,
                 },
               },
@@ -232,6 +267,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;
@@ -253,7 +293,7 @@ Object {
                 },
                 schema: Object {
                   examples: Array [
-                    1,
+                    2,
                   ],
                   type: number,
                 },
@@ -263,6 +303,11 @@ Object {
         },
       },
     },
+  },
+  x-normalized: Object {
+    header-examples: Array [
+      /paths/~1/get/responses/200/headers/content-type,
+    ],
   },
 }
 `;

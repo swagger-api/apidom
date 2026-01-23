@@ -62,7 +62,39 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                                       (StringElement))
                                     (MemberElement
                                       (StringElement)
-                                      (StringElement))))))))))))))))))))
+                                      (StringElement)))
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines identical parameter should replace parameter from closes Path Item 1`] = `
@@ -739,6 +771,59 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                                                                           }
                                                                         }
                                                                       ]
+                                                                    },
+                                                                    {
+                                                                      "element": "parameter",
+                                                                      "content": [
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "name"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "param4"
+                                                                            }
+                                                                          }
+                                                                        },
+                                                                        {
+                                                                          "element": "member",
+                                                                          "meta": {
+                                                                            "classes": {
+                                                                              "element": "array",
+                                                                              "content": [
+                                                                                {
+                                                                                  "element": "string",
+                                                                                  "content": "fixed-field"
+                                                                                }
+                                                                              ]
+                                                                            }
+                                                                          },
+                                                                          "content": {
+                                                                            "key": {
+                                                                              "element": "string",
+                                                                              "content": "in"
+                                                                            },
+                                                                            "value": {
+                                                                              "element": "string",
+                                                                              "content": "query"
+                                                                            }
+                                                                          }
+                                                                        }
+                                                                      ]
                                                                     }
                                                                   ]
                                                                 }
@@ -759,10 +844,181 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                                   ]
                                 }
                               }
+                            },
+                            {
+                              "element": "member",
+                              "content": {
+                                "key": {
+                                  "element": "string",
+                                  "content": "parameters"
+                                },
+                                "value": {
+                                  "element": "array",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "operation-parameters"
+                                        },
+                                        {
+                                          "element": "string",
+                                          "content": "parameters"
+                                        }
+                                      ]
+                                    }
+                                  },
+                                  "content": [
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "param1"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "query"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "param2"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "query"
+                                            }
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              }
                             }
                           ]
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "parameters"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get/callbacks/myCallback/{$url}/get"
+                    },
+                    {
+                      "element": "string",
+                      "content": "/paths/~1/get"
                     }
                   ]
                 }
@@ -828,7 +1084,42 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                                   (StringElement)))))
                           (MemberElement
                             (StringElement)
-                            (OperationElement)))))))))))))))
+                            (OperationElement
+                              (MemberElement
+                                (StringElement)
+                                (ArrayElement
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object doesn't defines empty parameters should inherit all parameters from closest Path Item 1`] = `
@@ -886,5 +1177,37 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                             (OperationElement
                               (MemberElement
                                 (StringElement)
-                                (ArrayElement)))))))))))))))))
+                                (ArrayElement
+                                  (ParameterElement
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement))
+                                    (MemberElement
+                                      (StringElement)
+                                      (StringElement)))))))))))))
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement)
+          (StringElement))))))
 `;

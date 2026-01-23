@@ -26,7 +26,13 @@ exports[`refractor plugins normalize-security-requirements given OpenAPI.securit
               (MemberElement
                 (StringElement)
                 (ArrayElement
-                  (SecurityRequirementElement))))))))))
+                  (SecurityRequirementElement)))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement)))))
 `;
 
 exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security is defined as empty list should not inherit Security Requirements from OpenAPI.security field 1`] = `
@@ -54,7 +60,13 @@ exports[`refractor plugins normalize-security-requirements given OpenAPI.securit
             (OperationElement
               (MemberElement
                 (StringElement)
-                (ArrayElement)))))))))
+                (ArrayElement))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement)))))
 `;
 
 exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security is not defined should inherit Security Requirements from OpenAPI.security field 1`] = `
@@ -79,7 +91,23 @@ exports[`refractor plugins normalize-security-requirements given OpenAPI.securit
         (PathItemElement
           (MemberElement
             (StringElement)
-            (OperationElement)))))))
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (SecurityRequirementElement
+                    (MemberElement
+                      (StringElement)
+                      (ArrayElement
+                        (StringElement)
+                        (StringElement))))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is not defined and Operation.security is defined should do nothing 1`] = `
@@ -99,7 +127,13 @@ exports[`refractor plugins normalize-security-requirements given OpenAPI.securit
               (MemberElement
                 (StringElement)
                 (ArrayElement
-                  (SecurityRequirementElement))))))))))
+                  (SecurityRequirementElement)))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement)))))
 `;
 
 exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is not defined and Operation.security is not defined should do nothing 1`] = `
@@ -115,5 +149,11 @@ exports[`refractor plugins normalize-security-requirements given OpenAPI.securit
         (PathItemElement
           (MemberElement
             (StringElement)
-            (OperationElement)))))))
+            (OperationElement))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement)))))
 `;

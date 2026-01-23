@@ -15,18 +15,18 @@ import {
 import { compile as compileJSONPointerTokens } from '@swagger-api/apidom-json-pointer/modern';
 import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import * as openApi3_1Predicates from '../predicates.ts';
-import openApi3_1Namespace from '../namespace.ts';
+import * as openApi3_2Predicates from '../predicates.ts';
+import openApi3_2Namespace from '../namespace.ts';
 
 /**
  * @public
  */
-export type { openApi3_1Predicates };
+export type { openApi3_2Predicates };
 
 /**
  * @public
  */
-export type Predicates = typeof openApi3_1Predicates & {
+export type Predicates = typeof openApi3_2Predicates & {
   isElement: typeof isElement;
   isStringElement: typeof isStringElement;
   isArrayElement: typeof isArrayElement;
@@ -75,9 +75,9 @@ export const ancestorLineageToJSONPointer = <T extends (Element | Element[])[]>(
  * @public
  */
 const createToolbox = (): Toolbox => {
-  const namespace = createNamespace(openApi3_1Namespace);
+  const namespace = createNamespace(openApi3_2Namespace);
   const predicates: Predicates = {
-    ...openApi3_1Predicates,
+    ...openApi3_2Predicates,
     isElement,
     isStringElement,
     isArrayElement,

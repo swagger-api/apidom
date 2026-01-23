@@ -8,7 +8,7 @@ exports[`given empty value instead of SecurityRequirementElement should replace 
   (MemberElement
     (StringElement)
     (ArrayElement
-      (StringElement))))
+      (SecurityRequirementElement))))
 `;
 
 exports[`given empty value instead of ServerElement should replace empty value with semantic element 1`] = `
@@ -19,7 +19,7 @@ exports[`given empty value instead of ServerElement should replace empty value w
   (MemberElement
     (StringElement)
     (ArrayElement
-      (StringElement))))
+      (ServerElement))))
 `;
 
 exports[`given empty values instead of SchemaElement for allOf keyword should replace empty values with semantic elements 1`] = `
@@ -39,7 +39,7 @@ exports[`given empty values instead of SchemaElement for allOf keyword should re
               (MemberElement
                 (StringElement)
                 (ArrayElement
-                  (StringElement))))))))))
+                  (SchemaElement))))))))))
 `;
 
 exports[`given multiple empty values instead of TagElement should replace empty values with semantic elements 1`] = `
@@ -50,6 +50,6 @@ exports[`given multiple empty values instead of TagElement should replace empty 
   (MemberElement
     (StringElement)
     (ArrayElement
-      (StringElement)
-      (StringElement))))
+      (TagElement)
+      (TagElement))))
 `;

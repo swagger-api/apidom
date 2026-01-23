@@ -5,7 +5,7 @@ import {
   ServersElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import type OpenApi3_2Element from '../../elements/OpenApi3-1.ts';
+import type OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import type PathItemElement from '../../elements/PathItem.ts';
 import type ServerElement from '../../elements/Server.ts';
 import type OperationElement from '../../elements/Operation.ts';

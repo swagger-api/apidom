@@ -5,7 +5,7 @@ import {
   isArrayElement,
 } from '@swagger-api/apidom-core';
 
-import OpenApi3_1Element from '../../../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../../../elements/OpenApi3-2.ts';
 
 type JSONPointer = string;
 
@@ -13,7 +13,7 @@ class NormalizeStorage {
   private internalStore!: ArrayElement;
 
   constructor(
-    protected storageElement: OpenApi3_1Element | undefined,
+    protected storageElement: OpenApi3_2Element | undefined,
     protected storageField: string,
     protected storageSubField: string,
   ) {}

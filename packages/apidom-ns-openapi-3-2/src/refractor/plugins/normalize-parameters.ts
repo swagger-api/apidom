@@ -6,7 +6,7 @@ import ParameterElement from '../../elements/Parameter.ts';
 import PathItemElement from '../../elements/PathItem.ts';
 import OperationElement from '../../elements/Operation.ts';
 import type { Toolbox } from '../toolbox.ts';
-import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 
 /**
@@ -58,8 +58,8 @@ const plugin =
 
     return {
       visitor: {
-        OpenApi3_1Element: {
-          enter(element: OpenApi3_1Element) {
+        OpenApi3_2Element: {
+          enter(element: OpenApi3_2Element) {
             storage = new NormalizeStorage(element, storageField, 'parameters');
           },
           leave() {

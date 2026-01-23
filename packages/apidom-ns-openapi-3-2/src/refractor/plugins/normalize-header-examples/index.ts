@@ -3,7 +3,7 @@ import { Element, cloneDeep } from '@swagger-api/apidom-core';
 import HeaderElement from '../../../elements/Header.ts';
 import ExampleElement from '../../../elements/Example.ts';
 import type { Toolbox } from '../../toolbox.ts';
-import OpenApi3_1Element from '../../../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../../../elements/OpenApi3-2.ts';
 import NormalizeStorage from './NormalizeStorage.ts';
 
 /**
@@ -37,8 +37,8 @@ const plugin =
 
     return {
       visitor: {
-        OpenApi3_1Element: {
-          enter(element: OpenApi3_1Element) {
+        OpenApi3_2Element: {
+          enter(element: OpenApi3_2Element) {
             storage = new NormalizeStorage(element, storageField, 'header-examples');
           },
           leave() {

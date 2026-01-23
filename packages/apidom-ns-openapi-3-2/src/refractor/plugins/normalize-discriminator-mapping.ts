@@ -14,7 +14,7 @@ import {
 import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import type { Toolbox } from '../toolbox.ts';
-import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 import { SchemaElement } from '../registration.ts';
 import { isSchemaElement } from '../../predicates.ts';
@@ -54,8 +54,8 @@ const plugin =
 
     return {
       visitor: {
-        OpenApi3_1Element: {
-          enter(element: OpenApi3_1Element) {
+        OpenApi3_2Element: {
+          enter(element: OpenApi3_2Element) {
             storage = new NormalizeStorage(element, storageField, 'discriminator-mapping');
             allOfDiscriminatorMapping =
               element.getMetaProperty('allOfDiscriminatorMapping') ?? new ObjectElement();

@@ -14,7 +14,7 @@ import MediaTypeElement from '../elements/MediaType.ts';
 import OAuthFlowElement from '../elements/OAuthFlow.ts';
 import OAuthFlowsElement from '../elements/OAuthFlows.ts';
 import OpenapiElement from '../elements/Openapi.ts';
-import OpenApi3_2Element from '../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../elements/OpenApi3-2.ts';
 import OperationElement from '../elements/Operation.ts';
 import ParameterElement from '../elements/Parameter.ts';
 import PathItemElement from '../elements/PathItem.ts';

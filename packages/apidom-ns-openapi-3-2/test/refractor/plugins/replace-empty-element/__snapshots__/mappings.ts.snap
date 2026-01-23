@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`given OpenAPI definition with no empty values should do nothing 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -11,7 +11,7 @@ exports[`given OpenAPI definition with no empty values should do nothing 1`] = `
 `;
 
 exports[`given empty value instead for OpenAPI.components.schemas should replace empty value with semantic element 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -20,11 +20,11 @@ exports[`given empty value instead for OpenAPI.components.schemas should replace
     (ComponentsElement
       (MemberElement
         (StringElement)
-        (ObjectElement)))))
+        (StringElement)))))
 `;
 
 exports[`given empty value instead for OpenAPI.components.schemas.* should replace empty value with semantic element 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -36,11 +36,11 @@ exports[`given empty value instead for OpenAPI.components.schemas.* should repla
         (ObjectElement
           (MemberElement
             (StringElement)
-            (SchemaElement)))))))
+            (StringElement)))))))
 `;
 
 exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -58,11 +58,11 @@ exports[`given empty value instead for Schema.properties.* should replace empty 
                 (ObjectElement
                   (MemberElement
                     (StringElement)
-                    (SchemaElement)))))))))))
+                    (StringElement)))))))))))
 `;
 
 exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -71,15 +71,15 @@ exports[`given empty value instead of ContactElement should replace empty value 
     (InfoElement
       (MemberElement
         (StringElement)
-        (ContactElement)))))
+        (StringElement)))))
 `;
 
 exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
   (MemberElement
     (StringElement)
-    (InfoElement)))
+    (StringElement)))
 `;

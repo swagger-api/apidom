@@ -140,7 +140,7 @@ const documentation = [
   {
     target: 'properties',
     docs: 'The value of "properties" **MUST** be an object. Each value of this object **MUST** be a valid JSON Schema.\n\n  ----  \n\nThis keyword determines how child instances validate for objects, and does not directly validate the immediate instance itself.\n\n  ----  \n\nValidation succeeds if, for each name that appears in both the instance and as a name within this keyword\'s value, the child instance for that name successfully validates against the corresponding schema.\n\n  ----  \n\nOmitting this keyword has the same behavior as an empty object.',
-    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI2, ...OpenAPI3, ...AsyncAPI3],
   },
   {
     target: 'patternProperties',
@@ -170,7 +170,7 @@ const documentation = [
   {
     target: 'then',
     docs: 'This keyword\'s value **MUST** be a valid JSON Schema.\n\n  ----  \n\nWhen "if" is present, and the instance successfully validates against its subschema, then validation succeeds against this keyword if the instance also successfully validates against this keyword\'s subschema.\n\n  ----  \n\nThis keyword has no effect when "if" is absent, or when the instance fails to validate against its subschema.  Implementations **MUST** NOT evaluate the instance against this keyword, for either validation or annotation collection purposes, in such cases.',
-    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3, ...AsyncAPI3],
   },
   {
     target: 'else',
@@ -205,7 +205,8 @@ const documentation = [
   {
     target: 'contentMediaType',
     docs: 'The value of this property **must** be a media type, as defined by <xref target="RFC2046">RFC 2046</xref>. This property defines the media type of instances which this schema defines.\n\n  ----  \n\nThe value of this property **MUST** be a string.\n\n  ----  \n\nThe value of this property **SHOULD** be ignored if the instance described is not a string.\n\n  ----  \n\nIf the "contentEncoding" property is not present, but the instance value is a string, then the value of this property **SHOULD** specify a text document type, and the character set **SHOULD** be the character set into which the JSON string value was decoded (for which the default is Unicode).',
-    targetSpecs: [...AsyncAPI2, ...OpenAPI3], ...AsyncAPI3,
+    targetSpecs: [...AsyncAPI2, ...OpenAPI3],
+    ...AsyncAPI3,
   },
   {
     target: 'example',

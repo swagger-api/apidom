@@ -1,0 +1,31 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "version": "1.0.0"
+  },
+  "$self": "not a valid uri reference with#fragment",
+  "servers": [
+    {
+      "url": "https://api.example.com/v1"
+    }
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "operationId": "testGet",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "invalid-type"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

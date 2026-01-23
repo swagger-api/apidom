@@ -1,0 +1,38 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "Sample API",
+    "version": "1.0.0",
+    "summary": "A simple API demonstrating OpenAPI 3.2 features"
+  },
+  "$self": "https://example.com/api/openapi.json",
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "name": "Production Server"
+    }
+  ],
+  "paths": {
+    "/pets": {
+      "get": {
+        "summary": "List all pets",
+        "operationId": "listPets",
+        "tags": ["pets"],
+        "responses": {
+          "200": {
+            "description": "A list of pets"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "pets",
+      "summary": "Pet operations",
+      "description": "Operations related to pets",
+      "parent": "animals",
+      "kind": "resource"
+    }
+  ]
+}

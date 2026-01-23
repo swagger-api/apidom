@@ -13,6 +13,7 @@ import {
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider.ts';
+import { OpenAPi32JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-32-json-schema-validation-provider.ts';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider.ts';
 import { Asyncapi21JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-21-json-schema-validation-provider.ts';
 import { Asyncapi22JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-22-json-schema-validation-provider.ts';
@@ -51,8 +52,17 @@ const specAsyncYamlAdditionalItems = fs
   )
   .toString();
 
+const specOpenapi32Simple = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-2-simple.json'))
+  .toString();
+
+const specOpenapi32ValidationErrors = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-2-validation-errors.json'))
+  .toString();
+
 describe('apidom-ls-validate', function () {
   const oasJsonSchemavalidationProvider = new OpenAPi31JsonSchemaValidationProvider();
+  const oasJsonSchemavalidationProvider32 = new OpenAPi32JsonSchemaValidationProvider();
   const asyncJsonSchemavalidationProvider = new Asyncapi20JsonSchemaValidationProvider();
   const async21JsonSchemavalidationProvider = new Asyncapi21JsonSchemaValidationProvider();
   const async22JsonSchemavalidationProvider = new Asyncapi22JsonSchemaValidationProvider();
@@ -65,6 +75,7 @@ describe('apidom-ls-validate', function () {
     metadata: metadata(),
     validatorProviders: [
       oasJsonSchemavalidationProvider,
+      oasJsonSchemavalidationProvider32,
       asyncJsonSchemavalidationProvider,
       async21JsonSchemavalidationProvider,
       async22JsonSchemavalidationProvider,
@@ -80,6 +91,7 @@ describe('apidom-ls-validate', function () {
     metadata: metadataNoTitle,
     validatorProviders: [
       oasJsonSchemavalidationProvider,
+      oasJsonSchemavalidationProvider32,
       asyncJsonSchemavalidationProvider,
       async21JsonSchemavalidationProvider,
       async22JsonSchemavalidationProvider,
@@ -6170,6 +6182,200 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate a valid OpenAPI 3.2.0 document', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // Valid document should have no errors from schema validation
+    // (may have apilint warnings/info, but no schema errors)
+    const schemaErrors = result.filter((d) => d.source === 'openapi schema' && d.severity === 1);
+    assert.strictEqual(
+      schemaErrors.length,
+      0,
+      'Valid OpenAPI 3.2.0 document should have no schema errors',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - provider direct test', async function () {
+    const provider = new OpenAPi32JsonSchemaValidationProvider();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/test.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    // Call provider directly
+    const result = await provider.doValidation(doc, null as any, [], {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    });
+
+    assert.isTrue(result.diagnostics.length > 0, 'Provider should return errors');
+  });
+
+  it('oas 3.2 - should detect missing title in info object', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // Check for missing title error
+    const titleError = result.find(
+      (d) =>
+        (d.message.includes('title') || d.message.includes('required')) &&
+        d.source === 'openapi schema',
+    );
+
+    assert.isDefined(titleError, 'Should detect missing title in info object');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate $self field format', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The $self field has an invalid URI reference (contains fragment)
+    // Should be caught by schema validation
+    const selfError = result.find(
+      (d) => d.message.includes('pattern') && d.source === 'openapi schema',
+    );
+    assert.isDefined(selfError, 'Should validate $self field URI reference format');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support new tag fields (summary, parent, kind)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains tag with summary, parent, and kind fields
+    // These should not produce errors in OpenAPI 3.2.0
+    const tagFieldErrors = result.filter(
+      (d) =>
+        d.source === 'openapi schema' &&
+        (d.message.includes('summary') || d.message.includes('parent') || d.message.includes('kind')) &&
+        d.message.includes('not allowed'),
+    );
+    assert.strictEqual(tagFieldErrors.length, 0, 'OpenAPI 3.2.0 should support new tag fields');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support server name field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains server with name field
+    // This should not produce errors in OpenAPI 3.2.0
+    const serverNameErrors = result.filter(
+      (d) => d.source === 'openapi schema' && d.message.includes('name') && d.message.includes('not allowed'),
+    );
+    assert.strictEqual(serverNameErrors.length, 0, 'OpenAPI 3.2.0 should support server name field');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support info summary field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains info with summary field
+    // This should not produce errors in OpenAPI 3.2.0
+    const summaryErrors = result.filter(
+      (d) => d.source === 'openapi schema' && d.message.includes('summary') && d.message.includes('not allowed'),
+    );
+    assert.strictEqual(summaryErrors.length, 0, 'OpenAPI 3.2.0 should support info summary field');
 
     languageService.terminate();
   });

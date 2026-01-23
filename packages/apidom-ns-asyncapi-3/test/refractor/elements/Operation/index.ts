@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, includesClasses, ObjectElement } from '@swagger-api/apidom-core';
 
 import { OperationElement } from '../../../../src/index.ts';
 
@@ -154,6 +154,29 @@ describe('refractor', function () {
           });
 
           expect(sexprs(operationElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given specification extensions', function () {
+        specify('should refract x- extension properties', function () {
+          const operationElement = OperationElement.refract({
+            action: 'send',
+            channel: { $ref: '#/channels/userSignup' },
+            'x-rate-limit': 100,
+          });
+
+          expect(sexprs(operationElement)).toMatchSnapshot();
+        });
+
+        specify('should mark x- extensions with specification-extension class', function () {
+          const operationElement = OperationElement.refract({
+            action: 'send',
+            channel: { $ref: '#/channels/userSignup' },
+            'x-rate-limit': 100,
+          }) as ObjectElement;
+
+          const extensionMember = operationElement.getMember('x-rate-limit');
+          expect(includesClasses(['specification-extension'], extensionMember)).to.be.true;
         });
       });
     });

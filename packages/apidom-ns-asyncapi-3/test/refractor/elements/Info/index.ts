@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, includesClasses, ObjectElement } from '@swagger-api/apidom-core';
 
 import { InfoElement } from '../../../../src/index.ts';
 
@@ -69,6 +69,52 @@ describe('refractor', function () {
           });
 
           expect(sexprs(infoElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given specification extensions', function () {
+        specify('should refract x- extension properties', function () {
+          const infoElement = InfoElement.refract({
+            title: 'Test API',
+            version: '1.0.0',
+            'x-api-id': 'unique-id',
+            'x-metadata': {
+              owner: 'team-a',
+            },
+          });
+
+          expect(sexprs(infoElement)).toMatchSnapshot();
+        });
+
+        specify('should mark x- extensions with specification-extension class', function () {
+          const infoElement = InfoElement.refract({
+            title: 'Test API',
+            version: '1.0.0',
+            'x-api-id': 'unique-id',
+          }) as ObjectElement;
+
+          const extensionMember = infoElement.getMember('x-api-id');
+          expect(includesClasses(['specification-extension'], extensionMember)).to.be.true;
+        });
+
+        specify('should handle multiple x- extensions', function () {
+          const infoElement = InfoElement.refract({
+            title: 'Test API',
+            version: '1.0.0',
+            'x-api-id': 'unique-id',
+            'x-owner': 'team-a',
+            'x-metadata': {
+              created: '2023-01-01',
+            },
+          }) as ObjectElement;
+
+          const apiIdMember = infoElement.getMember('x-api-id');
+          const ownerMember = infoElement.getMember('x-owner');
+          const metadataMember = infoElement.getMember('x-metadata');
+
+          expect(includesClasses(['specification-extension'], apiIdMember)).to.be.true;
+          expect(includesClasses(['specification-extension'], ownerMember)).to.be.true;
+          expect(includesClasses(['specification-extension'], metadataMember)).to.be.true;
         });
       });
     });

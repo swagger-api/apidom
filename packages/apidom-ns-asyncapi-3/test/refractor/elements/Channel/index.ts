@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, includesClasses, ObjectElement } from '@swagger-api/apidom-core';
 
 import { ChannelElement } from '../../../../src/index.ts';
 
@@ -135,6 +135,27 @@ describe('refractor', function () {
           });
 
           expect(sexprs(channelElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given specification extensions', function () {
+        specify('should refract x- extension properties', function () {
+          const channelElement = ChannelElement.refract({
+            address: '/user/signedup',
+            'x-internal-name': 'user-signup-channel',
+          });
+
+          expect(sexprs(channelElement)).toMatchSnapshot();
+        });
+
+        specify('should mark x- extensions with specification-extension class', function () {
+          const channelElement = ChannelElement.refract({
+            address: '/user/signedup',
+            'x-internal-name': 'user-signup-channel',
+          }) as ObjectElement;
+
+          const extensionMember = channelElement.getMember('x-internal-name');
+          expect(includesClasses(['specification-extension'], extensionMember)).to.be.true;
         });
       });
     });

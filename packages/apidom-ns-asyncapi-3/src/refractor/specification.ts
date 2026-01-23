@@ -22,6 +22,7 @@ import DefaultContentTypeVisitor from './visitors/async-api-3/DefaultContentType
 import ExternalDocumentationOrReferenceVisitor from './visitors/async-api-3/external-documentation-object/ExternalDocumentationOrReferenceVisitor.ts';
 import ExternalDocumentationVisitor from './visitors/async-api-3/external-documentation-object/index.ts';
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor.ts';
 import IdentifierVisitor from './visitors/async-api-3/IdentifierVisitor.ts';
 import InfoVisitor from './visitors/async-api-3/info/info.ts';
 import LicenseVisitor from './visitors/async-api-3/license/index.ts';
@@ -1459,6 +1460,9 @@ const specification = {
             },
           },
         },
+      },
+      extension: {
+        $visitor: SpecificationExtensionVisitor,
       },
     },
   },

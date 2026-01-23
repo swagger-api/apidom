@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { sexprs, includesClasses, ObjectElement } from '@swagger-api/apidom-core';
 
 import { ComponentsElement } from '../../../../src/index.ts';
 
@@ -132,6 +132,27 @@ describe('refractor', function () {
         });
 
         expect(sexprs(componentsElement)).toMatchSnapshot();
+      });
+
+      context('given specification extensions', function () {
+        specify('should refract x- extension properties', function () {
+          const componentsElement = ComponentsElement.refract({
+            schemas: {},
+            'x-internal-components': true,
+          });
+
+          expect(sexprs(componentsElement)).toMatchSnapshot();
+        });
+
+        specify('should mark x- extensions with specification-extension class', function () {
+          const componentsElement = ComponentsElement.refract({
+            schemas: {},
+            'x-internal-components': true,
+          }) as ObjectElement;
+
+          const extensionMember = componentsElement.getMember('x-internal-components');
+          expect(includesClasses(['specification-extension'], extensionMember)).to.be.true;
+        });
       });
     });
   });

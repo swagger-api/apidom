@@ -73,6 +73,22 @@ exports[`refractor elements OperationElement given security field contains list 
           (ArrayElement))))))
 `;
 
+exports[`refractor elements OperationElement given specification extensions should refract x- extension properties 1`] = `
+(OperationElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (NumberElement)))
+`;
+
 exports[`refractor elements OperationElement given tags field contains list of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
 (OperationElement
   (MemberElement

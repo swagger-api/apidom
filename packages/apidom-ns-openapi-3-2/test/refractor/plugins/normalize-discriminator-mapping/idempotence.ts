@@ -22,7 +22,7 @@ describe('refractor', function () {
       specify('should have idempotent characteristics', async function () {
         const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
         const dereferenced = await dereference(uri, {
-          parse: { mediaType: mediaTypes.latest('json') },
+          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
           resolve: {
             baseURI: uri,
             resolvers: [

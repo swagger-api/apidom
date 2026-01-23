@@ -22,7 +22,7 @@ describe('refractor', function () {
       specify('should use sub-field to store normalized scopes', async function () {
         const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
         const dereferenced = await dereference(uri, {
-          parse: { mediaType: mediaTypes.latest('json') },
+          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
           resolve: {
             baseURI: uri,
             resolvers: [
@@ -30,18 +30,20 @@ describe('refractor', function () {
                 fileAllowList: [/\.json$/],
               }),
             ],
-            dereference: {
-              strategyOpts: {
-                'openapi-3-1': {
-                  dereferenceDiscriminatorMapping: true,
-                },
+          },
+          dereference: {
+            strategyOpts: {
+              'openapi-3-1': {
+                dereferenceDiscriminatorMapping: true,
               },
             },
           },
         });
 
+        const openApiElement = OpenApi3_2Element.refract(dereferenced.result) as OpenApi3_2Element;
+
         const normalized = dispatchRefractorPlugins(
-          dereferenced.result as OpenApi3_2Element,
+          openApiElement,
           [refractorPluginNormalizeDiscriminatorMapping({ baseURI: uri })],
           {
             toolboxCreator: createToolbox,
@@ -58,7 +60,7 @@ describe('refractor', function () {
         specify('should use custom storage field to store normalized scopes', async function () {
           const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
           const dereferenced = await dereference(uri, {
-            parse: { mediaType: mediaTypes.latest('json') },
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
             resolve: {
               baseURI: uri,
               resolvers: [
@@ -67,18 +69,20 @@ describe('refractor', function () {
                   fileAllowList: ['*.json', /\.json$/],
                 }),
               ],
-              dereference: {
-                strategyOpts: {
-                  'openapi-3-1': {
-                    dereferenceDiscriminatorMapping: true,
-                  },
+            },
+            dereference: {
+              strategyOpts: {
+                'openapi-3-1': {
+                  dereferenceDiscriminatorMapping: true,
                 },
               },
             },
           });
 
+          const openApiElement = OpenApi3_2Element.refract(dereferenced.result) as OpenApi3_2Element;
+
           const normalized = dispatchRefractorPlugins(
-            dereferenced.result as OpenApi3_2Element,
+            openApiElement,
             [
               refractorPluginNormalizeDiscriminatorMapping({
                 storageField: '$$normalized',

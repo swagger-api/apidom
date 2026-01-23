@@ -35,7 +35,7 @@ export type { PluginOptions as RefractorPluginNormalizeDiscriminatorMappingOptio
 export { default as createToolbox } from './refractor/toolbox.ts';
 export type {
   Predicates as ToolboxPredicates,
-  openApi3_1Predicates,
+  openApi3_2Predicates,
   Toolbox,
   ancestorLineageToJSONPointer,
 } from './refractor/toolbox.ts';

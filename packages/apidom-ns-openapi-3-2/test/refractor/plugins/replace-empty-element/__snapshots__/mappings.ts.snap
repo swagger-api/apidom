@@ -20,7 +20,7 @@ exports[`given empty value instead for OpenAPI.components.schemas should replace
     (ComponentsElement
       (MemberElement
         (StringElement)
-        (StringElement)))))
+        (ObjectElement)))))
 `;
 
 exports[`given empty value instead for OpenAPI.components.schemas.* should replace empty value with semantic element 1`] = `
@@ -36,7 +36,7 @@ exports[`given empty value instead for OpenAPI.components.schemas.* should repla
         (ObjectElement
           (MemberElement
             (StringElement)
-            (StringElement)))))))
+            (SchemaElement)))))))
 `;
 
 exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
@@ -58,7 +58,7 @@ exports[`given empty value instead for Schema.properties.* should replace empty 
                 (ObjectElement
                   (MemberElement
                     (StringElement)
-                    (StringElement)))))))))))
+                    (SchemaElement)))))))))))
 `;
 
 exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
@@ -71,7 +71,7 @@ exports[`given empty value instead of ContactElement should replace empty value 
     (InfoElement
       (MemberElement
         (StringElement)
-        (StringElement)))))
+        (ContactElement)))))
 `;
 
 exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
@@ -81,5 +81,5 @@ exports[`given empty value instead of InfoElement should replace empty value wit
     (OpenapiElement))
   (MemberElement
     (StringElement)
-    (StringElement)))
+    (InfoElement)))
 `;

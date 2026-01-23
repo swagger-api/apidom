@@ -40,7 +40,28 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                       (StringElement))
                     (MemberElement
                       (StringElement)
-                      (StringElement))))))))))))
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines identical parameter should replace Path Item parameter 1`] = `
@@ -445,6 +466,59 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                                           }
                                         }
                                       ]
+                                    },
+                                    {
+                                      "element": "parameter",
+                                      "content": [
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "name"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "param2"
+                                            }
+                                          }
+                                        },
+                                        {
+                                          "element": "member",
+                                          "meta": {
+                                            "classes": {
+                                              "element": "array",
+                                              "content": [
+                                                {
+                                                  "element": "string",
+                                                  "content": "fixed-field"
+                                                }
+                                              ]
+                                            }
+                                          },
+                                          "content": {
+                                            "key": {
+                                              "element": "string",
+                                              "content": "in"
+                                            },
+                                            "value": {
+                                              "element": "string",
+                                              "content": "query"
+                                            }
+                                          }
+                                        }
+                                      ]
                                     }
                                   ]
                                 }
@@ -453,6 +527,38 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                           ]
                         }
                       }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "element": "member",
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-normalized"
+        },
+        "value": {
+          "element": "object",
+          "content": [
+            {
+              "element": "member",
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "parameters"
+                },
+                "value": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "/webhooks/hook1/get"
                     }
                   ]
                 }
@@ -496,7 +602,31 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
                   (StringElement)))))
           (MemberElement
             (StringElement)
-            (OperationElement)))))))
+            (OperationElement
+              (MemberElement
+                (StringElement)
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object doesn't defines empty parameters should inherit all Path Item parameters 1`] = `
@@ -532,5 +662,26 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
             (OperationElement
               (MemberElement
                 (StringElement)
-                (ArrayElement)))))))))
+                (ArrayElement
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))
+                  (ParameterElement
+                    (MemberElement
+                      (StringElement)
+                      (StringElement))
+                    (MemberElement
+                      (StringElement)
+                      (StringElement)))))))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (StringElement))))))
 `;

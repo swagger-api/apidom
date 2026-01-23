@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI31 } from '../../target-specs.ts';
+import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const typeEquals3_1Lint: LinterMeta = {
@@ -14,7 +14,7 @@ const typeEquals3_1Lint: LinterMeta = {
   linterParams: [['apiKey', 'http', 'mutualTLS', 'oauth2', 'openIdConnect']],
   marker: 'value',
   target: 'type',
-  targetSpecs: OpenAPI31,
+  targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
 export default typeEquals3_1Lint;

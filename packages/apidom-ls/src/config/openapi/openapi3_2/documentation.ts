@@ -25,6 +25,11 @@ const documentation = [
     targetSpecs: OpenAPI32,
   },
   {
+    target: '$self',
+    docs: 'The self-assigned URI of this document. This URI is used as the base URI for relative references within the document. If `$self` is a relative URI reference, it is resolved against the retrieval URI before being used.',
+    targetSpecs: OpenAPI32,
+  },
+  {
     target: 'servers',
     docs: '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#serverUrl) value of `/`.',
     targetSpecs: OpenAPI32,

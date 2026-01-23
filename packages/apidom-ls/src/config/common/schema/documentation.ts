@@ -259,6 +259,11 @@ const documentation = [
   },
   {
     target: 'default',
+    docs: 'Use it to specify that property has a predefined value if no other value is present. Unlike JSON Schema, the value MUST conform to the defined type for the Schema Object defined at the same level. For example, of `type` is `string`, then `default` can be `"foo"` but cannot be `1`.',
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    target: 'default',
     docs: 'There are no restrictions placed on the value of this keyword.  When multiple occurrences of this keyword are applicable to a single sub-instance, implementations **SHOULD** remove duplicates.\n\n  ----  \n\nThis keyword can be used to supply a default JSON value associated with a particular schema.  It is **RECOMMENDED** that a default value be valid against the associated schema.',
     targetSpecs: OpenAPI31,
   },

@@ -83,6 +83,84 @@ Object {
       Pet: Object {
         discriminator: Object {
           propertyName: petType,
+          x-normalized-mapping: Object {
+            Cat: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
+                  properties: Object {
+                    petType2: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Dog: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
+                  properties: Object {
+                    petType2: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         properties: Object {
           petType: Object {
@@ -98,6 +176,84 @@ Object {
             Test2: #/components/schemas/Dog,
           },
           propertyName: petType2,
+          x-normalized-mapping: Object {
+            Test1: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
+                  properties: Object {
+                    petType2: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Test2: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType2,
+                  },
+                  properties: Object {
+                    petType2: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         properties: Object {
           petType2: Object {
@@ -108,7 +264,13 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/Pet,
+      /components/schemas/Pet2,
+    ],
+  },
 }
 `;
 
@@ -177,6 +339,62 @@ Object {
             Test2: #/components/schemas/Dog,
           },
           propertyName: petType,
+          x-normalized-mapping: Object {
+            Test1: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Test2: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    mapping: Object {
+                      Test1: #/components/schemas/Cat,
+                      Test2: #/components/schemas/Dog,
+                    },
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         properties: Object {
           petType: Object {
@@ -187,7 +405,12 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/Pet,
+    ],
+  },
 }
 `;
 
@@ -244,6 +467,54 @@ Object {
       Pet: Object {
         discriminator: Object {
           propertyName: petType,
+          x-normalized-mapping: Object {
+            Cat: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Dog: Object {
+              allOf: Array [
+                Object {
+                  discriminator: Object {
+                    propertyName: petType,
+                  },
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         properties: Object {
           petType: Object {
@@ -254,7 +525,12 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/Pet,
+    ],
+  },
 }
 `;
 
@@ -331,7 +607,10 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [],
+  },
 }
 `;
 
@@ -382,6 +661,48 @@ Object {
       MyResponse: Object {
         discriminator: Object {
           propertyName: petType,
+          x-normalized-mapping: Object {
+            Cat: Object {
+              allOf: Array [
+                Object {
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Dog: Object {
+              allOf: Array [
+                Object {
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         oneOf: Array [
           Object {
@@ -437,6 +758,11 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/MyResponse,
+    ],
+  },
 }
 `;

@@ -47,6 +47,48 @@ Object {
       MyResponse: Object {
         discriminator: Object {
           propertyName: petType,
+          x-normalized-mapping: Object {
+            Cat: Object {
+              allOf: Array [
+                Object {
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    meows: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+            Dog: Object {
+              allOf: Array [
+                Object {
+                  properties: Object {
+                    petType: Object {
+                      type: string,
+                    },
+                  },
+                  type: object,
+                },
+                Object {
+                  properties: Object {
+                    barks: Object {
+                      type: boolean,
+                    },
+                  },
+                  type: object,
+                },
+              ],
+            },
+          },
         },
         oneOf: Array [
           Object {
@@ -102,6 +144,11 @@ Object {
       },
     },
   },
-  openapi: 3.1.0,
+  openapi: 3.2.0,
+  x-normalized: Object {
+    discriminator-mapping: Array [
+      /components/schemas/MyResponse,
+    ],
+  },
 }
 `;

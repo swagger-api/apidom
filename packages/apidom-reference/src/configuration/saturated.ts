@@ -3,6 +3,7 @@ import HTTPResolverAxios from '../resolve/resolvers/http-axios/index.ts';
 import OpenAPI2ResolveStrategy from '../resolve/strategies/openapi-2/index.ts';
 import OpenAPI3_0ResolveStrategy from '../resolve/strategies/openapi-3-0/index.ts';
 import OpenAPI3_1ResolveStrategy from '../resolve/strategies/openapi-3-1/index.ts';
+import OpenAPI3_2ResolveStrategy from '../resolve/strategies/openapi-3-2/index.ts';
 import AsyncAPI2ResolveStrategy from '../resolve/strategies/asyncapi-2/index.ts';
 import ApiDOMResolveStrategy from '../resolve/strategies/apidom/index.ts';
 import APIDesignSystemsJSONParser from '../parse/parsers/api-design-systems-json/index.ts';
@@ -29,6 +30,7 @@ import ApiDOMDereferenceStrategy from '../dereference/strategies/apidom/index.ts
 import OpenAPI2DereferenceStrategy from '../dereference/strategies/openapi-2/index.ts';
 import OpenAPI3_0DereferenceStrategy from '../dereference/strategies/openapi-3-0/index.ts';
 import OpenAPI3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1/index.ts';
+import OpenAPI3_2DereferenceStrategy from '../dereference/strategies/openapi-3-2/index.ts';
 import AsyncAPI2DereferenceStrategy from '../dereference/strategies/asyncapi-2/index.ts';
 import AsyncAPI3DereferenceStrategy from '../dereference/strategies/asyncapi-3/index.ts';
 import OpenAPI3_1BundleStrategy from '../bundle/strategies/openapi-3-1/index.ts';
@@ -66,6 +68,7 @@ options.resolve.strategies = [
   new OpenAPI2ResolveStrategy(),
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
+  new OpenAPI3_2ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
   new ApiDOMResolveStrategy(),
 ];
@@ -74,6 +77,7 @@ options.dereference.strategies = [
   new OpenAPI2DereferenceStrategy(),
   new OpenAPI3_0DereferenceStrategy(),
   new OpenAPI3_1DereferenceStrategy(),
+  new OpenAPI3_2DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
   new AsyncAPI3DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),

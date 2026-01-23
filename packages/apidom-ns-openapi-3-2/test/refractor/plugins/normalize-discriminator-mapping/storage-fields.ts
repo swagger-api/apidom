@@ -22,7 +22,7 @@ describe('refractor', function () {
       specify('should use sub-field to store normalized scopes', async function () {
         const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
         const dereferenced = await dereference(uri, {
-          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+          parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.2.0' },
           resolve: {
             baseURI: uri,
             resolvers: [
@@ -33,7 +33,7 @@ describe('refractor', function () {
           },
           dereference: {
             strategyOpts: {
-              'openapi-3-1': {
+              'openapi-3-2': {
                 dereferenceDiscriminatorMapping: true,
               },
             },
@@ -60,7 +60,7 @@ describe('refractor', function () {
         specify('should use custom storage field to store normalized scopes', async function () {
           const uri = path.join(__dirname, 'fixtures', 'no-mapping.json');
           const dereferenced = await dereference(uri, {
-            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.1.0' },
+            parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.2.0' },
             resolve: {
               baseURI: uri,
               resolvers: [
@@ -72,7 +72,7 @@ describe('refractor', function () {
             },
             dereference: {
               strategyOpts: {
-                'openapi-3-1': {
+                'openapi-3-2': {
                   dereferenceDiscriminatorMapping: true,
                 },
               },

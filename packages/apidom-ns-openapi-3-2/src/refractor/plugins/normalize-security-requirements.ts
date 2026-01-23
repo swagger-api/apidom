@@ -1,7 +1,7 @@
 import { Element, ArrayElement } from '@swagger-api/apidom-core';
 import { OperationSecurityElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import OpenApi3_1Element from '../../elements/OpenApi3-1.ts';
+import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import OperationElement from '../../elements/Operation.ts';
 import type { Toolbox } from '../toolbox.ts';
 import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
@@ -36,8 +36,8 @@ const plugin =
 
     return {
       visitor: {
-        OpenApi3_1Element: {
-          enter(openapiElement: OpenApi3_1Element) {
+        OpenApi3_2Element: {
+          enter(openapiElement: OpenApi3_2Element) {
             storage = new NormalizeStorage(openapiElement, storageField, 'security-requirements');
             if (predicates.isArrayElement(openapiElement.security)) {
               topLevelSecurity = openapiElement.security;

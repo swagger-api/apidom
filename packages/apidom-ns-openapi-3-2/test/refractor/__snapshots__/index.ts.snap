@@ -2,7 +2,7 @@
 
 exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refract to OpenApi 3.1 Element 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -50,7 +50,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.1 shape should refra
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },

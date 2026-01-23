@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`refractor plugins normalize-servers given OpenAPI.server defined should duplicate Server Objects in PathItem.servers and Operation.servers 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -23,40 +23,12 @@ exports[`refractor plugins normalize-servers given OpenAPI.server defined should
         (PathItemElement
           (MemberElement
             (StringElement)
-            (OperationElement
-              (MemberElement
-                (StringElement)
-                (ArrayElement
-                  (ServerElement
-                    (MemberElement
-                      (StringElement)
-                      (StringElement))
-                    (MemberElement
-                      (StringElement)
-                      (StringElement)))))))
-          (MemberElement
-            (StringElement)
-            (ArrayElement
-              (ServerElement
-                (MemberElement
-                  (StringElement)
-                  (StringElement))
-                (MemberElement
-                  (StringElement)
-                  (StringElement)))))))))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ArrayElement
-          (StringElement)
-          (StringElement))))))
+            (OperationElement)))))))
 `;
 
 exports[`refractor plugins normalize-servers given OpenAPI.servers defined and PathItem.servers defined should duplicate Server Objects from PathItem.servers 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -419,140 +391,9 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
                               "element": "string",
                               "content": "GET"
                             }
-                          },
-                          "content": [
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "servers"
-                                },
-                                "value": {
-                                  "element": "array",
-                                  "meta": {
-                                    "classes": {
-                                      "element": "array",
-                                      "content": [
-                                        {
-                                          "element": "string",
-                                          "content": "operation-servers"
-                                        },
-                                        {
-                                          "element": "string",
-                                          "content": "servers"
-                                        }
-                                      ]
-                                    }
-                                  },
-                                  "content": [
-                                    {
-                                      "element": "server",
-                                      "content": [
-                                        {
-                                          "element": "member",
-                                          "meta": {
-                                            "classes": {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "string",
-                                                  "content": "fixed-field"
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          "content": {
-                                            "key": {
-                                              "element": "string",
-                                              "content": "url"
-                                            },
-                                            "value": {
-                                              "element": "string",
-                                              "meta": {
-                                                "classes": {
-                                                  "element": "array",
-                                                  "content": [
-                                                    {
-                                                      "element": "string",
-                                                      "content": "server-url"
-                                                    }
-                                                  ]
-                                                }
-                                              },
-                                              "content": "https://example.com/inner"
-                                            }
-                                          }
-                                        },
-                                        {
-                                          "element": "member",
-                                          "meta": {
-                                            "classes": {
-                                              "element": "array",
-                                              "content": [
-                                                {
-                                                  "element": "string",
-                                                  "content": "fixed-field"
-                                                }
-                                              ]
-                                            }
-                                          },
-                                          "content": {
-                                            "key": {
-                                              "element": "string",
-                                              "content": "description"
-                                            },
-                                            "value": {
-                                              "element": "string",
-                                              "content": "inner production server"
-                                            }
-                                          }
-                                        }
-                                      ]
-                                    }
-                                  ]
-                                }
-                              }
-                            }
-                          ]
+                          }
                         }
                       }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "servers"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1"
-                    },
-                    {
-                      "element": "string",
-                      "content": "/paths/~1/get"
                     }
                   ]
                 }
@@ -567,7 +408,7 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
 `;
 
 exports[`refractor plugins normalize-servers given PathItem.servers defined should duplicate Server Objects in Operation.servers 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -589,36 +430,18 @@ exports[`refractor plugins normalize-servers given PathItem.servers defined shou
                   (StringElement)))))
           (MemberElement
             (StringElement)
-            (OperationElement
-              (MemberElement
-                (StringElement)
-                (ArrayElement
-                  (ServerElement
-                    (MemberElement
-                      (StringElement)
-                      (StringElement))
-                    (MemberElement
-                      (StringElement)
-                      (StringElement)))))))))))
+            (OperationElement))))))
   (MemberElement
     (StringElement)
     (ArrayElement
       (ServerElement
         (MemberElement
           (StringElement)
-          (StringElement)))))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ArrayElement
-          (StringElement)
           (StringElement))))))
 `;
 
 exports[`refractor plugins normalize-servers given no servers field is defined should create default Server Object and duplicate 1`] = `
-(OpenApi3_1Element
+(OpenApi3_2Element
   (MemberElement
     (StringElement)
     (OpenapiElement))
@@ -630,34 +453,12 @@ exports[`refractor plugins normalize-servers given no servers field is defined s
         (PathItemElement
           (MemberElement
             (StringElement)
-            (OperationElement
-              (MemberElement
-                (StringElement)
-                (ArrayElement
-                  (ServerElement
-                    (MemberElement
-                      (StringElement)
-                      (StringElement)))))))
-          (MemberElement
-            (StringElement)
-            (ArrayElement
-              (ServerElement
-                (MemberElement
-                  (StringElement)
-                  (StringElement)))))))))
+            (OperationElement))))))
   (MemberElement
     (StringElement)
     (ArrayElement
       (ServerElement
         (MemberElement
-          (StringElement)
-          (StringElement)))))
-  (MemberElement
-    (StringElement)
-    (ObjectElement
-      (MemberElement
-        (StringElement)
-        (ArrayElement
           (StringElement)
           (StringElement))))))
 `;

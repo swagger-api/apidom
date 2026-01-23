@@ -94,7 +94,7 @@ import { Predicates } from '../toolbox.ts';
  * ```
  * Refracting result without this plugin:
  *
- *  (OpenApi3_1Element
+ *  (OpenApi3_2Element
  *    (MemberElement
  *      (StringElement)
  *      (OpenapiElement))
@@ -104,7 +104,7 @@ import { Predicates } from '../toolbox.ts';
  *
  * Refracting result with this plugin:
  *
- *  (OpenApi3_1Element
+ *  (OpenApi3_2Element
  *    (MemberElement
  *      (StringElement)
  *      (OpenapiElement))
@@ -115,7 +115,7 @@ import { Predicates } from '../toolbox.ts';
 
 const schema = {
   // concrete types handling (CTs)
-  OpenApi3_1Element: {
+  OpenApi3_2Element: {
     info(...args: any[]) {
       return new InfoElement(...args);
     },

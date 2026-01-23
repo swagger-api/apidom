@@ -33,7 +33,7 @@ import {
 } from '../src/index.ts';
 
 describe('predicates', function () {
-  context('isOpenApiApi3_1Element', function () {
+  context('isOpenApi3_2Element', function () {
     context('given OpenApi3_2Element instance value', function () {
       specify('should return true', function () {
         const element = new OpenApi3_2Element();
@@ -64,8 +64,8 @@ describe('predicates', function () {
 
     specify('should support duck-typing', function () {
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      const openApi3_1ElementDuck = {
-        _storedElement: 'openApi3_1',
+      const openApi3_2ElementDuck = {
+        _storedElement: 'openApi3_2',
         classes: new ArrayElement(['api']),
         _content: [],
         primitive() {
@@ -77,7 +77,7 @@ describe('predicates', function () {
       };
 
       // eslint-disable-next-line @typescript-eslint/naming-convention
-      const openApi3_1ElementSwan = {
+      const openApi3_2ElementSwan = {
         _storedElement: undefined,
         _content: undefined,
         primitive() {
@@ -88,8 +88,8 @@ describe('predicates', function () {
         },
       };
 
-      assert.isTrue(isOpenApi3_2Element(openApi3_1ElementDuck));
-      assert.isFalse(isOpenApi3_2Element(openApi3_1ElementSwan));
+      assert.isTrue(isOpenApi3_2Element(openApi3_2ElementDuck));
+      assert.isFalse(isOpenApi3_2Element(openApi3_2ElementSwan));
     });
   });
 

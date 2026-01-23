@@ -2,7 +2,7 @@
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with missing operationId field should not normalize operationId 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -179,7 +179,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with m
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with normalized operationId field should not normalize operationId 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -375,32 +375,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with n
           ]
         }
       }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array"
-                }
-              }
-            }
-          ]
-        }
-      }
     }
   ]
 }
@@ -408,7 +382,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with n
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with operationId field containing only empty spaces should construct normalized operationId from path and method 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -566,10 +540,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                             "http-method": {
                               "element": "string",
                               "content": "GET"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "   "
                             }
                           },
                           "content": [
@@ -590,19 +560,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                                 "key": {
                                   "element": "string",
                                   "content": "operationId"
-                                },
-                                "value": {
-                                  "element": "string",
-                                  "content": "get_path_to_resource"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
                                 },
                                 "value": {
                                   "element": "string",
@@ -621,38 +578,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
           ]
         }
       }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1path~1to~1resource/get"
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
     }
   ]
 }
@@ -660,7 +585,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with operationId field containing only special characters should normalize operationId 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -818,10 +743,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                             "http-method": {
                               "element": "string",
                               "content": "GET"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "^%~ *@#"
                             }
                           },
                           "content": [
@@ -845,19 +766,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
                                 },
                                 "value": {
                                   "element": "string",
-                                  "content": "______"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
-                                },
-                                "value": {
-                                  "element": "string",
                                   "content": "^%~ *@#"
                                 }
                               }
@@ -873,38 +781,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
           ]
         }
       }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1path~1to~1resource/get"
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
     }
   ]
 }
@@ -912,7 +788,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with un-normalized operationId field and Link.operationId is pointing to that Operation should correct the Link.operationId field 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -1050,10 +926,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                                   "content": "reference-element"
                                 }
                               ]
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "get operation ^"
                             }
                           },
                           "content": [
@@ -1077,19 +949,17 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                                 },
                                 "value": {
                                   "element": "string",
-                                  "content": "getoperation_"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
-                                },
-                                "value": {
-                                  "element": "string",
+                                  "meta": {
+                                    "classes": {
+                                      "element": "array",
+                                      "content": [
+                                        {
+                                          "element": "string",
+                                          "content": "reference-value"
+                                        }
+                                      ]
+                                    }
+                                  },
                                   "content": "get operation ^"
                                 }
                               }
@@ -1208,10 +1078,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                             "http-method": {
                               "element": "string",
                               "content": "GET"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "get operation ^"
                             }
                           },
                           "content": [
@@ -1235,19 +1101,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                                 },
                                 "value": {
                                   "element": "string",
-                                  "content": "getoperation_"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
-                                },
-                                "value": {
-                                  "element": "string",
                                   "content": "get operation ^"
                                 }
                               }
@@ -1255,38 +1108,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                           ]
                         }
                       }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1/get"
                     }
                   ]
                 }
@@ -1302,7 +1123,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
 
 exports[`refractor plugins normalize-operation-ids given Operation Object with un-normalized operationId field should normalize operationId 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -1460,10 +1281,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                             "http-method": {
                               "element": "string",
                               "content": "GET"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "get operation ^"
                             }
                           },
                           "content": [
@@ -1484,19 +1301,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
                                 "key": {
                                   "element": "string",
                                   "content": "operationId"
-                                },
-                                "value": {
-                                  "element": "string",
-                                  "content": "getoperation_"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
                                 },
                                 "value": {
                                   "element": "string",
@@ -1515,38 +1319,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
           ]
         }
       }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1/get"
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
     }
   ]
 }
@@ -1554,7 +1326,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
 
 exports[`refractor plugins normalize-operation-ids given Operation Objects with identical operationId fields should normalize operationId and append numeric suffix 1`] = `
 {
-  "element": "openApi3_1",
+  "element": "openApi3_2",
   "meta": {
     "classes": {
       "element": "array",
@@ -1712,10 +1484,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                             "http-method": {
                               "element": "string",
                               "content": "GET"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "get user"
                             }
                           },
                           "content": [
@@ -1736,19 +1504,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                                 "key": {
                                   "element": "string",
                                   "content": "operationId"
-                                },
-                                "value": {
-                                  "element": "string",
-                                  "content": "getuser1"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
                                 },
                                 "value": {
                                   "element": "string",
@@ -1784,10 +1539,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                             "http-method": {
                               "element": "string",
                               "content": "POST"
-                            },
-                            "originalOperationId": {
-                              "element": "string",
-                              "content": "get user"
                             }
                           },
                           "content": [
@@ -1811,19 +1562,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                                 },
                                 "value": {
                                   "element": "string",
-                                  "content": "getuser2"
-                                }
-                              }
-                            },
-                            {
-                              "element": "member",
-                              "content": {
-                                "key": {
-                                  "element": "string",
-                                  "content": "__originalOperationId"
-                                },
-                                "value": {
-                                  "element": "string",
                                   "content": "get user"
                                 }
                               }
@@ -1831,42 +1569,6 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
                           ]
                         }
                       }
-                    }
-                  ]
-                }
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "element": "member",
-      "content": {
-        "key": {
-          "element": "string",
-          "content": "x-normalized"
-        },
-        "value": {
-          "element": "object",
-          "content": [
-            {
-              "element": "member",
-              "content": {
-                "key": {
-                  "element": "string",
-                  "content": "operation-ids"
-                },
-                "value": {
-                  "element": "array",
-                  "content": [
-                    {
-                      "element": "string",
-                      "content": "/paths/~1/get"
-                    },
-                    {
-                      "element": "string",
-                      "content": "/paths/~1/post"
                     }
                   ]
                 }

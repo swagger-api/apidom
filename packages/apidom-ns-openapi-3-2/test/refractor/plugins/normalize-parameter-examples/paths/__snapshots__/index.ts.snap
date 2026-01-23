@@ -16,20 +16,15 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 3,
+            example: 1,
             examples: Array [
-              3,
+              2,
             ],
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -50,17 +45,12 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 2,
+            example: 1,
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -82,18 +72,13 @@ Object {
           name: param1,
           schema: Object {
             examples: Array [
-              2,
+              1,
             ],
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -109,20 +94,15 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 3,
+            example: 1,
             examples: Array [
-              3,
+              2,
             ],
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -138,17 +118,12 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 2,
+            example: 1,
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -173,11 +148,6 @@ Object {
       ],
     },
   },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
-  },
 }
 `;
 
@@ -196,20 +166,15 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 3,
+            example: 1,
             examples: Array [
-              3,
+              2,
             ],
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -229,17 +194,12 @@ Object {
           in: query,
           name: param1,
           schema: Object {
-            example: 2,
+            example: 1,
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;
@@ -260,18 +220,13 @@ Object {
           name: param1,
           schema: Object {
             examples: Array [
-              2,
+              1,
             ],
             type: number,
           },
         },
       ],
     },
-  },
-  x-normalized: Object {
-    parameter-examples: Array [
-      /paths/~1/parameters/0,
-    ],
   },
 }
 `;

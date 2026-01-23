@@ -70,6 +70,11 @@
       "require": "./src/services/validation/providers/openapi-31-json-schema-validation-provider.cjs",
       "types": "./types/services/validation/providers/openapi-31-json-schema-validation-provider.d.ts"
     },
+    "./services/validation/providers/openapi-32-json-schema": {
+      "import": "./src/services/validation/providers/openapi-32-json-schema-validation-provider.mjs",
+      "require": "./src/services/validation/providers/openapi-32-json-schema-validation-provider.cjs",
+      "types": "./types/services/validation/providers/openapi-32-json-schema-validation-provider.d.ts"
+    },
     "./services/validation/providers/ads": {
       "import": "./src/services/validation/providers/ads-validation-provider.mjs",
       "require": "./src/services/validation/providers/ads-validation-provider.cjs",
@@ -101,6 +106,7 @@
     "@swagger-api/apidom-ns-openapi-2": "^1.2.2",
     "@swagger-api/apidom-ns-openapi-3-0": "^1.2.2",
     "@swagger-api/apidom-ns-openapi-3-1": "^1.2.2",
+    "@swagger-api/apidom-ns-openapi-3-2": "^1.2.2",
     "@swagger-api/apidom-parser": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "^1.2.2",
@@ -112,9 +118,11 @@
     "@swagger-api/apidom-parser-adapter-openapi-json-2": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^1.2.2",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-2": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-2": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^1.2.2",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-2": "^1.2.2",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^1.2.2",
     "@swagger-api/apidom-reference": "^1.2.2",
     "@types/ramda": "~0.30.0",

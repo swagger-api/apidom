@@ -49,6 +49,20 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI32,
   },
   {
+    label: '$self',
+    insertText: '$self',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The self-assigned URI of this document. This URI is used as the base URI for relative references within the document. If `$self` is a relative URI reference, it is resolved against the retrieval URI before being used.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     label: 'servers',
     insertText: 'servers',
     kind: 14,

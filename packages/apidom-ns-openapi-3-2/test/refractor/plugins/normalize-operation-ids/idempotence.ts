@@ -16,7 +16,7 @@ describe('refractor', function () {
     context('normalize-parameters', function () {
       specify('should have idempotent characteristics', async function () {
         const yamlDefinition = dedent`
-            openapi: 3.1.0
+            openapi: 3.2.0
             components:
               links:
                 link1:

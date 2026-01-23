@@ -5,7 +5,7 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import { OpenApi3_2Element } from '../../src/index.ts';
 
 const genericObjectElement = new ObjectElement({
-  openapi: '3.1.0',
+  openapi: '3.2.0',
   info: {
     title: 'Webhook Example',
     version: '1.0.0',

@@ -11,7 +11,7 @@ describe('refractor', function () {
           context('given Schema Object without $id keyword', function () {
             specify('should have empty ancestorsSchemaIdentifiers', function () {
               const genericObjectElement = new ObjectElement({
-                openapi: '3.1.0',
+                openapi: '3.2.0',
                 components: {
                   schemas: {
                     user: {
@@ -33,7 +33,7 @@ describe('refractor', function () {
               'should annotate Schema($anchor=1) with ancestorsSchemaIdentifiers',
               function () {
                 const genericObjectElement = new ObjectElement({
-                  openapi: '3.1.0',
+                  openapi: '3.2.0',
                   components: {
                     schemas: {
                       User: {
@@ -67,7 +67,7 @@ describe('refractor', function () {
 
             beforeEach(function () {
               genericObjectElement = new ObjectElement({
-                openapi: '3.1.0',
+                openapi: '3.2.0',
                 components: {
                   schemas: {
                     User: {

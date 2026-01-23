@@ -12,7 +12,7 @@ describe('refractor', function () {
         context("and Operation Object doesn't define any parameters", function () {
           specify('should inherit all Path Item parameters', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:
@@ -34,7 +34,7 @@ describe('refractor', function () {
         context('and Operation Object defines empty parameters', function () {
           specify('should inherit all Path Item parameters', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:
@@ -59,7 +59,7 @@ describe('refractor', function () {
             'should inherit all Path Item parameters in each Operation Object',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:
@@ -83,7 +83,7 @@ describe('refractor', function () {
         context('and Operation Object defines additional parameter', function () {
           specify('should merge with all Path Item parameters', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:
@@ -108,7 +108,7 @@ describe('refractor', function () {
         context('and Operation Object defines identical parameter', function () {
           specify('should replace Path Item parameter', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:
@@ -136,7 +136,7 @@ describe('refractor', function () {
             'should remove Operation identical parameter and merge with all Path Item parameters',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   parameters:

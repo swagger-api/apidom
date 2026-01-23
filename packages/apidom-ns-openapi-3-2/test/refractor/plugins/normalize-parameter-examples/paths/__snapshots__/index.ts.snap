@@ -2,7 +2,7 @@
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -36,7 +36,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines example field should override Schema Object example field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -67,7 +67,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines examples field should override Schema Object examples field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -100,7 +100,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -129,7 +129,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines example field should override Schema Object example field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -155,7 +155,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines example field and Schema Object defines examples field should override Schema Object examples field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -183,7 +183,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -216,7 +216,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines example field should override Schema Object example field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [
@@ -246,7 +246,7 @@ Object {
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines examples field and Schema Object defines examples field should override Schema Object examples field 1`] = `
 Object {
-  openapi: 3.1.0,
+  openapi: 3.2.0,
   paths: Object {
     /: Object {
       parameters: Array [

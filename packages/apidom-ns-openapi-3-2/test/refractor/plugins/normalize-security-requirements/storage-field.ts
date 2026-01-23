@@ -13,7 +13,7 @@ describe('refractor', function () {
     context('normalize-security-requirements', function () {
       specify('should use sub-field to store normalized scopes', async function () {
         const yamlDefinition = dedent`
-            openapi: 3.1.0
+            openapi: 3.2.0
             paths:
               /:
                 get: {}
@@ -35,7 +35,7 @@ describe('refractor', function () {
       context('given custom storage field', function () {
         specify('should use custom storage field to store normalized scopes', async function () {
           const yamlDefinition = dedent`
-                openapi: 3.1.0
+                openapi: 3.2.0
                 paths:
                   /:
                     get: {}

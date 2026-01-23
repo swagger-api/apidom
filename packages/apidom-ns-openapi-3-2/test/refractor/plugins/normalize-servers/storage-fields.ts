@@ -10,7 +10,7 @@ describe('refractor', function () {
     context('normalize-servers', function () {
       specify('should use sub-field to store normalized scopes', async function () {
         const yamlDefinition = dedent`
-            openapi: 3.1.0
+            openapi: 3.2.0
             servers:
               - url: https://example.com/
                 description: production server
@@ -31,7 +31,7 @@ describe('refractor', function () {
       context('given custom storage field', function () {
         specify('should use custom storage field to store normalized scopes', async function () {
           const yamlDefinition = dedent`
-            openapi: 3.1.0
+            openapi: 3.2.0
             servers:
               - url: https://example.com/
                 description: production server

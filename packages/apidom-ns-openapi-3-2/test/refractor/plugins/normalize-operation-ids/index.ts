@@ -11,7 +11,7 @@ describe('refractor', function () {
         context('and Link.operationId is pointing to that Operation', function () {
           specify('should correct the Link.operationId field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               components:
                 links:
                   link1:
@@ -32,7 +32,7 @@ describe('refractor', function () {
 
         specify('should normalize operationId', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -50,7 +50,7 @@ describe('refractor', function () {
       context('given Operation Object with normalized operationId field', function () {
         specify('should not normalize operationId', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -68,7 +68,7 @@ describe('refractor', function () {
       context('given Operation Object with missing operationId field', function () {
         specify('should not normalize operationId', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get: {}
@@ -87,7 +87,7 @@ describe('refractor', function () {
         function () {
           specify('should normalize operationId', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /path/to/resource:
                   get:
@@ -110,7 +110,7 @@ describe('refractor', function () {
             'should construct normalized operationId from path and method',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /path/to/resource:
                   get:
@@ -130,7 +130,7 @@ describe('refractor', function () {
       context('given Operation Objects with identical operationId fields', function () {
         specify('should normalize operationId and append numeric suffix', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:

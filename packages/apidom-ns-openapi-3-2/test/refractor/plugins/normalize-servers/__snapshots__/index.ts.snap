@@ -108,7 +108,7 @@ exports[`refractor plugins normalize-servers given OpenAPI.servers defined and P
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },

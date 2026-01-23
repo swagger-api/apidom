@@ -118,7 +118,7 @@ exports[`refractor plugins normalize-parameters given parameters are defined in 
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },

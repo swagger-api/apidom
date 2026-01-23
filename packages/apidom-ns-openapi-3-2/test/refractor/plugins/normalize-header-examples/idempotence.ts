@@ -16,7 +16,7 @@ describe('refractor', function () {
     context('normalize-header-examples', function () {
       specify('should have idempotent characteristics', async function () {
         const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:

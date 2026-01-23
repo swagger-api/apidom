@@ -8,7 +8,7 @@ import { refractorPluginReplaceEmptyElement, OpenApi3_2Element } from '../../../
 describe('given empty value instead of InfoElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           info:
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -23,7 +23,7 @@ describe('given empty value instead of InfoElement', function () {
 describe('given empty value instead of ContactElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           info:
             contact:
         `;
@@ -39,7 +39,7 @@ describe('given empty value instead of ContactElement', function () {
 describe('given empty value instead for OpenAPI.components.schemas', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           components:
             schemas:
         `;
@@ -60,7 +60,7 @@ describe('given empty value instead for OpenAPI.components.schemas', function ()
 describe('given empty value instead for OpenAPI.components.schemas.*', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           components:
             schemas:
               Schema1:
@@ -77,7 +77,7 @@ describe('given empty value instead for OpenAPI.components.schemas.*', function 
 describe('given empty value instead for Schema.properties.*', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           components:
             schemas:
               User:
@@ -96,7 +96,7 @@ describe('given empty value instead for Schema.properties.*', function () {
 describe('given OpenAPI definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           jsonSchemaDialect: https://spec.openapis.org/oas/3.1/dialect/base
         `;
     const apiDOM = await parse(yamlDefinition);
@@ -111,7 +111,7 @@ describe('given OpenAPI definition with no empty values', function () {
 describe('given OpenAPI definition with empty values', function () {
   it('should generate proper source maps', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           info:
         `;
     const apiDOM = await parse(yamlDefinition, { sourceMap: true });

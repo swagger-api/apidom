@@ -14,7 +14,7 @@ describe('refractor', function () {
       context('given Operation Object is defined inside Components.pathItems', function () {
         specify('should skip the Operation from normalization', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               security:
                 - petstore_auth:
                     - write:pets
@@ -36,7 +36,7 @@ describe('refractor', function () {
       context('given Operation Object is defined in Components.callbacks', function () {
         specify('should skip the Operation from normalization', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               security:
                 - petstore_auth:
                     - write:pets

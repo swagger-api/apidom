@@ -14,7 +14,7 @@ describe('refractor', function () {
       context('given Parameter Object is defined in Components.parameters', function () {
         specify('should skip the Parameter Object from normalization', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               components:
                 parameters:
                   parameter1:
@@ -37,7 +37,7 @@ describe('refractor', function () {
       context('given Parameter Object is defined in Components.pathItems', function () {
         specify('should skip the Parameter Object from normalization', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               components:
                 pathItems:
                   pathItem1:

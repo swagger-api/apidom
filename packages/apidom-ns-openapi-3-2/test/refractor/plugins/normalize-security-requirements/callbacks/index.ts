@@ -17,7 +17,7 @@ describe('refractor', function () {
             'should inherit Security Requirements from OpenAPI.security field',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               security:
                 - petstore_auth:
                     - write:pets
@@ -45,7 +45,7 @@ describe('refractor', function () {
             'should not inherit Security Requirements from OpenAPI.security field',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               security:
                 - petstore_auth:
                     - write:pets
@@ -74,7 +74,7 @@ describe('refractor', function () {
             'should not inherit Security Requirements from OpenAPI.security field',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               security:
                 - petstore_auth:
                     - write:pets
@@ -103,7 +103,7 @@ describe('refractor', function () {
         context('and Operation.security is defined', function () {
           specify('should do nothing', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -125,7 +125,7 @@ describe('refractor', function () {
         context('and Operation.security is not defined', function () {
           specify('should do nothing', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:

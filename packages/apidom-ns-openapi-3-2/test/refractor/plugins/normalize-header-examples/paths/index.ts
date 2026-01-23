@@ -15,7 +15,7 @@ describe('refractor', function () {
         context('and Schema Object defines examples field', function () {
           specify('should override Schema Object examples field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -42,7 +42,7 @@ describe('refractor', function () {
         context('and Schema Object defines example field', function () {
           specify('should override Schema Object example field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -71,7 +71,7 @@ describe('refractor', function () {
             'should override both Schema Object example and examples fields',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -102,7 +102,7 @@ describe('refractor', function () {
         context('and Schema Object defines examples field', function () {
           specify('should override Schema Object examples field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -128,7 +128,7 @@ describe('refractor', function () {
         context('and Schema Object defines example field', function () {
           specify('should override Schema Object example field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -156,7 +156,7 @@ describe('refractor', function () {
             'should override both Schema Object example and examples fields',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -186,7 +186,7 @@ describe('refractor', function () {
         context('and Schema Object defines examples field', function () {
           specify('should override Schema Object examples field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -215,7 +215,7 @@ describe('refractor', function () {
         context('and Schema Object defines example field', function () {
           specify('should override Schema Object example field', async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:
@@ -246,7 +246,7 @@ describe('refractor', function () {
             'should override both Schema Object example and examples fields',
             async function () {
               const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get:

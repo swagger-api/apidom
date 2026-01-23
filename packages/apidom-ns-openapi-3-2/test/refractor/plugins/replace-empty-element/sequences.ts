@@ -8,7 +8,7 @@ import { refractorPluginReplaceEmptyElement, OpenApi3_2Element } from '../../../
 describe('given empty value instead of ServerElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           servers:
            -
         `;
@@ -24,7 +24,7 @@ describe('given empty value instead of ServerElement', function () {
 describe('given empty value instead of SecurityRequirementElement', function () {
   it('should replace empty value with semantic element', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           security:
            -
         `;
@@ -40,7 +40,7 @@ describe('given empty value instead of SecurityRequirementElement', function () 
 describe('given multiple empty values instead of TagElement', function () {
   it('should replace empty values with semantic elements', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           tags:
            -
            -
@@ -57,7 +57,7 @@ describe('given multiple empty values instead of TagElement', function () {
 describe('given empty values instead of SchemaElement for allOf keyword', function () {
   it('should replace empty values with semantic elements', async function () {
     const yamlDefinition = dedent`
-          openapi: 3.1.0
+          openapi: 3.2.0
           components:
             schemas:
               Schema1:

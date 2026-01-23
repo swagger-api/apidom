@@ -13,7 +13,7 @@ describe('refractor', function () {
           'should duplicate Server Objects in PathItem.servers and Operation.servers',
           async function () {
             const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               servers:
                - url: https://example.com/
                  description: production server
@@ -34,7 +34,7 @@ describe('refractor', function () {
       context('given PathItem.servers defined', function () {
         specify('should duplicate Server Objects in Operation.servers', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   servers:
@@ -54,7 +54,7 @@ describe('refractor', function () {
       context('given OpenAPI.servers defined and PathItem.servers defined', function () {
         specify('should duplicate Server Objects from PathItem.servers', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               servers:
                - url: https://example.com/top
                  description: top production server
@@ -77,7 +77,7 @@ describe('refractor', function () {
       context('given no servers field is defined', function () {
         specify('should create default Server Object and duplicate', async function () {
           const yamlDefinition = dedent`
-              openapi: 3.1.0
+              openapi: 3.2.0
               paths:
                 /:
                   get: {}

@@ -16,7 +16,7 @@ describe('refractor', function () {
         context('given Schema Object without $schema keyword', function () {
           specify('should annotate Schema Object with default dialect', function () {
             const genericObjectElement = new ObjectElement({
-              openapi: '3.1.0',
+              openapi: '3.2.0',
               components: {
                 schemas: {
                   user: {
@@ -57,7 +57,7 @@ describe('refractor', function () {
             'should annotate Schema Object with jsonSchemaDialect field value',
             async function () {
               const genericObjectElement = await parse(`{
-              "openapi": "3.1",
+              "openapi": "3.2.0",
               "jsonSchemaDialect": "https://arbitrary-schema-url.com/",
               "components": {
                 "schemas": {
@@ -82,7 +82,7 @@ describe('refractor', function () {
             'should annotate Schema Object with jsonSchemaDialect field value',
             async function () {
               const genericObjectElement = await parse(`{
-              "openapi": "3.1",
+              "openapi": "3.2.0",
               "components": {
                 "schemas": {
                   "user": {
@@ -108,7 +108,7 @@ describe('refractor', function () {
 
           beforeEach(function () {
             genericObjectElement = new ObjectElement({
-              openapi: '3.1.0',
+              openapi: '3.2.0',
               components: {
                 schemas: {
                   user: {

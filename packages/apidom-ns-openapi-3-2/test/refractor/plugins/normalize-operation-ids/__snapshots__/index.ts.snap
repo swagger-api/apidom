@@ -54,7 +54,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with m
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -231,7 +231,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with n
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -460,7 +460,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -712,7 +712,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with o
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -964,7 +964,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -1354,7 +1354,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Object with u
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },
@@ -1606,7 +1606,7 @@ exports[`refractor plugins normalize-operation-ids given Operation Objects with 
               ]
             }
           },
-          "content": "3.1.0"
+          "content": "3.2.0"
         }
       }
     },

@@ -1,5 +1,6 @@
 {
   "openapi": "3.2.0",
+  "$self": "https://api.example.com/openapi.json",
   "info": {
     "title": "Sample Pet Store App",
     "summary": "A pet store manager.",
@@ -21,6 +22,7 @@
   "servers": [
     {
       "url": "{username}.gigantic-server.com",
+      "name": "Production Server",
       "description": "Production server",
       "variables": {
         "username": {
@@ -163,6 +165,7 @@
         "servers": [
           {
             "url": "{username}.gigantic-server.com",
+            "name": "Operation Override Server",
             "description": "Production server",
             "variables": {
               "username": {
@@ -192,6 +195,7 @@
       "servers": [
         {
           "url": "{username}.gigantic-server.com",
+          "name": "Path Item Server",
           "description": "Production server",
           "variables": {
             "username": {
@@ -377,12 +381,28 @@
   ],
   "tags": [
     {
+      "name": "resources",
+      "summary": "Resource operations",
+      "description": "Root category for all resource operations",
+      "kind": "collection"
+    },
+    {
       "name": "tag1",
+      "summary": "Tag 1 operations",
       "description": "tag1 description",
+      "parent": "resources",
+      "kind": "resource",
       "externalDocs": {
         "description": "external docs tag description",
         "url": "https://example.com/extenral-docs-tag"
       }
+    },
+    {
+      "name": "tag2",
+      "summary": "Tag 2 operations",
+      "description": "tag2 description",
+      "parent": "resources",
+      "kind": "resource"
     }
   ],
   "externalDocs": {

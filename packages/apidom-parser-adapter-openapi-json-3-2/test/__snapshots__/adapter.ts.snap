@@ -8,6 +8,9 @@ exports[`adapter should parse 1`] = `
       (OpenapiElement))
     (MemberElement
       (StringElement)
+      (StringElement))
+    (MemberElement
+      (StringElement)
       (InfoElement
         (MemberElement
           (StringElement)
@@ -55,6 +58,9 @@ exports[`adapter should parse 1`] = `
       (StringElement)
       (ArrayElement
         (ServerElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
           (MemberElement
             (StringElement)
             (StringElement))
@@ -359,6 +365,9 @@ exports[`adapter should parse 1`] = `
                         (StringElement))
                       (MemberElement
                         (StringElement)
+                        (StringElement))
+                      (MemberElement
+                        (StringElement)
                         (ObjectElement
                           (MemberElement
                             (StringElement)
@@ -412,6 +421,9 @@ exports[`adapter should parse 1`] = `
               (StringElement)
               (ArrayElement
                 (ServerElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
                   (MemberElement
                     (StringElement)
                     (StringElement))
@@ -788,13 +800,51 @@ exports[`adapter should parse 1`] = `
             (StringElement))
           (MemberElement
             (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement)))
+        (TagElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
             (ExternalDocumentationElement
               (MemberElement
                 (StringElement)
                 (StringElement))
               (MemberElement
                 (StringElement)
-                (StringElement)))))))
+                (StringElement)))))
+        (TagElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement)))))
     (MemberElement
       (StringElement)
       (ExternalDocumentationElement

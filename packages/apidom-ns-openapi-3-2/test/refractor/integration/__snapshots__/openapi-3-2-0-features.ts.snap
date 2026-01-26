@@ -82,16 +82,16 @@ exports[`refractor integration OpenAPI 3.2.0 new features should refract all new
             (ObjectElement
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (OperationElement
                   (MemberElement
                     (StringElement)
                     (StringElement))
                   (MemberElement
                     (StringElement)
-                    (ObjectElement
+                    (ResponsesElement
                       (MemberElement
                         (StringElement)
-                        (ObjectElement
+                        (ResponseElement
                           (MemberElement
                             (StringElement)
                             (StringElement))))))))))
@@ -216,7 +216,7 @@ exports[`refractor integration OpenAPI 3.2.0 new features should support additio
             (ObjectElement
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (OperationElement
                   (MemberElement
                     (StringElement)
                     (StringElement))
@@ -225,16 +225,16 @@ exports[`refractor integration OpenAPI 3.2.0 new features should support additio
                     (StringElement))
                   (MemberElement
                     (StringElement)
-                    (ObjectElement
+                    (ResponsesElement
                       (MemberElement
                         (StringElement)
-                        (ObjectElement
+                        (ResponseElement
                           (MemberElement
                             (StringElement)
                             (StringElement))))))))
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (OperationElement
                   (MemberElement
                     (StringElement)
                     (StringElement))
@@ -243,10 +243,10 @@ exports[`refractor integration OpenAPI 3.2.0 new features should support additio
                     (StringElement))
                   (MemberElement
                     (StringElement)
-                    (ObjectElement
+                    (ResponsesElement
                       (MemberElement
                         (StringElement)
-                        (ObjectElement
+                        (ResponseElement
                           (MemberElement
                             (StringElement)
                             (StringElement)))))))))))))))
@@ -334,16 +334,16 @@ exports[`refractor integration OpenAPI 3.2.0 new features should support all fea
             (ObjectElement
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (OperationElement
                   (MemberElement
                     (StringElement)
                     (StringElement))
                   (MemberElement
                     (StringElement)
-                    (ObjectElement
+                    (ResponsesElement
                       (MemberElement
                         (StringElement)
-                        (ObjectElement
+                        (ResponseElement
                           (MemberElement
                             (StringElement)
                             (StringElement))))))))))

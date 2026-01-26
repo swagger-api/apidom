@@ -7,7 +7,7 @@ exports[`refractor elements PathItemElement should refract additionalOperations 
     (ObjectElement
       (MemberElement
         (StringElement)
-        (ObjectElement
+        (OperationElement
           (MemberElement
             (StringElement)
             (StringElement))
@@ -16,16 +16,16 @@ exports[`refractor elements PathItemElement should refract additionalOperations 
             (StringElement))
           (MemberElement
             (StringElement)
-            (ObjectElement
+            (ResponsesElement
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (ResponseElement
                   (MemberElement
                     (StringElement)
                     (StringElement))))))))
       (MemberElement
         (StringElement)
-        (ObjectElement
+        (OperationElement
           (MemberElement
             (StringElement)
             (StringElement))
@@ -34,10 +34,10 @@ exports[`refractor elements PathItemElement should refract additionalOperations 
             (StringElement))
           (MemberElement
             (StringElement)
-            (ObjectElement
+            (ResponsesElement
               (MemberElement
                 (StringElement)
-                (ObjectElement
+                (ResponseElement
                   (MemberElement
                     (StringElement)
                     (StringElement)))))))))))

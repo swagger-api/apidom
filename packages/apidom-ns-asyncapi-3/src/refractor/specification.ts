@@ -66,6 +66,7 @@ import ServerSecurityVisitor from './visitors/async-api-3/server/SecurityVisitor
 import ServerVariableVisitor from './visitors/async-api-3/server-variable/index.ts';
 import ServerVisitor from './visitors/async-api-3/server/index.ts';
 import ServersVisitor from './visitors/async-api-3/servers/index.ts';
+import SpecificationExtensionVisitor from './visitors/SpecificationExtensionVisitor.ts';
 import TagVisitor from './visitors/async-api-3/tag/index.ts';
 import TagsVisitor from './visitors/async-api-3/tags/index.ts';
 import schemaInheritedFixedFields from './visitors/async-api-3/schema/inherited-fixed-fields.ts';
@@ -1459,6 +1460,9 @@ const specification = {
             },
           },
         },
+      },
+      extension: {
+        $visitor: SpecificationExtensionVisitor,
       },
     },
   },

@@ -130,6 +130,20 @@ const completion: ApidomCompletionItem[] = [
     },
     targetSpecs: [...OpenAPI2, ...OpenAPI3],
   },
+  {
+    label: 'nodeType',
+    insertText: 'nodeType',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Specifies the type of XML node. Valid values are: "element", "attribute", "text", "cdata", or "none". Default value is "element".',
+    },
+    targetSpecs: OpenAPI32,
+  },
 ];
 
 export default completion;

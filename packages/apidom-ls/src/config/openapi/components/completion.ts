@@ -270,7 +270,35 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#pathItemObject).',
     },
-    targetSpecs: [...OpenAPI31, ...OpenAPI32],
+    targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'pathItems',
+    insertText: 'pathItems',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#referenceObject)]\n\\\n\\\nAn object to hold reusable [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject).',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'mediaTypes',
+    insertText: 'mediaTypes',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject)]\n\\\n\\\nAn object to hold reusable [Media Type Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject).',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

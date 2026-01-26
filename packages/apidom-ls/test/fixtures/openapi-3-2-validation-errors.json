@@ -41,5 +41,13 @@
       }
     },
     "invalidField": "should-not-be-here"
-  }
+  },
+  "tags": [
+    {
+      "name": "test-tag",
+      "summary": 12345,
+      "parent": true,
+      "kind": 67890
+    }
+  ]
 }

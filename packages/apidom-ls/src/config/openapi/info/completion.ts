@@ -43,7 +43,20 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A short summary of the API.',
     },
-    targetSpecs: [...OpenAPI31, ...OpenAPI32],
+    targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'summary',
+    insertText: 'summary',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A short summary of the API.',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'description',

@@ -1,11 +1,7 @@
 /**
- * Omitted fixed fields:
- *  - parameters
+ * Omitted fixed fields: none
  *
- * Field omission reason: omitted fields do have a non-union type. Thus,
- * documentation for these fields doesn't need to be specified here and will
- * come directly from the type itself. Description of these fields doesn't
- * contain significant information.
+ * All fixed fields are documented below.
  */
 
 import { AsyncAPI3 } from '../target-specs.ts';

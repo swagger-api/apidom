@@ -6656,4 +6656,124 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 3.2 - should support tag summary, parent, and kind fields', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains tag with summary, parent, and kind fields
+    // These should not produce errors in OpenAPI 3.2.0
+    const tagFieldErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' &&
+        (d.message.includes('summary') || d.message.includes('parent') || d.message.includes('kind')) &&
+        d.message.includes('not allowed'),
+    );
+    assert.strictEqual(
+      tagFieldErrors.length,
+      0,
+      'OpenAPI 3.2.0 should support tag summary, parent, and kind fields',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate tag summary field type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The summary field in tag should be a string
+    const summaryTypeError = result.find(
+      (d) =>
+        d.source === 'apilint' &&
+        d.message.includes('summary') &&
+        d.message.includes('string') &&
+        d.range.start.line > 30,
+    );
+    assert.isDefined(summaryTypeError, 'Should validate tag summary field as string type');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate tag parent field type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The parent field in tag should be a string
+    const parentTypeError = result.find(
+      (d) => d.source === 'apilint' && d.message.includes('parent') && d.message.includes('string'),
+    );
+    assert.isDefined(parentTypeError, 'Should validate tag parent field as string type');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate tag kind field type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The kind field in tag should be a string
+    const kindTypeError = result.find(
+      (d) => d.source === 'apilint' && d.message.includes('kind') && d.message.includes('string'),
+    );
+    assert.isDefined(kindTypeError, 'Should validate tag kind field as string type');
+
+    languageService.terminate();
+  });
 });

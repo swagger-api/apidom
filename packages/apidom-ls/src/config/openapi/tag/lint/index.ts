@@ -5,6 +5,9 @@ import nameRequiredLint from './name--required.ts';
 import descriptionTypeLint from './description--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
 import nameUniqueLint from './name--unique.ts';
+import summaryTypeLint from './summary--type.ts';
+import parentTypeLint from './parent--type.ts';
+import kindTypeLint from './kind--type.ts';
 
 const lints = [
   allowedFieldsLint,
@@ -14,6 +17,9 @@ const lints = [
   nameUniqueLint,
   descriptionTypeLint,
   externalDocsTypeLint,
+  summaryTypeLint,
+  parentTypeLint,
+  kindTypeLint,
 ];
 
 export default lints;

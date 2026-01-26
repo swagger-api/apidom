@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED.** The URL for the target documentation. This MUST be in the form of an absolute URL.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'description',
@@ -30,6 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'A short description of the target documentation. [CommonMark syntax](https://spec.commonmark.org/) can be used for rich text representation.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
 ];
 

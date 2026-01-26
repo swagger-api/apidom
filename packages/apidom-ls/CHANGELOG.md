@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/swagger-api/apidom/compare/v1.2.2...v1.3.0) (2026-01-23)
+
+### Features
+
+- **apidom-ls:** docs & config of compatible properties in AsyncAPI3 ([#5095](https://github.com/swagger-api/apidom/issues/5095)) ([1f3a3c1](https://github.com/swagger-api/apidom/commit/1f3a3c11570be4471cad13170d430d8df78b1720))
+
 ## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ls

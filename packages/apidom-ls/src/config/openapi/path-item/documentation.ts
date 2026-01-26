@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 /**
  * Omitted fixed fields:
@@ -10,6 +10,7 @@ import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
  *  - head
  *  - patch
  *  - trace (OpenAPI 3.x.y)
+ *  - query (OpenAPI 3.2.0)
  *
  * Field omission reason: omitted fields do have a non-union type. Thus,
  * documentation for these fields doesn't need to be specified here and will
@@ -67,6 +68,36 @@ const documentation = [
     target: 'parameters',
     docs: "[[Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nA list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterName) and [location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn). The list can use the [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject) to link to parameters that are defined at the [OpenAPI Object's components/parameters](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsParameters).",
     targetSpecs: OpenAPI31,
+  },
+  {
+    target: '$ref',
+    docs: 'Allows for a referenced definition of this path item. The referenced structure MUST be in the form of a [Path Item Object](https://spec.openapis.org/oas/v3.2.0.html#path-item-object). In case a Path Item Object field appears both in the defined object and the referenced object, the behavior is undefined. See the rules for resolving [Relative References](https://spec.openapis.org/oas/v3.2.0.html#relative-references-in-uris).',
+    targetSpecs: OpenAPI32,
+  },
+  {
+    target: 'summary',
+    docs: 'An optional string summary, intended to apply to all operations in this path.',
+    targetSpecs: OpenAPI32,
+  },
+  {
+    target: 'description',
+    docs: 'An optional string description, intended to apply to all operations in this path. [CommonMark syntax](https://spec.commonmark.org/) MAY be used for rich text representation.',
+    targetSpecs: OpenAPI32,
+  },
+  {
+    target: 'servers',
+    docs: '[[Server Object](https://spec.openapis.org/oas/v3.2.0.html#server-object)]\n\\\n\\\nAn alternative `server` array to service all operations in this path.',
+    targetSpecs: OpenAPI32,
+  },
+  {
+    target: 'parameters',
+    docs: "[[Parameter Object](https://spec.openapis.org/oas/v3.2.0.html#parameter-object) &#124; [Reference Object](https://spec.openapis.org/oas/v3.2.0.html#reference-object)]\n\\\n\\\nA list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://spec.openapis.org/oas/v3.2.0.html#parameter-name) and [location](https://spec.openapis.org/oas/v3.2.0.html#parameter-in). The list can use the [Reference Object](https://spec.openapis.org/oas/v3.2.0.html#reference-object) to link to parameters that are defined at the [OpenAPI Object's components/parameters](https://spec.openapis.org/oas/v3.2.0.html#components-object).",
+    targetSpecs: OpenAPI32,
+  },
+  {
+    target: 'additionalOperations',
+    docs: 'Map[`string`, [Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)]\n\\\n\\\nA map of HTTP methods you choose to include in your API design for non-standard methods. Each key MUST be a valid HTTP method name, and each value MUST be an Operation Object describing the operation.',
+    targetSpecs: OpenAPI32,
   },
   {
     docs: '#### [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#path-item-object)\n\nDescribes the operations available on a single path.\nA Path Item may be empty, due to [ACL constraints](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#securityFiltering). The path itself is still exposed to the documentation viewer but they will not know which operations and parameters are available.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n$ref | `string` | Allows for an external definition of this path item. The referenced structure MUST be in the format of a [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#pathItemObject). If there are conflicts between the referenced definition and this Path Item\'s definition, the behavior is *undefined*.\nget | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a GET operation on this path.\nput | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a PUT operation on this path.\npost | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a POST operation on this path.\ndelete | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a DELETE operation on this path.\noptions | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a OPTIONS operation on this path.\nhead | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a HEAD operation on this path.\npatch | [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#operationObject) | A definition of a PATCH operation on this path.\nparameters | [[Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterObject) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#referenceObject)] | A list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterName) and [location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#parameterIn). The list can use the [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#referenceObject) to link to parameters that are defined at the [Swagger Object\'s parameters](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#swaggerParameters). There can be one "body" parameter at most.\n\n##### Patterned Fields\n\nField Pattern | Type | Description\n---|:---:|---\n^x- | Any | Allows extensions to the Swagger Schema. The field name MUST begin with `x-`, for example, `x-internal-id`. The value can be `null`, a primitive, an array or an object. See [Vendor Extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/2.0.md#vendorExtensions) for further details.\n\n##### Path Item Object Example\n\n```js\n{\n  "get": {\n    "description": "Returns pets based on ID",\n    "summary": "Find pets by ID",\n    "operationId": "getPetsById",\n    "produces": [\n      "application/json",\n      "text/html"\n    ],\n    "responses": {\n      "200": {\n        "description": "pet response",\n        "schema": {\n          "type": "array",\n          "items": {\n            "$ref": "#/definitions/Pet"\n          }\n        }\n      },\n      "default": {\n        "description": "error payload",\n        "schema": {\n          "$ref": "#/definitions/ErrorModel"\n        }\n      }\n    }\n  },\n  "parameters": [\n    {\n      "name": "id",\n      "in": "path",\n      "description": "ID of pet to use",\n      "required": true,\n      "type": "array",\n      "items": {\n        "type": "string"\n      },\n      "collectionFormat": "csv"\n    }\n  ]\n}\n```\n\n\n\\\nYAML\n```yaml\nget:\n  description: Returns pets based on ID\n  summary: Find pets by ID\n  operationId: getPetsById\n  produces:\n  - application/json\n  - text/html\n  responses:\n    \'200\':\n      description: pet response\n      schema:\n        type: array\n        items:\n          $ref: \'#/definitions/Pet\'\n    default:\n      description: error payload\n      schema:\n        $ref: \'#/definitions/ErrorModel\'\nparameters:\n- name: id\n  in: path\n  description: ID of pet to use\n  required: true\n  type: array\n  items:\n    type: string\n  collectionFormat: csv\n```',

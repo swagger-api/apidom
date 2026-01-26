@@ -6,6 +6,7 @@ import nameTypeLint from './name--type.ts';
 import nameRequiredLint from './name--required.ts';
 import inEquals2_0Lint from './in--equals-2-0.ts';
 import inEquals3_0__3_1Lint from './in--equals-3-0--3-1.ts';
+import inEquals3_2Lint from './in--equals-3-2.ts';
 import inRequiredLint from './in--required.ts';
 import inValidLint from './in--valid.ts';
 import descriptionTypeLint from './description--type.ts';
@@ -60,6 +61,7 @@ const lints = [
   nameRequiredLint,
   inEquals2_0Lint,
   inEquals3_0__3_1Lint,
+  inEquals3_2Lint,
   inAuthorizationLint,
   inRequiredLint,
   inValidLint,

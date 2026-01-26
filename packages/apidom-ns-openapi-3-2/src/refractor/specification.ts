@@ -29,6 +29,8 @@ import DiscriminatorVisitor from './visitors/open-api-3-2/distriminator/index.ts
 import XmlVisitor from './visitors/open-api-3-2/xml/index.ts';
 import ComponentsSchemasVisitor from './visitors/open-api-3-2/components/SchemasVisitor.ts';
 import ComponentsPathItemsVisitor from './visitors/open-api-3-2/components/PathItemsVisitor.ts';
+import ComponentsMediaTypesVisitor from './visitors/open-api-3-2/components/MediaTypesVisitor.ts';
+import AdditionalOperationsVisitor from './visitors/open-api-3-2/path-item/AdditionalOperationsVisitor.ts';
 import ExampleVisitor from './visitors/open-api-3-2/example/index.ts';
 import ExternalDocumentationVisitor from './visitors/open-api-3-2/external-documentation/index.ts';
 import EncodingVisitor from './visitors/open-api-3-2/encoding/index.ts';
@@ -166,6 +168,8 @@ const specification = {
             callbacks:
               OpenApi3_0Specification.visitors.document.objects.Components.fixedFields.callbacks,
             pathItems: ComponentsPathItemsVisitor,
+            // OpenAPI 3.2 addition
+            mediaTypes: ComponentsMediaTypesVisitor,
           },
         },
         Paths: {
@@ -202,9 +206,15 @@ const specification = {
             trace: {
               $ref: '#/visitors/document/objects/Operation',
             },
+            // OpenAPI 3.2 addition
+            query: {
+              $ref: '#/visitors/document/objects/Operation',
+            },
             servers: OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.servers,
             parameters:
               OpenApi3_0Specification.visitors.document.objects.PathItem.fixedFields.parameters,
+            // OpenAPI 3.2 addition
+            additionalOperations: AdditionalOperationsVisitor,
           },
         },
         Operation: {

@@ -30,6 +30,24 @@ describe('refractor', function () {
 
         expect(sexprs(parameterElement)).toMatchSnapshot();
       });
+
+      specify('should refract parameter with querystring location', function () {
+        const parameterElement = ParameterElement.refract({
+          name: 'queryParams',
+          in: 'querystring',
+          description: 'all query parameters as a schema',
+          schema: {
+            type: 'object',
+            properties: {
+              filter: { type: 'string' },
+              sort: { type: 'string' },
+              limit: { type: 'integer' },
+            },
+          },
+        });
+
+        expect(sexprs(parameterElement)).toMatchSnapshot();
+      });
     });
   });
 });

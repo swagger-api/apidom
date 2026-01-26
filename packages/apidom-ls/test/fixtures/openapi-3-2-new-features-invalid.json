@@ -1,0 +1,48 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "OpenAPI 3.2.0 Invalid Features Test",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/invalid-query": {
+      "query": "not-an-operation-object",
+      "parameters": [
+        {
+          "name": "badParam",
+          "in": "invalid-location",
+          "schema": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    "/invalid-additional": {
+      "additionalOperations": "not-an-object"
+    },
+    "/invalid-additional-values": {
+      "additionalOperations": {
+        "CUSTOM": "not-an-operation-object"
+      }
+    },
+    "/invalid-fields": {
+      "invalidField": "should-not-be-here",
+      "get": {
+        "summary": "Test",
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Test": {
+        "type": "object"
+      }
+    },
+    "mediaTypes": "not-an-object"
+  }
+}

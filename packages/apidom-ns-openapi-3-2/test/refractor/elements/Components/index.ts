@@ -51,6 +51,49 @@ describe('refractor', function () {
               get: {},
             },
           },
+          mediaTypes: {
+            MediaType1: {
+              schema: {
+                type: 'object',
+              },
+            },
+            MediaType2: { $ref: '#/components/mediaTypes/MediaType1' },
+            StreamingMediaType: {
+              itemSchema: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string' },
+                  data: { type: 'string' },
+                },
+              },
+            },
+          },
+        });
+
+        expect(sexprs(componentsElement)).toMatchSnapshot();
+      });
+
+      specify('should refract mediaTypes field', function () {
+        const componentsElement = ComponentsElement.refract({
+          mediaTypes: {
+            JsonMediaType: {
+              schema: {
+                type: 'object',
+                properties: {
+                  message: { type: 'string' },
+                },
+              },
+            },
+            StreamingMediaType: {
+              itemSchema: {
+                type: 'object',
+                properties: {
+                  event: { type: 'string' },
+                  data: { type: 'object' },
+                },
+              },
+            },
+          },
         });
 
         expect(sexprs(componentsElement)).toMatchSnapshot();

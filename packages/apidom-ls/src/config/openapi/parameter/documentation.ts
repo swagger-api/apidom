@@ -1,4 +1,4 @@
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 /**
  * Omitted fixed fields for OpenAPI 3.x.y:
@@ -39,7 +39,12 @@ const documentation = [
   {
     target: 'in',
     docs: '**REQUIRED**. The location of the parameter. Possible values are `"query"`, `"header"`, `"path"` or `"cookie"`.',
-    targetSpecs: OpenAPI3,
+    targetSpecs: [...OpenAPI30, ...OpenAPI31],
+  },
+  {
+    target: 'in',
+    docs: '**REQUIRED**. The location of the parameter. Possible values are `"query"`, `"header"`, `"path"`, `"cookie"`, or `"querystring"`.\n\\\n\\\nThe `"querystring"` location allows defining all query parameters as a single Schema Object for enhanced parameter control.',
+    targetSpecs: OpenAPI32,
   },
   {
     target: 'description',

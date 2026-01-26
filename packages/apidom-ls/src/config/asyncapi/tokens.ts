@@ -1,5 +1,5 @@
 // AsyncAPI 2.x specific tokens
-const asyncAPI2Tokens = ['channelItem', 'securityRequirement', 'oAuthFlow', 'oAuthFlows'];
+const asyncAPI2Tokens = ['channelItem', 'securityRequirement'];
 
 // AsyncAPI 3.x specific tokens
 const asyncAPI3Tokens = [
@@ -52,6 +52,8 @@ const commonTokens = [
   'tags',
   'externalDocumentation',
   'securityScheme',
+  'oAuthFlow',
+  'oAuthFlows',
   'discriminator',
   'messageTrait',
   'messageTraits',

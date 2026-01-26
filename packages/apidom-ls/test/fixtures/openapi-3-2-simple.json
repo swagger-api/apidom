@@ -20,8 +20,78 @@
         "tags": ["pets"],
         "responses": {
           "200": {
-            "description": "A list of pets"
+            "summary": "Successful response",
+            "description": "A list of pets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string",
+                        "xml": {
+                          "name": "petName",
+                          "nodeType": "element"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "pets-list": {
+                    "summary": "Example pet list",
+                    "dataValue": [
+                      {
+                        "id": 1,
+                        "name": "Fluffy"
+                      }
+                    ],
+                    "serializedValue": "[{\"id\":1,\"name\":\"Fluffy\"}]"
+                  }
+                }
+              },
+              "text/event-stream": {
+                "itemSchema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
           }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mediaTypes": {
+      "json": {
+        "schema": {
+          "$ref": "#/components/schemas/Pet"
         }
       }
     }

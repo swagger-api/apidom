@@ -6,6 +6,7 @@ import prefixTypeLint from './prefix--type.ts';
 import attributeTypeLint from './attribute--type.ts';
 import wrappedTypeLint from './wrapped--type.ts';
 import nodeTypeTypeLint from './node-type--type.ts';
+import nodeTypeEqualsLint from './node-type--equals.ts';
 
 const lints = [
   nameTypeLint,
@@ -14,6 +15,7 @@ const lints = [
   attributeTypeLint,
   wrappedTypeLint,
   nodeTypeTypeLint,
+  nodeTypeEqualsLint,
   allowedFieldsLint,
   allowedFields3_2Lint,
 ];

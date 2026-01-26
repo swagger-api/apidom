@@ -103,6 +103,10 @@ export type {
   PathItemsVisitorOptions as ComponentsPathItemsVisitorOptions,
 } from './refractor/visitors/open-api-3-2/components/PathItemsVisitor.ts';
 export type {
+  default as ComponentsMediaTypesVisitor,
+  MediaTypesVisitorOptions as ComponentsMediaTypesVisitorOptions,
+} from './refractor/visitors/open-api-3-2/components/MediaTypesVisitor.ts';
+export type {
   default as ComponentsSchemasVisitor,
   SchemasVisitorOptions as ComponentsSchemasVisitorOptions,
 } from './refractor/visitors/open-api-3-2/components/SchemasVisitor.ts';
@@ -563,4 +567,5 @@ export {
   TagsElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 export { default as ComponentsPathItemsElement } from './elements/nces/ComponentsPathItems.ts';
+export { default as ComponentsMediaTypesElement } from './elements/nces/ComponentsMediaTypes.ts';
 export { default as WebhooksElement } from './elements/nces/Webhooks.ts';

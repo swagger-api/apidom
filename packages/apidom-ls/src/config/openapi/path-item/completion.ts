@@ -397,6 +397,34 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
+    label: 'query',
+    insertText: 'query',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)\n\\\n\\\nA definition of a QUERY operation on this path. QUERY method allows safely querying the state of a resource in an idempotent way using a query payload.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'additionalOperations',
+    insertText: 'additionalOperations',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)]\n\\\n\\\nA map of HTTP methods you choose to include in your API design for non-standard methods. Each key must be a valid HTTP method name and each value must be an Operation Object.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     label: 'servers',
     insertText: 'servers',
     kind: 14,

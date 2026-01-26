@@ -1,3 +1,4 @@
+import { ObjectElement } from '@swagger-api/apidom-core';
 import { PathItemElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import OperationElement from './Operation.ts';
@@ -68,6 +69,22 @@ class PathItem extends PathItemElement {
 
   set TRACE(operation: OperationElement | undefined) {
     this.set('TRACE', operation);
+  }
+
+  get QUERY(): OperationElement {
+    return this.get('query');
+  }
+
+  set QUERY(operation: OperationElement | undefined) {
+    this.set('query', operation);
+  }
+
+  get additionalOperations(): ObjectElement | undefined {
+    return this.get('additionalOperations');
+  }
+
+  set additionalOperations(operations: ObjectElement | undefined) {
+    this.set('additionalOperations', operations);
   }
 }
 

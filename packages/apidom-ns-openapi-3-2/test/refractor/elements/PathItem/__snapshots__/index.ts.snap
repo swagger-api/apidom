@@ -1,5 +1,70 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements PathItemElement should refract additionalOperations 1`] = `
+(PathItemElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (ObjectElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))))))))
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (ObjectElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement)))))))))))
+`;
+
+exports[`refractor elements PathItemElement should refract query operation 1`] = `
+(PathItemElement
+  (MemberElement
+    (StringElement)
+    (OperationElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (ResponsesElement
+          (MemberElement
+            (StringElement)
+            (ResponseElement
+              (MemberElement
+                (StringElement)
+                (StringElement)))))))))
+`;
+
 exports[`refractor elements PathItemElement should refract to semantic ApiDOM tree 1`] = `
 (PathItemElement
   (MemberElement
@@ -11,6 +76,9 @@ exports[`refractor elements PathItemElement should refract to semantic ApiDOM tr
   (MemberElement
     (StringElement)
     (StringElement))
+  (MemberElement
+    (StringElement)
+    (OperationElement))
   (MemberElement
     (StringElement)
     (OperationElement))

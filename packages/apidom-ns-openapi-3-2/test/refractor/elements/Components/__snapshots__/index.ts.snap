@@ -1,5 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor elements ComponentsElement should refract mediaTypes field 1`] = `
+(ComponentsElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (MediaTypeElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (StringElement))
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement
+                      (MemberElement
+                        (StringElement)
+                        (StringElement))))))))))
+      (MemberElement
+        (StringElement)
+        (MediaTypeElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (StringElement))
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement
+                      (MemberElement
+                        (StringElement)
+                        (StringElement))))
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement
+                      (MemberElement
+                        (StringElement)
+                        (StringElement)))))))))))))
+`;
+
 exports[`refractor elements ComponentsElement should refract to semantic ApiDOM tree 1`] = `
 (ComponentsElement
   (MemberElement
@@ -124,5 +173,47 @@ exports[`refractor elements ComponentsElement should refract to semantic ApiDOM 
             (StringElement))
           (MemberElement
             (StringElement)
-            (ObjectElement)))))))
+            (ObjectElement))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (MediaTypeElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (StringElement))))))
+      (MemberElement
+        (StringElement)
+        (ReferenceElement
+          (MemberElement
+            (StringElement)
+            (StringElement))))
+      (MemberElement
+        (StringElement)
+        (MediaTypeElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (StringElement))
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement
+                      (MemberElement
+                        (StringElement)
+                        (StringElement))))
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement
+                      (MemberElement
+                        (StringElement)
+                        (StringElement)))))))))))))
 `;

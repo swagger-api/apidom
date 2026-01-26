@@ -13,6 +13,7 @@ import linksValuesTypeLint from './links--values-type.ts';
 import callbacksValuesTypeLint from './callbacks--values-type.ts';
 import keysPatternLint from './keys--pattern.ts';
 import pathItemsValuesTypeLint from './path-items--values-type.ts';
+import mediaTypesTypeLint from './media-types--type.ts';
 
 const lints = [
   schemasValuesTypeLint,
@@ -27,6 +28,7 @@ const lints = [
   callbacksValuesTypeLint,
   keysPatternLint,
   pathItemsValuesTypeLint,
+  mediaTypesTypeLint,
   allowedFields3_0Lint,
   allowedFieldsLint3_1,
   allowedFieldsLint3_2,

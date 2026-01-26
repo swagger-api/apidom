@@ -10,6 +10,7 @@ import defaultContentTypeMeta from './default-content-type/meta.ts';
 import securitySchemeMeta from './security-scheme/meta.ts';
 import infoMeta from './info/meta.ts';
 import contactMeta from './contact/meta.ts';
+import channelMeta from './channel/meta.ts';
 import channelItemMeta from './channel-item/meta.ts';
 import channelBindingsMeta from './channel-bindings/meta.ts';
 import serversMeta from './servers/meta.ts';
@@ -35,6 +36,11 @@ import tagMeta from './tag/meta.ts';
 import correlationIDMeta from './correlation-ID/meta.ts';
 import oAuthFlowsMeta from './oauth-flows/meta.ts';
 import oAuthFlowMeta from './oauth-flow/meta.ts';
+import messagesMeta from './messages/meta.ts';
+import operationsMeta from './operations/meta.ts';
+import operationReplyMeta from './operation-reply/meta.ts';
+import operationReplyAddressMeta from './operation-reply-address/meta.ts';
+import multiFormatSchemaMeta from './multi-format-schema/meta.ts';
 /**
  * Binding metas.
  */
@@ -160,6 +166,7 @@ export default {
   operation: operationMeta,
   operationBindings: operationBindingsMeta,
   operationTrait: operationTraitMeta,
+  channel: channelMeta,
   channelItem: channelItemMeta,
   channelBindings: channelBindingsMeta,
   channels: channelsMeta,
@@ -186,6 +193,11 @@ export default {
   correlationID: correlationIDMeta,
   oAuthFlows: oAuthFlowsMeta,
   oAuthFlow: oAuthFlowMeta,
+  messages: messagesMeta,
+  operations: operationsMeta,
+  operationReply: operationReplyMeta,
+  operationReplyAddress: operationReplyAddressMeta,
+  multiFormatSchema: multiFormatSchemaMeta,
   /**
    * Binding metas.
    */

@@ -6379,4 +6379,281 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas 3.2 - should support response summary field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains response with summary field
+    // This should not produce errors in OpenAPI 3.2.0
+    const responseSummaryErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' &&
+        d.message.includes('summary') &&
+        d.message.includes('not allowed') &&
+        d.range.start.line > 20,
+    );
+    assert.strictEqual(
+      responseSummaryErrors.length,
+      0,
+      'OpenAPI 3.2.0 should support response summary field',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate response summary field type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The summary field in response should be a string
+    const summaryTypeError = result.find(
+      (d) => d.source === 'apilint' && d.message.includes('summary') && d.message.includes('string'),
+    );
+    assert.isDefined(summaryTypeError, 'Should validate response summary field as string type');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support components mediaTypes field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains components with mediaTypes field
+    // This should not produce errors in OpenAPI 3.2.0
+    const mediaTypesErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' && d.message.includes('mediaTypes') && d.message.includes('not allowed'),
+    );
+    assert.strictEqual(
+      mediaTypesErrors.length,
+      0,
+      'OpenAPI 3.2.0 should support components mediaTypes field',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate components allowed fields', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The components object has an invalid field 'invalidField'
+    const invalidFieldError = result.find(
+      (d) => d.source === 'apilint' && d.message.includes('not allowed') && d.message.includes('invalidField'),
+    );
+    assert.isDefined(invalidFieldError, 'Should detect not allowed fields in components object');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support XML nodeType field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains XML with nodeType field
+    // This should not produce errors in OpenAPI 3.2.0
+    const nodeTypeErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' && d.message.includes('nodeType') && d.message.includes('not allowed'),
+    );
+    assert.strictEqual(nodeTypeErrors.length, 0, 'OpenAPI 3.2.0 should support XML nodeType field');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate XML nodeType field enum values', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The nodeType field should be one of: element, attribute, text, cdata, none
+    const nodeTypeError = result.find(
+      (d) =>
+        d.source === 'apilint' &&
+        d.message.includes('nodeType') &&
+        (d.message.includes('allowed values') || d.message.includes('equal')),
+    );
+    assert.isDefined(nodeTypeError, 'Should validate XML nodeType field enum values');
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support media type itemSchema field', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains media type with itemSchema field for streaming
+    // This should not produce errors in OpenAPI 3.2.0
+    const itemSchemaErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' && d.message.includes('itemSchema') && d.message.includes('not allowed'),
+    );
+    assert.strictEqual(
+      itemSchemaErrors.length,
+      0,
+      'OpenAPI 3.2.0 should support media type itemSchema field',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should support example dataValue and serializedValue fields', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-simple.json',
+      'json',
+      0,
+      specOpenapi32Simple,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The document contains example with dataValue and serializedValue fields
+    // These should not produce errors in OpenAPI 3.2.0
+    const exampleFieldErrors = result.filter(
+      (d) =>
+        d.source === 'apilint' &&
+        (d.message.includes('dataValue') || d.message.includes('serializedValue')) &&
+        d.message.includes('not allowed'),
+    );
+    assert.strictEqual(
+      exampleFieldErrors.length,
+      0,
+      'OpenAPI 3.2.0 should support example dataValue and serializedValue fields',
+    );
+
+    languageService.terminate();
+  });
+
+  it('oas 3.2 - should validate server name field type', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/openapi-3-2-validation-errors.json',
+      'json',
+      0,
+      specOpenapi32ValidationErrors,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // The name field in server should be a string
+    const nameTypeError = result.find(
+      (d) => d.source === 'apilint' && d.message.includes('name') && d.message.includes('string'),
+    );
+    assert.isDefined(nameTypeError, 'Should validate server name field as string type');
+
+    languageService.terminate();
+  });
 });

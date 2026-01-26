@@ -6,7 +6,8 @@
   "$self": "not a valid uri reference with#fragment",
   "servers": [
     {
-      "url": "https://api.example.com/v1"
+      "url": "https://api.example.com/v1",
+      "name": 123
     }
   ],
   "paths": {
@@ -15,11 +16,15 @@
         "operationId": "testGet",
         "responses": {
           "200": {
+            "summary": 12345,
             "description": "Success",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "invalid-type"
+                  "type": "invalid-type",
+                  "xml": {
+                    "nodeType": "invalid-node-type"
+                  }
                 }
               }
             }
@@ -27,5 +32,14 @@
         }
       }
     }
+  },
+  "components": {
+    "mediaTypes": "not-an-object",
+    "schemas": {
+      "TestSchema": {
+        "type": "object"
+      }
+    },
+    "invalidField": "should-not-be-here"
   }
 }

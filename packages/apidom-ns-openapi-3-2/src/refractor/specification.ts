@@ -36,8 +36,10 @@ import ExternalDocumentationVisitor from './visitors/open-api-3-2/external-docum
 import EncodingVisitor from './visitors/open-api-3-2/encoding/index.ts';
 import PathsVisitor from './visitors/open-api-3-2/paths/index.ts';
 import RequestBodyVisitor from './visitors/open-api-3-2/request-body/index.ts';
+import RequestBodyContentVisitor from './visitors/open-api-3-2/request-body/ContentVisitor.ts';
 import CallbackVisitor from './visitors/open-api-3-2/callback/index.ts';
 import ResponseVisitor from './visitors/open-api-3-2/response/index.ts';
+import ResponseContentVisitor from './visitors/open-api-3-2/response/ContentVisitor.ts';
 import ResponsesVisitor from './visitors/open-api-3-2/responses/index.ts';
 import OperationVisitor from './visitors/open-api-3-2/operation/index.ts';
 import PathItemVisitor from './visitors/open-api-3-2/path-item/index.ts';
@@ -292,8 +294,7 @@ const specification = {
           fixedFields: {
             description:
               OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.description,
-            content:
-              OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.content,
+            content: RequestBodyContentVisitor,
             required:
               OpenApi3_0Specification.visitors.document.objects.RequestBody.fixedFields.required,
           },
@@ -341,7 +342,7 @@ const specification = {
             description:
               OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.description,
             headers: OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.headers,
-            content: OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.content,
+            content: ResponseContentVisitor,
             links: OpenApi3_0Specification.visitors.document.objects.Response.fixedFields.links,
           },
         },

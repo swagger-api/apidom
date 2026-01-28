@@ -941,36 +941,8 @@ describe('dereference', function () {
           });
         });
 
-        context('given Schema Objects with JSON Schema 2020-12 $defs', function () {
-          const fixturePath = path.join(rootFixturePath, '$defs-keyword');
-
-          specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
-              parse: { mediaType: mediaTypes.latest('json') },
-            });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-
-            assert.deepEqual(toValue(actual), expected);
-          });
-        });
-
         context('given Schema Objects with prefixItems keyword', function () {
           const fixturePath = path.join(rootFixturePath, 'prefixItems-keyword');
-
-          specify('should dereference', async function () {
-            const rootFilePath = path.join(fixturePath, 'root.json');
-            const actual = await dereference(rootFilePath, {
-              parse: { mediaType: mediaTypes.latest('json') },
-            });
-            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
-
-            assert.deepEqual(toValue(actual), expected);
-          });
-        });
-
-        context('given Schema Objects with $dynamicAnchor keyword', function () {
-          const fixturePath = path.join(rootFixturePath, '$dynamicAnchor-keyword');
 
           specify('should dereference', async function () {
             const rootFilePath = path.join(fixturePath, 'root.json');

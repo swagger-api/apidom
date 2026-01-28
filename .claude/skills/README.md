@@ -2,6 +2,18 @@
 
 This directory contains Claude Code skills for common development tasks in the ApiDOM monorepo.
 
+## Recent Updates
+
+**2026-01-28**: All three skills have been significantly enhanced based on comprehensive analysis of the OpenAPI 3.2.0 implementation. Key improvements include:
+
+- **Advanced visitor patterns** (Fixed Fields, Map, Dynamic Detection)
+- **Complete reference integration** (parse + resolve + dereference + bundle)
+- **Comprehensive language service scale** (70+ completions, 50+ lint rules)
+- **Production testing patterns** (media types through parser integration)
+- **Modern specification features** (dynamic operations, webhooks, global config)
+
+See `SKILL-IMPROVEMENTS-2026-01.md` for complete details.
+
 ## Available Skills
 
 ### `/add-namespace` - Add Namespace Package

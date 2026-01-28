@@ -18,8 +18,14 @@ This skill guides you through creating a complete namespace package (`apidom-ns-
 
 Use this skill when:
 - Adding support for a completely new API specification (e.g., RAML, API Blueprint)
-- Adding a new major version of an existing specification (e.g., OpenAPI 4.0, AsyncAPI 4.0)
+- Adding a new major/minor version of an existing specification (e.g., OpenAPI 4.0, OpenAPI 3.3, AsyncAPI 4.0)
 - The specification can be serialized in JSON or YAML format
+
+**Recent Example**: OpenAPI 3.2.0 support was added using these patterns, introducing features like:
+- New HTTP methods (QUERY)
+- Dynamic operations (additionalOperations)
+- Reusable media types (components.mediaTypes)
+- Global JSON Schema dialect (jsonSchemaDialect)
 
 ## Prerequisites
 
@@ -325,7 +331,9 @@ const mediaTypes: {SpecName}MediaTypes = {
 export default mediaTypes;
 ```
 
-#### 3.6 Visitor Template
+#### 3.6 Visitor Templates
+
+**Standard Fixed Fields Visitor** (for most object elements):
 
 For each element, create `src/refractor/visitors/{spec}-{version}/{element-name}/index.ts`:
 
@@ -370,11 +378,127 @@ export default {ElementName}Visitor;
 
 **Note**: Set `canSupportSpecificationExtensions` to `true` if the element supports extension fields (e.g., `x-*` properties).
 
+**Map Visitor** (for dynamic key-value objects like components.mediaTypes, additionalOperations):
+
+```typescript
+import { Mixin } from 'ts-mixer';
+import { T as stubTrue, always } from 'ramda';
+import { isStringElement } from '@swagger-api/apidom-core';
+
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+
+/**
+ * @public
+ */
+export interface {CollectionName}VisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
+
+/**
+ * @public
+ */
+class {CollectionName}Visitor extends Mixin(MapVisitor, FallbackVisitor) {
+  declare public readonly element: {CollectionElement};
+
+  declare protected readonly specPath: SpecPath<['document', 'objects', '{ParentObject}']>;
+
+  declare protected readonly canSupportSpecificationExtensions: false;
+
+  constructor(options: {CollectionName}VisitorOptions) {
+    super(options);
+    this.element = new {CollectionElement}();
+    this.specPath = always(['document', 'objects', '{ParentObject}']);
+    this.canSupportSpecificationExtensions = false;
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // Decorate each child element if needed
+    // Example: Mark elements as references or operations
+    this.element.forEach((value: Element, key: Element) => {
+      // Add metadata to help identify element types
+      if (isStringElement(key)) {
+        value.setMetaProperty('{metadata-name}', key.toValue());
+      }
+    });
+
+    this.copyMetaAndAttributes(objectElement, result);
+    return result;
+  }
+}
+
+export default {CollectionName}Visitor;
+```
+
+**Dynamic Type Detection Visitor** (for fields that can be Reference OR specific type):
+
+```typescript
+import { Mixin } from 'ts-mixer';
+import { always } from 'ramda';
+import { ObjectElement, isStringElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
+
+import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
+import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
+import { isReferenceElement } from '../../../..';
+
+/**
+ * Handles fields that can contain either Reference objects or specific element types.
+ * Decorates with metadata to help dereference strategies.
+ *
+ * @public
+ */
+class {CollectionName}Visitor extends Mixin(MapVisitor, FallbackVisitor) {
+  declare public readonly element: {CollectionElement};
+
+  declare protected readonly specPath: SpecPath<['document', 'objects', '{ParentObject}']>;
+
+  constructor(options: {CollectionName}VisitorOptions) {
+    super(options);
+    this.element = new {CollectionElement}();
+    this.specPath = always(['document', 'objects', '{ParentObject}']);
+    this.canSupportSpecificationExtensions = false;
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // Detect and decorate elements based on their structure
+    this.element.forEach((value: Element, key: Element, memberElement: MemberElement) => {
+      // Determine if this is a Reference or actual element
+      if (isObjectElement(value)) {
+        const hasRef = value.hasKey('$ref');
+
+        if (hasRef) {
+          // It's a reference - decorate with referenced element type
+          memberElement.setMetaProperty('referenced-element', '{elementType}');
+        }
+      }
+
+      // Add identifying metadata
+      if (isStringElement(key)) {
+        value.setMetaProperty('{name-property}', key.toValue());
+      }
+    });
+
+    this.copyMetaAndAttributes(objectElement, result);
+    return result;
+  }
+}
+
+export default {CollectionName}Visitor;
+```
+
+**Use Cases:**
+- **FixedFieldsVisitor**: Standard objects with known properties (Info, Server, License)
+- **MapVisitor**: Dynamic collections (components.schemas, components.mediaTypes, additionalOperations)
+- **Dynamic Detection**: Collections that can contain references or actual elements (webhooks, paths)
+
 #### 3.7 specification.ts
 
 ```typescript
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
 import {ElementName}Visitor from './visitors/{spec}-{version}/{element-name}/index.ts';
+import {DynamicCollection}Visitor from './visitors/{spec}-{version}/{collection-name}/index.ts';
 // Import all visitors...
 
 /**
@@ -395,11 +519,35 @@ const specification = {
         {ElementName}: {
           $visitor: {ElementName}Visitor,
           fixedFields: {
+            // Simple value fields (string, number, boolean)
             {propertyName}: { $ref: '#/visitors/value' },
-            // For nested objects:
-            // {nestedProperty}: { $ref: '#/visitors/document/objects/{NestedElement}' },
-            // For arrays:
-            // {arrayProperty}: {ArrayVisitor},
+
+            // Nested object references
+            {nestedProperty}: { $ref: '#/visitors/document/objects/{NestedElement}' },
+
+            // Array fields with specific visitor
+            {arrayProperty}: {ArrayVisitor},
+
+            // Dynamic collections (maps with unknown keys)
+            {dynamicCollection}: {
+              $visitor: {DynamicCollection}Visitor,
+              // Define what visitor handles the values in the map
+              value: { $ref: '#/visitors/document/objects/{ValueElement}' },
+            },
+
+            // Collections that can be Reference OR specific element
+            {mixedCollection}: {
+              $visitor: {MixedCollection}Visitor,
+              value(element: Element) {
+                // Dynamically determine visitor based on element structure
+                if (isObjectElement(element) && element.hasKey('$ref')) {
+                  // It's a reference
+                  return { $ref: '#/visitors/value' };
+                }
+                // It's an actual element
+                return { $ref: '#/visitors/document/objects/{ActualElement}' };
+              },
+            },
           },
         },
         // Define all element structures...
@@ -409,6 +557,63 @@ const specification = {
 };
 
 export default specification;
+```
+
+**Advanced Specification Patterns:**
+
+1. **Inheriting from Parent Version** (e.g., OpenAPI 3.2 extending 3.1):
+```typescript
+import { specificationObj as parentSpec } from '@swagger-api/apidom-ns-{parent}';
+
+const specification = {
+  visitors: {
+    ...parentSpec.visitors,
+    document: {
+      objects: {
+        ...parentSpec.visitors.document.objects,
+        // Override root element with new fields
+        {RootElement}: {
+          $visitor: {RootElement}Visitor,
+          fixedFields: {
+            ...parentSpec.visitors.document.objects.{RootElement}.fixedFields,
+            // Add new fields
+            {newField}: { $ref: '#/visitors/value' },
+          },
+        },
+        // Add completely new elements
+        {NewElement}: {
+          $visitor: {NewElement}Visitor,
+          fixedFields: {
+            // ...
+          },
+        },
+      },
+    },
+  },
+};
+```
+
+2. **Patterned Fields** (for fields with dynamic keys matching a pattern):
+```typescript
+{
+  $visitor: PatternedFieldsVisitor,
+  patternedFields: {
+    // Keys starting with 'x-' are extensions
+    '^x-': { $ref: '#/visitors/value' },
+  },
+}
+```
+
+3. **Conditional Visitors** (different handling based on content):
+```typescript
+{
+  value(element: Element) {
+    if (isConditionMet(element)) {
+      return { $ref: '#/visitors/document/objects/{ElementA}' };
+    }
+    return { $ref: '#/visitors/document/objects/{ElementB}' };
+  },
+}
 ```
 
 #### 3.8 registration.ts
@@ -633,10 +838,49 @@ Create `test/tsconfig.json`:
 
 ## Important Patterns
 
+### Common Specification Features to Support
+
+Based on learnings from OpenAPI 3.2.0 and other implementations, watch for these common patterns:
+
+1. **New HTTP Methods or Operations**:
+   - Example: OpenAPI 3.2 added `query` as a standard HTTP method
+   - Add as fixed fields in PathItem-like objects
+   - Map to same visitor as other operations (GET, POST, etc.)
+
+2. **Dynamic Operation Collections**:
+   - Example: OpenAPI 3.2's `additionalOperations` allows custom HTTP methods
+   - Use MapVisitor + dynamic type detection
+   - Decorate with `referenced-element` metadata for references
+
+3. **Reusable Component Types**:
+   - Example: OpenAPI 3.2's `components.mediaTypes` for reusable media type definitions
+   - Add to Components object as map visitor
+   - Update allowed fields validation
+
+4. **Global Configuration Fields**:
+   - Example: OpenAPI 3.2's `jsonSchemaDialect` sets default JSON Schema dialect
+   - Add as simple string/URI field to root element
+   - Document purpose and valid values
+
+5. **Webhook/Callback Patterns**:
+   - Example: OpenAPI 3.2's `webhooks` (inverted API calls)
+   - Similar structure to main paths/operations
+   - Decorate with identifying metadata (e.g., `webhook-name`)
+
+6. **Self-Reference Fields**:
+   - Example: OpenAPI 3.2's `$self` for document URI
+   - Simple string field for URI reference
+   - Used for relative reference resolution
+
+7. **Extended Metadata Fields**:
+   - Example: OpenAPI 3.2's `Server.name` and `License.identifier`
+   - Add to existing objects as optional fields
+   - Update parent version's element definitions
+
 ### Element Naming Conventions
-- Element class names: PascalCase (e.g., `WorkflowElement`, `InfoElement`)
-- Element type names (registered in namespace): camelCase (e.g., `'workflow'`, `'info'`)
-- File names: Match class names (e.g., `Workflow.ts`, `Info.ts`)
+- Element class names: PascalCase (e.g., `WorkflowElement`, `InfoElement`, `JsonSchemaDialectElement`)
+- Element type names (registered in namespace): camelCase (e.g., `'workflow'`, `'info'`, `'jsonSchemaDialect'`)
+- File names: Match class names (e.g., `Workflow.ts`, `Info.ts`, `JsonSchemaDialect.ts`)
 
 ### Visitor Naming Conventions
 - Visitor class names: `{ElementName}Visitor`

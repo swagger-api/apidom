@@ -9,6 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const openApiElement = OpenApi3_2Element.refract({
           openapi: '3.2.0',
+          $self: 'https://example.com/api/v1/openapi.json',
           info: {},
           jsonSchemaDialect: 'https://spec.openapis.org/oas/3.2/dialect/base',
           servers: [{}],

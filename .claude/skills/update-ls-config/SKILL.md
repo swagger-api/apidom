@@ -14,6 +14,12 @@ user-invocable: true
 
 This skill automates the process of updating the language service (apidom-ls) configuration for a namespace package. It analyzes the namespace package structure, corresponding parser adapter packages, and generates appropriate configuration files for IDE features like autocomplete, hover documentation, and validation.
 
+**Scale**: Based on OpenAPI 3.2.0 implementation, expect to create:
+- 70+ completion items for comprehensive property suggestions
+- 50+ lint rules for validation (one per element type minimum)
+- Documentation for complex/union type properties
+- Support for all specification elements and their nested properties
+
 ## When to Use
 
 Use this skill when:
@@ -127,7 +133,7 @@ packages/apidom-ls/src/config/{spec}/{version}/
 
 #### 5.2 Generate completion.ts
 
-This file defines autocomplete suggestions for each element type.
+This file defines autocomplete suggestions for each element type. Based on OpenAPI 3.2.0 implementation (70+ items), provide comprehensive coverage of all properties at all nesting levels.
 
 **Template:**
 ```typescript
@@ -139,7 +145,7 @@ import {
 import { {TargetSpecConstant} } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
-  // For each root element property:
+  // Root level properties
   {
     label: '{propertyName}',
     insertText: '{propertyName}',
@@ -149,28 +155,124 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '{documentation from spec}',
+      value: '{documentation from spec with links}',
     },
     targetSpecs: {TargetSpecConstant},
   },
-  // Repeat for each property...
+
+  // Nested object properties (e.g., info.title, server.url)
+  {
+    label: '{parentElement} -> {propertyName}',
+    insertText: '{propertyName}',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '{documentation}',
+    },
+    conditions: [
+      {
+        function: 'isInside{ParentElement}',
+      },
+    ],
+    targetSpecs: {TargetSpecConstant},
+  },
+
+  // Value completions (e.g., HTTP methods, enum values)
+  {
+    label: '{value}',
+    insertText: '{value}',
+    kind: 12, // Value kind
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '{description of this value}',
+    },
+    conditions: [
+      {
+        function: 'isValueCompletion',
+        params: ['{propertyName}'],
+      },
+    ],
+    targetSpecs: {TargetSpecConstant},
+  },
 ];
 
 export default completion;
 ```
 
-**Steps:**
-1. Read the root element specification (e.g., `OpenApi3_2Element`, `AsyncApi3Element`)
-2. For each fixed field property:
-   - Set label and insertText to property name
-   - Determine format based on property type:
-     - String → `CompletionFormat.QUOTED`
-     - Object → `CompletionFormat.OBJECT`
-     - Array → `CompletionFormat.ARRAY`
-     - Number → `CompletionFormat.UNQUOTED`
-     - Boolean → `CompletionFormat.UNQUOTED`
-   - Pull documentation from specification docs or use extracted comments
-   - Add targetSpecs reference
+**Comprehensive Coverage Strategy**:
+
+1. **Root Element Properties**:
+   - Include ALL properties defined in root specification element
+   - Examples: openapi, info, servers, paths, components, security, tags, externalDocs
+   - Include new fields (e.g., OpenAPI 3.2's jsonSchemaDialect, webhooks, $self)
+
+2. **Nested Element Properties**:
+   - For EVERY element type, create completions for its properties
+   - Use conditions to show completions in correct context
+   - Examples:
+     - Info: title, version, description, summary, contact, license, termsOfService
+     - Server: url, description, variables, name (new in 3.2)
+     - License: name, url, identifier (new in 3.2)
+     - PathItem: get, post, put, delete, patch, options, head, trace, query (new in 3.2), servers, parameters
+     - Operation: operationId, summary, description, parameters, requestBody, responses, callbacks, security
+
+3. **Collection/Map Properties**:
+   - For dynamic collections (paths, components.schemas, webhooks), add completions for:
+     - Pattern keys (e.g., "/users/{id}" for paths)
+     - Component names with common patterns
+     - HTTP methods for operations
+
+4. **Value Completions**:
+   - Enum values (e.g., parameter.in: "query", "header", "path", "cookie")
+   - Common HTTP methods
+   - Standard MIME types
+   - JSON Schema types
+
+5. **Special Field Completions**:
+   - $ref completions with JSON Pointer patterns
+   - Media type strings (application/json, application/yaml, etc.)
+   - Security scheme types (apiKey, http, oauth2, openIdConnect)
+
+**Format Selection Rules**:
+- String values → `CompletionFormat.QUOTED`
+- Objects → `CompletionFormat.OBJECT`
+- Arrays → `CompletionFormat.ARRAY`
+- Numbers/booleans → `CompletionFormat.UNQUOTED`
+- URLs/URIs → `CompletionFormat.QUOTED`
+
+**Documentation Best Practices**:
+- Link directly to specification section (e.g., `[Documentation](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#info-object)`)
+- Include brief description from spec
+- Mention if field is required or optional
+- Note any constraints or formats
+- Reference related fields
+
+**Condition Functions**:
+Common conditions to control when completions appear:
+```typescript
+conditions: [
+  { function: 'isInside{ElementType}' },  // Inside specific element
+  { function: 'isValueCompletion', params: ['{propertyName}'] },  // Completing value
+  { function: 'hasParent', params: ['{parentElement}'] },  // Has specific parent
+]
+```
+
+**OpenAPI 3.2.0 Pattern**: Created 70+ completion items organized by:
+- Root properties (15 items)
+- Info properties (7 items)
+- Server properties (4 items)
+- Components properties (10+ items for each type)
+- PathItem properties (15+ items including new QUERY method)
+- Operation properties (20+ items)
+- Response, Parameter, RequestBody, MediaType properties
+- Schema properties (JSON Schema keywords)
+- Security properties
 
 #### 5.3 Generate documentation.ts
 
@@ -240,9 +342,9 @@ export default allowedFieldsLint;
 
 #### 5.5 Generate lint/{element}--type.ts files
 
-For each element type, create a type validation lint rule.
+For each element type, create a type validation lint rule. Based on OpenAPI 3.2.0, create comprehensive coverage:
 
-**Template:**
+**Standard Type Validation Template:**
 ```typescript
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
@@ -274,11 +376,67 @@ const {element}TypeLint: LinterMeta = {
 export default {element}TypeLint;
 ```
 
-**Linter functions by type:**
-- Object: `apilintElementOrClass` with `['{ElementType}Element']`
-- Array: `apilintType` with `['array']`
-- String: `apilintType` with `['string']`
-- Required: `apilintContainsRequiredField` with `['{fieldName}']`
+**Linter functions by validation type:**
+
+1. **Element Type Validation** - `apilintElementOrClass`:
+   ```typescript
+   linterFunction: 'apilintElementOrClass',
+   linterParams: ['{ElementType}Element'],  // e.g., 'InfoElement', 'ServerElement'
+   ```
+
+2. **Value Type Validation** - `apilintType`:
+   ```typescript
+   linterFunction: 'apilintType',
+   linterParams: ['string'],  // 'string', 'array', 'object', 'number', 'boolean'
+   ```
+
+3. **Required Field Validation** - `apilintContainsRequiredField`:
+   ```typescript
+   linterFunction: 'apilintContainsRequiredField',
+   linterParams: ['{requiredFieldName}'],
+   message: "'{element}' must contain '{requiredFieldName}' field",
+   ```
+
+4. **Allowed Values Validation** - `apilintValueOrArray`:
+   ```typescript
+   linterFunction: 'apilintValueOrArray',
+   linterParams: ['{allowedValue1}', '{allowedValue2}'],
+   message: "'{element}' must be one of: {allowedValue1}, {allowedValue2}",
+   ```
+
+5. **Allowed Fields Validation** - `allowedFields`:
+   ```typescript
+   linterFunction: 'allowedFields',
+   linterParams: ['field1', 'field2', 'field3', ...],
+   message: "Object includes not allowed fields",
+   ```
+
+**Comprehensive Lint Coverage** (as seen in OpenAPI 3.2.0):
+
+Create lint files for:
+- **Root element** validation (type, required fields, allowed fields)
+- **Each nested element** (Info, Server, License, Contact, etc.)
+- **Each array element** (servers, tags, security, etc.)
+- **Each collection element** (paths, components, webhooks, etc.)
+- **Special validations** (media types, HTTP methods, JSON Schema dialects)
+
+**Example: Complete lint structure for Info element**:
+```
+lint/
+├── info/
+│   ├── allowed-fields.ts      # Validate only specified fields
+│   ├── title--type.ts         # title must be string
+│   ├── title--required.ts     # title is required
+│   ├── version--type.ts       # version must be string
+│   ├── version--required.ts   # version is required
+│   ├── description--type.ts   # description must be string
+│   ├── summary--type.ts       # summary must be string (new in 3.2)
+│   ├── contact--type.ts       # contact must be Contact element
+│   ├── license--type.ts       # license must be License element
+│   └── index.ts               # Export all lint rules
+```
+
+**OpenAPI 3.2.0 Pattern**: Created 56+ lint rule directories covering every element type and their properties comprehensively.
 
 #### 5.6 Generate lint/index.ts
 
@@ -394,6 +552,58 @@ Update `packages/apidom-ls/README.md` or `CHANGELOG.md` to reflect:
 - Added completion items
 - Added validation rules
 - Any breaking changes
+
+## Special Features and Edge Cases
+
+Based on OpenAPI 3.2.0 and other implementations, handle these special cases:
+
+### 1. New HTTP Methods or Operations
+When a specification adds new standard operations (like OpenAPI 3.2's QUERY):
+- Add completion item with same structure as existing methods
+- Add to PathItem allowed fields
+- Create lint rule for type validation
+- Update documentation with method-specific details
+
+### 2. Dynamic Collections
+For fields with arbitrary keys (additionalOperations, webhooks, components.mediaTypes):
+- Create value completions for common patterns
+- Document the key format/pattern
+- Provide lint rules for value types
+- Add documentation explaining the collection purpose
+
+### 3. Version-Specific Fields
+When adding fields not in parent version:
+- Ensure targetSpecs correctly limits to this version
+- Document what's new in the field description
+- Add appropriate default values in quick fixes
+- Create comprehensive lint coverage
+
+### 4. Hierarchical Fields
+For nested structures with multiple levels (like OpenAPI 3.2's tag hierarchical fields):
+- Create completions for each nesting level
+- Use conditions to show relevant properties
+- Document the hierarchy structure
+- Validate structure at each level
+
+### 5. Global Configuration Fields
+For fields affecting document-wide behavior (like jsonSchemaDialect):
+- Provide documentation explaining scope of impact
+- Include valid values as completions
+- Link to related specification sections
+- Validate format and allowed values
+
+### 6. Self-Reference Fields
+For fields like $self that establish document URI:
+- Validate URI format
+- Document purpose for relative reference resolution
+- Provide examples in documentation
+
+### 7. Reference vs Inline Content
+For fields that accept either $ref or inline content:
+- Provide completions for both patterns
+- Document when to use each approach
+- Validate structure for inline content
+- Add lint rules for reference format
 
 ## Important Patterns
 

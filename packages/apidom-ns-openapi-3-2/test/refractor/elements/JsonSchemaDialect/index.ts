@@ -8,7 +8,7 @@ describe('refractor', function () {
     context('JsonSchemaDialectElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const jsonSchemaDialectElement = JsonSchemaDialectElement.refract(
-          'https://spec.openapis.org/oas/3.1/dialect/base',
+          'https://spec.openapis.org/oas/3.2/dialect/base',
         );
 
         expect(sexprs(jsonSchemaDialectElement)).toMatchSnapshot();

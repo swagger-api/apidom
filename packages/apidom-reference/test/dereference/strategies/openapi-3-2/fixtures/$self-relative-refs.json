@@ -1,0 +1,28 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://example.com/api/openapi.json",
+  "info": {
+    "title": "API with External References using $self",
+    "version": "1.0.0",
+    "description": "Tests that relative external references are resolved using $self as base URI"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "ExternalType": {
+        "$ref": "./common/types.json#/components/schemas/CommonType"
+      },
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

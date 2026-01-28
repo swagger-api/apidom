@@ -1,0 +1,40 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://example.com/api/",
+  "info": {
+    "title": "API with Trailing Slash in $self",
+    "version": "1.0.0",
+    "description": "Tests that trailing slashes in $self are handled correctly for relative reference resolution"
+  },
+  "paths": {
+    "/items": {
+      "get": {
+        "summary": "List items",
+        "responses": {
+          "200": {
+            "description": "Item list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Item"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

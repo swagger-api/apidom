@@ -295,7 +295,7 @@ exports[`refractor integration OpenAPI 3.2.0 new features should support all fea
                         (ObjectElement
                           (MemberElement
                             (StringElement)
-                            (MediaTypeElement
+                            (ReferenceElement
                               (MemberElement
                                 (StringElement)
                                 (StringElement))))))))))))

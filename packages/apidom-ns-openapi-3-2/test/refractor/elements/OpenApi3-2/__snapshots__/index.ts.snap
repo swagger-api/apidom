@@ -7,6 +7,9 @@ exports[`refractor elements OpenApi3_2Element should refract to semantic ApiDOM 
     (OpenapiElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (InfoElement))
   (MemberElement
     (StringElement)

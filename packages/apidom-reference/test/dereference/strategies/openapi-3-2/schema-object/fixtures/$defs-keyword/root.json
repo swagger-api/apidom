@@ -1,0 +1,46 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "Person": {
+        "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "address": {
+            "$ref": "#/$defs/Address"
+          }
+        },
+        "$defs": {
+          "Address": {
+            "type": "object",
+            "properties": {
+              "street": {
+                "type": "string"
+              },
+              "city": {
+                "type": "string"
+              },
+              "country": {
+                "$ref": "#/$defs/Country"
+              }
+            }
+          },
+          "Country": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "code": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ExtendedUser": {
+        "$ref": "#/components/schemas/User"
+      }
+    }
+  }
+}

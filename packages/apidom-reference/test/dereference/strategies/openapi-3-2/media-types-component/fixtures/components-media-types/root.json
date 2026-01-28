@@ -1,0 +1,36 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "mediaTypes": {
+      "jsonMediaType": {
+        "schema": {
+          "$ref": "#/components/schemas/User"
+        },
+        "examples": {
+          "user1": {
+            "value": {
+              "id": 1,
+              "name": "John"
+            }
+          }
+        }
+      },
+      "jsonMediaType2": {
+        "$ref": "#/components/mediaTypes/jsonMediaType"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -165,6 +165,11 @@
       "require": "./src/parse/parsers/openapi-json-3-1/index.cjs",
       "types": "./types/parse/parsers/openapi-json-3-1/index.d.ts"
     },
+    "./parse/parsers/openapi-json-3-2": {
+      "import": "./src/parse/parsers/openapi-json-3-2/index.mjs",
+      "require": "./src/parse/parsers/openapi-json-3-2/index.cjs",
+      "types": "./types/parse/parsers/openapi-json-3-2/index.d.ts"
+    },
     "./parse/parsers/openapi-yaml-3-0": {
       "import": "./src/parse/parsers/openapi-yaml-3-0/index.mjs",
       "require": "./src/parse/parsers/openapi-yaml-3-0/index.cjs",
@@ -174,6 +179,11 @@
       "import": "./src/parse/parsers/openapi-yaml-3-1/index.mjs",
       "require": "./src/parse/parsers/openapi-yaml-3-1/index.cjs",
       "types": "./types/parse/parsers/openapi-yaml-3-1/index.d.ts"
+    },
+    "./parse/parsers/openapi-yaml-3-2": {
+      "import": "./src/parse/parsers/openapi-yaml-3-2/index.mjs",
+      "require": "./src/parse/parsers/openapi-yaml-3-2/index.cjs",
+      "types": "./types/parse/parsers/openapi-yaml-3-2/index.d.ts"
     },
     "./parse/parsers/yaml-1-2": {
       "import": "./src/parse/parsers/yaml-1-2/index.mjs",

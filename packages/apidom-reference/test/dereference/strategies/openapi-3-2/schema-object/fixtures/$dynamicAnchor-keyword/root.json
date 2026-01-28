@@ -1,0 +1,40 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "Tree": {
+        "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+        "$id": "https://example.com/tree",
+        "$dynamicAnchor": "node",
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$dynamicRef": "#node"
+            }
+          }
+        }
+      },
+      "StrictTree": {
+        "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+        "$id": "https://example.com/strict-tree",
+        "$dynamicAnchor": "node",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Tree"
+          }
+        ],
+        "properties": {
+          "data": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    }
+  }
+}

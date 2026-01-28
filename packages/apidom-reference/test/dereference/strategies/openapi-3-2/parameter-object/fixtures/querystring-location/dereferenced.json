@@ -1,0 +1,33 @@
+[
+  {
+    "openapi": "3.2.0",
+    "paths": {
+      "/path": {
+        "get": {
+          "parameters": [
+            {
+              "name": "filter",
+              "in": "querystring",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "parameters": {
+        "queryParam": {
+          "name": "filter",
+          "in": "querystring",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

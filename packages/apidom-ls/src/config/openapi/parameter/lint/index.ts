@@ -16,6 +16,7 @@ import requiredEqualsLint from './required--equals.ts';
 import deprecatedTypeLint from './deprecated--type.ts';
 import allowEmptyValueTypeLint from './allow-empty-value--type.ts';
 import styleEqualsLint from './style--equals.ts';
+import styleEquals3_2Lint from './style--equals-3-2.ts';
 import explodeTypeLint from './explode--type.ts';
 import allowReservedTypeLint from './allow-reserved--type.ts';
 import schemaTypeLint from './schema--type.ts';
@@ -72,6 +73,7 @@ const lints = [
   deprecatedTypeLint,
   allowEmptyValueTypeLint,
   styleEqualsLint,
+  styleEquals3_2Lint,
   explodeTypeLint,
   allowReservedTypeLint,
   schemaTypeLint,

@@ -455,16 +455,29 @@ describe('adapter', function () {
 **test/media-types.ts**:
 ```typescript
 import { assert } from 'chai';
+import ApiDOMParser from '@swagger-api/apidom-parser';
 
-import mediaTypes from '../src/media-types.ts';
+import * as adapter from '../src/adapter.ts';
 
-describe('media-types', function () {
-  specify('should expose media types', function () {
-    assert.isArray(mediaTypes.latest());
-    assert.lengthOf(mediaTypes.latest(), 2);
+/**
+ * IMPORTANT: Test media types through parser integration, not directly.
+ * Testing mediaTypes.latest() directly is discouraged - always test through
+ * the parser to ensure proper integration.
+ */
+describe('given adapter is used in parser', function () {
+  const parser = new ApiDOMParser().use(adapter);
+
+  context('given {Spec Name} {Version} definition in {format} format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{{"{specField}": "{version}"}}');
+
+      assert.strictEqual(mediaType, '{expected-media-type}');
+    });
   });
 });
 ```
+
+**Critical**: OpenAPI 3.2.0 testing revealed that testing `mediaTypes.latest()` directly is not recommended. Always test media type detection through the parser integration using `ApiDOMParser.findMediaType()`.
 
 **test/fixtures/sample-spec.json**:
 - Copy a minimal valid specification document from the namespace tests or create one
@@ -645,7 +658,7 @@ describe('adapter', function () {
 
 ### Phase 6: Integrate with apidom-reference
 
-Add the new parser adapters to the `apidom-reference` package:
+Add the new parser adapters to the `apidom-reference` package. Based on OpenAPI 3.2.0 implementation, a complete integration requires creating components for all four phases: **parse**, **resolve**, **dereference**, and **bundle**.
 
 #### 6.1 Create Parser Classes in apidom-reference
 
@@ -842,7 +855,245 @@ Add the new parser adapter packages to dependencies:
 }
 ```
 
-### Phase 7: Build and Test
+### Phase 7: Create Additional Reference Strategies
+
+Based on OpenAPI 3.2.0 implementation patterns, create strategies for resolve, dereference, and bundle components:
+
+#### 7.1 Create Resolve Strategy
+
+Create `packages/apidom-reference/src/resolve/strategies/{spec}-{version}/index.ts`:
+
+```typescript
+import {SpecName}{Version}DereferenceStrategy from '../../dereference/strategies/{spec}-{version}/index.ts';
+
+/**
+ * Resolve strategy for {Spec Name} {Version}.
+ * Delegates to dereference strategy for resolution.
+ *
+ * @public
+ */
+class {SpecName}{Version}ResolveStrategy extends {SpecName}{Version}DereferenceStrategy {
+  constructor(options?: {SpecName}{Version}DereferenceStrategyOptions) {
+    super(options);
+    this.name = '{spec}-{version}';
+  }
+}
+
+export default {SpecName}{Version}ResolveStrategy;
+```
+
+#### 7.2 Create Dereference Strategy
+
+Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/index.ts`:
+
+```typescript
+import { ParseResultElement, isObjectElement } from '@swagger-api/apidom-core';
+import {
+  is{RootElement},
+  keyMap as {specName}{Version}KeyMap,
+  getNodeType,
+} from '@swagger-api/apidom-ns-{spec}-{version}';
+import { visit, mergeAllVisitors } from '@swagger-api/apidom-reference/configuration/visitors';
+
+import {SpecName}{Version}DereferenceVisitor from './visitors/{spec}-{version}/index.ts';
+import type { DereferenceStrategy } from '../../DereferenceStrategy.ts';
+
+/**
+ * Dereference strategy for {Spec Name} {Version}.
+ *
+ * @public
+ */
+class {SpecName}{Version}DereferenceStrategy implements DereferenceStrategy {
+  public name = '{spec}-{version}-dereference';
+
+  canDereference(element: ParseResultElement): boolean {
+    if (!isParseResultElement(element)) return false;
+    const { api } = element;
+    return is{RootElement}(api);
+  }
+
+  async dereference(
+    file: File,
+    parseResult: ParseResultElement,
+    options: ReferenceOptions
+  ): Promise<Element> {
+    const visitors = mergeAllVisitors([
+      {SpecName}{Version}DereferenceVisitor({ ...options, keyMap: {specName}{Version}KeyMap, getNodeType }),
+    ]);
+
+    return visit(parseResult.api, visitors, options);
+  }
+}
+
+export default {SpecName}{Version}DereferenceStrategy;
+```
+
+#### 7.3 Create Dereference Visitor
+
+Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/visitors/{spec}-{version}/index.ts`:
+
+```typescript
+import { Mixin } from 'ts-mixer';
+import { Element } from '@swagger-api/apidom-core';
+
+import ReferenceVisitor from '../../../visitors/ReferenceVisitor.ts';
+import SpecificationVisitor from '../../../visitors/SpecificationVisitor.ts';
+import {SpecName}{Version}Visitor from './visitors/index.ts';
+
+/**
+ * Main visitor for dereferencing {Spec Name} {Version} documents.
+ * Combines Reference resolution, Specification traversal, and spec-specific logic.
+ *
+ * @public
+ */
+class Visitor extends Mixin(ReferenceVisitor, SpecificationVisitor, {SpecName}{Version}Visitor) {
+  constructor(options) {
+    super(options);
+    this.element = new Element();
+  }
+}
+
+export default Visitor;
+```
+
+#### 7.4 Create Selector Functions
+
+Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/selectors/$anchor.ts`:
+
+```typescript
+/**
+ * URI selector for $anchor in {Spec Name} {Version}.
+ * Handles anchor-based references within the document.
+ */
+export const $AnchorSelector = (element: Element): Element | undefined => {
+  // Implementation for finding elements by $anchor
+  // ...
+};
+```
+
+Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/selectors/uri.ts`:
+
+```typescript
+/**
+ * URI selector for absolute and relative URIs in {Spec Name} {Version}.
+ * Handles standard $ref resolution.
+ */
+export const uriSelector = (element: Element): Element | undefined => {
+  // Implementation for finding elements by URI
+  // ...
+};
+```
+
+#### 7.5 Create Bundle Strategy
+
+Create `packages/apidom-reference/src/bundle/strategies/{spec}-{version}/index.ts`:
+
+```typescript
+import {SpecName}{Version}DereferenceStrategy from '../../dereference/strategies/{spec}-{version}/index.ts';
+
+/**
+ * Bundle strategy for {Spec Name} {Version}.
+ * Creates a compound document from multi-file {Spec Name} resources.
+ *
+ * @public
+ */
+class {SpecName}{Version}BundleStrategy extends {SpecName}{Version}DereferenceStrategy {
+  constructor(options?: {SpecName}{Version}DereferenceStrategyOptions) {
+    super(options);
+    this.name = '{spec}-{version}-bundle';
+  }
+
+  // Override behavior for bundling instead of dereferencing
+  // Bundling inlines external references while preserving structure
+}
+
+export default {SpecName}{Version}BundleStrategy;
+```
+
+#### 7.6 Register Strategies in Configuration
+
+Update `packages/apidom-reference/src/configuration/saturated.ts`:
+
+```typescript
+// Import strategies
+import {SpecName}{Version}ResolveStrategy from '../resolve/strategies/{spec}-{version}/index.ts';
+import {SpecName}{Version}DereferenceStrategy from '../dereference/strategies/{spec}-{version}/index.ts';
+import {SpecName}{Version}BundleStrategy from '../bundle/strategies/{spec}-{version}/index.ts';
+
+// In the configuration function:
+
+// Add to resolve strategies
+options.resolve.strategies = [
+  new {SpecName}{Version}ResolveStrategy(),
+  // ... other strategies
+];
+
+// Add to dereference strategies
+options.dereference.strategies = [
+  new {SpecName}{Version}DereferenceStrategy(),
+  // ... other strategies
+];
+
+// Add to bundle strategies
+options.bundle.strategies = [
+  new {SpecName}{Version}BundleStrategy(),
+  // ... other strategies
+];
+```
+
+#### 7.7 Create Tests for Reference Strategies
+
+Create comprehensive tests in `packages/apidom-reference/test/`:
+
+- `test/resolve/strategies/{spec}-{version}/` - Test external reference resolution
+- `test/dereference/strategies/{spec}-{version}/` - Test $ref transcluding
+- `test/bundle/strategies/{spec}-{version}/` - Test multi-file bundling
+
+**Example dereference test structure**:
+```typescript
+describe('dereference', function () {
+  context('strategies', function () {
+    context('{SpecName}{Version}DereferenceStrategy', function () {
+      specify('should dereference internal $refs', async function () {
+        const spec = `
+          {
+            "{specField}": "{version}",
+            "components": {
+              "schemas": {
+                "Pet": { "type": "object" }
+              }
+            },
+            "paths": {
+              "/pets": {
+                "get": {
+                  "responses": {
+                    "200": {
+                      "content": {
+                        "application/json": {
+                          "schema": { "$ref": "#/components/schemas/Pet" }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        `;
+
+        const dereferenced = await dereference(spec);
+
+        // Verify $ref was replaced with actual schema
+        assert.isTrue(isPetSchema(dereferenced.paths['/pets'].get.responses['200'].content['application/json'].schema));
+      });
+    });
+  });
+});
+```
+
+**Important Note**: The reference strategy implementation (Phase 7) is optional for basic parser adapter functionality but **highly recommended** for production use. OpenAPI 3.2.0 included complete reference integration from the start. If skipping initially, create a follow-up task to add these strategies.
+
+### Phase 8: Build and Test
 
 1. **Build the new parser adapter packages**:
    ```bash

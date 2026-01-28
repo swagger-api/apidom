@@ -1,12 +1,47 @@
-# Add Namespace Skill - Summary
+# ApiDOM Skills - Summary
 
-## What Was Created
+## Overview
 
-A comprehensive Claude Code skill for creating new namespace packages in the ApiDOM monorepo has been created based on:
+Three comprehensive Claude Code skills for adding specification support to the ApiDOM monorepo. All skills have been enhanced based on learnings from the OpenAPI 3.2.0 implementation (January 2026).
+
+## Skills Created
+
+### 1. `/add-namespace` - Add Namespace Package
+### 2. `/add-parser-adapter` - Add Parser Adapter Packages
+### 3. `/update-ls-config` - Update Language Service Config
+
+## Recent Updates (2026-01-28)
+
+All three skills have been significantly improved based on comprehensive analysis of the OpenAPI 3.2.0 implementation. See `SKILL-IMPROVEMENTS-2026-01.md` for complete details.
+
+### Key Improvements
+
+**Scale and Completeness**:
+- Language service now targets 70+ completion items (vs 20-30)
+- 50+ lint rules for comprehensive validation
+- Complete reference integration (parse + resolve + dereference + bundle)
+- Production-quality patterns from real implementation
+
+**New Patterns Documented**:
+- Three visitor patterns (Fixed Fields, Map, Dynamic Detection)
+- Dynamic operation collections (additionalOperations pattern)
+- Webhook/inverted operations pattern
+- Global configuration fields pattern
+- Extended metadata fields pattern
+
+**Testing Best Practices**:
+- Correct media types testing (through parser integration)
+- Comprehensive test coverage checklist
+- Snapshot testing patterns
+
+## What Was Created Initially
+
+These skills were created based on:
 
 1. **PDF Instructions**: "SHUB-Swagger OSS JavaScript New Spec Addition-220126-103935.pdf"
 2. **Existing Namespace Packages**: Analysis of all 12 `apidom-ns-*` packages
 3. **Established Patterns**: Architecture and conventions from the ApiDOM codebase
+4. **OAS 3.2.0 Implementation**: Real-world production implementation (2026)
 
 ## Skill Location
 

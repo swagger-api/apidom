@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const $refNoSiblingsLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_OPERATION_BINDINGS_FIELD_$REF_NO_SIBLINGS,
@@ -27,6 +28,7 @@ const $refNoSiblingsLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default $refNoSiblingsLint;

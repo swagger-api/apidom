@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: '**REQUIRED.** The license name used for the API.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'url',
@@ -28,6 +30,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A URL to the license used for the API. This MUST be in the form of an absolute URL.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
 ];
 

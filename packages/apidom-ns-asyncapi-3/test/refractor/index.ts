@@ -26,6 +26,24 @@ describe('refractor', function () {
 
       expect(asyncApiElement).toMatchSnapshot();
     });
+
+    specify('should refract specification extensions', function () {
+      const asyncApiPojo = {
+        asyncapi: '3.0.0',
+        'x-extension-1': 'value1',
+        info: {
+          title: 'Sample API',
+          version: '1.0.0',
+          'x-extension-2': {
+            nestedKey: 'nestedValue',
+          },
+        },
+      };
+      const genericObjectElement = new ObjectElement(asyncApiPojo);
+      const asyncApiElement = AsyncApi3Element.refract(genericObjectElement);
+
+      expect(asyncApiElement).toMatchSnapshot();
+    });
   });
 
   context('supports plugins', function () {

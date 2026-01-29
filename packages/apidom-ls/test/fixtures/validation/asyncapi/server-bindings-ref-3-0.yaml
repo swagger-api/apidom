@@ -1,0 +1,16 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  server1:
+    host: example.com
+    protocol: http
+    bindings:
+      $ref: '//'
+  server2:
+    host: example.com
+    protocol: http
+    bindings:
+      $ref: '#/servers/server1/bindings'
+      x-test: 123

@@ -3,7 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31 } from '../../../openapi/target-specs.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 
 const ifNonThenLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_IF_NONTHEN,
@@ -30,7 +30,7 @@ const ifNonThenLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: [...AsyncAPI2, ...OpenAPI31],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
 };
 
 export default ifNonThenLint;

@@ -2,7 +2,7 @@ import operationIdTypeLint from './operation-id--type.ts';
 import operationIdUniqueLint from './operation-id--unique.ts';
 import summaryTypeLint from './summary--type.ts';
 import descriptionTypeLint from './description--type.ts';
-import securityItemsTypeLint from './security--items-type.ts';
+import securityItemsType2_0__2_6Lint from './security--items-type-2-0--2-6.ts';
 import tagsTypeLint from './tags--type.ts';
 import externalDocsType from './external-docs--type.ts';
 import bindingsTypeLint from './bindings--type.ts';
@@ -19,7 +19,7 @@ const lints = [
   operationIdUniqueLint,
   summaryTypeLint,
   descriptionTypeLint,
-  securityItemsTypeLint,
+  securityItemsType2_0__2_6Lint,
   tagsTypeLint,
   externalDocsType,
   bindingsTypeLint,

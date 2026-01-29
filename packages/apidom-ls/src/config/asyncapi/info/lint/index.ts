@@ -1,4 +1,4 @@
-import allowedFieldsLint from './allowed-fields.ts';
+import allowedFields2_0__2_6Lint from './allowed-fields-2-0--2-6.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import titleRequiredLint from './title--required.ts';
 import titleTypeLint from './title--type.ts';
@@ -20,7 +20,7 @@ const lints = [
   termsOfServiceFormatURILint,
   contactTypeLint,
   licenseTypeLint,
-  allowedFieldsLint,
+  allowedFields2_0__2_6Lint,
   allowedFields3_0Lint,
   tagsTypeLint,
   externalDocsTypeLint,

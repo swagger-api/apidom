@@ -1,0 +1,23 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  securitySchemes:
+    # 'type' required
+    securityScheme1:
+    # 'in' required
+    securityScheme2:
+      type: apiKey
+    # 'name' and 'in' required
+    securityScheme3:
+      type: httpApiKey
+    # 'scheme' required
+    securityScheme4:
+      type: http
+    # 'flows' required
+    securityScheme5:
+      type: oauth2
+    # 'openIdConnectUrl' required
+    securityScheme6:
+      type: openIdConnect

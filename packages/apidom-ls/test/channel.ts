@@ -20,6 +20,7 @@ import {
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -130,6 +131,7 @@ describe('asyncapi channel test', function () {
               kind: 'markdown',
               value: 'A reference to an Channel Bindings',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'http',
@@ -141,6 +143,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'ws',
@@ -152,6 +155,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets#channel)\n\\\n\\\nProtocol-specific information for a WebSockets channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'kafka',
@@ -163,6 +167,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka#channel)\n\\\n\\\nProtocol-specific information for a Kafka channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'amqp',
@@ -174,6 +179,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp#channel)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'amqp1',
@@ -185,6 +191,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'mqtt',
@@ -196,6 +203,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'mqtt5',
@@ -207,6 +215,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'nats',
@@ -218,6 +227,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'jms',
@@ -229,6 +239,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'sns',
@@ -240,6 +251,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'sqs',
@@ -251,6 +263,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'stomp',
@@ -262,6 +275,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'redis',
@@ -273,6 +287,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
         ],
         isIncomplete: false,
@@ -447,6 +462,17 @@ describe('asyncapi channel test', function () {
         message: '"http" must be a HTTP Channel Binding',
         severity: 1,
         code: 180100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 44, character: 4 },
+          end: { line: 44, character: 14 },
+        },
+        message: 'Parameters Object values must be of Parameter Object shape',
+        severity: 1,
+        code: 150002,
         source: 'apilint',
         data: {},
       },

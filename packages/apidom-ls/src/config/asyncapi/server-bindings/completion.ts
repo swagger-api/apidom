@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,6 +17,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Server Bindings',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'http',
@@ -29,6 +31,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[HTTP Server Binding](https://github.com/asyncapi/bindings/blob/master/http#server)\n\\\n\\\nProtocol-specific information for an HTTP server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'ws',
@@ -42,6 +45,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[WebSockets Server Binding](https://github.com/asyncapi/bindings/blob/master/websockets#server)\n\\\n\\\nProtocol-specific information for a WebSockets server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'kafka',
@@ -55,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Kafka Server Binding](https://github.com/asyncapi/bindings/blob/master/kafka#server)\n\\\n\\\nProtocol-specific information for a Kafka server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'anypointmq',
@@ -74,6 +79,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -88,6 +94,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp#server)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'amqp1',
@@ -101,6 +108,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[AMQP 1.0 Server Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#server)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt',
@@ -114,6 +122,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#server)\n\\\n\\\nProtocol-specific information for an MQTT server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mqtt5',
@@ -127,6 +136,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[MQTT 5 Server Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#server)\n\\\n\\\nProtocol-specific information for an MQTT 5 server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'nats',
@@ -140,6 +150,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[NATS Server Binding](https://github.com/asyncapi/bindings/blob/master/nats#server)\n\\\n\\\nProtocol-specific information for a NATS server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'jms',
@@ -153,6 +164,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[JMS Server Binding](https://github.com/asyncapi/bindings/blob/master/jms#server)\n\\\n\\\nProtocol-specific information for a JMS server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'sns',
@@ -166,6 +178,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SNS Server Binding](https://github.com/asyncapi/bindings/blob/master/sns#server)\n\\\n\\\nProtocol-specific information for an SNS server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'solace',
@@ -184,6 +197,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -198,6 +212,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[SQS Server Binding](https://github.com/asyncapi/bindings/blob/master/sqs#server)\n\\\n\\\nProtocol-specific information for an SQS server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'stomp',
@@ -211,6 +226,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[STOMP Server Binding](https://github.com/asyncapi/bindings/blob/master/stomp#server)\n\\\n\\\nProtocol-specific information for a STOMP server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'redis',
@@ -224,6 +240,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Redis Server Binding](https://github.com/asyncapi/bindings/blob/master/redis#server)\n\\\n\\\nProtocol-specific information for a Redis server.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'mercure',
@@ -244,6 +261,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -265,6 +283,7 @@ const completion: ApidomCompletionItem[] = [
       { namespace: 'asyncapi', version: '2.4.0' },
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -282,6 +301,7 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.5.0' },
       { namespace: 'asyncapi', version: '2.6.0' },
+      ...AsyncAPI3,
     ],
   },
   {
@@ -296,7 +316,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Pulsar Server Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#server-binding-object)\n\\\n\\\nProtocol-specific information for a Pulsar server.',
     },
-    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }],
+    targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
   },
 ];
 

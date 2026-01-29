@@ -2,7 +2,7 @@ import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3.ts';
 import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import messageIdType from './message-id--type.ts';
-import headersTypeLint from './headers--type.ts';
+import headersType2_0__2_6Lint from './headers--type-2-0--2-6.ts';
 import headersType3_0Lint from './headers--type-3-0.ts';
 import payloadType3_0Lint from './payload--type-3-0.ts';
 import correlationIdType from './correlation-id--type.ts';
@@ -19,13 +19,15 @@ import examplesTypeLint from './examples--type.ts';
 import examplesItemsTypeLint from './examples--items-type.ts';
 import traitsTypeLint from './traits--type.ts';
 import traitsItemsTypeLint from './traits--items-type.ts';
+import $refValidLint from './$ref--valid.ts';
+import $refNoSiblingsLint from './$ref--no-siblings.ts';
 
 const lints = [
   allowedFields2_0__2_3Lint,
   allowedFields2_4__2_6Lint,
   allowedFields3_0Lint,
   messageIdType,
-  headersTypeLint,
+  headersType2_0__2_6Lint,
   headersType3_0Lint,
   payloadType3_0Lint,
   correlationIdType,
@@ -42,6 +44,8 @@ const lints = [
   examplesItemsTypeLint,
   traitsTypeLint,
   traitsItemsTypeLint,
+  $refValidLint,
+  $refNoSiblingsLint,
 ];
 
 export default lints;

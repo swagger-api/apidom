@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 
 const messageIdUniqueLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MESSAGE_FIELD_MESSAGE_ID_UNIQUE,
@@ -14,6 +15,7 @@ const messageIdUniqueLint: LinterMeta = {
   markerTarget: 'messageId',
   target: 'messageId',
   data: {},
+  targetSpecs: AsyncAPI2,
 };
 
 export default messageIdUniqueLint;

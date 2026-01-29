@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -17,6 +18,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. A URL to the target host.  This URL supports Server Variables and MAY be relative, to indicate that the host location is relative to the location where the AsyncAPI document is being served. Variable substitutions will be made when a variable is named in `{`braces`}`.',
     },
+    targetSpecs: AsyncAPI2,
   },
   {
     label: 'protocol',
@@ -30,6 +32,20 @@ const completion: ApidomCompletionItem[] = [
       value:
         '**REQUIRED**. The protocol this URL supports for connection. Supported protocol include, but are not limited to: `amqp`, `amqps`, `http`, `https`, `ibmmq`, `jms`, `kafka`, `kafka-secure`, `anypointmq`, `mqtt`, `secure-mqtt`, `solace`, `stomp`, `stomps`, `ws`, `wss`, `mercure`, `googlepubsub`.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'protocol',
+    insertText: 'protocol',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '**REQUIRED**. The protocol this URL supports for connection.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'protocolVersion',
@@ -43,6 +59,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The version of the protocol used for connection. For instance: AMQP `0.9.1`, HTTP `2.0`, Kafka `1.0.0`, etc.',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     label: 'description',
@@ -56,6 +73,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         'An optional string describing the host designated by the URL. [CommonMark syntax](https://spec.commonmark.org/) **MAY** be used for rich text representation.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'description',
+    insertText: 'description',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'An optional string describing the server. [CommonMark syntax](https://spec.commonmark.org/) **MAY** be used for rich text representation.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'variables',
@@ -69,6 +101,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's URL template.",
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'variables',
+    insertText: 'variables',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's `host` and `pathname` template.",
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'security',
@@ -82,6 +129,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used with this server. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a connection or operation.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'security',
+    insertText: 'security',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[[Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA declaration of which security schemes can be used with this server. The list of values includes alternative security scheme objects that can be used. Only one of the security scheme objects need to be satisfied to authorize a connection or operation.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     label: 'tags',
@@ -101,6 +163,20 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
+    label: 'tags',
+    insertText: 'tags',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of servers.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: 'bindings',
     insertText: 'bindings',
     kind: 14,
@@ -112,6 +188,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
     },
+    targetSpecs: AsyncAPI2,
+  },
+  {
+    label: 'bindings',
+    insertText: 'bindings',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'protocol',
@@ -121,6 +212,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -130,6 +222,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -139,6 +232,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -148,6 +242,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -157,6 +252,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -166,6 +262,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -175,6 +272,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -184,6 +282,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -193,6 +292,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -202,6 +302,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -211,6 +312,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -220,6 +322,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -229,6 +332,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -238,6 +342,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -247,6 +352,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -256,6 +362,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -265,6 +372,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocol',
@@ -274,6 +382,7 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.VALUE,
     insertTextFormat: 2,
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -290,6 +399,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -306,6 +416,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -322,6 +433,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -338,6 +450,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -354,6 +467,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'protocolVersion',
@@ -370,6 +484,7 @@ const completion: ApidomCompletionItem[] = [
         params: ['kafka'],
       },
     ],
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
     target: 'security',
@@ -381,6 +496,7 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.PROPERTY,
     function: 'apicompleteSecurity',
     insertTextFormat: 2,
+    targetSpecs: AsyncAPI2,
   },
   {
     label: '$ref',
@@ -393,6 +509,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a server',
     },
+    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
 ];
 

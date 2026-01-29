@@ -92,7 +92,7 @@ const completion: ApidomCompletionItem[] = [
   },
   {
     label: 'authorizationCode',
-    insertText: 'clientCredentials',
+    insertText: 'authorizationCode',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
@@ -106,7 +106,7 @@ const completion: ApidomCompletionItem[] = [
   },
   {
     label: 'authorizationCode',
-    insertText: 'clientCredentials',
+    insertText: 'authorizationCode',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,

@@ -1,4 +1,3 @@
-import { Attributes, Meta } from '@swagger-api/apidom-core';
 import { MediaTypeElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SchemaElement from './Schema.ts';
@@ -7,10 +6,6 @@ import SchemaElement from './Schema.ts';
  * @public
  */
 class MediaType extends MediaTypeElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-  }
-
   get schema(): SchemaElement | undefined {
     return this.get('schema');
   }

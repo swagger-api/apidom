@@ -11,7 +11,6 @@ import {
   refractorPluginNormalizeDiscriminatorMapping,
   keyMap,
   getNodeType,
-  mediaTypes,
 } from '../../../../src/index.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

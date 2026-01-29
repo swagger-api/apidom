@@ -1,14 +1,10 @@
-import { StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { StringElement } from '@swagger-api/apidom-core';
 import { TagElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public
  */
 class Tag extends TagElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-  }
-
   /**
    * OpenAPI 3.2: Brief summary of the tag.
    */

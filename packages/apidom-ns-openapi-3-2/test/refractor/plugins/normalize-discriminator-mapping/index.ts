@@ -10,7 +10,6 @@ import {
   refractorPluginNormalizeDiscriminatorMapping,
   keyMap,
   getNodeType,
-  mediaTypes,
   createToolbox,
 } from '../../../../src/index.ts';
 

@@ -8,12 +8,8 @@ import { isOpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 import * as adapter from '../src/adapter.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const yamlSpec = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'sample-spec.yaml'))
-  .toString();
-const jsonSpec = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'sample-spec.json'))
-  .toString();
+const yamlSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-spec.yaml')).toString();
+const jsonSpec = fs.readFileSync(path.join(__dirname, 'fixtures', 'sample-spec.json')).toString();
 
 describe('adapter', function () {
   context('given definition in YAML 1.2 format', function () {

@@ -1,6 +1,5 @@
 import { Mixin } from 'ts-mixer';
 import { ifElse, always } from 'ramda';
-import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   RequestBodyContentElement,
   MapVisitor,

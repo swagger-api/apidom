@@ -1,14 +1,10 @@
-import { Element, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { Element, StringElement } from '@swagger-api/apidom-core';
 import { ExampleElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public
  */
 class Example extends ExampleElement {
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-  }
-
   /**
    * OpenAPI 3.2: Structured example data as an ApiDOM Element.
    */

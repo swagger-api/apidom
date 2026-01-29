@@ -8,7 +8,6 @@ import FileResolver from '@swagger-api/apidom-reference/resolve/resolvers/file';
 import {
   OpenApi3_2Element,
   refractorPluginNormalizeDiscriminatorMapping,
-  mediaTypes,
   createToolbox,
   keyMap,
   getNodeType,
@@ -79,7 +78,9 @@ describe('refractor', function () {
             },
           });
 
-          const openApiElement = OpenApi3_2Element.refract(dereferenced.result) as OpenApi3_2Element;
+          const openApiElement = OpenApi3_2Element.refract(
+            dereferenced.result,
+          ) as OpenApi3_2Element;
 
           const normalized = dispatchRefractorPlugins(
             openApiElement,

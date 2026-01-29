@@ -223,7 +223,9 @@ const plugin =
                       return;
                     }
 
-                    const discriminator = cloneShallow(node.value as DiscriminatorElement) as DiscriminatorElement;
+                    const discriminator = cloneShallow(
+                      node.value as DiscriminatorElement,
+                    ) as DiscriminatorElement;
                     const discriminatorCopy = new DiscriminatorElement();
 
                     if (discriminator.get('mapping')) {

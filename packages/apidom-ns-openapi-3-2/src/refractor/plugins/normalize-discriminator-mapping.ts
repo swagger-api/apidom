@@ -11,13 +11,13 @@ import {
   isMemberElement,
   isStringElement,
 } from '@swagger-api/apidom-core';
-import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import { isReferenceLikeElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import type { Toolbox } from '../toolbox.ts';
 import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
 import { SchemaElement } from '../registration.ts';
-import { isSchemaElement } from '../../predicates.ts';
+import { isSchemaElement, isDiscriminatorElement } from '../../predicates.ts';
 import DiscriminatorElement from '../../elements/Discriminator.ts';
 
 /**
@@ -110,7 +110,7 @@ const plugin =
               return;
             }
 
-            const mapping = schemaElement.discriminator.get('mapping') ?? new ObjectElement();
+            const mapping = schemaElement.discriminator!.get('mapping') ?? new ObjectElement();
             const normalizedMapping = new ObjectElement();
             let isNormalized = true;
 
@@ -200,7 +200,7 @@ const plugin =
               mappingKeys.every((mappingKey: string) => normalizedMappingKeys.includes(mappingKey));
 
             if (isNormalized) {
-              schemaElement.discriminator.set('x-normalized-mapping', normalizedMapping);
+              schemaElement.discriminator!.set('x-normalized-mapping', normalizedMapping);
 
               // dive in and eliminate cycles that might be created by normalization
               visit(
@@ -223,7 +223,7 @@ const plugin =
                       return;
                     }
 
-                    const discriminator = cloneShallow(node.value);
+                    const discriminator = cloneShallow(node.value as DiscriminatorElement) as DiscriminatorElement;
                     const discriminatorCopy = new DiscriminatorElement();
 
                     if (discriminator.get('mapping')) {

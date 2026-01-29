@@ -10,6 +10,7 @@ import type { ElementPredicate } from '@swagger-api/apidom-core';
 import CallbackElement from './elements/Callback.ts';
 import ComponentsElement from './elements/Components.ts';
 import ContactElement from './elements/Contact.ts';
+import DiscriminatorElement from './elements/Discriminator.ts';
 import ExampleElement from './elements/Example.ts';
 import ExternalDocumentationElement from './elements/ExternalDocumentation.ts';
 import HeaderElement from './elements/Header.ts';
@@ -69,6 +70,19 @@ export const isContactElement = createPredicate(
       element instanceof ContactElement ||
       (hasBasicElementProps(element) &&
         isElementType('contact', element) &&
+        primitiveEq('object', element));
+  },
+);
+
+/**
+ * @public
+ */
+export const isDiscriminatorElement = createPredicate(
+  ({ hasBasicElementProps, isElementType, primitiveEq }) => {
+    return (element: unknown): element is DiscriminatorElement =>
+      element instanceof DiscriminatorElement ||
+      (hasBasicElementProps(element) &&
+        isElementType('discriminator', element) &&
         primitiveEq('object', element));
   },
 );

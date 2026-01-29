@@ -1,4 +1,23 @@
-const tokens = [
+// AsyncAPI 2.x specific tokens
+const asyncAPI2Tokens = ['channelItem', 'securityRequirement'];
+
+// AsyncAPI 3.x specific tokens
+const asyncAPI3Tokens = [
+  'channel',
+  'messages',
+  'operations',
+  'operationReply',
+  'operationReplyAddress',
+  'multiFormatSchema',
+  'components-operations',
+  'components-replies',
+  'components-reply-addresses',
+  'components-tags',
+  'components-external-documentation',
+];
+
+// Common tokens (present in both AsyncAPI 2 and AsyncAPI 3)
+const commonTokens = [
   'parameter',
   'api-version',
   'spec-version',
@@ -7,19 +26,26 @@ const tokens = [
   'components',
   'components-parameters',
   'components-schemas',
+  'components-channels',
   'components-security-schemes',
+  'components-messages',
   'components-messageTraits',
   'components-operationTraits',
-  'components-messages',
   'schema',
   'server',
   'servers',
   'server-variables',
-  'channelItem',
   'channels',
   'reference-element',
   'reference-value',
+  'channelBindings',
+  'messageBindings',
+  'operationBindings',
+  'serverBindings',
   'channel-binding',
+  'message-binding',
+  'operation-binding',
+  'server-binding',
   'license',
   'message',
   'server-url',
@@ -29,6 +55,7 @@ const tokens = [
   'reference',
   'contact',
   'identifier',
+  'defaultContentType',
   'tags',
   'externalDocumentation',
   'securityScheme',
@@ -41,5 +68,7 @@ const tokens = [
   'operationTraits',
   'security',
 ];
+
+const tokens = [...asyncAPI2Tokens, ...asyncAPI3Tokens, ...commonTokens];
 
 export default tokens;

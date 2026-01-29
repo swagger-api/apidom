@@ -1,0 +1,27 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  channelBindings:
+    channel1: test
+  correlationIds:
+    correlationId1: test
+  messageBindings:
+    messageBinding1: test
+  messageTraits:
+    messageTrait1: test
+  messages:
+    message1: test
+  operationBindings:
+    operationBinding1: test
+  parameters:
+    parameter1: test
+  securitySchemes:
+    securityScheme1: test
+  serverBindings:
+    serverBinding1: test
+  serverVariables:
+    serverVariable1: test
+  servers:
+    server1: test

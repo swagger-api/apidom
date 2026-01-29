@@ -5,7 +5,7 @@ import tokenUrlRequiredLint from './token-url--required.ts';
 import refreshUrlFormatURILint from './refresh-url--format-uri.ts';
 import scopesTypeLint from './scopes--type.ts';
 import scopesRequiredLint from './scopes--required.ts';
-import allowedFieldsLint from './allowed-fields.ts';
+import allowedFields2_0__2_6Lint from './allowed-fields-2-0--2-6.ts';
 
 const lints = [
   authorizationUrlFormatURILint,
@@ -15,7 +15,7 @@ const lints = [
   refreshUrlFormatURILint,
   scopesTypeLint,
   scopesRequiredLint,
-  allowedFieldsLint,
+  allowedFields2_0__2_6Lint,
 ];
 
 export default lints;

@@ -299,10 +299,7 @@ class OpenAPI3_2DereferenceVisitor {
           openApiElement = rootElement;
         } else {
           // Try to find OpenApi3_2Element in the result (e.g., in ParseResult)
-          const found = find(
-            (element: Element) => element.element === 'openapi-3-2',
-            rootElement,
-          );
+          const found = find((element: Element) => element.element === 'openapi-3-2', rootElement);
           if (found) {
             openApiElement = found;
           }
@@ -912,10 +909,9 @@ class OpenAPI3_2DereferenceVisitor {
       // create shallow clone to be able to annotate with metadata
       resolvedOperationElement = cloneShallow(resolvedOperationElement);
       // annotate operation element with info about origin (use $self if available)
-      const refOriginURI =
-        isExternalReference
-          ? this.extractSelfFromReference(reference) || reference.uri
-          : this.$selfValue || reference.uri;
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
       resolvedOperationElement.setMetaProperty('ref-origin', refOriginURI);
 
       const linkElementCopy = cloneShallow(linkElement);
@@ -1023,10 +1019,9 @@ class OpenAPI3_2DereferenceVisitor {
     // shallow clone of the referenced element
     const valueElement = cloneShallow(reference.value.result as Element);
     // annotate operation element with info about origin (use $self if available)
-    const refOriginURI =
-      isExternalReference
-        ? this.extractSelfFromReference(reference) || reference.uri
-        : this.$selfValue || reference.uri;
+    const refOriginURI = isExternalReference
+      ? this.extractSelfFromReference(reference) || reference.uri
+      : this.$selfValue || reference.uri;
     valueElement.setMetaProperty('ref-origin', refOriginURI);
 
     const exampleElementCopy = cloneShallow(exampleElement);
@@ -1430,10 +1425,9 @@ class OpenAPI3_2DereferenceVisitor {
         $refBaseURI,
       });
       // annotate referenced element with info about origin (use $self if available)
-      const refOriginURI =
-        isExternalReference
-          ? this.extractSelfFromReference(reference) || reference.uri
-          : this.$selfValue || reference.uri;
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
       booleanJsonSchemaElement.setMetaProperty('ref-origin', refOriginURI);
       // annotate fragment with info about referencing element
       booleanJsonSchemaElement.setMetaProperty(
@@ -1469,10 +1463,9 @@ class OpenAPI3_2DereferenceVisitor {
         $refBaseURI,
       });
       // annotate fragment with info about origin (use $self if available)
-      const refOriginURI =
-        isExternalReference
-          ? this.extractSelfFromReference(reference) || reference.uri
-          : this.$selfValue || reference.uri;
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
       mergedElement.setMetaProperty('ref-origin', refOriginURI);
       // annotate fragment with info about referencing element
       mergedElement.setMetaProperty(

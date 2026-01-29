@@ -1,7 +1,11 @@
 import path from 'node:path';
 import { assert } from 'chai';
 import { ParseResultElement, Element, toValue } from '@swagger-api/apidom-core';
-import { isParameterElement, isSchemaElement, mediaTypes } from '@swagger-api/apidom-ns-openapi-3-2';
+import {
+  isParameterElement,
+  isSchemaElement,
+  mediaTypes,
+} from '@swagger-api/apidom-ns-openapi-3-2';
 import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
@@ -497,7 +501,11 @@ describe('dereference', function () {
                    * Fragment-only references like "#/components/schemas/Pet" should resolve
                    * using $self as the base URI when present.
                    */
-                  const fixturePath = path.join(rootFixturePath, '$self-fragment-refs', 'root.json');
+                  const fixturePath = path.join(
+                    rootFixturePath,
+                    '$self-fragment-refs',
+                    'root.json',
+                  );
                   const dereferenced = await dereference(fixturePath, {
                     parse: { mediaType: mediaTypes.latest('json') },
                   });

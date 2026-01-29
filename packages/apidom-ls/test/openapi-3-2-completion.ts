@@ -68,11 +68,7 @@ describe('OpenAPI 3.2.0 Completion', function () {
             ? queryCompletion.documentation.value
             : '';
 
-      assert.include(
-        queryDoc,
-        'QUERY',
-        'Documentation should mention QUERY method',
-      );
+      assert.include(queryDoc, 'QUERY', 'Documentation should mention QUERY method');
     });
 
     it('should suggest additionalOperations in PathItem', async function () {
@@ -116,11 +112,7 @@ describe('OpenAPI 3.2.0 Completion', function () {
             ? additionalOperationsCompletion.documentation.value
             : '';
 
-      assert.include(
-        additionalOpsDoc,
-        'HTTP methods',
-        'Documentation should mention HTTP methods',
-      );
+      assert.include(additionalOpsDoc, 'HTTP methods', 'Documentation should mention HTTP methods');
     });
 
     it('should not suggest query and additionalOperations for OpenAPI 3.1.0', async function () {
@@ -152,10 +144,7 @@ describe('OpenAPI 3.2.0 Completion', function () {
         (item) => item.label === 'additionalOperations',
       );
 
-      assert.isUndefined(
-        queryCompletion,
-        'Should NOT suggest "query" operation for 3.1.0',
-      );
+      assert.isUndefined(queryCompletion, 'Should NOT suggest "query" operation for 3.1.0');
       assert.isUndefined(
         additionalOperationsCompletion,
         'Should NOT suggest "additionalOperations" for 3.1.0',
@@ -186,9 +175,7 @@ describe('OpenAPI 3.2.0 Completion', function () {
 
       const result = await languageService.doCompletion(doc, position, completionContext);
 
-      const mediaTypesCompletion = result?.items.find(
-        (item) => item.label === 'mediaTypes',
-      );
+      const mediaTypesCompletion = result?.items.find((item) => item.label === 'mediaTypes');
 
       assert.isDefined(mediaTypesCompletion, 'Should suggest "mediaTypes" field');
 
@@ -228,14 +215,9 @@ describe('OpenAPI 3.2.0 Completion', function () {
 
       const result = await languageService.doCompletion(doc, position, completionContext);
 
-      const mediaTypesCompletion = result?.items.find(
-        (item) => item.label === 'mediaTypes',
-      );
+      const mediaTypesCompletion = result?.items.find((item) => item.label === 'mediaTypes');
 
-      assert.isUndefined(
-        mediaTypesCompletion,
-        'Should NOT suggest "mediaTypes" for 3.1.0',
-      );
+      assert.isUndefined(mediaTypesCompletion, 'Should NOT suggest "mediaTypes" for 3.1.0');
     });
   });
 
@@ -361,9 +343,7 @@ components:
 
       const result = await languageService.doCompletion(doc, position, completionContext);
 
-      const mediaTypesCompletion = result?.items.find(
-        (item) => item.label === 'mediaTypes',
-      );
+      const mediaTypesCompletion = result?.items.find((item) => item.label === 'mediaTypes');
 
       assert.isDefined(mediaTypesCompletion, 'Should suggest "mediaTypes" in YAML');
     });

@@ -60,8 +60,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
 
       // Filter for query-related errors
       const queryErrors = result.filter(
-        (d) =>
-          d.message.includes('query') && d.severity === DiagnosticSeverity.Error,
+        (d) => d.message.includes('query') && d.severity === DiagnosticSeverity.Error,
       );
 
       assert.strictEqual(
@@ -123,8 +122,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
       // Filter for additionalOperations-related errors
       const additionalOpsErrors = result.filter(
         (d) =>
-          d.message.includes('additionalOperations') &&
-          d.severity === DiagnosticSeverity.Error,
+          d.message.includes('additionalOperations') && d.severity === DiagnosticSeverity.Error,
       );
 
       assert.strictEqual(
@@ -199,8 +197,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
       // Check for additionalOperations values error
       const additionalOpsValuesErrors = result.filter(
         (d) =>
-          (d.message.includes('additionalOperations') ||
-            d.message.includes('Operation')) &&
+          (d.message.includes('additionalOperations') || d.message.includes('Operation')) &&
           d.severity === DiagnosticSeverity.Error,
       );
 
@@ -231,8 +228,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
 
       // Filter for querystring parameter errors
       const querystringErrors = result.filter(
-        (d) =>
-          d.message.includes('querystring') && d.severity === DiagnosticSeverity.Error,
+        (d) => d.message.includes('querystring') && d.severity === DiagnosticSeverity.Error,
       );
 
       assert.strictEqual(
@@ -266,11 +262,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
           d.severity === DiagnosticSeverity.Error,
       );
 
-      assert.isAtLeast(
-        locationErrors.length,
-        1,
-        'Expected error for invalid parameter location',
-      );
+      assert.isAtLeast(locationErrors.length, 1, 'Expected error for invalid parameter location');
     });
 
     it('should accept all valid parameter locations including querystring', async function () {
@@ -378,8 +370,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
 
       // Filter for mediaTypes-related errors
       const mediaTypesErrors = result.filter(
-        (d) =>
-          d.message.includes('mediaTypes') && d.severity === DiagnosticSeverity.Error,
+        (d) => d.message.includes('mediaTypes') && d.severity === DiagnosticSeverity.Error,
       );
 
       assert.strictEqual(
@@ -407,9 +398,7 @@ describe('OpenAPI 3.2.0 New Features', function () {
 
       // Check for mediaTypes type error
       const mediaTypesTypeErrors = result.filter(
-        (d) =>
-          d.message.includes('mediaTypes') &&
-          d.severity === DiagnosticSeverity.Error,
+        (d) => d.message.includes('mediaTypes') && d.severity === DiagnosticSeverity.Error,
       );
 
       assert.isAtLeast(
@@ -470,16 +459,10 @@ describe('OpenAPI 3.2.0 New Features', function () {
 
       // Check for "not allowed fields" errors
       const notAllowedErrors = result.filter(
-        (d) =>
-          d.message.includes('not allowed fields') &&
-          d.severity === DiagnosticSeverity.Error,
+        (d) => d.message.includes('not allowed fields') && d.severity === DiagnosticSeverity.Error,
       );
 
-      assert.isAtLeast(
-        notAllowedErrors.length,
-        1,
-        'Expected error for invalid fields in PathItem',
-      );
+      assert.isAtLeast(notAllowedErrors.length, 1, 'Expected error for invalid fields in PathItem');
     });
   });
 

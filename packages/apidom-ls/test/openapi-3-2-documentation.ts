@@ -154,10 +154,7 @@ describe('OpenAPI 3.2.0 Documentation/Hover', function () {
             : '';
 
       // Check that documentation is present (specifics may vary)
-      assert.isTrue(
-        hoverText.length > 0,
-        'Hover documentation should not be empty',
-      );
+      assert.isTrue(hoverText.length > 0, 'Hover documentation should not be empty');
     });
   });
 

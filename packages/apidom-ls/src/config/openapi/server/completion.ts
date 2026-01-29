@@ -71,8 +71,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value:
-        'A short name for the server.',
+      value: 'A short name for the server.',
     },
     targetSpecs: OpenAPI32,
   },

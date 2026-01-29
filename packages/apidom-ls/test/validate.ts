@@ -6515,11 +6515,12 @@ describe('apidom-ls-validate', function () {
     // The components object has an invalid field 'invalidField'
     // The lint rule produces a diagnostic for fields that are not in the allowed list
     const invalidFieldErrors = result.filter(
-      (d) =>
-        d.source === 'apilint' &&
-        d.message.includes('not allowed'),
+      (d) => d.source === 'apilint' && d.message.includes('not allowed'),
     );
-    assert.isTrue(invalidFieldErrors.length > 0, 'Should detect not allowed fields in components object');
+    assert.isTrue(
+      invalidFieldErrors.length > 0,
+      'Should detect not allowed fields in components object',
+    );
 
     languageService.terminate();
   });

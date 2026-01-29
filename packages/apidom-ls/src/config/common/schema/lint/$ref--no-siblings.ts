@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { AsyncAPI2 } from '../../../asyncapi/target-specs.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 import { OpenAPI2 } from '../../../openapi/target-specs.ts';
 
 const $refNoSiblingsLint: LinterMeta = {
@@ -29,7 +29,7 @@ const $refNoSiblingsLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: [...AsyncAPI2, ...OpenAPI2],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2],
 };
 
 export default $refNoSiblingsLint;

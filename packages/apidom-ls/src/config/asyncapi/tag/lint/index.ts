@@ -1,13 +1,13 @@
-import allowedFieldsLint from './allowed-fields.ts';
+import allowedFields2_0__2_6Lint from './allowed-fields-2-0--2-6.ts';
 import nameTypeLint from './name--type.ts';
-import nameRequiredLint from './name--required.ts';
+import nameRequired2_0__2_6Lint from './name--required-2-0--2-6.ts';
 import descriptionTypeLint from './description--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
 
 const lints = [
-  allowedFieldsLint,
+  allowedFields2_0__2_6Lint,
   nameTypeLint,
-  nameRequiredLint,
+  nameRequired2_0__2_6Lint,
   descriptionTypeLint,
   externalDocsTypeLint,
 ];

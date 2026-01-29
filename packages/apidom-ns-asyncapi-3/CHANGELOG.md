@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.3.0](https://github.com/swagger-api/apidom/compare/v1.2.2...v1.3.0) (2026-01-23)
+
+### Bug Fixes
+
+- **ns-asyncapi-3:** refract specification extensions ([#5107](https://github.com/swagger-api/apidom/issues/5107)) ([3d85c0f](https://github.com/swagger-api/apidom/commit/3d85c0f654fb1bdc2bc1493544c5dcd812e7d7c0))
+
 ## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-3

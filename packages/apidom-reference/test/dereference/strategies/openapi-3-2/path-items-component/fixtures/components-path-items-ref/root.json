@@ -1,0 +1,43 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "pathItems": {
+      "userPathItem": {
+        "get": {
+          "summary": "Get user",
+          "parameters": [
+            {
+              "$ref": "#/components/parameters/userId"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update user",
+          "responses": {
+            "200": {
+              "description": "Updated"
+            }
+          }
+        }
+      },
+      "userPathItem2": {
+        "$ref": "#/components/pathItems/userPathItem"
+      }
+    },
+    "parameters": {
+      "userId": {
+        "name": "id",
+        "in": "path",
+        "required": true,
+        "schema": {
+          "type": "integer"
+        }
+      }
+    }
+  }
+}

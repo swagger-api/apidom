@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -269,6 +269,34 @@ const completion: ApidomCompletionItem[] = [
         'Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'openIdConnectUrl',
+    insertText: 'openIdConnectUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `openIdConnect`. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL. The OpenID Connect standard requires the use of TLS.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'oauth2MetadataUrl',
+    insertText: 'oauth2MetadataUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2`. A URL to discover OAuth2 configuration values from a metadata document. This MUST be in the form of a URL.',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'scopes',

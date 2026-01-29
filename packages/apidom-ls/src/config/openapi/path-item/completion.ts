@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -45,7 +45,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A reference to a Path Item',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'summary',
@@ -114,7 +114,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a GET operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'put',
@@ -156,7 +156,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a PUT operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'post',
@@ -198,7 +198,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a POST operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'delete',
@@ -240,7 +240,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a DELETE operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'options',
@@ -282,7 +282,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a OPTIONS operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'head',
@@ -324,7 +324,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a HEAD operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'patch',
@@ -366,7 +366,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a PATCH operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'trace',
@@ -394,7 +394,35 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#operationObject)\n\\\n\\\nA definition of a TRACE operation on this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
+  },
+  {
+    label: 'query',
+    insertText: 'query',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)\n\\\n\\\nA definition of a QUERY operation on this path. QUERY method allows safely querying the state of a resource in an idempotent way using a query payload.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'additionalOperations',
+    insertText: 'additionalOperations',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)]\n\\\n\\\nA map of HTTP methods you choose to include in your API design for non-standard methods. Each key must be a valid HTTP method name and each value must be an Operation Object.',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'servers',
@@ -422,7 +450,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn alternative `server` array to service all operations in this path.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'parameters',
@@ -464,7 +492,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "[[Parameter](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nA list of parameters that are applicable for all the operations described under this path. These parameters can be overridden at the operation level, but cannot be removed there. The list MUST NOT include duplicated parameters. A unique parameter is defined by a combination of a [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterName) and [location](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#parameterIn). The list can use the [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject) to link to parameters that are defined at the [OpenAPI Object's components/parameters](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#componentsParameters).",
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
 ];
 

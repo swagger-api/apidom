@@ -4,6 +4,8 @@ import * as openapi30xAdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi30xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 import * as openapi31xAdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi31xAdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as openapi32AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-2';
+import * as openapi32AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-2';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
@@ -940,6 +942,34 @@ export async function findNamespace(
       format: 'YAML',
       admitsRefsSiblings: true,
       mediaType: openapi31xAdapterYaml.mediaTypes.findBy(version, 'yaml'),
+    };
+  }
+
+  if (await openapi32AdapterJson.detect(text)) {
+    const openapi32AdapterJsonMatch = text.match(openapi32AdapterJson.detectionRegExp)!;
+    const groups = openapi32AdapterJsonMatch.groups!;
+    const version = groups.version_json;
+
+    return {
+      namespace: 'openapi',
+      version,
+      format: 'JSON',
+      admitsRefsSiblings: true,
+      mediaType: openapi32AdapterJson.mediaTypes.findBy(version, 'json'),
+    };
+  }
+
+  if (await openapi32AdapterYaml.detect(text)) {
+    const openapi32YamlMatch = text.match(openapi32AdapterYaml.detectionRegExp)!;
+    const groups = openapi32YamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
+    return {
+      namespace: 'openapi',
+      version,
+      format: 'YAML',
+      admitsRefsSiblings: true,
+      mediaType: openapi32AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
 

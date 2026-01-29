@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI30, OpenAPI31 } from '../target-specs.ts';
+import { OpenAPI30, OpenAPI31, OpenAPI32 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -32,7 +32,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'password',
@@ -60,7 +60,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Password flow.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'clientCredentials',
@@ -88,7 +88,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow. Previously called `application` in OpenAPI 2.0.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'authorizationCode',
@@ -116,7 +116,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow. Previously called accessCode in OpenAPI 2.0.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
 ];
 

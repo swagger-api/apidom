@@ -3,6 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import openapiMeta from './openapi/meta.ts';
 import openapi3_0Meta from './openapi3_0/meta.ts';
 import openapi3_1Meta from './openapi3_1/meta.ts';
+import openapi3_2Meta from './openapi3_2/meta.ts';
 import callbackMeta from './callback/meta.ts';
 import componentsMeta from './components/meta.ts';
 import contactMeta from './contact/meta.ts';
@@ -60,6 +61,7 @@ export default {
   openapi: openapiMeta,
   openApi3_0: openapi3_0Meta,
   openApi3_1: openapi3_1Meta,
+  openApi3_2: openapi3_2Meta,
   callback: callbackMeta,
   components: componentsMeta,
   contact: contactMeta,

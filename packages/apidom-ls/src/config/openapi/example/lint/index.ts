@@ -1,5 +1,6 @@
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import allowedFields3_1Lint from './allowed-fields-3-1.ts';
+import allowedFields3_2Lint from './allowed-fields-3-2.ts';
 import summaryTypeLint from './summary--type.ts';
 import descriptionTypeLint from './description--type.ts';
 import valueMutuallyExclusiveLint from './value--mutually-exclusive.ts';
@@ -12,6 +13,7 @@ const lints = [
   externalValueFormatURILint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
+  allowedFields3_2Lint,
 ];
 
 export default lints;

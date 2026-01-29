@@ -23,7 +23,7 @@ import { metadata } from './metadata.ts';
 import { OpenAPi31JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-31-json-schema-validation-provider.ts';
 import { logLevel, logPerformance } from './test-utils.ts';
 import testTokens from './test-tokens.ts';
-import { OpenAPI31, OpenAPI3 } from '../src/config/openapi/target-specs.ts';
+import { OpenAPI31, OpenAPI32, OpenAPI3 } from '../src/config/openapi/target-specs.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -85,7 +85,7 @@ const completionTestInput = [
             kind: 'markdown',
             value: 'A short summary of the API.',
           },
-          targetSpecs: OpenAPI31,
+          targetSpecs: [...OpenAPI31, ...OpenAPI32],
         },
         {
           label: 'description',

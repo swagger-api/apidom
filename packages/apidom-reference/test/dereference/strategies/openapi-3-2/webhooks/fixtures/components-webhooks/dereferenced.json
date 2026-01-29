@@ -1,0 +1,80 @@
+[
+  {
+    "openapi": "3.2.0",
+    "webhooks": {
+      "newPet": {
+        "post": {
+          "summary": "Pet created webhook",
+          "description": "Notification when a new pet is created",
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Webhook received"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "webhooks": {
+        "petWebhook": {
+          "post": {
+            "summary": "Pet created webhook",
+            "description": "Notification when a new pet is created",
+            "requestBody": {
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Webhook received"
+              }
+            }
+          }
+        }
+      },
+      "schemas": {
+        "Pet": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+]

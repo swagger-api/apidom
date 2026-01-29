@@ -77,6 +77,48 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI3,
   },
   {
+    label: 'enum',
+    insertText: 'enum',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'An enumeration of string values to be used if the substitution options are from a limited set.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'default',
+    insertText: 'default',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The default value to use for substitution, which SHALL be sent if an alternate value is not supplied.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'examples',
+    insertText: 'examples',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'An array of examples of the parameter value.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: '$ref',
     insertText: '\\$ref',
     kind: 14,

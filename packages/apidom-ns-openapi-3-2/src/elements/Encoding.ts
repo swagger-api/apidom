@@ -1,4 +1,4 @@
-import { EncodingElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { EncodingElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public

@@ -1,4 +1,4 @@
-import { CallbackElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { CallbackElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public

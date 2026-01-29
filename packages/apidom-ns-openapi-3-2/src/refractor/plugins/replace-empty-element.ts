@@ -40,7 +40,7 @@ import {
   ResponseLinksElement,
   DiscriminatorMappingElement,
   OAuthFlowScopesElement,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * OpenAPI 3.1.0 specification elements.

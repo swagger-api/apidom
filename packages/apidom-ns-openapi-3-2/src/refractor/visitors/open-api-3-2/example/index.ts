@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ExampleVisitorOptions,
   ExampleVisitor as ExampleVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ExampleElement from '../../../../elements/Example.ts';
 

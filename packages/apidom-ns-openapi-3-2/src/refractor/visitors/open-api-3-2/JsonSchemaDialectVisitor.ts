@@ -5,7 +5,7 @@ import {
   FallbackVisitorOptions,
   SpecificationVisitor,
   SpecificationVisitorOptions,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import JsonSchemaDialectElement from '../../../elements/JsonSchemaDialect.ts';
 

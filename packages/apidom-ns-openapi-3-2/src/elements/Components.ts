@@ -1,5 +1,5 @@
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { ComponentsElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { ComponentsElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public

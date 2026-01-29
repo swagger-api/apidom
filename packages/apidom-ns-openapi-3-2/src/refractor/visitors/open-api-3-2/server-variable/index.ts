@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ServerVariableVisitorOptions,
   ServerVariableVisitor as ServerVariableVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ServerVariableElement from '../../../../elements/ServerVariable.ts';
 

@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ResponsesVisitorOptions,
   ResponsesVisitor as ResponsesVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ResponsesElement from '../../../../elements/Responses.ts';
 

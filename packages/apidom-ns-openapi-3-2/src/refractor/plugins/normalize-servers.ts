@@ -3,7 +3,7 @@ import {
   PathItemServersElement,
   OperationServersElement,
   ServersElement,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import type OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import type PathItemElement from '../../elements/PathItem.ts';

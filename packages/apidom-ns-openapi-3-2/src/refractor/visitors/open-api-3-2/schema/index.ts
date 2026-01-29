@@ -6,7 +6,7 @@ import {
   FallbackVisitorOptions,
   FixedFieldsVisitor,
   FixedFieldsVisitorOptions,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 import {
   JSONSchemaVisitor,
   ParentSchemaAwareVisitor,

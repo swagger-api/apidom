@@ -1,6 +1,6 @@
 import { uniqWith, pathOr, last } from 'ramda';
 import { Element, StringElement, toValue } from '@swagger-api/apidom-core';
-import { OperationParametersElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { OperationParametersElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ParameterElement from '../../elements/Parameter.ts';
 import PathItemElement from '../../elements/PathItem.ts';

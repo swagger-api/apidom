@@ -11,7 +11,7 @@ import {
   isMemberElement,
   isStringElement,
 } from '@swagger-api/apidom-core';
-import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { isReferenceLikeElement, isDiscriminatorElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import type { Toolbox } from '../toolbox.ts';
 import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';

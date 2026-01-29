@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   SecuritySchemeVisitorOptions,
   SecuritySchemeVisitor as SecuritySchemeVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SecuritySchemeElement from '../../../../elements/SecurityScheme.ts';
 

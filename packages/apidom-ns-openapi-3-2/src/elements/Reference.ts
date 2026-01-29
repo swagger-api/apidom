@@ -1,5 +1,5 @@
 import { StringElement } from '@swagger-api/apidom-core';
-import { ReferenceElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { ReferenceElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public

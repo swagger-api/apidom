@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   DiscriminatorVisitorOptions,
   DiscriminatorVisitor as DiscriminatorVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import DiscriminatorElement from '../../../../elements/Discriminator.ts';
 

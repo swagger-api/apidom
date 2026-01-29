@@ -1,5 +1,5 @@
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { PathItemElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { PathItemElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import OperationElement from './Operation.ts';
 

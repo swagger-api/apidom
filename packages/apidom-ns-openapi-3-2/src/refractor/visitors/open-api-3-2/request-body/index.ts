@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   RequestBodyVisitorOptions,
   RequestBodyVisitor as RequestBodyVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import RequestBodyElement from '../../../../elements/RequestBody.ts';
 

@@ -5,7 +5,7 @@ import {
   refract as baseRefract,
   dispatchRefractorPlugins,
 } from '@swagger-api/apidom-core';
-import type { Visitor as VisitorClass } from '@swagger-api/apidom-ns-openapi-3-0';
+import type { Visitor as VisitorClass } from '@swagger-api/apidom-ns-openapi-3-1';
 import { path } from 'ramda';
 
 import specification from './specification.ts';

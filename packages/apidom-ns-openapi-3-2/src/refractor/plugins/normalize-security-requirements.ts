@@ -1,5 +1,5 @@
 import { Element, ArrayElement } from '@swagger-api/apidom-core';
-import { OperationSecurityElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { OperationSecurityElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import OpenApi3_2Element from '../../elements/OpenApi3-2.ts';
 import OperationElement from '../../elements/Operation.ts';

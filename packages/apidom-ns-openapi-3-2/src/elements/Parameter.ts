@@ -1,4 +1,4 @@
-import { ParameterElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { ParameterElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SchemaElement from './Schema.ts';
 

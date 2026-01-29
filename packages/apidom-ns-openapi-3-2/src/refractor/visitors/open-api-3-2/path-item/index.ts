@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   PathItemVisitorOptions,
   PathItemVisitor as PathItemVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import PathItemElement from '../../../../elements/PathItem.ts';
 

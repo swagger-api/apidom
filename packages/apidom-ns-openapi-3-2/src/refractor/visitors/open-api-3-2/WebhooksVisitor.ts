@@ -7,7 +7,7 @@ import {
   FallbackVisitor,
   FallbackVisitorOptions,
   SpecPath,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ReferenceElement from '../../../elements/Reference.ts';
 import PathItemElement from '../../../elements/PathItem.ts';

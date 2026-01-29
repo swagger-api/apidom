@@ -5,7 +5,7 @@ import {
   SpecPath,
   CallbackVisitorOptions,
   CallbackVisitor as CallbackVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import CallbackElement from '../../../../elements/Callback.ts';
 import ReferenceElement from '../../../../elements/Reference.ts';

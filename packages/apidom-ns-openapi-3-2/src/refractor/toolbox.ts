@@ -13,7 +13,7 @@ import {
   hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 import { compile as compileJSONPointerTokens } from '@swagger-api/apidom-json-pointer/modern';
-import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { isServersElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import * as openApi3_2Predicates from '../predicates.ts';
 import openApi3_2Namespace from '../namespace.ts';

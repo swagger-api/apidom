@@ -1,4 +1,4 @@
-import { HeaderElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import { HeaderElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SchemaElement from './Schema.ts';
 

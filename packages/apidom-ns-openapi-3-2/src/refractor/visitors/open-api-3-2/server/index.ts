@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ServerVisitorOptions,
   ServerVisitor as ServerVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ServerElement from '../../../../elements/Server.ts';
 

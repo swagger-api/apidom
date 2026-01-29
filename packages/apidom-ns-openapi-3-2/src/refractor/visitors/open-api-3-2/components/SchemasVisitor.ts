@@ -8,7 +8,7 @@ import {
   FallbackVisitor,
   SpecPath,
   FallbackVisitorOptions,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SchemaElement from '../../../../elements/Schema.ts';
 import { isSchemaElement } from '../../../../predicates.ts';

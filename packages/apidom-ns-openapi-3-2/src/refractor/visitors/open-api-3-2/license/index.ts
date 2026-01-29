@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   LicenseVisitorOptions,
   LicenseVisitor as LicenseVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import LicenseElement from '../../../../elements/License.ts';
 

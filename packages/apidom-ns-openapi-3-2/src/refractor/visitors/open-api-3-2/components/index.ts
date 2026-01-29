@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ComponentsVisitorOptions,
   ComponentsVisitor as ComponentsVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ComponentsElement from '../../../../elements/Components.ts';
 

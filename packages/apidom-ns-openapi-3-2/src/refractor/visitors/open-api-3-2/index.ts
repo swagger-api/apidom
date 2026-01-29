@@ -7,7 +7,7 @@ import {
   FallbackVisitor,
   FallbackVisitorOptions,
   SpecPath,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import OpenApi3_2Element from '../../../elements/OpenApi3-2.ts';
 

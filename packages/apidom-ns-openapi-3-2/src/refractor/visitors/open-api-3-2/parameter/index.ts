@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ParameterVisitorOptions,
   ParameterVisitor as ParameterVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ParameterElement from '../../../../elements/Parameter.ts';
 

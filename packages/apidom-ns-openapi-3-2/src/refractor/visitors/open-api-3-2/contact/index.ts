@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   ContactVisitorOptions,
   ContactVisitor as ContactVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import ContactElement from '../../../../elements/Contact.ts';
 

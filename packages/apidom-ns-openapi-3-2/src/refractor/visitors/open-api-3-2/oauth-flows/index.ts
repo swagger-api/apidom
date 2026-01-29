@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   OAuthFlowsVisitorOptions,
   OAuthFlowsVisitor as OAuthFlowsVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import OAuthFlowsElement from '../../../../elements/OAuthFlows.ts';
 

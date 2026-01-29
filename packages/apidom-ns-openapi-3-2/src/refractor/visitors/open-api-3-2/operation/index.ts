@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   OperationVisitorOptions,
   OperationVisitor as OperationVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import OperationElement from '../../../../elements/Operation.ts';
 

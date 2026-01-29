@@ -2,7 +2,7 @@ import {
   specificationObj as OpenApi3_1Specification,
   EncodingVisitorOptions,
   EncodingVisitor as EncodingVisitorType,
-} from '@swagger-api/apidom-ns-openapi-3-0';
+} from '@swagger-api/apidom-ns-openapi-3-1';
 
 import EncodingElement from '../../../../elements/Encoding.ts';
 

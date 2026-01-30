@@ -503,8 +503,18 @@ describe('asyncapi channel test', function () {
     );
 
     const addressItem = result?.items.find((item) => item.label === 'address');
-    assert.isDefined(addressItem);
-    assert.strictEqual(addressItem?.insertText, 'address: $1');
+    assert.deepEqual(addressItem, {
+      label: 'address',
+      insertText: 'address: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions). Query parameters and fragments SHALL NOT be used, instead use [bindings](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) to define them.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete channel messages field (AsyncAPI 3)', async function () {

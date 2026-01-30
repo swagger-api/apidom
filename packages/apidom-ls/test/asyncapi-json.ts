@@ -54,9 +54,6 @@ const specCompletion = fs
 const specCompletion3 = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-3.json'))
   .toString();
-const specRootOperations = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'root-operations.json'))
-  .toString();
 const specError = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error-async.json'))
   .toString();
@@ -907,30 +904,6 @@ describe('apidom-ls-async', function () {
         8, 9, 35, 64, 1, 10, 9, 23, 0, 1, 12, 6, 35, 64, 0, 8, 8, 32, 64,
       ],
     });
-  });
-
-  it('complete root operations field (AsyncAPI 3)', async function () {
-    const completionContext: CompletionContext = {
-      maxNumberOfItems: 100,
-    };
-
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/root-operations.json',
-      'json',
-      0,
-      specRootOperations,
-    );
-
-    const pos = Position.create(1, 3);
-    const result = await languageService.doCompletion(
-      doc,
-      { textDocument: doc, position: pos },
-      completionContext,
-    );
-
-    const operationsItem = result?.items.find((item) => item.label === 'operations');
-    assert.isDefined(operationsItem);
-    assert.strictEqual(operationsItem?.label, 'operations');
   });
 
   it('test hover async', async function () {

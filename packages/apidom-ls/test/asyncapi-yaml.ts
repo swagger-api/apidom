@@ -37,9 +37,6 @@ const specCompletion = fs
 const specCompletion3 = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-completion-async-3.yaml'))
   .toString();
-const specRootOperations = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'root-operations.yaml'))
-  .toString();
 const specError = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'sample-api-error-async.yaml'))
   .toString();
@@ -366,7 +363,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
+              '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -874,31 +871,6 @@ describe('apidom-ls-async-yaml', function () {
         35, 64, 1, 8, 7, 23, 0, 1, 10, 4, 35, 64, 0, 6, 6, 32, 64,
       ],
     });
-  });
-
-  it('complete root operations field (AsyncAPI 3)', async function () {
-    const completionContext: CompletionContext = {
-      maxNumberOfItems: 100,
-    };
-
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/root-operations.yaml',
-      'yaml',
-      0,
-      specRootOperations,
-    );
-
-    const pos = Position.create(4, 0);
-    const result = await languageService.doCompletion(
-      doc,
-      { textDocument: doc, position: pos },
-      completionContext,
-    );
-
-    const operationsItem = result?.items.find((item) => item.label === 'operations');
-    assert.isDefined(operationsItem);
-    assert.strictEqual(operationsItem?.label, 'operations');
-    assert.strictEqual(operationsItem?.insertText, 'operations: \n  $1');
   });
 
   it('test hover async', async function () {

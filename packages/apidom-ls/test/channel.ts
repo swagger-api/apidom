@@ -36,6 +36,10 @@ const specChannelLint = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'channel-lint.yaml'))
   .toString();
 
+const specChannelFields = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-fields.yaml'))
+  .toString();
+
 describe('asyncapi channel test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -477,5 +481,81 @@ describe('asyncapi channel test', function () {
         data: {},
       },
     ] as Diagnostic[]);
+  });
+
+  it('complete channel address field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const addressItem = result?.items.find((item) => item.label === 'address');
+    assert.isDefined(addressItem);
+    assert.strictEqual(addressItem?.insertText, 'address: $1');
+  });
+
+  it('complete channel messages field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const messagesItem = result?.items.find((item) => item.label === 'messages');
+    assert.isDefined(messagesItem);
+    assert.strictEqual(messagesItem?.insertText, 'messages: \n  $1');
+  });
+
+  it('complete channel title and summary fields (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const titleItem = result?.items.find((item) => item.label === 'title');
+    assert.isDefined(titleItem);
+    assert.strictEqual(titleItem?.insertText, 'title: $1');
+
+    const summaryItem = result?.items.find((item) => item.label === 'summary');
+    assert.isDefined(summaryItem);
+    assert.strictEqual(summaryItem?.insertText, 'summary: $1');
   });
 });

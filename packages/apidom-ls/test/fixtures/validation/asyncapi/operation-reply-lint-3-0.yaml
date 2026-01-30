@@ -1,0 +1,34 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+operations:
+  testOperation1:
+    action: send
+    channel:
+      $ref: '#/channels/testChannel'
+    reply:
+      # Invalid - address should be an Operation Reply Address Object or Reference, not a string
+      address: invalid_string
+      # Invalid - channel should be a Reference Object or Channel Object, not a number
+      channel: 123
+      # Invalid - messages should be an array, not a string
+      messages: invalid_string
+  testOperation2:
+    action: send
+    channel:
+      $ref: '#/channels/testChannel'
+    reply:
+      # Valid reference
+      $ref: '#/components/replies/testReply'
+      # Invalid - should not have siblings when $ref is present
+      address:
+        location: $message.header#/replyTo
+components:
+  replies:
+    testReply:
+      channel:
+        $ref: '#/channels/testChannel'

@@ -8766,6 +8766,17 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 12 },
+        },
+        message: 'operations values must be operations objects',
+        severity: 1,
+        code: 2110100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
           start: { line: 10, character: 15 },
           end: { line: 10, character: 18 },
         },
@@ -8840,6 +8851,46 @@ describe('apidom-ls-validate', function () {
         code: 130801,
         source: 'apilint',
         data: {},
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: "should always have an 'action'",
+        severity: 1,
+        code: 2080101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'action' field",
+              action: 'addChild',
+              snippetYaml: 'action: \n  ',
+              snippetJson: '"action": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: "should always have a 'channel'",
+        severity: 1,
+        code: 2080201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'channel' field",
+              action: 'addChild',
+              snippetYaml: 'channel: \n  ',
+              snippetJson: '"channel": {\n  \n},\n',
+            },
+          ],
+        },
       },
     ];
     assert.deepEqual(result, expected);

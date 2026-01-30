@@ -1,0 +1,21 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test/{userId}/{status}
+    parameters:
+      userId:
+        description: User ID parameter
+        location: $message.header#/userId
+        # Valid - default is a string
+        default: "defaultUser"
+      status:
+        description: Status parameter
+        location: $message.header#/status
+        # Invalid - default must be a string in AsyncAPI 3, not a number
+        default: 123
+        enum:
+          - "active"
+          - "inactive"

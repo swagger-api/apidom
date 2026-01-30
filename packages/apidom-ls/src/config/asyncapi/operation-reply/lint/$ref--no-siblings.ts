@@ -7,9 +7,9 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const $refNoSiblingsLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
-  message: 'All other properties in a Operation Reply Object are ignored if $ref is present',
-  severity: DiagnosticSeverity.Warning,
-  linterFunction: 'allowedFieldsRefOrContent',
+  message: "'$ref' should not have siblings",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'allowedFields',
   linterParams: [['$ref']],
   marker: 'key',
   markerTarget: '$ref',

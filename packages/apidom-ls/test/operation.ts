@@ -28,6 +28,12 @@ const specOperationAction = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'operation-action.yaml'))
   .toString();
 
+const specOperationsTypeLint = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operations-type-3-0.yaml'),
+  )
+  .toString();
+
 describe('asyncapi operation test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -91,5 +97,36 @@ describe('asyncapi operation test', function () {
     assert.isDefined(receiveItem);
     assert.strictEqual(receiveItem?.insertText, 'receive$1');
     assert.strictEqual(receiveItem?.kind, 12);
+  });
+
+  it('lint operations type (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operations-type-lint.yaml',
+      'yaml',
+      0,
+      specOperationsTypeLint,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.deepEqual(result, [
+      {
+        range: {
+          start: { line: 8, character: 12 },
+          end: { line: 8, character: 14 },
+        },
+        message: 'operations must be an object',
+        severity: 1,
+        code: 2010700,
+        source: 'apilint',
+        data: {},
+      },
+    ] as Diagnostic[]);
   });
 });

@@ -20,6 +20,7 @@ import tagsTypeLint from './tags--type.ts';
 import bindingsTypeLint from './bindings--type.ts';
 import $refValidLint from './$ref--valid.ts';
 import $refNoSiblingsLint from './$ref--no-siblings.ts';
+import externalDocsTypeLint from './external-docs--type.ts';
 
 const lints = [
   hostTypeLint,
@@ -39,6 +40,7 @@ const lints = [
   securityItemsType2_0__2_6Lint,
   tagsTypeLint,
   bindingsTypeLint,
+  externalDocsTypeLint,
   allowedFields2_0__2_4Lint,
   allowedFields2_5__2_6Lint,
   allowedFields3_0Lint,

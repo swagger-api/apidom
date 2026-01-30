@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
-const messagesTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_MESSAGES_TYPE,
+const titleTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_TITLE_TYPE,
   source: 'apilint',
-  message: 'messages must be an array',
+  message: 'title must be a string',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['array'],
+  linterParams: ['string'],
   marker: 'value',
-  target: 'messages',
+  target: 'title',
   data: {},
   targetSpecs: AsyncAPI3,
 };
 
-export default messagesTypeLint;
+export default titleTypeLint;

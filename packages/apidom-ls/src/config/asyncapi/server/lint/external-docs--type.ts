@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
-const messagesTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_MESSAGES_TYPE,
+const externalDocsTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_SERVER_FIELD_EXTERNAL_DOCS_TYPE,
   source: 'apilint',
-  message: 'messages must be an array',
+  message: 'externalDocs must be an object',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['array'],
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['externalDocumentation']],
   marker: 'value',
-  target: 'messages',
+  target: 'externalDocs',
   data: {},
   targetSpecs: AsyncAPI3,
 };
 
-export default messagesTypeLint;
+export default externalDocsTypeLint;

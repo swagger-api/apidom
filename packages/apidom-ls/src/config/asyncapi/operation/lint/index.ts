@@ -13,6 +13,12 @@ import messagesTypeLint from './messages--type.ts';
 import allowedFields2_0__2_3Lint from './allowed-fields-2-0--2-3.ts';
 import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import actionTypeLint from './action--type.ts';
+import actionRequiredLint from './action--required.ts';
+import channelTypeLint from './channel--type.ts';
+import channelRequiredLint from './channel--required.ts';
+import titleTypeLint from './title--type.ts';
+import replyTypeLint from './reply--type.ts';
 
 const lints = [
   operationIdTypeLint,
@@ -30,6 +36,12 @@ const lints = [
   allowedFields2_0__2_3Lint,
   allowedFields2_4__2_6Lint,
   allowedFields3_0Lint,
+  actionTypeLint,
+  actionRequiredLint,
+  channelTypeLint,
+  channelRequiredLint,
+  titleTypeLint,
+  replyTypeLint,
 ];
 
 export default lints;

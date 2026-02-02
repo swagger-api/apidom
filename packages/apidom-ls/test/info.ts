@@ -11,6 +11,7 @@ import {
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
+import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -54,8 +55,18 @@ describe('asyncapi info test', function () {
     );
 
     const tagsItem = result?.items.find((item) => item.label === 'tags');
-    assert.isDefined(tagsItem);
-    assert.strictEqual(tagsItem?.insertText, 'tags: \n  - $1');
+    assert.deepEqual(tagsItem, {
+      label: 'tags',
+      insertText: 'tags: \n  - $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete info externalDocs field (AsyncAPI 3)', async function () {
@@ -78,7 +89,17 @@ describe('asyncapi info test', function () {
     );
 
     const externalDocsItem = result?.items.find((item) => item.label === 'externalDocs');
-    assert.isDefined(externalDocsItem);
-    assert.strictEqual(externalDocsItem?.insertText, 'externalDocs: \n  $1');
+    assert.deepEqual(externalDocsItem, {
+      label: 'externalDocs',
+      insertText: 'externalDocs: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation of the exposed API.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

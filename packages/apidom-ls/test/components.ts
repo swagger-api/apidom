@@ -11,6 +11,7 @@ import {
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
+import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -54,8 +55,18 @@ describe('asyncapi components test', function () {
     );
 
     const operationsItem = result?.items.find((item) => item.label === 'operations');
-    assert.isDefined(operationsItem);
-    assert.strictEqual(operationsItem?.insertText, 'operations: \n  $1');
+    assert.deepEqual(operationsItem, {
+      label: 'operations',
+      insertText: 'operations: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject).',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete components replies field (AsyncAPI 3)', async function () {
@@ -78,8 +89,18 @@ describe('asyncapi components test', function () {
     );
 
     const repliesItem = result?.items.find((item) => item.label === 'replies');
-    assert.isDefined(repliesItem);
-    assert.strictEqual(repliesItem?.insertText, 'replies: \n  $1');
+    assert.deepEqual(repliesItem, {
+      label: 'replies',
+      insertText: 'replies: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject).',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete components replyAddresses field (AsyncAPI 3)', async function () {
@@ -102,8 +123,18 @@ describe('asyncapi components test', function () {
     );
 
     const replyAddressesItem = result?.items.find((item) => item.label === 'replyAddresses');
-    assert.isDefined(replyAddressesItem);
-    assert.strictEqual(replyAddressesItem?.insertText, 'replyAddresses: \n  $1');
+    assert.deepEqual(replyAddressesItem, {
+      label: 'replyAddresses',
+      insertText: 'replyAddresses: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject).',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete components tags and externalDocs fields (AsyncAPI 3)', async function () {
@@ -126,11 +157,31 @@ describe('asyncapi components test', function () {
     );
 
     const tagsItem = result?.items.find((item) => item.label === 'tags');
-    assert.isDefined(tagsItem);
-    assert.strictEqual(tagsItem?.insertText, 'tags: \n  $1');
+    assert.deepEqual(tagsItem, {
+      label: 'tags',
+      insertText: 'tags: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject).',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const externalDocsItem = result?.items.find((item) => item.label === 'externalDocs');
-    assert.isDefined(externalDocsItem);
-    assert.strictEqual(externalDocsItem?.insertText, 'externalDocs: \n  $1');
+    assert.deepEqual(externalDocsItem, {
+      label: 'externalDocs',
+      insertText: 'externalDocs: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject).',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

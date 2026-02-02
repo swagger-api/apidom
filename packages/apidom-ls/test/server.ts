@@ -11,6 +11,7 @@ import {
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
+import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -54,8 +55,18 @@ describe('asyncapi server test', function () {
     );
 
     const hostItem = result?.items.find((item) => item.label === 'host');
-    assert.isDefined(hostItem);
-    assert.strictEqual(hostItem?.insertText, 'host: $1');
+    assert.deepEqual(hostItem, {
+      label: 'host',
+      insertText: 'host: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete server pathname field (AsyncAPI 3)', async function () {
@@ -78,8 +89,18 @@ describe('asyncapi server test', function () {
     );
 
     const pathnameItem = result?.items.find((item) => item.label === 'pathname');
-    assert.isDefined(pathnameItem);
-    assert.strictEqual(pathnameItem?.insertText, 'pathname: $1');
+    assert.deepEqual(pathnameItem, {
+      label: 'pathname',
+      insertText: 'pathname: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete server title and summary fields (AsyncAPI 3)', async function () {
@@ -102,11 +123,29 @@ describe('asyncapi server test', function () {
     );
 
     const titleItem = result?.items.find((item) => item.label === 'title');
-    assert.isDefined(titleItem);
-    assert.strictEqual(titleItem?.insertText, 'title: $1');
+    assert.deepEqual(titleItem, {
+      label: 'title',
+      insertText: 'title: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A human-friendly title for the server.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const summaryItem = result?.items.find((item) => item.label === 'summary');
-    assert.isDefined(summaryItem);
-    assert.strictEqual(summaryItem?.insertText, 'summary: $1');
+    assert.deepEqual(summaryItem, {
+      label: 'summary',
+      insertText: 'summary: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A short summary of the server.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

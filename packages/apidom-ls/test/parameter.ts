@@ -11,6 +11,7 @@ import {
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
+import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -54,8 +55,17 @@ describe('asyncapi parameter test', function () {
     );
 
     const enumItem = result?.items.find((item) => item.label === 'enum');
-    assert.isDefined(enumItem);
-    assert.strictEqual(enumItem?.insertText, 'enum: \n  - $1');
+    assert.deepEqual(enumItem, {
+      label: 'enum',
+      insertText: 'enum: \n  - $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'An enumeration of string values to be used if the substitution options are from a limited set.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete parameter default and examples fields (AsyncAPI 3)', async function () {
@@ -78,11 +88,29 @@ describe('asyncapi parameter test', function () {
     );
 
     const defaultItem = result?.items.find((item) => item.label === 'default');
-    assert.isDefined(defaultItem);
-    assert.strictEqual(defaultItem?.insertText, 'default: $1');
+    assert.deepEqual(defaultItem, {
+      label: 'default',
+      insertText: 'default: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'The default value to use for substitution, which SHALL be sent if an alternate value is not supplied.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const examplesItem = result?.items.find((item) => item.label === 'examples');
-    assert.isDefined(examplesItem);
-    assert.strictEqual(examplesItem?.insertText, 'examples: \n  - $1');
+    assert.deepEqual(examplesItem, {
+      label: 'examples',
+      insertText: 'examples: \n  - $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'An array of examples of the parameter value.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

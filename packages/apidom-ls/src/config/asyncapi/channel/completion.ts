@@ -69,7 +69,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\n**REQUIRED**. A map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
+        '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
     },
     targetSpecs: AsyncAPI3,
   },

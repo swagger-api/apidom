@@ -48,11 +48,6 @@ const documentation = [
     targetSpecs: AsyncAPI3,
   },
   {
-    target: 'externalDocs',
-    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this channel.',
-    targetSpecs: AsyncAPI3,
-  },
-  {
     target: 'bindings',
     docs: '[Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the channel.',
     targetSpecs: AsyncAPI3,

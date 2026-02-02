@@ -12,6 +12,7 @@ import {
   LanguageServiceContext,
   ValidationContext,
 } from '../src/apidom-language-types.ts';
+import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -63,22 +64,58 @@ describe('asyncapi multi-format schema test', function () {
     const asyncapiItem = result?.items.find(
       (item) => item.label === 'application/vnd.aai.asyncapi;version=3.0.0',
     );
-    assert.isDefined(asyncapiItem);
+    assert.deepEqual(asyncapiItem, {
+      target: 'schemaFormat',
+      label: 'application/vnd.aai.asyncapi;version=3.0.0',
+      insertText: 'application/vnd.aai.asyncapi;version=3.0.0$1',
+      kind: 12,
+      insertTextFormat: 2,
+      filterText: '',
+      sortText: '0001',
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const jsonSchemaItem = result?.items.find(
       (item) => item.label === 'application/schema+json;version=draft-07',
     );
-    assert.isDefined(jsonSchemaItem);
+    assert.deepEqual(jsonSchemaItem, {
+      target: 'schemaFormat',
+      label: 'application/schema+json;version=draft-07',
+      insertText: 'application/schema+json;version=draft-07$1',
+      kind: 12,
+      insertTextFormat: 2,
+      filterText: '',
+      sortText: '0004',
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const avroItem = result?.items.find(
       (item) => item.label === 'application/vnd.apache.avro;version=1.9.0',
     );
-    assert.isDefined(avroItem);
+    assert.deepEqual(avroItem, {
+      target: 'schemaFormat',
+      label: 'application/vnd.apache.avro;version=1.9.0',
+      insertText: 'application/vnd.apache.avro;version=1.9.0$1',
+      kind: 12,
+      insertTextFormat: 2,
+      filterText: '',
+      sortText: '0006',
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const protobufItem = result?.items.find(
       (item) => item.label === 'application/vnd.google.protobuf;version=3',
     );
-    assert.isDefined(protobufItem);
+    assert.deepEqual(protobufItem, {
+      target: 'schemaFormat',
+      label: 'application/vnd.google.protobuf;version=3',
+      insertText: 'application/vnd.google.protobuf;version=3$1',
+      kind: 12,
+      insertTextFormat: 2,
+      filterText: '',
+      sortText: '0014',
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('lint multi-format schema (AsyncAPI 3)', async function () {

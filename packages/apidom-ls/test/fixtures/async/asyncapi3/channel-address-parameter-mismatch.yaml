@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Parameter Not in Address
+  version: 1.0.0
+channels:
+  userEvents:
+    address: 'user/{userId}/events'
+    messages: {}
+    parameters:
+      someParam:
+        description: This parameter is not used in address
+operations: {}

@@ -10,7 +10,7 @@ const urlRequired3_0Lint: LinterMeta = {
   source: 'apilint',
   message: "must contain 'url' field",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'hasRequiredField',
+  linterFunction: 'hasRequiredFieldUnlessRef',
   linterParams: ['url'],
   marker: 'key',
   data: {

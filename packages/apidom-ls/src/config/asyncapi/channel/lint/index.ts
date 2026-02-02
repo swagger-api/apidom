@@ -12,6 +12,8 @@ import titleTypeLint from './title--type.ts';
 import summaryTypeLint from './summary--type.ts';
 import tagsTypeLint from './tags--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
+import parametersRequiredWhenAddressHasExpressionsLint from './parameters--required-when-address-has-expressions.ts';
+import addressExpressionsDefinedInParametersLint from './address-expressions--defined-in-parameters.ts';
 
 const lints = [
   descriptionTypeLint,
@@ -28,6 +30,8 @@ const lints = [
   summaryTypeLint,
   tagsTypeLint,
   externalDocsTypeLint,
+  parametersRequiredWhenAddressHasExpressionsLint,
+  addressExpressionsDefinedInParametersLint,
 ];
 
 export default lints;

@@ -1,0 +1,14 @@
+asyncapi: 3.0.0
+info:
+  title: Test External Docs Ref
+  version: 1.0.0
+channels:
+  channel1:
+    externalDocs:
+      $ref: '#/components/externalDocs/externalDoc1'
+components:
+  externalDocs:
+    externalDoc1:
+      url: https://example.com/docs
+      description: External documentation
+operations: {}

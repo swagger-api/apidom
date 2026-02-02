@@ -10,7 +10,7 @@ const nameRequired3_0Lint: LinterMeta = {
   source: 'apilint',
   message: "must contain 'name' field",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'hasRequiredField',
+  linterFunction: 'hasRequiredFieldUnlessRef',
   linterParams: ['name'],
   marker: 'key',
   data: {

@@ -537,8 +537,18 @@ describe('asyncapi channel test', function () {
     );
 
     const messagesItem = result?.items.find((item) => item.label === 'messages');
-    assert.isDefined(messagesItem);
-    assert.strictEqual(messagesItem?.insertText, 'messages: \n  $1');
+    assert.deepEqual(messagesItem, {
+      label: 'messages',
+      insertText: 'messages: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 
   it('complete channel title and summary fields (AsyncAPI 3)', async function () {
@@ -561,11 +571,29 @@ describe('asyncapi channel test', function () {
     );
 
     const titleItem = result?.items.find((item) => item.label === 'title');
-    assert.isDefined(titleItem);
-    assert.strictEqual(titleItem?.insertText, 'title: $1');
+    assert.deepEqual(titleItem, {
+      label: 'title',
+      insertText: 'title: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A human-friendly title for the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
 
     const summaryItem = result?.items.find((item) => item.label === 'summary');
-    assert.isDefined(summaryItem);
-    assert.strictEqual(summaryItem?.insertText, 'summary: $1');
+    assert.deepEqual(summaryItem, {
+      label: 'summary',
+      insertText: 'summary: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A short summary of the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

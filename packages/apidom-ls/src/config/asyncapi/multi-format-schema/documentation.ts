@@ -1,4 +1,5 @@
-import { AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI3 } from '../../openapi/target-specs.ts';
 
 const documentation = [
   {
@@ -13,6 +14,11 @@ const documentation = [
   },
   {
     docs: '#### [Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject)\n\nThe Multi Format Schema Object represents a schema definition. It differs from the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) in that it supports multiple schema formats or languages (e.g., JSON Schema, Avro, etc.).\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\nschemaFormat | `string` | **REQUIRED**. A string containing the name of the schema format that is used to define the information. If `schemaFormat` is missing, it MUST default to `application/vnd.aai.asyncapi+json;version={{asyncapi}}` where `{{asyncapi}}` matches the [AsyncAPI Version String](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SVersionString). In such a case, this would make the Multi Format Schema Object equivalent to the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject). When using [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) within the schema, the schemaFormat of the resource being referenced MUST match the schemaFormat of the schema that contains the initial reference. For example, if you reference Avro schema, then schemaFormat of referencing resource and the resource being reference MUST match. Check out the [supported schema formats table](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaFormatTable) for more information. Custom values are allowed but their implementation is OPTIONAL. A custom value MUST NOT refer to one of the schema formats listed in the [table](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaFormatTable). When using [Reference Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) within the schema, the schemaFormat of the referenced resource MUST match the schemaFormat of the schema containing the reference.\nschema | any | **REQUIRED**. Definition of the message payload. It can be of any type but defaults to [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject). It MUST match the schema format defined in [schemaFormat](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObjectSchemaFormat), including the encoding type. E.g., Avro should be inlined as either a YAML or JSON object instead of as a string to be parsed as YAML or JSON. Non-JSON-based schemas (e.g., Protobuf or XSD) MUST be inlined as a string.',
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    target: 'properties',
+    docs: 'The value of "properties" **MUST** be an object. Each value of this object **MUST** be a valid JSON Schema.\n\n  ----  \n\nThis keyword determines how child instances validate for objects, and does not directly validate the immediate instance itself.\n\n  ----  \n\nValidation succeeds if, for each name that appears in both the instance and as a name within this keyword\'s value, the child instance for that name successfully validates against the corresponding schema.\n\n  ----  \n\nOmitting this keyword has the same behavior as an empty object.',
     targetSpecs: AsyncAPI3,
   },
 ];

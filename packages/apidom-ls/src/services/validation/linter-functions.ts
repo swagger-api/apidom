@@ -1590,9 +1590,10 @@ export const standardLinterfunctions: FunctionItem[] = [
       // Extract all Channel Address Expressions from the address
       const expressionRegex = /\{([^}]+)\}/g;
       const expressions: string[] = [];
-      let match;
-      while ((match = expressionRegex.exec(addressValue)) !== null) {
+      let match = expressionRegex.exec(addressValue);
+      while (match !== null) {
         expressions.push(match[1]);
+        match = expressionRegex.exec(addressValue);
       }
 
       if (expressions.length === 0) {

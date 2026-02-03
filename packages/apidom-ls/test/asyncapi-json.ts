@@ -16,8 +16,6 @@ import { fileURLToPath } from 'node:url';
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
-  CompletionFormat,
-  CompletionType,
   Format,
   LanguageService,
   LanguageServiceContext,

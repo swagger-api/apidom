@@ -4,7 +4,7 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
-const keyExistsInChannelAddress3_0Lint: LinterMeta = {
+const keyExistsInChannelAddress30Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_PARAMETER_KEY_EXISTS_IN_CHANNEL_ADDRESS,
   source: 'apilint',
   message: 'parameter key must be used in channel address',
@@ -15,4 +15,4 @@ const keyExistsInChannelAddress3_0Lint: LinterMeta = {
   targetSpecs: AsyncAPI3,
 };
 
-export default keyExistsInChannelAddress3_0Lint;
+export default keyExistsInChannelAddress30Lint;

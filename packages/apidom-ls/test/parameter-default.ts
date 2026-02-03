@@ -32,10 +32,6 @@ describe('asyncapi parameter default test', function () {
 
   const languageService: LanguageService = getLanguageService(context);
 
-  after(function () {
-    languageService.terminate();
-  });
-
   it('lint parameter default type (AsyncAPI 3)', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -65,5 +61,7 @@ describe('asyncapi parameter default test', function () {
         data: {},
       },
     ] as Diagnostic[]);
+
+    languageService.terminate();
   });
 });

@@ -32,10 +32,6 @@ describe('asyncapi operation reply test', function () {
 
   const languageService: LanguageService = getLanguageService(context);
 
-  after(function () {
-    languageService.terminate();
-  });
-
   it('lint operation reply (AsyncAPI 3)', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
@@ -109,5 +105,7 @@ describe('asyncapi operation reply test', function () {
         data: {},
       },
     ] as Diagnostic[]);
+
+    languageService.terminate();
   });
 });

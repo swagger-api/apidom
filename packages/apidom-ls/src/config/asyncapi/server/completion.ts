@@ -7,6 +7,60 @@ import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
+    label: 'host',
+    insertText: 'host',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'pathname',
+    insertText: 'pathname',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'title',
+    insertText: 'title',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A human-friendly title for the server.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'summary',
+    insertText: 'summary',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A short summary of the server.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: 'url',
     insertText: 'url',
     kind: 14,
@@ -173,6 +227,20 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value:
         '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of servers.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this server.',
     },
     targetSpecs: AsyncAPI3,
   },

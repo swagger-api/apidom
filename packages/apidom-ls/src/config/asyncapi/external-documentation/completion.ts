@@ -7,6 +7,19 @@ import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
+    label: '$ref',
+    insertText: '\\$ref',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A reference to an External Documentation Object',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: 'url',
     insertText: 'url',
     kind: 14,

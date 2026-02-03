@@ -355,6 +355,30 @@ const completionTestInput3 = [
           },
           targetSpecs: AsyncAPI3,
         },
+        {
+          label: 'tags',
+          insertText: 'tags: \n  - $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
+          },
+          targetSpecs: AsyncAPI3,
+        },
+        {
+          label: 'externalDocs',
+          insertText: 'externalDocs: \n  $1',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation of the exposed API.',
+          },
+          targetSpecs: AsyncAPI3,
+        },
       ],
       isIncomplete: false,
     },
@@ -425,6 +449,18 @@ const completionTestInput3 = [
           },
           targetSpecs: AsyncAPI3,
         },
+        {
+          label: 'operations',
+          insertText: 'operations: \n  $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+          },
+          targetSpecs: AsyncAPI3,
+        },
       ],
       isIncomplete: false,
     },
@@ -492,6 +528,18 @@ const completionTestInput3 = [
             kind: 'markdown',
             value:
               '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+          },
+          targetSpecs: AsyncAPI3,
+        },
+        {
+          label: 'operations',
+          insertText: 'operations: \n  $1\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
           },
           targetSpecs: AsyncAPI3,
         },

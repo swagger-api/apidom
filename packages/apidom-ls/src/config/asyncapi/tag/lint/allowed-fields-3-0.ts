@@ -11,7 +11,7 @@ const allowedFields3_0Lint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['name', 'description', 'externalDocs'], 'x-'],
+  linterParams: [['name', 'description', 'externalDocs', '$ref'], 'x-'],
   marker: 'key',
   targetSpecs: AsyncAPI3,
 };

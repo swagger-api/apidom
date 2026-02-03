@@ -5,15 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const allowedFields3_0Lint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const securityType3_0Lint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_SECURITY_TYPE,
   source: 'apilint',
-  message: 'Object includes not allowed fields',
+  message: 'security must be an array',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [['description', 'url', '$ref'], 'x-'],
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['operation-security']],
   marker: 'key',
+  target: 'security',
+  data: {},
   targetSpecs: AsyncAPI3,
 };
 
-export default allowedFields3_0Lint;
+export default securityType3_0Lint;

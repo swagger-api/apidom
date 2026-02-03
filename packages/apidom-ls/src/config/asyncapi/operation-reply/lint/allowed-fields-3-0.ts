@@ -11,7 +11,7 @@ const allowedFields3_0Lint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['address', 'channel', 'messages'], 'x-'],
+  linterParams: [['address', 'channel', 'messages', '$ref'], 'x-'],
   marker: 'key',
   targetSpecs: AsyncAPI3,
 };

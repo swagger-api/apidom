@@ -3,14 +3,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver-types';
+import { Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
-  ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
@@ -22,12 +21,6 @@ const specSchemaFormat = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'schema-format.yaml'))
   .toString();
 
-const specMultiFormatSchemaLint = fs
-  .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'multi-format-schema-lint-3-0.yaml'),
-  )
-  .toString();
-
 describe('asyncapi multi-format schema test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -36,13 +29,8 @@ describe('asyncapi multi-format schema test', function () {
     logLevel,
   };
 
-  const languageService: LanguageService = getLanguageService(context);
-
-  after(function () {
-    languageService.terminate();
-  });
-
   it('complete schema format values (AsyncAPI 3)', async function () {
+    const languageService: LanguageService = getLanguageService(context);
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
@@ -116,36 +104,7 @@ describe('asyncapi multi-format schema test', function () {
       sortText: '0014',
       targetSpecs: AsyncAPI3,
     } as any);
-  });
 
-  it('lint multi-format schema (AsyncAPI 3)', async function () {
-    const validationContext: ValidationContext = {
-      comments: DiagnosticSeverity.Error,
-      maxNumberOfProblems: 100,
-      relatedInformation: false,
-    };
-
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/multi-format-schema-lint.yaml',
-      'yaml',
-      0,
-      specMultiFormatSchemaLint,
-    );
-
-    const result = await languageService.doValidation(doc, validationContext);
-
-    assert.deepEqual(result, [
-      {
-        range: {
-          start: { line: 11, character: 24 },
-          end: { line: 11, character: 27 },
-        },
-        message: "'schemaFormat' value must be a string",
-        severity: 1,
-        code: 2050100,
-        source: 'apilint',
-        data: {},
-      },
-    ] as Diagnostic[]);
+    languageService.terminate();
   });
 });

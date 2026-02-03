@@ -97,7 +97,7 @@ describe('given OpenAPI definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`
           openapi: 3.2.0
-          jsonSchemaDialect: https://spec.openapis.org/oas/3.2/dialect/base
+          jsonSchemaDialect: https://spec.openapis.org/oas/3.2/dialect/2025-09-17
         `;
     const apiDOM = await parse(yamlDefinition);
     const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {

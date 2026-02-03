@@ -11,7 +11,7 @@ describe('refractor', function () {
           openapi: '3.2.0',
           $self: 'https://example.com/api/v1/openapi.json',
           info: {},
-          jsonSchemaDialect: 'https://spec.openapis.org/oas/3.2/dialect/base',
+          jsonSchemaDialect: 'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
           servers: [{}],
           paths: {},
           webhooks: {

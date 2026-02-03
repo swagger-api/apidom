@@ -4,7 +4,7 @@
     "components": {
       "schemas": {
         "User": {
-          "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+          "$schema": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
           "type": "object",
           "properties": {
             "login": {
@@ -14,7 +14,7 @@
               "type": "string"
             },
             "profile": {
-              "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+              "$schema": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
               "type": "object",
               "properties": {
                 "avatar": {
@@ -25,7 +25,7 @@
           }
         },
         "UserProfile": {
-          "$schema": "https://spec.openapis.org/oas/3.2/dialect/base",
+          "$schema": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
           "type": "object",
           "properties": {
             "avatar": {

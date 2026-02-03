@@ -439,7 +439,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
         },
         "value": {
           "element": "jsonSchemaDialect",
-          "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+          "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
         }
       }
     },
@@ -1439,7 +1439,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                                           "meta": {
                                                             "inheritedDialectIdentifier": {
                                                               "element": "string",
-                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                                             },
                                                             "ancestorsSchemaIdentifiers": {
                                                               "element": "array"
@@ -1972,7 +1972,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                                                                           "meta": {
                                                                                             "inheritedDialectIdentifier": {
                                                                                               "element": "string",
-                                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                                                                             },
                                                                                             "ancestorsSchemaIdentifiers": {
                                                                                               "element": "array"
@@ -3039,7 +3039,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                                                                           "meta": {
                                                                                             "inheritedDialectIdentifier": {
                                                                                               "element": "string",
-                                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                                                                             },
                                                                                             "ancestorsSchemaIdentifiers": {
                                                                                               "element": "array"
@@ -4991,7 +4991,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                           "meta": {
                             "inheritedDialectIdentifier": {
                               "element": "string",
-                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                             },
                             "ancestorsSchemaIdentifiers": {
                               "element": "array"
@@ -5064,7 +5064,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                           "meta": {
                             "inheritedDialectIdentifier": {
                               "element": "string",
-                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                             },
                             "ancestorsSchemaIdentifiers": {
                               "element": "array"
@@ -5320,7 +5320,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                                   "meta": {
                                                     "inheritedDialectIdentifier": {
                                                       "element": "string",
-                                                      "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                                      "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                                     },
                                                     "ancestorsSchemaIdentifiers": {
                                                       "element": "array"
@@ -6374,7 +6374,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                   "meta": {
                                     "inheritedDialectIdentifier": {
                                       "element": "string",
-                                      "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                      "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                     },
                                     "ancestorsSchemaIdentifiers": {
                                       "element": "array"
@@ -7243,7 +7243,7 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                                                                           "meta": {
                                                                             "inheritedDialectIdentifier": {
                                                                               "element": "string",
-                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/base"
+                                                                              "content": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
                                                                             },
                                                                             "ancestorsSchemaIdentifiers": {
                                                                               "element": "array"

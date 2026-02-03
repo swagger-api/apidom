@@ -302,7 +302,7 @@ npm test -- --grep "openapi-3-2.*Webhooks"
 
 ## Notes
 
-- The default JSON Schema dialect for OpenAPI 3.2 is: `https://spec.openapis.org/oas/3.2/dialect/base`
+- The default JSON Schema dialect for OpenAPI 3.2 is: `https://spec.openapis.org/oas/3.2/dialect/2025-09-17`
 - Tests use `mediaTypes.latest('json')` and `mediaTypes.latest('yaml')` from `@swagger-api/apidom-ns-openapi-3-2`
 - Follow existing OpenAPI 3.1 test patterns - most behaviors are identical
 - Focus fixture creation on **new 3.2 features** first, then fill in standard patterns

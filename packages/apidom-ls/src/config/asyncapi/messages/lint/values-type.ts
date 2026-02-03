@@ -7,10 +7,10 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const valuesTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_MESSAGES_VALUES_TYPE,
   source: 'apilint',
-  message: 'messages values must be message objects',
+  message: 'Messages Object values must be of Message Object shape',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
-  linterParams: [['messages'], ['message', 'reference']],
+  linterParams: [['message']],
   marker: 'key',
   markerTarget: 'messages',
   target: 'messages',

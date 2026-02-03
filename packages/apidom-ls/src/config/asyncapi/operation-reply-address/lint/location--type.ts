@@ -7,7 +7,7 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const locationTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_LOCATION_TYPE,
   source: 'apilint',
-  message: "'location' value must be a string (runtime expression)",
+  message: "'location' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

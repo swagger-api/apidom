@@ -8,11 +8,17 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const nameRequired3_0Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_TAG_FIELD_NAME_REQUIRED,
   source: 'apilint',
-  message: "must contain 'name' field",
+  message: "should always have a 'name'",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'hasRequiredFieldUnlessRef',
+  linterFunction: 'hasRequiredField',
   linterParams: ['name'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

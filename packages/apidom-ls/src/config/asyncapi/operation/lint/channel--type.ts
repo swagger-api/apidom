@@ -7,10 +7,10 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const channelTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_CHANNEL_TYPE,
   source: 'apilint',
-  message: 'channel must be an object or a $ref',
+  message: 'channel must be an object',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['channel', 'reference']],
+  linterParams: [['channel']],
   marker: 'value',
   target: 'channel',
   data: {},

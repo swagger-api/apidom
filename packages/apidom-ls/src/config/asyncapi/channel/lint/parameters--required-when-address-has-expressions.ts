@@ -4,7 +4,7 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
-const parametersRequiredWhenAddressHasExpressionsLint: LinterMeta = {
+const parametersRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_CHANNEL_PARAMETERS_REQUIRED_WHEN_ADDRESS_HAS_EXPRESSIONS,
   source: 'apilint',
   message: 'parameters field must be present when address contains Channel Address Expressions',
@@ -16,4 +16,4 @@ const parametersRequiredWhenAddressHasExpressionsLint: LinterMeta = {
   targetSpecs: AsyncAPI3,
 };
 
-export default parametersRequiredWhenAddressHasExpressionsLint;
+export default parametersRequiredLint;

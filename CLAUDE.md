@@ -233,3 +233,396 @@ Packages follow a dependency hierarchy:
 - Language service depends on reference
 
 When modifying core packages, expect cascading build requirements in dependent packages.
+
+---
+
+## Implementing Language Service Lint Rules
+
+This section provides guidelines for implementing lint validation rules in `packages/apidom-ls/src/config/` for API specifications. These practices were developed from lessons learned in PR #5104 and other implementations.
+
+### Critical Rules (⚠️ Read This First)
+
+#### 1. Never Create Empty Stubs
+
+**Rule**: Every lint file you create MUST be fully implemented before committing.
+
+**❌ WRONG: Creating placeholders**
+```typescript
+// allowed-fields-3-0.ts
+const allowedFields3_0Lint: LinterMeta = {
+  // add remaining lint docs here
+  targetSpecs: [{ namespace: 'asyncapi', version: '3.0.0' }],
+};
+```
+
+**✅ CORRECT: Complete implementation**
+```typescript
+// allowed-fields-3-0.ts
+const allowedFields3_0Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+  source: 'apilint',
+  message: 'Object includes not allowed fields',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'allowedFields',
+  linterParams: [['field1', 'field2'], 'x-'],
+  marker: 'key',
+  targetSpecs: AsyncAPI3,
+};
+```
+
+**Prevention Checklist:**
+- [ ] Error code defined in `codes.ts`
+- [ ] `source: 'apilint'` set
+- [ ] Descriptive error message
+- [ ] Severity level set
+- [ ] Correct linter function
+- [ ] Linter params provided
+- [ ] Marker specified ('key' or 'value')
+- [ ] targetSpecs set to correct version array
+
+#### 2. Check Similar Implementations FIRST
+
+**Rule**: Before implementing any lint rule, find and read 2-3 similar existing rules.
+
+**Process:**
+```bash
+# Find similar rules
+find packages/apidom-ls/src/config -name "*--required*.ts" | head -3
+find packages/apidom-ls/src/config -name "*--type*.ts" | head -3
+```
+
+**What to check:**
+- Error message patterns
+- Linter function choice
+- Linter params structure
+- Use of conditions
+- QuickFix implementation
+- How references are handled
+
+#### 3. Don't Redundantly Check References
+
+**Rule**: Never include 'reference' in `linterParams` - the refractor handles this automatically.
+
+**❌ WRONG:**
+```typescript
+linterParams: [['operation', 'reference']],  // DON'T DO THIS
+```
+
+**✅ CORRECT:**
+```typescript
+linterParams: [['operation']],  // Refractor adds referenced-element metadata
+```
+
+**Why**: During refraction, elements that are Reference Objects get marked with `referenced-element: operation` metadata. The linter automatically accepts elements with matching `referenced-element` metadata.
+
+#### 4. Use Conditions, Not Custom Functions
+
+**Rule**: For conditional required fields (required unless $ref present), use `conditions`, not separate linter functions.
+
+**❌ WRONG:**
+```typescript
+linterFunction: 'hasRequiredFieldUnlessRef',  // Custom function
+linterParams: ['name'],
+```
+
+**✅ CORRECT:**
+```typescript
+linterFunction: 'hasRequiredField',
+linterParams: ['name'],
+conditions: [
+  {
+    function: 'missingField',
+    params: ['$ref'],
+  },
+],
+```
+
+**Reference example:** `correlation-ID/lint/location--required.ts`
+
+#### 5. Implement Complete Validation Sets
+
+**Rule**: When adding a new referenceable object, implement ALL required validation rules.
+
+**Required rules for referenceable objects:**
+1. `allowed-fields-{version}.ts` - Define allowed fields
+2. `{field}--type.ts` - Type validation for each field
+3. `{field}--required.ts` - Required field validation (if applicable)
+4. `$ref--no-siblings.ts` - Ensure $ref has no sibling fields
+5. `$ref--valid.ts` - Validate $ref is valid URI-reference
+
+**Example from PR #5104 fix:**
+For `OperationReplyAddress`:
+- ✅ `allowed-fields-3-0.ts`
+- ✅ `location--type.ts`
+- ✅ `location--required.ts`
+- ✅ `description--type.ts`
+- ✅ `$ref--no-siblings.ts` (added after review)
+- ✅ `$ref--valid.ts` (added after review)
+
+#### 6. Follow Consistent Naming and Messaging
+
+**Rule**: Match error messages and naming conventions from similar existing rules.
+
+**Message Patterns:**
+| Type | Pattern | Example |
+|------|---------|---------|
+| Required field | `"should always have a '{field}'"` | `"should always have a 'name'"` |
+| Type validation | `"'{field}' must be a {type}"` | `"'location' must be a string"` |
+| Object shape | `"{Object} values must be of {Type} shape"` | `"Operations Object values must be of Operation Object shape"` |
+| Reference ignored | `'All other properties in a "$ref" object are ignored'` | (constant message) |
+
+**Linter Function Selection:**
+| Validation Need | Linter Function | Params Example |
+|----------------|-----------------|----------------|
+| Primitive type | `apilintType` | `['string']`, `['boolean']` |
+| Element/class | `apilintElementOrClass` | `[['operation']]` |
+| Array items | `apilintArrayOfType` | `['string']` |
+| Array of elements | `apilintArrayOfElementsOrClasses` | `[['securityRequirement']]` |
+| Map values | `apilintChildrenOfElementsOrClasses` | `[['operation']]` |
+| Required field | `hasRequiredField` | `['fieldName']` |
+| Allowed fields | `allowedFields` | `[['field1', 'field2'], 'x-']` |
+| Valid URI | `apilintValidURI` | N/A |
+
+### Pre-Implementation Checklist
+
+Before writing ANY lint rule code:
+
+- [ ] Read official specification section for the object
+- [ ] Read namespace element definition (`packages/apidom-ns-{spec}/src/elements/{Object}.ts`)
+- [ ] Read refractor specification (`packages/apidom-ns-{spec}/src/refractor/specification.ts`)
+- [ ] Find 2-3 similar existing lint rules and read them
+- [ ] List ALL fields the object should have
+- [ ] Determine which fields are new vs inherited (if extending a version)
+- [ ] Check if object can be referenced (has `$ref` field)
+- [ ] Verify any URLs you plan to use exist (curl/browser test)
+
+### Implementation Checklist
+
+For each lint rule:
+
+- [ ] Add error code to `codes.ts` with appropriate number
+- [ ] Set correct `code` from `ApilintCodes`
+- [ ] Set `source: 'apilint'`
+- [ ] Write clear, specific error message following patterns
+- [ ] Set `severity: DiagnosticSeverity.Error` (or Warning for $ref siblings)
+- [ ] Choose correct `linterFunction`
+- [ ] Provide correct `linterParams` (NO 'reference' redundancy)
+- [ ] Set correct `marker` ('key' or 'value')
+- [ ] Add `conditions` if validation is conditional
+- [ ] Add `quickFix` data for required fields
+- [ ] Set `targetSpecs` to correct version array
+- [ ] Add import to `index.ts`
+- [ ] Add to lints array in `index.ts`
+- [ ] Run `npm run build` to verify no errors
+- [ ] Run `npm run lint` to verify code style
+
+### Common Mistakes and Prevention
+
+| Mistake | Why It Happens | Prevention |
+|---------|----------------|------------|
+| Empty stub files | Rushed file structure creation | Use checklist, never commit unfinished files |
+| Including 'reference' in params | Misunderstanding refractor metadata | Read how reference detection works |
+| Custom functions for $ref conditions | Not finding existing patterns | Search for similar implementations first |
+| Inconsistent messages | Not checking existing rules | Copy message patterns from similar rules |
+| Missing $ref validations | Not checking if object is referenceable | Read spec, check if object can have $ref |
+| Wrong linter function | Not understanding function purposes | Review linter function table |
+| Redundant type checks | Not understanding required vs type | Check if required validation already exists |
+| Missing fields | Not reading full spec | Create comprehensive field list from spec |
+
+### Validation Rule Patterns
+
+#### Pattern 1: Required Field (Conditional on $ref)
+```typescript
+const nameRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_TAG_FIELD_NAME_REQUIRED,
+  source: 'apilint',
+  message: "should always have a 'name'",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'hasRequiredField',
+  linterParams: ['name'],
+  marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
+  data: {
+    quickFix: [
+      {
+        message: "add 'name' field",
+        action: 'addChild',
+        snippetYaml: 'name: \n  ',
+        snippetJson: '"name": "",\n    ',
+      },
+    ],
+  },
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 2: Type Validation
+```typescript
+const locationTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_LOCATION_TYPE,
+  source: 'apilint',
+  message: "'location' value must be a string",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  marker: 'value',
+  target: 'location',
+  data: {},
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 3: Array of Strings
+```typescript
+const enumTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_PARAMETER_FIELD_ENUM_TYPE,
+  source: 'apilint',
+  message: "'enum' must be an array of strings",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintArrayOfType',
+  linterParams: ['string'],
+  marker: 'key',
+  target: 'enum',
+  data: {},
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 4: Object Values Validation
+```typescript
+const operationsValuesTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_COMPONENTS_FIELD_OPERATIONS_VALUES_TYPE,
+  source: 'apilint',
+  message: '"operations" members must be Operation Object',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
+  linterParams: [['operation']],  // NO 'reference' here!
+  marker: 'key',
+  markerTarget: 'operations',
+  target: 'operations',
+  data: {},
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 5: $ref No Siblings
+```typescript
+const $refNoSiblingsLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_FIELD_$REF_NO_SIBLINGS,
+  source: 'apilint',
+  message: 'All other properties in a "$ref" object are ignored',
+  severity: DiagnosticSeverity.Warning,  // Warning, not Error
+  linterFunction: 'allowedFields',
+  linterParams: [['$ref']],
+  marker: 'key',
+  conditions: [
+    {
+      function: 'existFields',
+      params: [['$ref']],
+    },
+  ],
+  data: {
+    quickFix: [
+      {
+        message: 'remove $ref',
+        action: 'removeChild',
+        functionParams: ['$ref'],
+        target: 'parent',
+      },
+    ],
+  },
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 6: $ref Valid URI
+```typescript
+const $refValidLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_$REF_VALID,
+  source: 'apilint',
+  message: "'$ref' value must be a valid URI-reference",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintValidURI',
+  marker: 'value',
+  target: '$ref',
+  data: {},
+  targetSpecs: AsyncAPI3,
+};
+```
+
+#### Pattern 7: Allowed Fields
+```typescript
+const allowedFields3_0Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+  source: 'apilint',
+  message: 'Object includes not allowed fields',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'allowedFields',
+  linterParams: [['field1', 'field2', 'field3'], 'x-'],  // x- for extensions
+  marker: 'key',
+  targetSpecs: AsyncAPI3,
+};
+```
+
+### Testing Requirements
+
+For each lint rule implemented:
+
+1. **Create test fixtures** in `packages/apidom-ls/test/fixtures/validation/{spec}/`
+   - Valid cases (should pass validation)
+   - Invalid cases (should trigger errors)
+   - Edge cases (empty values, wrong types, etc.)
+
+2. **Create test files** in `packages/apidom-ls/test/`
+   - Reference validation tests
+   - Allowed fields tests
+   - Field types tests
+   - Required fields tests
+
+3. **Test file naming:**
+   - `{object}-{validation-type}.ts` (e.g., `operation-reply-address.ts`)
+   - Group related validations in same test file
+
+### Error Code Numbering
+
+Error codes follow a structured numbering system in `codes.ts`:
+
+```typescript
+// Major version = Object type (e.g., 2080000 = ASYNCAPI3_OPERATION)
+// Minor version = Field validations (e.g., 2080100 = first field, 2080200 = second field)
+// Increment by 100 for each new field group
+
+ASYNCAPI3_OPERATION = 2080000,
+ASYNCAPI3_OPERATION_FIELD_ACTION_TYPE = 2080100,
+ASYNCAPI3_OPERATION_FIELD_ACTION_REQUIRED,  // Auto-increments
+ASYNCAPI3_OPERATION_FIELD_CHANNEL_TYPE = 2080200,
+ASYNCAPI3_OPERATION_FIELD_CHANNEL_REQUIRED,
+```
+
+### Before Committing
+
+Final verification checklist:
+
+- [ ] NO empty stub files remain
+- [ ] ALL new error codes added to `codes.ts`
+- [ ] ALL lint rules fully implemented (not just targetSpecs)
+- [ ] ALL lint rules added to their index.ts files
+- [ ] Consistent error messages matching existing patterns
+- [ ] NO redundant 'reference' in linterParams
+- [ ] Conditional logic uses `conditions`, not custom functions
+- [ ] Referenceable objects have $ref validation rules
+- [ ] `npm run build` succeeds
+- [ ] `npm run typescript:check-types` passes
+- [ ] `npm run lint` passes
+- [ ] Tests created for new rules (or documented as future work)
+
+### Key Principle
+
+**Always verify against official specification, existing implementations, and namespace definitions before coding.**
+
+Following these guidelines prevents 95% of common issues in lint rule implementation.

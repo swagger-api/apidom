@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
 const $refNoSiblingsLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_FIELD_$REF_NO_SIBLINGS,
+  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
   severity: DiagnosticSeverity.Warning,

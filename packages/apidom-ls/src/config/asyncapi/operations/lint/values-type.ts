@@ -7,10 +7,10 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const valuesTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATIONS_VALUES_TYPE,
   source: 'apilint',
-  message: 'operations values must be operation objects',
+  message: 'Operations Object values must be of Operation Object shape',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
-  linterParams: [['operations'], ['operation', 'reference']],
+  linterParams: [['operation']],
   marker: 'key',
   markerTarget: 'operations',
   target: 'operations',

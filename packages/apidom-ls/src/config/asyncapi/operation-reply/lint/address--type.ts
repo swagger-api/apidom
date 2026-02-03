@@ -7,10 +7,10 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const addressTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_FIELD_ADDRESS_TYPE,
   source: 'apilint',
-  message: "'address' must be an Operation Reply Address Object or Reference Object",
+  message: "'address' must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['operationReplyAddress', 'reference']],
+  linterParams: [['operationReplyAddress']],
   marker: 'value',
   target: 'address',
   data: {},

@@ -4,17 +4,16 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI3 } from '../../target-specs.ts';
 
-const examplesTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI3_PARAMETER_FIELD_EXAMPLES_TYPE,
+const $refValidLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_$REF_VALID,
   source: 'apilint',
-  message: "'examples' must be an array of strings",
+  message: "'$ref' value must be a valid URI-reference",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintArrayOfType',
-  linterParams: ['string'],
-  marker: 'key',
-  target: 'examples',
+  linterFunction: 'apilintValidURI',
+  marker: 'value',
+  target: '$ref',
   data: {},
   targetSpecs: AsyncAPI3,
 };
 
-export default examplesTypeLint;
+export default $refValidLint;

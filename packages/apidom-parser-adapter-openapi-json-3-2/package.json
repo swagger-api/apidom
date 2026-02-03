@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-parser-adapter-openapi-json-3-2",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Parser adapter for parsing JSON documents into OpenAPI 3.2.x namespace.",
   "publishConfig": {
     "access": "public",

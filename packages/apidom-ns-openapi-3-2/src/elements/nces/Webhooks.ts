@@ -1,15 +1,11 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { WebhooksElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public
  */
-class Webhooks extends ObjectElement {
-  static primaryClass = 'webhooks';
-
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.classes.push(Webhooks.primaryClass);
-  }
+class Webhooks extends WebhooksElement {
+  // OpenAPI 3.2 does not introduce changes to Webhooks.
+  // This class inherits all functionality from OpenAPI 3.1.
 }
 
 export default Webhooks;

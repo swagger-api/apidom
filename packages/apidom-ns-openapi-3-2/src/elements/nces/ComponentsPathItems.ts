@@ -1,15 +1,11 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ComponentsPathItemsElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
  * @public
  */
-class ComponentsPathItems extends ObjectElement {
-  static primaryClass = 'components-path-items';
-
-  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.classes.push(ComponentsPathItems.primaryClass);
-  }
+class ComponentsPathItems extends ComponentsPathItemsElement {
+  // OpenAPI 3.2 does not introduce changes to ComponentsPathItems.
+  // This class inherits all functionality from OpenAPI 3.1.
 }
 
 export default ComponentsPathItems;

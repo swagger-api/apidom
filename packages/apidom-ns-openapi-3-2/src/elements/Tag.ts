@@ -18,9 +18,15 @@ class Tag extends TagElement {
 
   /**
    * OpenAPI 3.2: Reference to parent tag name for hierarchical organization.
-   * Note: Due to naming conflict with Element.parent, access via get('parent')/set('parent', value).
+   * Note: Due to naming conflict with Element.parent, use parentProp to access the parent field.
    */
-  // parent property intentionally omitted due to conflict with Element.parent
+  get parentProp(): StringElement | undefined {
+    return this.get('parent');
+  }
+
+  set parentProp(parentValue: StringElement | undefined) {
+    this.set('parent', parentValue);
+  }
 
   /**
    * OpenAPI 3.2: Classification of the tag (e.g., "nav", "badge", "audience").

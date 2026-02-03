@@ -17,7 +17,9 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specExternalDocsRefValid = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'external-docs-ref-valid.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'external-docs-ref-valid.yaml'),
+  )
   .toString();
 
 const specTagRefValid = fs
@@ -56,9 +58,13 @@ describe('asyncapi ref validation test', function () {
 
     // Should not have error about missing url field
     const hasUrlRequiredError = result.some(
-      (diagnostic) => diagnostic.message === "must contain 'url' field"
+      (diagnostic) => diagnostic.message === "must contain 'url' field",
     );
-    assert.strictEqual(hasUrlRequiredError, false, 'External docs with $ref should not require url field');
+    assert.strictEqual(
+      hasUrlRequiredError,
+      false,
+      'External docs with $ref should not require url field',
+    );
   });
 
   it('validate tag with $ref does not require name field (AsyncAPI 3)', async function () {
@@ -79,7 +85,7 @@ describe('asyncapi ref validation test', function () {
 
     // Should not have error about missing name field
     const hasNameRequiredError = result.some(
-      (diagnostic) => diagnostic.message === "must contain 'name' field"
+      (diagnostic) => diagnostic.message === "must contain 'name' field",
     );
     assert.strictEqual(hasNameRequiredError, false, 'Tag with $ref should not require name field');
   });

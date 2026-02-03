@@ -7778,6 +7778,55 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi 3.0 - Multi Format Schema Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'multi-format-schema-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/multi-format-schema-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 8 },
+          end: { line: 9, character: 15 },
+        },
+        message: "should always have a 'schema'",
+        severity: 1,
+        code: 2050200,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'schema' field",
+              action: 'addChild',
+              snippetYaml: 'schema: \n  ',
+              snippetJson: '"schema": {},\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('asyncapi 3.0 - Message Example Object fields types', async function () {
     const spec = fs
       .readFileSync(

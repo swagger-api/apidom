@@ -41,19 +41,45 @@ const specChannelFields = fs
   .toString();
 
 const specChannelAddressParametersValid = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-address-parameters-valid.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-address-parameters-valid.yaml'),
+  )
   .toString();
 
 const specChannelAddressParametersMissing = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-address-parameters-missing.yaml'))
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'async',
+      'asyncapi3',
+      'channel-address-parameters-missing.yaml',
+    ),
+  )
   .toString();
 
 const specChannelAddressParameterMismatch = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-address-parameter-mismatch.yaml'))
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'async',
+      'asyncapi3',
+      'channel-address-parameter-mismatch.yaml',
+    ),
+  )
   .toString();
 
 const specChannelAddressExpressionNotDefined = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-address-expression-not-defined.yaml'))
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'async',
+      'asyncapi3',
+      'channel-address-expression-not-defined.yaml',
+    ),
+  )
   .toString();
 
 describe('asyncapi channel test', function () {
@@ -630,7 +656,11 @@ describe('asyncapi channel test', function () {
     const result = await languageService.doValidation(doc, validationContext);
 
     // Should have no validation errors
-    assert.strictEqual(result.length, 0, 'Valid channel with correct parameters should have no errors');
+    assert.strictEqual(
+      result.length,
+      0,
+      'Valid channel with correct parameters should have no errors',
+    );
   });
 
   it('validate parameters required when address has expressions (AsyncAPI 3)', async function () {
@@ -651,9 +681,15 @@ describe('asyncapi channel test', function () {
 
     // Should have error about missing parameters field
     const hasParametersRequiredError = result.some(
-      (diagnostic) => diagnostic.message === 'parameters field must be present when address contains Channel Address Expressions'
+      (diagnostic) =>
+        diagnostic.message ===
+        'parameters field must be present when address contains Channel Address Expressions',
     );
-    assert.strictEqual(hasParametersRequiredError, true, 'Should error when parameters field is missing but address has expressions');
+    assert.strictEqual(
+      hasParametersRequiredError,
+      true,
+      'Should error when parameters field is missing but address has expressions',
+    );
   });
 
   it('validate parameter key exists in address (AsyncAPI 3)', async function () {
@@ -674,9 +710,13 @@ describe('asyncapi channel test', function () {
 
     // Should have error about parameter not in address
     const hasParameterNotInAddressError = result.some(
-      (diagnostic) => diagnostic.message === 'parameter key must be used in channel address'
+      (diagnostic) => diagnostic.message === 'parameter key must be used in channel address',
     );
-    assert.strictEqual(hasParameterNotInAddressError, true, 'Should error when parameter is not used in address');
+    assert.strictEqual(
+      hasParameterNotInAddressError,
+      true,
+      'Should error when parameter is not used in address',
+    );
   });
 
   it('validate address expressions are defined in parameters (AsyncAPI 3)', async function () {
@@ -697,8 +737,13 @@ describe('asyncapi channel test', function () {
 
     // Should have error about address expression not defined
     const hasExpressionNotDefinedError = result.some(
-      (diagnostic) => diagnostic.message === 'all Channel Address Expressions must be defined in parameters'
+      (diagnostic) =>
+        diagnostic.message === 'all Channel Address Expressions must be defined in parameters',
     );
-    assert.strictEqual(hasExpressionNotDefinedError, true, 'Should error when address expression is not defined in parameters');
+    assert.strictEqual(
+      hasExpressionNotDefinedError,
+      true,
+      'Should error when address expression is not defined in parameters',
+    );
   });
 });

@@ -62,7 +62,8 @@ describe('asyncapi parameter test', function () {
       insertTextFormat: 2,
       documentation: {
         kind: 'markdown',
-        value: 'An enumeration of string values to be used if the substitution options are from a limited set.',
+        value:
+          'An enumeration of string values to be used if the substitution options are from a limited set.',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -95,7 +96,8 @@ describe('asyncapi parameter test', function () {
       insertTextFormat: 2,
       documentation: {
         kind: 'markdown',
-        value: 'The default value to use for substitution, which SHALL be sent if an alternate value is not supplied.',
+        value:
+          'The default value to use for substitution, which SHALL be sent if an alternate value is not supplied.',
       },
       targetSpecs: AsyncAPI3,
     } as any);

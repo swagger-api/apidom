@@ -297,7 +297,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Use `send` when it\'s expected that the application will send a message to the given channel.',
+        "Use `send` when it's expected that the application will send a message to the given channel.",
     },
     targetSpecs: AsyncAPI3,
   },

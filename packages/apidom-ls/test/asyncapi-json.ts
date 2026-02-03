@@ -440,6 +440,18 @@ const completionTestInput3 = [
           targetSpecs: AsyncAPI3,
         },
         {
+          label: 'operations',
+          insertText: '"operations": {\n  $1\n},',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+          },
+          targetSpecs: AsyncAPI3,
+        },
+        {
           label: 'components',
           insertText: '"components": {\n  $1\n},',
           kind: 14,
@@ -522,6 +534,18 @@ const completionTestInput3 = [
           targetSpecs: AsyncAPI3,
         },
         {
+          label: 'operations',
+          insertText: '"operations": {\n  $1\n},\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+          },
+          targetSpecs: AsyncAPI3,
+        },
+        {
           label: 'components',
           insertText: '"components": {\n  $1\n},\n',
           kind: 14,
@@ -600,6 +624,18 @@ const completionTestInput3 = [
             kind: 'markdown',
             value:
               '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+          },
+          targetSpecs: AsyncAPI3,
+        },
+        {
+          label: 'operations',
+          insertText: '"operations": {\n  $1\n},\n',
+          kind: 14,
+          insertTextFormat: 2,
+          documentation: {
+            kind: 'markdown',
+            value:
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
           },
           targetSpecs: AsyncAPI3,
         },

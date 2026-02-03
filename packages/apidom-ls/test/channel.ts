@@ -36,6 +36,10 @@ const specChannelLint = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'channel-lint.yaml'))
   .toString();
 
+const specChannelFields = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-fields.yaml'))
+  .toString();
+
 describe('asyncapi channel test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -477,5 +481,119 @@ describe('asyncapi channel test', function () {
         data: {},
       },
     ] as Diagnostic[]);
+  });
+
+  it('complete channel address field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const addressItem = result?.items.find((item) => item.label === 'address');
+    assert.deepEqual(addressItem, {
+      label: 'address',
+      insertText: 'address: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions). Query parameters and fragments SHALL NOT be used, instead use [bindings](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) to define them.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+  });
+
+  it('complete channel messages field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const messagesItem = result?.items.find((item) => item.label === 'messages');
+    assert.deepEqual(messagesItem, {
+      label: 'messages',
+      insertText: 'messages: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+  });
+
+  it('complete channel title and summary fields (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const titleItem = result?.items.find((item) => item.label === 'title');
+    assert.deepEqual(titleItem, {
+      label: 'title',
+      insertText: 'title: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A human-friendly title for the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+
+    const summaryItem = result?.items.find((item) => item.label === 'summary');
+    assert.deepEqual(summaryItem, {
+      label: 'summary',
+      insertText: 'summary: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A short summary of the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

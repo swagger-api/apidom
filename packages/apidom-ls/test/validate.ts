@@ -7309,8 +7309,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 10, character: 6 },
-          end: { line: 10, character: 12 },
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 9 },
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
@@ -7395,8 +7395,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 10, character: 6 },
-          end: { line: 10, character: 12 },
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 8 },
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
@@ -7482,8 +7482,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 10, character: 6 },
-          end: { line: 10, character: 12 },
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 10 },
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
@@ -7581,8 +7581,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 10, character: 6 },
-          end: { line: 10, character: 12 },
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 12 },
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,

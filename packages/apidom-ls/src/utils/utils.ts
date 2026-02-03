@@ -839,18 +839,6 @@ export async function findNamespace(
       mediaType: asyncapi2AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
-  if (await asyncapi3AdapterYaml.detect(text)) {
-    const asyncapi3YamlMatch = text.match(asyncapi3AdapterYaml.detectionRegExp)!;
-    const groups = asyncapi3YamlMatch.groups!;
-    const version = groups.version_json ?? groups.version_yaml;
-
-    return {
-      namespace: 'asyncapi',
-      version,
-      format: 'YAML',
-      mediaType: asyncapi3AdapterYaml.mediaTypes.findBy(version, 'yaml'),
-    };
-  }
 
   if (await asyncapi3AdapterJson.detect(text)) {
     const asyncapi3JsonMatch = text.match(asyncapi3AdapterJson.detectionRegExp)!;
@@ -862,6 +850,19 @@ export async function findNamespace(
       version,
       format: 'JSON',
       mediaType: asyncapi3AdapterJson.mediaTypes.findBy(version, 'json'),
+    };
+  }
+
+  if (await asyncapi3AdapterYaml.detect(text)) {
+    const asyncapi3YamlMatch = text.match(asyncapi3AdapterYaml.detectionRegExp)!;
+    const groups = asyncapi3YamlMatch.groups!;
+    const version = groups.version_json ?? groups.version_yaml;
+
+    return {
+      namespace: 'asyncapi',
+      version,
+      format: 'YAML',
+      mediaType: asyncapi3AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
 

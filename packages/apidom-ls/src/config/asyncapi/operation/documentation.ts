@@ -23,6 +23,11 @@ const documentation = [
     targetSpecs: AsyncAPI3,
   },
   {
+    target: 'channel',
+    docs: '[Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\n**Required**. A `$ref` pointer to the definition of the channel in which this operation is performed. If the operation is located in the root [Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject), it MUST point to a channel definition located in the root [Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject), and MUST NOT point to a channel definition located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject) or anywhere else. If the operation is located in the [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject), it MAY point to a [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject) in any location. Please note the channel property value MUST be a [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) and, therefore, MUST NOT contain a [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject). However, it is RECOMMENDED that parsers (or other software) dereference this property for a better development experience.',
+    targetSpecs: AsyncAPI3,
+  },
+  {
     target: 'title',
     docs: 'A human-friendly title for the operation.',
     targetSpecs: AsyncAPI3,
@@ -41,11 +46,6 @@ const documentation = [
     target: 'security',
     docs: '[[Security Requirement Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms are associated with this operation. Only one of the security requirement objects MUST be satisfied to authorize an operation. In cases where Server Security also applies, it MUST also be satisfied.',
     targetSpecs: AsyncAPI2,
-  },
-  {
-    target: 'externalDocs',
-    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this operation.',
-    targetSpecs: AsyncAPI3,
   },
   {
     target: 'security',

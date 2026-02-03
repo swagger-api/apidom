@@ -233,3 +233,167 @@ Packages follow a dependency hierarchy:
 - Language service depends on reference
 
 When modifying core packages, expect cascading build requirements in dependent packages.
+
+---
+
+## Best Practices for Adding Specification Versions
+
+This section provides guidelines for implementing support for new API specification versions (e.g., OpenAPI 3.2, AsyncAPI 3.0). These practices were developed from lessons learned in PR #5110 and other implementations.
+
+### Critical Rules (⚠️ Read This First)
+
+When implementing a new specification version that extends a parent version:
+
+#### 1. Check Parent Version FIRST
+
+**Rule**: Before adding ANY field to an element, verify it doesn't already exist in the parent version.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: Components.ts in OAS 3.2
+class Components extends ComponentsElement {
+  get pathItems(): ObjectElement | undefined {  // pathItems already in OAS 3.1!
+    return this.get('pathItems');
+  }
+}
+
+// ✅ CORRECT: Only add NEW fields
+class Components extends ComponentsElement {
+  get mediaTypes(): ObjectElement | undefined {  // mediaTypes is NEW in 3.2
+    return this.get('mediaTypes');
+  }
+}
+```
+
+**Checklist**:
+- [ ] Read parent namespace element: `packages/apidom-ns-{parent}/src/elements/{ElementName}.ts`
+- [ ] Read parent specification document
+- [ ] Identify ONLY fields new in current version
+- [ ] Never redefine existing fields
+
+#### 2. Verify Fields Exist in Specification
+
+**Rule**: Confirm every field appears in the official specification "Fixed Fields" table.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: ComponentsWebhooks element
+// webhooks is at root OpenAPI Object level, NOT in Components!
+class ComponentsWebhooks extends ObjectElement { ... }
+```
+
+**Prevention**:
+- Read the specification carefully
+- Cross-reference with JSON Schema files
+- Check specification examples for actual structure
+- Verify field locations in object hierarchy
+
+#### 3. Implement ALL New Fields
+
+**Rule**: Don't skip fields that seem unimportant. Implement everything in the specification.
+
+**Missing fields from PR #5110**:
+- `Encoding`: missing `encoding`, `prefixEncoding`, `itemEncoding`
+- `MediaType`: missing `prefixEncoding`, `itemEncoding`
+- `OAuthFlow`: missing `deviceAuthorizationUrl`
+- `OAuthFlows`: missing `deviceAuthorization`
+- `XML`: missing `nodeType`
+- `SecurityScheme`: missing `deprecated`
+- `Response`: missing `summary`
+
+**Process**:
+1. Create comprehensive checklist of ALL objects
+2. For each object, list ALL fields
+3. Compare systematically with parent version
+4. Mark new vs inherited fields
+5. Implement ALL new fields
+
+#### 4. Verify All URLs
+
+**Rule**: Test every URL before using it. Never assume a URL pattern exists.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: URL returns 404
+static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.2/dialect/base');
+
+// ✅ CORRECT: Verified URL
+static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.2/dialect/2025-09-17');
+```
+
+**Verification**:
+```bash
+curl -I https://spec.openapis.org/oas/3.2/dialect/2025-09-17
+# Must return 200 OK
+```
+
+#### 5. Search Before Creating
+
+**Rule**: Before creating new files, search for existing similar implementations.
+
+**Example from PR #5110**: Both `OpenApi3-1.ts` and `OpenApi3-2.ts` existed when only `OpenApi3-2.ts` should exist.
+
+**Process**:
+- Use Glob/Grep to find similar files
+- Check parent namespaces
+- Verify you're not duplicating functionality
+
+### Pre-Implementation Checklist
+
+Before writing ANY code:
+
+- [ ] Read FULL official specification (not summaries)
+- [ ] Read parent specification (if extending)
+- [ ] Read parent namespace implementation files
+- [ ] Create comparison table: parent vs current
+- [ ] Mark which fields are NEW vs inherited
+- [ ] Test all URLs exist (curl/browser)
+- [ ] List ALL new fields for each object
+- [ ] Search for similar existing implementations
+
+### Specification Version Inheritance
+
+When a version extends a parent (e.g., OpenAPI 3.2 extends 3.1):
+
+```typescript
+import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+// Only add fields NEW in this version
+class Info extends InfoElement {
+  // ✅ Add only new fields
+  
+  // ❌ Don't redefine existing fields
+}
+```
+
+#### When to Add Fields
+
+| Scenario | Action | Example |
+|----------|--------|---------|
+| Field exists in parent, unchanged | Don't add | `Info.license` in 3.1 → Don't add in 3.2 |
+| Field is completely new | Add getter/setter | `MediaType.itemSchema` new in 3.2 → Add it |
+| Nested object changed | Update nested element | `License.identifier` added in 3.1 → Update License in 3.1, not Info.license |
+
+### URL Patterns
+
+| Specification | Pattern |
+|---------------|---------|
+| OpenAPI Dialect | `https://spec.openapis.org/oas/{version}/dialect/{date}` |
+| OpenAPI Schema | `https://spec.openapis.org/oas/{version}/schema/{date}` |
+
+### Before Committing
+
+- [ ] No fields from parent are redefined
+- [ ] ALL new spec fields implemented
+- [ ] All URLs verified (return 200)
+- [ ] No duplicate files
+- [ ] `npm run build` succeeds
+- [ ] `npm run test` passes
+- [ ] `npm run typescript:check-types` passes
+- [ ] `npm run lint` passes
+
+### Key Principle
+
+**Always verify against official specification and parent version before implementing.**
+
+Following these guidelines prevents 95% of common issues in specification implementation.

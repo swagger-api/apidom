@@ -30,7 +30,6 @@ import XmlVisitor from './visitors/open-api-3-2/xml/index.ts';
 import ComponentsSchemasVisitor from './visitors/open-api-3-2/components/SchemasVisitor.ts';
 import ComponentsPathItemsVisitor from './visitors/open-api-3-2/components/PathItemsVisitor.ts';
 import ComponentsMediaTypesVisitor from './visitors/open-api-3-2/components/MediaTypesVisitor.ts';
-import ComponentsWebhooksVisitor from './visitors/open-api-3-2/components/WebhooksVisitor.ts';
 import AdditionalOperationsVisitor from './visitors/open-api-3-2/path-item/AdditionalOperationsVisitor.ts';
 import ExampleVisitor from './visitors/open-api-3-2/example/index.ts';
 import ExternalDocumentationVisitor from './visitors/open-api-3-2/external-documentation/index.ts';
@@ -173,8 +172,6 @@ const specification = {
             pathItems: ComponentsPathItemsVisitor,
             // OpenAPI 3.2 addition
             mediaTypes: ComponentsMediaTypesVisitor,
-            // OpenAPI 3.2 addition
-            webhooks: ComponentsWebhooksVisitor,
           },
         },
         Paths: {

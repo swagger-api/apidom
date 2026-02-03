@@ -568,5 +568,4 @@ export {
 } from '@swagger-api/apidom-ns-openapi-3-1';
 export { default as ComponentsPathItemsElement } from './elements/nces/ComponentsPathItems.ts';
 export { default as ComponentsMediaTypesElement } from './elements/nces/ComponentsMediaTypes.ts';
-export { default as ComponentsWebhooksElement } from './elements/nces/ComponentsWebhooks.ts';
 export { default as WebhooksElement } from './elements/nces/Webhooks.ts';

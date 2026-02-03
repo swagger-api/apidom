@@ -5,14 +5,9 @@ import { ComponentsElement } from '@swagger-api/apidom-ns-openapi-3-1';
  * @public
  */
 class Components extends ComponentsElement {
-  get pathItems(): ObjectElement | undefined {
-    return this.get('pathItems');
-  }
-
-  set pathItems(pathItems: ObjectElement | undefined) {
-    this.set('pathItems', pathItems);
-  }
-
+  /**
+   * OpenAPI 3.2: Reusable Media Type Objects.
+   */
   get mediaTypes(): ObjectElement | undefined {
     return this.get('mediaTypes');
   }

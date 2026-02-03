@@ -1,4 +1,4 @@
-import { StringElement } from '@swagger-api/apidom-core';
+import { StringElement, BooleanElement } from '@swagger-api/apidom-core';
 import { SecuritySchemeElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 /**
@@ -14,6 +14,17 @@ class SecurityScheme extends SecuritySchemeElement {
 
   set oauth2MetadataUrl(oauth2MetadataUrl: StringElement | undefined) {
     this.set('oauth2MetadataUrl', oauth2MetadataUrl);
+  }
+
+  /**
+   * OpenAPI 3.2: Marks this security scheme as deprecated.
+   */
+  get deprecated(): BooleanElement | undefined {
+    return this.get('deprecated');
+  }
+
+  set deprecated(deprecated: BooleanElement | undefined) {
+    this.set('deprecated', deprecated);
   }
 }
 

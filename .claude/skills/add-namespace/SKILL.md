@@ -35,6 +35,51 @@ Before running this skill:
 3. **Identify all elements**: List all object types defined in the specification
 4. **Map specification structure**: Understand the hierarchical relationships between elements
 
+## IMPORTANT: Common Mistakes to Avoid
+
+**READ THIS SECTION CAREFULLY** before starting implementation. Refer to `CLAUDE.md` in the repository root for detailed guidelines.
+
+### Critical Validation Steps
+
+When implementing a new specification version (especially when extending a parent version):
+
+1. **Check Parent Version First** (⚠️ MOST COMMON MISTAKE):
+   - Before adding ANY field to an element, check if it already exists in the parent version
+   - Example: Don't add `Components.pathItems` in OAS 3.2 if it already exists in OAS 3.1
+   - Read the parent namespace element file: `packages/apidom-ns-{parent}/src/elements/{ElementName}.ts`
+   - Read the parent specification document to understand what fields already exist
+
+2. **Verify Field Existence in Specification**:
+   - Confirm field names appear in official specification "Fixed Fields" tables
+   - Don't add fields that don't exist (e.g., don't add `components.webhooks` if spec has `webhooks` at root level)
+   - Cross-reference with JSON Schema files and specification examples
+
+3. **Implement ALL New Fields**:
+   - Create a comprehensive checklist of ALL objects and fields
+   - Compare systematically against parent version
+   - Don't skip fields that seem unimportant - implement everything
+
+4. **Verify All URLs**:
+   - Test every URL with `curl -I <url>` before using it
+   - Common URLs: dialect URLs, schema URLs, specification URLs
+   - Example: Use `https://spec.openapis.org/oas/3.2/dialect/2025-09-17` (with date), not `.../dialect/base`
+
+5. **Search Before Creating**:
+   - Before creating new files, search for similar existing files
+   - Use Glob/Grep to find related implementations
+   - Don't create duplicates (e.g., `OpenApi3-1.ts` when `OpenApi3-2.ts` should be used)
+
+### Pre-Implementation Checklist
+
+Before writing ANY code:
+- [ ] Read FULL official specification (not summaries)
+- [ ] Read parent version specification (if extending)
+- [ ] Read parent namespace implementation files
+- [ ] Create comparison table: parent version vs current version
+- [ ] Mark which fields are NEW vs inherited
+- [ ] Verify all URLs exist (test with curl)
+- [ ] List ALL new fields for each object
+
 ## Skill Instructions
 
 ### Phase 1: Gather Information

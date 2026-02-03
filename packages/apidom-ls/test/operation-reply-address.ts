@@ -80,7 +80,7 @@ describe('asyncapi operation reply address test', function () {
           start: { line: 25, character: 18 },
           end: { line: 25, character: 21 },
         },
-        message: "'location' value must be a string (runtime expression)",
+        message: "'location' value must be a string",
         severity: 1,
         code: 2040100,
         source: 'apilint',

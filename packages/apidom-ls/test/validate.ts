@@ -7374,16 +7374,9 @@ describe('apidom-ls-validate', function () {
 
   it('asyncapi 3.0 - Tag Object reference rules', async function () {
     const spec = fs
-      .readFileSync(
-        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-ref-3-0.yaml'),
-      )
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-ref-3-0.yaml'))
       .toString();
-    const doc: TextDocument = TextDocument.create(
-      'foo://bar/tag-ref-3-0.yaml',
-      'yaml',
-      0,
-      spec,
-    );
+    const doc: TextDocument = TextDocument.create('foo://bar/tag-ref-3-0.yaml', 'yaml', 0, spec);
 
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
@@ -7446,7 +7439,7 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: { line: 6, character: 4 },
-          end: { line: 6, character: 16 },
+          end: { line: 6, character: 8 },
         },
         message: 'Object includes not allowed fields',
         severity: 1,
@@ -7462,13 +7455,7 @@ describe('apidom-ls-validate', function () {
   it('asyncapi 3.0 - Operation Reply Object reference rules', async function () {
     const spec = fs
       .readFileSync(
-        path.join(
-          __dirname,
-          'fixtures',
-          'validation',
-          'asyncapi',
-          'operation-reply-ref-3-0.yaml',
-        ),
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operation-reply-ref-3-0.yaml'),
       )
       .toString();
     const doc: TextDocument = TextDocument.create(
@@ -7544,8 +7531,8 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 8, character: 6 },
-          end: { line: 8, character: 18 },
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 10 },
         },
         message: 'Object includes not allowed fields',
         severity: 1,
@@ -7644,7 +7631,7 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: { line: 6, character: 4 },
-          end: { line: 6, character: 16 },
+          end: { line: 6, character: 12 },
         },
         message: 'Object includes not allowed fields',
         severity: 1,

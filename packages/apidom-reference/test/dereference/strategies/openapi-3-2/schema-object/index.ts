@@ -318,7 +318,7 @@ describe('dereference', function () {
 
               assert.strictEqual(
                 toValue(profile.meta.get('inheritedDialectIdentifier')),
-                'https://spec.openapis.org/oas/3.2/dialect/base',
+                'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
               );
             });
           },
@@ -360,7 +360,7 @@ describe('dereference', function () {
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
-              'https://spec.openapis.org/oas/3.2/dialect/base',
+              'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
             );
           });
 
@@ -372,7 +372,7 @@ describe('dereference', function () {
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
-              'https://spec.openapis.org/oas/3.2/dialect/base',
+              'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
             );
           });
 
@@ -381,7 +381,7 @@ describe('dereference', function () {
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
-              'https://spec.openapis.org/oas/3.2/dialect/base',
+              'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
             );
           });
 
@@ -393,7 +393,7 @@ describe('dereference', function () {
 
             assert.strictEqual(
               toValue(user.meta.get('inheritedDialectIdentifier')),
-              'https://spec.openapis.org/oas/3.2/dialect/base',
+              'https://spec.openapis.org/oas/3.2/dialect/2025-09-17',
             );
           });
         });

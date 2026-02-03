@@ -91,6 +91,20 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI3,
   },
   {
+    label: 'operations',
+    insertText: 'operations',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: 'components',
     insertText: 'components',
     kind: 14,

@@ -29,13 +29,8 @@ describe('asyncapi multi-format schema test', function () {
     logLevel,
   };
 
-  const languageService: LanguageService = getLanguageService(context);
-
-  after(function () {
-    languageService.terminate();
-  });
-
   it('complete schema format values (AsyncAPI 3)', async function () {
+    const languageService: LanguageService = getLanguageService(context);
     const completionContext: CompletionContext = {
       maxNumberOfItems: 100,
     };
@@ -109,5 +104,7 @@ describe('asyncapi multi-format schema test', function () {
       sortText: '0014',
       targetSpecs: AsyncAPI3,
     } as any);
+
+    languageService.terminate();
   });
 });

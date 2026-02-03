@@ -113,8 +113,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value:
-        'An array of examples of the parameter value.',
+      value: 'An array of examples of the parameter value.',
     },
     targetSpecs: AsyncAPI3,
   },

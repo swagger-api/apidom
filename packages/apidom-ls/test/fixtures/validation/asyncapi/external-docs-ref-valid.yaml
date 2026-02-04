@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  externalDocs:
+    externalDoc1:
+      $ref: '//'
+    externalDoc2:
+      $ref: '#/components/externalDocs/externalDoc1'
+      x-test: 123

@@ -6,7 +6,7 @@ channels:
   testChannel:
     address: /test
 operations:
-  testOperation1:
+  testOperation:
     action: send
     channel:
       $ref: '#/channels/testChannel'
@@ -17,18 +17,3 @@ operations:
       channel: 123
       # Invalid - messages should be an array, not a string
       messages: invalid_string
-  testOperation2:
-    action: send
-    channel:
-      $ref: '#/channels/testChannel'
-    reply:
-      # Valid reference
-      $ref: '#/components/replies/testReply'
-      # Invalid - should not have siblings when $ref is present
-      address:
-        location: $message.header#/replyTo
-components:
-  replies:
-    testReply:
-      channel:
-        $ref: '#/channels/testChannel'

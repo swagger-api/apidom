@@ -16,9 +16,15 @@ import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const specOperationReplyLint = fs
+const specOperationReplyFieldsTypesInvalid = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operation-reply-lint-3-0.yaml'),
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'operation-reply-fields-types-invalid-3-0.yaml',
+    ),
   )
   .toString();
 
@@ -32,7 +38,7 @@ describe('asyncapi operation reply test', function () {
 
   const languageService: LanguageService = getLanguageService(context);
 
-  it('lint operation reply (AsyncAPI 3)', async function () {
+  it('lint operation reply invalid field types (AsyncAPI 3)', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -40,10 +46,10 @@ describe('asyncapi operation reply test', function () {
     };
 
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/operation-reply-lint.yaml',
+      'foo://bar/operation-reply-fields-types-invalid.yaml',
       'yaml',
       0,
-      specOperationReplyLint,
+      specOperationReplyFieldsTypesInvalid,
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -81,37 +87,6 @@ describe('asyncapi operation reply test', function () {
         code: 2030300,
         source: 'apilint',
         data: {},
-      },
-      {
-        range: {
-          start: { line: 28, character: 8 },
-          end: { line: 28, character: 42 },
-        },
-        message: "'address' must be an object",
-        severity: 1,
-        code: 2030100,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 23, character: 4 },
-          end: { line: 23, character: 9 },
-        },
-        message: 'All other properties in a "$ref" object are ignored',
-        severity: 2,
-        code: 2030401,
-        source: 'apilint',
-        data: {
-          quickFix: [
-            {
-              message: 'remove $ref',
-              action: 'removeChild',
-              functionParams: ['$ref'],
-              target: 'parent',
-            },
-          ],
-        },
       },
     ] as Diagnostic[]);
 

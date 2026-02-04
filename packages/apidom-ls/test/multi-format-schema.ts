@@ -18,7 +18,9 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specSchemaFormat = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'schema-format.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'schema-format.yaml'),
+  )
   .toString();
 
 describe('asyncapi multi-format schema test', function () {

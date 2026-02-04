@@ -18,7 +18,9 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specServerFields = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'server-fields.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-fields.yaml'),
+  )
   .toString();
 
 describe('asyncapi server test', function () {

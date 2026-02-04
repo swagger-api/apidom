@@ -340,16 +340,19 @@ This workflow prevents 95% of common mistakes:
    - No unnecessary comments
    - File name follows pattern
 
-6. **🧪 WRITE tests immediately**
-   - Create test fixtures
-   - Write test cases
-   - Run tests to verify
+6. **🧪 WRITE TESTS IMMEDIATELY (MANDATORY)**
+   - ⚠️ THIS STEP IS REQUIRED - DO NOT SKIP
+   - Create test fixture(s): `test/fixtures/validation/{spec}/{object}-*.yaml`
+   - Create/update test file: `test/{object-name}.ts`
+   - Test valid cases (should pass)
+   - Test invalid cases (should trigger your error code)
+   - Test edge cases (with/without $ref, type variations)
 
 7. **🔨 BUILD and verify**
    ```bash
    npm run build
    npm run lint
-   npm run test
+   npm run test  # ← TESTS MUST PASS
    ```
 
 **Example: Adding a new required field validation**
@@ -364,6 +367,53 @@ grep -r "hasRequiredField" packages/apidom-ls/src/config/asyncapi/*/lint/*--requ
 
 # 4. Done! That's it. No need to reinvent anything.
 ```
+
+### 🚨 CRITICAL: TESTS ARE MANDATORY - NO EXCEPTIONS 🚨
+
+**⚠️ BLOCKING REQUIREMENT ⚠️**
+
+```
+╔═══════════════════════════════════════════════════════════════════╗
+║                                                                   ║
+║   EVERY LINT RULE MUST HAVE TESTS BEFORE COMMITTING              ║
+║                                                                   ║
+║   NO TESTS = INCOMPLETE WORK = WILL NOT BE MERGED                ║
+║                                                                   ║
+╚═══════════════════════════════════════════════════════════════════╝
+```
+
+**This is NON-NEGOTIABLE. Tests are not optional. Tests are not "nice to have".**
+
+**IMPLEMENTATION ORDER (ALWAYS):**
+1. ✅ Implement lint rule
+2. ✅ **CREATE TESTS IMMEDIATELY** ← DO NOT SKIP THIS
+3. ✅ Build and verify
+4. ✅ Commit
+
+**If you implement lint rules without tests, STOP and create tests NOW.**
+
+**Required for EACH lint rule:**
+- [ ] **Test fixture** created in `packages/apidom-ls/test/fixtures/validation/{spec}/`
+- [ ] **Test file** created/updated in `packages/apidom-ls/test/{object-name}.ts`
+- [ ] **Valid case** test (should pass validation)
+- [ ] **Invalid case** test (should trigger error)
+- [ ] **Edge cases** tested (conditionals, $ref scenarios, etc.)
+- [ ] **Tests pass**: Run `npm run test` in `packages/apidom-ls`
+
+**Example test structure:**
+```typescript
+describe('operation', function () {
+  context('given asyncapi 3.0.0 document with missing required action field', function () {
+    it('should return validation error', async function () {
+      const diagnostics = await validator.doValidation(/* ... */);
+      assert.strictEqual(diagnostics.length, 1);
+      assert.strictEqual(diagnostics[0].code, ApilintCodes.ASYNCAPI3_OPERATION_FIELD_ACTION_REQUIRED);
+    });
+  });
+});
+```
+
+---
 
 ### Critical Rules (⚠️ Read This First)
 

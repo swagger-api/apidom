@@ -25,7 +25,9 @@ const specOperationLint = fs
   .toString();
 
 const specOperationAction = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'operation-action.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operation-action.yaml'),
+  )
   .toString();
 
 const specOperationAllowedFields = fs

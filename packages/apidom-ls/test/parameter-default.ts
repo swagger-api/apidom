@@ -48,15 +48,63 @@ describe('asyncapi parameter default test', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
+    // Sort results by line number for consistency
+    result.sort((a, b) => a.range.start.line - b.range.start.line);
+
+    // Note: apilintArrayOfType only reports first invalid item per array
     assert.deepEqual(result, [
       {
         range: {
-          start: { line: 17, character: 17 },
-          end: { line: 17, character: 20 },
+          start: { line: 19, character: 6 },
+          end: { line: 19, character: 12 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 6 },
+          end: { line: 19, character: 12 },
+        },
+        message: "'examples' must be an array of strings",
+        severity: 1,
+        code: 2120300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 25, character: 17 },
+          end: { line: 25, character: 20 },
         },
         message: "'default' must be a string",
         severity: 1,
         code: 2120200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 36, character: 21 },
+          end: { line: 36, character: 24 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 160100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 38, character: 18 },
+          end: { line: 38, character: 22 },
+        },
+        message: "'location' must be a string",
+        severity: 1,
+        code: 160300,
         source: 'apilint',
         data: {},
       },

@@ -37,7 +37,9 @@ const specChannelLint = fs
   .toString();
 
 const specChannelFields = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-fields.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-fields.yaml'),
+  )
   .toString();
 
 describe('asyncapi channel test', function () {

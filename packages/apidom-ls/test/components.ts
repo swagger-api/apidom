@@ -3,13 +3,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Position } from 'vscode-languageserver-types';
+import { DiagnosticSeverity, Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
+  ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
@@ -18,7 +19,21 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specComponentsFields = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'components-fields.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'components-fields.yaml'),
+  )
+  .toString();
+
+const specComponentsChannelsValuesType = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'components-channels-values-type-3-0.yaml'),
+  )
+  .toString();
+
+const specComponentsAllowedFields = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'components-allowed-fields-3-0.yaml'),
+  )
   .toString();
 
 describe('asyncapi components test', function () {
@@ -183,5 +198,56 @@ describe('asyncapi components test', function () {
       },
       targetSpecs: AsyncAPI3,
     } as any);
+  });
+
+  it('test components channels values type (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/components-channels-values-type.yaml',
+      'yaml',
+      0,
+      specComponentsChannelsValuesType,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.isAtLeast(result.length, 1);
+
+    const channelsError = result.find((r) => r.code === 2110200);
+    assert.isDefined(channelsError, 'Should have channels values type error');
+    assert.strictEqual(channelsError?.code, 2110200);
+    assert.strictEqual(
+      channelsError?.message,
+      '"channels" members must be Channel Object',
+    );
+    assert.strictEqual(channelsError?.severity, DiagnosticSeverity.Error);
+  });
+
+  it('test components allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/components-allowed-fields.yaml',
+      'yaml',
+      0,
+      specComponentsAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.strictEqual(result.length, 1);
+
+    assert.strictEqual(result[0].code, 15000);
+    assert.strictEqual(result[0].message, 'Object includes not allowed fields');
+    assert.strictEqual(result[0].severity, DiagnosticSeverity.Error);
   });
 });

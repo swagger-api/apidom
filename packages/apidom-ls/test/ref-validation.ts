@@ -18,12 +18,14 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specExternalDocsRefValid = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'external-docs-ref-valid.yaml'),
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'external-docs-ref-valid.yaml'),
   )
   .toString();
 
 const specTagRefValid = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'tag-ref-valid.yaml'))
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-ref-valid.yaml'),
+  )
   .toString();
 
 describe('asyncapi ref validation test', function () {

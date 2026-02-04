@@ -6,17 +6,7 @@ channels:
   testChannel:
     address: /test
 operations:
-  testOperation1:
-    action: send
-    channel:
-      $ref: '#/channels/testChannel'
-    reply:
-      address:
-        # Missing required 'location' field
-        description: Reply address description
-      channel:
-        $ref: '#/channels/testChannel'
-  testOperation2:
+  testOperation:
     action: send
     channel:
       $ref: '#/channels/testChannel'

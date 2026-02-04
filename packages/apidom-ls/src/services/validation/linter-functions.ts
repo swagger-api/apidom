@@ -1558,9 +1558,6 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       const addressValue = toValue(addressMember);
-      if (typeof addressValue !== 'string') {
-        return true;
-      }
 
       // Check if address contains Channel Address Expressions (e.g., {userId})
       const hasExpressions = /\{[^}]+\}/.test(addressValue);
@@ -1583,9 +1580,6 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       const addressValue = toValue(element);
-      if (typeof addressValue !== 'string') {
-        return true;
-      }
 
       // Extract all Channel Address Expressions from the address
       const expressionRegex = /\{([^}]+)\}/g;
@@ -1609,14 +1603,11 @@ export const standardLinterfunctions: FunctionItem[] = [
       // Get the parameters object
       const parametersElement = channelElement.get('parameters');
       if (!parametersElement || !isObject(parametersElement)) {
-        // If there are expressions but no parameters, validation will fail
-        // This is caught by the other lint rule
         return true;
       }
 
       // Check that all expressions are defined as parameters
-      const parameterKeys = parametersElement.keys() as string[];
-      return expressions.every((expr) => parameterKeys.includes(expr));
+      return expressions.every((expr) => parametersElement.hasKey(expr));
     },
   },
   {
@@ -1649,9 +1640,6 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       const addressValue = toValue(addressMember);
-      if (typeof addressValue !== 'string') {
-        return true;
-      }
 
       // Check if the parameter name is used in the address
       return addressValue.includes(`{${parameterName}}`);

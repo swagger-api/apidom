@@ -1,8 +1,21 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
+
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const securityItemsType3_0Lint: LinterMeta = {
-  // add remaining lint docs here
-  targetSpecs: [{ namespace: 'asyncapi', version: '3.0.0' }],
+  code: ApilintCodes.ASYNCAPI3_OPERATION_TRAIT_FIELD_SECURITY_ITEMS_TYPE,
+  source: 'apilint',
+  message: 'security must be an array of Security Requirement Objects',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintArrayOfElementsOrClasses',
+  linterParams: [['securityRequirement']],
+  marker: 'key',
+  target: 'security',
+  data: {},
+  targetSpecs: AsyncAPI3,
 };
 
 export default securityItemsType3_0Lint;

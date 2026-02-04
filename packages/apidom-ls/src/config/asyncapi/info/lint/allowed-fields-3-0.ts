@@ -12,7 +12,16 @@ const allowedFields3_0Lint: LinterMeta = {
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['title', 'version', 'description', 'termsOfService', 'contact', 'license', 'tags', 'externalDocs'],
+    [
+      'title',
+      'version',
+      'description',
+      'termsOfService',
+      'contact',
+      'license',
+      'tags',
+      'externalDocs',
+    ],
     'x-',
   ],
   marker: 'key',

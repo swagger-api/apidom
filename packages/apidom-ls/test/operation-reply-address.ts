@@ -60,7 +60,7 @@ describe('asyncapi operation reply address test', function () {
           start: { line: 13, character: 6 },
           end: { line: 13, character: 13 },
         },
-        message: "must contain 'location' field",
+        message: "should always have a 'location'",
         severity: 1,
         code: 2040101,
         source: 'apilint',

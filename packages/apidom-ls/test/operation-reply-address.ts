@@ -23,7 +23,7 @@ const specOperationReplyAddressLint = fs
       'fixtures',
       'validation',
       'asyncapi',
-      'operation-reply-address-lint-3-0.yaml',
+      'operation-reply-address-fields-types-3-0.yaml',
     ),
   )
   .toString();

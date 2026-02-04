@@ -23,7 +23,13 @@ const specSecurityLint = fs
 
 const specSecuritySchemeAllowedFields = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'security-scheme-allowed-fields-3-0.yaml'),
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'security-scheme-allowed-fields-3-0.yaml',
+    ),
   )
   .toString();
 

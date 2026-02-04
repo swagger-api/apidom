@@ -19,9 +19,7 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specParameterFields = fs
-  .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameter-fields.yaml'),
-  )
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameter-fields.yaml'))
   .toString();
 
 const specParameterAllowedFields = fs

@@ -23,7 +23,7 @@ const specOperationReplyFieldsTypesInvalid = fs
       'fixtures',
       'validation',
       'asyncapi',
-      'operation-reply-fields-types-invalid-3-0.yaml',
+      'operation-reply-fields-types-3-0-invalid.yaml',
     ),
   )
   .toString();

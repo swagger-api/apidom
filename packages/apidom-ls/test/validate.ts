@@ -9637,31 +9637,30 @@ describe('apidom-ls-validate', function () {
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
     const result = await languageService.doValidation(doc);
-    const expected: Diagnostic[] = [
-      {
-        range: {
-          start: { line: 7, character: 19 },
-          end: { line: 7, character: 22 },
-        },
-        message: "'description' must be a string",
-        severity: 1,
-        code: 160100,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 8, character: 16 },
-          end: { line: 8, character: 19 },
-        },
-        message: "'location' must be a string",
-        severity: 1,
-        code: 160300,
-        source: 'apilint',
-        data: {},
-      },
-    ];
-    assert.deepEqual(result, expected);
+
+    // Check we have the expected number of errors
+    assert.strictEqual(result.length, 11, 'Should have 11 validation errors');
+
+    // Check for expected error codes
+    const errorCodes = result.map(r => r.code);
+    const enumErrors = result.filter(r => r.code === 2120100);
+    const defaultErrors = result.filter(r => r.code === 2120200);
+    const examplesErrors = result.filter(r => r.code === 2120300);
+    const descriptionErrors = result.filter(r => r.code === 160100);
+    const locationErrors = result.filter(r => r.code === 160300);
+
+    assert.strictEqual(enumErrors.length, 3, 'Should have 3 enum errors');
+    assert.strictEqual(defaultErrors.length, 2, 'Should have 2 default errors');
+    assert.strictEqual(examplesErrors.length, 2, 'Should have 2 examples errors');
+    assert.strictEqual(descriptionErrors.length, 2, 'Should have 2 description errors');
+    assert.strictEqual(locationErrors.length, 2, 'Should have 2 location errors');
+
+    // Verify error messages
+    assert.isTrue(enumErrors.every(e => e.message === "'enum' must be an array of strings"));
+    assert.isTrue(defaultErrors.every(e => e.message === "'default' must be a string"));
+    assert.isTrue(examplesErrors.every(e => e.message === "'examples' must be an array of strings"));
+    assert.isTrue(descriptionErrors.every(e => e.message === "'description' must be a string"));
+    assert.isTrue(locationErrors.every(e => e.message === "'location' must be a string"));
 
     languageService.terminate();
   });

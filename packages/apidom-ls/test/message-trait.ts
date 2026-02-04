@@ -28,6 +28,18 @@ const specMessageTraitHeadersType = fs
   )
   .toString();
 
+const specMessageTraitAllowedFields = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'message-trait-allowed-fields-3-0.yaml',
+    ),
+  )
+  .toString();
+
 describe('asyncapi message trait test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -69,5 +81,30 @@ describe('asyncapi message trait test', function () {
       "'headers' must be a Multi Format Schema Object or a Schema Object",
     );
     assert.strictEqual(headersTypeError?.severity, DiagnosticSeverity.Error);
+  });
+
+  it('test message trait allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-trait-allowed-fields.yaml',
+      'yaml',
+      0,
+      specMessageTraitAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.isAtLeast(result.length, 3);
+
+    const notAllowedErrors = result.filter(
+      (diagnostic) => diagnostic.message === 'Object includes not allowed fields',
+    );
+    assert.isAtLeast(notAllowedErrors.length, 1);
+    assert.strictEqual(notAllowedErrors[0].severity, DiagnosticSeverity.Error);
   });
 });

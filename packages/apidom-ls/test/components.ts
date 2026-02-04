@@ -26,13 +26,25 @@ const specComponentsFields = fs
 
 const specComponentsChannelsValuesType = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'components-channels-values-type-3-0.yaml'),
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'components-channels-values-type-3-0.yaml',
+    ),
   )
   .toString();
 
 const specComponentsAllowedFields = fs
   .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'components-allowed-fields-3-0.yaml'),
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'components-allowed-fields-3-0.yaml',
+    ),
   )
   .toString();
 
@@ -221,10 +233,7 @@ describe('asyncapi components test', function () {
     const channelsError = result.find((r) => r.code === 2110200);
     assert.isDefined(channelsError, 'Should have channels values type error');
     assert.strictEqual(channelsError?.code, 2110200);
-    assert.strictEqual(
-      channelsError?.message,
-      '"channels" members must be Channel Object',
-    );
+    assert.strictEqual(channelsError?.message, '"channels" members must be Channel Object');
     assert.strictEqual(channelsError?.severity, DiagnosticSeverity.Error);
   });
 

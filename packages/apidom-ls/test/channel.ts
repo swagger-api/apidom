@@ -28,6 +28,12 @@ const specServersEmptyDash = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'servers-empty-dash.yaml'))
   .toString();
 
+const specChannelAllowedFields = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-allowed-fields-3-0.yaml'),
+  )
+  .toString();
+
 const specBindingsEmpty = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'bindings-empty.yaml'))
   .toString();
@@ -37,9 +43,7 @@ const specChannelLint = fs
   .toString();
 
 const specChannelFields = fs
-  .readFileSync(
-    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-fields.yaml'),
-  )
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'channel-fields.yaml'))
   .toString();
 
 describe('asyncapi channel test', function () {
@@ -597,5 +601,30 @@ describe('asyncapi channel test', function () {
       },
       targetSpecs: AsyncAPI3,
     } as any);
+  });
+
+  it('test channel allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-allowed-fields.yaml',
+      'yaml',
+      0,
+      specChannelAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.isAtLeast(result.length, 3);
+
+    const notAllowedErrors = result.filter(
+      (diagnostic) => diagnostic.message === 'Object includes not allowed fields',
+    );
+    assert.isAtLeast(notAllowedErrors.length, 1);
+    assert.strictEqual(notAllowedErrors[0].severity, DiagnosticSeverity.Error);
   });
 });

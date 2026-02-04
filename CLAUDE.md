@@ -240,6 +240,8 @@ When modifying core packages, expect cascading build requirements in dependent p
 
 This section provides guidelines for implementing lint validation rules in `packages/apidom-ls/src/config/` for API specifications. These practices were developed from lessons learned in PR #5104 and other implementations.
 
+**⚠️ MANDATORY REQUIREMENT**: Every new lint rule MUST have corresponding test coverage. Lint rules without tests are incomplete and will not be merged. This is non-negotiable.
+
 ### Critical Rules (⚠️ Read This First)
 
 #### 1. Never Create Empty Stubs
@@ -359,7 +361,51 @@ For `OperationReplyAddress`:
 - ✅ `$ref--no-siblings.ts` (added after review)
 - ✅ `$ref--valid.ts` (added after review)
 
-#### 6. Follow Consistent Naming and Messaging
+#### 6. Always Write Tests for New Lint Rules
+
+**Rule**: Every new lint rule MUST have corresponding test coverage before the PR is considered complete.
+
+**❌ WRONG: Implementing lint rules without tests**
+```typescript
+// Created new lint rule in operation/lint/action--required.ts
+// ❌ No test file created
+// ❌ No test fixtures added
+```
+
+**✅ CORRECT: Implementing lint rules with comprehensive tests**
+```typescript
+// 1. Created lint rule: operation/lint/action--required.ts
+// 2. Created test fixtures: test/fixtures/validation/asyncapi/operation-action-required-3-0.yaml
+// 3. Created/updated test file: test/operation.ts with test cases
+// 4. Verified tests pass: npm run test
+```
+
+**Test coverage requirements:**
+- **Valid cases**: Document should pass validation without errors
+- **Invalid cases**: Document should trigger the specific error code
+- **Edge cases**: Empty values, wrong types, conditional cases (with/without $ref)
+- **QuickFix validation**: If quickFix is provided, test that it works correctly
+
+**Test location:**
+- Test fixtures: `packages/apidom-ls/test/fixtures/validation/{spec}/`
+- Test files: `packages/apidom-ls/test/{object-name}.ts`
+
+**Example test structure:**
+```typescript
+describe('operation', function () {
+  context('given asyncapi 3.0.0 document with missing required action field', function () {
+    it('should return validation error', async function () {
+      const diagnostics = await validator.doValidation(/* ... */);
+      assert.strictEqual(diagnostics.length, 1);
+      assert.strictEqual(diagnostics[0].code, ApilintCodes.ASYNCAPI3_OPERATION_FIELD_ACTION_REQUIRED);
+    });
+  });
+});
+```
+
+**CRITICAL**: Tests are NOT optional. Lint rules without tests will not be merged.
+
+#### 7. Follow Consistent Naming and Messaging
 
 **Rule**: Match error messages and naming conventions from similar existing rules.
 
@@ -400,6 +446,7 @@ Before writing ANY lint rule code:
 
 For each lint rule:
 
+**Lint Rule Implementation:**
 - [ ] Add error code to `codes.ts` with appropriate number
 - [ ] Set correct `code` from `ApilintCodes`
 - [ ] Set `source: 'apilint'`
@@ -413,13 +460,29 @@ For each lint rule:
 - [ ] Set `targetSpecs` to correct version array
 - [ ] Add import to `index.ts`
 - [ ] Add to lints array in `index.ts`
+
+**Test Implementation (REQUIRED):**
+- [ ] Create test fixture(s) in `test/fixtures/validation/{spec}/`
+  - [ ] Valid case fixture (should pass validation)
+  - [ ] Invalid case fixture (should trigger error)
+  - [ ] Edge case fixtures (conditional scenarios, type variations)
+- [ ] Create or update test file in `test/{object-name}.ts`
+  - [ ] Test that valid cases pass without errors
+  - [ ] Test that invalid cases trigger the correct error code
+  - [ ] Test error message matches expected message
+  - [ ] Test that quickFix works (if applicable)
+- [ ] Run `npm run test` in `packages/apidom-ls` to verify tests pass
+
+**Build & Quality Checks:**
 - [ ] Run `npm run build` to verify no errors
+- [ ] Run `npm run typescript:check-types` to verify types
 - [ ] Run `npm run lint` to verify code style
 
 ### Common Mistakes and Prevention
 
 | Mistake | Why It Happens | Prevention |
 |---------|----------------|------------|
+| **No tests written** | **Treating tests as optional** | **Tests are MANDATORY - write them first or immediately after lint rule** |
 | Empty stub files | Rushed file structure creation | Use checklist, never commit unfinished files |
 | Including 'reference' in params | Misunderstanding refractor metadata | Read how reference detection works |
 | Custom functions for $ref conditions | Not finding existing patterns | Search for similar implementations first |
@@ -428,6 +491,7 @@ For each lint rule:
 | Wrong linter function | Not understanding function purposes | Review linter function table |
 | Redundant type checks | Not understanding required vs type | Check if required validation already exists |
 | Missing fields | Not reading full spec | Create comprehensive field list from spec |
+| Incomplete test coverage | Only testing happy path | Test valid, invalid, edge cases, and quickFix |
 
 ### Validation Rule Patterns
 
@@ -608,6 +672,7 @@ ASYNCAPI3_OPERATION_FIELD_CHANNEL_REQUIRED,
 
 Final verification checklist:
 
+**Code Completeness:**
 - [ ] NO empty stub files remain
 - [ ] ALL new error codes added to `codes.ts`
 - [ ] ALL lint rules fully implemented (not just targetSpecs)
@@ -615,11 +680,23 @@ Final verification checklist:
 - [ ] Consistent error messages matching existing patterns
 - [ ] NO redundant 'reference' in linterParams
 - [ ] Conditional logic uses `conditions`, not custom functions
-- [ ] Referenceable objects have $ref validation rules
+- [ ] Referenceable objects have $ref validation rules ($ref--no-siblings.ts and $ref--valid.ts)
+
+**Test Coverage (MANDATORY):**
+- [ ] ✅ **ALL new lint rules have test coverage** (non-negotiable)
+- [ ] Test fixtures created for valid, invalid, and edge cases
+- [ ] Test files created or updated with comprehensive test cases
+- [ ] All tests pass: `npm run test` in `packages/apidom-ls`
+- [ ] Tests verify correct error codes are triggered
+- [ ] Tests verify error messages match expectations
+- [ ] QuickFix tests included (if applicable)
+
+**Build & Quality:**
 - [ ] `npm run build` succeeds
 - [ ] `npm run typescript:check-types` passes
 - [ ] `npm run lint` passes
-- [ ] Tests created for new rules (or documented as future work)
+
+**Remember**: PRs with lint rules but no tests will be rejected. Testing is not optional.
 
 ### Key Principle
 

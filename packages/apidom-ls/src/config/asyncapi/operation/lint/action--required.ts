@@ -12,6 +12,12 @@ const actionRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['action'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

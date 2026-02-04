@@ -1,0 +1,29 @@
+asyncapi: 3.0.0
+info:
+  title: Test Spec
+  version: 1.0.0
+channels:
+  userSignup:
+    address: /users
+operations:
+  # Valid reference - should have no errors
+  validRefOperation:
+    $ref: '#/components/operations/SendUser'
+
+  # Invalid $ref - has sibling fields (should trigger warning)
+  invalidRefWithSiblings:
+    $ref: '#/components/operations/SendUser'
+    action: send
+    channel:
+      $ref: '#/channels/userSignup'
+
+  # Invalid $ref - not a valid URI (should trigger error)
+  invalidRefUri:
+    $ref: 'not a valid uri!@#$%'
+
+components:
+  operations:
+    SendUser:
+      action: send
+      channel:
+        $ref: '#/channels/userSignup'

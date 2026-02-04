@@ -12,6 +12,12 @@ const channelRequiredLint: LinterMeta = {
   linterFunction: 'hasRequiredField',
   linterParams: ['channel'],
   marker: 'key',
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['$ref'],
+    },
+  ],
   data: {
     quickFix: [
       {

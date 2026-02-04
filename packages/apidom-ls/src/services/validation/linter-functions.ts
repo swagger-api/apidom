@@ -241,8 +241,8 @@ export const standardLinterfunctions: FunctionItem[] = [
               const included = keys.includes(parentKey);
               const isExtension =
                 allowExtensionPrefix !== undefined &&
-                typeof toValue(parentKey) === 'string' &&
-                toValue(parentKey as Element).startsWith(allowExtensionPrefix);
+                typeof parentKey === 'string' &&
+                parentKey.startsWith(allowExtensionPrefix);
               return !included && (allowExtensionPrefix === undefined || !isExtension);
             },
             {

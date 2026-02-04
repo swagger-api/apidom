@@ -11,17 +11,9 @@ operations:
     channel:
       $ref: '#/channels/testChannel'
     reply:
-      # Valid - address is an object
-      address:
-        location: $message.header#/replyTo
-      # Valid - channel is a reference
-      channel:
-        $ref: '#/channels/testChannel'
-      # Valid - messages is an array
-      messages:
-        - $ref: '#/components/messages/testMessage'
-components:
-  messages:
-    testMessage:
-      payload:
-        type: object
+      # Invalid - address should be an Operation Reply Address Object or Reference, not a string
+      address: invalid_string
+      # Invalid - channel should be a Reference Object or Channel Object, not a number
+      channel: 123
+      # Invalid - messages should be an array, not a string
+      messages: invalid_string

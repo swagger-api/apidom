@@ -1551,12 +1551,13 @@ export const standardLinterfunctions: FunctionItem[] = [
         return true;
       }
 
-      // Get the address field value
+      // Get the address field
       const addressMember = element.get('address');
       if (!addressMember || !isStringElement(addressMember)) {
         return true;
       }
 
+      // Extract value only after type check
       const addressValue = toValue(addressMember);
 
       // Check if address contains Channel Address Expressions (e.g., {userId})
@@ -1579,6 +1580,19 @@ export const standardLinterfunctions: FunctionItem[] = [
         return true;
       }
 
+      // Get the channel element (parent of address member) BEFORE expensive operations
+      const channelElement = element.parent?.parent;
+      if (!channelElement || channelElement.element !== 'channel' || !isObject(channelElement)) {
+        return true;
+      }
+
+      // Get the parameters object BEFORE running regex
+      const parametersElement = channelElement.get('parameters');
+      if (!parametersElement || !isObject(parametersElement)) {
+        return true;
+      }
+
+      // Now safe to extract value and run regex (only if parameters exist)
       const addressValue = toValue(element);
 
       // Extract all Channel Address Expressions from the address
@@ -1591,18 +1605,6 @@ export const standardLinterfunctions: FunctionItem[] = [
       }
 
       if (expressions.length === 0) {
-        return true;
-      }
-
-      // Get the channel element (parent of address member)
-      const channelElement = element.parent?.parent;
-      if (!channelElement || channelElement.element !== 'channel' || !isObject(channelElement)) {
-        return true;
-      }
-
-      // Get the parameters object
-      const parametersElement = channelElement.get('parameters');
-      if (!parametersElement || !isObject(parametersElement)) {
         return true;
       }
 

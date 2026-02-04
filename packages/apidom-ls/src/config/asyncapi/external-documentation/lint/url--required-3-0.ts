@@ -8,7 +8,7 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const urlRequired3_0Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_EXTERNAL_DOCUMENTATION_FIELD_URL_REQUIRED,
   source: 'apilint',
-  message: "must contain 'url' field",
+  message: "should always have a 'url'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['url'],

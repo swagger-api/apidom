@@ -7,7 +7,7 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const locationRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_REPLY_ADDRESS_FIELD_LOCATION_REQUIRED,
   source: 'apilint',
-  message: "must contain 'location' field",
+  message: "should always have a 'location'",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['location'],

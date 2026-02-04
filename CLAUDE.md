@@ -242,6 +242,62 @@ This section provides guidelines for implementing lint validation rules in `pack
 
 **⚠️ MANDATORY REQUIREMENT**: Every new lint rule MUST have corresponding test coverage. Lint rules without tests are incomplete and will not be merged. This is non-negotiable.
 
+### The Golden Path (Follow This Workflow!)
+
+This workflow prevents 95% of common mistakes:
+
+1. **🔍 FIND similar existing rules** (2-3 examples)
+   ```bash
+   find packages/apidom-ls/src/config -name "*--required*.ts" | head -3
+   ```
+
+2. **📖 READ the similar rules** completely
+   - Note the message pattern
+   - Note the linter function used
+   - Note the file naming convention
+   - Note how conditions are used
+
+3. **📋 COPY one similar rule** as your starting point
+   - Don't write from scratch!
+   - Keep the structure identical
+
+4. **✏️ MODIFY only what's necessary**
+   - Change field names
+   - Change error codes
+   - Update targetSpecs if needed
+   - Keep message patterns identical (just change field names)
+
+5. **✅ VERIFY completeness**
+   - Error code in codes.ts
+   - All required fields populated
+   - No unnecessary comments
+   - File name follows pattern
+
+6. **🧪 WRITE tests immediately**
+   - Create test fixtures
+   - Write test cases
+   - Run tests to verify
+
+7. **🔨 BUILD and verify**
+   ```bash
+   npm run build
+   npm run lint
+   npm run test
+   ```
+
+**Example: Adding a new required field validation**
+
+```bash
+# 1. Find similar example
+grep -r "hasRequiredField" packages/apidom-ls/src/config/asyncapi/*/lint/*--required*.ts | head -1
+
+# 2. Open that file, copy it completely
+
+# 3. Modify only: field name, error code, target specs
+
+# 4. Done! That's it. No need to reinvent anything.
+```
+
 ### Critical Rules (⚠️ Read This First)
 
 #### 1. Never Create Empty Stubs
@@ -282,24 +338,34 @@ const allowedFields3_0Lint: LinterMeta = {
 - [ ] Marker specified ('key' or 'value')
 - [ ] targetSpecs set to correct version array
 
-#### 2. Check Similar Implementations FIRST
+#### 2. Check Similar Implementations FIRST (MOST IMPORTANT!)
 
-**Rule**: Before implementing any lint rule, find and read 2-3 similar existing rules.
+**Rule**: Before implementing any lint rule, find and read 2-3 similar existing rules. This is the SINGLE MOST IMPORTANT step to prevent most common mistakes.
+
+**⚠️ CRITICAL**: Do NOT write code from scratch. Always start by copying a similar existing rule and modifying it.
 
 **Process:**
 ```bash
-# Find similar rules
+# Find similar rules - DO THIS FIRST!
 find packages/apidom-ls/src/config -name "*--required*.ts" | head -3
 find packages/apidom-ls/src/config -name "*--type*.ts" | head -3
 ```
 
-**What to check:**
-- Error message patterns
+**What to check and COPY:**
+- Error message patterns (COPY the exact pattern, just change field names)
 - Linter function choice
 - Linter params structure
 - Use of conditions
 - QuickFix implementation
 - How references are handled
+- File naming conventions
+
+**Why this prevents 95% of issues:**
+- Ensures consistent error messages
+- Avoids reinventing patterns
+- Follows established naming conventions
+- Uses correct linter functions
+- Prevents over-engineering
 
 #### 3. Don't Redundantly Check References
 
@@ -405,17 +471,75 @@ describe('operation', function () {
 
 **CRITICAL**: Tests are NOT optional. Lint rules without tests will not be merged.
 
-#### 7. Follow Consistent Naming and Messaging
+#### 7. Avoid Unnecessary Comments in Lint Rules
 
-**Rule**: Match error messages and naming conventions from similar existing rules.
+**Rule**: Lint rules should be self-documenting. Avoid explanatory comments unless absolutely necessary.
 
-**Message Patterns:**
-| Type | Pattern | Example |
-|------|---------|---------|
-| Required field | `"should always have a '{field}'"` | `"should always have a 'name'"` |
-| Type validation | `"'{field}' must be a {type}"` | `"'location' must be a string"` |
-| Object shape | `"{Object} values must be of {Type} shape"` | `"Operations Object values must be of Operation Object shape"` |
-| Reference ignored | `'All other properties in a "$ref" object are ignored'` | (constant message) |
+**❌ WRONG: Over-documenting obvious validation**
+```typescript
+// In AsyncAPI 3.0.0, Parameter Object does not have a 'schema' field
+// The 'default' field is always of type string
+// See: https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject
+const defaultTypeLint: LinterMeta = {
+  message: "'default' must be a string",
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  // ...
+};
+```
+
+**✅ CORRECT: Let the code speak**
+```typescript
+const defaultTypeLint: LinterMeta = {
+  message: "'default' must be a string",
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  // ...
+};
+```
+
+**When comments ARE acceptable:**
+- Complex conditional logic that's not obvious
+- Temporary workarounds with TODO/FIXME
+- Links to specification sections for unusual rules
+
+**Why avoid comments:**
+- They become outdated as code changes
+- They add noise to straightforward validation code
+- The error message and linter function already document what's happening
+
+#### 8. Follow Consistent Naming and Messaging
+
+**Rule**: Match error messages and naming conventions from similar existing rules. COPY-PASTE patterns, don't reinvent them.
+
+**File Naming Conventions:**
+
+Follow the simple pattern `{field}--{validation-type}.ts` or `{field}--{validation-type}-{version}.ts`:
+
+| Pattern | Example | DON'T use |
+|---------|---------|-----------|
+| `{field}--required.ts` | `name--required.ts` | ❌ `name--required-when-no-ref.ts` |
+| `{field}--required-{version}.ts` | `name--required-3-0.ts` | ❌ `name--required-unless-ref-3-0.ts` |
+| `{field}--type.ts` | `location--type.ts` | ❌ `location--type-must-be-string.ts` |
+| `allowed-fields-{version}.ts` | `allowed-fields-3-0.ts` | ❌ `allowed-fields-for-async-3.ts` |
+
+**Why simple names:**
+- Conditions are expressed in the code, not the filename
+- Follows established patterns across the codebase
+- Easier to find and maintain
+
+**Message Patterns (COPY these exactly!):**
+| Type | Pattern | Example | DON'T use |
+|------|---------|---------|-----------|
+| Required field | `"should always have a '{field}'"` | `"should always have a 'name'"` | ❌ `"must contain 'name' field"` |
+| Type validation | `"'{field}' must be a {type}"` | `"'location' must be a string"` | ❌ `"location value must be a string type"` |
+| Object shape | `"{Object} values must be of {Type} shape"` | `"Operations Object values must be of Operation Object shape"` | ❌ `"operations members must be Operation Object"` |
+| Reference ignored | `'All other properties in a "$ref" object are ignored'` | (exact constant message) | ❌ Any variation |
+
+**How to ensure consistency:**
+1. Find a similar existing rule with `find` or `grep`
+2. Open that file and COPY the message pattern
+3. Only change the field/type names, keep the structure identical
 
 **Linter Function Selection:**
 | Validation Need | Linter Function | Params Example |
@@ -483,10 +607,13 @@ For each lint rule:
 | Mistake | Why It Happens | Prevention |
 |---------|----------------|------------|
 | **No tests written** | **Treating tests as optional** | **Tests are MANDATORY - write them first or immediately after lint rule** |
+| **Not checking existing rules first** | **Writing code from scratch** | **ALWAYS find and read 2-3 similar rules BEFORE coding** |
+| Inconsistent error messages | Writing messages from scratch instead of copying | Find similar rule, COPY the message pattern exactly |
+| File naming too verbose | Being overly descriptive | Use simple pattern: `{field}--{type}.ts` not `{field}--{long-description}.ts` |
+| Unnecessary comments in code | Over-documenting straightforward validation | Let code be self-documenting, avoid explanatory comments |
 | Empty stub files | Rushed file structure creation | Use checklist, never commit unfinished files |
 | Including 'reference' in params | Misunderstanding refractor metadata | Read how reference detection works |
 | Custom functions for $ref conditions | Not finding existing patterns | Search for similar implementations first |
-| Inconsistent messages | Not checking existing rules | Copy message patterns from similar rules |
 | Missing $ref validations | Not checking if object is referenceable | Read spec, check if object can have $ref |
 | Wrong linter function | Not understanding function purposes | Review linter function table |
 | Redundant type checks | Not understanding required vs type | Check if required validation already exists |
@@ -697,6 +824,112 @@ Final verification checklist:
 - [ ] `npm run lint` passes
 
 **Remember**: PRs with lint rules but no tests will be rejected. Testing is not optional.
+
+### Lessons Learned from PR #5104 (Real-World Example)
+
+This section documents actual issues found in PR #5104 and how they were fixed. Use this as a learning resource.
+
+#### Issue 1: Unnecessary Comments
+
+**What happened:**
+```typescript
+// ❌ WRONG - PR #5104
+// In AsyncAPI 3.0.0, Parameter Object does not have a 'schema' field
+// The 'default' field is always of type string
+// See: https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject
+const defaultTypeLint: LinterMeta = { /* ... */ };
+```
+
+**Why it was wrong:**
+- Over-documentation of straightforward validation
+- Comments add noise and can become outdated
+- The code itself (message + linterFunction) already documents what it does
+
+**How it was fixed:**
+```typescript
+// ✅ CORRECT - After fix
+const defaultTypeLint: LinterMeta = {
+  message: "'default' must be a string",
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  // ...
+};
+```
+
+**Lesson:** Let lint rules be self-documenting. The error message and linter function explain what's validated.
+
+#### Issue 2: Inconsistent Error Messages
+
+**What happened:**
+```typescript
+// ❌ WRONG - PR #5104
+message: "must contain 'url' field",  // Different pattern!
+message: "must contain 'location' field",  // Different pattern!
+```
+
+**Why it was wrong:**
+- Not following the established pattern "should always have a '{field}'"
+- Writing messages from scratch instead of copying from similar rules
+
+**How it was fixed:**
+```typescript
+// ✅ CORRECT - After fix
+message: "should always have a 'url'",
+message: "should always have a 'location'",
+```
+
+**Lesson:** ALWAYS find a similar rule first and COPY the exact message pattern. Just change the field name.
+
+#### Issue 3: File Naming Too Verbose
+
+**What happened:**
+```
+❌ WRONG - PR #5104
+parameters--required-when-address-has-expressions.ts
+```
+
+**Why it was wrong:**
+- Not following the simple `{field}--required.ts` pattern
+- Being overly descriptive in filename
+- Conditions are expressed in the code, not the filename
+
+**How it was fixed:**
+```
+✅ CORRECT - After fix
+parameters--required.ts
+```
+
+**Lesson:** Use simple file naming patterns. The conditional logic is in the code via `conditions` field, not the filename.
+
+#### Issue 4: Not Checking Existing Rules First
+
+**What happened:**
+- Multiple lint rules had minor inconsistencies
+- Messages didn't match established patterns
+- File naming varied from conventions
+
+**Root cause:**
+- Implementing from scratch instead of copying existing similar rules
+- Not using the "find similar rules first" workflow
+
+**How it was prevented:**
+- Added "Golden Path" workflow (see above)
+- Emphasized COPY-PASTE approach in all guidance
+- Made "Check Similar Implementations FIRST" the #1 critical rule
+
+**Lesson:** The single most important step is finding and reading 2-3 similar existing rules BEFORE writing any code.
+
+#### Summary of PR #5104 Review Process
+
+**Initial PR:** 14 review comments
+
+**Issues found:**
+- 5 actual code issues (comments, messages, naming)
+- 9 items already correct (previous iterations fixed them)
+
+**Time to fix:** ~30 minutes (after learning the patterns)
+
+**Key takeaway:** Following the established patterns from the start would have prevented all 5 issues. The "Golden Path" workflow now codifies this approach.
 
 ### Key Principle
 

@@ -159,7 +159,10 @@ describe('asyncapi operation test', function () {
     // Find the $ref with siblings error (warning)
     const refSiblingsError = result.find((r) => r.code === 2080701);
     assert.isDefined(refSiblingsError, 'Should have $ref no siblings warning');
-    assert.strictEqual(refSiblingsError?.message, 'All other properties in a "$ref" object are ignored');
+    assert.strictEqual(
+      refSiblingsError?.message,
+      'All other properties in a "$ref" object are ignored',
+    );
     assert.strictEqual(refSiblingsError?.severity, DiagnosticSeverity.Warning);
     assert.strictEqual(refSiblingsError?.range.start.line, 13);
   });
@@ -211,6 +214,10 @@ describe('asyncapi operation test', function () {
 
     // Verify that refOperation (with $ref) does NOT trigger required field errors
     const refOperationErrors = result.filter((r) => r.range.start.line === 27);
-    assert.strictEqual(refOperationErrors.length, 0, 'Operation with $ref should not have required field errors');
+    assert.strictEqual(
+      refOperationErrors.length,
+      0,
+      'Operation with $ref should not have required field errors',
+    );
   });
 });

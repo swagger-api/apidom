@@ -12,7 +12,7 @@ import titleTypeLint from './title--type.ts';
 import summaryTypeLint from './summary--type.ts';
 import tagsTypeLint from './tags--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
-import parametersRequiredWhenAddressHasExpressionsLint from './parameters--required-when-address-has-expressions.ts';
+import parametersRequiredLint from './parameters--required.ts';
 import addressExpressionsDefinedInParametersLint from './address-expressions--defined-in-parameters.ts';
 
 const lints = [
@@ -30,7 +30,7 @@ const lints = [
   summaryTypeLint,
   tagsTypeLint,
   externalDocsTypeLint,
-  parametersRequiredWhenAddressHasExpressionsLint,
+  parametersRequiredLint,
   addressExpressionsDefinedInParametersLint,
 ];
 

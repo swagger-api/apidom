@@ -54,7 +54,7 @@ describe('asyncapi operation reply test', function () {
           start: { line: 14, character: 15 },
           end: { line: 14, character: 29 },
         },
-        message: "'address' must be an Operation Reply Address Object or Reference Object",
+        message: "'address' must be an object",
         severity: 1,
         code: 2030100,
         source: 'apilint',
@@ -65,7 +65,7 @@ describe('asyncapi operation reply test', function () {
           start: { line: 16, character: 15 },
           end: { line: 16, character: 18 },
         },
-        message: "'channel' must be a Reference Object",
+        message: "'channel' must be an object",
         severity: 1,
         code: 2030200,
         source: 'apilint',
@@ -87,7 +87,7 @@ describe('asyncapi operation reply test', function () {
           start: { line: 28, character: 8 },
           end: { line: 28, character: 42 },
         },
-        message: "'address' must be an Operation Reply Address Object or Reference Object",
+        message: "'address' must be an object",
         severity: 1,
         code: 2030100,
         source: 'apilint',
@@ -95,14 +95,23 @@ describe('asyncapi operation reply test', function () {
       },
       {
         range: {
-          start: { line: 25, character: 6 },
-          end: { line: 25, character: 10 },
+          start: { line: 23, character: 4 },
+          end: { line: 23, character: 9 },
         },
-        message: "'$ref' should not have siblings",
-        severity: 1,
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
         code: 2030401,
         source: 'apilint',
-        data: {},
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
       },
     ] as Diagnostic[]);
 

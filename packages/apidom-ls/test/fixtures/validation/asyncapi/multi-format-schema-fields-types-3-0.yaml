@@ -8,11 +8,7 @@ channels:
     messages:
       testMessage:
         payload:
-          # Valid - schemaFormat is a string
-          schemaFormat: application/vnd.apache.avro;version=1.9.0
+          # Invalid - schemaFormat should be a string, not a number
+          schemaFormat: 123
           schema:
-            type: record
-            name: User
-            fields:
-              - name: username
-                type: string
+            type: object

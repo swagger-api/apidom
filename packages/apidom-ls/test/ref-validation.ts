@@ -16,7 +16,7 @@ import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const specExternalDocsRefValid = fs
+const specExternalDocsRef = fs
   .readFileSync(
     path.join(
       __dirname,
@@ -54,10 +54,10 @@ describe('asyncapi ref validation test', function () {
     };
 
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/external-docs-ref-valid.yaml',
+      'foo://bar/external-docs-ref.yaml',
       'yaml',
       0,
-      specExternalDocsRefValid,
+      specExternalDocsRef,
     );
 
     const result = await languageService.doValidation(doc, validationContext);

@@ -141,36 +141,76 @@ Before implementing validation for any object:
 
 ### 8. Testing Best Practices
 
-When writing tests:
+**⚠️ CRITICAL**: Always use comprehensive `assert.deepEqual` comparisons for validation tests. This was explicitly requested in PR #5104 review.
 
-- **Use comprehensive assertions**: Compare full diagnostic objects when possible, not just individual properties
+#### The Preferred Pattern (ALWAYS Use This)
+
+Create a complete `expected` array with all diagnostic objects fully specified:
+
+```typescript
+const result = await languageService.doValidation(doc);
+const expected: Diagnostic[] = [
+  {
+    range: {
+      start: { line: 10, character: 14 },
+      end: { line: 10, character: 28 },
+    },
+    message: "'enum' must be an array of strings",
+    severity: 1,
+    code: 2120100,
+    source: 'apilint',
+    data: {},
+  },
+  // ... more diagnostics
+];
+assert.deepEqual(result, expected);
+```
+
+#### What NOT to Do
+
+**❌ WRONG: Selective property checking**
+```typescript
+// Don't filter and check individual properties
+assert.strictEqual(result.length, 11);
+const enumErrors = result.filter((r) => r.code === 2120100);
+assert.strictEqual(enumErrors.length, 3);
+assert.isTrue(enumErrors.every((e) => e.message === "'enum' must be an array of strings"));
+```
+
+**❌ WRONG: Checking only some properties**
+```typescript
+// Don't check only code without message, range, etc.
+assert.strictEqual(result[0].code, 2080101);
+assert.strictEqual(result[0].message, "should always have an 'action'");
+// Missing range, severity, source, data checks!
+```
+
+#### Why Comprehensive Comparison Matters
+
+1. **Catches regressions**: Ensures all diagnostic properties remain correct (range, message, code, severity, source, data)
+2. **Documents expected behavior**: The expected array serves as complete documentation
+3. **Reviewer preference**: Explicitly requested in PR reviews to use full `deepEqual` comparisons
+4. **Prevents partial validation**: Ensures you're not missing important diagnostic properties
+
+#### Getting Exact Diagnostic Values
+
+When writing a new test, temporarily log the actual result to get exact values:
+
+```typescript
+const result = await languageService.doValidation(doc);
+console.log(JSON.stringify(result, null, 2));  // Remove after copying values
+const expected: Diagnostic[] = [ /* paste actual values here */ ];
+assert.deepEqual(result, expected);
+```
+
+Run the test, copy the JSON output, paste it as your `expected` array, then remove the console.log.
+
+#### Test Coverage Requirements
+
 - **Test both valid and invalid cases**: Ensure validation passes for valid specs and fails for invalid ones
 - **Test edge cases**: Empty values, wrong types, conditional validations
 - **Avoid redundant fixtures**: Each fixture should test a distinct scenario
-
-**Preferred (comprehensive):**
-```typescript
-assert.deepEqual(diagnostics[0], {
-  code: ApilintCodes.ASYNCAPI3_OPERATION_FIELD_MESSAGES_TYPE,
-  message: "'messages' must be an array of Message Objects",
-  severity: DiagnosticSeverity.Error,
-  range: expectedRange,
-  source: 'apilint',
-});
-```
-
-**Acceptable (when range/source may vary):**
-```typescript
-assert.strictEqual(diagnostics[0].code, ApilintCodes.ASYNCAPI3_OPERATION_FIELD_MESSAGES_TYPE);
-assert.strictEqual(diagnostics[0].message, "'messages' must be an array of Message Objects");
-assert.strictEqual(diagnostics[0].severity, DiagnosticSeverity.Error);
-```
-
-**Avoid (too selective):**
-```typescript
-assert.strictEqual(diagnostics[0].code, ApilintCodes.ASYNCAPI3_OPERATION_FIELD_MESSAGES_TYPE);
-// Missing other property assertions
-```
+- **Use descriptive test names**: Clearly indicate what scenario is being tested
 
 ## Common Pitfalls from PR #5104
 
@@ -209,6 +249,37 @@ grep "this.element = " packages/apidom-ns-openapi-3-1/src/elements/Info.ts
 **Problem**: `hasRequiredFieldUnlessRef` function was defined but never used; replaced by `hasRequiredField` with `conditions`.
 
 **Solution**: Before submitting PR, grep for usage of any custom linter functions you're considering keeping.
+
+### Issue 5: Selective Test Assertions Instead of Comprehensive Comparison
+
+**Problem**: Tests used selective property checking (filtering by error code, checking individual properties) instead of comprehensive `assert.deepEqual` comparison.
+
+**Example of wrong approach:**
+```typescript
+// ❌ WRONG
+assert.strictEqual(result.length, 11);
+const enumErrors = result.filter((r) => r.code === 2120100);
+assert.strictEqual(enumErrors.length, 3);
+```
+
+**Correct approach:**
+```typescript
+// ✅ CORRECT
+const expected: Diagnostic[] = [
+  {
+    range: { start: { line: 9, character: 6 }, end: { line: 9, character: 12 } },
+    message: "'enum' must be an array of strings",
+    severity: 1,
+    code: 2120100,
+    source: 'apilint',
+    data: {},
+  },
+  // ... all other diagnostics
+];
+assert.deepEqual(result, expected);
+```
+
+**Solution**: Always use comprehensive `assert.deepEqual(result, expected)` with complete diagnostic objects. See Section 8 for detailed guidance.
 
 ## Quick Reference: Common Element Types
 

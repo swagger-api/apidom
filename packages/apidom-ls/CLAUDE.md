@@ -13,6 +13,7 @@ The `apidom-ls` package provides LSP (Language Server Protocol) compliant langua
 **ALWAYS check the official specification** before implementing validation rules.
 
 **Specification Resources:**
+- **OpenAPI 3.2**: https://spec.openapis.org/oas/v3.2.0
 - **OpenAPI 3.1**: https://spec.openapis.org/oas/v3.1.0
 - **OpenAPI 3.0**: https://spec.openapis.org/oas/v3.0.3
 - **AsyncAPI 3.0**: https://www.asyncapi.com/docs/reference/specification/v3.0.0

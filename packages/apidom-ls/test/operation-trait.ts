@@ -66,7 +66,7 @@ describe('asyncapi operation trait test', function () {
     assert.strictEqual(securityItemsError?.code, 2170100);
     assert.strictEqual(
       securityItemsError?.message,
-      'security must be an array of Security Requirement Objects',
+      'security must be an array of Security Scheme Objects',
     );
     assert.strictEqual(securityItemsError?.severity, DiagnosticSeverity.Error);
   });

@@ -9704,31 +9704,130 @@ describe('apidom-ls-validate', function () {
     const languageService: LanguageService = getLanguageService(contextNoSchema);
 
     const result = await languageService.doValidation(doc);
-
-    // Check we have the expected number of errors
-    assert.strictEqual(result.length, 11, 'Should have 11 validation errors');
-
-    // Check for expected error codes
-    const enumErrors = result.filter((r) => r.code === 2120100);
-    const defaultErrors = result.filter((r) => r.code === 2120200);
-    const examplesErrors = result.filter((r) => r.code === 2120300);
-    const descriptionErrors = result.filter((r) => r.code === 160100);
-    const locationErrors = result.filter((r) => r.code === 160300);
-
-    assert.strictEqual(enumErrors.length, 3, 'Should have 3 enum errors');
-    assert.strictEqual(defaultErrors.length, 2, 'Should have 2 default errors');
-    assert.strictEqual(examplesErrors.length, 2, 'Should have 2 examples errors');
-    assert.strictEqual(descriptionErrors.length, 2, 'Should have 2 description errors');
-    assert.strictEqual(locationErrors.length, 2, 'Should have 2 location errors');
-
-    // Verify error messages
-    assert.isTrue(enumErrors.every((e) => e.message === "'enum' must be an array of strings"));
-    assert.isTrue(defaultErrors.every((e) => e.message === "'default' must be a string"));
-    assert.isTrue(
-      examplesErrors.every((e) => e.message === "'examples' must be an array of strings"),
-    );
-    assert.isTrue(descriptionErrors.every((e) => e.message === "'description' must be a string"));
-    assert.isTrue(locationErrors.every((e) => e.message === "'location' must be a string"));
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 6 },
+          end: { line: 9, character: 12 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 6 },
+          end: { line: 11, character: 12 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 17 },
+          end: { line: 14, character: 20 },
+        },
+        message: "'default' must be a string",
+        severity: 1,
+        code: 2120200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 6 },
+          end: { line: 15, character: 10 },
+        },
+        message: "'examples' must be an array of strings",
+        severity: 1,
+        code: 2120300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 21 },
+          end: { line: 18, character: 24 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 160100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 19, character: 18 },
+          end: { line: 19, character: 35 },
+        },
+        message: "'location' must be a string",
+        severity: 1,
+        code: 160300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 19 },
+          end: { line: 23, character: 22 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 160100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 16 },
+          end: { line: 24, character: 20 },
+        },
+        message: "'location' must be a string",
+        severity: 1,
+        code: 160300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 4 },
+          end: { line: 22, character: 13 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 26, character: 15 },
+          end: { line: 26, character: 32 },
+        },
+        message: "'default' must be a string",
+        severity: 1,
+        code: 2120200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 4 },
+          end: { line: 22, character: 13 },
+        },
+        message: "'examples' must be an array of strings",
+        severity: 1,
+        code: 2120300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
 
     languageService.terminate();
   });

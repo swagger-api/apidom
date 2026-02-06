@@ -25,7 +25,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specServersEmptyDash = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'servers-empty-dash.yaml'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'completion', 'async', 'channel', 'servers-empty-dash.yaml'))
   .toString();
 
 const specChannelAllowedFields = fs
@@ -35,7 +35,7 @@ const specChannelAllowedFields = fs
   .toString();
 
 const specBindingsEmpty = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'bindings-empty.yaml'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'completion', 'async', 'channel', 'bindings-empty.yaml'))
   .toString();
 
 const specChannelLint = fs

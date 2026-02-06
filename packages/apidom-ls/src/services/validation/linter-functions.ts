@@ -144,22 +144,6 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
-    functionName: 'hasRequiredFieldUnlessRef',
-    function: (element: Element, key: string): boolean => {
-      if (element && isObject(element)) {
-        // If $ref is present, skip validation
-        if (element.get('$ref')) {
-          return true;
-        }
-        // Otherwise, check if required field exists
-        if (!element.get(key)) {
-          return false;
-        }
-      }
-      return true;
-    },
-  },
-  {
     functionName: 'missingField',
     function: (element: Element, key: string): boolean => {
       if (element && isObject(element)) {

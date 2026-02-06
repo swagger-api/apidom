@@ -8,10 +8,10 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const securityItemsType3_0Lint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_OPERATION_TRAIT_FIELD_SECURITY_ITEMS_TYPE,
   source: 'apilint',
-  message: 'security must be an array of Security Requirement Objects',
+  message: 'security must be an array of Security Scheme Objects',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
-  linterParams: [['securityRequirement']],
+  linterParams: [['securityScheme']],
   marker: 'key',
   target: 'security',
   data: {},

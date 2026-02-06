@@ -13,10 +13,8 @@ const allowedFields3_0Lint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [
     [
-      'messageId',
       'headers',
       'correlationId',
-      'schemaFormat',
       'contentType',
       'name',
       'title',

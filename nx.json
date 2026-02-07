@@ -1,0 +1,77 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "production": [
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/test/**/*",
+      "!{projectRoot}/**/*.md"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["production"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/src/**/*.mjs",
+        "{projectRoot}/src/**/*.cjs",
+        "{projectRoot}/types"
+      ],
+      "cache": true
+    },
+    "build:es": {
+      "dependsOn": ["^build:es"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/src/**/*.mjs"],
+      "cache": true
+    },
+    "build:cjs": {
+      "dependsOn": ["^build:cjs"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/src/**/*.cjs"],
+      "cache": true
+    },
+    "build:umd:browser": {
+      "dependsOn": ["^build:umd:browser"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "typescript:declaration": {
+      "dependsOn": ["^typescript:declaration"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/types"],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["build"],
+      "inputs": ["default"],
+      "cache": true
+    },
+    "lint": {
+      "inputs": ["default"],
+      "cache": true
+    }
+  },
+  "parallel": 8,
+  "cacheDirectory": ".nx/cache",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "build:es",
+          "build:cjs",
+          "build:umd:browser",
+          "typescript:declaration",
+          "typescript:check-types",
+          "test",
+          "lint"
+        ],
+        "parallel": 8
+      }
+    }
+  }
+}

@@ -3937,6 +3937,13 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
+        range: { start: { line: 43, character: 2 }, end: { line: 43, character: 31 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 52, character: 2 }, end: { line: 52, character: 39 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
@@ -4001,6 +4008,13 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
+        range: { start: { line: 58, character: 2 }, end: { line: 58, character: 31 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 70, character: 2 }, end: { line: 70, character: 39 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
@@ -4059,6 +4073,13 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: { start: { line: 40, character: 2 }, end: { line: 40, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 58, character: 2 }, end: { line: 58, character: 31 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,

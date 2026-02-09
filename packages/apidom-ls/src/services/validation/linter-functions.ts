@@ -1281,6 +1281,8 @@ export const standardLinterfunctions: FunctionItem[] = [
           return true;
         }
 
+        const apiRoot = root(element);
+
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
@@ -1323,14 +1325,13 @@ export const standardLinterfunctions: FunctionItem[] = [
                   const refValue = toValue(parameter.get('$ref'));
                   if (refValue && typeof refValue === 'string' && refValue.startsWith('#/')) {
                     try {
-                      const apiRoot = root(element);
                       // Strip the '#' prefix to get a valid JSON Pointer
                       const jsonPointer = refValue.substring(1);
                       const resolvedParam = evaluate(apiRoot, jsonPointer);
                       if (resolvedParam && isObjectElement(resolvedParam)) {
                         actualParameter = resolvedParam;
                       }
-                    } catch (e) {
+                    } catch {
                       // If resolution fails, skip this parameter
                       return;
                     }

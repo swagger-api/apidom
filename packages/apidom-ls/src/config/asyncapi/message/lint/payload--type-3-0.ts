@@ -11,7 +11,7 @@ const payloadType3_0Lint: LinterMeta = {
   message: "'payload' must be a Multi Format Schema Object or a Schema Object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['multiFormatSchema', 'schema']],
+  linterParams: [['multiFormatSchema', 'schema', 'reference']],
   marker: 'value',
   target: 'payload',
   data: {},

@@ -3,7 +3,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { DiagnosticSeverity } from 'vscode-languageserver-types';
+import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
@@ -31,6 +31,12 @@ const specMessageHeadersType = fs
 const specMessagePayloadType = fs
   .readFileSync(
     path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'message-payload-type-3-0.yaml'),
+  )
+  .toString();
+
+const specMessagePayloadWithRef = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'message-payload-with-ref-3-0.yaml'),
   )
   .toString();
 
@@ -116,15 +122,45 @@ describe('asyncapi message test', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    assert.isAtLeast(result.length, 1);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 18, character: 15 },
+          end: { line: 18, character: 63 },
+        },
+        message: "'payload' must be a Multi Format Schema Object or a Schema Object",
+        severity: 1,
+        code: 2150200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
 
-    const payloadTypeError = result.find((r) => r.code === 2150200);
-    assert.isDefined(payloadTypeError, 'Should have payload type error');
-    assert.strictEqual(payloadTypeError?.code, 2150200);
-    assert.strictEqual(
-      payloadTypeError?.message,
-      "'payload' must be a Multi Format Schema Object or a Schema Object",
+    assert.deepEqual(result, expected);
+  });
+
+  it('test message payload with $ref does not produce false positives (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-payload-with-ref.yaml',
+      'yaml',
+      0,
+      specMessagePayloadWithRef,
     );
-    assert.strictEqual(payloadTypeError?.severity, DiagnosticSeverity.Error);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // Should have no errors - both $ref and inline payload are valid
+    const payloadErrors = result.filter((r) => r.code === 2150200);
+    assert.strictEqual(
+      payloadErrors.length,
+      0,
+      'Should not have payload type errors when using $ref',
+    );
   });
 });

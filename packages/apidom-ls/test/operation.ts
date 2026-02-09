@@ -46,6 +46,24 @@ const specOperationRequired = fs
   )
   .toString();
 
+const specOperationMessagesType = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operation-messages-type-3-0.yaml'),
+  )
+  .toString();
+
+const specOperationMessagesWithRef = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'operation-messages-with-ref-3-0.yaml',
+    ),
+  )
+  .toString();
+
 describe('asyncapi operation test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -218,6 +236,64 @@ describe('asyncapi operation test', function () {
       refOperationErrors.length,
       0,
       'Operation with $ref should not have required field errors',
+    );
+  });
+
+  it('test operation messages type validation (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-messages-type.yaml',
+      'yaml',
+      0,
+      specOperationMessagesType,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 15, character: 2 },
+          end: { line: 15, character: 36 },
+        },
+        message: "'messages' must be an array of Message Objects",
+        severity: 1,
+        code: 2080500,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+
+    assert.deepEqual(result, expected);
+  });
+
+  it('test operation messages with $ref does not produce false positives (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-messages-with-ref.yaml',
+      'yaml',
+      0,
+      specOperationMessagesWithRef,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    // Should have no errors - both $ref and inline messages are valid
+    const messagesErrors = result.filter((r) => r.code === 2080500);
+    assert.strictEqual(
+      messagesErrors.length,
+      0,
+      'Should not have messages type errors when using $ref',
     );
   });
 });

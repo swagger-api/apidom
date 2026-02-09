@@ -10,7 +10,7 @@ const messagesTypeLint: LinterMeta = {
   message: "'messages' must be an array of Message Objects",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
-  linterParams: [['message']],
+  linterParams: [['message', 'reference']],
   marker: 'key',
   target: 'messages',
   data: {},

@@ -48,7 +48,7 @@
       "cache": true
     },
     "test": {
-      "dependsOn": ["build"],
+      "dependsOn": ["typescript:declaration", "build:es"],
       "inputs": ["default"],
       "cache": true
     },

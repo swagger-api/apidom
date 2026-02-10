@@ -1,5 +1,8 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "comments": {
+    "parallel": "Default parallelism when nx is run directly. Normally overridden by lerna --concurrency flag in package.json scripts. Set conservatively to avoid issues if nx is invoked directly."
+  },
   "namedInputs": {
     "default": ["{projectRoot}/**/*"],
     "production": [
@@ -54,7 +57,7 @@
       "cache": true
     }
   },
-  "parallel": 8,
+  "parallel": 4,
   "cacheDirectory": ".nx/cache",
   "tasksRunnerOptions": {
     "default": {
@@ -70,7 +73,7 @@
           "test",
           "lint"
         ],
-        "parallel": 8
+        "parallel": 4
       }
     }
   }

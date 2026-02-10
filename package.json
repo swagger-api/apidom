@@ -21,7 +21,6 @@
     "prebuild": "cd ./node_modules/tree-sitter && node-gyp rebuild && cd ../../packages/apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter && node-gyp rebuild && cd ../../../../node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild",
     "build": "lerna run build --concurrency=${LERNA_CONCURRENCY:-8}",
     "build:fast": "lerna run build --concurrency=${LERNA_CONCURRENCY:-8} --skip-nx-cache=false",
-    "build:changed": "lerna run build --since HEAD~1 --concurrency=${LERNA_CONCURRENCY:-8}",
     "build:es": "lerna run build:es --concurrency=${LERNA_CONCURRENCY:-8}",
     "build:cjs": "lerna run build:cjs --concurrency=${LERNA_CONCURRENCY:-8}",
     "build:umd": "lerna run build:umd:browser --concurrency=${LERNA_CONCURRENCY:-8}",

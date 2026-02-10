@@ -10598,7 +10598,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it.only('oas 3.0 / yaml - local references - every path template should be defined', async function () {
+  it('oas 3.0 / yaml - local references - every path template should be defined', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,

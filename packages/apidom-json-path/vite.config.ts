@@ -1,4 +1,4 @@
-import { createViteConfig } from '../../config/vite/vite.config.base.ts';
+import { createViteConfig } from 'apidom-monorepo/config/vite/vite.config.base.ts';
 
 export default createViteConfig({
   packageName: 'apidom-json-path',

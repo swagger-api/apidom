@@ -45,10 +45,7 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
 
   return defineConfig({
     mode: 'production',
-    plugins: [
-      wasm(),
-      topLevelAwait(),
-    ],
+    plugins: [wasm(), topLevelAwait()],
     assetsInclude: ['**/*.wasm'],
     build: {
       target: 'esnext',
@@ -59,7 +56,6 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
       lib: {
         entry: path.resolve(entry),
         name: libraryName,
-        formats: ['umd'],
       },
       rollupOptions: {
         plugins: [
@@ -110,9 +106,11 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
           },
         ],
         onwarn(warning, warn) {
+          // Suppress known safe warnings
           if (warning.message?.includes('Use of eval')) return;
           if (warning.message?.includes('Module "fs" has been externalized')) return;
           if (warning.message?.includes('Module "path" has been externalized')) return;
+          if (warning.message?.includes('depends on Node.js built-in modules')) return;
           if (warning.code === 'UNRESOLVED_IMPORT' && warning.exporter?.endsWith('.wasm')) return;
           if (warning.message?.includes('.wasm')) return;
           if (warning.message?.includes('Circular dependency')) return;

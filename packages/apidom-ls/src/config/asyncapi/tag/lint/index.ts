@@ -6,7 +6,6 @@ import nameRequired3_0Lint from './name--required-3-0.ts';
 import descriptionTypeLint from './description--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
 import $refValidLint from './$ref--valid.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 
 const lints = [
   allowedFields2_0__2_6Lint,
@@ -17,7 +16,6 @@ const lints = [
   descriptionTypeLint,
   externalDocsTypeLint,
   $refValidLint,
-  $refNoSiblingsLint,
 ];
 
 export default lints;

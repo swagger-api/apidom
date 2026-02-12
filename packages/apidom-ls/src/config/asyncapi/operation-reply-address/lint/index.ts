@@ -1,4 +1,3 @@
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import $refValidLint from './$ref--valid.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import locationTypeLint from './location--type.ts';
@@ -6,7 +5,6 @@ import locationRequiredLint from './location--required.ts';
 import descriptionTypeLint from './description--type.ts';
 
 const lints = [
-  $refNoSiblingsLint,
   $refValidLint,
   locationTypeLint,
   locationRequiredLint,

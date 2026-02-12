@@ -2,7 +2,6 @@ import descriptionTypeLint from './description--type.ts';
 import schemaTypeLint from './schema--type.ts';
 import locationTypeLint from './location--type.ts';
 import $refValidLint from './$ref--valid.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import keyExistsInChannel2_0__2_6Lint from './key--exists-in-channel-2-0--2-6.ts';
 import keyExistsInChannelAddress3_0Lint from './key--exists-in-channel-address-3-0.ts';
 import allowedFields2_0__2_6Lint from './allowed-fields-2-0--2-6.ts';
@@ -18,7 +17,6 @@ const lints = [
   schemaTypeLint,
   locationTypeLint,
   $refValidLint,
-  $refNoSiblingsLint,
   allowedFields2_0__2_6Lint,
   allowedFields3_0Lint,
   enumTypeLint,

@@ -17,7 +17,6 @@ import flowsTypeLint from './flows--type.ts';
 import flowsRequiredLint from './flows--required.ts';
 import openIdConnectUrlRequiredLint from './open-id-connect-url--required.ts';
 import openIdConnectUrlFormatURILint from './open-id-connect-url--format-uri.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import $refValidLint from './$ref--valid.ts';
 
 const lints = [
@@ -38,7 +37,6 @@ const lints = [
   flowsRequiredLint,
   openIdConnectUrlRequiredLint,
   openIdConnectUrlFormatURILint,
-  $refNoSiblingsLint,
   $refValidLint,
   allowedFields2_0__2_6Lint,
   allowedFields3_0Lint,

@@ -6394,7 +6394,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 2020401,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -6725,7 +6725,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 181801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7203,7 +7203,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 310301,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7314,7 +7314,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 2070201,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7400,7 +7400,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 2060201,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7487,7 +7487,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 2030401,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -8101,7 +8101,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 211501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -8113,6 +8113,61 @@ describe('apidom-ls-validate', function () {
             },
           ],
         },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Payload Schema reference siblings', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-payload-ref-siblings-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-payload-ref-siblings-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        code: 2180100,
+        data: {
+          quickFix: [
+            {
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              message: 'remove $ref',
+              target: 'parent',
+            },
+          ],
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        range: {
+          end: {
+            character: 15,
+            line: 9,
+          },
+          start: {
+            character: 8,
+            line: 9,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
       },
     ];
     assert.deepEqual(result, expected);
@@ -8522,7 +8577,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 221501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -8853,7 +8908,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 201801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -9663,7 +9718,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 191701,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -9867,7 +9922,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 160401,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -10331,7 +10386,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 270901,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -10530,7 +10585,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 100801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -10861,7 +10916,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 171801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -11027,7 +11082,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 110501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [

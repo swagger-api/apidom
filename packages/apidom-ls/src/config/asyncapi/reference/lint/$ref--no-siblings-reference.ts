@@ -5,13 +5,14 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const $refNoSiblingsLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_OPERATION_BINDINGS_FIELD_$REF_NO_SIBLINGS,
+  code: ApilintCodes.ASYNCAPI_REFERENCE_FIELD_$REF_NO_SIBLINGS,
   source: 'apilint',
   message: 'All other properties in a "$ref" object are ignored',
   severity: DiagnosticSeverity.Warning,
   linterFunction: 'allowedFields',
-  linterParams: [['$ref']],
+  linterParams: [['$ref'], 'x-'],
   marker: 'key',
+  given: ['reference'],
   conditions: [
     {
       function: 'existFields',

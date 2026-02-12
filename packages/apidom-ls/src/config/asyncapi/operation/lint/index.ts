@@ -21,7 +21,6 @@ import channelTypeLint from './channel--type.ts';
 import channelRequiredLint from './channel--required.ts';
 import titleTypeLint from './title--type.ts';
 import replyTypeLint from './reply--type.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import $refValidLint from './$ref--valid.ts';
 
 const lints = [
@@ -48,7 +47,6 @@ const lints = [
   channelRequiredLint,
   titleTypeLint,
   replyTypeLint,
-  $refNoSiblingsLint,
   $refValidLint,
 ];
 

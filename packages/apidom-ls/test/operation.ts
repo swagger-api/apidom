@@ -175,7 +175,7 @@ describe('asyncapi operation test', function () {
     assert.isAtLeast(result.length, 1);
 
     // Find the $ref with siblings error (warning)
-    const refSiblingsError = result.find((r) => r.code === 2080701);
+    const refSiblingsError = result.find((r) => r.code === 2180100);
     assert.isDefined(refSiblingsError, 'Should have $ref no siblings warning');
     assert.strictEqual(
       refSiblingsError?.message,

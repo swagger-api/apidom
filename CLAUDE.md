@@ -381,6 +381,30 @@ class Info extends InfoElement {
 | OpenAPI Dialect | `https://spec.openapis.org/oas/{version}/dialect/{date}` |
 | OpenAPI Schema | `https://spec.openapis.org/oas/{version}/schema/{date}` |
 
+### apidom-ls Documentation URL Requirements
+
+**IMPORTANT**: When adding or updating OpenAPI 3.2+ documentation in `packages/apidom-ls/src/config/openapi/*/documentation.ts` files:
+
+**Rule**: OpenAPI 3.2.0 and later documentation URLs MUST use GitHub links, NOT spec.openapis.org.
+
+**Correct URL pattern for OAS 3.2+**:
+```typescript
+// ✅ CORRECT: Use GitHub URLs for 3.2+
+docs: '#### [Object Name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#objectName)...'
+
+// ❌ WRONG: Don't use spec.openapis.org for 3.2+
+docs: '#### [Object Name](https://spec.openapis.org/oas/v3.2.0.html#object-name)...'
+```
+
+**Anchor format for OAS 3.2+**: Use camelCase for anchors (e.g., `#pathItemObject`), not kebab-case (e.g., `#path-item-object`).
+
+**Version-specific patterns**:
+- **OpenAPI 3.0.x**: Use `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor` (existing format, do NOT change)
+- **OpenAPI 3.1.x**: Uses `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#camelCaseAnchor` (existing format)
+- **OpenAPI 3.2.x**: Use `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#camelCaseAnchor` (GitHub URLs required)
+
+**Why**: GitHub URLs for 3.2+ are the canonical source and are more stable than the rendered spec site.
+
 ### Before Committing
 
 - [ ] No fields from parent are redefined

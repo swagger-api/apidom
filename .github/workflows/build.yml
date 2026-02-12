@@ -85,9 +85,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci --engine-strict=false
-      - name: Build typescript declarations
-        run: npm run typescript:declaration
+        run: npm ci
       - name: Execute tests in monorepo
         run: npm run test
 
@@ -103,7 +101,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'package-lock.json'
     - name: Install dependencies
-      run: npm ci --engine-strict=false
+      run: npm ci
     - name: Build monorepo
       run: npm run build:es
     - name: Build ApiDOM Playground

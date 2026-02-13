@@ -6256,14 +6256,19 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // Check for missing title error
-    const titleError = result.find(
+    // Filter to only schema validation errors about missing title
+    const titleErrors = result.filter(
       (d) =>
-        (d.message.includes('title') || d.message.includes('required')) &&
-        d.source === 'openapi schema',
+        d.source === 'openapi schema' &&
+        (d.message.includes('title') || d.message.includes('required')),
     );
 
-    assert.isDefined(titleError, 'Should detect missing title in info object');
+    // Verify at least one error is detected (schema validation may report multiple)
+    assert.isAtLeast(titleErrors.length, 1, 'Should detect missing title in info object');
+    assert.isTrue(
+      titleErrors.some((d) => d.severity === DiagnosticSeverity.Error),
+      'Missing title should be an error',
+    );
 
     languageService.terminate();
   });
@@ -6288,10 +6293,15 @@ describe('apidom-ls-validate', function () {
 
     // The $self field has an invalid URI reference (contains fragment)
     // Should be caught by schema validation
-    const selfError = result.find(
-      (d) => d.message.includes('pattern') && d.source === 'openapi schema',
+    const selfErrors = result.filter(
+      (d) => d.source === 'openapi schema' && d.message.includes('pattern'),
     );
-    assert.isDefined(selfError, 'Should validate $self field URI reference format');
+
+    assert.isAtLeast(selfErrors.length, 1, 'Should validate $self field URI reference format');
+    assert.isTrue(
+      selfErrors.some((d) => d.severity === DiagnosticSeverity.Error),
+      '$self format error should be an error',
+    );
 
     languageService.terminate();
   });
@@ -6314,17 +6324,15 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains tag with summary, parent, and kind fields
-    // These should not produce errors in OpenAPI 3.2.0
-    const tagFieldErrors = result.filter(
-      (d) =>
-        d.source === 'openapi schema' &&
-        (d.message.includes('summary') ||
-          d.message.includes('parent') ||
-          d.message.includes('kind')) &&
-        d.message.includes('not allowed'),
+    // The document contains tag with summary, parent, and kind fields (lines 101-105)
+    // These should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with new tag fields should have no apilint errors',
     );
-    assert.strictEqual(tagFieldErrors.length, 0, 'OpenAPI 3.2.0 should support new tag fields');
 
     languageService.terminate();
   });
@@ -6347,18 +6355,14 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains server with name field
-    // This should not produce errors in OpenAPI 3.2.0
-    const serverNameErrors = result.filter(
-      (d) =>
-        d.source === 'openapi schema' &&
-        d.message.includes('name') &&
-        d.message.includes('not allowed'),
-    );
-    assert.strictEqual(
-      serverNameErrors.length,
-      0,
-      'OpenAPI 3.2.0 should support server name field',
+    // The document contains server with name field (line 12)
+    // This should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with server name field should have no apilint errors',
     );
 
     languageService.terminate();
@@ -6382,15 +6386,15 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains info with summary field
-    // This should not produce errors in OpenAPI 3.2.0
-    const summaryErrors = result.filter(
-      (d) =>
-        d.source === 'openapi schema' &&
-        d.message.includes('summary') &&
-        d.message.includes('not allowed'),
+    // The document contains info with summary field (line 6)
+    // This should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with info summary field should have no apilint errors',
     );
-    assert.strictEqual(summaryErrors.length, 0, 'OpenAPI 3.2.0 should support info summary field');
 
     languageService.terminate();
   });
@@ -6413,19 +6417,14 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains response with summary field
-    // This should not produce errors in OpenAPI 3.2.0
-    const responseSummaryErrors = result.filter(
-      (d) =>
-        d.source === 'apilint' &&
-        d.message.includes('summary') &&
-        d.message.includes('not allowed') &&
-        d.range.start.line > 20,
-    );
-    assert.strictEqual(
-      responseSummaryErrors.length,
-      0,
-      'OpenAPI 3.2.0 should support response summary field',
+    // The document contains response with summary field (line 23)
+    // This should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with response summary field should have no apilint errors',
     );
 
     languageService.terminate();
@@ -6449,12 +6448,39 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The summary field in response should be a string
-    const summaryTypeError = result.find(
+    // Filter to only apilint errors about summary field types
+    const summaryTypeErrors = result.filter(
       (d) =>
         d.source === 'apilint' && d.message.includes('summary') && d.message.includes('string'),
     );
-    assert.isDefined(summaryTypeError, 'Should validate response summary field as string type');
+
+    // Expected: 2 errors - one for response summary (line 19), one for tag summary (line 48)
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 18, character: 23 },
+          end: { line: 18, character: 28 },
+        },
+        message: 'summary must be a string',
+        severity: DiagnosticSeverity.Error,
+        code: 7140000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 47, character: 17 },
+          end: { line: 47, character: 22 },
+        },
+        message: "'summary' value must be a string",
+        severity: DiagnosticSeverity.Error,
+        code: 7160000,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+
+    assert.deepEqual(summaryTypeErrors, expected);
 
     languageService.terminate();
   });
@@ -6477,18 +6503,14 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains components with mediaTypes field
-    // This should not produce errors in OpenAPI 3.2.0
-    const mediaTypesErrors = result.filter(
-      (d) =>
-        d.source === 'apilint' &&
-        d.message.includes('mediaTypes') &&
-        d.message.includes('not allowed'),
-    );
-    assert.strictEqual(
-      mediaTypesErrors.length,
-      0,
-      'OpenAPI 3.2.0 should support components mediaTypes field',
+    // The document contains components with mediaTypes field (lines 91-97)
+    // This should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with components mediaTypes field should have no apilint errors',
     );
 
     languageService.terminate();
@@ -6512,15 +6534,26 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The components object has an invalid field 'invalidField'
-    // The lint rule produces a diagnostic for fields that are not in the allowed list
-    const invalidFieldErrors = result.filter(
+    // Filter to only apilint errors about not allowed fields
+    const notAllowedErrors = result.filter(
       (d) => d.source === 'apilint' && d.message.includes('not allowed'),
     );
-    assert.isTrue(
-      invalidFieldErrors.length > 0,
-      'Should detect not allowed fields in components object',
-    );
+
+    // Expected: Error for 'invalidField' at line 36 (0-indexed: line 35) in components
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 35, character: 2 },
+          end: { line: 35, character: 14 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: DiagnosticSeverity.Error,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+
+    assert.deepEqual(notAllowedErrors, expected);
 
     languageService.terminate();
   });
@@ -6543,15 +6576,15 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The document contains XML with nodeType field
-    // This should not produce errors in OpenAPI 3.2.0
-    const nodeTypeErrors = result.filter(
-      (d) =>
-        d.source === 'apilint' &&
-        d.message.includes('nodeType') &&
-        d.message.includes('not allowed'),
+    // The document contains XML with nodeType field (line 39)
+    // This should not produce apilint errors in OpenAPI 3.2.0
+    const apilintErrors = result.filter((d) => d.source === 'apilint');
+
+    assert.deepEqual(
+      apilintErrors,
+      [],
+      'Valid OpenAPI 3.2.0 document with XML nodeType field should have no apilint errors',
     );
-    assert.strictEqual(nodeTypeErrors.length, 0, 'OpenAPI 3.2.0 should support XML nodeType field');
 
     languageService.terminate();
   });
@@ -6574,14 +6607,20 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
 
-    // The nodeType field should be one of: element, attribute, text, cdata, none
-    const nodeTypeError = result.find(
+    // Filter to only apilint errors about nodeType field (line 26)
+    const nodeTypeErrors = result.filter(
       (d) =>
         d.source === 'apilint' &&
         d.message.includes('nodeType') &&
         (d.message.includes('allowed values') || d.message.includes('equal')),
     );
-    assert.isDefined(nodeTypeError, 'Should validate XML nodeType field enum values');
+
+    // Should detect at least one error for invalid enum value "invalid-node-type"
+    assert.isAtLeast(nodeTypeErrors.length, 1, 'Should validate XML nodeType field enum values');
+    assert.isTrue(
+      nodeTypeErrors.every((d) => d.severity === DiagnosticSeverity.Error),
+      'nodeType enum errors should be errors',
+    );
 
     languageService.terminate();
   });

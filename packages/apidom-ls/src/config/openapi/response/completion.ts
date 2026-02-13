@@ -101,7 +101,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#headerObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nMaps a header name to its definition. [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive. If a response header is defined with the name `"Content-Type"`, it SHALL be ignored.',
     },
-    targetSpecs: [...OpenAPI31, ...OpenAPI32],
+    targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'headers',
+    insertText: 'headers',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#headerObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#referenceObject)]\n\\\n\\\nMaps a header name to its definition. [RFC7230](https://tools.ietf.org/html/rfc7230#page-22) states header names are case insensitive. If a response header is defined with the name `"Content-Type"`, it SHALL be ignored.',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'examples',
@@ -143,7 +157,21 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[`string`, [Media Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#mediaTypeObject)]\n\\\n\\\nA map containing descriptions of potential response payloads. The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D) and the value describes it. For responses that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*',
     },
-    targetSpecs: [...OpenAPI31, ...OpenAPI32],
+    targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'content',
+    insertText: 'content',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Map[`string`, [Media Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject)]\n\\\n\\\nA map containing descriptions of potential response payloads. The key is a media type or [media type range](https://tools.ietf.org/html/rfc7231#appendix-D) and the value describes it. For responses that match multiple keys, only the most specific key is applicable. e.g. text/plain overrides text/*',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'links',

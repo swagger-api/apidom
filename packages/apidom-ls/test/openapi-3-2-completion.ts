@@ -7,6 +7,7 @@ import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
+  ApidomCompletionItem,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { OpenAPi32JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-32-json-schema-validation-provider.ts';
@@ -59,16 +60,23 @@ describe('OpenAPI 3.2.0 Completion', function () {
 
       const queryCompletion = result?.items.find((item) => item.label === 'query');
 
-      assert.isDefined(queryCompletion, 'Should suggest "query" operation');
-
-      const queryDoc =
-        typeof queryCompletion?.documentation === 'string'
-          ? queryCompletion.documentation
-          : queryCompletion?.documentation && 'value' in queryCompletion.documentation
-            ? queryCompletion.documentation.value
-            : '';
-
-      assert.include(queryDoc, 'QUERY', 'Documentation should mention QUERY method');
+      // Verify all properties comprehensively
+      assert.isDefined(queryCompletion);
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.label, 'query');
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.insertTextFormat, 2);
+      assert.strictEqual(
+        ((queryCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        '[Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)\n\\\n\\\nA definition of a QUERY operation on this path. QUERY method allows safely querying the state of a resource in an idempotent way using a query payload.',
+      );
+      assert.strictEqual(
+        (queryCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (queryCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
+      );
     });
 
     it('should suggest additionalOperations in PathItem', async function () {
@@ -99,20 +107,29 @@ describe('OpenAPI 3.2.0 Completion', function () {
         (item) => item.label === 'additionalOperations',
       );
 
-      assert.isDefined(
-        additionalOperationsCompletion,
-        'Should suggest "additionalOperations" field',
+      // Verify all properties comprehensively
+      assert.isDefined(additionalOperationsCompletion);
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.label,
+        'additionalOperations',
       );
-
-      const additionalOpsDoc =
-        typeof additionalOperationsCompletion?.documentation === 'string'
-          ? additionalOperationsCompletion.documentation
-          : additionalOperationsCompletion?.documentation &&
-              'value' in additionalOperationsCompletion.documentation
-            ? additionalOperationsCompletion.documentation.value
-            : '';
-
-      assert.include(additionalOpsDoc, 'HTTP methods', 'Documentation should mention HTTP methods');
+      assert.strictEqual((additionalOperationsCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.insertTextFormat,
+        2,
+      );
+      assert.strictEqual(
+        ((additionalOperationsCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        'Map[`string`, [Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)]\n\\\n\\\nA map of HTTP methods you choose to include in your API design for non-standard methods. Each key must be a valid HTTP method name and each value must be an Operation Object.',
+      );
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
+      );
     });
 
     it('should not suggest query and additionalOperations for OpenAPI 3.1.0', async function () {
@@ -177,19 +194,22 @@ describe('OpenAPI 3.2.0 Completion', function () {
 
       const mediaTypesCompletion = result?.items.find((item) => item.label === 'mediaTypes');
 
-      assert.isDefined(mediaTypesCompletion, 'Should suggest "mediaTypes" field');
-
-      const mediaTypesDoc =
-        typeof mediaTypesCompletion?.documentation === 'string'
-          ? mediaTypesCompletion.documentation
-          : mediaTypesCompletion?.documentation && 'value' in mediaTypesCompletion.documentation
-            ? mediaTypesCompletion.documentation.value
-            : '';
-
-      assert.include(
-        mediaTypesDoc,
-        'Media Type',
-        'Documentation should mention Media Type Objects',
+      // Verify all properties comprehensively
+      assert.isDefined(mediaTypesCompletion);
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.label, 'mediaTypes');
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.insertTextFormat, 2);
+      assert.strictEqual(
+        ((mediaTypesCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        'Map[`string`, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject)]\n\\\n\\\nAn object to hold reusable [Media Type Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject).',
+      );
+      assert.strictEqual(
+        (mediaTypesCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (mediaTypesCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
       );
     });
 
@@ -293,7 +313,23 @@ paths:
 
       const queryCompletion = result?.items.find((item) => item.label === 'query');
 
-      assert.isDefined(queryCompletion, 'Should suggest "query" operation in YAML');
+      // Verify all properties comprehensively (YAML format)
+      assert.isDefined(queryCompletion);
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.label, 'query');
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual((queryCompletion as ApidomCompletionItem)?.insertTextFormat, 2);
+      assert.strictEqual(
+        ((queryCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        '[Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)\n\\\n\\\nA definition of a QUERY operation on this path. QUERY method allows safely querying the state of a resource in an idempotent way using a query payload.',
+      );
+      assert.strictEqual(
+        (queryCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (queryCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
+      );
     });
 
     it('should suggest additionalOperations in PathItem (YAML)', async function () {
@@ -319,9 +355,28 @@ paths:
         (item) => item.label === 'additionalOperations',
       );
 
-      assert.isDefined(
-        additionalOperationsCompletion,
-        'Should suggest "additionalOperations" in YAML',
+      // Verify all properties comprehensively (YAML format)
+      assert.isDefined(additionalOperationsCompletion);
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.label,
+        'additionalOperations',
+      );
+      assert.strictEqual((additionalOperationsCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.insertTextFormat,
+        2,
+      );
+      assert.strictEqual(
+        ((additionalOperationsCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        'Map[`string`, [Operation Object](https://spec.openapis.org/oas/v3.2.0.html#operation-object)]\n\\\n\\\nA map of HTTP methods you choose to include in your API design for non-standard methods. Each key must be a valid HTTP method name and each value must be an Operation Object.',
+      );
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (additionalOperationsCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
       );
     });
 
@@ -345,7 +400,23 @@ components:
 
       const mediaTypesCompletion = result?.items.find((item) => item.label === 'mediaTypes');
 
-      assert.isDefined(mediaTypesCompletion, 'Should suggest "mediaTypes" in YAML');
+      // Verify all properties comprehensively (YAML format)
+      assert.isDefined(mediaTypesCompletion);
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.label, 'mediaTypes');
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.kind, 14);
+      assert.strictEqual((mediaTypesCompletion as ApidomCompletionItem)?.insertTextFormat, 2);
+      assert.strictEqual(
+        ((mediaTypesCompletion as ApidomCompletionItem)?.documentation as any)?.value,
+        'Map[`string`, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject)]\n\\\n\\\nAn object to hold reusable [Media Type Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#mediaTypeObject).',
+      );
+      assert.strictEqual(
+        (mediaTypesCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.version,
+        '3.2.0',
+      );
+      assert.strictEqual(
+        (mediaTypesCompletion as ApidomCompletionItem)?.targetSpecs?.[0]?.namespace,
+        'openapi',
+      );
     });
   });
 });

@@ -104,6 +104,20 @@ const completion: ApidomCompletionItem[] = [
     },
     targetSpecs: OpenAPI3,
   },
+  {
+    label: 'deviceAuthorizationUrl',
+    insertText: 'deviceAuthorizationUrl',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nThe authorization URL to be used for the device authorization grant type. This MUST be in the form of a URL.',
+    },
+    targetSpecs: OpenAPI32,
+  },
 ];
 
 export default completion;

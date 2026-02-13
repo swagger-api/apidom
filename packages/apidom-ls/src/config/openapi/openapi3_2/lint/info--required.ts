@@ -7,7 +7,7 @@ import { OpenAPI32 } from '../../target-specs.ts';
 const infoRequiredLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED,
   source: 'apilint',
-  message: "should always have a 'info'",
+  message: "should always have an 'info' section",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
   linterParams: ['info'],

@@ -5,9 +5,9 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI32 } from '../../target-specs.ts';
 
 const queryTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI2_PATH_ITEM_FIELD_GET_TYPE,
+  code: ApilintCodes.OPENAPI3_2_PATH_ITEM_FIELD_QUERY_TYPE,
   source: 'apilint',
-  message: '"query" must be in a shape of the Operation Object',
+  message: "'query' must be an Operation Object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
   linterParams: [['operation']],

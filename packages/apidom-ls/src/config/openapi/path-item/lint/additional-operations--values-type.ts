@@ -5,9 +5,9 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI32 } from '../../target-specs.ts';
 
 const additionalOperationsValuesTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_PATH_ITEM_FIELD_SERVERS_TYPE,
+  code: ApilintCodes.OPENAPI3_2_PATH_ITEM_FIELD_ADDITIONAL_OPERATIONS_VALUES_TYPE,
   source: 'apilint',
-  message: 'additionalOperations values must be Operation Objects',
+  message: "'additionalOperations' values must be Operation Objects",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintChildrenOfElementsOrClasses',
   linterParams: [['operation']],

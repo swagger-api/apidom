@@ -9,7 +9,7 @@ const styleEquals3_2Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_PARAMETER_FIELD_STYLE_EQUALS,
   source: 'apilint',
   message:
-    'style must be one of allowed values: matrix, label, simple, form, spaceDelimited, pipeDelimited, deepObject, cookie',
+    "'style' must be one of allowed values: matrix, label, simple, form, spaceDelimited, pipeDelimited, deepObject, cookie",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueOrArray',
   linterParams: [

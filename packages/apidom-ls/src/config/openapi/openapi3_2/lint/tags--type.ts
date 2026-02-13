@@ -7,10 +7,10 @@ import { OpenAPI32 } from '../../target-specs.ts';
 const tagsTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_OPEN_API_FIELD_TAGS_TYPE,
   source: 'apilint',
-  message: "'tags' must be an array",
+  message: "'tags' must be an array of Tag Objects",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['array'],
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['tags']],
   marker: 'value',
   target: 'tags',
   data: {},

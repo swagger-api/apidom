@@ -1,0 +1,18 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+    messages:
+      testMessage:
+        payload:
+          # Valid - schemaFormat is a string
+          schemaFormat: application/vnd.apache.avro;version=1.9.0
+          schema:
+            type: record
+            name: User
+            fields:
+              - name: username
+                type: string

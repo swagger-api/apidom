@@ -225,8 +225,8 @@ export const standardLinterfunctions: FunctionItem[] = [
               const included = keys.includes(parentKey);
               const isExtension =
                 allowExtensionPrefix !== undefined &&
-                typeof toValue(parentKey) === 'string' &&
-                toValue(parentKey as Element).startsWith(allowExtensionPrefix);
+                typeof parentKey === 'string' &&
+                parentKey.startsWith(allowExtensionPrefix);
               return !included && (allowExtensionPrefix === undefined || !isExtension);
             },
             {
@@ -1525,6 +1525,110 @@ export const standardLinterfunctions: FunctionItem[] = [
         return element.keys().some((k) => typeof k !== 'string' || !k.startsWith('x-'));
       }
       return true;
+    },
+  },
+  {
+    functionName: 'apilintChannelParametersRequiredWhenAddressHasExpressions',
+    function: (element: Element): boolean => {
+      // Check if this is a channel element and is an object
+      if (element.element !== 'channel' || !isObject(element)) {
+        return true;
+      }
+
+      // Get the address field
+      const addressMember = element.get('address');
+      if (!addressMember || !isStringElement(addressMember)) {
+        return true;
+      }
+
+      // Extract value only after type check
+      const addressValue = toValue(addressMember);
+
+      // Check if address contains Channel Address Expressions (e.g., {userId})
+      const hasExpressions = /\{[^}]+\}/.test(addressValue);
+
+      if (hasExpressions) {
+        // Parameters field must exist
+        const parametersMember = element.get('parameters');
+        return parametersMember !== undefined;
+      }
+
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintChannelAddressExpressionsDefinedInParameters',
+    function: (element: Element): boolean => {
+      // This function is called on the address field value
+      if (!isStringElement(element)) {
+        return true;
+      }
+
+      // Get the channel element (parent of address member) BEFORE expensive operations
+      const channelElement = element.parent?.parent;
+      if (!channelElement || channelElement.element !== 'channel' || !isObject(channelElement)) {
+        return true;
+      }
+
+      // Get the parameters object BEFORE running regex
+      const parametersElement = channelElement.get('parameters');
+      if (!parametersElement || !isObject(parametersElement)) {
+        return true;
+      }
+
+      // Now safe to extract value and run regex (only if parameters exist)
+      const addressValue = toValue(element);
+
+      // Extract all Channel Address Expressions from the address
+      const expressionRegex = /\{([^}]+)\}/g;
+      const expressions: string[] = [];
+      let match = expressionRegex.exec(addressValue);
+      while (match !== null) {
+        expressions.push(match[1]);
+        match = expressionRegex.exec(addressValue);
+      }
+
+      if (expressions.length === 0) {
+        return true;
+      }
+
+      // Check that all expressions are defined as parameters
+      return expressions.every((expr) => parametersElement.hasKey(expr));
+    },
+  },
+  {
+    functionName: 'apilintChannelParameterExistsInAddress',
+    function: (element: Element): boolean => {
+      const referencedElement = toValue(element.getMetaProperty('referenced-element', ''));
+
+      // Check if this is a parameter element
+      if (element.element !== 'parameter' && referencedElement !== 'parameter') {
+        return true;
+      }
+
+      // Get the parameter name from the key
+      const parameterName = toValue((element.parent as MemberElement)?.key as Element);
+      if (typeof parameterName !== 'string') {
+        return true;
+      }
+
+      // Navigate up to the channel element
+      // Structure: parameter -> member -> parameters -> member -> channel
+      const channelElement = element.parent?.parent?.parent?.parent;
+      if (!channelElement || channelElement.element !== 'channel' || !isObject(channelElement)) {
+        return true;
+      }
+
+      // Get the address field value
+      const addressMember = channelElement.get('address');
+      if (!addressMember || !isStringElement(addressMember)) {
+        return true;
+      }
+
+      const addressValue = toValue(addressMember);
+
+      // Check if the parameter name is used in the address
+      return addressValue.includes(`{${parameterName}}`);
     },
   },
 ];

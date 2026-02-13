@@ -3,13 +3,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Position } from 'vscode-languageserver-types';
+import { DiagnosticSeverity, Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
+  ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
@@ -18,7 +19,13 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specServerFields = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'server-fields.yaml'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-fields.yaml'))
+  .toString();
+
+const specServerAllowedFields = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'server-allowed-fields-3-0.yaml'),
+  )
   .toString();
 
 describe('asyncapi server test', function () {
@@ -147,5 +154,30 @@ describe('asyncapi server test', function () {
       },
       targetSpecs: AsyncAPI3,
     } as any);
+  });
+
+  it('test server allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/server-allowed-fields.yaml',
+      'yaml',
+      0,
+      specServerAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.isAtLeast(result.length, 3);
+
+    const notAllowedErrors = result.filter(
+      (diagnostic) => diagnostic.message === 'Object includes not allowed fields',
+    );
+    assert.isAtLeast(notAllowedErrors.length, 1);
+    assert.strictEqual(notAllowedErrors[0].severity, DiagnosticSeverity.Error);
   });
 });

@@ -1,0 +1,15 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  operationTraits:
+    validTrait:
+      security:
+        - apiKey: []
+        - oauth2:
+            - read:users
+    invalidTrait:
+      security:
+        - "should be a securityRequirement object"
+        - 123

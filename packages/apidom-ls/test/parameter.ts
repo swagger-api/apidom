@@ -3,13 +3,14 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { Position } from 'vscode-languageserver-types';
+import { DiagnosticSeverity, Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
   CompletionContext,
   LanguageService,
   LanguageServiceContext,
+  ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
@@ -18,7 +19,13 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specParameterFields = fs
-  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'parameter-fields.yaml'))
+  .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameter-fields.yaml'))
+  .toString();
+
+const specParameterAllowedFields = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'parameter-allowed-fields-3-0.yaml'),
+  )
   .toString();
 
 describe('asyncapi parameter test', function () {
@@ -114,5 +121,28 @@ describe('asyncapi parameter test', function () {
       },
       targetSpecs: AsyncAPI3,
     } as any);
+  });
+
+  it('test parameter allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/parameter-allowed-fields.yaml',
+      'yaml',
+      0,
+      specParameterAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.strictEqual(result.length, 1);
+
+    assert.strictEqual(result[0].code, 15000);
+    assert.strictEqual(result[0].message, 'Object includes not allowed fields');
+    assert.strictEqual(result[0].severity, DiagnosticSeverity.Error);
   });
 });

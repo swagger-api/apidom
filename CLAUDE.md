@@ -217,6 +217,73 @@ docker exec -it apidom-dev npm run test
 - Always use `.ts` extension in imports (enforced): `import foo from './foo.ts'`
 - Import ordering: builtin/external/internal, then parent/sibling/index with newlines between groups
 
+### Git Commit Conventions
+
+**⚠️ CRITICAL**: All commits MUST follow the Conventional Commits specification (commitlint).
+
+**Commit Message Format:**
+```
+<type>(<scope>): <subject>
+
+[optional body]
+
+[optional footer]
+```
+
+**Allowed Types:**
+- `feat`: New feature
+- `fix`: Bug fix
+- `docs`: Documentation changes
+- `style`: Code style changes (formatting, missing semicolons, etc.)
+- `refactor`: Code refactoring (neither fixes a bug nor adds a feature)
+- `perf`: Performance improvements
+- `test`: Adding or updating tests
+- `build`: Changes to build system or dependencies
+- `ci`: Changes to CI configuration
+- `chore`: Other changes that don't modify src or test files
+- `revert`: Reverts a previous commit
+
+**Scope Examples:**
+- Package names: `core`, `ls`, `parser`, `reference`
+- Spec namespaces: `openapi`, `asyncapi`, `arazzo`
+- Feature areas: `validation`, `refractor`, `visitor`
+
+**Subject Guidelines:**
+- Use imperative mood: "add feature" not "added feature"
+- No capitalization of first letter
+- No period at the end
+- Keep header (type + scope + subject) under 75 characters
+
+**Commit Body Restrictions:**
+- **MUST** have a blank line between subject and body
+- Each body line should wrap at 100 characters maximum
+- Body is optional but recommended for complex changes
+- Explain the "why" and "what", not the "how"
+- Use present tense: "change" not "changed"
+- Reference issues/PRs when applicable: "Fixes #123", "Related to #456"
+
+**Examples:**
+```bash
+# Simple commit (no body needed)
+feat(ls): add validation rules for AsyncAPI 3.0 Operation object
+
+# Complex commit with body
+fix(core): correct element traversal in nested structures
+
+The previous traversal algorithm incorrectly skipped intermediate nodes
+when dealing with deeply nested ApiDOM elements. This fix ensures all
+nodes are visited in the correct order.
+
+Fixes #1234
+
+# With Co-Authored-By footer
+docs(readme): update installation instructions
+
+Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>
+```
+
+**When creating commits through git commands, ALWAYS follow this format. Commitlint hooks will reject non-compliant commit messages.**
+
 ### WASM Builds
 The `prebuild` script builds WASM directly inside `node_modules` for tree-sitter packages. This happens before the main build.
 
@@ -233,3 +300,9 @@ Packages follow a dependency hierarchy:
 - Language service depends on reference
 
 When modifying core packages, expect cascading build requirements in dependent packages.
+
+## Package-Specific Documentation
+
+Some packages have additional documentation in their own CLAUDE.md files:
+
+- **apidom-ls** (`packages/apidom-ls/CLAUDE.md`): Comprehensive guidelines for implementing lint validation rules, with lessons learned from PR reviews and real-world examples.

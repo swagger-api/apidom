@@ -4,6 +4,7 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI32 } from '../../target-specs.ts';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const inEquals3_2Lint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_PARAMETER_FIELD_IN_EQUALS,
   source: 'apilint',

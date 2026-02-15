@@ -1300,6 +1300,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
 
         const includesTemplateExpression: boolean[] = [];
+        let isUnsupportedReference = false;
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
             const operationParameterElements = isObject(el) && el.get('parameters');
@@ -1335,6 +1336,8 @@ export const standardLinterfunctions: FunctionItem[] = [
                       // If resolution fails, skip this parameter
                       return;
                     }
+                  } else {
+                    isUnsupportedReference = true;
                   }
                 }
 
@@ -1359,7 +1362,9 @@ export const standardLinterfunctions: FunctionItem[] = [
         });
 
         return (
-          includesTemplateExpression.length > 0 && includesTemplateExpression.every((bool) => !bool)
+          isUnsupportedReference ||
+          (includesTemplateExpression.length > 0 &&
+            includesTemplateExpression.every((bool) => !bool))
         );
       }
 

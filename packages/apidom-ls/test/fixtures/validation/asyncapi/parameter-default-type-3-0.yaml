@@ -1,0 +1,39 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test/{userId}/{status}/{role}
+    parameters:
+      userId:
+        description: User ID parameter
+        location: $message.header#/userId
+        # Valid - default is a string
+        default: "defaultUser"
+        enum:
+          - "user1"
+          - "user2"
+        examples:
+          - "user1"
+          - "user2"
+      status:
+        # Valid - description is a string
+        description: Status parameter
+        # Valid - location is a string
+        location: $message.header#/status
+        # Invalid - default must be a string in AsyncAPI 3, not a number
+        default: 123
+        # Invalid - enum must be an array of strings, not numbers
+        enum:
+          - 1
+          - 2
+        # Invalid - examples must be an array of strings, not booleans
+        examples:
+          - true
+          - false
+      role:
+        # Invalid - description must be a string, not a number
+        description: 456
+        # Invalid - location must be a string, not a boolean
+        location: true

@@ -1,0 +1,37 @@
+asyncapi: 3.0.0
+info:
+  title: Test Spec
+  version: 1.0.0
+channels:
+  userSignup:
+    address: /users
+operations:
+  # Valid operation - has both required fields
+  validOperation:
+    action: send
+    channel:
+      $ref: '#/channels/userSignup'
+
+  # Missing action field (should trigger error)
+  missingActionOperation:
+    channel:
+      $ref: '#/channels/userSignup'
+
+  # Missing channel field (should trigger error)
+  missingChannelOperation:
+    action: receive
+
+  # Missing both required fields (should trigger 2 errors)
+  missingBothOperation:
+    title: This operation is missing action and channel
+
+  # Reference operation - should NOT trigger required field errors
+  refOperation:
+    $ref: '#/components/operations/SendUser'
+
+components:
+  operations:
+    SendUser:
+      action: send
+      channel:
+        $ref: '#/channels/userSignup'

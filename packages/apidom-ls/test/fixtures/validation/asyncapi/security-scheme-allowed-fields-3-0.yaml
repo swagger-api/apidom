@@ -1,0 +1,15 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  securitySchemes:
+    validApiKey:
+      type: apiKey
+      in: user
+      description: API Key authentication
+      x-custom-extension: allowed
+    invalidScheme:
+      type: apiKey
+      in: user
+      notAllowedField: "this should trigger error"

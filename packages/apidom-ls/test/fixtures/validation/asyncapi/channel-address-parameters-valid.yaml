@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Valid Channel Address Parameters
+  version: 1.0.0
+channels:
+  userEvents:
+    address: 'user/{userId}/events'
+    messages: {}
+    parameters:
+      userId:
+        description: User identifier
+operations: {}

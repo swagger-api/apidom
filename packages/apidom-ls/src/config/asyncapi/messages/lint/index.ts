@@ -1,5 +1,7 @@
 import { LinterMeta } from 'src/apidom-language-types.ts';
 
-const lints: LinterMeta[] = [];
+import valuesTypeLint from './values-type.ts';
+
+const lints: LinterMeta[] = [valuesTypeLint];
 
 export default lints;

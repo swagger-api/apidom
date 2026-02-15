@@ -1,0 +1,14 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+    messages:
+      testMessage:
+        payload:
+          # Invalid - schemaFormat should be a string, not a number
+          schemaFormat: 123
+          schema:
+            type: object

@@ -6415,7 +6415,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 2020401,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -6746,7 +6746,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 181801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7224,7 +7224,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 310301,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7287,6 +7287,348 @@ describe('apidom-ls-validate', function () {
         code: 250200,
         source: 'apilint',
         data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - External Documentation Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'external-documentation-ref-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/external-documentation-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 2070200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 9 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 2180100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - External Documentation Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'external-documentation-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/external-documentation-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 9 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Tag Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-ref-3-0.yaml'))
+      .toString();
+    const doc: TextDocument = TextDocument.create('foo://bar/tag-ref-3-0.yaml', 'yaml', 0, spec);
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 2060200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 8 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 2180100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Tag Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'tag-allowed-fields-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/tag-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 8 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Reply Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'operation-reply-ref-3-0.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-reply-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 12 },
+          end: { line: 7, character: 16 },
+        },
+        message: "'$ref' value must be a valid URI-reference",
+        severity: 1,
+        code: 2030400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 4 },
+          end: { line: 8, character: 10 },
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        severity: 2,
+        code: 2180100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: 'remove $ref',
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              target: 'parent',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Reply Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-reply-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-reply-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 10 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Reply Address Object reference rules', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-reply-address-ref-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-reply-address-ref-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    // TODO: These validation rules should be triggered but currently are not
+    // The lint rules exist but Operation Reply Address elements in components.replyAddresses
+    // are not being validated for $ref rules
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Reply Address Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-reply-address-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-reply-address-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 12 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
       },
     ];
     assert.deepEqual(result, expected);
@@ -7780,7 +8122,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 211501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -7795,6 +8137,177 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Message Payload Schema reference siblings', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'message-payload-ref-siblings-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/message-payload-ref-siblings-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        code: 2180100,
+        data: {
+          quickFix: [
+            {
+              action: 'removeChild',
+              functionParams: ['$ref'],
+              message: 'remove $ref',
+              target: 'parent',
+            },
+          ],
+        },
+        message: 'All other properties in a "$ref" object are ignored',
+        range: {
+          end: {
+            character: 15,
+            line: 9,
+          },
+          start: {
+            character: 8,
+            line: 9,
+          },
+        },
+        severity: 2,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Multi Format Schema Object required fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'multi-format-schema-fields-required-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/multi-format-schema-fields-required-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 8 },
+          end: { line: 9, character: 15 },
+        },
+        message: "should always have a 'schema'",
+        severity: 1,
+        code: 2050200,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'schema' field",
+              action: 'addChild',
+              snippetYaml: 'schema: \n  ',
+              snippetJson: '"schema": {},\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Multi Format Schema Object fields types', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'multi-format-schema-fields-types-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/multi-format-schema-fields-types-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 11, character: 24 },
+          end: { line: 11, character: 27 },
+        },
+        message: "'schemaFormat' value must be a string",
+        severity: 1,
+        code: 2050100,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Multi Format Schema Object fields types (valid)', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'multi-format-schema-fields-types-valid-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/multi-format-schema-fields-types-valid-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    assert.strictEqual(result.length, 0);
 
     languageService.terminate();
   });
@@ -8085,7 +8598,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 221501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -8416,7 +8929,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 201801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -8862,6 +9375,46 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
         data: {},
       },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: "should always have an 'action'",
+        severity: 1,
+        code: 2080101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'action' field",
+              action: 'addChild',
+              snippetYaml: 'action: \n  ',
+              snippetJson: '"action": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: {
+          start: { line: 6, character: 4 },
+          end: { line: 6, character: 14 },
+        },
+        message: "should always have a 'channel'",
+        severity: 1,
+        code: 2080201,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'channel' field",
+              action: 'addChild',
+              snippetYaml: 'channel: \n  ',
+              snippetJson: '"channel": {\n  \n},\n',
+            },
+          ],
+        },
+      },
     ];
     assert.deepEqual(result, expected);
 
@@ -9186,7 +9739,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 191701,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -9230,8 +9783,52 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 7, character: 19 },
-          end: { line: 7, character: 22 },
+          start: { line: 9, character: 6 },
+          end: { line: 9, character: 12 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 6 },
+          end: { line: 11, character: 12 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 17 },
+          end: { line: 14, character: 20 },
+        },
+        message: "'default' must be a string",
+        severity: 1,
+        code: 2120200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 6 },
+          end: { line: 15, character: 10 },
+        },
+        message: "'examples' must be an array of strings",
+        severity: 1,
+        code: 2120300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 18, character: 21 },
+          end: { line: 18, character: 24 },
         },
         message: "'description' must be a string",
         severity: 1,
@@ -9241,12 +9838,67 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 8, character: 16 },
-          end: { line: 8, character: 19 },
+          start: { line: 19, character: 18 },
+          end: { line: 19, character: 35 },
         },
         message: "'location' must be a string",
         severity: 1,
         code: 160300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 23, character: 19 },
+          end: { line: 23, character: 22 },
+        },
+        message: "'description' must be a string",
+        severity: 1,
+        code: 160100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 24, character: 16 },
+          end: { line: 24, character: 20 },
+        },
+        message: "'location' must be a string",
+        severity: 1,
+        code: 160300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 4 },
+          end: { line: 22, character: 13 },
+        },
+        message: "'enum' must be an array of strings",
+        severity: 1,
+        code: 2120100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 26, character: 15 },
+          end: { line: 26, character: 32 },
+        },
+        message: "'default' must be a string",
+        severity: 1,
+        code: 2120200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 22, character: 4 },
+          end: { line: 22, character: 13 },
+        },
+        message: "'examples' must be an array of strings",
+        severity: 1,
+        code: 2120300,
         source: 'apilint',
         data: {},
       },
@@ -9291,7 +9943,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 160401,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -9755,7 +10407,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 270901,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -9954,7 +10606,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 100801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -10285,7 +10937,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 171801,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [
@@ -10451,7 +11103,7 @@ describe('apidom-ls-validate', function () {
         },
         message: 'All other properties in a "$ref" object are ignored',
         severity: 2,
-        code: 110501,
+        code: 2180100,
         source: 'apilint',
         data: {
           quickFix: [

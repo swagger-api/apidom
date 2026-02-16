@@ -3937,6 +3937,13 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
+        range: { start: { line: 43, character: 2 }, end: { line: 43, character: 31 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 52, character: 2 }, end: { line: 52, character: 39 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
@@ -4001,6 +4008,13 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
       },
       {
+        range: { start: { line: 58, character: 2 }, end: { line: 58, character: 31 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
         range: { start: { line: 70, character: 2 }, end: { line: 70, character: 39 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
@@ -4059,6 +4073,13 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: { start: { line: 40, character: 2 }, end: { line: 40, character: 25 } },
+        message: 'path template expressions is not matched with Parameter Object(s)',
+        severity: 1,
+        code: 3040101,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 58, character: 2 }, end: { line: 58, character: 31 } },
         message: 'path template expressions is not matched with Parameter Object(s)',
         severity: 1,
         code: 3040101,
@@ -11225,6 +11246,142 @@ describe('apidom-ls-validate', function () {
       },
     ];
     assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - local references - every path template should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'path-template-reference-defined-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-reference-defined-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.1 / yaml - local references - every path template should be defined', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'path-template-reference-defined-3-1.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-reference-defined-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.0 / yaml - not local references - no validation error', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'path-template-reference-not-supported-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-reference-not-supported-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected as Diagnostic[]);
+
+    languageService.terminate();
+  });
+
+  it('oas 3.1 / yaml - not local references - no validation error', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'oas',
+          'path-template-reference-not-supported-3-1.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/path-template-reference-not-supported-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [];
+    assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();
   });

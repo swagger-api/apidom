@@ -13,7 +13,7 @@ import {
   isObjectElement,
   traverse,
 } from '@swagger-api/apidom-core';
-import { URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
+import { URIFragmentIdentifier, evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
 import {
   test as testPathTemplate,
@@ -1281,7 +1281,8 @@ export const standardLinterfunctions: FunctionItem[] = [
           return true;
         }
 
-        let oneOfParametersIsReferenceObject = false;
+        const apiRoot = root(element);
+
         const isParameterElement = (el: Element): boolean => el.element === 'parameter';
         const isReferenceElement = (el: Element): boolean => el.element === 'reference';
 
@@ -1289,26 +1290,27 @@ export const standardLinterfunctions: FunctionItem[] = [
         const pathItemParameterElements = pathItemElement.get('parameters');
         if (isArrayElement(pathItemParameterElements)) {
           pathItemParameterElements.forEach((parameter) => {
-            if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
-              oneOfParametersIsReferenceObject = true;
-            }
-            if (isParameterElement(parameter) && isObject(parameter)) {
+            if (
+              (isParameterElement(parameter) || isReferenceElement(parameter)) &&
+              isObject(parameter)
+            ) {
               pathLevelParameterElements.push(parameter);
             }
           });
         }
 
         const includesTemplateExpression: boolean[] = [];
+        let isUnsupportedReference = false;
         pathItemElement.forEach((el) => {
           if (el.element === 'operation') {
             const operationParameterElements = isObject(el) && el.get('parameters');
             const currentOperationLevelParameterElements: ObjectElement[] = [];
             if (isArrayElement(operationParameterElements)) {
               operationParameterElements.forEach((parameter) => {
-                if (isReferenceElement(parameter) && !oneOfParametersIsReferenceObject) {
-                  oneOfParametersIsReferenceObject = true;
-                }
-                if (isParameterElement(parameter) && isObject(parameter)) {
+                if (
+                  (isParameterElement(parameter) || isReferenceElement(parameter)) &&
+                  isObject(parameter)
+                ) {
                   currentOperationLevelParameterElements.push(parameter);
                 }
               });
@@ -1317,8 +1319,30 @@ export const standardLinterfunctions: FunctionItem[] = [
             pathLevelParameterElements
               .concat(currentOperationLevelParameterElements)
               .forEach((parameter) => {
-                const inParam = parameter.get('in');
-                const nameParam = parameter.get('name');
+                let actualParameter = parameter;
+
+                // If this is a reference, resolve it to get the actual parameter
+                if (isReferenceElement(parameter) && parameter.hasKey('$ref')) {
+                  const refValue = toValue(parameter.get('$ref'));
+                  if (refValue && typeof refValue === 'string' && refValue.startsWith('#/')) {
+                    try {
+                      // Strip the '#' prefix to get a valid JSON Pointer
+                      const jsonPointer = refValue.substring(1);
+                      const resolvedParam = evaluate(apiRoot, jsonPointer);
+                      if (resolvedParam && isObjectElement(resolvedParam)) {
+                        actualParameter = resolvedParam;
+                      }
+                    } catch {
+                      // If resolution fails, skip this parameter
+                      return;
+                    }
+                  } else {
+                    isUnsupportedReference = true;
+                  }
+                }
+
+                const inParam = actualParameter.get('in');
+                const nameParam = actualParameter.get('name');
                 if (inParam && inParam.content === 'path' && nameParam && nameParam.content) {
                   pathTemplateResolveParams[nameParam.content] = 'placeholder';
                 }
@@ -1338,9 +1362,9 @@ export const standardLinterfunctions: FunctionItem[] = [
         });
 
         return (
+          isUnsupportedReference ||
           (includesTemplateExpression.length > 0 &&
-            includesTemplateExpression.every((bool) => !bool)) ||
-          oneOfParametersIsReferenceObject
+            includesTemplateExpression.every((bool) => !bool))
         );
       }
 

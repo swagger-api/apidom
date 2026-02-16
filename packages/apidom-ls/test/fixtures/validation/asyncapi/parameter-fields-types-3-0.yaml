@@ -1,0 +1,28 @@
+asyncapi: 3.0.0
+info:
+  title: Parameter Object - All Fields Type Validation
+  version: '1.0.0'
+channels:
+  userChannel:
+    address: 'user/{userId}/{status}/{region}/{role}/{category}'
+    messages: {}
+    parameters:
+      userId:
+        enum: 'not-an-array'
+      status:
+        enum: [123, 456]
+      region:
+        default: 123
+      role:
+        examples: 'not-an-array'
+      category:
+        description: 123
+        location: ['not', 'string']
+components:
+  parameters:
+    testParam:
+      description: 456
+      location: true
+      enum: false
+      default: ['wrong', 'type']
+      examples: 789

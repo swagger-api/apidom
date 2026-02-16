@@ -3,6 +3,32 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/swagger-api/apidom/compare/v1.3.0...v1.4.0) (2026-02-03)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
+
+# [1.3.0](https://github.com/swagger-api/apidom/compare/v1.2.2...v1.3.0) (2026-01-23)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2
+
+## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
+
+### Bug Fixes
+
+- **parser:** fix tree being deleted before analysis completion ([#5099](https://github.com/swagger-api/apidom/issues/5099)) ([5bf6eaf](https://github.com/swagger-api/apidom/commit/5bf6eaf99d04eccef8a4c563afe03e206a3c0df7))
+
+## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
+
+### Bug Fixes
+
+- **parser:** clear the old Wasm-allocated tree to prevent memory leaks ([#5097](https://github.com/swagger-api/apidom/issues/5097)) ([fd160a7](https://github.com/swagger-api/apidom/commit/fd160a7453c15bc160c04a1325aecd845f6d4882))
+
+# [1.2.0](https://github.com/swagger-api/apidom/compare/v1.1.0...v1.2.0) (2026-01-14)
+
+### Bug Fixes
+
+- **deps:** align the tree-sitter version ([#5023](https://github.com/swagger-api/apidom/issues/5023)) ([eaf23ab](https://github.com/swagger-api/apidom/commit/eaf23ab94e39e87b88b25c717092852a7e48f1a2))
+
 # [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-yaml-1-2

@@ -1,0 +1,20 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+operations:
+  testOperation:
+    action: send
+    channel:
+      $ref: '#/channels/testChannel'
+    reply:
+      address:
+        # Invalid - location should be a string, not a number
+        location: 123
+        # Invalid - description should be a string, not a number
+        description: 456
+      channel:
+        $ref: '#/channels/testChannel'

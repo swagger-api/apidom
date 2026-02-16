@@ -1,0 +1,9 @@
+asyncapi: 3.0.0
+info:
+  title: Test API
+  version: 1.0.0
+channels:
+  testChannel:
+    address: /test
+# Invalid - operations should be an object, not an array
+operations: []

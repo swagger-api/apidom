@@ -1,5 +1,224 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should refract specification extensions 1`] = `
+{
+  "element": "asyncApi3",
+  "meta": {
+    "classes": {
+      "element": "array",
+      "content": [
+        {
+          "element": "string",
+          "content": "api"
+        }
+      ]
+    }
+  },
+  "content": [
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "asyncapi"
+        },
+        "value": {
+          "element": "asyncApiVersion",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "spec-version"
+                },
+                {
+                  "element": "string",
+                  "content": "version"
+                }
+              ]
+            }
+          },
+          "content": "3.0.0"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "specification-extension"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "x-extension-1"
+        },
+        "value": {
+          "element": "string",
+          "content": "value1"
+        }
+      }
+    },
+    {
+      "element": "member",
+      "meta": {
+        "classes": {
+          "element": "array",
+          "content": [
+            {
+              "element": "string",
+              "content": "fixed-field"
+            }
+          ]
+        }
+      },
+      "content": {
+        "key": {
+          "element": "string",
+          "content": "info"
+        },
+        "value": {
+          "element": "info",
+          "meta": {
+            "classes": {
+              "element": "array",
+              "content": [
+                {
+                  "element": "string",
+                  "content": "info"
+                }
+              ]
+            }
+          },
+          "content": [
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "title"
+                },
+                "value": {
+                  "element": "string",
+                  "content": "Sample API"
+                }
+              }
+            },
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "fixed-field"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "version"
+                },
+                "value": {
+                  "element": "string",
+                  "meta": {
+                    "classes": {
+                      "element": "array",
+                      "content": [
+                        {
+                          "element": "string",
+                          "content": "api-version"
+                        },
+                        {
+                          "element": "string",
+                          "content": "version"
+                        }
+                      ]
+                    }
+                  },
+                  "content": "1.0.0"
+                }
+              }
+            },
+            {
+              "element": "member",
+              "meta": {
+                "classes": {
+                  "element": "array",
+                  "content": [
+                    {
+                      "element": "string",
+                      "content": "specification-extension"
+                    }
+                  ]
+                }
+              },
+              "content": {
+                "key": {
+                  "element": "string",
+                  "content": "x-extension-2"
+                },
+                "value": {
+                  "element": "object",
+                  "content": [
+                    {
+                      "element": "member",
+                      "content": {
+                        "key": {
+                          "element": "string",
+                          "content": "nestedKey"
+                        },
+                        "value": {
+                          "element": "string",
+                          "content": "nestedValue"
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
+`;
+
 exports[`refractor given generic ApiDOM object in AsyncApi 3.0.0 shape should refract to AsyncApi3Element 1`] = `
 {
   "element": "asyncApi3",

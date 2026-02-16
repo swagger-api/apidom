@@ -3,6 +3,36 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/swagger-api/apidom/compare/v1.3.0...v1.4.0) (2026-02-03)
+
+### Features
+
+- **ls:** add AsyncAPI 3 completion for compatible keywords ([#5101](https://github.com/swagger-api/apidom/issues/5101)) ([384e358](https://github.com/swagger-api/apidom/commit/384e358c92ca0e9dd2808b692ac132b0c7a399b0))
+- **ls:** add AsyncAPI 3 completion for new keywords ([#5103](https://github.com/swagger-api/apidom/issues/5103)) ([923283b](https://github.com/swagger-api/apidom/commit/923283b80bbb251e7b37af0a3ce988ba40abd7c2))
+- **ls:** add AsyncAPI 3 documentation for new keywords ([#5102](https://github.com/swagger-api/apidom/issues/5102)) ([5e29dad](https://github.com/swagger-api/apidom/commit/5e29dad9488cb1d3bc021105b0967cbfc2c2ef94))
+- **ls:** add AsyncAPI 3 tokens for new keywords ([#5106](https://github.com/swagger-api/apidom/issues/5106)) ([7104312](https://github.com/swagger-api/apidom/commit/7104312fd0bcfc58e7812e1b09b9269f0c556383))
+- **ls:** add AsyncAPI 3 validation for compatible keywords ([#5096](https://github.com/swagger-api/apidom/issues/5096)) ([f8cfb73](https://github.com/swagger-api/apidom/commit/f8cfb73eb52de2ad82534d88e86f055bbfb03fcf))
+
+# [1.3.0](https://github.com/swagger-api/apidom/compare/v1.2.2...v1.3.0) (2026-01-23)
+
+### Features
+
+- **apidom-ls:** docs & config of compatible properties in AsyncAPI3 ([#5095](https://github.com/swagger-api/apidom/issues/5095)) ([1f3a3c1](https://github.com/swagger-api/apidom/commit/1f3a3c11570be4471cad13170d430d8df78b1720))
+
+## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
+
+**Note:** Version bump only for package @swagger-api/apidom-ls
+
+## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
+
+**Note:** Version bump only for package @swagger-api/apidom-ls
+
+# [1.2.0](https://github.com/swagger-api/apidom/compare/v1.1.0...v1.2.0) (2026-01-14)
+
+### Features
+
+- **resolve:** add caching for references ([#5093](https://github.com/swagger-api/apidom/issues/5093)) ([edbc4e3](https://github.com/swagger-api/apidom/commit/edbc4e3b6f4b81f4a46ec41f4f7a166d701ff066))
+
 # [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
 
 ### Features

@@ -1,0 +1,35 @@
+openapi: 3.0.4
+info:
+  title: Foo
+  version: 0.1.0
+components:
+  parameters:
+    test_id:
+      name: test_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        title: Test Id
+    baz_id:
+      name: baz_id
+      in: path
+      required: true
+      schema:
+        type: string
+        format: uuid
+        title: Test Id
+paths:
+  /reference/{test_id}/{baz_id}:
+    get:
+      summary: Get test baz
+      parameters:
+        - $ref: '#/components/parameters/test_id'
+        - $ref: '#/components/parameters/baz_id'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: { }

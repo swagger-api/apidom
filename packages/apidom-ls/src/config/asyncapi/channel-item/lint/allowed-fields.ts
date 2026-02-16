@@ -1,6 +1,7 @@
 import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
+import { AsyncAPI2 } from '../../target-specs.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 
 const allowedFieldsLint: LinterMeta = {
@@ -14,6 +15,7 @@ const allowedFieldsLint: LinterMeta = {
     'x-',
   ],
   marker: 'key',
+  targetSpecs: AsyncAPI2,
 };
 
 export default allowedFieldsLint;

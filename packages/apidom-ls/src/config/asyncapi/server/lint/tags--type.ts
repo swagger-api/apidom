@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
 
 const tagsTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SERVER_FIELD_TAGS_TYPE,
@@ -16,6 +17,7 @@ const tagsTypeLint: LinterMeta = {
   targetSpecs: [
     { namespace: 'asyncapi', version: '2.5.0' },
     { namespace: 'asyncapi', version: '2.6.0' },
+    ...AsyncAPI3,
   ],
 };
 

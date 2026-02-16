@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  replyAddresses:
+    address1:
+      $ref: '//'
+    address2:
+      $ref: '#/components/replyAddresses/address1'
+      x-test: 123

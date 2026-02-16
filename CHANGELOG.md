@@ -3,6 +3,49 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.4.0](https://github.com/swagger-api/apidom/compare/v1.3.0...v1.4.0) (2026-02-03)
+
+### Features
+
+- **ls:** add AsyncAPI 3 completion for compatible keywords ([#5101](https://github.com/swagger-api/apidom/issues/5101)) ([384e358](https://github.com/swagger-api/apidom/commit/384e358c92ca0e9dd2808b692ac132b0c7a399b0))
+- **ls:** add AsyncAPI 3 completion for new keywords ([#5103](https://github.com/swagger-api/apidom/issues/5103)) ([923283b](https://github.com/swagger-api/apidom/commit/923283b80bbb251e7b37af0a3ce988ba40abd7c2))
+- **ls:** add AsyncAPI 3 documentation for new keywords ([#5102](https://github.com/swagger-api/apidom/issues/5102)) ([5e29dad](https://github.com/swagger-api/apidom/commit/5e29dad9488cb1d3bc021105b0967cbfc2c2ef94))
+- **ls:** add AsyncAPI 3 tokens for new keywords ([#5106](https://github.com/swagger-api/apidom/issues/5106)) ([7104312](https://github.com/swagger-api/apidom/commit/7104312fd0bcfc58e7812e1b09b9269f0c556383))
+- **ls:** add AsyncAPI 3 validation for compatible keywords ([#5096](https://github.com/swagger-api/apidom/issues/5096)) ([f8cfb73](https://github.com/swagger-api/apidom/commit/f8cfb73eb52de2ad82534d88e86f055bbfb03fcf))
+
+# [1.3.0](https://github.com/swagger-api/apidom/compare/v1.2.2...v1.3.0) (2026-01-23)
+
+### Bug Fixes
+
+- **ns-asyncapi-3:** refract specification extensions ([#5107](https://github.com/swagger-api/apidom/issues/5107)) ([3d85c0f](https://github.com/swagger-api/apidom/commit/3d85c0f654fb1bdc2bc1493544c5dcd812e7d7c0))
+
+### Features
+
+- **apidom-ls:** docs & config of compatible properties in AsyncAPI3 ([#5095](https://github.com/swagger-api/apidom/issues/5095)) ([1f3a3c1](https://github.com/swagger-api/apidom/commit/1f3a3c11570be4471cad13170d430d8df78b1720))
+
+## [1.2.2](https://github.com/swagger-api/apidom/compare/v1.2.1...v1.2.2) (2026-01-16)
+
+### Bug Fixes
+
+- **ns-asyncapi-2:** add missing reference metadata to server variables ([#5098](https://github.com/swagger-api/apidom/issues/5098)) ([0984114](https://github.com/swagger-api/apidom/commit/09841140b5f6f0a0b2620533892a38466804d4e3))
+- **parser:** fix tree being deleted before analysis completion ([#5099](https://github.com/swagger-api/apidom/issues/5099)) ([5bf6eaf](https://github.com/swagger-api/apidom/commit/5bf6eaf99d04eccef8a4c563afe03e206a3c0df7))
+
+## [1.2.1](https://github.com/swagger-api/apidom/compare/v1.2.0...v1.2.1) (2026-01-16)
+
+### Bug Fixes
+
+- **parser:** clear the old Wasm-allocated tree to prevent memory leaks ([#5097](https://github.com/swagger-api/apidom/issues/5097)) ([fd160a7](https://github.com/swagger-api/apidom/commit/fd160a7453c15bc160c04a1325aecd845f6d4882))
+
+# [1.2.0](https://github.com/swagger-api/apidom/compare/v1.1.0...v1.2.0) (2026-01-14)
+
+### Bug Fixes
+
+- **deps:** align the tree-sitter version ([#5023](https://github.com/swagger-api/apidom/issues/5023)) ([eaf23ab](https://github.com/swagger-api/apidom/commit/eaf23ab94e39e87b88b25c717092852a7e48f1a2))
+
+### Features
+
+- **resolve:** add caching for references ([#5093](https://github.com/swagger-api/apidom/issues/5093)) ([edbc4e3](https://github.com/swagger-api/apidom/commit/edbc4e3b6f4b81f4a46ec41f4f7a166d701ff066))
+
 # [1.1.0](https://github.com/swagger-api/apidom/compare/v1.0.2...v1.1.0) (2025-12-19)
 
 ### Bug Fixes

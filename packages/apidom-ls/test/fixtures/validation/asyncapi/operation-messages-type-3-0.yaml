@@ -1,0 +1,20 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  userSignup:
+    address: /users
+operations:
+  validOperationWithInlineMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/userSignup'
+    messages:
+      - payload:
+          type: string
+  invalidOperationWithStringMessages:
+    action: send
+    channel:
+      $ref: '#/channels/userSignup'
+    messages: "should be an array"

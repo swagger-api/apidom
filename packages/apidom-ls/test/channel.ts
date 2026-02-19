@@ -20,6 +20,7 @@ import {
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -33,6 +34,10 @@ const specBindingsEmpty = fs
 
 const specChannelLint = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'channel', 'channel-lint.yaml'))
+  .toString();
+
+const specChannelFields = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'async', 'asyncapi3', 'channel-fields.yaml'))
   .toString();
 
 describe('asyncapi channel test', function () {
@@ -130,6 +135,7 @@ describe('asyncapi channel test', function () {
               kind: 'markdown',
               value: 'A reference to an Channel Bindings',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'http',
@@ -141,6 +147,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[HTTP Channel Binding](https://github.com/asyncapi/bindings/blob/master/http/#channel)\n\\\n\\\nProtocol-specific information for an HTTP channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'ws',
@@ -152,6 +159,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[WebSockets Channel Binding](https://github.com/asyncapi/bindings/blob/master/websockets#channel)\n\\\n\\\nProtocol-specific information for a WebSockets channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'kafka',
@@ -163,6 +171,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[Kafka Channel Binding](https://github.com/asyncapi/bindings/blob/master/kafka#channel)\n\\\n\\\nProtocol-specific information for a Kafka channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'amqp',
@@ -174,6 +183,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[AMQP Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp#channel)\n\\\n\\\nProtocol-specific information for an AMQP 0-9-1 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'amqp1',
@@ -185,6 +195,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[AMQP 1.0 Channel Binding](https://github.com/asyncapi/bindings/blob/master/amqp1#channel)\n\\\n\\\nProtocol-specific information for an AMQP 1.0 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'mqtt',
@@ -196,6 +207,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[MQTT Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt#channel)\n\\\n\\\nProtocol-specific information for an MQTT channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'mqtt5',
@@ -207,6 +219,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'nats',
@@ -218,6 +231,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[NATS Channel Binding](https://github.com/asyncapi/bindings/blob/master/nats#channel)\n\\\n\\\nProtocol-specific information for a NATS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'jms',
@@ -229,6 +243,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[JMS Channel Binding](https://github.com/asyncapi/bindings/blob/master/jms#channel)\n\\\n\\\nProtocol-specific information for a JMS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'sns',
@@ -240,6 +255,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'sqs',
@@ -251,6 +267,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[SQS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sqs#channel)\n\\\n\\\nProtocol-specific information for an SQS channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'stomp',
@@ -262,6 +279,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[STOMP Channel Binding](https://github.com/asyncapi/bindings/blob/master/stomp#channel)\n\\\n\\\nProtocol-specific information for a STOMP channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
           {
             label: 'redis',
@@ -273,6 +291,7 @@ describe('asyncapi channel test', function () {
               value:
                 '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
             },
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
         ],
         isIncomplete: false,
@@ -450,6 +469,131 @@ describe('asyncapi channel test', function () {
         source: 'apilint',
         data: {},
       },
+      {
+        range: {
+          start: { line: 44, character: 4 },
+          end: { line: 44, character: 14 },
+        },
+        message: 'Parameters Object values must be of Parameter Object shape',
+        severity: 1,
+        code: 150002,
+        source: 'apilint',
+        data: {},
+      },
     ] as Diagnostic[]);
+  });
+
+  it('complete channel address field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const addressItem = result?.items.find((item) => item.label === 'address');
+    assert.deepEqual(addressItem, {
+      label: 'address',
+      insertText: 'address: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions). Query parameters and fragments SHALL NOT be used, instead use [bindings](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) to define them.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+  });
+
+  it('complete channel messages field (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const messagesItem = result?.items.find((item) => item.label === 'messages');
+    assert.deepEqual(messagesItem, {
+      label: 'messages',
+      insertText: 'messages: \n  $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value:
+          '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+  });
+
+  it('complete channel title and summary fields (AsyncAPI 3)', async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/channel-fields.yaml',
+      'yaml',
+      0,
+      specChannelFields,
+    );
+
+    const pos = Position.create(3, 4);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const titleItem = result?.items.find((item) => item.label === 'title');
+    assert.deepEqual(titleItem, {
+      label: 'title',
+      insertText: 'title: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A human-friendly title for the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
+
+    const summaryItem = result?.items.find((item) => item.label === 'summary');
+    assert.deepEqual(summaryItem, {
+      label: 'summary',
+      insertText: 'summary: $1',
+      kind: 14,
+      insertTextFormat: 2,
+      documentation: {
+        kind: 'markdown',
+        value: 'A short summary of the channel.',
+      },
+      targetSpecs: AsyncAPI3,
+    } as any);
   });
 });

@@ -2,6 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../target-specs.ts';
 
 const openIdConnectUrlRequiredLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_SECURITY_SCHEME_FIELD_OPEN_ID_CONNECT_URL_REQUIRED,
@@ -28,6 +29,7 @@ const openIdConnectUrlRequiredLint: LinterMeta = {
       },
     ],
   },
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
 export default openIdConnectUrlRequiredLint;

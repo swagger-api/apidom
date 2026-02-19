@@ -1,7 +1,7 @@
 const documentation = [
   {
     target: 'bindingVersion',
-    docs: 'The current version is 0.1.0',
+    docs: 'The current version is 0.2.0',
   },
   {
     target: 'attributes',

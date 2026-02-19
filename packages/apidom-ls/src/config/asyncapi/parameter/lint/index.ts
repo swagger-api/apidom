@@ -3,17 +3,19 @@ import schemaTypeLint from './schema--type.ts';
 import locationTypeLint from './location--type.ts';
 import $refValidLint from './$ref--valid.ts';
 import $refNoSiblingsLint from './$ref--no-siblings.ts';
-import keyExistsInChannelLint from './key--exists-in-channel.ts';
-import allowedFieldsLint from './allowed-fields.ts';
+import keyExistsInChannel2_0__2_6Lint from './key--exists-in-channel-2-0--2-6.ts';
+import allowedFields2_0__2_6Lint from './allowed-fields-2-0--2-6.ts';
+import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 
 const lints = [
-  keyExistsInChannelLint,
+  keyExistsInChannel2_0__2_6Lint,
   descriptionTypeLint,
   schemaTypeLint,
   locationTypeLint,
   $refValidLint,
   $refNoSiblingsLint,
-  allowedFieldsLint,
+  allowedFields2_0__2_6Lint,
+  allowedFields3_0Lint,
 ];
 
 export default lints;

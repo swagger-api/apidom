@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-header-examples should have idempotent characteristics 1`] = `
+Object {
+  openapi: 3.2.0,
+  paths: Object {
+    /: Object {
+      get: Object {
+        responses: Object {
+          200: Object {
+            headers: Object {
+              content-type: Object {
+                examples: Object {
+                  example1: Object {
+                    value: 2,
+                  },
+                },
+                schema: Object {
+                  example: 1,
+                  type: number,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
+}
+`;

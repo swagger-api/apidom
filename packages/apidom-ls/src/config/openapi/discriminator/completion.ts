@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI3, OpenAPI32 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -33,6 +33,20 @@ const completion: ApidomCompletionItem[] = [
         'Map[string, string]\n\\\n\\\nAn object to hold mappings between payload values and schema names or references.',
     },
     targetSpecs: OpenAPI3,
+  },
+  {
+    label: 'defaultMapping',
+    insertText: 'defaultMapping',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'A default mapping value to use when the discriminator value is not found in the mapping object.',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

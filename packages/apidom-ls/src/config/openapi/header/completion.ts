@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -392,7 +392,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '[Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaObject)\n\\\n\\\nThe schema defining the type used for the header.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'example',
@@ -434,7 +434,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         "Map[`string`, [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#exampleObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#referenceObject)]\n\\\n\\\nExamples of the header's potential value. Each example SHOULD contain a value in the correct format as specified in the header encoding. The `examples` field is mutually exclusive of the `example` field. Furthermore, if referencing a `schema` that contains an example, the `examples` value SHALL *override* the example provided by the schema.",
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'content',
@@ -462,7 +462,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'Map[string, [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#mediaTypeObject)]\n\\\n\\\nA map containing the representations for the header. The key is the media type and the value describes it. The map MUST only contain one entry.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     target: 'type',

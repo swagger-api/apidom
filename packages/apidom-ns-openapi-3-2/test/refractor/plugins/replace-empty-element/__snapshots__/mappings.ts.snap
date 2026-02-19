@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`given OpenAPI definition with no empty values should do nothing 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (JsonSchemaDialectElement)))
+`;
+
+exports[`given empty value instead for OpenAPI.components.schemas should replace empty value with semantic element 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement)))))
+`;
+
+exports[`given empty value instead for OpenAPI.components.schemas.* should replace empty value with semantic element 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement)))))))
+`;
+
+exports[`given empty value instead for Schema.properties.* should replace empty value with semantic element 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (SchemaElement
+              (MemberElement
+                (StringElement)
+                (ObjectElement
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement)))))))))))
+`;
+
+exports[`given empty value instead of ContactElement should replace empty value with semantic element 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement
+      (MemberElement
+        (StringElement)
+        (ContactElement)))))
+`;
+
+exports[`given empty value instead of InfoElement should replace empty value with semantic element 1`] = `
+(OpenApi3_2Element
+  (MemberElement
+    (StringElement)
+    (OpenapiElement))
+  (MemberElement
+    (StringElement)
+    (InfoElement)))
+`;

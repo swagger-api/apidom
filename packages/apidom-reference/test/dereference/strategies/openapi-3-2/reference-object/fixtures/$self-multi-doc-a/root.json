@@ -1,0 +1,40 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://api.example.com/v1/openapi.json",
+  "info": {
+    "title": "Main API (Document A)",
+    "version": "1.0.0",
+    "description": "References Document B which has its own $self value"
+  },
+  "paths": {
+    "/items": {
+      "get": {
+        "summary": "Get items",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "./multi-doc-b.json#/components/schemas/CommonType"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LocalType": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          }
+        }
+      }
+    }
+  }
+}

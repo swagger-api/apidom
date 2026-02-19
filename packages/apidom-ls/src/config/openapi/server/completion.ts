@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -61,6 +61,33 @@ const completion: ApidomCompletionItem[] = [
         "Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'name',
+    insertText: 'name',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A short name for the server.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'variables',
+    insertText: 'variables',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "Map[`string`, [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#serverVariableObject)]\n\\\n\\\nA map between a variable name and its value. The value is used for substitution in the server's URL template.",
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

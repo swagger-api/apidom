@@ -1,0 +1,53 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "version": "1.0.0"
+  },
+  "$self": "not a valid uri reference with#fragment",
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "name": 123
+    }
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "operationId": "testGet",
+        "responses": {
+          "200": {
+            "summary": 12345,
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "invalid-type",
+                  "xml": {
+                    "nodeType": "invalid-node-type"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "mediaTypes": "not-an-object",
+    "schemas": {
+      "TestSchema": {
+        "type": "object"
+      }
+    },
+    "invalidField": "should-not-be-here"
+  },
+  "tags": [
+    {
+      "name": "test-tag",
+      "summary": 12345,
+      "parent": true,
+      "kind": 67890
+    }
+  ]
+}

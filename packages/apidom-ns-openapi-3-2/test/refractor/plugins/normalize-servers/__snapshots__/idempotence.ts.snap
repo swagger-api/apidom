@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-servers should have idempotent characteristics 1`] = `
+Object {
+  openapi: 3.2.0,
+  paths: Object {
+    /: Object {
+      get: Object {},
+    },
+  },
+  servers: Array [
+    Object {
+      description: production server,
+      url: https://example.com/,
+    },
+  ],
+}
+`;

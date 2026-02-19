@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -101,6 +101,59 @@ const completion: ApidomCompletionItem[] = [
         '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'externalDocs',
+    insertText: 'externalDocs',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this tag.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'summary',
+    insertText: 'summary',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A short summary of the tag.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'parent',
+    insertText: 'parent',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'The name of the parent tag.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'kind',
+    insertText: 'kind',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A kind classification for the tag.',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

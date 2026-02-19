@@ -1,0 +1,40 @@
+[
+  {
+    "openapi": "3.2.0",
+    "paths": {
+      "/users": {
+        "query": {
+          "summary": "Query users",
+          "description": "Search for users using query parameters",
+          "parameters": [
+            {
+              "name": "q",
+              "in": "querystring",
+              "required": false,
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Successful response"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "parameters": {
+        "searchParam": {
+          "name": "q",
+          "in": "querystring",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

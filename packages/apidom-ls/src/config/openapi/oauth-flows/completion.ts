@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI30, OpenAPI31 } from '../target-specs.ts';
+import { OpenAPI30, OpenAPI31, OpenAPI32 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -35,6 +35,20 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI31,
   },
   {
+    label: 'implicit',
+    insertText: 'implicit',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     label: 'password',
     insertText: 'password',
     kind: 14,
@@ -61,6 +75,20 @@ const completion: ApidomCompletionItem[] = [
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Password flow.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'password',
+    insertText: 'password',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Password flow.',
+    },
+    targetSpecs: OpenAPI32,
   },
   {
     label: 'clientCredentials',
@@ -91,8 +119,22 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI31,
   },
   {
-    label: 'authorizationCode',
+    label: 'clientCredentials',
     insertText: 'clientCredentials',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow. Previously called `application` in OpenAPI 2.0.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'authorizationCode',
+    insertText: 'authorizationCode',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
@@ -106,7 +148,7 @@ const completion: ApidomCompletionItem[] = [
   },
   {
     label: 'authorizationCode',
-    insertText: 'clientCredentials',
+    insertText: 'authorizationCode',
     kind: 14,
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
@@ -117,6 +159,34 @@ const completion: ApidomCompletionItem[] = [
         '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow. Previously called accessCode in OpenAPI 2.0.',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'authorizationCode',
+    insertText: 'authorizationCode',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow. Previously called accessCode in OpenAPI 2.0.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'deviceAuthorization',
+    insertText: 'deviceAuthorization',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Device Authorization flow.',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

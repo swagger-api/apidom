@@ -1,0 +1,11 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "parameters": {
+       "externalRef": {
+        "$ref": "./ex.json#/externalParameter",
+        "description": "external ref"
+      }
+    }
+  }
+}

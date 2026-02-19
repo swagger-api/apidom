@@ -12,7 +12,7 @@ const identifierTypeLint: LinterMeta = {
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'name',
+  target: 'identifier',
   data: {},
   targetSpecs: OpenAPI31,
 };

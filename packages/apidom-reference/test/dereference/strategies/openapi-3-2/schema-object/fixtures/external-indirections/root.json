@@ -1,0 +1,10 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "Indirection": {
+        "$ref": "./ex1.json#/$defs/Indirection"
+      }
+    }
+  }
+}

@@ -78,6 +78,11 @@
       "require": "./src/resolve/strategies/openapi-3-1/index.cjs",
       "types": "./types/resolve/strategies/openapi-3-1/index.d.ts"
     },
+    "./resolve/strategies/openapi-3-2": {
+      "import": "./src/resolve/strategies/openapi-3-2/index.mjs",
+      "require": "./src/resolve/strategies/openapi-3-2/index.cjs",
+      "types": "./types/resolve/strategies/openapi-3-2/index.d.ts"
+    },
     "./parse/parsers/api-design-systems-json": {
       "import": "./src/parse/parsers/api-design-systems-json/index.mjs",
       "require": "./src/parse/parsers/api-design-systems-json/index.cjs",
@@ -160,6 +165,11 @@
       "require": "./src/parse/parsers/openapi-json-3-1/index.cjs",
       "types": "./types/parse/parsers/openapi-json-3-1/index.d.ts"
     },
+    "./parse/parsers/openapi-json-3-2": {
+      "import": "./src/parse/parsers/openapi-json-3-2/index.mjs",
+      "require": "./src/parse/parsers/openapi-json-3-2/index.cjs",
+      "types": "./types/parse/parsers/openapi-json-3-2/index.d.ts"
+    },
     "./parse/parsers/openapi-yaml-3-0": {
       "import": "./src/parse/parsers/openapi-yaml-3-0/index.mjs",
       "require": "./src/parse/parsers/openapi-yaml-3-0/index.cjs",
@@ -169,6 +179,11 @@
       "import": "./src/parse/parsers/openapi-yaml-3-1/index.mjs",
       "require": "./src/parse/parsers/openapi-yaml-3-1/index.cjs",
       "types": "./types/parse/parsers/openapi-yaml-3-1/index.d.ts"
+    },
+    "./parse/parsers/openapi-yaml-3-2": {
+      "import": "./src/parse/parsers/openapi-yaml-3-2/index.mjs",
+      "require": "./src/parse/parsers/openapi-yaml-3-2/index.cjs",
+      "types": "./types/parse/parsers/openapi-yaml-3-2/index.d.ts"
     },
     "./parse/parsers/yaml-1-2": {
       "import": "./src/parse/parsers/yaml-1-2/index.mjs",
@@ -215,10 +230,30 @@
       "require": "./src/dereference/strategies/openapi-3-1/selectors/uri.cjs",
       "types": "./types/dereference/strategies/openapi-3-1/selectors/uri.d.ts"
     },
+    "./dereference/strategies/openapi-3-2": {
+      "import": "./src/dereference/strategies/openapi-3-2/index.mjs",
+      "require": "./src/dereference/strategies/openapi-3-2/index.cjs",
+      "types": "./types/dereference/strategies/openapi-3-2/index.d.ts"
+    },
+    "./dereference/strategies/openapi-3-2/selectors/$anchor": {
+      "import": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.mjs",
+      "require": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-2/selectors/$anchor.d.ts"
+    },
+    "./dereference/strategies/openapi-3-2/selectors/uri": {
+      "import": "./src/dereference/strategies/openapi-3-2/selectors/uri.mjs",
+      "require": "./src/dereference/strategies/openapi-3-2/selectors/uri.cjs",
+      "types": "./types/dereference/strategies/openapi-3-2/selectors/uri.d.ts"
+    },
     "./bundle/strategies/openapi-3-1": {
       "import": "./src/bundle/strategies/openapi-3-1/index.mjs",
       "require": "./src/bundle/strategies/openapi-3-1/index.cjs",
       "types": "./types/bundle/strategies/openapi-3-1/index.d.ts"
+    },
+    "./bundle/strategies/openapi-3-2": {
+      "import": "./src/bundle/strategies/openapi-3-2/index.mjs",
+      "require": "./src/bundle/strategies/openapi-3-2/index.cjs",
+      "types": "./types/bundle/strategies/openapi-3-2/index.d.ts"
     }
   },
   "imports": {
@@ -283,6 +318,7 @@
     "@swagger-api/apidom-ns-openapi-2": "^1.5.0",
     "@swagger-api/apidom-ns-openapi-3-0": "^1.5.0",
     "@swagger-api/apidom-ns-openapi-3-1": "^1.5.0",
+    "@swagger-api/apidom-ns-openapi-3-2": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-arazzo-json-1": "^1.5.0",
@@ -295,9 +331,11 @@
     "@swagger-api/apidom-parser-adapter-openapi-json-2": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^1.5.0",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-2": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-2": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "^1.5.0",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-2": "^1.5.0",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "^1.5.0"
   },
   "devDependencies": {
@@ -307,6 +345,7 @@
     "@swagger-api/apidom-ns-openapi-2": "*",
     "@swagger-api/apidom-ns-openapi-3-0": "*",
     "@swagger-api/apidom-ns-openapi-3-1": "*",
+    "@swagger-api/apidom-ns-openapi-3-2": "*",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "*",
     "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "*",
     "@swagger-api/apidom-parser-adapter-arazzo-json-1": "*",
@@ -319,9 +358,11 @@
     "@swagger-api/apidom-parser-adapter-openapi-json-2": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "*",
+    "@swagger-api/apidom-parser-adapter-openapi-json-3-2": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-2": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-yaml-3-1": "*",
+    "@swagger-api/apidom-parser-adapter-openapi-yaml-3-2": "*",
     "@swagger-api/apidom-parser-adapter-yaml-1-2": "*",
     "axios-mock-adapter": "^2.0.0"
   },

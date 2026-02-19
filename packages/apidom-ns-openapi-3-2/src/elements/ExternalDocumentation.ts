@@ -1,0 +1,8 @@
+import { ExternalDocumentationElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+/**
+ * @public
+ */
+class ExternalDocumentation extends ExternalDocumentationElement {}
+
+export default ExternalDocumentation;

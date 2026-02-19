@@ -1,0 +1,159 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "OpenAPI 3.2.0 New Features Test",
+    "version": "1.0.0",
+    "summary": "Testing query, additionalOperations, and querystring"
+  },
+  "paths": {
+    "/search": {
+      "summary": "Search endpoint",
+      "query": {
+        "summary": "Complex search with query payload",
+        "description": "Perform complex search using QUERY method",
+        "operationId": "searchQuery",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "filters": {
+                    "type": "object"
+                  },
+                  "query": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "parameters": [
+        {
+          "name": "queryParams",
+          "in": "querystring",
+          "description": "All query parameters as a schema",
+          "schema": {
+            "type": "object",
+            "properties": {
+              "filter": {
+                "type": "string"
+              },
+              "sort": {
+                "type": "string"
+              },
+              "limit": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "/cache": {
+      "additionalOperations": {
+        "PURGE": {
+          "summary": "Purge cache",
+          "description": "Custom PURGE operation to clear cache",
+          "operationId": "purgeCache",
+          "responses": {
+            "204": {
+              "description": "Cache purged successfully"
+            }
+          }
+        },
+        "LOCK": {
+          "summary": "Lock resource",
+          "description": "Custom LOCK operation",
+          "operationId": "lockResource",
+          "responses": {
+            "200": {
+              "description": "Resource locked"
+            }
+          }
+        }
+      }
+    },
+    "/data": {
+      "get": {
+        "summary": "Get data",
+        "operationId": "getData",
+        "parameters": [
+          {
+            "name": "allQueryParams",
+            "in": "querystring",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "page": {
+                  "type": "integer"
+                },
+                "size": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Data response"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Event": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "data": {
+            "type": "object"
+          }
+        }
+      }
+    },
+    "mediaTypes": {
+      "JsonResponse": {
+        "schema": {
+          "type": "object",
+          "properties": {
+            "status": {
+              "type": "string"
+            },
+            "message": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "EventStream": {
+        "itemSchema": {
+          "$ref": "#/components/schemas/Event"
+        }
+      }
+    }
+  }
+}

@@ -4,6 +4,8 @@ import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as openapi3_2AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-2';
+import * as openapi3_2AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-2';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
@@ -17,6 +19,7 @@ import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElemen
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI2 } from '@swagger-api/apidom-ns-openapi-2';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_0 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_1 } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_2 } from '@swagger-api/apidom-ns-openapi-3-2';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
@@ -187,6 +190,35 @@ export async function parse(
     };
 
     result = await openapi3_1AdapterYaml.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.2') &&
+    contentLanguage.format === 'JSON'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['openapi-3-2'] || [])],
+      },
+    };
+
+    result = await openapi3_2AdapterJson.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'openapi' &&
+    contentLanguage.version?.startsWith('3.2') &&
+    contentLanguage.format === 'YAML'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementOpenAPI3_2(),
+          ...(refractorPlugins?.['openapi-3-2'] || []),
+        ].filter(Boolean),
+      },
+    };
+
+    result = await openapi3_2AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {

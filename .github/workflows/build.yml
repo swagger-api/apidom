@@ -1,4 +1,4 @@
-# This workflow will do a clean install of node dependencies, build the source code and run tests across different versions of node
+# This workflow will do a clean install of node dependencies and run tests
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
 name: ApiDOM Monorepo Build
@@ -11,6 +11,8 @@ on:
 
 env:
   CPU_CORES: 2
+  LERNA_CONCURRENCY: 4
+  LERNA_TEST_CONCURRENCY: 2
 
 jobs:
   lint-commit-messages:
@@ -83,11 +85,7 @@ jobs:
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
-        run: npm ci --engine-strict=false
-      - name: Build monorepo for testing
-        run: npm run build:es
-      - name: Build typescript declarations
-        run: npm run typescript:declaration
+        run: npm ci
       - name: Execute tests in monorepo
         run: npm run test
 
@@ -103,7 +101,7 @@ jobs:
         cache: 'npm'
         cache-dependency-path: 'package-lock.json'
     - name: Install dependencies
-      run: npm ci --engine-strict=false
+      run: npm ci
     - name: Build monorepo
       run: npm run build:es
     - name: Build ApiDOM Playground

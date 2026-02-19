@@ -17,6 +17,8 @@ npm run build
 
 **Important**: The monorepo **must** be built before running tests or using packages. This is required for the monorepo package topology to work correctly.
 
+**Build Performance**: Copy `.env.example` to `.env` and adjust `LERNA_CONCURRENCY` and `CPU_CORES` based on your machine's capabilities for optimal build performance.
+
 ### Build Commands
 ```bash
 npm run build              # Build all packages
@@ -25,11 +27,27 @@ npm run build:cjs         # Build CommonJS only (.cjs)
 npm run clean             # Remove all build artifacts
 ```
 
-**Parallelization**: Build scripts run in parallel with a default of 2 CPU cores. Set `CPU_CORES` environment variable to utilize more cores:
+**Parallelization**: Build scripts use two-level parallelization controlled by environment variables (configured in `.env`):
+
+- **`LERNA_CONCURRENCY`**: Number of packages to build in parallel (default: 8)
+- **`CPU_CORES`**: Number of tasks per package to run in parallel (default: 6)
+- **`LERNA_TEST_CONCURRENCY`**: Number of packages to test in parallel (default: 4)
+
 ```bash
-export CPU_CORES=4
-npm run build
+# Recommended: Configure via .env file
+cp .env.example .env
+# Edit .env to match your machine's capabilities
+
+# Or set temporarily for a single build
+LERNA_CONCURRENCY=4 CPU_CORES=2 npm run build
 ```
+
+**Default configuration** (optimized for 12-core machines):
+- Lerna: 8 packages in parallel
+- Package tasks: 6 parallel tasks per package
+- Total potential: 8 × 6 = 48 processes
+
+**For GitHub CI runners (4 cores)**, workflows set `LERNA_CONCURRENCY=4` and `CPU_CORES=2` to prevent oversubscription.
 
 ### Testing
 ```bash

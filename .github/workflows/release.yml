@@ -6,6 +6,8 @@ on:
 
 env:
   CPU_CORES: 2
+  LERNA_CONCURRENCY: 4
+  LERNA_TEST_CONCURRENCY: 2
   HUSKY: 0
 
 jobs:

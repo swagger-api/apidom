@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14.0
+          node-version: 24.13.1
           registry-url: https://npm.pkg.github.com/
           scope: "@swagger-api"
           cache: 'npm'

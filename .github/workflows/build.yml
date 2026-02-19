@@ -23,10 +23,10 @@ jobs:
         with:
           fetch-depth: 0 # necessary for linting commit messages
           ref: ${{ github.event.pull_request.head.sha }} # necessary to check out pull request HEAD commit instead of merge commit
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14.0
+          node-version: 24.13.1
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -41,10 +41,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14.0
+          node-version: 24.13.1
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -60,10 +60,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14.0
+          node-version: 24.13.1
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -78,10 +78,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-      - name: Use Node.js 22
+      - name: Use Node.js 24
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14.0
+          node-version: 24.13.1
           cache: 'npm'
           cache-dependency-path: 'package-lock.json'
       - name: Install dependencies
@@ -94,10 +94,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-    - name: Use Node.js 22
+    - name: Use Node.js 24
       uses: actions/setup-node@v6
       with:
-        node-version: 22.14.0
+        node-version: 24.13.1
         cache: 'npm'
         cache-dependency-path: 'package-lock.json'
     - name: Install dependencies

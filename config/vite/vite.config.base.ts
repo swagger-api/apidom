@@ -1,9 +1,28 @@
+import { readFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
 import path from 'node:path';
 import { defineConfig, type UserConfig } from 'vite';
-import wasm from 'vite-plugin-wasm';
 import topLevelAwait from 'vite-plugin-top-level-await';
-import rollupWasm from '@rollup/plugin-wasm';
 import terser from '@rollup/plugin-terser';
+import type { Plugin } from 'rollup';
+
+/**
+ * Rollup plugin that replicates webpack file-loader behavior for WASM files:
+ * emits each .wasm file as a separate asset with a hash-based name and
+ * returns its URL as the module export value.
+ */
+function wasmUrlLoader(): Plugin {
+  return {
+    name: 'wasm-url-loader',
+    load(id) {
+      if (!id.endsWith('.wasm')) return null;
+      const source = readFileSync(id);
+      const hash = createHash('md5').update(source).digest('hex');
+      const refId = this.emitFile({ type: 'asset', fileName: `${hash}.wasm`, source });
+      return `export default import.meta.ROLLUP_FILE_URL_${refId}`;
+    },
+  };
+}
 
 /**
  * Configuration options for creating a Vite build config.
@@ -45,8 +64,7 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
 
   return defineConfig({
     mode: 'production',
-    plugins: [wasm(), topLevelAwait()],
-    assetsInclude: ['**/*.wasm'],
+    plugins: [wasmUrlLoader(), topLevelAwait()],
     build: {
       target: 'esnext',
       outDir: 'dist',
@@ -58,13 +76,7 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
         name: libraryName,
       },
       rollupOptions: {
-        plugins: [
-          rollupWasm({
-            sync: ['**/*.wasm'],
-            maxFileSize: 0,
-            targetEnv: 'auto-inline',
-          }),
-        ],
+        plugins: [],
         external: ['fs', 'path'],
         output: [
           // Non-minified build

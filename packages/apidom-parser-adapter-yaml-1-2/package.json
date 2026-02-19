@@ -8,6 +8,7 @@
   },
   "type": "module",
   "sideEffects": [
+    "./src/lexical-analysis/browser-patch.ts",
     "./src/lexical-analysis/browser-patch.mjs",
     "./src/lexical-analysis/browser-patch.cjs"
   ],

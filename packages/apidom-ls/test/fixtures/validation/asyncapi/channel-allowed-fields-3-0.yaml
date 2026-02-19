@@ -1,0 +1,36 @@
+asyncapi: 3.0.0
+info:
+  title: Channel Allowed Fields Test
+  version: '1.0.0'
+channels:
+  userEvents:
+    # Valid - all allowed fields for AsyncAPI 3.0 Channel Object
+    address: 'user/{userId}/events'
+    messages:
+      userSignedUp:
+        payload:
+          type: object
+    title: User Events Channel
+    summary: Channel for user-related events
+    description: Handles all user events
+    servers:
+      - $ref: '#/servers/production'
+    parameters:
+      userId:
+        description: User identifier
+    tags:
+      - name: users
+    externalDocs:
+      url: https://docs.example.com/channels
+    bindings:
+      ws: {}
+    x-custom-extension: allowed
+  invalid:
+    address: 'test/channel'
+    subscribe: 'should not be allowed in AsyncAPI 3'
+    publish: 'should not be allowed in AsyncAPI 3'
+    notAllowedField: 'this should trigger error'
+servers:
+  production:
+    host: api.example.com
+    protocol: wss

@@ -142,6 +142,11 @@ const documentation = [
     targetSpecs: AsyncAPI3,
   },
   {
+    target: 'operations',
+    docs: 'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject).',
+    targetSpecs: AsyncAPI3,
+  },
+  {
     target: 'replies',
     docs: 'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject).',
     targetSpecs: AsyncAPI3,
@@ -154,11 +159,6 @@ const documentation = [
   {
     target: 'tags',
     docs: 'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject).',
-    targetSpecs: AsyncAPI3,
-  },
-  {
-    target: 'externalDocs',
-    docs: 'Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject).',
     targetSpecs: AsyncAPI3,
   },
   {

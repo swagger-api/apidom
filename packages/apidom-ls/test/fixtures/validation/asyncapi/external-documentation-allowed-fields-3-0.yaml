@@ -1,0 +1,9 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  externalDocs:
+    docs1:
+      url: https://example.com
+      invalidField: 123

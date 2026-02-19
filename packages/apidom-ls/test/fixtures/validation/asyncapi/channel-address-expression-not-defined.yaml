@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Address Expression Not Defined in Parameters
+  version: 1.0.0
+channels:
+  userEvents:
+    address: 'user/{userId}/events'
+    messages: {}
+    parameters:
+      otherParam:
+        description: Different parameter
+operations: {}

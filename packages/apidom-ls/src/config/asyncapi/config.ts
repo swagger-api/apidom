@@ -36,6 +36,12 @@ import tagMeta from './tag/meta.ts';
 import correlationIDMeta from './correlation-ID/meta.ts';
 import oAuthFlowsMeta from './oauth-flows/meta.ts';
 import oAuthFlowMeta from './oauth-flow/meta.ts';
+import messagesMeta from './messages/meta.ts';
+import operationsMeta from './operations/meta.ts';
+import operationReplyMeta from './operation-reply/meta.ts';
+import operationReplyAddressMeta from './operation-reply-address/meta.ts';
+import multiFormatSchemaMeta from './multi-format-schema/meta.ts';
+import referenceMeta from './reference/meta.ts';
 /**
  * Binding metas.
  */
@@ -188,6 +194,12 @@ export default {
   correlationID: correlationIDMeta,
   oAuthFlows: oAuthFlowsMeta,
   oAuthFlow: oAuthFlowMeta,
+  messages: messagesMeta,
+  operations: operationsMeta,
+  operationReply: operationReplyMeta,
+  operationReplyAddress: operationReplyAddressMeta,
+  multiFormatSchema: multiFormatSchemaMeta,
+  reference: referenceMeta,
   /**
    * Binding metas.
    */

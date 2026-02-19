@@ -22,6 +22,7 @@ import operationBindingsValuesType from './operation-bindings--values-type.ts';
 import messageBindingsValuesType from './message-bindings--values-type.ts';
 import keysPatternLint from './keys--pattern.ts';
 import channelsValuesType3_0Lint from './channels--values-type-3-0.ts';
+import operationsValuesTypeLint from './operations--values-type.ts';
 
 const lints = [
   allowedFields2_0__2_2Lint,
@@ -47,6 +48,7 @@ const lints = [
   channelBindingsValuesTypeLint,
   operationBindingsValuesType,
   messageBindingsValuesType,
+  operationsValuesTypeLint,
   keysPatternLint,
 ];
 

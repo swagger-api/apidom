@@ -1,0 +1,19 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  messageTraits:
+    validWithSchema:
+      headers:
+        type: object
+        properties:
+          correlationId:
+            type: string
+    validWithMultiFormat:
+      headers:
+        schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
+        schema:
+          type: object
+    invalidHeaders:
+      headers: "should be a multiFormatSchema or schema object"

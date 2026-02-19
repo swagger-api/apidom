@@ -1,0 +1,16 @@
+openapi: 3.1.0
+info:
+  title: Foo
+  version: 0.1.0  
+paths:
+  /reference/{test_id}/:
+    get:
+      summary: Get test baz
+      parameters:
+        - $ref: 'https://swaggerhub.com#/components/parameters/test_id'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: { }

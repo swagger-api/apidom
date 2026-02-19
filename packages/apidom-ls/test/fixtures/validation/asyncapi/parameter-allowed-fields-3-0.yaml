@@ -1,0 +1,21 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  parameters:
+    validParameter:
+      # Valid - all allowed fields for AsyncAPI 3 (no schema, added enum/default/examples)
+      enum:
+        - value1
+        - value2
+      default: value1
+      description: A parameter
+      examples:
+        - example1
+      location: $message.payload#/userId
+      x-custom-extension: allowed
+    invalidParameter:
+      location: $message.payload#/id
+      schema: "should not be allowed in AsyncAPI 3"
+      notAllowedField: "this should also trigger error"

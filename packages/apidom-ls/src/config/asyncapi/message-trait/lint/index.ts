@@ -17,7 +17,6 @@ import bindingsType from './bindings--type.ts';
 import examplesTypeLint from './examples--type.ts';
 import examplesItemsTypeLint from './examples--items-type.ts';
 import $refValidLint from './$ref--valid.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 
 const lints = [
   allowedFields2_0__2_3Lint,
@@ -39,7 +38,6 @@ const lints = [
   examplesTypeLint,
   examplesItemsTypeLint,
   $refValidLint,
-  $refNoSiblingsLint,
 ];
 
 export default lints;

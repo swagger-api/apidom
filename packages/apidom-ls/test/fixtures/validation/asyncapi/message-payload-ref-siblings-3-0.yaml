@@ -1,0 +1,12 @@
+asyncapi: 3.0.0
+info:
+  title: Test Message Payload $ref Siblings
+  version: '1.0.0'
+channels:
+  userChannel:
+    address: /users
+    messages:
+      userMessage:
+        payload:
+          $ref: 'https://github.com/foo.json#/components/schemas/Pet'
+          type: 'object'

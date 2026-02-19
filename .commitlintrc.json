@@ -1,5 +1,6 @@
 {
   "extends": ["@commitlint/config-conventional"],
+  "defaultIgnores": true,
   "rules": {
     "header-max-length": [2, "always", 75],
     "scope-case": [

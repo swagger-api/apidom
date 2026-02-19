@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.5.1](https://github.com/swagger-api/apidom/compare/v1.5.0...v1.5.1) (2026-02-19)
+
+### Bug Fixes
+
+- **deps:** resolve downstream tree-sitter peer dep issue ([#5117](https://github.com/swagger-api/apidom/issues/5117)) ([40c0009](https://github.com/swagger-api/apidom/commit/40c0009720e33789f79c0d237248fa9ae51c7ec6))
+
 # [1.5.0](https://github.com/swagger-api/apidom/compare/v1.4.0...v1.5.0) (2026-02-16)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

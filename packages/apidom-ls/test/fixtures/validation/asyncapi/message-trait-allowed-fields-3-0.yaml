@@ -1,0 +1,41 @@
+asyncapi: 3.0.0
+info:
+  title: Message Trait Allowed Fields Test
+  version: '1.0.0'
+components:
+  messageTraits:
+    commonHeaders:
+      # Valid - all allowed fields for AsyncAPI 3.0 Message Trait Object
+      messageId: user-signup
+      headers:
+        type: object
+        properties:
+          correlationId:
+            type: string
+      correlationId:
+        location: $message.header#/correlationId
+      schemaFormat: application/vnd.aai.asyncapi+json;version=3.0.0
+      contentType: application/json
+      name: UserSignup
+      title: User Signup Message
+      summary: Emitted when user signs up
+      description: Contains user registration data
+      tags:
+        - name: users
+      externalDocs:
+        url: https://docs.example.com/messages
+      bindings:
+        http: {}
+      examples:
+        - name: example1
+          summary: Example user signup
+      x-custom-extension: allowed
+    invalid1:
+      name: InvalidTrait1
+      payload: 'should not be allowed in message trait'
+    invalid2:
+      name: InvalidTrait2
+      traits: 'should not be allowed in message trait'
+    invalid3:
+      name: InvalidTrait3
+      notAllowedField: 'this should trigger error'

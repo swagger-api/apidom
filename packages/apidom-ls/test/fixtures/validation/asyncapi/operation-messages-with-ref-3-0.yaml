@@ -1,0 +1,25 @@
+asyncapi: 3.0.0
+info:
+  title: Test $ref in operation messages
+  version: '1.0.0'
+channels:
+  userSignup:
+    address: /users
+    messages:
+      signupMessage:
+        payload:
+          type: object
+operations:
+  operationWithRefMessage:
+    action: send
+    channel:
+      $ref: '#/channels/userSignup'
+    messages:
+      - $ref: '#/channels/userSignup/messages/signupMessage'
+  operationWithInlineMessage:
+    action: receive
+    channel:
+      $ref: '#/channels/userSignup'
+    messages:
+      - payload:
+          type: string

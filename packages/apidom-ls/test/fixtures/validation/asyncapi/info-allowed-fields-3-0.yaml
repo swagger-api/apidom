@@ -1,0 +1,18 @@
+asyncapi: 3.0.0
+info:
+  # Valid - all allowed fields for AsyncAPI 3
+  title: Sample API
+  version: '1.0.0'
+  description: A sample API
+  termsOfService: https://example.com/terms
+  contact:
+    name: API Support
+  license:
+    name: Apache 2.0
+  tags:
+    - name: users
+  externalDocs:
+    url: https://example.com/docs
+  x-custom-extension: allowed
+  # Invalid - not allowed field
+  notAllowedField: "this should trigger error"

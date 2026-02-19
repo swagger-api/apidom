@@ -1,0 +1,80 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "comments": {
+    "parallel": "Default parallelism when nx is run directly. Normally overridden by lerna --concurrency flag in package.json scripts. Set conservatively to avoid issues if nx is invoked directly."
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*"],
+    "production": [
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/test/**/*",
+      "!{projectRoot}/**/*.md"
+    ]
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["production"],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/src/**/*.mjs",
+        "{projectRoot}/src/**/*.cjs",
+        "{projectRoot}/types"
+      ],
+      "cache": true
+    },
+    "build:es": {
+      "dependsOn": ["^build:es"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/src/**/*.mjs"],
+      "cache": true
+    },
+    "build:cjs": {
+      "dependsOn": ["^build:cjs"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/src/**/*.cjs"],
+      "cache": true
+    },
+    "build:umd:browser": {
+      "dependsOn": ["^build:umd:browser"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/dist"],
+      "cache": true
+    },
+    "typescript:declaration": {
+      "dependsOn": ["^typescript:declaration"],
+      "inputs": ["production"],
+      "outputs": ["{projectRoot}/types"],
+      "cache": true
+    },
+    "test": {
+      "dependsOn": ["typescript:declaration", "build:es"],
+      "inputs": ["default"],
+      "cache": true
+    },
+    "lint": {
+      "inputs": ["default"],
+      "cache": true
+    }
+  },
+  "parallel": 4,
+  "cacheDirectory": ".nx/cache",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": [
+          "build",
+          "build:es",
+          "build:cjs",
+          "build:umd:browser",
+          "typescript:declaration",
+          "typescript:check-types",
+          "test",
+          "lint"
+        ],
+        "parallel": 4
+      }
+    }
+  }
+}

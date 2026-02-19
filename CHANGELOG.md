@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.5.0](https://github.com/swagger-api/apidom/compare/v1.4.0...v1.5.0) (2026-02-16)
+
+### Features
+
+- **ls:** add AsyncAPI 3 validation for new keywords ([#5104](https://github.com/swagger-api/apidom/issues/5104)) ([c201bb1](https://github.com/swagger-api/apidom/commit/c201bb1f89edf839a9282bfad3e7231ca1ae9a26))
+- **ls:** validation resolve local reference ([#5113](https://github.com/swagger-api/apidom/issues/5113)) ([a230752](https://github.com/swagger-api/apidom/commit/a23075235bc495ce3a9dda37697f6ca1af38955c))
+
 # [1.4.0](https://github.com/swagger-api/apidom/compare/v1.3.0...v1.4.0) (2026-02-03)
 
 ### Features

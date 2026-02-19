@@ -41,6 +41,7 @@ import operationsMeta from './operations/meta.ts';
 import operationReplyMeta from './operation-reply/meta.ts';
 import operationReplyAddressMeta from './operation-reply-address/meta.ts';
 import multiFormatSchemaMeta from './multi-format-schema/meta.ts';
+import referenceMeta from './reference/meta.ts';
 /**
  * Binding metas.
  */
@@ -198,6 +199,7 @@ export default {
   operationReply: operationReplyMeta,
   operationReplyAddress: operationReplyAddressMeta,
   multiFormatSchema: multiFormatSchemaMeta,
+  reference: referenceMeta,
   /**
    * Binding metas.
    */

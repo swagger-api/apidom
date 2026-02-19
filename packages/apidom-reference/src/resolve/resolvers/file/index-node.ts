@@ -1,6 +1,6 @@
 import { readFile } from '#fs'; // eslint-disable-line import/order
 import { promisify } from '#util'; // eslint-disable-line import/order
-import minimatch from 'minimatch';
+import { minimatch } from 'minimatch';
 
 import File from '../../../File.ts';
 import Resolver, { ResolverOptions } from '../Resolver.ts';

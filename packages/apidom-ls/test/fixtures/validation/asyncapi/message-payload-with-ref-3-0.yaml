@@ -1,0 +1,18 @@
+asyncapi: 3.0.0
+info:
+  title: Test $ref in payload
+  version: '1.0.0'
+components:
+  schemas:
+    Order:
+      type: object
+      properties:
+        id:
+          type: integer
+  messages:
+    messageWithRefPayload:
+      payload:
+        $ref: '#/components/schemas/Order'
+    messageWithInlinePayload:
+      payload:
+        type: string

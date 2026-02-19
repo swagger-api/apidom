@@ -7,6 +7,7 @@ import idFormatURILint from './id--format-uri.ts';
 import infoRequiredLint from './info--required.ts';
 import infoTypeLint from './info--type.ts';
 import serversTypeLint from './servers--type.ts';
+import operationsTypeLint from './operations--type.ts';
 
 const lints = [
   allowedFieldsLint,
@@ -18,6 +19,7 @@ const lints = [
   defaultContentTypeTypeLint,
   channelsTypeLint,
   componentsTypeLint,
+  operationsTypeLint,
 ];
 
 export default lints;

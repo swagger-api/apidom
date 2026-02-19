@@ -5,13 +5,14 @@ import serversTypeLint from './servers--type.ts';
 import parametersTypeLint from './parameters--type.ts';
 import bindingsTypeLint from './bindings--type.ts';
 import $refValidLint from './$ref--valid.ts';
-import $refNoSiblingsLint from './$ref--no-siblings.ts';
 import addressTypeLint from './address--type.ts';
 import messagesTypeLint from './messages--type.ts';
 import titleTypeLint from './title--type.ts';
 import summaryTypeLint from './summary--type.ts';
 import tagsTypeLint from './tags--type.ts';
 import externalDocsTypeLint from './external-docs--type.ts';
+import parametersRequiredLint from './parameters--required.ts';
+import addressExpressionsDefinedInParametersLint from './address-expressions--defined-in-parameters.ts';
 
 const lints = [
   descriptionTypeLint,
@@ -20,7 +21,6 @@ const lints = [
   bindingsTypeLint,
   allowedFieldsLint,
   $refValidLint,
-  $refNoSiblingsLint,
   allowedFields3_0Lint,
   addressTypeLint,
   messagesTypeLint,
@@ -28,6 +28,8 @@ const lints = [
   summaryTypeLint,
   tagsTypeLint,
   externalDocsTypeLint,
+  parametersRequiredLint,
+  addressExpressionsDefinedInParametersLint,
 ];
 
 export default lints;

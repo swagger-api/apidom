@@ -1,5 +1,15 @@
-import { LinterMeta } from 'src/apidom-language-types.ts';
+import $refValidLint from './$ref--valid.ts';
+import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import locationTypeLint from './location--type.ts';
+import locationRequiredLint from './location--required.ts';
+import descriptionTypeLint from './description--type.ts';
 
-const lints: LinterMeta[] = [];
+const lints = [
+  $refValidLint,
+  locationTypeLint,
+  locationRequiredLint,
+  descriptionTypeLint,
+  allowedFields3_0Lint,
+];
 
 export default lints;

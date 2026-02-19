@@ -21,6 +21,18 @@ const specSecurityLint = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'async', 'security', 'security-lint.yaml'))
   .toString();
 
+const specSecuritySchemeAllowedFields = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'security-scheme-allowed-fields-3-0.yaml',
+    ),
+  )
+  .toString();
+
 describe('asyncapi security test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -53,5 +65,28 @@ describe('asyncapi security test', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     assert.deepEqual(result, [] as Diagnostic[]);
+  });
+
+  it('test security scheme allowed fields (AsyncAPI 3)', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/security-scheme-allowed-fields.yaml',
+      'yaml',
+      0,
+      specSecuritySchemeAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    assert.strictEqual(result.length, 1);
+
+    assert.strictEqual(result[0].code, 15000);
+    assert.strictEqual(result[0].message, 'Object includes not allowed fields');
+    assert.strictEqual(result[0].severity, DiagnosticSeverity.Error);
   });
 });

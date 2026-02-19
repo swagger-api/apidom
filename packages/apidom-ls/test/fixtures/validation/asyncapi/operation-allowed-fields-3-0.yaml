@@ -1,0 +1,25 @@
+asyncapi: 3.0.0
+info:
+  title: Test Spec
+  version: 1.0.0
+channels:
+  userSignup:
+    address: /users
+operations:
+  # Valid operation - should have no errors
+  validOperation:
+    action: send
+    channel:
+      $ref: '#/channels/userSignup'
+    title: User Signup Operation
+    summary: Sends user signup events
+    description: This operation handles user signup
+    x-custom-extension: allowed
+
+  # Invalid operation - has non-allowed field
+  invalidOperation:
+    action: receive
+    channel:
+      $ref: '#/channels/userSignup'
+    invalidField: "this should not be here"
+    anotherInvalid: 123

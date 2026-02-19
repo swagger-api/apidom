@@ -6,3 +6,6 @@ node_modules/
 isolate-*.log
 .log*
 .DS_Store
+
+# Nx cache
+.nx/

@@ -1,5 +1,4 @@
-import process from 'process';
-import { pathSatisfies, propOr, pipe, test, last } from 'ramda';
+import { propOr, pipe, last } from 'ramda';
 import { isUndefined, replaceAll, isNotUndefined, trimCharsEnd } from 'ramda-adjunct';
 
 /**
@@ -13,7 +12,7 @@ import { isUndefined, replaceAll, isNotUndefined, trimCharsEnd } from 'ramda-adj
  */
 export type WindowsPredicate = () => boolean;
 
-const isWindows: WindowsPredicate = () => pathSatisfies(test(/^win/), ['platform'], process);
+const isWindows: WindowsPredicate = () => /^win/.test(globalThis.process?.platform ?? '');
 
 /**
  * Returns the protocol of the given URL, or `undefined` if it has no protocol.
@@ -53,8 +52,7 @@ export const getExtension = (url: string): string => {
  * @public
  */
 export const isFileSystemPath = (uri: string): boolean => {
-  // @ts-ignore
-  if (process.browser) {
+  if (globalThis.window !== undefined) {
     /**
      * We're running in a browser, so assume that all paths are URLs.
      * This way, even relative paths will be treated as URLs rather than as filesystem paths.
@@ -225,12 +223,11 @@ export const stripHash = (uri: string): string => {
  * @public
  */
 export const cwd = (): string => {
-  // @ts-ignore
-  if (process.browser) {
+  if (globalThis.window !== undefined) {
     return stripHash(globalThis.location.href);
   }
 
-  const path = process.cwd();
+  const path = globalThis.process?.cwd() ?? '/';
 
   const lastChar = last(path)!;
   if (['/', '\\'].includes(lastChar)) {

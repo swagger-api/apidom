@@ -4851,24 +4851,20 @@ exports[`refractor given generic ApiDOM object in OpenApi 3.2 shape should refra
                   "content": "webhook2"
                 },
                 "value": {
-                  "element": "reference",
+                  "element": "pathItem",
                   "meta": {
                     "classes": {
                       "element": "array",
                       "content": [
                         {
                           "element": "string",
-                          "content": "openapi-reference"
-                        },
-                        {
-                          "element": "string",
                           "content": "reference-element"
                         }
                       ]
                     },
-                    "referenced-element": {
+                    "webhook-name": {
                       "element": "string",
-                      "content": "pathItem"
+                      "content": "webhook2"
                     }
                   },
                   "content": [

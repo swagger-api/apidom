@@ -5,15 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const allowedFields3_1Lint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const schemaTypeOpenAPI3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_0_MEDIA_TYPE_FIELD_SCHEMA_VALUES_TYPE,
   source: 'apilint',
-  message: 'Object includes not allowed fields',
+  message: 'schema must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [['name', 'url', 'identifier'], 'x-'],
-  marker: 'key',
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['schema', 'boolean']],
+  marker: 'value',
+  target: 'schema',
+  data: {},
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default allowedFields3_1Lint;
+export default schemaTypeOpenAPI3_1__3_2Lint;

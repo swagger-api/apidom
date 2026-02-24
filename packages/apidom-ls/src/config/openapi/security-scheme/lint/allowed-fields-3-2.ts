@@ -22,6 +22,7 @@ const allowedFields3_2Lint: LinterMeta = {
       'flows',
       'openIdConnectUrl',
       'oauth2MetadataUrl',
+      'deprecated',
     ],
     'x-',
   ],

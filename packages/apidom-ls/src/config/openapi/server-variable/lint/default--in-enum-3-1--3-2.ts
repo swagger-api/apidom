@@ -5,17 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const schemaTypeOpenAPI3_1Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_0_MEDIA_TYPE_FIELD_SCHEMA_VALUES_TYPE,
+const defaultInEnum3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_SERVER_VARIABLE_FIELD_DEFAULT_IN_ENUM,
   source: 'apilint',
-  message: 'schema must be a schema object or a boolean JSON schema',
+  message: "'default' value must exist in the enum's values.",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintElementOrClass',
-  linterParams: [['schema', 'boolean']],
+  linterFunction: 'apilintIncludedInArray',
+  linterParams: ['parent.enum', false],
   marker: 'value',
-  target: 'schema',
+  target: 'default',
   data: {},
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default schemaTypeOpenAPI3_1Lint;
+export default defaultInEnum3_1__3_2Lint;

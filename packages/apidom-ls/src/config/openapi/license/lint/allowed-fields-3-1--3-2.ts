@@ -5,17 +5,15 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const enumType3_1Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_SERVER_VARIABLE_FIELD_ENUM_TYPE,
+const allowedFields3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
-  message: "'enum' must be a non-empty array of strings",
+  message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintArrayOfType',
-  linterParams: ['string', true],
+  linterFunction: 'allowedFields',
+  linterParams: [['name', 'url', 'identifier'], 'x-'],
   marker: 'key',
-  target: 'enum',
-  data: {},
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default enumType3_1Lint;
+export default allowedFields3_1__3_2Lint;

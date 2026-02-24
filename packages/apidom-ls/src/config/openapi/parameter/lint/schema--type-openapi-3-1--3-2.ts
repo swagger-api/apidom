@@ -5,16 +5,17 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const typeEquals3_1Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_SECURITY_SCHEME_FIELD_TYPE_EQUALS,
+const schemaTypeOpenAPI3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_0_PARAMETER_FIELD_SCHEMA_TYPE,
   source: 'apilint',
-  message: 'type must be one of allowed values: apiKey, http, mutualTLS, oauth2, openIdConnect',
+  message: 'schema must be a schema object or a boolean JSON schema',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValueOrArray',
-  linterParams: [['apiKey', 'http', 'mutualTLS', 'oauth2', 'openIdConnect']],
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
-  target: 'type',
+  target: 'schema',
+  data: {},
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default typeEquals3_1Lint;
+export default schemaTypeOpenAPI3_1__3_2Lint;

@@ -5,15 +5,15 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const contentAllowedFields3_1Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_HEADER_FIELD_CONTENT_ALLOWED_FIELDS,
+const contentAllowedFields3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_PARAMETER_FIELD_CONTENT_ALLOWED_FIELDS,
   source: 'apilint',
   message:
     'If "content" field is present, following fields are not allowed: style, explode, allowReserved, example and examples',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['description', 'required', 'deprecated', 'allowEmptyValue', 'schema', 'content'],
+    ['name', 'in', 'description', 'required', 'deprecated', 'allowEmptyValue', 'schema', 'content'],
     'x-',
   ],
   marker: 'key',
@@ -30,4 +30,4 @@ const contentAllowedFields3_1Lint: LinterMeta = {
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default contentAllowedFields3_1Lint;
+export default contentAllowedFields3_1__3_2Lint;

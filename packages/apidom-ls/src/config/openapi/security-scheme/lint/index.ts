@@ -4,7 +4,7 @@ import allowedFields3_1Lint from './allowed-fields-3-1.ts';
 import allowedFields3_2Lint from './allowed-fields-3-2.ts';
 import typeEquals2_0Lint from './type--equals-2-0.ts';
 import typeEquals3_0Lint from './type--equals-3-0.ts';
-import typeEquals3_1Lint from './type--equals-3-1.ts';
+import typeEquals3_1__3_2Lint from './type--equals-3-1--3-2.ts';
 import typeRequiredLint from './type--required.ts';
 import descriptionTypeLint from './description--type.ts';
 import nameTypeLint from './name--type.ts';
@@ -27,12 +27,13 @@ import flowsTypeLint from './flows--type.ts';
 import flowsRequiredLint from './flows--required.ts';
 import openIdConnectUrlFormatURILint from './open-id-connect-url--format-uri.ts';
 import openIdConnectUrlRequiredLint from './open-id-connect-url--required.ts';
+import deprecatedTypeLint from './deprecated--type.ts';
 import keysUsedLint from './keys--used.ts';
 
 const lints = [
   typeEquals2_0Lint,
   typeEquals3_0Lint,
-  typeEquals3_1Lint,
+  typeEquals3_1__3_2Lint,
   typeRequiredLint,
   descriptionTypeLint,
   nameTypeLint,
@@ -56,6 +57,7 @@ const lints = [
   flowsRequiredLint,
   openIdConnectUrlFormatURILint,
   openIdConnectUrlRequiredLint,
+  deprecatedTypeLint,
   allowedFields2_0Lint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,

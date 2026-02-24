@@ -147,6 +147,48 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
+    label: 'encoding',
+    insertText: 'encoding',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "Map[`string`, [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#encodingObject)]\n\\\n\\\nA map between a property name and its encoding information. Applies nested Encoding Objects in the same manner as the Media Type Object's encoding field.",
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'prefixEncoding',
+    insertText: 'prefixEncoding',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "\\[[Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#encodingObject)\\]\n\\\n\\\nAn array of positional encoding information. Applies nested Encoding Objects in the same manner as the Media Type Object's prefixEncoding field.",
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'itemEncoding',
+    insertText: 'itemEncoding',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        "[Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#encodingObject)\n\\\n\\\nA single Encoding Object that provides encoding information for array items. Applies nested Encoding Objects in the same manner as the Media Type Object's itemEncoding field.",
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     target: 'style',
     label: 'form',
     insertText: 'form',

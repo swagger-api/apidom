@@ -5,12 +5,14 @@ import summaryTypeLint from './summary--type.ts';
 import descriptionTypeLint from './description--type.ts';
 import valueMutuallyExclusiveLint from './value--mutually-exclusive.ts';
 import externalValueFormatURILint from './external-value--format-uri.ts';
+import serializedValueTypeLint from './serialized-value--type.ts';
 
 const lints = [
   summaryTypeLint,
   descriptionTypeLint,
   valueMutuallyExclusiveLint,
   externalValueFormatURILint,
+  serializedValueTypeLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
   allowedFields3_2Lint,

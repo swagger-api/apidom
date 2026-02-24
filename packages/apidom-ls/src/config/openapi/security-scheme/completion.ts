@@ -299,6 +299,19 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI32,
   },
   {
+    label: 'deprecated',
+    insertText: 'deprecated',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'Specifies that the security scheme is deprecated. Defaults to `false`.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     label: 'scopes',
     insertText: 'scopes',
     kind: 14,

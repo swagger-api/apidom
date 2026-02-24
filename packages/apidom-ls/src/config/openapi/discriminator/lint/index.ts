@@ -4,11 +4,13 @@ import allowedFields3_2Lint from './allowed-fields-3-2.ts';
 import propertyNameTypeLint from './property-name--type.ts';
 import propertyNameRequiredLint from './property-name--required.ts';
 import mappingTypeLint from './mapping--type.ts';
+import defaultMappingTypeLint from './default-mapping--type.ts';
 
 const lints = [
   propertyNameTypeLint,
   propertyNameRequiredLint,
   mappingTypeLint,
+  defaultMappingTypeLint,
   allowedFields3_0Lint,
   allowedFields3_1Lint,
   allowedFields3_2Lint,

@@ -5,23 +5,30 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const contentAllowedFields3_1Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_PARAMETER_FIELD_CONTENT_ALLOWED_FIELDS,
+const allowedFields3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
-  message:
-    'If "content" field is present, following fields are not allowed: style, explode, allowReserved, example and examples',
+  message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['name', 'in', 'description', 'required', 'deprecated', 'allowEmptyValue', 'schema', 'content'],
+    [
+      'description',
+      'required',
+      'deprecated',
+      'allowEmptyValue',
+      'style',
+      'explode',
+      'allowReserved',
+      'schema',
+      'example',
+      'examples',
+      'content',
+    ],
     'x-',
   ],
   marker: 'key',
   conditions: [
-    {
-      function: 'existFields',
-      params: [['content']],
-    },
     {
       function: 'missingField',
       params: ['$ref'],
@@ -30,4 +37,4 @@ const contentAllowedFields3_1Lint: LinterMeta = {
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default contentAllowedFields3_1Lint;
+export default allowedFields3_1__3_2Lint;

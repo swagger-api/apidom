@@ -1,5 +1,5 @@
 import allowedFields2_0__3_0Lint from './allowed-fields-2-0--3-0.ts';
-import allowedFields3_1Lint from './allowed-fields-3-1.ts';
+import allowedFields3_1__3_2Lint from './allowed-fields-3-1--3-2.ts';
 import nameTypeLint from './name--type.ts';
 import nameRequiredLint from './name--required.ts';
 import identifierTypeLint from './identifier--type.ts';
@@ -15,7 +15,7 @@ const lints = [
   identifierMutuallyExclusive3_2Lint,
   urlFormatURILint,
   allowedFields2_0__3_0Lint,
-  allowedFields3_1Lint,
+  allowedFields3_1__3_2Lint,
 ];
 
 export default lints;

@@ -25,6 +25,10 @@ const specOpenapi32InvalidNewFeatures = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-2-new-features-invalid.json'))
   .toString();
 
+const specOpenapi32DiscriminatorDefaultMapping = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'openapi-3-2-discriminator-defaultmapping.json'))
+  .toString();
+
 describe('OpenAPI 3.2.0 New Features', function () {
   const oasJsonSchemavalidationProvider32 = new OpenAPi32JsonSchemaValidationProvider();
 
@@ -463,6 +467,105 @@ describe('OpenAPI 3.2.0 New Features', function () {
       );
 
       assert.isAtLeast(notAllowedErrors.length, 1, 'Expected error for invalid fields in PathItem');
+    });
+  });
+
+  describe('Discriminator defaultMapping Field', function () {
+    it('should report error when defaultMapping is not a string', async function () {
+      const doc = TextDocument.create(
+        'foo://bar/openapi-3-2-discriminator-defaultmapping.json',
+        'json',
+        0,
+        specOpenapi32DiscriminatorDefaultMapping,
+      );
+
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+
+      const result = await languageService.doValidation(doc, validationContext);
+
+      // Check for defaultMapping type error
+      const defaultMappingTypeErrors = result.filter(
+        (d) =>
+          d.message.includes('defaultMapping') &&
+          d.message.includes('string') &&
+          d.severity === DiagnosticSeverity.Error,
+      );
+
+      assert.isAtLeast(
+        defaultMappingTypeErrors.length,
+        1,
+        'Expected error for invalid defaultMapping type',
+      );
+    });
+
+    it('should not report error when defaultMapping is a valid string', async function () {
+      const validSpec = `{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "Valid Discriminator Test",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "dog": "#/components/schemas/Dog"
+          },
+          "defaultMapping": "#/components/schemas/UnknownPet"
+        },
+        "required": ["petType"],
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        }
+      },
+      "Dog": {
+        "type": "object"
+      },
+      "UnknownPet": {
+        "type": "object"
+      }
+    }
+  }
+}`;
+
+      const doc = TextDocument.create(
+        'foo://bar/openapi-3-2-discriminator-valid.json',
+        'json',
+        0,
+        validSpec,
+      );
+
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+
+      const result = await languageService.doValidation(doc, validationContext);
+
+      // Check that there are no defaultMapping type errors
+      const defaultMappingTypeErrors = result.filter(
+        (d) =>
+          d.message.includes('defaultMapping') &&
+          d.message.includes('string') &&
+          d.severity === DiagnosticSeverity.Error,
+      );
+
+      assert.strictEqual(
+        defaultMappingTypeErrors.length,
+        0,
+        `Expected no errors for valid defaultMapping, but got: ${JSON.stringify(defaultMappingTypeErrors, null, 2)}`,
+      );
     });
   });
 

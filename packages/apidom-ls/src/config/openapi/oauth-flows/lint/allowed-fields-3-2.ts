@@ -12,7 +12,13 @@ const allowedFields3_2Lint: LinterMeta = {
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['schema', 'itemSchema', 'example', 'examples', 'encoding', 'prefixEncoding', 'itemEncoding'],
+    [
+      'implicit',
+      'password',
+      'clientCredentials',
+      'authorizationCode',
+      'deviceAuthorization',
+    ],
     'x-',
   ],
   marker: 'key',

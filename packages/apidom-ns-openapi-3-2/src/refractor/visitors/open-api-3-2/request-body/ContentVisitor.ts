@@ -1,5 +1,5 @@
 import { Mixin } from 'ts-mixer';
-import { ifElse, always } from 'ramda';
+import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   RequestBodyContentElement,
   MapVisitor,
@@ -9,6 +9,9 @@ import {
   FallbackVisitorOptions,
   isReferenceLikeElement,
 } from '@swagger-api/apidom-ns-openapi-3-1';
+
+import ReferenceElement from '../../../../elements/Reference.ts';
+import { isReferenceElement } from '../../../../predicates.ts';
 
 /**
  * @public
@@ -28,11 +31,23 @@ class ContentVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: ContentVisitorOptions) {
     super(options);
     this.element = new RequestBodyContentElement();
-    this.specPath = ifElse(
-      isReferenceLikeElement,
-      always(['document', 'objects', 'Reference']),
-      always(['document', 'objects', 'MediaType']),
-    ) as SpecPath<['document', 'objects', 'MediaType'] | ['document', 'objects', 'Reference']>;
+    this.specPath = (element: unknown) =>
+      isReferenceLikeElement(element)
+        ? ['document', 'objects', 'Reference']
+        : ['document', 'objects', 'MediaType'];
+  }
+
+  ObjectElement(objectElement: ObjectElement) {
+    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
+
+    // decorate every ReferenceElement with metadata about their referencing type
+    // @ts-ignore
+    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
+      // @ts-ignore
+      referenceElement.setMetaProperty('referenced-element', 'mediaType');
+    });
+
+    return result;
   }
 }
 

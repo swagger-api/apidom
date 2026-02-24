@@ -7,10 +7,10 @@ import { OpenAPI32 } from '../../target-specs.ts';
 const itemSchemaTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_MEDIA_TYPE_FIELD_ITEM_SCHEMA_TYPE,
   source: 'apilint',
-  message: 'itemSchema must be a schema object or reference',
+  message: 'itemSchema must be a schema object or boolean JSON Schema',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintElementOrClass',
-  linterParams: [['schema', 'reference']],
+  linterParams: [['schema', 'boolean']],
   marker: 'value',
   target: 'itemSchema',
   data: {},

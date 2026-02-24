@@ -7,10 +7,10 @@ import { OpenAPI32 } from '../../target-specs.ts';
 const mediaTypesTypeLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_2_COMPONENTS_FIELD_MEDIA_TYPES_TYPE,
   source: 'apilint',
-  message: 'mediaTypes must be an object',
+  message: '"mediaTypes" members must be Media Type Object',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintElementOrClass',
-  linterParams: [['components-media-types']],
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
+  linterParams: [['mediaType']],
   marker: 'value',
   target: 'mediaTypes',
   data: {},

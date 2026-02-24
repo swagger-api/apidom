@@ -2,10 +2,11 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI32 } from '../../target-specs.ts';
+import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
-const identifierMutuallyExclusiveLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_2_LICENSE_FIELD_IDENTIFIER_MUTUALLY_EXCLUSIVE,
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const identifierMutuallyExclusive3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_LICENSE_FIELD_IDENTIFIER_MUTUALLY_EXCLUSIVE,
   source: 'apilint',
   message: 'The identifier field and url field are mutually exclusive.',
   severity: DiagnosticSeverity.Error,
@@ -19,7 +20,7 @@ const identifierMutuallyExclusiveLint: LinterMeta = {
       params: [['url']],
     },
   ],
-  targetSpecs: OpenAPI32,
+  targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default identifierMutuallyExclusiveLint;
+export default identifierMutuallyExclusive3_1__3_2Lint;

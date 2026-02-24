@@ -1,6 +1,5 @@
 import { ObjectElement } from '@swagger-api/apidom-core';
 import {
-  isReferenceLikeElement,
   specificationObj as OpenApi3_1Specification,
   SpecPath,
   CallbackVisitorOptions,
@@ -8,8 +7,6 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import CallbackElement from '../../../../elements/Callback.ts';
-import ReferenceElement from '../../../../elements/Reference.ts';
-import { isReferenceElement } from '../../../../predicates.ts';
 
 /**
  * @public
@@ -25,30 +22,18 @@ export type { CallbackVisitorOptions };
 class CallbackVisitor extends BaseCallbackVisitor {
   declare public readonly element: CallbackElement;
 
-  declare protected readonly specPath: SpecPath<
-    ['document', 'objects', 'Reference'] | ['document', 'objects', 'PathItem']
-  >;
+  declare protected readonly specPath: SpecPath<['document', 'objects', 'PathItem']>;
 
   constructor(options: CallbackVisitorOptions) {
     super(options);
     this.element = new CallbackElement();
-    this.specPath = (element: unknown) => {
-      // @ts-ignore
-      return isReferenceLikeElement(element)
-        ? ['document', 'objects', 'Reference']
-        : ['document', 'objects', 'PathItem'];
-    };
+    // OpenAPI 3.2: Callback values are Path Item Objects only (not Reference Objects).
+    // Path Item itself can have $ref, which is handled by the dereference strategy.
+    this.specPath = () => ['document', 'objects', 'PathItem'];
   }
 
   ObjectElement(objectElement: ObjectElement) {
     const result = BaseCallbackVisitor.prototype.ObjectElement.call(this, objectElement);
-
-    // decorate every ReferenceElement with metadata about their referencing type
-    // @ts-ignore
-    this.element.filter(isReferenceElement).forEach((referenceElement: ReferenceElement) => {
-      // @ts-ignore
-      referenceElement.setMetaProperty('referenced-element', 'pathItem');
-    });
 
     return result;
   }

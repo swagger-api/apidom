@@ -40,6 +40,7 @@ import {
   isSchemaElement,
   isOperationElement,
   isBooleanJsonSchemaElement,
+  isOpenApi3_2Element,
   OpenApi3_2Element,
 } from '@swagger-api/apidom-ns-openapi-3-2';
 
@@ -306,8 +307,8 @@ class OpenAPI3_2DereferenceVisitor {
         }
       }
 
-      if (openApiElement && isStringElement((openApiElement as any).$self)) {
-        const $self = toValue((openApiElement as any).$self);
+      if (openApiElement && isOpenApi3_2Element(openApiElement) && isStringElement(openApiElement.$self)) {
+        const $self = toValue(openApiElement.$self);
 
         if ($self) {
           // If $self is absolute, use it directly

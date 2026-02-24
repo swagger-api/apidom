@@ -75,6 +75,7 @@ import SecurityRequirementElement from '../../elements/SecurityRequirement.ts';
 import TagElement from '../../elements/Tag.ts';
 // non-concrete Elements (NCEs)
 import ComponentsPathItemsElement from '../../elements/nces/ComponentsPathItems.ts';
+import ComponentsMediaTypesElement from '../../elements/nces/ComponentsMediaTypes.ts';
 import WebhooksElement from '../../elements/nces/Webhooks.ts';
 import { getNodeType } from '../../traversal/visitor.ts';
 import { Predicates } from '../toolbox.ts';
@@ -189,6 +190,9 @@ const schema = {
     trace(...args: any[]) {
       return new OperationElement(...args);
     },
+    query(...args: any[]) {
+      return new OperationElement(...args);
+    },
     servers(...args: any[]) {
       return new PathItemServersElement(...args);
     },
@@ -248,10 +252,25 @@ const schema = {
     encoding(...args: any[]) {
       return new MediaTypeEncodingElement(...args);
     },
+    prefixEncoding(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    itemEncoding(...args: any[]) {
+      return new EncodingElement(...args);
+    },
   },
   EncodingElement: {
     headers(...args: any[]) {
       return new EncodingHeadersElement(...args);
+    },
+    encoding(...args: any[]) {
+      return new MediaTypeEncodingElement(...args);
+    },
+    prefixEncoding(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    itemEncoding(...args: any[]) {
+      return new EncodingElement(...args);
     },
   },
   ResponsesElement: {
@@ -321,6 +340,9 @@ const schema = {
     },
     pathItems(...args: any[]) {
       return new ComponentsPathItemsElement(...args);
+    },
+    mediaTypes(...args: any[]) {
+      return new ComponentsMediaTypesElement(...args);
     },
   },
   SecurityRequirementElement: {
@@ -468,6 +490,9 @@ const schema = {
       return new OAuthFlowElement(...args);
     },
     authorizationCode(...args: any[]) {
+      return new OAuthFlowElement(...args);
+    },
+    deviceAuthorization(...args: any[]) {
       return new OAuthFlowElement(...args);
     },
   },

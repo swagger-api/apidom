@@ -1,7 +1,8 @@
-import { StringElement } from '@swagger-api/apidom-core';
+import { ArrayElement } from '@swagger-api/apidom-core';
 import { MediaTypeElement } from '@swagger-api/apidom-ns-openapi-3-1';
 
 import SchemaElement from './Schema.ts';
+import EncodingElement from './Encoding.ts';
 
 /**
  * @public
@@ -28,24 +29,26 @@ class MediaType extends MediaTypeElement {
   }
 
   /**
-   * OpenAPI 3.2: Controls how prefixes are encoded in sequential/streaming formats.
+   * OpenAPI 3.2: An array of positional encoding information for sequential/streaming formats.
+   * The prefixEncoding field SHALL only apply when the media type is multipart.
    */
-  get prefixEncoding(): StringElement | undefined {
+  get prefixEncoding(): ArrayElement | undefined {
     return this.get('prefixEncoding');
   }
 
-  set prefixEncoding(prefixEncoding: StringElement | undefined) {
+  set prefixEncoding(prefixEncoding: ArrayElement | undefined) {
     this.set('prefixEncoding', prefixEncoding);
   }
 
   /**
-   * OpenAPI 3.2: Controls how items are encoded in array/sequential formats.
+   * OpenAPI 3.2: A single Encoding Object that provides encoding information for array items.
+   * The itemEncoding field SHALL only apply when the media type is multipart.
    */
-  get itemEncoding(): StringElement | undefined {
+  get itemEncoding(): EncodingElement | undefined {
     return this.get('itemEncoding');
   }
 
-  set itemEncoding(itemEncoding: StringElement | undefined) {
+  set itemEncoding(itemEncoding: EncodingElement | undefined) {
     this.set('itemEncoding', itemEncoding);
   }
 }

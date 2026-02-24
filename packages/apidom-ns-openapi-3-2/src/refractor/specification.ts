@@ -311,9 +311,13 @@ const specification = {
               OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.examples,
             encoding:
               OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.encoding,
-            // OpenAPI 3.2 addition
+            // OpenAPI 3.2 additions
             itemSchema: {
               $ref: '#/visitors/document/objects/Schema',
+            },
+            prefixEncoding: { $ref: '#/visitors/value' },
+            itemEncoding: {
+              $ref: '#/visitors/document/objects/Encoding',
             },
           },
         },
@@ -327,6 +331,12 @@ const specification = {
             explode: OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.explode,
             allowReserved:
               OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.allowReserved,
+            // OpenAPI 3.2 additions
+            encoding: OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.encoding,
+            prefixEncoding: { $ref: '#/visitors/value' },
+            itemEncoding: {
+              $ref: '#/visitors/document/objects/Encoding',
+            },
           },
         },
         Responses: {
@@ -554,6 +564,10 @@ const specification = {
               $ref: '#/visitors/document/objects/OAuthFlow',
             },
             authorizationCode: {
+              $ref: '#/visitors/document/objects/OAuthFlow',
+            },
+            // OpenAPI 3.2 addition
+            deviceAuthorization: {
               $ref: '#/visitors/document/objects/OAuthFlow',
             },
           },

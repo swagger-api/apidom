@@ -40,6 +40,7 @@ import {
   isSchemaElement,
   isOperationElement,
   isBooleanJsonSchemaElement,
+  isOpenApi3_2Element,
   OpenApi3_2Element,
 } from '@swagger-api/apidom-ns-openapi-3-2';
 
@@ -63,6 +64,22 @@ const visitAsync = visit[Symbol.for('nodejs.util.promisify.custom')];
 
 // initialize element identity manager
 const identityManager = new IdentityManager();
+
+/**
+ * Checks if a URI is absolute (has a scheme).
+ * @param uri - The URI to check
+ * @returns true if the URI is absolute, false otherwise
+ */
+const isAbsoluteURI = (uri: string): boolean => {
+  try {
+    const parsedUrl = new URL(uri);
+    // URL constructor succeeds only for absolute URLs
+    return !!parsedUrl.protocol;
+  } catch {
+    // If URL parsing fails, it's a relative URI
+    return false;
+  }
+};
 
 /**
  * Custom mutation replacer.
@@ -92,6 +109,7 @@ export interface OpenAPI3_2DereferenceVisitorOptions {
   readonly ancestors?: AncestorLineage<Element>;
   readonly refractCache?: Map<string, Element>;
   readonly allOfDiscriminatorMapping?: Map<string, Element[]>;
+  readonly $selfValue?: string;
 }
 
 /**
@@ -112,6 +130,8 @@ class OpenAPI3_2DereferenceVisitor {
 
   protected readonly allOfDiscriminatorMapping: Map<string, Element[]>;
 
+  protected $selfValue: string | undefined;
+
   constructor({
     reference,
     namespace,
@@ -120,6 +140,7 @@ class OpenAPI3_2DereferenceVisitor {
     ancestors = new AncestorLineage(),
     refractCache = new Map(),
     allOfDiscriminatorMapping = new Map(),
+    $selfValue = undefined,
   }: OpenAPI3_2DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -128,6 +149,7 @@ class OpenAPI3_2DereferenceVisitor {
     this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
     this.allOfDiscriminatorMapping = allOfDiscriminatorMapping;
+    this.$selfValue = $selfValue;
   }
 
   protected handleDereferenceError(error: unknown, refEl: Element, directAncestors?: Set<Element>) {
@@ -172,7 +194,28 @@ class OpenAPI3_2DereferenceVisitor {
   }
 
   protected toBaseURI(uri: string): string {
-    return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+    // Use $self as base URI if present, otherwise fall back to retrieval URI
+    let baseUri = this.$selfValue || this.reference.uri;
+
+    // Check if baseUri is hierarchical (can be used for resolving relative URIs)
+    // Non-hierarchical URIs like URNs can't be used as base for relative resolution
+    if (this.$selfValue) {
+      try {
+        // Try to create a URL object - this will fail for non-hierarchical URIs
+        const testUrl = new URL(this.$selfValue);
+        // If successful, check if it has a hierarchical structure (has a hostname or is file://)
+        if (!testUrl.hostname && !testUrl.protocol.startsWith('file')) {
+          // Non-hierarchical URI (like URN) - fall back to retrieval URI for relative refs
+          baseUri = this.reference.uri;
+        }
+      } catch {
+        // URL parsing failed - likely a URN or other non-HTTP(S) URI
+        // Fall back to retrieval URI for relative reference resolution
+        baseUri = this.reference.uri;
+      }
+    }
+
+    return url.resolve(baseUri, url.sanitize(url.stripHash(uri)));
   }
 
   protected async toReference(uri: string): Promise<Reference> {
@@ -185,6 +228,15 @@ class OpenAPI3_2DereferenceVisitor {
 
     const baseURI = this.toBaseURI(uri);
     const { refSet } = this.reference as { refSet: ReferenceSet };
+
+    // Check if requesting current document (by retrieval URI or $self)
+    const isCurrentDocument =
+      url.stripHash(uri) === url.stripHash(this.reference.uri) ||
+      (this.$selfValue && url.stripHash(baseURI) === url.stripHash(this.$selfValue));
+
+    if (isCurrentDocument) {
+      return this.reference;
+    }
 
     // we've already processed this Reference in past
     if (refSet.has(baseURI)) {
@@ -230,7 +282,69 @@ class OpenAPI3_2DereferenceVisitor {
     return [ancestorsLineage, directAncestors];
   }
 
+  /**
+   * Extract $self value from a Reference's root OpenAPI 3.2 document.
+   * Returns the $self value if present and valid, otherwise undefined.
+   */
+  protected extractSelfFromReference(reference: Reference): string | undefined {
+    try {
+      // Get the root element from the reference
+      const rootElement = reference.value.result;
+
+      // Find the OpenApi3_2Element in the parse result
+      let openApiElement: Element | undefined;
+
+      if (rootElement instanceof Element) {
+        // Check if root is directly an OpenApi3_2Element
+        if (rootElement.element === 'openapi-3-2') {
+          openApiElement = rootElement;
+        } else {
+          // Try to find OpenApi3_2Element in the result (e.g., in ParseResult)
+          const found = find((element: Element) => element.element === 'openapi-3-2', rootElement);
+          if (found) {
+            openApiElement = found;
+          }
+        }
+      }
+
+      if (openApiElement && isOpenApi3_2Element(openApiElement) && isStringElement(openApiElement.$self)) {
+        const $self = toValue(openApiElement.$self);
+
+        if ($self) {
+          // If $self is absolute, use it directly
+          if (isAbsoluteURI($self)) {
+            return url.sanitize(url.stripHash($self));
+          }
+          // If $self is relative, resolve it against the reference's URI
+          return url.resolve(reference.uri, url.sanitize(url.stripHash($self)));
+        }
+      }
+    } catch {
+      // If extraction fails, return undefined to fall back to reference.uri
+    }
+
+    return undefined;
+  }
+
   public readonly OpenApi3_2Element = {
+    enter: (openApi3_2Element: OpenApi3_2Element) => {
+      // Extract $self field if present and use it as base URI for reference resolution
+      if (isStringElement(openApi3_2Element.$self)) {
+        const $self = toValue(openApi3_2Element.$self);
+
+        if ($self) {
+          // If $self is absolute, use it directly
+          if (isAbsoluteURI($self)) {
+            this.$selfValue = url.sanitize(url.stripHash($self));
+          } else {
+            // If $self is relative, resolve it against the retrieval URI first
+            this.$selfValue = url.resolve(this.reference.uri, url.sanitize(url.stripHash($self)));
+          }
+        }
+      }
+
+      return undefined;
+    },
     leave: (
       openApi3_2Element: OpenApi3_2Element,
       key: string | number,
@@ -271,8 +385,13 @@ class OpenAPI3_2DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const $refValue = toValue(referencingElement.$ref);
+    // Fragment-only references (starting with #) are always internal
+    const isFragmentOnly = $refValue.startsWith('#');
     const retrievalURI = this.toBaseURI($refValue);
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference =
+      isFragmentOnly ||
+      url.stripHash(this.reference.uri) === retrievalURI ||
+      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Reference Objects
@@ -396,6 +515,12 @@ class OpenAPI3_2DereferenceVisitor {
       // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
 
+      // Extract $self from target document for external references
+      const targetSelfValue =
+        isExternalReference || isNonRootDocument
+          ? this.extractSelfFromReference(reference)
+          : this.$selfValue;
+
       const visitor = new OpenAPI3_2DereferenceVisitor({
         reference,
         namespace: this.namespace,
@@ -404,6 +529,7 @@ class OpenAPI3_2DereferenceVisitor {
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
         allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+        $selfValue: targetSelfValue,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -435,8 +561,12 @@ class OpenAPI3_2DereferenceVisitor {
       // @ts-ignore
       summary: toValue(referencingElement.summary),
     });
-    // annotate fragment with info about origin
-    mergedElement.setMetaProperty('ref-origin', reference.uri);
+    // annotate fragment with info about origin (use $self if available)
+    const refOriginURI =
+      isExternalReference || isNonRootDocument
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+    mergedElement.setMetaProperty('ref-origin', refOriginURI);
     // annotate fragment with info about referencing element
     mergedElement.setMetaProperty(
       'ref-referencing-element-id',
@@ -491,8 +621,13 @@ class OpenAPI3_2DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const $refValue = toValue(referencingElement.$ref);
+    // Fragment-only references (starting with #) are always internal
+    const isFragmentOnly = $refValue.startsWith('#');
     const retrievalURI = this.toBaseURI($refValue);
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference =
+      isFragmentOnly ||
+      url.stripHash(this.reference.uri) === retrievalURI ||
+      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving external Path Item Objects
@@ -611,6 +746,12 @@ class OpenAPI3_2DereferenceVisitor {
       // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
 
+      // Extract $self from target document for external references
+      const targetSelfValue =
+        isExternalReference || isNonRootDocument
+          ? this.extractSelfFromReference(reference)
+          : this.$selfValue;
+
       const visitor = new OpenAPI3_2DereferenceVisitor({
         reference,
         namespace: this.namespace,
@@ -619,6 +760,7 @@ class OpenAPI3_2DereferenceVisitor {
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
         allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+        $selfValue: targetSelfValue,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -658,8 +800,12 @@ class OpenAPI3_2DereferenceVisitor {
       mergedElement.setMetaProperty('ref-fields', {
         $ref: toValue(referencingElement.$ref),
       });
-      // annotate referenced element with info about origin
-      mergedElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate referenced element with info about origin (use $self if available)
+      const refOriginURI =
+        isExternalReference || isNonRootDocument
+          ? this.extractSelfFromReference(reference) || reference.uri
+          : this.$selfValue || reference.uri;
+      mergedElement.setMetaProperty('ref-origin', refOriginURI);
       // annotate fragment with info about referencing element
       mergedElement.setMetaProperty(
         'ref-referencing-element-id',
@@ -711,8 +857,13 @@ class OpenAPI3_2DereferenceVisitor {
       // possibly non-semantic referenced element
       const operationRefValue = toValue(linkElement.operationRef);
       const jsonPointer = URIFragmentIdentifier.fromURIReference(operationRefValue);
+      // Fragment-only references (starting with #) are always internal
+      const isFragmentOnly = operationRefValue.startsWith('#');
       const retrievalURI = this.toBaseURI(operationRefValue);
-      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isInternalReference =
+        isFragmentOnly ||
+        url.stripHash(this.reference.uri) === retrievalURI ||
+        (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
       const isExternalReference = !isInternalReference;
 
       // ignore resolving internal Operation Object reference
@@ -758,8 +909,11 @@ class OpenAPI3_2DereferenceVisitor {
       }
       // create shallow clone to be able to annotate with metadata
       resolvedOperationElement = cloneShallow(resolvedOperationElement);
-      // annotate operation element with info about origin
-      resolvedOperationElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate operation element with info about origin (use $self if available)
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+      resolvedOperationElement.setMetaProperty('ref-origin', refOriginURI);
 
       const linkElementCopy = cloneShallow(linkElement);
       linkElementCopy.operationRef?.meta.set('operation', resolvedOperationElement);
@@ -835,8 +989,13 @@ class OpenAPI3_2DereferenceVisitor {
     }
 
     const externalValueRef = toValue(exampleElement.externalValue);
+    // Fragment-only references (starting with #) are always internal
+    const isFragmentOnly = externalValueRef.startsWith('#');
     const retrievalURI = this.toBaseURI(externalValueRef);
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference =
+      isFragmentOnly ||
+      url.stripHash(this.reference.uri) === retrievalURI ||
+      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Example Objects
@@ -860,8 +1019,11 @@ class OpenAPI3_2DereferenceVisitor {
 
     // shallow clone of the referenced element
     const valueElement = cloneShallow(reference.value.result as Element);
-    // annotate operation element with info about origin
-    valueElement.setMetaProperty('ref-origin', reference.uri);
+    // annotate operation element with info about origin (use $self if available)
+    const refOriginURI = isExternalReference
+      ? this.extractSelfFromReference(reference) || reference.uri
+      : this.$selfValue || reference.uri;
+    valueElement.setMetaProperty('ref-origin', refOriginURI);
 
     const exampleElementCopy = cloneShallow(exampleElement);
     exampleElementCopy.value = valueElement;
@@ -934,6 +1096,8 @@ class OpenAPI3_2DereferenceVisitor {
     // append referencing reference to ancestors lineage
     directAncestors.add(schemaElement);
 
+    // For MemberElement (discriminator mapping), we stay in the same document context
+    // so we keep using the current $selfValue
     const visitor = new OpenAPI3_2DereferenceVisitor({
       reference: this.reference,
       namespace: this.namespace,
@@ -942,6 +1106,7 @@ class OpenAPI3_2DereferenceVisitor {
       refractCache: this.refractCache,
       ancestors: ancestorsLineage,
       allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+      $selfValue: this.$selfValue,
     });
 
     let referencedElement: Element;
@@ -1218,6 +1383,12 @@ class OpenAPI3_2DereferenceVisitor {
       // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
 
+      // Extract $self from target document for external references
+      const targetSelfValue =
+        isExternalReference || isNonRootDocument
+          ? this.extractSelfFromReference(reference)
+          : this.$selfValue;
+
       const visitor = new OpenAPI3_2DereferenceVisitor({
         reference,
         namespace: this.namespace,
@@ -1226,6 +1397,7 @@ class OpenAPI3_2DereferenceVisitor {
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
         allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+        $selfValue: targetSelfValue,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -1253,8 +1425,11 @@ class OpenAPI3_2DereferenceVisitor {
         $ref: toValue(referencingElement.$ref),
         $refBaseURI,
       });
-      // annotate referenced element with info about origin
-      booleanJsonSchemaElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate referenced element with info about origin (use $self if available)
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+      booleanJsonSchemaElement.setMetaProperty('ref-origin', refOriginURI);
       // annotate fragment with info about referencing element
       booleanJsonSchemaElement.setMetaProperty(
         'ref-referencing-element-id',
@@ -1288,8 +1463,11 @@ class OpenAPI3_2DereferenceVisitor {
         $ref: toValue(referencingElement.$ref),
         $refBaseURI,
       });
-      // annotate fragment with info about origin
-      mergedElement.setMetaProperty('ref-origin', reference.uri);
+      // annotate fragment with info about origin (use $self if available)
+      const refOriginURI = isExternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+      mergedElement.setMetaProperty('ref-origin', refOriginURI);
       // annotate fragment with info about referencing element
       mergedElement.setMetaProperty(
         'ref-referencing-element-id',

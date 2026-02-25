@@ -277,7 +277,11 @@ class OpenAPI3_2DereferenceVisitor {
         }
       }
 
-      if (openApiElement && isOpenApi3_2Element(openApiElement) && isStringElement(openApiElement.$self)) {
+      if (
+        openApiElement &&
+        isOpenApi3_2Element(openApiElement) &&
+        isStringElement(openApiElement.$self)
+      ) {
         const $self = toValue(openApiElement.$self);
 
         if ($self) {
@@ -355,13 +359,8 @@ class OpenAPI3_2DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const $refValue = toValue(referencingElement.$ref);
-    // Fragment-only references (starting with #) are always internal
-    const isFragmentOnly = $refValue.startsWith('#');
     const retrievalURI = this.toBaseURI($refValue);
-    const isInternalReference =
-      isFragmentOnly ||
-      url.stripHash(this.reference.uri) === retrievalURI ||
-      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
+    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Reference Objects
@@ -591,13 +590,8 @@ class OpenAPI3_2DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const $refValue = toValue(referencingElement.$ref);
-    // Fragment-only references (starting with #) are always internal
-    const isFragmentOnly = $refValue.startsWith('#');
     const retrievalURI = this.toBaseURI($refValue);
-    const isInternalReference =
-      isFragmentOnly ||
-      url.stripHash(this.reference.uri) === retrievalURI ||
-      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
+    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
     const isExternalReference = !isInternalReference;
 
     // ignore resolving external Path Item Objects
@@ -827,13 +821,8 @@ class OpenAPI3_2DereferenceVisitor {
       // possibly non-semantic referenced element
       const operationRefValue = toValue(linkElement.operationRef);
       const jsonPointer = URIFragmentIdentifier.fromURIReference(operationRefValue);
-      // Fragment-only references (starting with #) are always internal
-      const isFragmentOnly = operationRefValue.startsWith('#');
       const retrievalURI = this.toBaseURI(operationRefValue);
-      const isInternalReference =
-        isFragmentOnly ||
-        url.stripHash(this.reference.uri) === retrievalURI ||
-        (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
+      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
       const isExternalReference = !isInternalReference;
 
       // ignore resolving internal Operation Object reference
@@ -959,13 +948,8 @@ class OpenAPI3_2DereferenceVisitor {
     }
 
     const externalValueRef = toValue(exampleElement.externalValue);
-    // Fragment-only references (starting with #) are always internal
-    const isFragmentOnly = externalValueRef.startsWith('#');
     const retrievalURI = this.toBaseURI(externalValueRef);
-    const isInternalReference =
-      isFragmentOnly ||
-      url.stripHash(this.reference.uri) === retrievalURI ||
-      (this.$selfValue && url.stripHash(this.$selfValue) === retrievalURI);
+    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Example Objects

@@ -5,7 +5,7 @@ import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const $ref3_1AllowedSiblingsLint: LinterMeta = {
+const $ref3_1__3_2AllowedSiblingsLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_1_REFERENCE_FIELD_$REF_ALLOWED_SIBLINGS,
   source: 'apilint',
   message:
@@ -24,4 +24,4 @@ const $ref3_1AllowedSiblingsLint: LinterMeta = {
   targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
-export default $ref3_1AllowedSiblingsLint;
+export default $ref3_1__3_2AllowedSiblingsLint;

@@ -194,28 +194,7 @@ class OpenAPI3_2DereferenceVisitor {
   }
 
   protected toBaseURI(uri: string): string {
-    // Use $self as base URI if present, otherwise fall back to retrieval URI
-    let baseUri = this.$selfValue || this.reference.uri;
-
-    // Check if baseUri is hierarchical (can be used for resolving relative URIs)
-    // Non-hierarchical URIs like URNs can't be used as base for relative resolution
-    if (this.$selfValue) {
-      try {
-        // Try to create a URL object - this will fail for non-hierarchical URIs
-        const testUrl = new URL(this.$selfValue);
-        // If successful, check if it has a hierarchical structure (has a hostname or is file://)
-        if (!testUrl.hostname && !testUrl.protocol.startsWith('file')) {
-          // Non-hierarchical URI (like URN) - fall back to retrieval URI for relative refs
-          baseUri = this.reference.uri;
-        }
-      } catch {
-        // URL parsing failed - likely a URN or other non-HTTP(S) URI
-        // Fall back to retrieval URI for relative reference resolution
-        baseUri = this.reference.uri;
-      }
-    }
-
-    return url.resolve(baseUri, url.sanitize(url.stripHash(uri)));
+    return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
   }
 
   protected async toReference(uri: string): Promise<Reference> {
@@ -228,15 +207,6 @@ class OpenAPI3_2DereferenceVisitor {
 
     const baseURI = this.toBaseURI(uri);
     const { refSet } = this.reference as { refSet: ReferenceSet };
-
-    // Check if requesting current document (by retrieval URI or $self)
-    const isCurrentDocument =
-      url.stripHash(uri) === url.stripHash(this.reference.uri) ||
-      (this.$selfValue && url.stripHash(baseURI) === url.stripHash(this.$selfValue));
-
-    if (isCurrentDocument) {
-      return this.reference;
-    }
 
     // we've already processed this Reference in past
     if (refSet.has(baseURI)) {

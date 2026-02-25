@@ -13,10 +13,13 @@ import NormalizeStorage from './normalize-header-examples/NormalizeStorage.ts';
  *  - `example` of type `Any`
  *  - `examples` of type `Map[string, Example Object | Reference Object]`
  *
- * OpenAPI 3.1 specification excerpt that defines the override behavior:
+ * NOTE: OpenAPI 3.2 does not define example override behavior for the Parameter Object.
+ * This behavior (example/examples overriding schema examples) was present in OpenAPI 3.1
+ * but was removed in OpenAPI 3.2, which replaced it with a new example model using
+ * dataValue and serializedValue fields.
  *
- * The example value SHALL override the example provided by the schema.
- * Furthermore, if referencing a schema that contains an example, the examples value SHALL override the example provided by the schema.
+ * This plugin is carried over from OpenAPI 3.1 semantics as a practical compatibility
+ * measure until proper OpenAPI 3.2 example normalization is implemented.
  *
  * NOTE: this plugin is idempotent
  * @public

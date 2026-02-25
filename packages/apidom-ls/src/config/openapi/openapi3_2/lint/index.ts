@@ -5,7 +5,7 @@ import externalDocsTypeLint from './external-docs--type.ts';
 import infoRequiredLint from './info--required.ts';
 import infoTypeLint from './info--type.ts';
 import jsonSchemaDialectFormatURILint from './json-schema-dialect--format-uri.ts';
-import $selfTypeLint from './self--type.ts';
+import $selfFormatURIReferenceLint from './self--format-uri-reference.ts';
 import pathsTypeLint from './paths--type.ts';
 import securityItemsTypeLint from './security--items-type.ts';
 import securityTypeLint from './security--type.ts';
@@ -23,7 +23,7 @@ const lints = [
   infoRequiredLint,
   infoTypeLint,
   jsonSchemaDialectFormatURILint,
-  $selfTypeLint,
+  $selfFormatURIReferenceLint,
   pathsTypeLint,
   securityItemsTypeLint,
   securityTypeLint,

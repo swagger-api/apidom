@@ -562,6 +562,11 @@ const schema = {
       return new PathItemElement(...args);
     },
   },
+  [ComponentsMediaTypesElement.primaryClass]: {
+    '[key: *]': function key(...args: any[]) {
+      return new MediaTypeElement(...args);
+    },
+  },
   [OperationCallbacksElement.primaryClass]: {
     '[key: *]': function key(...args: any[]) {
       return new CallbackElement(...args);

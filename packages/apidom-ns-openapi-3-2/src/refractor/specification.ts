@@ -332,7 +332,8 @@ const specification = {
             allowReserved:
               OpenApi3_0Specification.visitors.document.objects.Encoding.fixedFields.allowReserved,
             // OpenAPI 3.2 additions
-            encoding: OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.encoding,
+            encoding:
+              OpenApi3_0Specification.visitors.document.objects.MediaType.fixedFields.encoding,
             prefixEncoding: { $ref: '#/visitors/value' },
             itemEncoding: {
               $ref: '#/visitors/document/objects/Encoding',

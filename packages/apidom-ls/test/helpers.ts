@@ -11,7 +11,7 @@ export const loadFile = (uri: string) => fs.readFileSync(uri).toString();
 
 export const loadJsonFile = (uri: string) => JSON.parse(loadFile(uri));
 
-export const createHTTPServer = ({ port = 8123, cwd = process.cwd() } = {}): ServerTerminable => {
+export const createHTTPServer = ({ port = 8124, cwd = process.cwd() } = {}): ServerTerminable => {
   const server: ServerTerminable = http.createServer((req, res) => {
     const filePath = path.join(cwd, req.url || '/favicon.ico');
 

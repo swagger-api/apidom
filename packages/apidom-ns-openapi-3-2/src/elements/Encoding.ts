@@ -33,11 +33,11 @@ class Encoding extends EncodingElement {
    * OpenAPI 3.2: A single Encoding Object that provides encoding information for array items.
    * Applies nested Encoding Objects in the same manner as the Media Type Object's itemEncoding field.
    */
-  get itemEncoding(): Encoding | undefined {
+  get itemEncoding(): this | undefined {
     return this.get('itemEncoding');
   }
 
-  set itemEncoding(itemEncoding: Encoding | undefined) {
+  set itemEncoding(itemEncoding: this | undefined) {
     this.set('itemEncoding', itemEncoding);
   }
 }

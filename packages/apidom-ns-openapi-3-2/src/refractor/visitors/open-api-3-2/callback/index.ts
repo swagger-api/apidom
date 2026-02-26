@@ -1,4 +1,4 @@
-import { ObjectElement } from '@swagger-api/apidom-core';
+import { always } from 'ramda';
 import {
   specificationObj as OpenApi3_1Specification,
   SpecPath,
@@ -27,15 +27,7 @@ class CallbackVisitor extends BaseCallbackVisitor {
   constructor(options: CallbackVisitorOptions) {
     super(options);
     this.element = new CallbackElement();
-    // OpenAPI 3.2: Callback values are Path Item Objects only (not Reference Objects).
-    // Path Item itself can have $ref, which is handled by the dereference strategy.
-    this.specPath = () => ['document', 'objects', 'PathItem'];
-  }
-
-  ObjectElement(objectElement: ObjectElement) {
-    const result = BaseCallbackVisitor.prototype.ObjectElement.call(this, objectElement);
-
-    return result;
+    this.specPath = always(['document', 'objects', 'PathItem']);
   }
 }
 

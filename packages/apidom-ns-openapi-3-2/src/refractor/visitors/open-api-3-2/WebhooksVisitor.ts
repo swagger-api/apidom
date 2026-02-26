@@ -1,4 +1,5 @@
 import { Mixin } from 'ts-mixer';
+import { always } from 'ramda';
 import { ObjectElement, StringElement, toValue } from '@swagger-api/apidom-core';
 import {
   MapVisitor,
@@ -28,9 +29,7 @@ class WebhooksVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: WebhooksVisitorOptions) {
     super(options);
     this.element = new WebhooksElement();
-    // OpenAPI 3.2: webhooks values are Path Item Objects only (not Reference Objects).
-    // Path Item itself can have $ref, which is handled by the dereference strategy.
-    this.specPath = () => ['document', 'objects', 'PathItem'];
+    this.specPath = always(['document', 'objects', 'PathItem']);
   }
 
   ObjectElement(objectElement: ObjectElement) {

@@ -4,17 +4,17 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI32 } from '../../target-specs.ts';
 
-const prefixEncodingTypeLint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_2_MEDIA_TYPE_FIELD_PREFIX_ENCODING_TYPE,
+const oauth2MetadataUrlFormatURILint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_2_SECURITY_SCHEME_FIELD_OAUTH2_METADATA_URL_FORMAT_URI,
   source: 'apilint',
-  message: "'prefixEncoding' must be an array of Encoding Objects",
+  message: 'oauth2MetadataUrl MUST be in the format of an absolute URL.',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintArrayOfElementsOrClasses',
-  linterParams: [['encoding']],
+  linterFunction: 'apilintValidURI',
+  linterParams: [true],
   marker: 'value',
-  target: 'prefixEncoding',
+  target: 'oauth2MetadataUrl',
   data: {},
   targetSpecs: OpenAPI32,
 };
 
-export default prefixEncodingTypeLint;
+export default oauth2MetadataUrlFormatURILint;

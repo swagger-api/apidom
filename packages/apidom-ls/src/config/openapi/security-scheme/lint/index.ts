@@ -27,6 +27,7 @@ import flowsTypeLint from './flows--type.ts';
 import flowsRequiredLint from './flows--required.ts';
 import openIdConnectUrlFormatURILint from './open-id-connect-url--format-uri.ts';
 import openIdConnectUrlRequiredLint from './open-id-connect-url--required.ts';
+import oauth2MetadataUrlFormatURILint from './oauth2-metadata-url--format-uri.ts';
 import deprecatedTypeLint from './deprecated--type.ts';
 import keysUsedLint from './keys--used.ts';
 
@@ -57,6 +58,7 @@ const lints = [
   flowsRequiredLint,
   openIdConnectUrlFormatURILint,
   openIdConnectUrlRequiredLint,
+  oauth2MetadataUrlFormatURILint,
   deprecatedTypeLint,
   allowedFields2_0Lint,
   allowedFields3_0Lint,

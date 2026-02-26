@@ -1,4 +1,5 @@
 import { Mixin } from 'ts-mixer';
+import { always } from 'ramda';
 import { ObjectElement } from '@swagger-api/apidom-core';
 import {
   MapVisitor,
@@ -26,12 +27,7 @@ class AdditionalOperationsVisitor extends Mixin(MapVisitor, FallbackVisitor) {
   constructor(options: AdditionalOperationsVisitorOptions) {
     super(options);
     this.element = new ObjectElement();
-    // OpenAPI 3.2: additionalOperations values are Operation Objects only (not Reference Objects).
-    this.specPath = () => ['document', 'objects', 'Operation'];
-  }
-
-  ObjectElement(objectElement: ObjectElement) {
-    return MapVisitor.prototype.ObjectElement.call(this, objectElement);
+    this.specPath = always(['document', 'objects', 'Operation']);
   }
 }
 

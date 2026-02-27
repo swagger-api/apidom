@@ -4,6 +4,7 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { OpenAPI30, OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const allowedFields30_31Lint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',

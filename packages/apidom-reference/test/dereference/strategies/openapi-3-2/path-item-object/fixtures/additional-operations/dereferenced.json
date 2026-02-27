@@ -1,0 +1,39 @@
+[
+  {
+    "openapi": "3.2.0",
+    "paths": {
+      "/resources": {
+        "get": {
+          "summary": "Get resource"
+        },
+        "additionalOperations": {
+          "x-custom-operation": {
+            "summary": "Custom operation",
+            "parameters": [
+              {
+                "name": "custom",
+                "in": "header",
+                "required": false,
+                "schema": {
+                  "type": "string"
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "components": {
+      "parameters": {
+        "customParam": {
+          "name": "custom",
+          "in": "header",
+          "required": false,
+          "schema": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

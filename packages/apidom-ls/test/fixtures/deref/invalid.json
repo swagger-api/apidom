@@ -1,4 +1,3 @@
-
 {
   "openapi": "3.1.0",
   "info": {
@@ -31,12 +30,12 @@
               },
               "application/foo": {
                 "schema": {
-                  "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+                  "$ref": "http://localhost:8124/petstore31.json#/components/schemas/Pet"
                 }
               },
               "application/bar": {
                 "schema": {
-                  "$ref": "http://localhost:8123/petstore31.json#/components/schemas/PetInvalid"
+                  "$ref": "http://localhost:8124/petstore31.json#/components/schemas/PetInvalid"
                 }
               },
               "application/car": {
@@ -69,8 +68,8 @@
         "$ref": "https://petstore31.swagger.io/api/v31/openapi.json#/components/schemas/PetInvalid"
       },
       "petRef": {
-        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
-      }      
+        "$ref": "http://localhost:8124/petstore31.json#/components/schemas/Pet"
+      }
     }
   }
 }

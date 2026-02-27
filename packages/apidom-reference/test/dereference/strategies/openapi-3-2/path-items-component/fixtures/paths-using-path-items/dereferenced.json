@@ -1,0 +1,98 @@
+[
+  {
+    "openapi": "3.2.0",
+    "paths": {
+      "/users/{id}": {
+        "get": {
+          "summary": "Get by ID",
+          "responses": {
+            "200": {
+              "description": "User object",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete by ID",
+          "responses": {
+            "204": {
+              "description": "Deleted"
+            }
+          }
+        }
+      },
+      "/admins/{id}": {
+        "get": {
+          "summary": "Get by ID",
+          "responses": {
+            "200": {
+              "description": "User object",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete by ID",
+          "responses": {
+            "204": {
+              "description": "Deleted"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "pathItems": {
+        "userOperations": {
+          "get": {
+            "summary": "Get by ID",
+            "responses": {
+              "200": {
+                "description": "User object",
+                "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "delete": {
+            "summary": "Delete by ID",
+            "responses": {
+              "204": {
+                "description": "Deleted"
+              }
+            }
+          }
+        }
+      },
+      "responses": {
+        "UserResponse": {
+          "description": "User object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

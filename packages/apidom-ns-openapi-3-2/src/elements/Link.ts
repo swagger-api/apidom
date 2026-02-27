@@ -1,0 +1,8 @@
+import { LinkElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+/**
+ * @public
+ */
+class Link extends LinkElement {}
+
+export default Link;

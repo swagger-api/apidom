@@ -1,0 +1,39 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://example.com/api/v2/openapi.json",
+  "info": {
+    "title": "Order API",
+    "version": "2.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "pet": {
+            "$ref": "#/components/schemas/Pet"
+          },
+          "status": {
+            "type": "string",
+            "enum": ["placed", "approved", "delivered"]
+          }
+        }
+      }
+    }
+  }
+}

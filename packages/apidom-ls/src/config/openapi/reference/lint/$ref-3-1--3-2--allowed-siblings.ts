@@ -1,0 +1,27 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const $ref3_1__3_2AllowedSiblingsLint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_REFERENCE_FIELD_$REF_ALLOWED_SIBLINGS,
+  source: 'apilint',
+  message:
+    'All other properties other then summary and description in a Reference Object are ignored',
+  severity: DiagnosticSeverity.Warning,
+  linterFunction: 'allowedFields',
+  linterParams: [['$ref', 'summary', 'description']],
+  marker: 'key',
+  conditions: [
+    {
+      function: 'existFields',
+      params: [['$ref']],
+    },
+  ],
+  data: {},
+  targetSpecs: [...OpenAPI31, ...OpenAPI32],
+};
+
+export default $ref3_1__3_2AllowedSiblingsLint;

@@ -1,0 +1,36 @@
+[
+  {
+    "openapi": "3.2.0",
+    "components": {
+      "schemas": {
+        "Coordinates": {
+          "$schema": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
+          "type": "array",
+          "prefixItems": [
+            {
+              "type": "number",
+              "minimum": -90,
+              "maximum": 90
+            },
+            {
+              "type": "number",
+              "minimum": -180,
+              "maximum": 180
+            }
+          ],
+          "items": false
+        },
+        "Latitude": {
+          "type": "number",
+          "minimum": -90,
+          "maximum": 90
+        },
+        "Longitude": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180
+        }
+      }
+    }
+  }
+]

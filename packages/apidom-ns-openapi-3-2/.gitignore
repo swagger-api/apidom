@@ -1,0 +1,7 @@
+/src/**/*.mjs
+/src/**/*.cjs
+/test/**/*.mjs
+/dist
+/types
+/NOTICE
+/swagger-api-apidom-ns-openapi-3-1-*.tgz

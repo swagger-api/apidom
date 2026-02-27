@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -100,7 +100,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#xmlName).',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'attribute',
@@ -129,6 +129,20 @@ const completion: ApidomCompletionItem[] = [
         'MAY be used only for an array definition. Signifies whether the array is wrapped (for example, `<books><book/><book/></books>`) or unwrapped (`<book/><book/>`). Default value is `false`. The definition takes effect only when defined alongside `type` being `array` (outside the `items`).',
     },
     targetSpecs: [...OpenAPI2, ...OpenAPI3],
+  },
+  {
+    label: 'nodeType',
+    insertText: 'nodeType',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Specifies the type of XML node. Valid values are: "element", "attribute", "text", "cdata", or "none". Default value is "element".',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

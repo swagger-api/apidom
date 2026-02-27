@@ -319,6 +319,369 @@ Packages follow a dependency hierarchy:
 
 When modifying core packages, expect cascading build requirements in dependent packages.
 
+---
+
+## Best Practices for Adding Specification Versions
+
+This section provides guidelines for implementing support for new API specification versions (e.g., OpenAPI 3.2, AsyncAPI 3.0). These practices were developed from lessons learned in PR #5110 and other implementations.
+
+### Critical Rules (⚠️ Read This First)
+
+When implementing a new specification version that extends a parent version:
+
+#### 1. Check Parent Version FIRST
+
+**Rule**: Before adding ANY field to an element, verify it doesn't already exist in the parent version.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: Components.ts in OAS 3.2
+class Components extends ComponentsElement {
+  get pathItems(): ObjectElement | undefined {  // pathItems already in OAS 3.1!
+    return this.get('pathItems');
+  }
+}
+
+// ✅ CORRECT: Only add NEW fields
+class Components extends ComponentsElement {
+  get mediaTypes(): ObjectElement | undefined {  // mediaTypes is NEW in 3.2
+    return this.get('mediaTypes');
+  }
+}
+```
+
+**Checklist**:
+- [ ] Read parent namespace element: `packages/apidom-ns-{parent}/src/elements/{ElementName}.ts`
+- [ ] Read parent specification document
+- [ ] Identify ONLY fields new in current version
+- [ ] Never redefine existing fields
+
+#### 2. Verify Fields Exist in Specification
+
+**Rule**: Confirm every field appears in the official specification "Fixed Fields" table.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: ComponentsWebhooks element
+// webhooks is at root OpenAPI Object level, NOT in Components!
+class ComponentsWebhooks extends ObjectElement { ... }
+```
+
+**Prevention**:
+- Read the specification carefully
+- Cross-reference with JSON Schema files
+- Check specification examples for actual structure
+- Verify field locations in object hierarchy
+
+#### 3. Implement ALL New Fields
+
+**Rule**: Don't skip fields that seem unimportant. Implement everything in the specification.
+
+**Missing fields from PR #5110**:
+- `Encoding`: missing `encoding`, `prefixEncoding`, `itemEncoding`
+- `MediaType`: missing `prefixEncoding`, `itemEncoding`
+- `OAuthFlow`: missing `deviceAuthorizationUrl`
+- `OAuthFlows`: missing `deviceAuthorization`
+- `XML`: missing `nodeType`
+- `SecurityScheme`: missing `deprecated`
+- `Response`: missing `summary`
+
+**Process**:
+1. Create comprehensive checklist of ALL objects
+2. For each object, list ALL fields
+3. Compare systematically with parent version
+4. Mark new vs inherited fields
+5. Implement ALL new fields
+
+#### 4. Verify All URLs
+
+**Rule**: Test every URL before using it. Never assume a URL pattern exists.
+
+**Example from PR #5110**:
+```typescript
+// ❌ WRONG: URL returns 404
+static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.2/dialect/base');
+
+// ✅ CORRECT: Verified URL
+static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.2/dialect/2025-09-17');
+```
+
+**Verification**:
+```bash
+curl -I https://spec.openapis.org/oas/3.2/dialect/2025-09-17
+# Must return 200 OK
+```
+
+#### 5. Search Before Creating
+
+**Rule**: Before creating new files, search for existing similar implementations.
+
+**Example from PR #5110**: Both `OpenApi3-1.ts` and `OpenApi3-2.ts` existed when only `OpenApi3-2.ts` should exist.
+
+**Process**:
+- Use Glob/Grep to find similar files
+- Check parent namespaces
+- Verify you're not duplicating functionality
+
+### Pre-Implementation Checklist
+
+Before writing ANY code:
+
+- [ ] Read FULL official specification (not summaries)
+- [ ] Read parent specification (if extending)
+- [ ] Read parent namespace implementation files
+- [ ] Create comparison table: parent vs current
+- [ ] Mark which fields are NEW vs inherited
+- [ ] Test all URLs exist (curl/browser)
+- [ ] List ALL new fields for each object
+- [ ] Search for similar existing implementations
+
+### Specification Version Inheritance
+
+When a version extends a parent (e.g., OpenAPI 3.2 extends 3.1):
+
+```typescript
+import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+// Only add fields NEW in this version
+class Info extends InfoElement {
+  // ✅ Add only new fields
+
+  // ❌ Don't redefine existing fields
+}
+```
+
+#### When to Add Fields
+
+| Scenario | Action | Example |
+|----------|--------|---------|
+| Field exists in parent, unchanged | Don't add | `Info.license` in 3.1 → Don't add in 3.2 |
+| Field is completely new | Add getter/setter | `MediaType.itemSchema` new in 3.2 → Add it |
+| Nested object changed | Update nested element | `License.identifier` added in 3.1 → Update License in 3.1, not Info.license |
+
+### URL Patterns
+
+| Specification | Pattern |
+|---------------|---------|
+| OpenAPI Dialect | `https://spec.openapis.org/oas/{version}/dialect/{date}` |
+| OpenAPI Schema | `https://spec.openapis.org/oas/{version}/schema/{date}` |
+
+### apidom-ls Documentation URL Requirements
+
+**IMPORTANT**: When adding or updating OpenAPI 3.2+ documentation in `packages/apidom-ls/src/config/openapi/*/documentation.ts` files:
+
+**Rule**: OpenAPI 3.2.0 and later documentation URLs MUST use GitHub links, NOT spec.openapis.org.
+
+**Correct URL pattern for OAS 3.2+**:
+```typescript
+// ✅ CORRECT: Use GitHub URLs for 3.2+
+docs: '#### [Object Name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#objectName)...'
+
+// ❌ WRONG: Don't use spec.openapis.org for 3.2+
+docs: '#### [Object Name](https://spec.openapis.org/oas/v3.2.0.html#object-name)...'
+```
+
+**Anchor format for OAS 3.2+**: Use camelCase for anchors (e.g., `#pathItemObject`), not kebab-case (e.g., `#path-item-object`).
+
+**Version-specific patterns**:
+- **OpenAPI 3.0.x**: Use `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor` (existing format, do NOT change)
+- **OpenAPI 3.1.x**: Uses `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#camelCaseAnchor` (existing format)
+- **OpenAPI 3.2.x**: Use `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#camelCaseAnchor` (GitHub URLs required)
+
+**Why**: GitHub URLs for 3.2+ are the canonical source and are more stable than the rendered spec site.
+
+### Before Committing
+
+- [ ] No fields from parent are redefined
+- [ ] ALL new spec fields implemented
+- [ ] All URLs verified (return 200)
+- [ ] No duplicate files
+- [ ] `npm run build` succeeds
+- [ ] `npm run test` passes
+- [ ] `npm run typescript:check-types` passes
+- [ ] `npm run lint` passes
+
+### Key Principle
+
+**Always verify against official specification and parent version before implementing.**
+
+Following these guidelines prevents 95% of common issues in specification implementation.
+
+## Best Practices for Addressing PR Review Comments
+
+When addressing PR review comments, follow these practices to ensure complete and organized work:
+
+### 1. Always Fetch ALL Comments with Pagination
+
+**Critical**: PR APIs may have pagination limits. Always use `--paginate` flag when fetching comments.
+
+```bash
+# ✅ CORRECT: Use pagination to get ALL comments
+gh api repos/swagger-api/apidom/pulls/5110/comments --paginate --jq '.[]'
+
+# ❌ WRONG: Without pagination, you may miss comments
+gh api repos/swagger-api/apidom/pulls/5110/comments --jq '.[]'
+```
+
+**Verification steps**:
+1. Count total comments: `gh api repos/swagger-api/apidom/pulls/5110/comments --paginate --jq 'length'`
+2. Filter by date: `jq '.[] | select(.created_at | startswith("2026-02-24"))'`
+3. Verify count matches reviewer's statement (e.g., "there are 30+ comments")
+
+### 2. Create a Tracking Document
+
+For PRs with many comments (>10), create a tracking document like `REMAINING_PR_COMMENTS.md`:
+
+```markdown
+# PR Review Comments - [Date]
+
+## Status: X of Y completed (Z%)
+
+## Completed (list with checkmarks)
+1. ✅ Comment about field X - Fixed in commit abc123
+2. ✅ Comment about type Y - Fixed in commit def456
+
+## Remaining (organized by category)
+### Category 1: Missing Fields
+3. ⏳ Add field Z to config
+4. ⏳ Add field W to lint
+
+### Category 2: File Consolidation
+5. ⏳ Review if rules can be merged
+```
+
+**Benefits**:
+- Visual progress tracking
+- Prevents missing comments
+- Helps organize work by category
+- Provides context for future reviews
+
+### 3. Organize Comments by Package/Category
+
+Group related comments before starting work:
+
+```bash
+# Group by file path
+gh api repos/swagger-api/apidom/pulls/5110/comments --paginate \
+  --jq '.[] | .path' | sort | uniq -c | sort -rn
+
+# Group by package
+gh api repos/swagger-api/apidom/pulls/5110/comments --paginate \
+  --jq '.[] | .path | split("/")[1]' | sort | uniq -c
+```
+
+**Example grouping**:
+- **Namespace package** (apidom-ns-openapi-3-2): 12 comments
+- **LS package** (apidom-ls): 20 comments
+- By addressing in batches, you avoid context switching
+
+### 4. Avoid Task Duplication
+
+**Problem**: Creating tasks #21 "Add X" and later #35 "Add X" creates confusion.
+
+**Solution**:
+- Create tasks once after full comment analysis
+- Use unique, specific task descriptions
+- Check existing tasks before creating new ones: `TaskList`
+- Mark duplicates as completed when discovered
+
+**Pattern**:
+```bash
+# Before creating a task, verify it doesn't exist
+TaskList  # Review existing tasks
+TaskCreate (only if truly new)
+```
+
+### 5. Use Parallel Agents for Independent Work
+
+When you have multiple independent tasks:
+
+```typescript
+// ✅ CORRECT: Launch all agents in one message
+<function_calls>
+<invoke name="Task" subagent_type="general-purpose" description="Task 1">...</invoke>
+<invoke name="Task" subagent_type="general-purpose" description="Task 2">...</invoke>
+<invoke name="Task" subagent_type="general-purpose" description="Task 3">...</invoke>
+</function_calls>
+
+// ❌ WRONG: Launch sequentially (wastes time)
+// Call agent for Task 1, wait for result
+// Then call agent for Task 2, wait for result
+// Then call agent for Task 3, wait for result
+```
+
+**Benefits**:
+- Parallel execution (9 agents can run simultaneously)
+- Faster completion time
+- Better resource utilization
+
+### 6. Commit Strategy for Large Reviews
+
+**For 30+ comments**: Break into logical commits
+
+```bash
+# Commit 1: Namespace/visitor fixes (10-15 comments)
+git commit -m "fix: address namespace element issues"
+
+# Commit 2: LS configuration additions (10-15 comments)
+git commit -m "fix: add missing fields to LS config"
+
+# Commit 3: File consolidations and reviews (remaining comments)
+git commit -m "fix: consolidate duplicate version rules"
+```
+
+**Benefits**:
+- Easier to review individual commits
+- Can revert specific changes if needed
+- Clear progression of work
+
+### 7. Verification Checklist
+
+Before marking comments as complete:
+
+- [ ] Counted ALL comments with pagination
+- [ ] Created tracking document if >10 comments
+- [ ] Organized comments by package/category
+- [ ] No duplicate tasks created
+- [ ] All comments addressed (verify with tracking doc)
+- [ ] Build passes (`npm run build`)
+- [ ] Tests pass (`npm run test`)
+- [ ] Commits follow conventional format
+- [ ] Tracking document updated with commit references
+
+### 8. Common Pitfalls from PR #5110
+
+**Pitfall 1**: Incomplete comment fetch
+- **Issue**: Fetched 12 comments, missed 20 more
+- **Solution**: Always use `--paginate` flag
+
+**Pitfall 2**: Task duplication
+- **Issue**: Created tasks #21 and #35 for same work
+- **Solution**: Create tasks after full analysis, check existing tasks
+
+**Pitfall 3**: Package context switching
+- **Issue**: Jumping between packages wastes time
+- **Solution**: Group comments by package, address in batches
+
+**Pitfall 4**: Missing overview
+- **Issue**: Started work without full picture
+- **Solution**: Create tracking document first, get complete count
+
+### Summary
+
+**Key principle**: **Measure twice, cut once.**
+
+1. Fetch ALL comments with pagination
+2. Count and verify total
+3. Create tracking document
+4. Organize by category/package
+5. Address in logical batches
+6. Use parallel agents for independent work
+7. Commit in logical groups
+8. Verify all comments addressed
+
+Following these practices ensures efficient, complete PR review resolution.
+
 ## Package-Specific Documentation
 
 Some packages have additional documentation in their own CLAUDE.md files:

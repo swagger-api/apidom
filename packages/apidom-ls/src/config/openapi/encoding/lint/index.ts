@@ -1,9 +1,12 @@
-import allowedFieldsLint from './allowed-fields.ts';
+import allowedFieldsLints from './allowed-fields.ts';
 import contentTypeTypeLint from './content-type--type.ts';
 import headersValuesTypeLint from './headers--values-type.ts';
 import styleTypeLint from './style--type.ts';
 import explodeTypeLint from './explode--type.ts';
 import allowReservedTypeLint from './allow-reserved--type.ts';
+import encodingValuesTypeLint from './encoding--values-type.ts';
+import prefixEncodingTypeLint from './prefix-encoding--type.ts';
+import itemEncodingTypeLint from './item-encoding--type.ts';
 
 const lints = [
   contentTypeTypeLint,
@@ -11,7 +14,10 @@ const lints = [
   styleTypeLint,
   explodeTypeLint,
   allowReservedTypeLint,
-  allowedFieldsLint,
+  encodingValuesTypeLint,
+  prefixEncodingTypeLint,
+  itemEncodingTypeLint,
+  ...allowedFieldsLints,
 ];
 
 export default lints;

@@ -25,6 +25,8 @@ import serversTypeLint from './servers--type.ts';
 import serversItemsTypeLint from '../../path-item/lint/servers--items-type.ts';
 import requestBodyAllowedLint from './request-body--allowed.ts';
 import requestBodyTentativelyAllowed from './request-body--tentatively-allowed.ts';
+import requestBodyAllowed32Lint from './request-body--allowed-3-2.ts';
+import requestBodyTentativelyAllowed32 from './request-body--tentatively-allowed-3-2.ts';
 
 const lints = [
   tagsTypeLint,
@@ -54,6 +56,8 @@ const lints = [
   allowedFields3_0__3_1Lint,
   requestBodyAllowedLint,
   requestBodyTentativelyAllowed,
+  requestBodyAllowed32Lint,
+  requestBodyTentativelyAllowed32,
 ];
 
 export default lints;

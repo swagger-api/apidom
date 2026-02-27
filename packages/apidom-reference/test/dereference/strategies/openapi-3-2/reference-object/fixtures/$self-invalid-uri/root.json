@@ -1,0 +1,10 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://example.com/api#fragment",
+  "info": {
+    "title": "API with Invalid $self (contains fragment)",
+    "version": "1.0.0",
+    "description": "This $self value is invalid because it contains a fragment identifier"
+  },
+  "paths": {}
+}

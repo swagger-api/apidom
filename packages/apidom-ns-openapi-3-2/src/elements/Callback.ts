@@ -1,0 +1,8 @@
+import { CallbackElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+/**
+ * @public
+ */
+class Callback extends CallbackElement {}
+
+export default Callback;

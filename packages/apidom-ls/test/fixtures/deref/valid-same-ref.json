@@ -15,10 +15,10 @@
   "components": {
     "schemas": {
       "a": {
-        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+        "$ref": "http://localhost:8124/petstore31.json#/components/schemas/Pet"
       },
       "b": {
-        "$ref": "http://localhost:8123/petstore31.json#/components/schemas/Pet"
+        "$ref": "http://localhost:8124/petstore31.json#/components/schemas/Pet"
       }
     }
   }

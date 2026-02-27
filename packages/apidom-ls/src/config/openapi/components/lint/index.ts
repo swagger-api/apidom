@@ -1,5 +1,6 @@
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
 import allowedFieldsLint3_1 from './allowed-fields-3-1.ts';
+import allowedFieldsLint3_2 from './allowed-fields-3-2.ts';
 import schemasValuesTypeLint from './schemas--values-type.ts';
 import schemasValuesTypeOpenAPI3_1_AsyncAPI2Lint from './schemas--values-type-openapi-3-1-asyncapi-2.ts';
 import responsesValuesTypeLint from './responses--values-type.ts';
@@ -12,6 +13,7 @@ import linksValuesTypeLint from './links--values-type.ts';
 import callbacksValuesTypeLint from './callbacks--values-type.ts';
 import keysPatternLint from './keys--pattern.ts';
 import pathItemsValuesTypeLint from './path-items--values-type.ts';
+import mediaTypesTypeLint from './media-types--type.ts';
 
 const lints = [
   schemasValuesTypeLint,
@@ -26,8 +28,10 @@ const lints = [
   callbacksValuesTypeLint,
   keysPatternLint,
   pathItemsValuesTypeLint,
+  mediaTypesTypeLint,
   allowedFields3_0Lint,
   allowedFieldsLint3_1,
+  allowedFieldsLint3_2,
 ];
 
 export default lints;

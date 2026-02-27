@@ -1,0 +1,21 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes.ts';
+import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const defaultInEnum3_1__3_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_SERVER_VARIABLE_FIELD_DEFAULT_IN_ENUM,
+  source: 'apilint',
+  message: "'default' value must exist in the enum's values.",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintIncludedInArray',
+  linterParams: ['parent.enum', false],
+  marker: 'value',
+  target: 'default',
+  data: {},
+  targetSpecs: [...OpenAPI31, ...OpenAPI32],
+};
+
+export default defaultInEnum3_1__3_2Lint;

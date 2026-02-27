@@ -968,7 +968,7 @@ export const standardLinterfunctions: FunctionItem[] = [
       const value = toValue(element);
       const cacheKey = elementOrClasses.join(',');
 
-      if (!propertyValues.has(cacheKey)) {
+      if (!propertyValues.has(cacheKey) && api) {
         traverse((el: Element) => {
           const classes: ArrayElement = el.getMetaProperty('classes', []);
           if (

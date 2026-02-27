@@ -10,6 +10,8 @@ import * as openapi3_0AdapterJson from '@swagger-api/apidom-parser-adapter-opena
 import * as openapi3_0AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-0';
 import * as openapi3_1AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-1';
 import * as openapi3_1AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-1';
+import * as openapi3_2AdapterJson from '@swagger-api/apidom-parser-adapter-openapi-json-3-2';
+import * as openapi3_2AdapterYaml from '@swagger-api/apidom-parser-adapter-openapi-yaml-3-2';
 import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-2';
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as arazzo1AdapterJson from '@swagger-api/apidom-parser-adapter-arazzo-json-1';
@@ -30,6 +32,8 @@ const parser = new ApiDOMParser()
   .use(openapi3_0AdapterYaml)
   .use(openapi3_1AdapterJson)
   .use(openapi3_1AdapterYaml)
+  .use(openapi3_2AdapterJson)
+  .use(openapi3_2AdapterYaml)
   .use(asyncapi2AdapterJson)
   .use(asyncapi2AdapterYaml)
   .use(arazzo1AdapterJson)

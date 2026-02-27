@@ -1,0 +1,44 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "MyResponse": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/Cat"
+          },
+          {
+            "$ref": "./external-definition.json#/components/schemas/Dog"
+          }
+        ],
+        "discriminator": {
+          "propertyName": "petType"
+        }
+      },
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        }
+      },
+      "Cat": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/Pet"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "meows": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

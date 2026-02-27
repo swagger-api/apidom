@@ -1,0 +1,412 @@
+{
+  "openapi": "3.2.0",
+  "$self": "https://api.example.com/openapi.json",
+  "info": {
+    "title": "Sample Pet Store App",
+    "summary": "A pet store manager.",
+    "description": "This is a sample server for a pet store.",
+    "termsOfService": "https://example.com/terms/",
+    "contact": {
+      "name": "API Support",
+      "url": "https://www.example.com/support",
+      "email": "support@example.com"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "identifier": "Apache-2.0",
+      "url": "https://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.1"
+  },
+  "jsonSchemaDialect": "https://spec.openapis.org/oas/3.2/dialect/2025-09-17",
+  "servers": [
+    {
+      "url": "{username}.gigantic-server.com",
+      "name": "Production Server",
+      "description": "Production server",
+      "variables": {
+        "username": {
+          "enum": ["demo", "demo1", "demo2"],
+          "default": "demo",
+          "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/path1": {
+      "summary": "path1 summary",
+      "description": "path1 description",
+      "get": {},
+      "put": {
+        "tags": ["tag1", "tag2"],
+        "summary": "path2 components item summary",
+        "description": "path2 components item description",
+        "externalDocs": {
+          "description": "external documentation 1",
+          "url": "https://example.com/external-doc1"
+        },
+        "operationId": "path-1-put",
+        "parameters": [
+          {
+            "name": "parameter3",
+            "in": "query",
+            "description": "parameter3 description",
+            "required": false,
+            "deprecated": false,
+            "allowEmptyValue": true
+          },
+          {
+            "$ref": "#/components/parameters/parameter2"
+          }
+        ],
+        "requestBody": {
+          "description": "request body description",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              },
+              "example": {
+                "a": "b"
+              },
+              "examples": {
+                "example1": {
+                  "summary": "example 1 summary",
+                  "description": "example 1 description",
+                  "value": "c",
+                  "externalValue": "https://example1.com/"
+                },
+                "example2": {
+                  "$ref": "#/components/examples/example3"
+                }
+              },
+              "encoding": {
+                "historyMetadata": {
+                  "contentType": "application/json",
+                  "headers": {
+                    "X-Rate-Limit-Limit": {
+                      "description": "x-rate limit description",
+                      "schema": {
+                        "type": "integer"
+                      }
+                    },
+                    "Content-Type": {
+                      "$ref": "#/components/headers/Content-Type"
+                    }
+                  },
+                  "style": "simple",
+                  "explode": true,
+                  "allowReserved": true
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "default": {
+            "description": "default response",
+            "content": {
+              "application/json": {}
+            },
+            "links": {
+              "link1": {
+                "operationRef": "https://example.com/external-link",
+                "operationId": "operationId-1",
+                "parameters": {
+                  "parameter1": "{$url}"
+                },
+                "requestBody": "{$method}",
+                "description": "link 1 description",
+                "server": {}
+              },
+              "link2": {
+                "$ref": "#/components/links/link3"
+              }
+            }
+          },
+          "201": {
+            "$ref": "#/components/responses/201"
+          }
+        },
+        "callbacks": {
+          "myCallback1": {
+            "{$request.query.queryUrl}": {
+              "post": {
+                "requestBody": {
+                  "description": "Callback payload",
+                  "content": {
+                    "application/json": {
+                      "schema": {
+                        "type": "object"
+                      }
+                    }
+                  }
+                },
+                "responses": {
+                  "200": {
+                    "description": "callback successfully processed"
+                  }
+                }
+              }
+            }
+          },
+          "myCallback2": {
+            "$ref": "#/components/callbacks/callback1"
+          }
+        },
+        "deprecated": false,
+        "security": [
+          {
+            "petstore_auth": ["write:pets", "read:pets"]
+          }
+        ],
+        "servers": [
+          {
+            "url": "{username}.gigantic-server.com",
+            "name": "Operation Override Server",
+            "description": "Production server",
+            "variables": {
+              "username": {
+                "enum": ["demo", "demo1", "demo2"],
+                "default": "demo",
+                "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
+              }
+            }
+          }
+        ]
+      },
+      "post": {
+        "requestBody": {
+          "$ref": "#/components/requestBodies/requestBody1"
+        },
+        "responses": {
+          "default": {
+            "$ref": "#/components/responses/201"
+          }
+        }
+      },
+      "delete": {},
+      "options": {},
+      "head": {},
+      "patch": {},
+      "trace": {},
+      "servers": [
+        {
+          "url": "{username}.gigantic-server.com",
+          "name": "Path Item Server",
+          "description": "Production server",
+          "variables": {
+            "username": {
+              "enum": ["demo", "demo1", "demo2"],
+              "default": "demo",
+              "description": "This value is assigned by the service provider, in this example `gigantic-server.com`"
+            }
+          }
+        }
+      ],
+      "parameters": [
+        {
+          "name": "parameter1",
+          "in": "query",
+          "description": "parameter1 description",
+          "required": false,
+          "deprecated": false,
+          "allowEmptyValue": true
+        },
+        {
+          "$ref": "#/components/parameters/parameter2"
+        }
+      ]
+    },
+    "/path2": {
+      "summary": "path2 summary",
+      "description": "path2 description",
+      "$ref": "#/components/pathItems/path2"
+    }
+  },
+  "webhooks": {
+    "webhook1": {
+      "get": {
+        "tags": ["tag1", "tag2"],
+        "summary": "path2 components item summary",
+        "description": "path2 components item description"
+      }
+    },
+    "webhook2": {
+      "$ref": "#/components/pathItems/path2"
+    }
+  },
+  "components": {
+    "schemas": {
+      "schema1": {
+        "type": "object"
+      },
+      "schema2": {
+        "$ref": "#/components/schemas/schema1"
+      }
+    },
+    "responses": {
+      "201": {
+        "description": "201 description",
+        "headers": {
+          "Content-Type": {
+            "description": "The number of allowed requests in the current period",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "400": {
+        "$ref": "#/components/responses/201"
+      }
+    },
+    "parameters": {
+      "parameter2": {
+        "name": "parameter2",
+        "in": "query",
+        "description": "parameter2 description",
+        "required": false,
+        "deprecated": false,
+        "allowEmptyValue": true,
+        "content": {
+          "application/json": {}
+        }
+      },
+      "parameter3": {
+        "$ref": "#/components/parameters/parameter2"
+      }
+    },
+    "examples": {
+      "example3": {
+        "summary": "example 3 summary",
+        "description": "example 3 description",
+        "value": "c",
+        "externalValue": "https://example3.com/"
+      },
+      "example4": {
+        "$ref": "#/components/examples/example3"
+      }
+    },
+    "requestBodies": {
+      "requestBody1": {
+        "description": "request body 1 description",
+        "required": true
+      },
+      "requestBody2": {
+        "$ref": "#/components/requestBodies/requestBody1"
+      }
+    },
+    "headers": {
+      "Content-Type": {
+        "description": "The number of allowed requests in the current period",
+        "schema": {
+          "type": "integer"
+        }
+      },
+      "X-Custom-Header": {
+        "$ref": "#/components/headers/Content-Type"
+      }
+    },
+    "securitySchemes": {
+      "securityScheme1": {
+        "type": "http",
+        "description": "security scheme description",
+        "name": "apiKey",
+        "in": "apiKey",
+        "scheme": "http",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "http://authorization-url.com/"
+          }
+        }
+      },
+      "securityScheme2": {
+        "$ref": "#/components/securitySchemes/securityScheme1"
+      }
+    },
+    "links": {
+      "link3": {
+        "description": "link 3 description"
+      },
+      "link4": {
+        "$ref": "#/components/links/link4"
+      }
+    },
+    "callbacks": {
+      "callback1": {
+        "{$request.query.queryUrl}": {
+          "put": {
+            "requestBody": {
+              "description": "Callback payload",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object"
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "callback successfully processed"
+              }
+            }
+          }
+        }
+      },
+      "callback2": {
+        "$ref": "#/components/callbacks/callback1"
+      }
+    },
+    "pathItems": {
+      "path2": {
+        "get": {
+          "tags": ["tag1", "tag2"],
+          "summary": "path2 components item summary",
+          "description": "path2 components item description"
+        }
+      },
+      "path3": {
+        "$ref": "#/components/pathItems/path2"
+      }
+    }
+  },
+  "security": [
+    {
+      "api_key": []
+    }
+  ],
+  "tags": [
+    {
+      "name": "resources",
+      "summary": "Resource operations",
+      "description": "Root category for all resource operations",
+      "kind": "collection"
+    },
+    {
+      "name": "tag1",
+      "summary": "Tag 1 operations",
+      "description": "tag1 description",
+      "parent": "resources",
+      "kind": "resource",
+      "externalDocs": {
+        "description": "external docs tag description",
+        "url": "https://example.com/extenral-docs-tag"
+      }
+    },
+    {
+      "name": "tag2",
+      "summary": "Tag 2 operations",
+      "description": "tag2 description",
+      "parent": "resources",
+      "kind": "resource"
+    }
+  ],
+  "externalDocs": {
+    "description": "external docs top level description",
+    "url": "https://example.com/extenral-docs-top-level"
+  }
+}

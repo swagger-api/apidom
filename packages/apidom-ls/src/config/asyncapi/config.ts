@@ -59,7 +59,7 @@ import amqp1ServerBindingMeta from './bindings/amqp1/server-binding/meta.ts';
 import anypointmqChannelBindingMeta from './bindings/anypointmq/channel-binding/meta.ts';
 import anypointmqMessageBindingMeta from './bindings/anypointmq/message-binding/meta.ts';
 import anypointmqOperationBindingMeta from './bindings/anypointmq/operation-binding/meta.ts';
-import anypointmqServerBidingMeta from './bindings/anypointmq/server-binding/meta.ts';
+import anypointmqServerBindingMeta from './bindings/anypointmq/server-binding/meta.ts';
 // Google Cloud Pub/Sub
 import googlepubsubChannelBindingMeta from './bindings/googlepubsub/channel-binding/meta.ts';
 import googlepubsubMessageBindingMeta from './bindings/googlepubsub/message-binding/meta.ts';
@@ -217,7 +217,7 @@ export default {
   anypointmqChannelBinding: anypointmqChannelBindingMeta,
   anypointmqMessageBinding: anypointmqMessageBindingMeta,
   anypointmqOperationBinding: anypointmqOperationBindingMeta,
-  anypointmqServerBiding: anypointmqServerBidingMeta,
+  anypointmqServerBinding: anypointmqServerBindingMeta,
   // Google Cloud Pub/Sub
   googlepubsubChannelBinding: googlepubsubChannelBindingMeta,
   googlepubsubMessageBinding: googlepubsubMessageBindingMeta,

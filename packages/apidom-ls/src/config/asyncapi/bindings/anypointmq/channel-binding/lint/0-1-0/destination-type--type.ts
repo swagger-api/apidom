@@ -3,14 +3,16 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const destinationTypeTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ANYPOINTMQ_CHANNEL_BINDING_FIELD_DESTINATION_TYPE_TYPE,
   source: 'apilint',
-  message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+  message: "'destinationType' value must be a string",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [[]],
-  marker: 'key',
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  marker: 'value',
+  target: 'destinationType',
+  data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
@@ -20,4 +22,4 @@ const allowedFieldsLint: LinterMeta = {
   ],
 };
 
-export default allowedFieldsLint;
+export default destinationTypeTypeLint;

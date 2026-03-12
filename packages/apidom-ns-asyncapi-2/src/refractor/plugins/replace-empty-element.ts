@@ -857,6 +857,19 @@ const schema = {
       return new ArrayElement(...args);
     },
   },
+  SqsChannelBindingElement: {
+    queue(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    deadLetterQueue(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SqsOperationBindingElement: {
+    queues(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+  },
   GooglepubsubChannelBindingElement: {
     labels(...args: any[]) {
       return new ObjectElement(...args);

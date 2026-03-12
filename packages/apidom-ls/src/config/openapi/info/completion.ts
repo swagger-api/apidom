@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI2, OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -43,7 +43,7 @@ const completion: ApidomCompletionItem[] = [
       kind: 'markdown',
       value: 'A short summary of the API.',
     },
-    targetSpecs: OpenAPI31,
+    targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },
   {
     label: 'description',
@@ -184,6 +184,34 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: OpenAPI31,
   },
   {
+    label: 'contact',
+    insertText: 'contact',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'license',
+    insertText: 'license',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
     label: 'version',
     insertText: 'version',
     kind: 14,
@@ -224,6 +252,20 @@ const completion: ApidomCompletionItem[] = [
         '**REQUIRED**. The version of the OpenAPI document (which is distinct from the [OpenAPI Specification version](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oasVersion) or the API implementation version).',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'version',
+    insertText: 'version',
+    kind: 14,
+    format: CompletionFormat.QUOTED_FORCED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '**REQUIRED**. The version of the OpenAPI document (which is distinct from the [OpenAPI Specification version](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#oasVersion) or the API implementation version).',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

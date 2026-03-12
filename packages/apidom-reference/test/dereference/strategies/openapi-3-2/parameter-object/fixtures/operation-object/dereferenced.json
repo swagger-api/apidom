@@ -1,0 +1,27 @@
+[
+  {
+    "openapi": "3.2.0",
+    "paths": {
+      "/path": {
+        "get": {
+          "parameters": [
+            {
+              "name": "offset",
+              "in": "query",
+              "required": true
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "parameters": {
+        "param1": {
+          "name": "offset",
+          "in": "query",
+          "required": true
+        }
+      }
+    }
+  }
+]

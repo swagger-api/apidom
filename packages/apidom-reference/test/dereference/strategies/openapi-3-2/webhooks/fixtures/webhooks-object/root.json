@@ -1,0 +1,39 @@
+{
+  "openapi": "3.2.0",
+  "webhooks": {
+    "userCreated": {
+      "post": {
+        "summary": "User created",
+        "requestBody": {
+          "$ref": "#/components/requestBodies/UserBody"
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "userUpdated": {
+      "$ref": "#/webhooks/userCreated"
+    }
+  },
+  "components": {
+    "requestBodies": {
+      "UserBody": {
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "username": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

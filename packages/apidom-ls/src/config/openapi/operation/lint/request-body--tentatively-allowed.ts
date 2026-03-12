@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../../target-specs.ts';
+import { OpenAPI30, OpenAPI31 } from '../../target-specs.ts';
 
 const requestBodyTentativelyAllowedLint: LinterMeta = {
   code: ApilintCodes.OPENAPI3_0_OPERATION_FIELD_REQUEST_BODY_TENTATIVELY_ALLOWED,
@@ -15,7 +15,7 @@ const requestBodyTentativelyAllowedLint: LinterMeta = {
   markerTarget: 'requestBody',
   target: 'requestBody',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI30, ...OpenAPI31],
 };
 
 export default requestBodyTentativelyAllowedLint;

@@ -1,6 +1,6 @@
 import allowedFields2_0Lint from './allowed-fields-2-0.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
-import allowedFields3_1Lint from './allowed-fields-3-1.ts';
+import allowedFields3_1__3_2Lint from './allowed-fields-3-1--3-2.ts';
 import requiredFieldsLint from './required-fields.ts';
 import descriptionTypeLint from './description--type.ts';
 import requiredTypeLint from './required--type.ts';
@@ -10,13 +10,13 @@ import styleTypeLint from './style--type.ts';
 import explodeTypeLint from './explode--type.ts';
 import allowReservedTypeLint from './allow-reserved--type.ts';
 import schemaTypeLint from './schema--type-3-0.ts';
-import schemaTypeOpenAPI3_1Lint from './schema--type-openapi-3-1.ts';
+import schemaTypeOpenAPI3_1__3_2Lint from './schema--type-openapi-3-1--3-2.ts';
 import schemaMutuallyExclusiveLint from './schema--mutually-exclusive.ts';
 import examplesValuesTypeLint from './examples--values-type.ts';
 import examplesMutuallyExclusiveLint from './examples--mutually-exclusive.ts';
 import contentValuesTypeLint from './content--values-type.ts';
 import contentAllowedFields3_0Lint from './content--allowed-fields-3-0.ts';
-import contentAllowedFields3_1Lint from './content--allowed-fields-3-1.ts';
+import contentAllowedFields3_1__3_2Lint from './content--allowed-fields-3-1--3-2.ts';
 import typeEqualsLint from './type--equals.ts';
 import typeRequiredLint from './type--required.ts';
 import formatTypeLint from './format--type.ts';
@@ -47,13 +47,13 @@ const lints = [
   explodeTypeLint,
   allowReservedTypeLint,
   schemaTypeLint,
-  schemaTypeOpenAPI3_1Lint,
+  schemaTypeOpenAPI3_1__3_2Lint,
   schemaMutuallyExclusiveLint,
   examplesValuesTypeLint,
   examplesMutuallyExclusiveLint,
   contentValuesTypeLint,
   contentAllowedFields3_0Lint,
-  contentAllowedFields3_1Lint,
+  contentAllowedFields3_1__3_2Lint,
   typeEqualsLint,
   typeRequiredLint,
   typeEqualsLint,
@@ -76,7 +76,7 @@ const lints = [
   requiredFieldsLint,
   allowedFields2_0Lint,
   allowedFields3_0Lint,
-  allowedFields3_1Lint,
+  allowedFields3_1__3_2Lint,
 ];
 
 export default lints;

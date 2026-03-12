@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.6.0](https://github.com/swagger-api/apidom/compare/v1.5.1...v1.6.0) (2026-02-27)
+
+### Features
+
+- **openapi-3-2:** initial support for OAS 3.2.0 specification ([#5110](https://github.com/swagger-api/apidom/issues/5110)) ([ef97b5c](https://github.com/swagger-api/apidom/commit/ef97b5c3258f9534090db84b453dbaa5879d79a9))
+
+## [1.5.1](https://github.com/swagger-api/apidom/compare/v1.5.0...v1.5.1) (2026-02-19)
+
+**Note:** Version bump only for package @swagger-api/apidom-ls
+
 # [1.5.0](https://github.com/swagger-api/apidom/compare/v1.4.0...v1.5.0) (2026-02-16)
 
 ### Features

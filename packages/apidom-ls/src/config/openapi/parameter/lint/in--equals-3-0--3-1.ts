@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../../target-specs.ts';
+import { OpenAPI30, OpenAPI31 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const inEquals3_0__3_1Lint: LinterMeta = {
@@ -15,7 +15,7 @@ const inEquals3_0__3_1Lint: LinterMeta = {
   marker: 'value',
   target: 'in',
   data: {},
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI30, ...OpenAPI31],
 };
 
 export default inEquals3_0__3_1Lint;

@@ -2,9 +2,10 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI3 } from '../../target-specs.ts';
+import { OpenAPI30, OpenAPI31, OpenAPI32 } from '../../target-specs.ts';
 
-const allowedFieldsLint: LinterMeta = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const allowedFields30_31Lint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
   message: 'Object includes not allowed fields',
@@ -12,7 +13,32 @@ const allowedFieldsLint: LinterMeta = {
   linterFunction: 'allowedFields',
   linterParams: [['contentType', 'headers', 'style', 'explode', 'allowReserved'], 'x-'],
   marker: 'key',
-  targetSpecs: OpenAPI3,
+  targetSpecs: [...OpenAPI30, ...OpenAPI31],
 };
 
-export default allowedFieldsLint;
+const allowedFields32Lint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+  source: 'apilint',
+  message: 'Object includes not allowed fields',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'allowedFields',
+  linterParams: [
+    [
+      'contentType',
+      'headers',
+      'style',
+      'explode',
+      'allowReserved',
+      'encoding',
+      'prefixEncoding',
+      'itemEncoding',
+    ],
+    'x-',
+  ],
+  marker: 'key',
+  targetSpecs: OpenAPI32,
+};
+
+const lints = [allowedFields30_31Lint, allowedFields32Lint];
+
+export default lints;

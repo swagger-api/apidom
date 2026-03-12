@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins normalize-parameters should have idempotent characteristics 1`] = `
+Object {
+  openapi: 3.2.0,
+  paths: Object {
+    /: Object {
+      get: Object {
+        parameters: Array [
+          Object {
+            in: query,
+            name: param3,
+          },
+        ],
+      },
+      parameters: Array [
+        Object {
+          in: query,
+          name: param1,
+        },
+        Object {
+          in: query,
+          name: param2,
+        },
+      ],
+    },
+  },
+}
+`;

@@ -104,6 +104,9 @@ jobs:
       run: npm ci
     - name: Build monorepo
       run: npm run build:es
+    - name: Build wasm
+      run: npm run build:wasm && npm run build:wasm:copy
+      working-directory: ./packages/apidom-parser-adapter-json
     - name: Build ApiDOM Playground
       run: npm run build
       working-directory: ./packages/apidom-playground

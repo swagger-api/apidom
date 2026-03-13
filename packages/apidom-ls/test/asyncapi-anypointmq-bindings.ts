@@ -68,7 +68,7 @@ const specChannelBindingDestinationType = fs
   )
   .toString();
 
-const specChannelBindingDestinationTypeType = fs
+const specChannelBindingDestinationTypeEquals = fs
   .readFileSync(
     path.join(
       __dirname,
@@ -76,7 +76,7 @@ const specChannelBindingDestinationTypeType = fs
       'validation',
       'asyncapi',
       'bindings',
-      'anypointmq-channel-binding-destination-type-type.yaml',
+      'anypointmq-channel-binding-destination-type-equals.yaml',
     ),
   )
   .toString();
@@ -336,12 +336,12 @@ describe('asyncapi anypointmq bindings test', function () {
     assert.deepEqual(result, expected);
   });
 
-  it('anypointmq channel binding - destinationType field type (v0.0.1)', async function () {
+  it('anypointmq channel binding - destinationType field equals queue/exchange/fifo-queue (v0.0.1)', async function () {
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/anypointmq-channel-binding-destination-type-type.yaml',
+      'foo://bar/anypointmq-channel-binding-destination-type-equals.yaml',
       'yaml',
       0,
-      specChannelBindingDestinationTypeType,
+      specChannelBindingDestinationTypeEquals,
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -350,9 +350,9 @@ describe('asyncapi anypointmq bindings test', function () {
       {
         range: {
           start: { line: 8, character: 25 },
-          end: { line: 8, character: 28 },
+          end: { line: 8, character: 32 },
         },
-        message: "'destinationType' value must be a string",
+        message: 'destinationType must be one of allowed values',
         severity: 1,
         code: 1070300,
         source: 'apilint',

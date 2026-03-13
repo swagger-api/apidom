@@ -1,7 +1,7 @@
 import allowedFieldsLint from './allowed-fields.ts';
 import destinationTypeLint from './destination--type.ts';
-import destinationTypeTypeLint from './destination-type--type.ts';
+import destinationTypeEqualsLint from './destination-type--equals.ts';
 
-const lints = [destinationTypeLint, destinationTypeTypeLint, allowedFieldsLint];
+const lints = [destinationTypeLint, destinationTypeEqualsLint, allowedFieldsLint];
 
 export default lints;

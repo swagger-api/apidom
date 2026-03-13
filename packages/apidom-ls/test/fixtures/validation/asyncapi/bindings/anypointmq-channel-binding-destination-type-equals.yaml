@@ -6,5 +6,5 @@ channels:
   channel1:
     bindings:
       anypointmq:
-        destinationType: 123
+        destinationType: invalid
         bindingVersion: '0.0.1'

@@ -3,13 +3,13 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const destinationTypeTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_ANYPOINTMQ_CHANNEL_BINDING_FIELD_DESTINATION_TYPE_TYPE,
+const destinationTypeEqualsLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_ANYPOINTMQ_CHANNEL_BINDING_FIELD_DESTINATION_TYPE_EQUALS,
   source: 'apilint',
-  message: "'destinationType' value must be a string",
+  message: 'destinationType must be one of allowed values',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterFunction: 'apilintValueOrArray',
+  linterParams: [['queue', 'exchange', 'fifo-queue']],
   marker: 'value',
   target: 'destinationType',
   data: {},
@@ -17,9 +17,9 @@ const destinationTypeTypeLint: LinterMeta = {
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.0.1']],
+      params: [['0.1.0']],
     },
   ],
 };
 
-export default destinationTypeTypeLint;
+export default destinationTypeEqualsLint;

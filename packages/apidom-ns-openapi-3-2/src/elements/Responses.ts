@@ -1,0 +1,8 @@
+import { ResponsesElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+/**
+ * @public
+ */
+class Responses extends ResponsesElement {}
+
+export default Responses;

@@ -1,0 +1,63 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "Discriminator defaultMapping Test",
+    "version": "1.0.0"
+  },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "dog": "#/components/schemas/Dog"
+          },
+          "defaultMapping": 12345
+        },
+        "required": ["petType"],
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        }
+      },
+      "Dog": {
+        "allOf": [
+          { "$ref": "#/components/schemas/Pet" },
+          {
+            "type": "object",
+            "properties": {
+              "breed": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "ValidPet": {
+        "type": "object",
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "cat": "#/components/schemas/Cat"
+          },
+          "defaultMapping": "#/components/schemas/UnknownPet"
+        },
+        "required": ["petType"],
+        "properties": {
+          "petType": {
+            "type": "string"
+          }
+        }
+      },
+      "Cat": {
+        "type": "object"
+      },
+      "UnknownPet": {
+        "type": "object"
+      }
+    }
+  }
+}

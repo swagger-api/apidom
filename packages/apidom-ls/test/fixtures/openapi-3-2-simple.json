@@ -1,0 +1,108 @@
+{
+  "openapi": "3.2.0",
+  "info": {
+    "title": "Sample API",
+    "version": "1.0.0",
+    "summary": "A simple API demonstrating OpenAPI 3.2 features"
+  },
+  "$self": "https://example.com/api/openapi.json",
+  "servers": [
+    {
+      "url": "https://api.example.com/v1",
+      "name": "Production Server"
+    }
+  ],
+  "paths": {
+    "/pets": {
+      "get": {
+        "summary": "List all pets",
+        "operationId": "listPets",
+        "tags": ["pets"],
+        "responses": {
+          "200": {
+            "summary": "Successful response",
+            "description": "A list of pets",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "integer"
+                      },
+                      "name": {
+                        "type": "string",
+                        "xml": {
+                          "name": "petName",
+                          "nodeType": "element"
+                        }
+                      }
+                    }
+                  }
+                },
+                "examples": {
+                  "pets-list": {
+                    "summary": "Example pet list",
+                    "dataValue": [
+                      {
+                        "id": 1,
+                        "name": "Fluffy"
+                      }
+                    ],
+                    "serializedValue": "[{\"id\":1,\"name\":\"Fluffy\"}]"
+                  }
+                }
+              },
+              "text/event-stream": {
+                "itemSchema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "integer"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pet": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "mediaTypes": {
+      "json": {
+        "schema": {
+          "$ref": "#/components/schemas/Pet"
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "pets",
+      "summary": "Pet operations",
+      "description": "Operations related to pets",
+      "parent": "animals",
+      "kind": "resource"
+    }
+  ]
+}

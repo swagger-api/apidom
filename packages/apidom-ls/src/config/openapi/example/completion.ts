@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { OpenAPI30, OpenAPI31, OpenAPI3 } from '../target-specs.ts';
+import { OpenAPI30, OpenAPI31, OpenAPI32, OpenAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -87,6 +87,48 @@ const completion: ApidomCompletionItem[] = [
         'A URI that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value` field and `externalValue` field are mutually exclusive. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#relativeReferencesURI).',
     },
     targetSpecs: OpenAPI31,
+  },
+  {
+    label: 'externalValue',
+    insertText: 'externalValue',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'A URI that points to the literal example. This provides the capability to reference examples that cannot easily be included in JSON or YAML documents.  The `value`, `dataValue`, and `externalValue` fields are mutually exclusive. See the rules for resolving [Relative References](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#relativeReferencesURI).',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'dataValue',
+    insertText: 'dataValue',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Embedded literal example using a data structure. The `value`, `dataValue`, and `externalValue` fields are mutually exclusive.',
+    },
+    targetSpecs: OpenAPI32,
+  },
+  {
+    label: 'serializedValue',
+    insertText: 'serializedValue',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'A string representation of the example value. When combined with encoding information, this field provides a serialized representation of the example.',
+    },
+    targetSpecs: OpenAPI32,
   },
 ];
 

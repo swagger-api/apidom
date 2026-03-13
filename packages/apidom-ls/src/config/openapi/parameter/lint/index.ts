@@ -1,11 +1,12 @@
 import allowedFields2_0Lint from './allowed-fields-2-0.ts';
 import allowedFields3_0Lint from './allowed-fields-3-0.ts';
-import allowedFields3_1Lint from './allowed-fields-3-1.ts';
+import allowedFields3_1__3_2Lint from './allowed-fields-3-1--3-2.ts';
 import requiredFields3_0__3_1Lint from './required-fields-3-0--3-1.ts';
 import nameTypeLint from './name--type.ts';
 import nameRequiredLint from './name--required.ts';
 import inEquals2_0Lint from './in--equals-2-0.ts';
 import inEquals3_0__3_1Lint from './in--equals-3-0--3-1.ts';
+import inEquals3_2Lint from './in--equals-3-2.ts';
 import inRequiredLint from './in--required.ts';
 import inValidLint from './in--valid.ts';
 import descriptionTypeLint from './description--type.ts';
@@ -15,17 +16,18 @@ import requiredEqualsLint from './required--equals.ts';
 import deprecatedTypeLint from './deprecated--type.ts';
 import allowEmptyValueTypeLint from './allow-empty-value--type.ts';
 import styleEqualsLint from './style--equals.ts';
+import styleEquals3_2Lint from './style--equals-3-2.ts';
 import explodeTypeLint from './explode--type.ts';
 import allowReservedTypeLint from './allow-reserved--type.ts';
 import schemaTypeLint from './schema--type.ts';
-import schemaTypeOpenAPI3_1Lint from './schema--type-openapi-3-1.ts';
+import schemaTypeOpenAPI3_1__3_2Lint from './schema--type-openapi-3-1--3-2.ts';
 import schemaRequiredLint from './schema--required.ts';
 import schemaMutuallyExclusiveLint from './schema--mutually-exclusive.ts';
 import examplesValuesTypeLint from './examples--values-type.ts';
 import examplesMutuallyExclusiveLint from './examples--mutually-exclusive.ts';
 import contentValuesTypeLint from './content--values-type.ts';
 import contentAllowedFields3_0Lint from './content--allowed-fields-3-0.ts';
-import contentAllowedFields3_1Lint from './content--allowed-fields-3-1.ts';
+import contentAllowedFields3_1__3_2Lint from './content--allowed-fields-3-1--3-2.ts';
 import typeEqualsLint from './type--equals.ts';
 import typeRequiredLint from './type--required.ts';
 import formatTypeLint from './format--type.ts';
@@ -60,6 +62,7 @@ const lints = [
   nameRequiredLint,
   inEquals2_0Lint,
   inEquals3_0__3_1Lint,
+  inEquals3_2Lint,
   inAuthorizationLint,
   inRequiredLint,
   inValidLint,
@@ -70,17 +73,18 @@ const lints = [
   deprecatedTypeLint,
   allowEmptyValueTypeLint,
   styleEqualsLint,
+  styleEquals3_2Lint,
   explodeTypeLint,
   allowReservedTypeLint,
   schemaTypeLint,
-  schemaTypeOpenAPI3_1Lint,
+  schemaTypeOpenAPI3_1__3_2Lint,
   schemaRequiredLint,
   schemaMutuallyExclusiveLint,
   examplesValuesTypeLint,
   examplesMutuallyExclusiveLint,
   contentValuesTypeLint,
   contentAllowedFields3_0Lint,
-  contentAllowedFields3_1Lint,
+  contentAllowedFields3_1__3_2Lint,
   typeEqualsLint,
   typeRequiredLint,
   formatTypeLint,
@@ -105,7 +109,7 @@ const lints = [
   requiredFields3_0__3_1Lint,
   allowedFields2_0Lint,
   allowedFields3_0Lint,
-  allowedFields3_1Lint,
+  allowedFields3_1__3_2Lint,
   inPathTemplateLint,
   inContentTypeLint,
   inAcceptLint,

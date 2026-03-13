@@ -37,7 +37,7 @@ describe('reference validation', function () {
   const languageService: LanguageService = getLanguageService(lsContext);
 
   context('given doc with references', function () {
-    const httpPort = 8123;
+    const httpPort = 8124;
     let httpServer: ServerTerminable;
 
     beforeEach(function () {
@@ -64,7 +64,7 @@ describe('reference validation', function () {
       const valRes = await languageService.doValidation(doc, validationContext);
       const exp = [
         {
-          range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+          range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
           message:
             'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
           severity: 1,
@@ -81,7 +81,7 @@ describe('reference validation', function () {
           },
         },
         {
-          range: { start: { line: 38, character: 26 }, end: { line: 38, character: 96 } },
+          range: { start: { line: 37, character: 26 }, end: { line: 37, character: 96 } },
           message:
             'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
           severity: 1,
@@ -98,10 +98,10 @@ describe('reference validation', function () {
           },
         },
         {
-          range: { start: { line: 43, character: 26 }, end: { line: 43, character: 117 } },
+          range: { start: { line: 42, character: 26 }, end: { line: 42, character: 117 } },
           message: 'Reference Error - AxiosError: Request failed with status code 404',
           severity: 1,
-          code: '1243-91-1693572091371',
+          code: '1242-91-1693572091371',
           source: 'apilint',
           data: {
             quickFix: [
@@ -114,7 +114,7 @@ describe('reference validation', function () {
           },
         },
         {
-          range: { start: { line: 68, character: 16 }, end: { line: 68, character: 99 } },
+          range: { start: { line: 67, character: 16 }, end: { line: 67, character: 99 } },
           message:
             'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
           severity: 1,
@@ -163,7 +163,7 @@ describe('reference validation', function () {
 
         const exp = [
           {
-            range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+            range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
             severity: 1,
@@ -180,7 +180,7 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 38, character: 26 }, end: { line: 38, character: 96 } },
+            range: { start: { line: 37, character: 26 }, end: { line: 37, character: 96 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
@@ -197,10 +197,10 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 43, character: 26 }, end: { line: 43, character: 117 } },
+            range: { start: { line: 42, character: 26 }, end: { line: 42, character: 117 } },
             message: 'Reference Error - AxiosError: Request failed with status code 404',
             severity: 1,
-            code: '1243-91-1693572091371',
+            code: '1242-91-1693572091371',
             source: 'apilint',
             data: {
               quickFix: [
@@ -213,7 +213,7 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 68, character: 16 }, end: { line: 68, character: 99 } },
+            range: { start: { line: 67, character: 16 }, end: { line: 67, character: 99 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
@@ -264,7 +264,7 @@ describe('reference validation', function () {
 
         const exp = [
           {
-            range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+            range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
             severity: 1,
@@ -281,7 +281,7 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 38, character: 26 }, end: { line: 38, character: 96 } },
+            range: { start: { line: 37, character: 26 }, end: { line: 37, character: 96 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
@@ -298,10 +298,10 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 43, character: 26 }, end: { line: 43, character: 117 } },
+            range: { start: { line: 42, character: 26 }, end: { line: 42, character: 117 } },
             message: 'Reference Error - AxiosError: Request failed with status code 404',
             severity: 1,
-            code: '1243-91-1693572191128',
+            code: '1242-91-1693572191128',
             source: 'apilint',
             data: {
               quickFix: [
@@ -314,11 +314,11 @@ describe('reference validation', function () {
             },
           },
           {
-            range: { start: { line: 68, character: 16 }, end: { line: 68, character: 99 } },
+            range: { start: { line: 67, character: 16 }, end: { line: 67, character: 99 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "PetInvalid" at position 2 in "/components/schemas/PetInvalid": key not found in object',
             severity: 1,
-            code: '1703-83-1693572191343',
+            code: '1703-83-1693572191342',
             source: 'apilint',
             data: {
               quickFix: [
@@ -422,7 +422,7 @@ describe('reference validation', function () {
       const valRes = await languageService.doValidation(doc, validationContext);
       const exp = [
         {
-          range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+          range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
           message:
             'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
           severity: 1,
@@ -470,7 +470,7 @@ describe('reference validation', function () {
         const valRes = await languageService.doValidation(doc, validationContext);
         const exp = [
           {
-            range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+            range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
             message:
               'Reference Error - JSONPointerKeyError: Invalid object key "invalid" at position 2 in "/components/schemas/invalid": key not found in object',
             severity: 1,
@@ -515,10 +515,10 @@ describe('reference validation', function () {
       const valRes = await languageService.doValidation(doc, validationContext);
       const exp = [
         {
-          range: { start: { line: 23, character: 26 }, end: { line: 23, character: 56 } },
+          range: { start: { line: 22, character: 26 }, end: { line: 22, character: 56 } },
           message: 'local reference not found',
           severity: 1,
-          code: '549-30-1692872384913',
+          code: '549-30-1692872284913',
           source: 'apilint',
           data: {
             quickFix: [

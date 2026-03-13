@@ -1,0 +1,8 @@
+import { ServerVariableElement } from '@swagger-api/apidom-ns-openapi-3-1';
+
+/**
+ * @public
+ */
+class ServerVariable extends ServerVariableElement {}
+
+export default ServerVariable;

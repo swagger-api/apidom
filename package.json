@@ -9,8 +9,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "=22.14.0",
-    "npm": ">=10.9.2"
+    "node": "=24.14.0",
+    "npm": ">=11.9.0"
   },
   "comments": {
     "scripts": {
@@ -18,7 +18,6 @@
     }
   },
   "scripts": {
-    "prebuild": "cd ./node_modules/tree-sitter && node-gyp rebuild && cd ../../packages/apidom-parser-adapter-yaml-1-2/node_modules/tree-sitter && node-gyp rebuild && cd ../../../../node_modules/tree-sitter-json && tree-sitter generate ./grammar.js && tree-sitter build --wasm && node-gyp rebuild",
     "build": "lerna run build --concurrency=${LERNA_CONCURRENCY:-8}",
     "build:fast": "lerna run build --concurrency=${LERNA_CONCURRENCY:-8} --skip-nx-cache=false",
     "build:es": "lerna run build:es --concurrency=${LERNA_CONCURRENCY:-8}",
@@ -87,7 +86,7 @@
     "jest-resolve": "^30.1.3",
     "jsdom": "=26.1.0",
     "jsdom-global": "=3.0.2",
-    "lerna": "=9.0.4",
+    "lerna": "=9.0.6",
     "lint-staged": "=16.1.0",
     "microtime": "=3.1.1",
     "mocha": "=11.0.1",

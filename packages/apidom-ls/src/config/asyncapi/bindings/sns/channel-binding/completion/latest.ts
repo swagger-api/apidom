@@ -17,7 +17,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**Required.** The name of the topic. Can be different from the channel name to allow flexibility around AWS resource naming limitations.',
+        '`string`\n\\\n\\\n**Required.** The name of the topic. Can be different from the channel name to allow flexibility around AWS resource naming limitations.',
     },
     conditions: [
       {
@@ -33,11 +33,31 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
     documentation: {
       kind: 'markdown',
       value:
-        '**Optional.** By default, we assume an unordered SNS topic. This field allows configuration of a FIFO SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`type` | string | **Required.** `standard` or `FIFO`\n`contentBasedDeduplication` | boolean | **Optional.** Whether de-duplication should be on. Defaults to `false`',
+        '[ordering](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#ordering)\n\\\n\\\n**Optional.** By default, we assume an unordered SNS topic. This field allows configuration of a FIFO SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`type` | string | **Required.** Defines the type of SNS Topic. Can be either standard or FIFO.\n`contentBasedDeduplication` | boolean | **Optional.** Whether the de-duplication of messages should be turned on. Defaults to `false`',
+    },
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'ordering',
+    insertText: 'ordering',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    targetSpecs: AsyncAPI3,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[ordering](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#ordering)\n\\\n\\\n**Optional.** By default, we assume an unordered SNS topic. This field allows configuration of a FIFO SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`type` | string | **Required.** Defines the type of SNS Topic. Can be either standard or FIFO.\n`contentBasedDeduplication` | boolean | **Optional.** Whether the de-duplication of messages should be turned on. Defaults to `false`',
     },
     conditions: [
       {
@@ -53,11 +73,31 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.OBJECT,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
     documentation: {
       kind: 'markdown',
       value:
-        '**Optional.** The security policy for the SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`statements` | array | **Required.** An array of Statement objects',
+        '[policy](https://github.com/asyncapi/bindings/blob/master/sns/2.x.x/README.md#policy)\n\\\n\\\n**Optional.** The security policy for the SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`statements` | array | **Required.** An array of Statement objects, each of which controls a permission for this topic',
+    },
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'policy',
+    insertText: 'policy',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    targetSpecs: AsyncAPI3,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[policy](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#policy)\n\\\n\\\n**Optional.** The security policy for the SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`statements` | array | **Required.** An array of Statement objects, each of which controls a permission for this topic',
     },
     conditions: [
       {
@@ -76,7 +116,8 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
     documentation: {
       kind: 'markdown',
-      value: '**Optional.** Key-value pairs that represent AWS tags on the topic.',
+      value:
+        '`object`\n\\\n\\\n**Optional.** Key-value pairs that represent AWS tags on the topic.',
     },
     conditions: [
       {

@@ -25,6 +25,15 @@ const completion: ApidomCompletionItem[] = [
   },
   {
     target: 'bindingVersion',
+    label: '0.1.0',
+    insertText: '0.1.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED_FORCED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
+  {
+    target: 'bindingVersion',
     label: '0.2.0',
     insertText: '0.2.0',
     kind: 12,

@@ -24,6 +24,7 @@ const specChannelBindingAllowedFields001 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-channel-binding-allowed-fields-0-0-1.yaml',
     ),
   )
@@ -37,6 +38,7 @@ const specChannelBindingAllowedFields010 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-channel-binding-allowed-fields-0-1-0.yaml',
     ),
   )
@@ -50,6 +52,7 @@ const specChannelBindingAllowedFieldsLatest = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-channel-binding-allowed-fields-latest.yaml',
     ),
   )
@@ -63,6 +66,7 @@ const specChannelBindingDestinationType = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-channel-binding-destination-type.yaml',
     ),
   )
@@ -76,6 +80,7 @@ const specChannelBindingDestinationTypeEquals = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-channel-binding-destination-type-equals.yaml',
     ),
   )
@@ -89,6 +94,7 @@ const specMessageBindingAllowedFields001 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-message-binding-allowed-fields-0-0-1.yaml',
     ),
   )
@@ -102,6 +108,7 @@ const specMessageBindingAllowedFields010 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-message-binding-allowed-fields-0-1-0.yaml',
     ),
   )
@@ -115,6 +122,7 @@ const specMessageBindingAllowedFieldsLatest = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-message-binding-allowed-fields-latest.yaml',
     ),
   )
@@ -128,6 +136,7 @@ const specMessageBindingHeadersType = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-message-binding-headers-type.yaml',
     ),
   )
@@ -141,6 +150,7 @@ const specOperationBindingAllowedFields001 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-operation-binding-allowed-fields-0-0-1.yaml',
     ),
   )
@@ -154,6 +164,7 @@ const specOperationBindingAllowedFields010 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-operation-binding-allowed-fields-0-1-0.yaml',
     ),
   )
@@ -167,6 +178,7 @@ const specOperationBindingAllowedFieldsLatest = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-operation-binding-allowed-fields-latest.yaml',
     ),
   )
@@ -180,6 +192,7 @@ const specServerBindingAllowedFields001 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-server-binding-allowed-fields-0-0-1.yaml',
     ),
   )
@@ -193,6 +206,7 @@ const specServerBindingAllowedFields010 = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-server-binding-allowed-fields-0-1-0.yaml',
     ),
   )
@@ -206,6 +220,7 @@ const specServerBindingAllowedFieldsLatest = fs
       'validation',
       'asyncapi',
       'bindings',
+      'anypointmq',
       'anypointmq-server-binding-allowed-fields-latest.yaml',
     ),
   )

@@ -1,0 +1,10 @@
+asyncapi: 2.6.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  channel1:
+    bindings:
+      sns:
+        ordering: {}
+        bindingVersion: '0.2.0'

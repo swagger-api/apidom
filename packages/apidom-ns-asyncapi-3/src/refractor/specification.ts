@@ -1249,9 +1249,40 @@ const specification = {
             },
             ChannelBinding: {
               $visitor: SnsChannelBindingVisitor,
+              fixedFields: {
+                name: {
+                  $ref: '#/visitors/value',
+                },
+                ordering: {
+                  $ref: '#/visitors/value',
+                },
+                policy: {
+                  $ref: '#/visitors/value',
+                },
+                tags: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: SnsOperationBindingVisitor,
+              fixedFields: {
+                topic: {
+                  $ref: '#/visitors/value',
+                },
+                consumers: {
+                  $ref: '#/visitors/value',
+                },
+                deliveryPolicy: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             MessageBinding: {
               $visitor: SnsMessageBindingVisitor,

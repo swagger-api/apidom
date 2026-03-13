@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  operationBindings:
+    bindings1:
+      sns:
+        consumers: []
+        foo: bar
+        bindingVersion: '1.0.0'

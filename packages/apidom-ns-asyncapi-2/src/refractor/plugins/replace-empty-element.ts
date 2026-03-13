@@ -876,6 +876,28 @@ const schema = {
       return new ObjectElement(...args);
     },
   },
+  SnsChannelBindingElement: {
+    ordering(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    policy(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    tags(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SnsOperationBindingElement: {
+    topic(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    consumers(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    deliveryPolicy(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
   PulsarChannelBindingElement: {
     'geo-replication': function (...args: any[]) {
       return new ArrayElement(...args);

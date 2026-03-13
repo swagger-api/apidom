@@ -1,0 +1,26 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../../../target-specs.ts';
+
+const consumersTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SNS_OPERATION_BINDING_FIELD_CONSUMERS_TYPE,
+  source: 'apilint',
+  message: "'consumers' value must be an array",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintType',
+  linterParams: ['array'],
+  marker: 'value',
+  target: 'consumers',
+  data: {},
+  conditions: [
+    {
+      function: 'missingField',
+      params: ['bindingVersion'],
+    },
+  ],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+};
+
+export default consumersTypeLint;

@@ -16,7 +16,14 @@ import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-const bindingsPath = path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'bindings');
+const bindingsPath = path.join(
+  __dirname,
+  'fixtures',
+  'validation',
+  'asyncapi',
+  'bindings',
+  'mqtt5',
+);
 
 const specServerBindingAllowedFields010 = fs
   .readFileSync(path.join(bindingsPath, 'mqtt5-server-binding-allowed-fields-0-1-0.yaml'))

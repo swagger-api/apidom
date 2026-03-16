@@ -3,14 +3,16 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const queuesTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SQS_OPERATION_BINDING_FIELD_QUEUES_TYPE,
   source: 'apilint',
-  message: 'Object includes not allowed fields.',
+  message: "'queues' value must be an array",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [['queue', 'deadLetterQueue', 'bindingVersion']],
-  marker: 'key',
+  linterFunction: 'apilintType',
+  linterParams: ['array'],
+  marker: 'value',
+  target: 'queues',
+  data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
@@ -20,4 +22,4 @@ const allowedFieldsLint: LinterMeta = {
   ],
 };
 
-export default allowedFieldsLint;
+export default queuesTypeLint;

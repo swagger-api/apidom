@@ -15,13 +15,13 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Queue](https://github.com/asyncapi/bindings/blob/e14c6782a95aaa009d33b9a6b72194cbaebd39ff/sqs/README.md#queue)]\n\\\n\\\nQueue objects that are either the endpoint for an SNS Operation Binding Object, or the deadLetterQueue of the SQS Operation Binding Object.',
+        '[[Queue](https://github.com/asyncapi/bindings/blob/85b00377193b8ffd3c8f565db25981bbd2e4dde9/sqs/README.md#queue)]\n\\\n\\\nQueue objects that are either the endpoint for an SNS Operation Binding Object, or the deadLetterQueue of the SQS Operation Binding Object.',
     },
     conditions: [
       {
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
-        params: [['0.2.0']],
+        params: [['0.1.0']],
       },
     ],
   },

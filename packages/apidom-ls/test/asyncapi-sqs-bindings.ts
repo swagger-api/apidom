@@ -241,6 +241,34 @@ const specMessageBindingAllowedFieldsLatest = fs
   )
   .toString();
 
+const specChannelBindingQueueType010 = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'bindings',
+      'sqs',
+      'sqs-channel-binding-queue--type-0-1-0.yaml',
+    ),
+  )
+  .toString();
+
+const specChannelBindingDeadLetterQueueType010 = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'bindings',
+      'sqs',
+      'sqs-channel-binding-dead-letter-queue--type-0-1-0.yaml',
+    ),
+  )
+  .toString();
+
 const specChannelBindingQueueType020 = fs
   .readFileSync(
     path.join(
@@ -335,6 +363,20 @@ const specChannelBindingBindingVersionType = fs
       'bindings',
       'sqs',
       'sqs-channel-binding-binding-version--type.yaml',
+    ),
+  )
+  .toString();
+
+const specOperationBindingQueuesType010 = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'validation',
+      'asyncapi',
+      'bindings',
+      'sqs',
+      'sqs-operation-binding-queues--type-0-1-0.yaml',
     ),
   )
   .toString();
@@ -534,8 +576,7 @@ describe('asyncapi SQS bindings test', function () {
           start: { line: 8, character: 6 },
           end: { line: 8, character: 9 },
         },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message: 'Object includes not allowed fields.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -633,8 +674,7 @@ describe('asyncapi SQS bindings test', function () {
           start: { line: 13, character: 6 },
           end: { line: 13, character: 9 },
         },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message: 'Object includes not allowed fields.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -819,6 +859,31 @@ describe('asyncapi SQS bindings test', function () {
 
   // Channel binding type tests
 
+  it('test SQS channel binding queue type (0.1.0)', async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sqs-channel-binding-queue--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingQueueType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 15 },
+          end: { line: 9, character: 18 },
+        },
+        message: "'queue' value must be an object",
+        severity: 1,
+        code: 830100,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
   it('test SQS channel binding queue type (0.2.0)', async function () {
     const doc: TextDocument = TextDocument.create(
       'foo://bar/sqs-channel-binding-queue--type-0-2-0.yaml',
@@ -887,6 +952,31 @@ describe('asyncapi SQS bindings test', function () {
         message: "'queue' value must be an object",
         severity: 1,
         code: 830100,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('test SQS channel binding deadLetterQueue type (0.1.0)', async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sqs-channel-binding-dead-letter-queue--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingDeadLetterQueueType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 12, character: 25 },
+          end: { line: 12, character: 28 },
+        },
+        message: "'deadLetterQueue' value must be an object",
+        severity: 1,
+        code: 830200,
         source: 'apilint',
         data: {},
       },
@@ -995,6 +1085,31 @@ describe('asyncapi SQS bindings test', function () {
   });
 
   // Operation binding type tests
+
+  it('test SQS operation binding queues type (0.1.0)', async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sqs-operation-binding-queues--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specOperationBindingQueuesType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 14, character: 16 },
+          end: { line: 14, character: 19 },
+        },
+        message: "'queues' value must be an array",
+        severity: 1,
+        code: 850100,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
 
   it('test SQS operation binding queues type (0.2.0)', async function () {
     const doc: TextDocument = TextDocument.create(

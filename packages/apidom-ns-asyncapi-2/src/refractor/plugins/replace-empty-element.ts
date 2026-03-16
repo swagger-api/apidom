@@ -858,15 +858,15 @@ const schema = {
     },
   },
   SqsChannelBindingElement: {
-    queue(...args: any[]) {
+    queue(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
-    deadLetterQueue(...args: any[]) {
+    deadLetterQueue(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },
   SqsOperationBindingElement: {
-    queues(...args: any[]) {
+    queues(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },

@@ -21,10 +21,25 @@ const completion: ApidomCompletionItem[] = [
     format: CompletionFormat.QUOTED,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
-    targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+    targetSpecs: AsyncAPI2,
     documentation: {
       kind: 'markdown',
-      value: '**Optional**, defaults to `latest`. The version of this binding.',
+      value:
+        '`string`\n\\\nApplies to `Publish`, `Subscribe`.\n\\\n**Optional**, defaults to `latest`. The version of this binding.',
+    },
+  },
+  {
+    label: 'bindingVersion',
+    insertText: 'bindingVersion',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    targetSpecs: AsyncAPI3,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`string`\n\\\nApplies to `send`, `receive`.\n\\\n**Optional**, defaults to `latest`. The version of this binding.',
     },
   },
   {

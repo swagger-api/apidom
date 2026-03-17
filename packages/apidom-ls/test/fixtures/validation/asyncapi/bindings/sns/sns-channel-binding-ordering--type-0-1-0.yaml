@@ -7,5 +7,5 @@ channels:
     bindings:
       sns:
         name: my-topic
-        foo: bar
+        ordering: foo
         bindingVersion: '0.1.0'

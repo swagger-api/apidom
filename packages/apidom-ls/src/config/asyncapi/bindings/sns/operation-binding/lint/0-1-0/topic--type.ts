@@ -4,14 +4,16 @@ import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../../../../target-specs.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const topicTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SNS_OPERATION_BINDING_FIELD_TOPIC_TYPE,
   source: 'apilint',
-  message: 'Object includes not allowed fields',
+  message: "'topic' value must be an object",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [['topic', 'consumers', 'deliveryPolicy', 'bindingVersion']],
-  marker: 'key',
+  linterFunction: 'apilintType',
+  linterParams: ['object'],
+  marker: 'value',
+  target: 'topic',
+  data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
@@ -22,4 +24,4 @@ const allowedFieldsLint: LinterMeta = {
   targetSpecs: AsyncAPI2,
 };
 
-export default allowedFieldsLint;
+export default topicTypeLint;

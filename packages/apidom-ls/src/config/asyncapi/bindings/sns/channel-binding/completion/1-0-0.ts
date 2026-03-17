@@ -59,7 +59,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[policy](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#policy)\n\\\n\\\n**Optional.** The security policy for the SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`statements` | array | **Required.** An array of Statement objects, each of which controls a permission for this topic',
+        '[policy](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#policy)\n\\\n\\\n**Optional.** The security policy for the SNS Topic.\n\nField Name | Type | Description\n---|:---:|---\n`statements` | [[Statement](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#statement)] | **Required.** An array of Statement objects, each of which controls a permission for this topic',
     },
     conditions: [
       {

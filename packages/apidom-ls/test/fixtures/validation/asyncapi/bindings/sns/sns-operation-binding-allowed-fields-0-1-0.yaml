@@ -7,5 +7,6 @@ components:
   operationBindings:
     bindings1:
       sns:
+        consumers: []
         foo: bar
         bindingVersion: '0.1.0'

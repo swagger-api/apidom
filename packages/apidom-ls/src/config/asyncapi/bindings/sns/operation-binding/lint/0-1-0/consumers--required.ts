@@ -4,13 +4,13 @@ import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 import { AsyncAPI2 } from '../../../../../target-specs.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const consumersRequiredLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SNS_OPERATION_BINDING_FIELD_CONSUMERS_REQUIRED,
   source: 'apilint',
-  message: 'Object includes not allowed fields',
+  message: "should always have a 'consumers'",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [['topic', 'consumers', 'deliveryPolicy', 'bindingVersion']],
+  linterFunction: 'hasRequiredField',
+  linterParams: ['consumers'],
   marker: 'key',
   conditions: [
     {
@@ -19,7 +19,17 @@ const allowedFieldsLint: LinterMeta = {
       params: [['0.1.0']],
     },
   ],
+  data: {
+    quickFix: [
+      {
+        message: "add 'consumers' field",
+        action: 'addChild',
+        snippetYaml: 'consumers:\n  - \n  ',
+        snippetJson: '"consumers": [],\n    ',
+      },
+    ],
+  },
   targetSpecs: AsyncAPI2,
 };
 
-export default allowedFieldsLint;
+export default consumersRequiredLint;

@@ -1,3 +1,4 @@
+import completion0_1_0Items from './0-1-0.ts';
 import completion0_2_0Items from './0-2-0.ts';
 import completion1_0_0Items from './1-0-0.ts';
 import completionLatestItems from './latest.ts';
@@ -9,6 +10,7 @@ import {
 import { AsyncAPI2, AsyncAPI3 } from '../../../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
+  ...completion0_1_0Items,
   ...completion0_2_0Items,
   ...completion1_0_0Items,
   ...completionLatestItems,

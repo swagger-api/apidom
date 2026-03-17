@@ -6,6 +6,5 @@ channels:
   channel1:
     bindings:
       sns:
-        name: my-topic
-        foo: bar
+        name: 123
         bindingVersion: '0.1.0'

@@ -50,6 +50,26 @@ const specChannelBindingAllowedFieldsLatest = fs
   .readFileSync(path.join(bindingsPath, 'sns-channel-binding-allowed-fields-latest.yaml'))
   .toString();
 
+const specChannelBindingNameRequired010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-channel-binding-name--required-0-1-0.yaml'))
+  .toString();
+
+const specChannelBindingNameType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-channel-binding-name--type-0-1-0.yaml'))
+  .toString();
+
+const specChannelBindingOrderingType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-channel-binding-ordering--type-0-1-0.yaml'))
+  .toString();
+
+const specChannelBindingPolicyType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-channel-binding-policy--type-0-1-0.yaml'))
+  .toString();
+
+const specChannelBindingTagsType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-channel-binding-tags--type-0-1-0.yaml'))
+  .toString();
+
 const specChannelBindingNameRequired020 = fs
   .readFileSync(path.join(bindingsPath, 'sns-channel-binding-name--required-0-2-0.yaml'))
   .toString();
@@ -88,6 +108,22 @@ const specOperationBindingAllowedFields100 = fs
 
 const specOperationBindingAllowedFieldsLatest = fs
   .readFileSync(path.join(bindingsPath, 'sns-operation-binding-allowed-fields-latest.yaml'))
+  .toString();
+
+const specOperationBindingConsumersRequired010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-operation-binding-consumers--required-0-1-0.yaml'))
+  .toString();
+
+const specOperationBindingTopicType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-operation-binding-topic--type-0-1-0.yaml'))
+  .toString();
+
+const specOperationBindingConsumersType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-operation-binding-consumers--type-0-1-0.yaml'))
+  .toString();
+
+const specOperationBindingDeliveryPolicyType010 = fs
+  .readFileSync(path.join(bindingsPath, 'sns-operation-binding-delivery-policy--type-0-1-0.yaml'))
   .toString();
 
 const specOperationBindingConsumersRequired020 = fs
@@ -265,8 +301,7 @@ describe('asyncapi SNS bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 9 },
         },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message: 'Object includes not allowed fields',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -342,6 +377,140 @@ describe('asyncapi SNS bindings test', function () {
         severity: 1,
         code: 15000,
         source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS channel binding 'name' required (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-channel-binding-name--required-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingNameRequired010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 7, character: 6 },
+          end: { line: 7, character: 9 },
+        },
+        message: "should always have a 'name'",
+        severity: 1,
+        code: 750100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'name' field",
+              action: 'addChild',
+              snippetYaml: 'name: \n  ',
+              snippetJson: '"name": "",\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS channel binding 'name' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-channel-binding-name--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingNameType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 14 },
+          end: { line: 8, character: 17 },
+        },
+        message: "'name' value must be a string",
+        severity: 1,
+        code: 750200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS channel binding 'ordering' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-channel-binding-ordering--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingOrderingType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 18 },
+          end: { line: 9, character: 21 },
+        },
+        message: "'ordering' value must be an object",
+        severity: 1,
+        code: 750300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS channel binding 'policy' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-channel-binding-policy--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingPolicyType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 16 },
+          end: { line: 9, character: 19 },
+        },
+        message: "'policy' value must be an object",
+        severity: 1,
+        code: 750400,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS channel binding 'tags' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-channel-binding-tags--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specChannelBindingTagsType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 14 },
+          end: { line: 9, character: 17 },
+        },
+        message: "'tags' value must be an object",
+        severity: 1,
+        code: 750500,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected);
@@ -523,8 +692,7 @@ describe('asyncapi SNS bindings test', function () {
           start: { line: 8, character: 6 },
           end: { line: 8, character: 9 },
         },
-        message:
-          'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message: 'Object includes not allowed fields',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -600,6 +768,115 @@ describe('asyncapi SNS bindings test', function () {
         severity: 1,
         code: 15000,
         source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS operation binding 'consumers' required (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-operation-binding-consumers--required-0-1-0.yaml',
+      'yaml',
+      0,
+      specOperationBindingConsumersRequired010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 6 },
+          end: { line: 8, character: 9 },
+        },
+        message: "should always have a 'consumers'",
+        severity: 1,
+        code: 770300,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'consumers' field",
+              action: 'addChild',
+              snippetYaml: 'consumers:\n  - \n  ',
+              snippetJson: '"consumers": [],\n    ',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS operation binding 'topic' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-operation-binding-topic--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specOperationBindingTopicType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 15 },
+          end: { line: 9, character: 18 },
+        },
+        message: "'topic' value must be an object",
+        severity: 1,
+        code: 770100,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS operation binding 'consumers' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-operation-binding-consumers--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specOperationBindingConsumersType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 9, character: 19 },
+          end: { line: 9, character: 22 },
+        },
+        message: "'consumers' value must be an array",
+        severity: 1,
+        code: 770200,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test SNS operation binding 'deliveryPolicy' type (0.1.0)", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/sns-operation-binding-delivery-policy--type-0-1-0.yaml',
+      'yaml',
+      0,
+      specOperationBindingDeliveryPolicyType010,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 24 },
+          end: { line: 10, character: 27 },
+        },
+        message: "'deliveryPolicy' value must be an object",
+        severity: 1,
+        code: 770400,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected);

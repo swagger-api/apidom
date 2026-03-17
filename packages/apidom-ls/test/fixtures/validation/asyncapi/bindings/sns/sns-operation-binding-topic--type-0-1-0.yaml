@@ -3,9 +3,10 @@ info:
   title: Sample AsyncAPI
   version: '1.0.0'
 channels:
-  channel1:
-    bindings:
+components:
+  operationBindings:
+    bindings1:
       sns:
-        name: my-topic
-        foo: bar
+        topic: foo
+        consumers: []
         bindingVersion: '0.1.0'

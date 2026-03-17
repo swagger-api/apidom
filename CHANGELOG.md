@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.7.0](https://github.com/swagger-api/apidom/compare/v1.6.0...v1.7.0) (2026-03-17)
+
+### Bug Fixes
+
+- **ls:** compare kafka binding fields to minimum instead of maximum ([#5126](https://github.com/swagger-api/apidom/issues/5126)) ([0daa350](https://github.com/swagger-api/apidom/commit/0daa350020a56b71199a7459774b1ae020048f20))
+- **ls:** fix server bindings in asyncapi bindings ([#5129](https://github.com/swagger-api/apidom/issues/5129)) ([1305f1d](https://github.com/swagger-api/apidom/commit/1305f1d25b007e318e8c9d5cecab7adc0a5b291f))
+
+### Features
+
+- update MQTT5 Bindings ([#5130](https://github.com/swagger-api/apidom/issues/5130)) ([311c0e8](https://github.com/swagger-api/apidom/commit/311c0e824ae3427b8cf360ba049f4c831ac17e3b))
+
 # [1.6.0](https://github.com/swagger-api/apidom/compare/v1.5.1...v1.6.0) (2026-02-27)
 
 ### Features

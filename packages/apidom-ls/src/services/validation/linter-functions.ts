@@ -669,7 +669,7 @@ export const standardLinterfunctions: FunctionItem[] = [
           return false;
         }
 
-        return toValue(element) <= minimum;
+        return toValue(element) >= minimum;
       }
 
       return true;

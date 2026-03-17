@@ -11262,6 +11262,57 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
+  it('asyncapi - Kafka Channel Binding replicas and partitions field type', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'kafka-channel-binding-replicas-partitions-type.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/kafka-channel-binding-replicas-partitions-type.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 14, character: 20 },
+          end: { line: 14, character: 23 },
+        },
+        message: "'partitions' value must be positive integer",
+        severity: 1,
+        code: 510200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 18 },
+          end: { line: 13, character: 19 },
+        },
+        message: "'replicas' value must be positive integer",
+        severity: 1,
+        code: 510300,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
   it('oas 3.0 / yaml - local references - every path template should be defined', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,

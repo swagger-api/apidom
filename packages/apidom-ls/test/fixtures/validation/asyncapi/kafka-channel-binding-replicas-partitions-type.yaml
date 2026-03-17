@@ -1,0 +1,15 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  channel1:
+    bindings:
+      kafka:
+        replicas: 5
+        partitions: 10
+  channel2:
+    bindings:
+      kafka:
+        replicas: 0
+        partitions: -10

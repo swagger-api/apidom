@@ -852,6 +852,11 @@ const schema = {
       return new ObjectElement(...args);
     },
   },
+  Mqtt5ServerBindingElement: {
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
   SolaceOperationBindingElement: {
     destinations(...args: any[]) {
       return new ArrayElement(...args);

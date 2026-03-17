@@ -853,7 +853,7 @@ const schema = {
     },
   },
   Mqtt5ServerBindingElement: {
-    sessionExpiryInterval(...args: any[]) {
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },

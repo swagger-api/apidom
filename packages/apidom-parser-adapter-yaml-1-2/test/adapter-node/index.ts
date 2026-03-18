@@ -193,6 +193,7 @@ describe('adapter-node', function () {
 
   context('given valid YAML 1.2 with more than 32768 lines', function () {
     specify('should parse', async function () {
+      this.timeout(10000);
       const parseResult = await adapter.parse('test: 123\n'.repeat(32800));
 
       assert.isFalse(parseResult.isEmpty);

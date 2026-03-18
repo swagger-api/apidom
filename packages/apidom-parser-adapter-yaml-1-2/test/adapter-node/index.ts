@@ -191,6 +191,16 @@ describe('adapter-node', function () {
     });
   });
 
+  context('given valid YAML 1.2 with more than 32768 lines', function () {
+    specify('should parse', async function () {
+      const parseResult = await adapter.parse('test: 123\n'.repeat(32800));
+
+      assert.isFalse(parseResult.isEmpty);
+      assert.isTrue(isObjectElement(parseResult.result));
+      assert.lengthOf(parseResult.errors, 0);
+    });
+  });
+
   context('given an alias', function () {
     specify('should analyze alias as string', async function () {
       const result = await adapter.parse('*alias');

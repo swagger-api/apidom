@@ -814,7 +814,7 @@ const schema = {
     },
   },
   KafkaChannelBindingElement: {
-    topicConfiguration(...args: any[]) {
+    topicConfiguration(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },

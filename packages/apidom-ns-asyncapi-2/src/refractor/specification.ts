@@ -887,6 +887,9 @@ const specification = {
                 replicas: {
                   $ref: '#/visitors/value',
                 },
+                topicConfiguration: {
+                  $ref: '#/visitors/value',
+                },
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },

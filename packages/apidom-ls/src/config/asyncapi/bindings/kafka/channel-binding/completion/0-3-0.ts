@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Kafka topic name if different from channel name.',
+      value: '`string`\n\\\n\\\nKafka topic name if different from channel name.',
     },
     conditions: [
       {

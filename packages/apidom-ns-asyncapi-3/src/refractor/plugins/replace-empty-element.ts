@@ -901,6 +901,12 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
   KafkaMessageBindingElement: {
     key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);

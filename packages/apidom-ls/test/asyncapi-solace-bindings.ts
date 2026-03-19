@@ -51,7 +51,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-allowed-fields-0-1-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-1-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-1-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -75,7 +77,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-allowed-fields-0-2-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-2-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-2-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -99,7 +103,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-allowed-fields-0-3-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-3-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-3-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -123,7 +129,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-allowed-fields-0-4-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-4-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-0-4-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -147,7 +155,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-allowed-fields-latest.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-latest.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-allowed-fields-latest.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -172,7 +182,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-msg-vpn-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-msg-vpn-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-msg-vpn-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -197,7 +209,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-client-name-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-client-name-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-client-name-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -222,7 +236,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-server-binding-binding-version-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-server-binding-binding-version-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-server-binding-binding-version-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -248,7 +264,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-channel-binding-allowed-fields-0-1-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-1-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-1-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -258,7 +276,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -272,7 +291,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-channel-binding-allowed-fields-0-2-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-2-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-2-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -282,7 +303,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -296,7 +318,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-channel-binding-allowed-fields-0-3-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-3-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-3-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -306,7 +330,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -320,7 +345,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-channel-binding-allowed-fields-0-4-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-4-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-0-4-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -330,7 +357,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -344,7 +372,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-channel-binding-allowed-fields-latest.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-latest.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-channel-binding-allowed-fields-latest.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -354,7 +384,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -369,7 +400,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-message-binding-allowed-fields-0-1-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-1-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-1-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -379,7 +412,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -393,7 +427,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-message-binding-allowed-fields-0-2-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-2-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-2-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -403,7 +439,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -417,7 +454,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-message-binding-allowed-fields-0-3-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-3-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-3-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -427,7 +466,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -441,7 +481,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-message-binding-allowed-fields-0-4-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-4-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-0-4-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -451,7 +493,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -465,7 +508,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-message-binding-allowed-fields-latest.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-latest.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-message-binding-allowed-fields-latest.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -475,7 +520,8 @@ describe('asyncapi solace bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 12 },
         },
-        message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -490,7 +536,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-allowed-fields-0-1-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-1-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-1-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -514,7 +562,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-allowed-fields-0-2-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-2-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-2-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -538,7 +588,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-allowed-fields-0-3-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-3-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-3-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -562,7 +614,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-allowed-fields-0-4-0.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-4-0.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-0-4-0.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -586,7 +640,11 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-allowed-fields-latest.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-allowed-fields-latest.yaml')).toString(),
+      fs
+        .readFileSync(
+          path.join(bindingsPath, 'solace-operation-binding-allowed-fields-latest.yaml'),
+        )
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -611,7 +669,11 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-destinations-items-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-destinations-items-type.yaml')).toString(),
+      fs
+        .readFileSync(
+          path.join(bindingsPath, 'solace-operation-binding-destinations-items-type.yaml'),
+        )
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -636,7 +698,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-time-to-live-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-time-to-live-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-time-to-live-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -661,7 +725,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-priority-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-priority-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-priority-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -686,7 +752,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-dmq-eligible-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-dmq-eligible-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-dmq-eligible-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -711,7 +779,9 @@ describe('asyncapi solace bindings test', function () {
       'foo://bar/solace-operation-binding-binding-version-type.yaml',
       'yaml',
       0,
-      fs.readFileSync(path.join(bindingsPath, 'solace-operation-binding-binding-version-type.yaml')).toString(),
+      fs
+        .readFileSync(path.join(bindingsPath, 'solace-operation-binding-binding-version-type.yaml'))
+        .toString(),
     );
 
     const result = await languageService.doValidation(doc, validationContext);

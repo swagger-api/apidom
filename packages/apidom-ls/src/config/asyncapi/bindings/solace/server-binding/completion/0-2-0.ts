@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The Virtual Private Network name on the Solace broker.',
+      value: '`string`\n\\\n\\\nThe Virtual Private Network name on the Solace broker.',
     },
     conditions: [
       {

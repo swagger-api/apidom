@@ -8,8 +8,9 @@ describe('refractor', function () {
     context('SolaceServerBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const solaceServerBindingElement = SolaceServerBindingElement.refract({
-          bindingVersion: '0.2.0',
+          bindingVersion: '0.4.0',
           msgVpn: 'network1',
+          clientName: 'my-client',
         });
 
         expect(sexprs(solaceServerBindingElement)).toMatchSnapshot();

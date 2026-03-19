@@ -10,7 +10,13 @@ const allowedFieldsLint: LinterMeta = {
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
   linterParams: [
-    ['key', 'schemaIdLocation', 'schemaIdPayloadEncoding', 'schemaLookupStrategy', 'bindingVersion'],
+    [
+      'key',
+      'schemaIdLocation',
+      'schemaIdPayloadEncoding',
+      'schemaLookupStrategy',
+      'bindingVersion',
+    ],
   ],
   marker: 'key',
   conditions: [

@@ -3,7 +3,9 @@ import { fileURLToPath } from 'node:url';
 
 import createAnalyze from './analyze.ts';
 
-const treeSitterYamlPath = fileURLToPath(new URL('../../wasm/tree-sitter-yaml.wasm', import.meta.url));
+const treeSitterYamlPath = fileURLToPath(
+  new URL('../../wasm/tree-sitter-yaml.wasm', import.meta.url),
+);
 const treeSitterYaml = fs.readFileSync(treeSitterYamlPath);
 
 /**

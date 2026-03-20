@@ -851,6 +851,25 @@ const schema = {
     lastWill(...args: any[]) {
       return new ObjectElement(...args);
     },
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    maximumPacketSize(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttOperationBindingElement: {
+    messageExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttMessageBindingElement: {
+    correlationData(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    responseTopic(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
   },
   Mqtt5ServerBindingElement: {
     sessionExpiryInterval(...args: Record<string, unknown>[]) {

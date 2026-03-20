@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The client identifier.',
+      value: 'MQTT Version `3`, `5`. The client identifier.',
     },
     conditions: [
       {
@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`boolean`\n\\\n\\\nWhether to create a persistent connection or not. When `false`, the connection will be persistent.',
+        'MQTT Version `3`, `5`. `boolean`\n\\\n\\\nWhether to create a persistent connection or not. When `false`, the connection will be persistent. This is called **clean start** in MQTTv5.',
     },
     conditions: [
       {
@@ -53,7 +53,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`object`\n\\\n\\\nLast Will and Testament configuration.',
+      value: 'MQTT Version `3`, `5`. `object`\n\\\n\\\nLast Will and Testament configuration.',
     },
     conditions: [
       {
@@ -73,7 +73,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer`\n\\\n\\\nInterval in seconds of the longest period of time the broker and the client can endure without sending a message.',
+        'MQTT Version `3`, `5`. `integer`\n\\\n\\\nInterval in seconds of the longest period of time the broker and the client can endure without sending a message.',
     },
     conditions: [
       {

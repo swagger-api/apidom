@@ -21,8 +21,9 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI2,
     conditions: [
       {
-        function: 'missingField',
-        params: ['bindingVersion'],
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.2.0']],
       },
     ],
   },
@@ -41,27 +42,9 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI3,
     conditions: [
       {
-        function: 'missingField',
-        params: ['bindingVersion'],
-      },
-    ],
-  },
-  {
-    label: 'statusCode',
-    insertText: 'statusCode',
-    kind: 14,
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value:
-        '`integer`\n\\\n\\\nThe HTTP response status code according to [RFC 9110](https://httpwg.org/specs/rfc9110.html#overview.of.status.codes). `statusCode` is only relevant for messages referenced by the [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject), as it defines the status code for the response. In all other cases, this value can be safely ignored.',
-    },
-    conditions: [
-      {
-        function: 'missingField',
-        params: ['bindingVersion'],
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.2.0']],
       },
     ],
   },

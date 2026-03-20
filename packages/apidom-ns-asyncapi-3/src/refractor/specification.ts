@@ -888,6 +888,9 @@ const specification = {
               $visitor: HttpMessageBindingVisitor,
               fixedFields: {
                 headers: SchemaOrReferenceVisitor,
+                statusCode: {
+                  $ref: '#/visitors/value',
+                },
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },

@@ -21,8 +21,9 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI2,
     conditions: [
       {
-        function: 'missingField',
-        params: ['bindingVersion'],
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
       },
     ],
   },
@@ -41,8 +42,9 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: AsyncAPI3,
     conditions: [
       {
-        function: 'missingField',
-        params: ['bindingVersion'],
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
       },
     ],
   },
@@ -60,8 +62,9 @@ const completion: ApidomCompletionItem[] = [
     },
     conditions: [
       {
-        function: 'missingField',
-        params: ['bindingVersion'],
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
       },
     ],
   },

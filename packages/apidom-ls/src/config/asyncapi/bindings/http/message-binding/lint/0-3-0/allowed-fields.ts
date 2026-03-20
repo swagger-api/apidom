@@ -13,8 +13,9 @@ const allowedFieldsLint: LinterMeta = {
   marker: 'key',
   conditions: [
     {
-      function: 'missingField',
-      params: ['bindingVersion'],
+      targets: [{ path: 'bindingVersion' }],
+      function: 'apilintValueOrArray',
+      params: [['0.3.0']],
     },
   ],
 };

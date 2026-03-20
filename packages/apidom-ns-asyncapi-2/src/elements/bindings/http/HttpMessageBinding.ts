@@ -1,4 +1,4 @@
-import { StringElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { StringElement, NumberElement, ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 import SchemaElement from '../../Schema.ts';
 import ReferenceElement from '../../Reference.ts';
@@ -19,6 +19,14 @@ class HttpMessageBinding extends ObjectElement {
 
   set headers(headers: SchemaElement | ReferenceElement | undefined) {
     this.set('headers', headers);
+  }
+
+  get statusCode(): NumberElement | undefined {
+    return this.get('statusCode');
+  }
+
+  set statusCode(statusCode: NumberElement | undefined) {
+    this.set('statusCode', statusCode);
   }
 
   get bindingVersion(): StringElement | undefined {

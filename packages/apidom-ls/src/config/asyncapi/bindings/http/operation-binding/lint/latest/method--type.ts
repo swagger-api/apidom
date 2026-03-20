@@ -15,9 +15,8 @@ const methodTypeLint: LinterMeta = {
   data: {},
   conditions: [
     {
-      targets: [{ path: 'bindingVersion' }],
-      function: 'apilintValueOrArray',
-      params: [['0.2.0']],
+      function: 'missingField',
+      params: ['bindingVersion'],
     },
   ],
 };

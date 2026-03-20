@@ -6,15 +6,16 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const allowedFieldsLint: LinterMeta = {
   code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
-  message: 'Object includes not allowed fields',
+  message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['headers', 'statusCode', 'bindingVersion']],
+  linterParams: [[]],
   marker: 'key',
   conditions: [
     {
-      function: 'missingField',
-      params: ['bindingVersion'],
+      targets: [{ path: 'bindingVersion' }],
+      function: 'apilintValueOrArray',
+      params: [['0.3.0']],
     },
   ],
 };

@@ -1,4 +1,5 @@
 import completion0_0_1Items from './0-0-1.ts';
+import completion0_1_0Items from './0-1-0.ts';
 import completionLatestItems from './latest.ts';
 import {
   ApidomCompletionItem,
@@ -8,6 +9,7 @@ import {
 
 const completion: ApidomCompletionItem[] = [
   ...completion0_0_1Items,
+  ...completion0_1_0Items,
   ...completionLatestItems,
   {
     label: 'bindingVersion',
@@ -18,13 +20,22 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '**Optional**, defaults to `0.0.1`. The version of this binding.',
+      value: '**Optional**, defaults to `0.1.0`. The version of this binding.',
     },
   },
   {
     target: 'bindingVersion',
     label: '0.0.1',
     insertText: '0.0.1',
+    kind: 12,
+    format: CompletionFormat.QUOTED_FORCED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
+  {
+    target: 'bindingVersion',
+    label: '0.1.0',
+    insertText: '0.1.0',
     kind: 12,
     format: CompletionFormat.QUOTED_FORCED,
     type: CompletionType.VALUE,

@@ -12,9 +12,9 @@ const createAnalyze =
       // acquire lock
       parserInitLock = Parser.init()
         .then(() => Parser.Language.load(treeSitterYaml))
-        .then((jsonLanguage) => {
+        .then((yamlLanguage) => {
           const parserInstance = new Parser();
-          parserInstance.setLanguage(jsonLanguage);
+          parserInstance.setLanguage(yamlLanguage);
           return parserInstance;
         })
         .finally(() => {
@@ -25,7 +25,9 @@ const createAnalyze =
     } else if (parser === null && parserInitLock !== null) {
       // await for lock to be released if there is one
       parser = await parserInitLock;
-    } else if (parser === null) {
+    }
+
+    if (parser === null) {
       throw new ApiDOMError(
         'Error while initializing web-tree-sitter and loading tree-sitter-yaml grammar.',
       );

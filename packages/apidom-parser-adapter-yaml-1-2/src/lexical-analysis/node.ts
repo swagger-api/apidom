@@ -1,13 +1,9 @@
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { dirname, resolve } from 'node:path';
 
 import createAnalyze from './analyze.ts';
 
-// eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-const treeSitterYamlPath = resolve(__dirname, '../../wasm/tree-sitter-yaml.wasm');
+const treeSitterYamlPath = fileURLToPath(new URL('../../wasm/tree-sitter-yaml.wasm', import.meta.url));
 const treeSitterYaml = fs.readFileSync(treeSitterYamlPath);
 
 /**

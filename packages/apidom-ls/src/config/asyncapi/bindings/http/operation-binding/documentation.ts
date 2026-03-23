@@ -2,6 +2,10 @@ import { AsyncAPI2, AsyncAPI3 } from '../../../target-specs.ts';
 
 const documentation = [
   {
+    target: 'type',
+    docs: '`string`\n\\\n\\\n**REQUIRED**. Type of operation. Its value MUST be either request or response.',
+  },
+  {
     target: 'method',
     docs: '`string`\n\\\n\\\nThe HTTP method. Its value MUST be one of `GET`, `POST`, `PUT`, `PATCH`, `DELETE`, `HEAD`, `OPTIONS`, `CONNECT`, and `TRACE`.',
   },

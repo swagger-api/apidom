@@ -18,7 +18,6 @@ const allowedFieldsLint: LinterMeta = {
       'deliveryMode',
       'mandatory',
       'bcc',
-      'replyTo',
       'timestamp',
       'ack',
       'bindingVersion',

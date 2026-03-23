@@ -14,7 +14,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Defines what type of channel is it. Can be either `queue` or `routingKey` (default).',
+      value:
+        '`string`\n\\\n\\\nDefines what type of channel is it. Can be either `queue` or `routingKey` (default).',
     },
     conditions: [
       {

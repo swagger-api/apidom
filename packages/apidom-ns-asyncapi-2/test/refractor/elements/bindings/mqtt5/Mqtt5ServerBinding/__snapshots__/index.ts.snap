@@ -1,3 +1,34 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements Mqtt5ServerBindingElement should refract to semantic ApiDOM tree 1`] = `(Mqtt5ServerBindingElement)`;
+exports[`refractor elements Mqtt5ServerBindingElement given sessionExpiryInterval field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
+(Mqtt5ServerBindingElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements Mqtt5ServerBindingElement given sessionExpiryInterval field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(Mqtt5ServerBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements Mqtt5ServerBindingElement should refract to semantic ApiDOM tree 1`] = `
+(Mqtt5ServerBindingElement
+  (MemberElement
+    (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

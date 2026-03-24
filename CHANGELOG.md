@@ -3,6 +3,31 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/swagger-api/apidom/compare/v1.7.0...v1.8.0) (2026-03-20)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** use WebTreeSitter for Node.js lexical analysis ([#5139](https://github.com/swagger-api/apidom/issues/5139)) ([2ed9cab](https://github.com/swagger-api/apidom/commit/2ed9cab7bb35c618cfaf12198fd9517d42abbccb))
+
+### Features
+
+- **ls:** update Anypoint MQ Bindings ([#5128](https://github.com/swagger-api/apidom/issues/5128)) ([87b0a46](https://github.com/swagger-api/apidom/commit/87b0a4611b0db184f7c4011cfa6ed5c0f0e7944f))
+
+# [1.7.0](https://github.com/swagger-api/apidom/compare/v1.6.0...v1.7.0) (2026-03-17)
+
+### Bug Fixes
+
+- **ls:** compare kafka binding fields to minimum instead of maximum ([#5126](https://github.com/swagger-api/apidom/issues/5126)) ([0daa350](https://github.com/swagger-api/apidom/commit/0daa350020a56b71199a7459774b1ae020048f20))
+- **ls:** fix server bindings in asyncapi bindings ([#5129](https://github.com/swagger-api/apidom/issues/5129)) ([1305f1d](https://github.com/swagger-api/apidom/commit/1305f1d25b007e318e8c9d5cecab7adc0a5b291f))
+
+### Features
+
+- update MQTT5 Bindings ([#5130](https://github.com/swagger-api/apidom/issues/5130)) ([311c0e8](https://github.com/swagger-api/apidom/commit/311c0e824ae3427b8cf360ba049f4c831ac17e3b))
+
+### Reverts
+
+- Revert "chore(release): cut the v1.7.0 release [skip ci]" ([1d0010f](https://github.com/swagger-api/apidom/commit/1d0010f034f88e3d72096ed2689accffdd0a490b))
+
 # [1.6.0](https://github.com/swagger-api/apidom/compare/v1.5.1...v1.6.0) (2026-02-27)
 
 ### Features

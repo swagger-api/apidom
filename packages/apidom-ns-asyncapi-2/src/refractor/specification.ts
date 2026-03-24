@@ -1180,15 +1180,46 @@ const specification = {
           jms: {
             ServerBinding: {
               $visitor: JmsServerBindingVisitor,
+              fixedFields: {
+                jmsConnectionFactory: {
+                  $ref: '#/visitors/value',
+                },
+                properties: {
+                  $ref: '#/visitors/value',
+                },
+                clientID: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             ChannelBinding: {
               $visitor: JmsChannelBindingVisitor,
+              fixedFields: {
+                destination: {
+                  $ref: '#/visitors/value',
+                },
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: JmsOperationBindingVisitor,
             },
             MessageBinding: {
               $visitor: JmsMessageBindingVisitor,
+              fixedFields: {
+                headers: SchemaVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
           },
           sns: {

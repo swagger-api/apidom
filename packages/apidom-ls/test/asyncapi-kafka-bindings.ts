@@ -131,6 +131,10 @@ const specOperationBindingAllowedFieldsLatest = fs
   .readFileSync(path.join(bindingsPath, 'kafka-operation-binding-allowed-fields-latest.yaml'))
   .toString();
 
+const specOperationBindingGroupIdType = fs
+  .readFileSync(path.join(bindingsPath, 'kafka-operation-binding-group-id-type.yaml'))
+  .toString();
+
 const specOperationBindingClientIdType = fs
   .readFileSync(path.join(bindingsPath, 'kafka-operation-binding-client-id-type.yaml'))
   .toString();
@@ -848,6 +852,31 @@ describe('asyncapi Kafka bindings test', function () {
         severity: 1,
         code: 15000,
         source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test Kafka operation binding 'groupId' type", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/kafka-operation-binding-group-id-type.yaml',
+      'yaml',
+      0,
+      specOperationBindingGroupIdType,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 17 },
+          end: { line: 8, character: 20 },
+        },
+        message: 'groupId must be a schema object or a boolean JSON schema',
+        severity: 1,
+        code: 530100,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected);

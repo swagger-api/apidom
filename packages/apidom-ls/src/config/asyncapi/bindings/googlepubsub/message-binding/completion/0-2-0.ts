@@ -21,7 +21,7 @@ const completion: ApidomCompletionItem[] = [
       {
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
-        params: [['0.1.0']],
+        params: [['0.2.0']],
       },
     ],
   },
@@ -41,7 +41,7 @@ const completion: ApidomCompletionItem[] = [
       {
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
-        params: [['0.1.0']],
+        params: [['0.2.0']],
       },
     ],
   },
@@ -55,13 +55,13 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Definition Object](https://github.com/asyncapi/bindings/blob/bc06e78ad3aebe5a40526866b023bada2cbe96f8/googlepubsub/README.md#schema-definition-object)\n\\\n\\\nDescribes the schema used to validate the payload of this message.',
+        '[Schema Definition Object](https://github.com/asyncapi/bindings/blob/master/googlepubsub/README.md#schema-definition-object)\n\\\n\\\nDescribes the schema used to validate the payload of this message.',
     },
     conditions: [
       {
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
-        params: [['0.1.0']],
+        params: [['0.2.0']],
       },
     ],
   },

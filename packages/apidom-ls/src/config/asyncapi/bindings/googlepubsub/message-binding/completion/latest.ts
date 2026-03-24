@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'If non-empty, identifies related messages for which publish order should be respected _(For more information, see [ordering messages](https://cloud.google.com/pubsub/docs/ordering).)_',
+        '`String`\n\\\n\\\nIf non-empty, identifies related messages for which publish order should be respected _(For more information, see [ordering messages](https://cloud.google.com/pubsub/docs/ordering).)_',
     },
     conditions: [
       {

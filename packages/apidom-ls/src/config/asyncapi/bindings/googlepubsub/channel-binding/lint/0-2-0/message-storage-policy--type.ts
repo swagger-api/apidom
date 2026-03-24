@@ -17,7 +17,7 @@ const messageStoragePolicyTypeLint: LinterMeta = {
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.1.0']],
+      params: [['0.2.0']],
     },
   ],
 };

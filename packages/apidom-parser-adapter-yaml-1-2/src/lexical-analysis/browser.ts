@@ -1,14 +1,8 @@
 import './browser-patch.ts';
 
-import Parser, { Tree } from 'web-tree-sitter';
-import { ApiDOMError } from '@swagger-api/apidom-error';
-
 // @ts-ignore
 import treeSitterYaml from '../../wasm/tree-sitter-yaml.wasm';
-
-let parser: Parser | null = null;
-let parserInitLock: Promise<Parser> | null = null;
-let currentTree: Tree | null = null;
+import createAnalyze from './analyze.ts';
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
@@ -18,35 +12,6 @@ let currentTree: Tree | null = null;
  * code should be as lazy as possible and temporal safety should be fine.
  * @public
  */
-const analyze = async (source: string): Promise<Tree> => {
-  if (parser === null && parserInitLock === null) {
-    // acquire lock
-    parserInitLock = Parser.init()
-      .then(() => Parser.Language.load(treeSitterYaml))
-      .then((jsonLanguage) => {
-        const parserInstance = new Parser();
-        parserInstance.setLanguage(jsonLanguage);
-        return parserInstance;
-      })
-      .finally(() => {
-        // release lock
-        parserInitLock = null;
-      });
-    parser = await parserInitLock;
-  } else if (parser === null && parserInitLock !== null) {
-    // await for lock to be released if there is one
-    parser = await parserInitLock;
-  } else if (parser === null) {
-    throw new ApiDOMError(
-      'Error while initializing web-tree-sitter and loading tree-sitter-yaml grammar.',
-    );
-  }
-
-  currentTree = parser.parse(source);
-
-  parser.reset();
-
-  return currentTree;
-};
+const analyze = createAnalyze(treeSitterYaml);
 
 export default analyze;

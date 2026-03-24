@@ -1090,6 +1090,12 @@ const specification = {
           mqtt5: {
             ServerBinding: {
               $visitor: Mqtt5ServerBindingVisitor,
+              fixedFields: {
+                sessionExpiryInterval: SchemaOrReferenceVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             ChannelBinding: {
               $visitor: Mqtt5ChannelBindingVisitor,

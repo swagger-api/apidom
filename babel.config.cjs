@@ -27,6 +27,7 @@ module.exports = {
         ],
       ],
       plugins: [
+        ['babel-plugin-transform-import-meta'],
         [
           '@babel/plugin-transform-runtime',
           {

@@ -58,6 +58,7 @@ const completion: ApidomCompletionItem[] = [
       value:
         '`integer`\n\\\n\\\nThe HTTP response status code according to [RFC 9110](https://httpwg.org/specs/rfc9110.html#overview.of.status.codes). `statusCode` is only relevant for messages referenced by the [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject), as it defines the status code for the response. In all other cases, this value can be safely ignored.',
     },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',

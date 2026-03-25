@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Object`\n\\\n\\\nAn object of key-value pairs _(These are used to categorize Cloud Resources like Cloud Pub/Sub Topics.)_',
+        '`Object`\n\\\n\\\nAn object of key-value pairs _(These are used to categorize Cloud Resources like Cloud Pub/Sub Topics.)_',
     },
     conditions: [
       {

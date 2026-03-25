@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[string, any]`\n\\\n\\\nWhen `is=routingKey`, this object defines the exchange properties.',
+        '`Map[string, any]`\n\\\n\\\nWhen `is=routingKey`, this object defines the exchange properties.',
     },
     conditions: [
       {
@@ -53,7 +53,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[string, any]`\n\\\n\\\nWhen `is=queue`, this object defines the queue properties.',
+        '`Map[string, any]`\n\\\n\\\nWhen `is=queue`, this object defines the queue properties.',
     },
     conditions: [
       {

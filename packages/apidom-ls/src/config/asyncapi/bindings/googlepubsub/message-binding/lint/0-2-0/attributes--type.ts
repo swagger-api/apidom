@@ -3,21 +3,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const attributesTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_MESSAGE_BINDING_FIELD_ATTRIBUTES_TYPE,
   source: 'apilint',
-  message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+  message: "'attributes' value must be an object",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [[]],
-  marker: 'key',
+  linterFunction: 'apilintType',
+  linterParams: ['object'],
+  marker: 'value',
+  target: 'attributes',
+  data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.1.0']],
+      params: [['0.2.0']],
     },
   ],
 };
 
-export default allowedFieldsLint;
+export default attributesTypeLint;

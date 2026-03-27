@@ -3,23 +3,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const orderingKeyTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_MESSAGE_BINDING_FIELD_ORDERING_KEY_TYPE,
+const messageStoragePolicyTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_CHANNEL_BINDING_FIELD_MESSAGE_STORAGE_POLICY_TYPE,
   source: 'apilint',
-  message: "'orderingKey' value must be a string",
+  message: "'messageStoragePolicy' value must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterParams: ['object'],
   marker: 'value',
-  target: 'orderingKey',
+  target: 'messageStoragePolicy',
   data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.1.0']],
+      params: [['0.2.0']],
     },
   ],
 };
 
-export default orderingKeyTypeLint;
+export default messageStoragePolicyTypeLint;

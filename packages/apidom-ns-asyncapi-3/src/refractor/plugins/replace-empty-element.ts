@@ -956,6 +956,12 @@ const schema: Record<string, unknown> = {
     destinations(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
+    timeToLive(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    priority(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
   },
 
   GooglepubsubChannelBindingElement: {

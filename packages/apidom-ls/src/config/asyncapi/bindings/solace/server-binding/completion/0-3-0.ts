@@ -1,0 +1,29 @@
+import {
+  ApidomCompletionItem,
+  CompletionFormat,
+  CompletionType,
+} from '../../../../../../apidom-language-types.ts';
+
+const completion: ApidomCompletionItem[] = [
+  {
+    label: 'msgVpn',
+    insertText: 'msgVpn',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`string`\n\\\n\\\nThe Virtual Private Network name on the Solace broker.',
+    },
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
+      },
+    ],
+  },
+];
+
+export default completion;

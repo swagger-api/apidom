@@ -861,6 +861,12 @@ const schema = {
     destinations(...args: any[]) {
       return new ArrayElement(...args);
     },
+    timeToLive(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    priority(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
   },
   GooglepubsubChannelBindingElement: {
     labels(...args: any[]) {

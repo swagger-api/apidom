@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const orderingKeyTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_MESSAGE_BINDING_FIELD_ORDERING_KEY_TYPE,
   source: 'apilint',
-  message: "'orderingKey' value must be an object",
+  message: "'orderingKey' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

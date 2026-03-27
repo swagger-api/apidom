@@ -1249,9 +1249,28 @@ const specification = {
             },
             ChannelBinding: {
               $visitor: SqsChannelBindingVisitor,
+              fixedFields: {
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                deadLetterQueue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: SqsOperationBindingVisitor,
+              fixedFields: {
+                queues: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             MessageBinding: {
               $visitor: SqsMessageBindingVisitor,

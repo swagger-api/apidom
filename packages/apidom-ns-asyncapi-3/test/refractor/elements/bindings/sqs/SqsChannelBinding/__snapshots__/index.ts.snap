@@ -1,3 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements SqsChannelBindingElement should refract to semantic ApiDOM tree 1`] = `(SqsChannelBindingElement)`;
+exports[`refractor elements SqsChannelBindingElement should refract to semantic ApiDOM tree 1`] = `
+(SqsChannelBindingElement
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

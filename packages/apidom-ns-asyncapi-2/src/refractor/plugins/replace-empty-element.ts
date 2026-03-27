@@ -868,6 +868,19 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  SqsChannelBindingElement: {
+    queue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    deadLetterQueue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SqsOperationBindingElement: {
+    queues(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
   GooglepubsubChannelBindingElement: {
     labels(...args: any[]) {
       return new ObjectElement(...args);

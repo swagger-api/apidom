@@ -964,6 +964,21 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  SqsChannelBindingElement: {
+    queue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    deadLetterQueue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  SqsOperationBindingElement: {
+    queues(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+
   GooglepubsubChannelBindingElement: {
     labels(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);

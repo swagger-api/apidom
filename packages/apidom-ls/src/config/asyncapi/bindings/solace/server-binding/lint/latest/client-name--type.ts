@@ -3,15 +3,15 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const topicTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_CHANNEL_BINDING_FIELD_TOPIC_TYPE,
+const clientNameTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SOLACE_SERVER_BINDING_FIELD_CLIENT_NAME_TYPE,
   source: 'apilint',
-  message: "'topic' value must be an string",
+  message: "'clientName' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],
   marker: 'value',
-  target: 'topic',
+  target: 'clientName',
   data: {},
   conditions: [
     {
@@ -21,4 +21,4 @@ const topicTypeLint: LinterMeta = {
   ],
 };
 
-export default topicTypeLint;
+export default clientNameTypeLint;

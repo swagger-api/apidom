@@ -1273,6 +1273,9 @@ const specification = {
                 msgVpn: {
                   $ref: '#/visitors/value',
                 },
+                clientName: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             ChannelBinding: {
@@ -1285,6 +1288,11 @@ const specification = {
                   $ref: '#/visitors/value',
                 },
                 destinations: {
+                  $ref: '#/visitors/value',
+                },
+                timeToLive: SchemaOrReferenceVisitor,
+                priority: SchemaOrReferenceVisitor,
+                dmqEligible: {
                   $ref: '#/visitors/value',
                 },
               },

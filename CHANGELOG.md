@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.8.0](https://github.com/swagger-api/apidom/compare/v1.7.0...v1.8.0) (2026-03-20)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** use WebTreeSitter for Node.js lexical analysis ([#5139](https://github.com/swagger-api/apidom/issues/5139)) ([2ed9cab](https://github.com/swagger-api/apidom/commit/2ed9cab7bb35c618cfaf12198fd9517d42abbccb))
+
+### Features
+
+- **ls:** update Anypoint MQ Bindings ([#5128](https://github.com/swagger-api/apidom/issues/5128)) ([87b0a46](https://github.com/swagger-api/apidom/commit/87b0a4611b0db184f7c4011cfa6ed5c0f0e7944f))
+
 # [1.7.0](https://github.com/swagger-api/apidom/compare/v1.6.0...v1.7.0) (2026-03-17)
 
 ### Bug Fixes

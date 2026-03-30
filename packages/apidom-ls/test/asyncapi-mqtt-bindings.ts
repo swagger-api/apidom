@@ -34,8 +34,20 @@ const specServerBindingSessionExpiryIntervalType = fs
   .readFileSync(path.join(bindingsPath, 'mqtt-server-binding-session-expiry-interval-type.yaml'))
   .toString();
 
+const specServerBindingSessionExpiryIntervalMinimum = fs
+  .readFileSync(path.join(bindingsPath, 'mqtt-server-binding-session-expiry-interval-minimum.yaml'))
+  .toString();
+
 const specServerBindingMaximumPacketSizeType = fs
   .readFileSync(path.join(bindingsPath, 'mqtt-server-binding-maximum-packet-size-type.yaml'))
+  .toString();
+
+const specServerBindingMaximumPacketSizeMinimum = fs
+  .readFileSync(path.join(bindingsPath, 'mqtt-server-binding-maximum-packet-size-minimum.yaml'))
+  .toString();
+
+const specServerBindingKeepAliveType = fs
+  .readFileSync(path.join(bindingsPath, 'mqtt-server-binding-keep-alive-type.yaml'))
   .toString();
 
 const specServerBindingBindingVersionType = fs
@@ -76,6 +88,12 @@ const specOperationBindingRetainType = fs
 
 const specOperationBindingMessageExpiryIntervalType = fs
   .readFileSync(path.join(bindingsPath, 'mqtt-operation-binding-message-expiry-interval-type.yaml'))
+  .toString();
+
+const specOperationBindingMessageExpiryIntervalMinimum = fs
+  .readFileSync(
+    path.join(bindingsPath, 'mqtt-operation-binding-message-expiry-interval-minimum.yaml'),
+  )
   .toString();
 
 const specMessageBindingAllowedFields010 = fs
@@ -251,6 +269,92 @@ describe('asyncapi MQTT bindings test', function () {
         message: "'maximumPacketSize' must be an integer or a Schema Object",
         severity: 1,
         code: 620700,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test MQTT server binding 'sessionExpiryInterval' minimum", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/mqtt-server-binding-session-expiry-interval-minimum.yaml',
+      'yaml',
+      0,
+      specServerBindingSessionExpiryIntervalMinimum,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 31 },
+          end: { line: 10, character: 34 },
+        },
+        message: "'sessionExpiryInterval' must be a non-negative integer (>=0)",
+        severity: 1,
+        code: 620601,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test MQTT server binding 'maximumPacketSize' minimum", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/mqtt-server-binding-maximum-packet-size-minimum.yaml',
+      'yaml',
+      0,
+      specServerBindingMaximumPacketSizeMinimum,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 27 },
+          end: { line: 10, character: 30 },
+        },
+        message: "'maximumPacketSize' must be a positive integer (>=1)",
+        severity: 1,
+        code: 620701,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 17, character: 27 },
+          end: { line: 17, character: 28 },
+        },
+        message: "'maximumPacketSize' must be a positive integer (>=1)",
+        severity: 1,
+        code: 620701,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test MQTT server binding 'keepAlive' type", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/mqtt-server-binding-keep-alive-type.yaml',
+      'yaml',
+      0,
+      specServerBindingKeepAliveType,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 10, character: 19 },
+          end: { line: 10, character: 22 },
+        },
+        message: "'keepAlive' must be a non-negative integer (>=0)",
+        severity: 1,
+        code: 620400,
         source: 'apilint',
         data: {},
       },
@@ -498,6 +602,31 @@ describe('asyncapi MQTT bindings test', function () {
         message: "'messageExpiryInterval' must be an integer or a Schema Object",
         severity: 1,
         code: 610400,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it("test MQTT operation binding 'messageExpiryInterval' minimum", async function () {
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/mqtt-operation-binding-message-expiry-interval-minimum.yaml',
+      'yaml',
+      0,
+      specOperationBindingMessageExpiryIntervalMinimum,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 8, character: 31 },
+          end: { line: 8, character: 34 },
+        },
+        message: "'messageExpiryInterval' must be a non-negative integer (>=0)",
+        severity: 1,
+        code: 610401,
         source: 'apilint',
         data: {},
       },

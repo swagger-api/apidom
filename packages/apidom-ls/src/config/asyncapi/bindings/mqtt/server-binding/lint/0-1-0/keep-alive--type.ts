@@ -6,10 +6,10 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const keepAliveTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_MQTT_SERVER_BINDING_FIELD_KEEP_ALIVE_TYPE,
   source: 'apilint',
-  message: "'keepAlive' must be an integer",
+  message: "'keepAlive' must be a non-negative integer (>=0)",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintNumber',
-  linterParams: [true],
+  linterParams: [true, true, true],
   marker: 'value',
   target: 'keepAlive',
   data: {},

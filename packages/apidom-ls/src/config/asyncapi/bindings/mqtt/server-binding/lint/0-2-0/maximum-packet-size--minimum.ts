@@ -3,15 +3,15 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const keepAliveTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_MQTT_SERVER_BINDING_FIELD_KEEP_ALIVE_TYPE,
+const maximumPacketSizeMinimumLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_MQTT_SERVER_BINDING_FIELD_MAXIMUM_PACKET_SIZE_MINIMUM,
   source: 'apilint',
-  message: "'keepAlive' must be a non-negative integer (>=0)",
+  message: "'maximumPacketSize' must be a positive integer (>=1)",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintNumber',
-  linterParams: [true, true, true],
+  linterParams: [true, true, false],
   marker: 'value',
-  target: 'keepAlive',
+  target: 'maximumPacketSize',
   data: {},
   conditions: [
     {
@@ -19,7 +19,12 @@ const keepAliveTypeLint: LinterMeta = {
       function: 'apilintValueOrArray',
       params: [['0.2.0']],
     },
+    {
+      targets: [{ path: 'maximumPacketSize' }],
+      function: 'apilintElementOrClass',
+      params: [['number']],
+    },
   ],
 };
 
-export default keepAliveTypeLint;
+export default maximumPacketSizeMinimumLint;

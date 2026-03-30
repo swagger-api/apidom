@@ -1,0 +1,67 @@
+import {
+  ApidomCompletionItem,
+  CompletionFormat,
+  CompletionType,
+} from '../../../../../../apidom-language-types.ts';
+
+const completion: ApidomCompletionItem[] = [
+  {
+    label: 'contentEncoding',
+    insertText: 'contentEncoding',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`string`\n\\\n\\\nA MIME encoding for the message content.',
+    },
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
+      },
+    ],
+  },
+  {
+    label: 'messageType',
+    insertText: 'messageType',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`string`\n\\\n\\\nApplication-specific message type.',
+    },
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
+      },
+    ],
+  },
+  {
+    label: 'bindingVersion',
+    insertText: 'bindingVersion',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`string`\n\\\n\\\nThe version of this binding. If omitted, "0.3.0" MUST be assumed.',
+    },
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
+      },
+    ],
+  },
+];
+
+export default completion;

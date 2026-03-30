@@ -70,8 +70,8 @@ const specOperationBindingTypeType = fs
   .readFileSync(path.join(bindingsPath, 'http-operation-binding-type-type.yaml'))
   .toString();
 
-const specOperationBindingMethodType = fs
-  .readFileSync(path.join(bindingsPath, 'http-operation-binding-method-type.yaml'))
+const specOperationBindingMethodEquals = fs
+  .readFileSync(path.join(bindingsPath, 'http-operation-binding-method-equals.yaml'))
   .toString();
 
 const specOperationBindingQueryType = fs
@@ -451,12 +451,12 @@ describe('asyncapi HTTP bindings test', function () {
     assert.deepEqual(result, expected);
   });
 
-  it("http operation binding - 'method' field type", async function () {
+  it("http operation binding - 'method' field equals", async function () {
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/http-operation-binding-method-type.yaml',
+      'foo://bar/http-operation-binding-method-equals.yaml',
       'yaml',
       0,
-      specOperationBindingMethodType,
+      specOperationBindingMethodEquals,
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -464,9 +464,9 @@ describe('asyncapi HTTP bindings test', function () {
       {
         range: {
           start: { line: 8, character: 16 },
-          end: { line: 8, character: 19 },
+          end: { line: 8, character: 23 },
         },
-        message: "'method' value must be a string",
+        message: "'method' must be one of allowed values",
         severity: 1,
         code: 450200,
         source: 'apilint',

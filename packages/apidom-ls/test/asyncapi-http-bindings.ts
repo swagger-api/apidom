@@ -66,8 +66,8 @@ const specOperationBindingAllowedFieldsLatest = fs
   .readFileSync(path.join(bindingsPath, 'http-operation-binding-allowed-fields-latest.yaml'))
   .toString();
 
-const specOperationBindingTypeType = fs
-  .readFileSync(path.join(bindingsPath, 'http-operation-binding-type-type.yaml'))
+const specOperationBindingTypeEquals = fs
+  .readFileSync(path.join(bindingsPath, 'http-operation-binding-type-equals.yaml'))
   .toString();
 
 const specOperationBindingMethodEquals = fs
@@ -426,12 +426,12 @@ describe('asyncapi HTTP bindings test', function () {
     assert.deepEqual(result, expected);
   });
 
-  it("http operation binding - 'type' field type (v0.1.0)", async function () {
+  it("http operation binding - 'type' field equals (v0.1.0)", async function () {
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/http-operation-binding-type-type.yaml',
+      'foo://bar/http-operation-binding-type-equals.yaml',
       'yaml',
       0,
-      specOperationBindingTypeType,
+      specOperationBindingTypeEquals,
     );
 
     const result = await languageService.doValidation(doc, validationContext);
@@ -439,9 +439,9 @@ describe('asyncapi HTTP bindings test', function () {
       {
         range: {
           start: { line: 8, character: 14 },
-          end: { line: 8, character: 17 },
+          end: { line: 8, character: 21 },
         },
-        message: "'type' value must be a string",
+        message: "'type' must be one of allowed values",
         severity: 1,
         code: 450100,
         source: 'apilint',

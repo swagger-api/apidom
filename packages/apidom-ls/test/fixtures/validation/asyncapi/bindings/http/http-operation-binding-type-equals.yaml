@@ -6,5 +6,5 @@ components:
   operationBindings:
     bindings1:
       http:
-        type: 123
+        type: invalid
         bindingVersion: '0.1.0'

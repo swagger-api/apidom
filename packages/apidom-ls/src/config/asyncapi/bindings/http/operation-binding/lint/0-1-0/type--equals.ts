@@ -3,13 +3,13 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const typeTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_HTTP_OPERATION_BINDING_FIELD_TYPE_TYPE,
+const typeEqualsLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_HTTP_OPERATION_BINDING_FIELD_TYPE_EQUALS,
   source: 'apilint',
-  message: "'type' value must be a string",
+  message: "'type' must be one of allowed values",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterFunction: 'apilintValueOrArray',
+  linterParams: [['request', 'response']],
   marker: 'value',
   target: 'type',
   data: {},
@@ -22,4 +22,4 @@ const typeTypeLint: LinterMeta = {
   ],
 };
 
-export default typeTypeLint;
+export default typeEqualsLint;

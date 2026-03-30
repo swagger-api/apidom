@@ -10,6 +10,9 @@ exports[`refractor elements HttpMessageBindingElement given query field of type 
         (StringElement))))
   (MemberElement
     (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
     (StringElement)))
 `;
 
@@ -18,6 +21,9 @@ exports[`refractor elements HttpMessageBindingElement should refract to semantic
   (MemberElement
     (StringElement)
     (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (NumberElement))
   (MemberElement
     (StringElement)
     (StringElement)))

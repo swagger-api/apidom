@@ -3,23 +3,21 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const methodTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_HTTP_OPERATION_BINDING_FIELD_METHOD_TYPE,
+const allowedFieldsLint: LinterMeta = {
+  code: ApilintCodes.NOT_ALLOWED_FIELDS,
   source: 'apilint',
-  message: "'method' value must be a string",
+  message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintType',
-  linterParams: ['string'],
-  marker: 'value',
-  target: 'method',
-  data: {},
+  linterFunction: 'allowedFields',
+  linterParams: [[]],
+  marker: 'key',
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.2.0']],
+      params: [['0.3.0']],
     },
   ],
 };
 
-export default methodTypeLint;
+export default allowedFieldsLint;

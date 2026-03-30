@@ -9,13 +9,12 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['type', 'method', 'query', 'bindingVersion']],
+  linterParams: [['method', 'query', 'bindingVersion']],
   marker: 'key',
   conditions: [
     {
-      targets: [{ path: 'bindingVersion' }],
-      function: 'apilintValueOrArray',
-      params: [['0.2.0']],
+      function: 'missingField',
+      params: ['bindingVersion'],
     },
   ],
 };

@@ -7,7 +7,14 @@ describe('refractor', function () {
   context('elements', function () {
     context('SqsOperationBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
-        const sqsOperationBindingElement = SqsOperationBindingElement.refract({});
+        const sqsOperationBindingElement = SqsOperationBindingElement.refract({
+          queues: [
+            {
+              name: 'MyQueue',
+            },
+          ],
+          bindingVersion: '0.2.0',
+        });
 
         expect(sexprs(sqsOperationBindingElement)).toMatchSnapshot();
       });

@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'A MIME encoding for the message content.',
+      value: '`string`\n\\\n\\\nA MIME encoding for the message content.',
     },
     conditions: [
       {
@@ -32,7 +32,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Application-specific message type.',
+      value: '`string`\n\\\n\\\nApplication-specific message type.',
     },
     conditions: [
       {
@@ -50,7 +50,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The version of this binding. If omitted, "0.2.0" MUST be assumed.',
+      value: '`string`\n\\\n\\\nThe version of this binding. If omitted, "0.3.0" MUST be assumed.',
     },
     conditions: [
       {

@@ -1,3 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements SqsOperationBindingElement should refract to semantic ApiDOM tree 1`] = `(SqsOperationBindingElement)`;
+exports[`refractor elements SqsOperationBindingElement should refract to semantic ApiDOM tree 1`] = `
+(SqsOperationBindingElement
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (ObjectElement
+        (MemberElement
+          (StringElement)
+          (StringElement)))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

@@ -1,4 +1,4 @@
-import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+import { ObjectElement, StringElement, Attributes, Meta } from '@swagger-api/apidom-core';
 
 /**
  * @public
@@ -8,6 +8,30 @@ class JmsChannelBinding extends ObjectElement {
     super(content, meta, attributes);
     this.element = 'jmsChannelBinding';
     this.classes.push('channel-binding');
+  }
+
+  get destination(): StringElement | undefined {
+    return this.get('destination');
+  }
+
+  set destination(destination: StringElement | undefined) {
+    this.set('destination', destination);
+  }
+
+  get destinationType(): StringElement | undefined {
+    return this.get('destinationType');
+  }
+
+  set destinationType(destinationType: StringElement | undefined) {
+    this.set('destinationType', destinationType);
+  }
+
+  get bindingVersion(): StringElement | undefined {
+    return this.get('bindingVersion');
+  }
+
+  set bindingVersion(bindingVersion: StringElement | undefined) {
+    this.set('bindingVersion', bindingVersion);
   }
 }
 

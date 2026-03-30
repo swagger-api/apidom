@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -15,8 +16,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer`\n\\\n\\\nTTL (Time-To-Live) for the message. It MUST be greater than or equal to zero.',
+        '`integer`\n\\\nApplies to `publish, subscribe`.\n\\\nTTL (Time-To-Live) for the message. It MUST be greater than or equal to zero.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'expiration',
+    insertText: 'expiration',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`integer`\n\\\nApplies to `receive, send`.\n\\\nTTL (Time-To-Live) for the message. It MUST be greater than or equal to zero.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -33,8 +55,30 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Identifies the user who has sent the message.',
+      value:
+        '`string`\n\\\nApplies to `publish, subscribe`.\n\\\nIdentifies the user who has sent the message.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'userId',
+    insertText: 'userId',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`string`\n\\\nApplies to `receive, send`.\n\\\nIdentifies the user who has sent the message.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -52,8 +96,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[string]`\n\\\n\\\nThe routing keys the message should be routed to at the time of publishing.',
+        '`[string]`\n\\\nApplies to `publish, subscribe`.\n\\\nThe routing keys the message should be routed to at the time of publishing.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'cc',
+    insertText: 'cc',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`[string]`\n\\\nApplies to `receive, send`.\n\\\nThe routing keys the message should be routed to at the time of publishing.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -70,8 +135,28 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`integer`\n\\\n\\\nA priority for the message.',
+      value: '`integer`\n\\\nApplies to `publish, subscribe`.\n\\\nA priority for the message.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'priority',
+    insertText: 'priority',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`integer`\n\\\nApplies to `receive, send`.\n\\\nA priority for the message.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -89,8 +174,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer`\n\\\n\\\nDelivery mode of the message. Its value MUST be either 1 (transient) or 2 (persistent).',
+        '`integer`\n\\\nApplies to `publish, subscribe`.\n\\\nDelivery mode of the message. Its value MUST be either 1 (transient) or 2 (persistent).',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'deliveryMode',
+    insertText: 'deliveryMode',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`integer`\n\\\nApplies to `receive, send`.\n\\\nDelivery mode of the message. Its value MUST be either 1 (transient) or 2 (persistent).',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -107,8 +213,28 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`boolean`\n\\\n\\\nWhether the message is mandatory or not.',
+      value: '`boolean`\n\\\nApplies to `publish`.\n\\\nWhether the message is mandatory or not.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'mandatory',
+    insertText: 'mandatory',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: '`boolean`\n\\\nApplies to `receive`.\n\\\nWhether the message is mandatory or not.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -125,8 +251,10 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`[string]`\n\\\n\\\nLike cc but consumers will not receive this information.',
+      value:
+        '`[string]`\n\\\nApplies to `publish`.\n\\\nLike cc but consumers will not receive this information.',
     },
+    targetSpecs: AsyncAPI2,
     conditions: [
       {
         function: 'missingField',
@@ -135,16 +263,18 @@ const completion: ApidomCompletionItem[] = [
     ],
   },
   {
-    label: 'replyTo',
-    insertText: 'replyTo',
+    label: 'bcc',
+    insertText: 'bcc',
     kind: 14,
-    format: CompletionFormat.QUOTED,
+    format: CompletionFormat.ARRAY,
     type: CompletionType.PROPERTY,
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`boolean`\n\\\n\\\nName of the queue where the consumer should send the response.',
+      value:
+        '`[string]`\n\\\nApplies to `receive`.\n\\\nLike cc but consumers will not receive this information.',
     },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -161,8 +291,30 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`boolean`\n\\\n\\\nWhether the message should include a timestamp or not.',
+      value:
+        '`boolean`\n\\\nApplies to `publish, subscribe`.\n\\\nWhether the message should include a timestamp or not.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'timestamp',
+    insertText: 'timestamp',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`boolean`\n\\\nApplies to `receive, send`.\n\\\nWhether the message should include a timestamp or not.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -179,8 +331,30 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`boolean`\n\\\n\\\nWhether the consumer should ack the message or not.',
+      value:
+        '`boolean`\n\\\nApplies to `subscribe`.\n\\\nWhether the consumer should ack the message or not.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'ack',
+    insertText: 'ack',
+    kind: 14,
+    format: CompletionFormat.UNQUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '`boolean`\n\\\nApplies to `send`.\n\\\nWhether the consumer should ack the message or not.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -197,7 +371,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'The version of this binding. If omitted, "0.2.0" MUST be assumed.',
+      value: '`string`\n\\\n\\\nThe version of this binding. If omitted, "0.3.0" MUST be assumed.',
     },
     conditions: [
       {

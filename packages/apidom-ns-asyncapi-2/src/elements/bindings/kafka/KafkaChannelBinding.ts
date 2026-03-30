@@ -40,6 +40,14 @@ class KafkaChannelBinding extends ObjectElement {
     this.set('replicas', replicas);
   }
 
+  get topicConfiguration(): ObjectElement | undefined {
+    return this.get('topicConfiguration');
+  }
+
+  set topicConfiguration(topicConfiguration: ObjectElement | undefined) {
+    this.set('topicConfiguration', topicConfiguration);
+  }
+
   get bindingVersion(): StringElement | undefined {
     return this.get('bindingVersion');
   }

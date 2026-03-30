@@ -11,7 +11,7 @@ const groupIdTypeLint: LinterMeta = {
   linterFunction: 'apilintElementOrClass',
   linterParams: [['schema', 'boolean']],
   marker: 'value',
-  target: 'groupdId',
+  target: 'groupId',
   data: {},
   conditions: [
     {

@@ -813,6 +813,11 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
   KafkaMessageBindingElement: {
     key(...args: any[]) {
       return new SchemaElement(...args);

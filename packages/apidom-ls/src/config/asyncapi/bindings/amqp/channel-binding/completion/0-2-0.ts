@@ -14,7 +14,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Defines what type of channel is it. Can be either `queue` or `routingKey` (default).',
+      value:
+        '`string`\n\\\n\\\nDefines what type of channel is it. Can be either `queue` or `routingKey` (default).',
     },
     conditions: [
       {
@@ -34,7 +35,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[string, any]`\n\\\n\\\nWhen `is=routingKey`, this object defines the exchange properties.',
+        '`Map[string, any]`\n\\\n\\\nWhen `is=routingKey`, this object defines the exchange properties.',
     },
     conditions: [
       {
@@ -54,7 +55,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[string, any]`\n\\\n\\\nWhen `is=queue`, this object defines the queue properties.',
+        '`Map[string, any]`\n\\\n\\\nWhen `is=queue`, this object defines the queue properties.',
     },
     conditions: [
       {

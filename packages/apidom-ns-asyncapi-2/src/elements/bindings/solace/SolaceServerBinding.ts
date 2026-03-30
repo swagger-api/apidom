@@ -25,6 +25,14 @@ class SolaceServerBinding extends ObjectElement {
   set msgVpn(msgVpn: StringElement | undefined) {
     this.set('msgVpn', msgVpn);
   }
+
+  get clientName(): StringElement | undefined {
+    return this.get('clientName');
+  }
+
+  set clientName(clientName: StringElement | undefined) {
+    this.set('clientName', clientName);
+  }
 }
 
 export default SolaceServerBinding;

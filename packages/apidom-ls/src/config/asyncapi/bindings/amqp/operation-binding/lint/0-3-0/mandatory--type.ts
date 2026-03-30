@@ -1,0 +1,25 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../../../../codes.ts';
+import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
+
+const mandatoryTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_AMQP_OPERATION_BINDING_FIELD_MANDATORY_TYPE,
+  source: 'apilint',
+  message: "'mandatory' value must be a boolean",
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintType',
+  linterParams: ['boolean'],
+  marker: 'value',
+  target: 'mandatory',
+  data: {},
+  conditions: [
+    {
+      targets: [{ path: 'bindingVersion' }],
+      function: 'apilintValueOrArray',
+      params: [['0.3.0']],
+    },
+  ],
+};
+
+export default mandatoryTypeLint;

@@ -9,7 +9,7 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['msgVpn', 'bindingVersion']],
+  linterParams: [['msgVpn', 'clientName', 'bindingVersion']],
   marker: 'key',
   conditions: [
     {

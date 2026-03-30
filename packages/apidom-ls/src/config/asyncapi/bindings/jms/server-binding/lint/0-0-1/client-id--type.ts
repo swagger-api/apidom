@@ -3,21 +3,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
+const clientIDTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_JMS_SERVER_BINDING_FIELD_CLIENT_ID_TYPE,
   source: 'apilint',
-  message: 'This object MUST NOT contain any properties. Its name is reserved for future use.',
+  message: "'clientID' value must be a string",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [[]],
-  marker: 'key',
+  linterFunction: 'apilintType',
+  linterParams: ['string'],
+  marker: 'value',
+  target: 'clientID',
+  data: {},
   conditions: [
     {
       targets: [{ path: 'bindingVersion' }],
       function: 'apilintValueOrArray',
-      params: [['0.1.0']],
+      params: [['0.0.1']],
     },
   ],
 };
 
-export default allowedFieldsLint;
+export default clientIDTypeLint;

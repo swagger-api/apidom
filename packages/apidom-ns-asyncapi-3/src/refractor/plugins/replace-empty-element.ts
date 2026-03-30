@@ -913,6 +913,17 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
   AmqpChannelBindingElement: {
     exchange(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);

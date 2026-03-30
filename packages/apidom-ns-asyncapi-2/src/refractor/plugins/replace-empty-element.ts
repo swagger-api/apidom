@@ -823,6 +823,16 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
   AmqpChannelBindingElement: {
     exchange(...args: any[]) {
       return new ObjectElement(...args);

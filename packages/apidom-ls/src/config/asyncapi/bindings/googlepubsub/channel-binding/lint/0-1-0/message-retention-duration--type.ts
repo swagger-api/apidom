@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const messageRetentionDurationTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI2_GOOGLEPUBSUB_CHANNEL_BINDING_FIELD_MESSAGE_RETENTION_DURATION_TYPE,
   source: 'apilint',
-  message: "'messageRetentionDuration' value must be an string",
+  message: "'messageRetentionDuration' value must be a string",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['string'],

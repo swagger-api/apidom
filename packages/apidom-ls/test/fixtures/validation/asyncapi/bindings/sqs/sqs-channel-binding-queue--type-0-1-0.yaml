@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  channel1:
+    address: example
+    bindings:
+      sqs:
+        queue: foo
+        bindingVersion: '0.1.0'

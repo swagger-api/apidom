@@ -3,22 +3,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const replyToTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_AMQP_OPERATION_BINDING_FIELD_REPLY_TO_TYPE,
+const queuesTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_SQS_OPERATION_BINDING_FIELD_QUEUES_TYPE,
   source: 'apilint',
-  message: "'replyTo' value must be a string",
+  message: "'queues' value must be an array",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterParams: ['array'],
   marker: 'value',
-  target: 'replyTo',
+  target: 'queues',
   data: {},
   conditions: [
     {
-      function: 'missingField',
-      params: ['bindingVersion'],
+      targets: [{ path: 'bindingVersion' }],
+      function: 'apilintValueOrArray',
+      params: [['0.1.0']],
     },
   ],
 };
 
-export default replyToTypeLint;
+export default queuesTypeLint;

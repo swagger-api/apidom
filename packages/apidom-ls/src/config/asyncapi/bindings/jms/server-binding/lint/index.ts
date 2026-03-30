@@ -1,6 +1,7 @@
-import serverBinding0_1_0Lints from './0-1-0/index.ts';
+import serverBinding0_0_1Lints from './0-0-1/index.ts';
 import serverBindingLatestLints from './latest/index.ts';
+import bindingVersionTypeLint from './binding-version--type.ts';
 
-const lints = [...serverBinding0_1_0Lints, ...serverBindingLatestLints];
+const lints = [...serverBinding0_0_1Lints, ...serverBindingLatestLints, bindingVersionTypeLint];
 
 export default lints;

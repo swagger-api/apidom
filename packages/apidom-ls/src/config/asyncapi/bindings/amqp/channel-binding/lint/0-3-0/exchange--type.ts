@@ -3,22 +3,23 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-const replyToTypeLint: LinterMeta = {
-  code: ApilintCodes.ASYNCAPI2_AMQP_OPERATION_BINDING_FIELD_REPLY_TO_TYPE,
+const exchangeTypeLint: LinterMeta = {
+  code: ApilintCodes.ASYNCAPI2_AMQP_CHANNEL_BINDING_FIELD_EXCHANGE_TYPE,
   source: 'apilint',
-  message: "'replyTo' value must be a string",
+  message: "'exchange' value must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
-  linterParams: ['string'],
+  linterParams: ['object'],
   marker: 'value',
-  target: 'replyTo',
+  target: 'exchange',
   data: {},
   conditions: [
     {
-      function: 'missingField',
-      params: ['bindingVersion'],
+      targets: [{ path: 'bindingVersion' }],
+      function: 'apilintValueOrArray',
+      params: [['0.3.0']],
     },
   ],
 };
 
-export default replyToTypeLint;
+export default exchangeTypeLint;

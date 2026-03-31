@@ -1,0 +1,18 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+components:
+  operationBindings:
+    operationBindings1:
+      mqtt:
+        messageExpiryInterval: -10
+        bindingVersion: '0.2.0'
+    operationBindings2:
+      mqtt:
+        messageExpiryInterval: 0
+        bindingVersion: '0.2.0'
+    operationBindings3:
+      mqtt:
+        messageExpiryInterval: 10
+        bindingVersion: '0.2.0'

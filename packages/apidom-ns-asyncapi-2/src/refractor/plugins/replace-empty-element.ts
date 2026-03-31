@@ -813,6 +813,11 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
   KafkaMessageBindingElement: {
     key(...args: any[]) {
       return new SchemaElement(...args);
@@ -820,6 +825,16 @@ const schema = {
   },
   AnypointmqMessageBindingElement: {
     headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
@@ -851,6 +866,25 @@ const schema = {
     lastWill(...args: any[]) {
       return new ObjectElement(...args);
     },
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    maximumPacketSize(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttOperationBindingElement: {
+    messageExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttMessageBindingElement: {
+    correlationData(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    responseTopic(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
   },
   Mqtt5ServerBindingElement: {
     sessionExpiryInterval(...args: Record<string, unknown>[]) {
@@ -859,6 +893,25 @@ const schema = {
   },
   SolaceOperationBindingElement: {
     destinations(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    timeToLive(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    priority(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  SqsChannelBindingElement: {
+    queue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    deadLetterQueue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SqsOperationBindingElement: {
+    queues(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },

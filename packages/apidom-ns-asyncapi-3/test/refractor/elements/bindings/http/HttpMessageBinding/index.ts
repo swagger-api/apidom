@@ -9,7 +9,8 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const httpMessageBindingElement = HttpMessageBindingElement.refract({
           headers: {},
-          bindingVersion: '0.1.0',
+          statusCode: 200,
+          bindingVersion: '0.3.0',
         });
 
         expect(sexprs(httpMessageBindingElement)).toMatchSnapshot();
@@ -21,7 +22,8 @@ describe('refractor', function () {
             headers: {
               $ref: '#/pointer',
             },
-            bindingVersion: '0.1.0',
+            statusCode: 200,
+            bindingVersion: '0.3.0',
           });
 
           expect(sexprs(httpMessageBindingElement)).toMatchSnapshot();

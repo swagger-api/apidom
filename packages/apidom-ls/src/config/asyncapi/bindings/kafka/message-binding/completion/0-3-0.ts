@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -15,8 +16,30 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://github.com/asyncapi/spec/blob/master/spec/asyncapi.md#schemaObject) \\| [Reference object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nThe message key.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject) \\| [Reference Object](https://v2.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nThe message key.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.3.0']],
+      },
+    ],
+  },
+  {
+    label: 'key',
+    insertText: 'key',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nThe message key.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         targets: [{ path: 'bindingVersion' }],
@@ -35,7 +58,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'If a Schema Registry is used when performing this operation, tells where the id of schema is stored (e.g. `header` or `payload`).',
+        '`string`\n\\\n\\\nIf a Schema Registry is used when performing this operation, tells where the id of schema is stored (e.g. `header` or `payload`).',
     },
     conditions: [
       {
@@ -55,7 +78,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Number of bytes or vendor specific values when schema id is encoded in payload (e.g `confluent` / `apicurio-legacy` / `apicurio-new`).',
+        '`string`\n\\\n\\\nNumber of bytes or vendor specific values when schema id is encoded in payload (e.g `confluent` / `apicurio-legacy` / `apicurio-new`).',
     },
     conditions: [
       {
@@ -75,7 +98,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Freeform string for any naming strategy class to use. Clients should default to the vendor default if not supplied.',
+        '`string`\n\\\n\\\nFreeform string for any naming strategy class to use. Clients should default to the vendor default if not supplied.',
     },
     conditions: [
       {

@@ -7,6 +7,9 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
+import SchemaElement from '../../Schema.ts';
+import ReferenceElement from '../../Reference.ts';
+
 /**
  * @public
  */
@@ -47,6 +50,26 @@ class MqttServerBinding extends ObjectElement {
 
   set keepAlive(keepAlive: NumberElement | undefined) {
     this.set('keepAlive', keepAlive);
+  }
+
+  get sessionExpiryInterval(): NumberElement | SchemaElement | ReferenceElement | undefined {
+    return this.get('sessionExpiryInterval');
+  }
+
+  set sessionExpiryInterval(
+    sessionExpiryInterval: NumberElement | SchemaElement | ReferenceElement | undefined,
+  ) {
+    this.set('sessionExpiryInterval', sessionExpiryInterval);
+  }
+
+  get maximumPacketSize(): NumberElement | SchemaElement | ReferenceElement | undefined {
+    return this.get('maximumPacketSize');
+  }
+
+  set maximumPacketSize(
+    maximumPacketSize: NumberElement | SchemaElement | ReferenceElement | undefined,
+  ) {
+    this.set('maximumPacketSize', maximumPacketSize);
   }
 
   get bindingVersion(): StringElement | undefined {

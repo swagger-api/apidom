@@ -4,5 +4,60 @@ exports[`refractor elements MqttMessageBindingElement should refract to semantic
 (MqttMessageBindingElement
   (MemberElement
     (StringElement)
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttMessageBindingElement given correlationData field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
+(MqttMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttMessageBindingElement given correlationData field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(MqttMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttMessageBindingElement given responseTopic field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
+(MqttMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttMessageBindingElement given responseTopic field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(MqttMessageBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
     (StringElement)))
 `;

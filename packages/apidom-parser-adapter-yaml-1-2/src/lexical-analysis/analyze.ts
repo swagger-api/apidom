@@ -33,6 +33,9 @@ const createAnalyze =
       );
     }
 
+    if (currentTree !== null) {
+      currentTree.delete();
+    }
     currentTree = parser.parse(source);
 
     parser.reset();

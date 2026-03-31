@@ -1,0 +1,26 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  server1:
+    host: example.com
+    protocol: http
+    bindings:
+      mqtt:
+        maximumPacketSize: -10
+        bindingVersion: '0.2.0'
+  server2:
+    host: example.com
+    protocol: http
+    bindings:
+      mqtt:
+        maximumPacketSize: 0
+        bindingVersion: '0.2.0'
+  server3:
+    host: example.com
+    protocol: http
+    bindings:
+      mqtt:
+        maximumPacketSize: 10
+        bindingVersion: '0.2.0'

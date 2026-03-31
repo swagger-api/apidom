@@ -888,6 +888,9 @@ const specification = {
               $visitor: HttpMessageBindingVisitor,
               fixedFields: {
                 headers: SchemaOrReferenceVisitor,
+                statusCode: {
+                  $ref: '#/visitors/value',
+                },
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -943,6 +946,9 @@ const specification = {
                   $ref: '#/visitors/value',
                 },
                 replicas: {
+                  $ref: '#/visitors/value',
+                },
+                topicConfiguration: {
                   $ref: '#/visitors/value',
                 },
                 bindingVersion: {
@@ -1114,6 +1120,8 @@ const specification = {
                 keepAlive: {
                   $ref: '#/visitors/value',
                 },
+                sessionExpiryInterval: SchemaOrReferenceVisitor,
+                maximumPacketSize: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -1131,6 +1139,7 @@ const specification = {
                 retain: {
                   $ref: '#/visitors/value',
                 },
+                messageExpiryInterval: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -1139,6 +1148,14 @@ const specification = {
             MessageBinding: {
               $visitor: MqttMessageBindingVisitor,
               fixedFields: {
+                payloadFormatIndicator: {
+                  $ref: '#/visitors/value',
+                },
+                correlationData: SchemaOrReferenceVisitor,
+                contentType: {
+                  $ref: '#/visitors/value',
+                },
+                responseTopic: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -1238,15 +1255,46 @@ const specification = {
           jms: {
             ServerBinding: {
               $visitor: JmsServerBindingVisitor,
+              fixedFields: {
+                jmsConnectionFactory: {
+                  $ref: '#/visitors/value',
+                },
+                properties: {
+                  $ref: '#/visitors/value',
+                },
+                clientID: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             ChannelBinding: {
               $visitor: JmsChannelBindingVisitor,
+              fixedFields: {
+                destination: {
+                  $ref: '#/visitors/value',
+                },
+                destinationType: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: JmsOperationBindingVisitor,
             },
             MessageBinding: {
               $visitor: JmsMessageBindingVisitor,
+              fixedFields: {
+                headers: SchemaVisitor,
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
           },
           sns: {
@@ -1304,6 +1352,9 @@ const specification = {
                 msgVpn: {
                   $ref: '#/visitors/value',
                 },
+                clientName: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             ChannelBinding: {
@@ -1318,6 +1369,11 @@ const specification = {
                 destinations: {
                   $ref: '#/visitors/value',
                 },
+                timeToLive: SchemaOrReferenceVisitor,
+                priority: SchemaOrReferenceVisitor,
+                dmqEligible: {
+                  $ref: '#/visitors/value',
+                },
               },
             },
             MessageBinding: {
@@ -1330,9 +1386,28 @@ const specification = {
             },
             ChannelBinding: {
               $visitor: SqsChannelBindingVisitor,
+              fixedFields: {
+                queue: {
+                  $ref: '#/visitors/value',
+                },
+                deadLetterQueue: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             OperationBinding: {
               $visitor: SqsOperationBindingVisitor,
+              fixedFields: {
+                queues: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
             },
             MessageBinding: {
               $visitor: SqsMessageBindingVisitor,

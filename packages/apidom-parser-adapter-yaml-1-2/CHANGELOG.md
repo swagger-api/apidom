@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
+
+### Bug Fixes
+
+- **parser-adapter-yaml-1-2:** free WASM tree memory between parses ([#5152](https://github.com/swagger-api/apidom/issues/5152)) ([749deb2](https://github.com/swagger-api/apidom/commit/749deb2e389e971dd343641388785d5ac53dfe01))
+
 # [1.8.0](https://github.com/swagger-api/apidom/compare/v1.7.0...v1.8.0) (2026-03-20)
 
 ### Bug Fixes

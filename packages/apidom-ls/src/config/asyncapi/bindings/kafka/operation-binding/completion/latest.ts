@@ -3,6 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../../../../apidom-language-types.ts';
+import { AsyncAPI2, AsyncAPI3 } from '../../../../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -15,8 +16,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject)\n\\\n\\\nId of the consumer group.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject) \\| [Reference Object](https://v2.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nId of the consumer group.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'groupId',
+    insertText: 'groupId',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nId of the consumer group.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',
@@ -34,8 +56,29 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject)\n\\\n\\\nId of the consumer inside a consumer group.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v2.6.0#schemaObject) \\| [Reference Object](https://v2.asyncapi.com/docs/reference/specification/v2.6.0#referenceObject)\n\\\n\\\nId of the consumer inside a consumer group.',
     },
+    targetSpecs: AsyncAPI2,
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'clientId',
+    insertText: 'clientId',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nId of the consumer inside a consumer group.',
+    },
+    targetSpecs: AsyncAPI3,
     conditions: [
       {
         function: 'missingField',

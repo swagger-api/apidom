@@ -85,6 +85,8 @@ import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
 import exampleDeprecatedLint from './example--deprecated.ts';
+import exampleDateTimeLint from './example--date-time.ts';
+import examplesDateTimeLint from './examples--date-time.ts';
 import enumTypeLint from './enum--type.ts';
 import enumDefaultValueLint from './enum--default-value.ts';
 import minimumValueLint from './minimum-maximum--value.ts';
@@ -192,6 +194,8 @@ const schemaLints = [
   uniqueItemsTypeLint,
   writeOnlyTypeLint,
   exampleDeprecatedLint,
+  exampleDateTimeLint,
+  examplesDateTimeLint,
 ];
 
 export default schemaLints;

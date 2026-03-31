@@ -12106,4 +12106,273 @@ describe('apidom-ls-validate', function () {
 
     languageService.terminate();
   });
+
+  it('oas - should validate example field when format is date-time', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'oas', 'example-date-time.yaml'))
+      .toString();
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/example-date-time.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(context);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 49, character: 29 },
+          end: { line: 49, character: 55 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 53, character: 29 },
+          end: { line: 53, character: 55 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 57, character: 29 },
+          end: { line: 57, character: 55 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 61, character: 29 },
+          end: { line: 61, character: 54 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 65, character: 29 },
+          end: { line: 65, character: 59 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 69, character: 29 },
+          end: { line: 69, character: 38 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 73, character: 29 },
+          end: { line: 73, character: 32 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 77, character: 29 },
+          end: { line: 77, character: 55 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 80, character: 29 },
+          end: { line: 80, character: 32 },
+        },
+        message: 'example value must be a valid date-time string (RFC 3339)',
+        severity: 1,
+        code: 10085,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('oas - should validate examples field when format is date-time', async function () {
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'oas', 'examples-date-time.yaml'),
+      )
+      .toString();
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/examples-date-time.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc, validationContext);
+
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 65, character: 22 },
+          end: { line: 65, character: 50 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 70, character: 22 },
+          end: { line: 70, character: 50 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 75, character: 22 },
+          end: { line: 75, character: 50 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 80, character: 22 },
+          end: { line: 80, character: 49 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 85, character: 22 },
+          end: { line: 85, character: 54 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 90, character: 22 },
+          end: { line: 90, character: 33 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 95, character: 22 },
+          end: { line: 95, character: 27 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 100, character: 22 },
+          end: { line: 100, character: 50 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 104, character: 22 },
+          end: { line: 104, character: 27 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 111, character: 22 },
+          end: { line: 114, character: 0 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
 });

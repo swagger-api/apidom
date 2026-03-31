@@ -744,6 +744,85 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintValidDateTimeExample',
+    function: (element: Element, examples: boolean = false): boolean => {
+      if (!element) {
+        return true;
+      }
+
+      const regex =
+        /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])[Tt](?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d|60)(?:\.\d+)?(?:[Zz]|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/;
+
+      const isValidDateTime = (el: Element): boolean => {
+        if (!isString(el)) {
+          return false;
+        }
+
+        const value = toValue(el);
+
+        if (!regex.test(value)) {
+          return false;
+        }
+
+        const [datePart] = value.split(/[Tt]/);
+        const [year, month, day] = datePart.split('-').map(Number);
+
+        if (month === 2 && day === 29) {
+          const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
+
+          if (!isLeapYear) {
+            return false;
+          }
+        }
+
+        return true;
+      };
+
+      const elementParent = element?.parent?.parent;
+
+      let schemaType: string | unknown[] | undefined;
+
+      if (elementParent && isObject(elementParent)) {
+        schemaType = toValue(elementParent.get('type'));
+      }
+
+      // case: `example` value
+      if (!examples) {
+        return !schemaType || schemaType === 'string' ? isValidDateTime(element) : true;
+      }
+
+      // case: `examples` value is not an array, validate it instead of its values
+      if (!isArray(element)) {
+        return true;
+      }
+
+      // case: `type` is not defined or is `string`, validate all items
+      if (!schemaType || schemaType === 'string') {
+        return element.findElements((e) => !isValidDateTime(e), { recursive: false }).length === 0;
+      }
+
+      // case: `type` includes string, validate all items whose type is `string` or is not defined in `type`
+      if (Array.isArray(schemaType) && schemaType.includes('string')) {
+        const elementPredicates = [
+          schemaType.includes('number') && isNumber,
+          schemaType.includes('boolean') && isBoolean,
+          schemaType.includes('object') && isObject,
+          schemaType.includes('array') && isArray,
+        ].filter(Boolean) as ((el: Element) => boolean)[];
+
+        return (
+          element.findElements(
+            (e) => !elementPredicates.some((predicate) => predicate(e)) && !isValidDateTime(e),
+            { recursive: false },
+          ).length === 0
+        );
+      }
+
+      // case: don't validate if `type` does not include string
+      return true;
+    },
+  },
+  {
     functionName: 'apicompleteDiscriminator',
     function: (element: Element): CompletionItem[] => {
       const result: CompletionItem[] = [];

@@ -1,0 +1,81 @@
+openapi: 3.0.4
+info:
+  title: Example API
+  version: 1.0.0
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  dateTimeValid1:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z'
+                  dateTimeValid2:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913+00:00'
+                  dateTimeValid3:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18t06:43:17.913+07:00'
+                  dateTimeValid4:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913-07:00'
+                  dateTimeValid5:
+                    type: string
+                    format: date-time
+                    example: '2024-02-29T06:43:17.913Z'
+                  dateTimeValid6:
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z'
+                  dateTimeValid7:
+                    type: object
+                    format: date-time
+                    example: 
+                      test: 123
+                  dateTimeValid8:
+                    type: object
+                    format: date-time
+                    example: 'not a date-time'
+                  dateTimeInvalid1:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18 06:43:17.913Z'
+                  dateTimeInvalid2:
+                    type: string
+                    format: date-time
+                    example: '2025-20-18T06:43:17.913Z'
+                  dateTimeInvalid3:
+                    type: string
+                    format: date-time
+                    example: '2025-12-35T06:43:17.913Z'
+                  dateTimeInvalid4:
+                    type: string
+                    format: date-time
+                    example: '2025-12-35T06:43:17.913'
+                  dateTimeInvalid5:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z UTC'
+                  dateTimeInvalid6:
+                    type: string
+                    format: date-time
+                    example: 'invalid'
+                  dateTimeInvalid7:
+                    type: string
+                    format: date-time
+                    example: 123
+                  dateTimeInvalid8:
+                    type: string
+                    format: date-time
+                    example: '2025-02-29T06:43:17.913Z'
+                  dateTimeInvalid9:
+                    format: date-time
+                    example: 123

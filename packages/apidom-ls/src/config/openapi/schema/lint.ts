@@ -80,6 +80,8 @@ import uniqueItemsNonArrayLint from '../../common/schema/lint/unique-items--non-
 import uniqueItemsTypeLint from '../../common/schema/lint/unique-items--type.ts';
 import writeOnlyTypeLint from '../../common/schema/lint/write-only--type.ts';
 import exampleDeprecatedLint from '../../common/schema/lint/example--deprecated.ts';
+import exampleDateTimeLint from '../../common/schema/lint/example--date-time.ts';
+import examplesDateTimeLint from '../../common/schema/lint/examples--date-time.ts';
 import $refNotUsedLint from '../../common/schema/lint/$ref--not-used.ts';
 import $ref3RequestBodiesLint from '../../common/schema/lint/$ref-3-0--request-bodies.ts';
 import $refNoSiblingsLint from '../../common/schema/lint/$ref--no-siblings.ts';
@@ -184,6 +186,8 @@ const schemaLints = [
   uniqueItemsTypeLint,
   writeOnlyTypeLint,
   exampleDeprecatedLint,
+  exampleDateTimeLint,
+  examplesDateTimeLint,
   $refNotUsedLint,
   $refNoSiblingsLint,
   $refValidLint,

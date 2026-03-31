@@ -1038,6 +1038,30 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  SnsChannelBindingElement: {
+    ordering(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    policy(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    tags(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  SnsOperationBindingElement: {
+    topic(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    consumers(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+    deliveryPolicy(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
   PulsarChannelBindingElement: {
     'geo-replication': function geoReplication(
       ...args: ConstructorParameters<typeof ArrayElement>

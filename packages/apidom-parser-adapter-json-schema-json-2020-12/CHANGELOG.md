@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json-schema-json-2020-12
+
+# [1.8.0](https://github.com/swagger-api/apidom/compare/v1.7.0...v1.8.0) (2026-03-20)
+
+**Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json-schema-json-2020-12
+
 # [1.7.0](https://github.com/swagger-api/apidom/compare/v1.6.0...v1.7.0) (2026-03-17)
 
 ### Reverts

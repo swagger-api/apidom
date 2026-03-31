@@ -9,7 +9,15 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['key', 'bindingVersion']],
+  linterParams: [
+    [
+      'key',
+      'schemaIdLocation',
+      'schemaIdPayloadEncoding',
+      'schemaLookupStrategy',
+      'bindingVersion',
+    ],
+  ],
   marker: 'key',
   conditions: [
     {

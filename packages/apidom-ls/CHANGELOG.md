@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
+
+### Bug Fixes
+
+- **ls:** fix JMS bindings implementation ([#5147](https://github.com/swagger-api/apidom/issues/5147)) ([d30461e](https://github.com/swagger-api/apidom/commit/d30461e849e3ad04d5ef230de7dd72b7b5ce9f70))
+
+### Features
+
+- **ls:** update AMQP bindings ([#5145](https://github.com/swagger-api/apidom/issues/5145)) ([0b04ac8](https://github.com/swagger-api/apidom/commit/0b04ac825b1f9795fb25144fb0bf3d55809770a0))
+- **ls:** update Google Cloud Pub/Sub bindings ([#5146](https://github.com/swagger-api/apidom/issues/5146)) ([3294f83](https://github.com/swagger-api/apidom/commit/3294f830925c698bbce368059d384d3501854539))
+- update Solace bindings ([#5141](https://github.com/swagger-api/apidom/issues/5141)) ([ece7347](https://github.com/swagger-api/apidom/commit/ece73478cb71646df41531cba610eb4cb4dd6003))
+- update SQS Bindings ([#5132](https://github.com/swagger-api/apidom/issues/5132)) ([45fb10d](https://github.com/swagger-api/apidom/commit/45fb10d7eb826df9ba25d678e5a2a61484ed2c5c))
+
+# [1.8.0](https://github.com/swagger-api/apidom/compare/v1.7.0...v1.8.0) (2026-03-20)
+
+### Features
+
+- **ls:** update Anypoint MQ Bindings ([#5128](https://github.com/swagger-api/apidom/issues/5128)) ([87b0a46](https://github.com/swagger-api/apidom/commit/87b0a4611b0db184f7c4011cfa6ed5c0f0e7944f))
+
 # [1.7.0](https://github.com/swagger-api/apidom/compare/v1.6.0...v1.7.0) (2026-03-17)
 
 ### Bug Fixes

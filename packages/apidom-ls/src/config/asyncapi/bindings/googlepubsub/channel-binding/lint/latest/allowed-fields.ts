@@ -16,7 +16,6 @@ const allowedFieldsLint: LinterMeta = {
       'messageRetentionDuration',
       'messageStoragePolicy',
       'schemaSettings',
-      'topic',
     ],
   ],
   marker: 'key',

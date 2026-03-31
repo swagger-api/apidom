@@ -901,6 +901,12 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
   KafkaMessageBindingElement: {
     key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
@@ -908,6 +914,17 @@ const schema: Record<string, unknown> = {
   },
 
   AnypointmqMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
     headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
@@ -975,6 +992,27 @@ const schema: Record<string, unknown> = {
 
   SolaceOperationBindingElement: {
     destinations(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+    timeToLive(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    priority(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
+  SqsChannelBindingElement: {
+    queue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    deadLetterQueue(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  SqsOperationBindingElement: {
+    queues(...args: ConstructorParameters<typeof ArrayElement>) {
       return new ArrayElement(...args);
     },
   },

@@ -9,7 +9,17 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields.',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['clientId', 'cleanSession', 'lastWill', 'keepAlive', 'bindingVersion']],
+  linterParams: [
+    [
+      'clientId',
+      'cleanSession',
+      'lastWill',
+      'keepAlive',
+      'sessionExpiryInterval',
+      'maximumPacketSize',
+      'bindingVersion',
+    ],
+  ],
   marker: 'key',
   conditions: [
     {

@@ -1062,6 +1062,8 @@ const specification = {
                 keepAlive: {
                   $ref: '#/visitors/value',
                 },
+                sessionExpiryInterval: SchemaOrReferenceVisitor,
+                maximumPacketSize: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -1079,6 +1081,7 @@ const specification = {
                 retain: {
                   $ref: '#/visitors/value',
                 },
+                messageExpiryInterval: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },
@@ -1087,6 +1090,14 @@ const specification = {
             MessageBinding: {
               $visitor: MqttMessageBindingVisitor,
               fixedFields: {
+                payloadFormatIndicator: {
+                  $ref: '#/visitors/value',
+                },
+                correlationData: SchemaOrReferenceVisitor,
+                contentType: {
+                  $ref: '#/visitors/value',
+                },
+                responseTopic: SchemaOrReferenceVisitor,
                 bindingVersion: {
                   $ref: '#/visitors/value',
                 },

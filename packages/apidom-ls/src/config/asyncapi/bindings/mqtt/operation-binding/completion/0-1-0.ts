@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer`\n\\\n\\\nDefines the Quality of Service (QoS) levels for the message flow between client and server. Its value MUST be either 0 (At most once delivery), 1 (At least once delivery), or 2 (Exactly once delivery).',
+        'MQTT Version `3`, `5`. `integer`\n\\\n\\\nDefines the Quality of Service (QoS) levels for the message flow between client and server. Its value MUST be either 0 (At most once delivery), 1 (At least once delivery), or 2 (Exactly once delivery).',
     },
     conditions: [
       {
@@ -34,7 +34,8 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: '`boolean`\n\\\n\\\nWhether the broker should retain the message or not.',
+      value:
+        'MQTT Version `3`, `5`. `boolean`\n\\\n\\\nWhether the broker should retain the message or not.',
     },
     conditions: [
       {

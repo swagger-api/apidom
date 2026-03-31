@@ -9,7 +9,7 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields.',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['qos', 'retain', 'bindingVersion']],
+  linterParams: [['qos', 'retain', 'messageExpiryInterval', 'bindingVersion']],
   marker: 'key',
   conditions: [
     {

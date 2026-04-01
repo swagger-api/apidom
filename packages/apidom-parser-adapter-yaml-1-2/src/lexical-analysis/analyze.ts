@@ -3,7 +3,8 @@ import { ApiDOMError } from '@swagger-api/apidom-error';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
-let currentTree: Tree | null = null;
+const activeTrees: Set<Tree> = new Set();
+const MAX_ACTIVE_TREES = 5;
 
 const createAnalyze =
   (treeSitterYaml: string | Uint8Array) =>
@@ -33,14 +34,30 @@ const createAnalyze =
       );
     }
 
-    if (currentTree !== null) {
-      currentTree.delete();
+    // prevent WASM OOM during concurrency spikes by evicting oldest trees
+    // when the pool exceeds threshold; tree.delete() is idempotent so
+    // callers that still hold a reference can safely call delete() again
+    if (activeTrees.size >= MAX_ACTIVE_TREES) {
+      const treesToEvict = [...activeTrees];
+      activeTrees.clear();
+      for (const oldTree of treesToEvict) {
+        oldTree.delete();
+      }
     }
-    currentTree = parser.parse(source);
+
+    const tree = parser.parse(source);
+    activeTrees.add(tree);
+
+    // remove from tracking when caller deletes
+    const originalDelete = tree.delete;
+    tree.delete = function deleteAndUntrack() {
+      activeTrees.delete(this);
+      originalDelete.call(this);
+    };
 
     parser.reset();
 
-    return currentTree;
+    return tree;
   };
 
 export default createAnalyze;

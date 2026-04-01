@@ -8,14 +8,12 @@ import treeSitterJson from '../../wasm/tree-sitter-json.wasm';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
-let currentTree: Tree | null = null;
+const activeTrees: Set<Tree> = new Set();
+const MAX_ACTIVE_TREES = 5;
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
  * This is WebAssembly version of TreeSitters Lexical Analysis.
- *
- * Given JavaScript doesn't support true parallelism, this
- * code should be as lazy as possible and temporal safety should be fine.
  * @public
  */
 const analyze = async (source: string): Promise<Tree> => {
@@ -42,11 +40,30 @@ const analyze = async (source: string): Promise<Tree> => {
     );
   }
 
-  currentTree = parser.parse(source);
+  // prevent WASM OOM during concurrency spikes by evicting oldest trees
+  // when the pool exceeds threshold; tree.delete() is idempotent so
+  // callers that still hold a reference can safely call delete() again
+  if (activeTrees.size >= MAX_ACTIVE_TREES) {
+    const treesToEvict = [...activeTrees];
+    activeTrees.clear();
+    for (const oldTree of treesToEvict) {
+      oldTree.delete();
+    }
+  }
+
+  const tree = parser.parse(source);
+  activeTrees.add(tree);
+
+  // remove from tracking when caller deletes
+  const originalDelete = tree.delete;
+  tree.delete = function deleteAndUntrack() {
+    activeTrees.delete(this);
+    originalDelete.call(this);
+  };
 
   parser.reset();
 
-  return currentTree;
+  return tree;
 };
 
 export default analyze;

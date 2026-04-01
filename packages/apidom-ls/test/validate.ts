@@ -12132,8 +12132,8 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 49, character: 29 },
-          end: { line: 49, character: 55 },
+          start: { line: 66, character: 29 },
+          end: { line: 66, character: 55 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12143,8 +12143,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 53, character: 29 },
-          end: { line: 53, character: 55 },
+          start: { line: 72, character: 29 },
+          end: { line: 72, character: 55 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12154,8 +12154,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 57, character: 29 },
-          end: { line: 57, character: 55 },
+          start: { line: 78, character: 29 },
+          end: { line: 78, character: 55 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12165,8 +12165,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 61, character: 29 },
-          end: { line: 61, character: 54 },
+          start: { line: 84, character: 29 },
+          end: { line: 84, character: 54 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12176,8 +12176,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 65, character: 29 },
-          end: { line: 65, character: 59 },
+          start: { line: 90, character: 29 },
+          end: { line: 90, character: 59 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12187,8 +12187,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 69, character: 29 },
-          end: { line: 69, character: 38 },
+          start: { line: 96, character: 29 },
+          end: { line: 96, character: 38 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12198,8 +12198,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 73, character: 29 },
-          end: { line: 73, character: 32 },
+          start: { line: 102, character: 29 },
+          end: { line: 102, character: 32 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12209,8 +12209,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 77, character: 29 },
-          end: { line: 77, character: 55 },
+          start: { line: 108, character: 29 },
+          end: { line: 108, character: 55 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12220,8 +12220,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 80, character: 29 },
-          end: { line: 80, character: 32 },
+          start: { line: 113, character: 29 },
+          end: { line: 113, character: 32 },
         },
         message: 'example value must be a valid date-time string (RFC 3339)',
         severity: 1,
@@ -12262,85 +12262,8 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 65, character: 22 },
-          end: { line: 65, character: 50 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 70, character: 22 },
-          end: { line: 70, character: 50 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 75, character: 22 },
-          end: { line: 75, character: 50 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 80, character: 22 },
-          end: { line: 80, character: 49 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 85, character: 22 },
-          end: { line: 85, character: 54 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 90, character: 22 },
-          end: { line: 90, character: 33 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: { line: 95, character: 22 },
-          end: { line: 95, character: 27 },
-        },
-        message: 'examples values must be valid date-time strings (RFC 3339)',
-        severity: 1,
-        code: 10086,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
           start: { line: 100, character: 22 },
-          end: { line: 100, character: 50 },
+          end: { line: 102, character: 43 },
         },
         message: 'examples values must be valid date-time strings (RFC 3339)',
         severity: 1,
@@ -12350,8 +12273,8 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 104, character: 22 },
-          end: { line: 104, character: 27 },
+          start: { line: 107, character: 22 },
+          end: { line: 109, character: 41 },
         },
         message: 'examples values must be valid date-time strings (RFC 3339)',
         severity: 1,
@@ -12361,8 +12284,96 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
-          start: { line: 111, character: 22 },
-          end: { line: 114, character: 0 },
+          start: { line: 114, character: 22 },
+          end: { line: 116, character: 60 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 121, character: 22 },
+          end: { line: 123, character: 45 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 128, character: 22 },
+          end: { line: 130, character: 60 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 135, character: 22 },
+          end: { line: 137, character: 48 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 142, character: 22 },
+          end: { line: 144, character: 52 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 149, character: 22 },
+          end: { line: 151, character: 84 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 155, character: 22 },
+          end: { line: 157, character: 78 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 164, character: 22 },
+          end: { line: 168, character: 79 },
+        },
+        message: 'examples values must be valid date-time strings (RFC 3339)',
+        severity: 1,
+        code: 10086,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 175, character: 22 },
+          end: { line: 176, character: 0 },
         },
         message: 'examples values must be valid date-time strings (RFC 3339)',
         severity: 1,

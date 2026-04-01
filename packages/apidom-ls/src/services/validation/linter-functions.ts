@@ -12,6 +12,7 @@ import {
   includesClasses,
   isObjectElement,
   traverse,
+  isNullElement,
 } from '@swagger-api/apidom-core';
 import { URIFragmentIdentifier, evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
@@ -767,6 +768,12 @@ export const standardLinterfunctions: FunctionItem[] = [
         const [datePart] = value.split(/[Tt]/);
         const [year, month, day] = datePart.split('-').map(Number);
 
+        const maxDaysInMonth = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+        if (day > maxDaysInMonth[month]) {
+          return false;
+        }
+
         if (month === 2 && day === 29) {
           const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
 
@@ -779,47 +786,40 @@ export const standardLinterfunctions: FunctionItem[] = [
       };
 
       const elementParent = element?.parent?.parent;
+      const schemaType =
+        elementParent && isObject(elementParent) ? toValue(elementParent.get('type')) : undefined;
+      const isArraySchemaType = Array.isArray(schemaType) && schemaType.includes('string');
+      const nonStringPredicates = isArraySchemaType
+        ? ([
+            (schemaType.includes('number') || schemaType.includes('integer')) && isNumber,
+            schemaType.includes('boolean') && isBoolean,
+            schemaType.includes('object') && isObject,
+            schemaType.includes('array') && isArray,
+            schemaType.includes('null') && isNullElement,
+          ].filter(Boolean) as ((el: Element) => boolean)[])
+        : [];
 
-      let schemaType: string | unknown[] | undefined;
+      const isValid = (el: Element): boolean => {
+        if (!schemaType || schemaType === 'string') {
+          return isValidDateTime(el);
+        }
 
-      if (elementParent && isObject(elementParent)) {
-        schemaType = toValue(elementParent.get('type'));
-      }
+        if (isArraySchemaType) {
+          return nonStringPredicates.some((p) => p(el)) || isValidDateTime(el);
+        }
 
-      // case: `example` value
+        return true;
+      };
+
       if (!examples) {
-        return !schemaType || schemaType === 'string' ? isValidDateTime(element) : true;
+        return isValid(element);
       }
 
-      // case: `examples` value is not an array, validate it instead of its values
       if (!isArray(element)) {
         return true;
       }
 
-      // case: `type` is not defined or is `string`, validate all items
-      if (!schemaType || schemaType === 'string') {
-        return element.findElements((e) => !isValidDateTime(e), { recursive: false }).length === 0;
-      }
-
-      // case: `type` includes string, validate all items whose type is `string` or is not defined in `type`
-      if (Array.isArray(schemaType) && schemaType.includes('string')) {
-        const elementPredicates = [
-          schemaType.includes('number') && isNumber,
-          schemaType.includes('boolean') && isBoolean,
-          schemaType.includes('object') && isObject,
-          schemaType.includes('array') && isArray,
-        ].filter(Boolean) as ((el: Element) => boolean)[];
-
-        return (
-          element.findElements(
-            (e) => !elementPredicates.some((predicate) => predicate(e)) && !isValidDateTime(e),
-            { recursive: false },
-          ).length === 0
-        );
-      }
-
-      // case: don't validate if `type` does not include string
-      return true;
+      return element.findElements((e) => !isValid(e), { recursive: false }).length === 0;
     },
   },
   {

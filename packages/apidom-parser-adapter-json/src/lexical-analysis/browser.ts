@@ -8,6 +8,8 @@ import treeSitterJson from '../../wasm/tree-sitter-json.wasm';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
+const activeTrees: Set<Tree> = new Set();
+const MAX_ACTIVE_TREES = 5;
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
@@ -38,7 +40,26 @@ const analyze = async (source: string): Promise<Tree> => {
     );
   }
 
+  // prevent WASM OOM during concurrency spikes by evicting oldest trees
+  // when the pool exceeds threshold; tree.delete() is idempotent so
+  // callers that still hold a reference can safely call delete() again
+  if (activeTrees.size >= MAX_ACTIVE_TREES) {
+    const treesToEvict = [...activeTrees];
+    activeTrees.clear();
+    for (const oldTree of treesToEvict) {
+      oldTree.delete();
+    }
+  }
+
   const tree = parser.parse(source);
+  activeTrees.add(tree);
+
+  // remove from tracking when caller deletes
+  const originalDelete = tree.delete;
+  tree.delete = function deleteAndUntrack() {
+    activeTrees.delete(this);
+    originalDelete.call(this);
+  };
 
   parser.reset();
 

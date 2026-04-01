@@ -12,15 +12,13 @@ export { lexicalAnalysis, syntacticAnalysis };
  * @public
  */
 export const detect = async (source: string): Promise<boolean> => {
+  const cst = await lexicalAnalysis(source);
   try {
-    const cst = await lexicalAnalysis(source);
-    const isError = !cst.rootNode.isError;
-
-    cst.delete();
-
-    return isError;
+    return !cst.rootNode.isError;
   } catch {
     return false;
+  } finally {
+    cst.delete();
   }
 };
 
@@ -44,9 +42,9 @@ export type ParseFunction = (
  */
 export const parse: ParseFunction = async (source, { sourceMap = false } = {}) => {
   const cst = await lexicalAnalysis(source);
-  const syntacticAnalysisResult = syntacticAnalysis(cst, { sourceMap });
-
-  cst.delete();
-
-  return syntacticAnalysisResult;
+  try {
+    return syntacticAnalysis(cst, { sourceMap });
+  } finally {
+    cst.delete();
+  }
 };

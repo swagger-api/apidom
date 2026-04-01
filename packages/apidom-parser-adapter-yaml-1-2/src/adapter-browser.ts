@@ -1,4 +1,5 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
+import { Tree as WebTree } from 'web-tree-sitter';
 
 import lexicalAnalysis from './lexical-analysis/browser.ts';
 import syntacticAnalysis from './syntactic-analysis/indirect/index.ts';
@@ -12,15 +13,18 @@ export { lexicalAnalysis, syntacticAnalysis };
  * @public
  */
 export const detect = async (source: string): Promise<boolean> => {
+  let cst: WebTree | null = null;
+
   try {
-    const cst = await lexicalAnalysis(source);
-    const isError = !cst.rootNode.isError;
+    cst = await lexicalAnalysis(source);
 
-    cst.delete();
-
-    return isError;
+    return !cst.rootNode.isError;
   } catch {
     return false;
+  } finally {
+    if (cst !== null) {
+      cst.delete();
+    }
   }
 };
 
@@ -43,10 +47,14 @@ export type ParseFunction = (
  * @public
  */
 export const parse: ParseFunction = async (source, { sourceMap = false } = {}) => {
-  const cst = await lexicalAnalysis(source);
-  const syntacticAnalysisResult = syntacticAnalysis(cst, { sourceMap });
+  let cst: WebTree | null = null;
 
-  cst.delete();
-
-  return syntacticAnalysisResult;
+  try {
+    cst = await lexicalAnalysis(source);
+    return syntacticAnalysis(cst, { sourceMap });
+  } finally {
+    if (cst !== null) {
+      cst.delete();
+    }
+  }
 };

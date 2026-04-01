@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/swagger-api/apidom/compare/v1.9.0...v1.10.0) (2026-04-01)
+
+### Bug Fixes
+
+- **parser-adapter:** move tree lifecycle management to callers ([#5156](https://github.com/swagger-api/apidom/issues/5156)) ([30f173b](https://github.com/swagger-api/apidom/commit/30f173b6ac5a13c7f53e01440dde6ded222bd18a))
+
 # [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-json

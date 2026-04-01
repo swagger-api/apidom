@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/swagger-api/apidom/compare/v1.9.0...v1.10.0) (2026-04-01)
+
+**Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-6
+
 # [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-json-schema-draft-6

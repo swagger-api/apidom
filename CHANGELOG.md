@@ -3,6 +3,19 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.10.0](https://github.com/swagger-api/apidom/compare/v1.9.0...v1.10.0) (2026-04-01)
+
+### Bug Fixes
+
+- **parser-adapter:** move tree lifecycle management to callers ([#5156](https://github.com/swagger-api/apidom/issues/5156)) ([30f173b](https://github.com/swagger-api/apidom/commit/30f173b6ac5a13c7f53e01440dde6ded222bd18a))
+
+### Features
+
+- update HTTP bindings ([#5142](https://github.com/swagger-api/apidom/issues/5142)) ([2d890e3](https://github.com/swagger-api/apidom/commit/2d890e3720d879743b640c5f521697fbbae393b8))
+- update Kafka bindings ([#5140](https://github.com/swagger-api/apidom/issues/5140)) ([4a3ee47](https://github.com/swagger-api/apidom/commit/4a3ee47d28a0f847ac8adde24590140337ec0b98))
+- update MQTT bindings ([#5144](https://github.com/swagger-api/apidom/issues/5144)) ([a34d20f](https://github.com/swagger-api/apidom/commit/a34d20f3b48f7e9b77322d242629caa6219036f2))
+- update SNS Bindings ([#5134](https://github.com/swagger-api/apidom/issues/5134)) ([27a28a0](https://github.com/swagger-api/apidom/commit/27a28a0823af5f5ce30931db64e7cee66a5e2795))
+
 # [1.9.0](https://github.com/swagger-api/apidom/compare/v1.8.0...v1.9.0) (2026-03-30)
 
 ### Bug Fixes

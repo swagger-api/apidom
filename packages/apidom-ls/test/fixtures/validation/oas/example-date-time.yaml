@@ -59,6 +59,13 @@ paths:
                     type: object
                     format: date-time
                     example: 'not a date-time'
+                  
+                  # nullable date-time
+                  dateTimeValid9:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
 
                   # date-time without "T" separator
                   dateTimeInvalid1:
@@ -112,3 +119,10 @@ paths:
                   dateTimeInvalid9:
                     format: date-time
                     example: 123
+
+                  # nullable date-time with string null example
+                  dateTimeInvalid10:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: 'null'

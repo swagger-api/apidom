@@ -812,6 +812,13 @@ export const standardLinterfunctions: FunctionItem[] = [
       };
 
       if (!examples) {
+        const nullable =
+          elementParent && isObject(elementParent) ? toValue(elementParent.get('nullable')) : false;
+
+        if (nullable && isNullElement(element)) {
+          return true;
+        }
+
         return isValid(element);
       }
 

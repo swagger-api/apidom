@@ -3,7 +3,6 @@ import { ApiDOMError } from '@swagger-api/apidom-error';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
-let currentTree: Tree | null = null;
 
 const createAnalyze =
   (treeSitterYaml: string | Uint8Array) =>
@@ -33,14 +32,11 @@ const createAnalyze =
       );
     }
 
-    if (currentTree !== null) {
-      currentTree.delete();
-    }
-    currentTree = parser.parse(source);
+    const tree = parser.parse(source);
 
     parser.reset();
 
-    return currentTree;
+    return tree;
   };
 
 export default createAnalyze;

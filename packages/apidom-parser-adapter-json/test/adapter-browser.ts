@@ -49,6 +49,27 @@ describe('adapter-browser', function () {
     expect(sexprs(parseResult)).toMatchSnapshot();
   });
 
+  context('lexical analysis', function () {
+    specify('should return independent trees across multiple calls', async function () {
+      const source1 = '{"key1": "value1"}';
+      const source2 = '{"key2": "value2"}';
+
+      const tree1 = await adapter.lexicalAnalysis(source1);
+      const tree2 = await adapter.lexicalAnalysis(source2);
+
+      // tree1 must still be usable after second call
+      assert.isNotNull(tree1.rootNode);
+      assert.include(tree1.rootNode.text, 'key1');
+
+      // tree2 is also valid
+      assert.isNotNull(tree2.rootNode);
+      assert.include(tree2.rootNode.text, 'key2');
+
+      tree1.delete();
+      tree2.delete();
+    });
+  });
+
   context('given direct syntactic analysis', function () {
     context('given zero byte empty file', function () {
       specify('should return empty parse result', async function () {

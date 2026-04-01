@@ -8,14 +8,10 @@ import treeSitterJson from '../../wasm/tree-sitter-json.wasm';
 
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
-let currentTree: Tree | null = null;
 
 /**
  * Lexical Analysis of source string using WebTreeSitter.
  * This is WebAssembly version of TreeSitters Lexical Analysis.
- *
- * Given JavaScript doesn't support true parallelism, this
- * code should be as lazy as possible and temporal safety should be fine.
  * @public
  */
 const analyze = async (source: string): Promise<Tree> => {
@@ -42,11 +38,11 @@ const analyze = async (source: string): Promise<Tree> => {
     );
   }
 
-  currentTree = parser.parse(source);
+  const tree = parser.parse(source);
 
   parser.reset();
 
-  return currentTree;
+  return tree;
 };
 
 export default analyze;

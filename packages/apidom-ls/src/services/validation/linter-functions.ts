@@ -22,6 +22,7 @@ import {
   parse as parsePathTemplate,
   isIdentical,
 } from 'openapi-path-templating';
+import { Temporal } from 'temporal-polyfill';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -751,9 +752,6 @@ export const standardLinterfunctions: FunctionItem[] = [
         return true;
       }
 
-      const regex =
-        /^(?:\d{4})-(?:0[1-9]|1[0-2])-(?:0[1-9]|[12]\d|3[01])[Tt](?:[01]\d|2[0-3]):(?:[0-5]\d):(?:[0-5]\d|60)(?:\.\d+)?(?:[Zz]|[+-](?:[01]\d|2[0-3]):[0-5]\d)$/;
-
       const isValidDateTime = (el: Element): boolean => {
         if (!isString(el)) {
           return false;
@@ -761,28 +759,19 @@ export const standardLinterfunctions: FunctionItem[] = [
 
         const value = toValue(el);
 
-        if (!regex.test(value)) {
+        // RFC 3339 requires 'T' (or 't') as the date-time separator;
+        // Temporal.Instant.from() also accepts a space (ISO 8601), so we enforce it explicitly.
+        // We also need to filter out timezone and calendar annotations (RFC 9557)
+        if (!/^\d{4}-\d{2}-\d{2}[Tt][^[]+$/.test(value)) {
           return false;
         }
 
-        const [datePart] = value.split(/[Tt]/);
-        const [year, month, day] = datePart.split('-').map(Number);
-
-        const maxDaysInMonth = [0, 31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-        if (day > maxDaysInMonth[month]) {
+        try {
+          Temporal.Instant.from(value);
+          return true;
+        } catch {
           return false;
         }
-
-        if (month === 2 && day === 29) {
-          const isLeapYear = (year % 4 === 0 && year % 100 !== 0) || year % 400 === 0;
-
-          if (!isLeapYear) {
-            return false;
-          }
-        }
-
-        return true;
       };
 
       const elementParent = element?.parent?.parent;

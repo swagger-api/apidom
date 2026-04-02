@@ -129,6 +129,7 @@
     "openapi-path-templating": "^2.0.1",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
+    "temporal-polyfill": "^0.3.2",
     "vscode-languageserver-protocol": "^3.17.2",
     "vscode-languageserver-textdocument": "^1.0.5",
     "vscode-languageserver-types": "^3.17.2"

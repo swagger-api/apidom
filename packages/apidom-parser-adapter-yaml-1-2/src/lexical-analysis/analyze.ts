@@ -4,7 +4,7 @@ import { ApiDOMError } from '@swagger-api/apidom-error';
 let parser: Parser | null = null;
 let parserInitLock: Promise<Parser> | null = null;
 const activeTrees: Set<Tree> = new Set();
-const MAX_ACTIVE_TREES = 5;
+const MAX_ACTIVE_TREES = 10;
 
 const createAnalyze =
   (treeSitterYaml: string | Uint8Array) =>

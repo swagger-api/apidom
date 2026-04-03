@@ -1,0 +1,11 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  channel1:
+    bindings:
+      sns:
+        name: my-topic
+        foo: bar
+        bindingVersion: '1.0.0'

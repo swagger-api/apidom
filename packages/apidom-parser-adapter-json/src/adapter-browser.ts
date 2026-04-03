@@ -1,4 +1,5 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
+import { Tree as WebTree } from 'web-tree-sitter';
 
 import lexicalAnalysis from './lexical-analysis/browser.ts';
 import syntacticAnalysisDirect from './syntactic-analysis/direct/index.ts';
@@ -25,15 +26,19 @@ export const detect = async (source: string): Promise<boolean> => {
     return false;
   }
 
-  try {
-    const cst = await lexicalAnalysis(source);
-    const isError = cst.rootNode.type !== 'ERROR';
+  let cst: WebTree | null = null;
 
-    cst.delete();
+  try {
+    cst = await lexicalAnalysis(source);
+    const isError = cst.rootNode.type !== 'ERROR';
 
     return isError;
   } catch {
     return false;
+  } finally {
+    if (cst !== null) {
+      cst.delete();
+    }
   }
 };
 
@@ -60,16 +65,16 @@ export const parse: ParseFunction = async (
   source,
   { sourceMap = false, syntacticAnalysis = 'direct' } = {},
 ) => {
-  const cst = await lexicalAnalysis(source);
-  let apiDOM;
-
-  if (syntacticAnalysis === 'indirect') {
-    apiDOM = syntacticAnalysisIndirect(cst, { sourceMap });
-  } else {
-    apiDOM = syntacticAnalysisDirect(cst, { sourceMap });
+  let cst: WebTree | null = null;
+  try {
+    cst = await lexicalAnalysis(source);
+    if (syntacticAnalysis === 'indirect') {
+      return syntacticAnalysisIndirect(cst, { sourceMap });
+    }
+    return syntacticAnalysisDirect(cst, { sourceMap });
+  } finally {
+    if (cst !== null) {
+      cst.delete();
+    }
   }
-
-  cst.delete();
-
-  return apiDOM;
 };

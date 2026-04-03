@@ -1,3 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements SnsChannelBindingElement should refract to semantic ApiDOM tree 1`] = `(SnsChannelBindingElement)`;
+exports[`refractor elements SnsChannelBindingElement should refract to semantic ApiDOM tree 1`] = `
+(SnsChannelBindingElement
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (BooleanElement))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (ArrayElement
+          (ObjectElement
+            (MemberElement
+              (StringElement)
+              (StringElement))
+            (MemberElement
+              (StringElement)
+              (StringElement))
+            (MemberElement
+              (StringElement)
+              (StringElement)))))))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;

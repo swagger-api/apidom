@@ -1,0 +1,12 @@
+asyncapi: 2.6.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+components:
+  operationBindings:
+    bindings1:
+      sns:
+        consumers: []
+        deliveryPolicy: foo
+        bindingVersion: '0.1.0'

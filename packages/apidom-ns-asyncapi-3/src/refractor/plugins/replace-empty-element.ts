@@ -901,6 +901,12 @@ const schema: Record<string, unknown> = {
     },
   },
 
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
   KafkaMessageBindingElement: {
     key(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
@@ -908,6 +914,17 @@ const schema: Record<string, unknown> = {
   },
 
   AnypointmqMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
     headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
@@ -943,6 +960,27 @@ const schema: Record<string, unknown> = {
   MqttServerBindingElement: {
     lastWill(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
+    },
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    maximumPacketSize(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
+  MqttOperationBindingElement: {
+    messageExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+
+  MqttMessageBindingElement: {
+    correlationData(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    responseTopic(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
     },
   },
 
@@ -996,6 +1034,30 @@ const schema: Record<string, unknown> = {
       return new ObjectElement(...args);
     },
     schema(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  SnsChannelBindingElement: {
+    ordering(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    policy(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    tags(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  SnsOperationBindingElement: {
+    topic(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+    consumers(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+    deliveryPolicy(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },

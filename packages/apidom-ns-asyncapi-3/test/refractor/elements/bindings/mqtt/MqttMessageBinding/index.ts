@@ -8,10 +8,61 @@ describe('refractor', function () {
     context('MqttMessageBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const mqttMessageBindingElement = MqttMessageBindingElement.refract({
-          bindingVersion: '0.1.0',
+          payloadFormatIndicator: 1,
+          contentType: 'application/json',
+          responseTopic: '/response',
+          bindingVersion: '0.2.0',
         });
 
         expect(sexprs(mqttMessageBindingElement)).toMatchSnapshot();
+      });
+
+      context('given correlationData field of type SchemaElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const mqttMessageBindingElement = MqttMessageBindingElement.refract({
+            correlationData: {},
+            bindingVersion: '0.2.0',
+          });
+
+          expect(sexprs(mqttMessageBindingElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given correlationData field of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const mqttMessageBindingElement = MqttMessageBindingElement.refract({
+            correlationData: {
+              $ref: '#/pointer',
+            },
+            bindingVersion: '0.2.0',
+          });
+
+          expect(sexprs(mqttMessageBindingElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given responseTopic field of type SchemaElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const mqttMessageBindingElement = MqttMessageBindingElement.refract({
+            responseTopic: {},
+            bindingVersion: '0.2.0',
+          });
+
+          expect(sexprs(mqttMessageBindingElement)).toMatchSnapshot();
+        });
+      });
+
+      context('given responseTopic field of type ReferenceElement', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const mqttMessageBindingElement = MqttMessageBindingElement.refract({
+            responseTopic: {
+              $ref: '#/pointer',
+            },
+            bindingVersion: '0.2.0',
+          });
+
+          expect(sexprs(mqttMessageBindingElement)).toMatchSnapshot();
+        });
       });
     });
   });

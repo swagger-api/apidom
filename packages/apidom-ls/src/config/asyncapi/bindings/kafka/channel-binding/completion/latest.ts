@@ -14,7 +14,7 @@ const completion: ApidomCompletionItem[] = [
     insertTextFormat: 2,
     documentation: {
       kind: 'markdown',
-      value: 'Kafka topic name if different from channel name.',
+      value: '`string`\n\\\n\\\nKafka topic name if different from channel name.',
     },
     conditions: [
       {
@@ -52,6 +52,25 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value: '`integer`\n\\\n\\\nNumber of replicas configured on this topic.',
+    },
+    conditions: [
+      {
+        function: 'missingField',
+        params: ['bindingVersion'],
+      },
+    ],
+  },
+  {
+    label: 'topicConfiguration',
+    insertText: 'topicConfiguration',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[Topic Configuration Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#topicConfiguration-object)\n\\\n\\\nTopic configuration properties that are relevant for the API.',
     },
     conditions: [
       {

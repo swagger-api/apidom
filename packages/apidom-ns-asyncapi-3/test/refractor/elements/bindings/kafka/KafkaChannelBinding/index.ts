@@ -11,7 +11,8 @@ describe('refractor', function () {
           topic: 'my-specific-topic-name',
           partitions: 20,
           replicas: 3,
-          bindingVersion: '0.3.0',
+          topicConfiguration: {},
+          bindingVersion: '0.5.0',
         });
 
         expect(sexprs(kafkaChannelBindingElement)).toMatchSnapshot();

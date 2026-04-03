@@ -813,6 +813,11 @@ const schema = {
       return new SchemaElement(...args);
     },
   },
+  KafkaChannelBindingElement: {
+    topicConfiguration(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
   KafkaMessageBindingElement: {
     key(...args: any[]) {
       return new SchemaElement(...args);
@@ -820,6 +825,16 @@ const schema = {
   },
   AnypointmqMessageBindingElement: {
     headers(...args: any[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  JmsServerBindingElement: {
+    properties(...args: ConstructorParameters<typeof ArrayElement>) {
+      return new ArrayElement(...args);
+    },
+  },
+  JmsMessageBindingElement: {
+    headers(...args: Record<string, unknown>[]) {
       return new SchemaElement(...args);
     },
   },
@@ -850,6 +865,25 @@ const schema = {
   MqttServerBindingElement: {
     lastWill(...args: any[]) {
       return new ObjectElement(...args);
+    },
+    sessionExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    maximumPacketSize(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttOperationBindingElement: {
+    messageExpiryInterval(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+  },
+  MqttMessageBindingElement: {
+    correlationData(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
+    },
+    responseTopic(...args: Record<string, unknown>[]) {
+      return new SchemaElement(...args);
     },
   },
   Mqtt5ServerBindingElement: {
@@ -897,6 +931,28 @@ const schema = {
       return new ObjectElement(...args);
     },
     schema(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SnsChannelBindingElement: {
+    ordering(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    policy(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    tags(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+  },
+  SnsOperationBindingElement: {
+    topic(...args: any[]) {
+      return new ObjectElement(...args);
+    },
+    consumers(...args: any[]) {
+      return new ArrayElement(...args);
+    },
+    deliveryPolicy(...args: any[]) {
       return new ObjectElement(...args);
     },
   },

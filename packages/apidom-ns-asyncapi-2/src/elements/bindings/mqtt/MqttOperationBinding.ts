@@ -7,6 +7,9 @@ import {
   Meta,
 } from '@swagger-api/apidom-core';
 
+import SchemaElement from '../../Schema.ts';
+import ReferenceElement from '../../Reference.ts';
+
 /**
  * @public
  */
@@ -31,6 +34,16 @@ class MqttOperationBinding extends ObjectElement {
 
   set retain(retain: BooleanElement | undefined) {
     this.set('retain', retain);
+  }
+
+  get messageExpiryInterval(): NumberElement | SchemaElement | ReferenceElement | undefined {
+    return this.get('messageExpiryInterval');
+  }
+
+  set messageExpiryInterval(
+    messageExpiryInterval: NumberElement | SchemaElement | ReferenceElement | undefined,
+  ) {
+    this.set('messageExpiryInterval', messageExpiryInterval);
   }
 
   get bindingVersion(): StringElement | undefined {

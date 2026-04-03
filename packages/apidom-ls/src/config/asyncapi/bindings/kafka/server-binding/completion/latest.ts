@@ -15,7 +15,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'API URL for the Schema Registry used when producing Kafka messages (if a Schema Registry was used).',
+        '`string (url)`\n\\\n\\\nAPI URL for the Schema Registry used when producing Kafka messages (if a Schema Registry was used).',
     },
     conditions: [
       {
@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The vendor of Schema Registry and Kafka serdes library that should be used (e.g. `apicurio`, `confluent`, `ibm`, or `karapace`). MUST NOT be specified if `schemaRegistryUrl` is not specified.',
+        '`string`\n\\\n\\\nThe vendor of Schema Registry and Kafka serdes library that should be used (e.g. `apicurio`, `confluent`, `ibm`, or `karapace`). MUST NOT be specified if `schemaRegistryUrl` is not specified.',
     },
     conditions: [
       {

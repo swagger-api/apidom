@@ -1,6 +1,8 @@
 import channelBinding0_1_0Lints from './0-1-0/index.ts';
 import channelBinding0_2_0Lints from './0-2-0/index.ts';
 import channelBinding0_3_0Lints from './0-3-0/index.ts';
+import channelBinding0_4_0Lints from './0-4-0/index.ts';
+import channelBinding0_5_0Lints from './0-5-0/index.ts';
 import channelBindingLatestLints from './latest/index.ts';
 import bindingVersionTypeLint from './binding-version--type.ts';
 
@@ -8,6 +10,8 @@ const lints = [
   ...channelBinding0_1_0Lints,
   ...channelBinding0_2_0Lints,
   ...channelBinding0_3_0Lints,
+  ...channelBinding0_4_0Lints,
+  ...channelBinding0_5_0Lints,
   ...channelBindingLatestLints,
   bindingVersionTypeLint,
 ];

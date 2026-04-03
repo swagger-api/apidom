@@ -7,7 +7,26 @@ describe('refractor', function () {
   context('elements', function () {
     context('SnsChannelBindingElement', function () {
       specify('should refract to semantic ApiDOM tree', function () {
-        const snsChannelBindingElement = SnsChannelBindingElement.refract({});
+        const snsChannelBindingElement = SnsChannelBindingElement.refract({
+          name: 'my-sns-topic',
+          ordering: {
+            type: 'FIFO',
+            contentBasedDeduplication: true,
+          },
+          policy: {
+            statements: [
+              {
+                effect: 'Allow',
+                principal: '*',
+                action: 'sns:Publish',
+              },
+            ],
+          },
+          tags: {
+            project: 'my-project',
+          },
+          bindingVersion: '1.0.0',
+        });
 
         expect(sexprs(snsChannelBindingElement)).toMatchSnapshot();
       });

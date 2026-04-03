@@ -13,5 +13,8 @@ exports[`refractor elements KafkaChannelBindingElement should refract to semanti
     (NumberElement))
   (MemberElement
     (StringElement)
+    (ObjectElement))
+  (MemberElement
+    (StringElement)
     (StringElement)))
 `;

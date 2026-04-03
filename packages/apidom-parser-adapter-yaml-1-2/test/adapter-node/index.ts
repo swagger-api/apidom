@@ -200,6 +200,20 @@ describe('adapter-node', function () {
       assert.isTrue(isObjectElement(parseResult.result));
       assert.lengthOf(parseResult.errors, 0);
     });
+
+    specify('should handle concurrency spikes', async function () {
+      this.timeout(30000);
+
+      Array.from({ length: 100 }).forEach(async () => {
+        await adapter.parse('test: 123\n'.repeat(32800));
+      });
+
+      const parseResult = await adapter.parse('test: 123\n'.repeat(32800));
+
+      assert.isFalse(parseResult.isEmpty);
+      assert.isTrue(isObjectElement(parseResult.result));
+      assert.lengthOf(parseResult.errors, 0);
+    });
   });
 
   context('given an alias', function () {

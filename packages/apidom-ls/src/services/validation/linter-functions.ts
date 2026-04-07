@@ -12,6 +12,7 @@ import {
   includesClasses,
   isObjectElement,
   traverse,
+  isNullElement,
 } from '@swagger-api/apidom-core';
 import { URIFragmentIdentifier, evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { CompletionItem } from 'vscode-languageserver-types';
@@ -21,6 +22,7 @@ import {
   parse as parsePathTemplate,
   isIdentical,
 } from 'openapi-path-templating';
+import { Temporal } from 'temporal-polyfill';
 
 // eslint-disable-next-line import/no-cycle
 import {
@@ -741,6 +743,79 @@ export const standardLinterfunctions: FunctionItem[] = [
         }
       }
       return true;
+    },
+  },
+  {
+    functionName: 'apilintValidDateTimeExample',
+    function: (element: Element, examples: boolean = false): boolean => {
+      if (!element) {
+        return true;
+      }
+
+      const isValidDateTime = (el: Element): boolean => {
+        if (!isString(el)) {
+          return false;
+        }
+
+        const value = toValue(el);
+
+        // RFC 3339 requires 'T' (or 't') as the date-time separator;
+        // Temporal.Instant.from() also accepts a space (ISO 8601), so we enforce it explicitly.
+        // We also need to filter out timezone and calendar annotations (RFC 9557)
+        if (!/^\d{4}-\d{2}-\d{2}[Tt][^[]+$/.test(value)) {
+          return false;
+        }
+
+        try {
+          Temporal.Instant.from(value);
+          return true;
+        } catch {
+          return false;
+        }
+      };
+
+      const elementParent = element?.parent?.parent;
+      const schemaType =
+        elementParent && isObject(elementParent) ? toValue(elementParent.get('type')) : undefined;
+      const isArraySchemaType = Array.isArray(schemaType) && schemaType.includes('string');
+      const nonStringPredicates = isArraySchemaType
+        ? ([
+            (schemaType.includes('number') || schemaType.includes('integer')) && isNumber,
+            schemaType.includes('boolean') && isBoolean,
+            schemaType.includes('object') && isObject,
+            schemaType.includes('array') && isArray,
+            schemaType.includes('null') && isNullElement,
+          ].filter(Boolean) as ((el: Element) => boolean)[])
+        : [];
+
+      const isValid = (el: Element): boolean => {
+        if (!schemaType || schemaType === 'string') {
+          return isValidDateTime(el);
+        }
+
+        if (isArraySchemaType) {
+          return nonStringPredicates.some((p) => p(el)) || isValidDateTime(el);
+        }
+
+        return true;
+      };
+
+      if (!examples) {
+        const nullable =
+          elementParent && isObject(elementParent) ? toValue(elementParent.get('nullable')) : false;
+
+        if (nullable && isNullElement(element)) {
+          return true;
+        }
+
+        return isValid(element);
+      }
+
+      if (!isArray(element)) {
+        return true;
+      }
+
+      return element.findElements((e) => !isValid(e), { recursive: false }).length === 0;
     },
   },
   {

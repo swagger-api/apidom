@@ -1,0 +1,128 @@
+openapi: 3.0.4
+info:
+  title: Example API
+  version: 1.0.0
+paths:
+  /example:
+    get:
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  # basic date-time
+                  dateTimeValid1:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z'
+
+                  # date-time with timezone offset
+                  dateTimeValid2:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913+00:00'
+
+                  # date-time with lower case "t" and timezone offset
+                  dateTimeValid3:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18t06:43:17.913+07:00'
+
+                  # date-time with negative timezone offset
+                  dateTimeValid4:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913-07:00'
+
+                  # leap year
+                  dateTimeValid5:
+                    type: string
+                    format: date-time
+                    example: '2024-02-29T06:43:17.913Z'
+
+                  # date-time without type defined
+                  dateTimeValid6:
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z'
+
+                  # non-string type with date-time format
+                  dateTimeValid7:
+                    type: object
+                    format: date-time
+                    example:
+                      test: 123
+
+                  # non-string type with date-time format and string example
+                  dateTimeValid8:
+                    type: object
+                    format: date-time
+                    example: 'not a date-time'
+                  
+                  # nullable date-time
+                  dateTimeValid9:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: null
+
+                  # date-time without "T" separator
+                  dateTimeInvalid1:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18 06:43:17.913Z'
+
+                  # date with invalid month
+                  dateTimeInvalid2:
+                    type: string
+                    format: date-time
+                    example: '2025-20-18T06:43:17.913Z'
+
+                  # date with invalid day
+                  dateTimeInvalid3:
+                    type: string
+                    format: date-time
+                    example: '2025-11-31T06:43:17.913Z'
+
+                  # date-time without "Z" or timezone offset
+                  dateTimeInvalid4:
+                    type: string
+                    format: date-time
+                    example: '2025-12-30T06:43:17.913'
+
+                  # date-time with extra text
+                  dateTimeInvalid5:
+                    type: string
+                    format: date-time
+                    example: '2025-12-18T06:43:17.913Z UTC'
+
+                  # date-time with completely invalid string
+                  dateTimeInvalid6:
+                    type: string
+                    format: date-time
+                    example: 'invalid'
+
+                  # date-time with numeric value
+                  dateTimeInvalid7:
+                    type: string
+                    format: date-time
+                    example: 123
+
+                  # date-time with invalid leap year
+                  dateTimeInvalid8:
+                    type: string
+                    format: date-time
+                    example: '2025-02-29T06:43:17.913Z'
+
+                  # date-time without type defined and with non-string example value
+                  dateTimeInvalid9:
+                    format: date-time
+                    example: 123
+
+                  # nullable date-time with string null example
+                  dateTimeInvalid10:
+                    type: string
+                    format: date-time
+                    nullable: true
+                    example: 'null'

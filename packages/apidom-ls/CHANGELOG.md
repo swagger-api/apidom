@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.1](https://github.com/swagger-api/apidom/compare/v1.10.0...v1.10.1) (2026-04-07)
+
+### Bug Fixes
+
+- **ls:** add validation for examples with date-time format ([#5155](https://github.com/swagger-api/apidom/issues/5155)) ([99ec977](https://github.com/swagger-api/apidom/commit/99ec977d0f33812968b6a74b67ebf00c05e77816))
+
 # [1.10.0](https://github.com/swagger-api/apidom/compare/v1.9.0...v1.10.0) (2026-04-01)
 
 ### Features

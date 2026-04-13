@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.10.2](https://github.com/swagger-api/apidom/compare/v1.10.1...v1.10.2) (2026-04-13)
+
+### Bug Fixes
+
+- **reference:** upgrade axios to 1.15.0 to address critical vulnerability ([#5161](https://github.com/swagger-api/apidom/issues/5161)) ([1425b24](https://github.com/swagger-api/apidom/commit/1425b2421495f9ba5618b3ef1a405ea45e193b9e))
+
 ## [1.10.1](https://github.com/swagger-api/apidom/compare/v1.10.0...v1.10.1) (2026-04-07)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

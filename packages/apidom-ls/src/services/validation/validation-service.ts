@@ -56,6 +56,43 @@ enum PerfLabels {
   START = 'doValidation',
 }
 
+const macrotaskYield = (): Promise<void> => {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, 0);
+  });
+};
+
+const abortable = <T>(p: Promise<T>, signal?: AbortSignal): Promise<T> => {
+  if (!signal) {
+    return p;
+  }
+
+  if (signal.aborted) {
+    return Promise.reject(new DOMException('Aborted', 'AbortError'));
+  }
+
+  return new Promise<T>((resolve, reject) => {
+    const onAbort = () => {
+      signal.removeEventListener('abort', onAbort);
+      reject(new DOMException('Aborted', 'AbortError'));
+    };
+
+    signal.addEventListener('abort', onAbort, { once: true });
+
+    const onFulfilled = (value: T) => {
+      signal.removeEventListener('abort', onAbort);
+      resolve(value);
+    };
+
+    const onRejected = (reason: any) => {
+      signal.removeEventListener('abort', onAbort);
+      reject(reason);
+    };
+
+    p.then(onFulfilled, onRejected);
+  });
+};
+
 interface DereferenceError extends Error {
   jsonPointer?: string;
   cause?: DereferenceError;
@@ -87,9 +124,11 @@ export class DefaultValidationService implements ValidationService {
 
   private lintingRulesSemanticCache: Map<string, LinterMeta[]> = new Map();
 
-  private referenceNamesCache: string[] = [];
+  private referenceNamesCache: Set<string> = new Set();
 
-  private propertyValuesCache: Map<string, string[]> = new Map();
+  private propertyValuesCache: Map<string, Set<unknown>> = new Map();
+
+  private propertySiblingValuesCache: Map<object, Map<string, Set<unknown>>> = new Map();
 
   private readonly cachedParsers: Parser[] = [];
 
@@ -589,402 +628,434 @@ export class DefaultValidationService implements ValidationService {
     const text: string = textDocument.getText();
     const diagnostics: Diagnostic[] = [];
     this.quickFixesMap = {};
-    let result = await this.settings!.documentCache?.get(
-      textDocument,
-      undefined,
-      'doValidation-parse-first',
-    );
-    if (!result) return diagnostics;
-
-    let processedText;
-    const nameSpace = await findNamespace(text, this.settings?.defaultContentLanguage);
-    let docNs: string = nameSpace.namespace;
-    // no API document has been parsed
-    if (result.annotations) {
-      for (const annotation of result.annotations) {
-        if (
-          context &&
-          context.maxNumberOfProblems &&
-          diagnostics.length > context.maxNumberOfProblems
-        ) {
-          return diagnostics;
-        }
-        const nodeSourceMap = getSourceMap(annotation);
-        let location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
-        if (
-          nameSpace.format === 'YAML' &&
-          nodeSourceMap.offset === 0 &&
-          nodeSourceMap.endLine &&
-          nodeSourceMap.endColumn
-        ) {
-          // workaround "whole doc" YAML grammar error
-          location = {
-            offset: textDocument.offsetAt({ line: nodeSourceMap.endLine, character: 0 }),
-            length: nodeSourceMap.endColumn,
-          };
-        }
-
-        const range = Range.create(
-          textDocument.positionAt(location.offset),
-          textDocument.positionAt(location.offset + location.length),
-        );
-        let message: string = toValue(annotation);
-        if (
-          message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
-          message.length > 70
-        ) {
-          message = `YAML Syntax error: '... ${message.substring(20)}'`;
-        }
-
-        const diagnostic = Diagnostic.create(range, message, DiagnosticSeverity.Error, 0, 'syntax');
-        if (context && context.relatedInformation) {
-          diagnostic.relatedInformation = [
-            {
-              location: {
-                uri: textDocument.uri,
-                range: { ...diagnostic.range },
-              },
-              message: 'Syntax error while parsing',
-            },
-            {
-              location: {
-                uri: textDocument.uri,
-                range: { ...diagnostic.range },
-              },
-              message: 'more things',
-            },
-          ];
-        }
-
-        diagnostics.push(diagnostic);
-      }
-      processedText = correctPartialKeys(result, textDocument, await isJsonDoc(textDocument));
-    }
-    if (processedText) {
-      docNs = (await findNamespace(processedText, this.settings?.defaultContentLanguage)).namespace;
-      result = await this.settings!.documentCache?.get(
+    try {
+      let result: ParseResultElement | undefined;
+      const cacheFirst = this.settings!.documentCache?.get(
         textDocument,
-        processedText,
-        'doValidation-parse-second',
+        undefined,
+        'doValidation-parse-first',
       );
-    }
-    if (!result) return diagnostics;
-    const { api } = result;
-    if (api === undefined) return diagnostics;
-    const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
+      result = cacheFirst !== undefined ? await abortable(cacheFirst, context?.signal) : undefined;
+      if (!result) return diagnostics;
 
-    const hasSyntaxErrors = !!diagnostics.length;
+      let processedText;
+      const nameSpace = await findNamespace(text, this.settings?.defaultContentLanguage);
+      let docNs: string = nameSpace.namespace;
+      // no API document has been parsed
+      if (result.annotations) {
+        for (const annotation of result.annotations) {
+          if (
+            context &&
+            context.maxNumberOfProblems &&
+            diagnostics.length > context.maxNumberOfProblems
+          ) {
+            return diagnostics;
+          }
+          const nodeSourceMap = getSourceMap(annotation);
+          let location = { offset: nodeSourceMap.offset, length: nodeSourceMap.length };
+          if (
+            nameSpace.format === 'YAML' &&
+            nodeSourceMap.offset === 0 &&
+            nodeSourceMap.endLine &&
+            nodeSourceMap.endColumn
+          ) {
+            // workaround "whole doc" YAML grammar error
+            location = {
+              offset: textDocument.offsetAt({ line: nodeSourceMap.endLine, character: 0 }),
+              length: nodeSourceMap.endColumn,
+            };
+          }
 
-    const pointersMap: Record<string, Pointer[]> = {};
-    const lintReference = (
-      doc: Element,
-      referencedElement: string,
-      refValueElement: Element,
-    ): Diagnostic[] => {
-      const refDiagnostics: Diagnostic[] = [];
-      if (
-        refValidationMode === ReferenceValidationMode.LEGACY &&
-        toValue(refValueElement).startsWith('#')
-      ) {
-        let pointers = pointersMap[referencedElement];
-        if (!pointers) {
-          pointers = localReferencePointers(doc, referencedElement, true);
-          pointersMap[referencedElement] = pointers;
-        }
-        if (!pointers.some((p) => p.ref === toValue(refValueElement))) {
-          // local ref not found
-          const lintSm = getSourceMap(refValueElement);
-          const location = { offset: lintSm.offset, length: lintSm.length };
           const range = Range.create(
             textDocument.positionAt(location.offset),
             textDocument.positionAt(location.offset + location.length),
           );
-          const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+          let message: string = toValue(annotation);
+          if (
+            message.startsWith(text.substring(0, text.length > 10 ? 10 : text.length)) &&
+            message.length > 70
+          ) {
+            message = `YAML Syntax error: '... ${message.substring(20)}'`;
+          }
+
           const diagnostic = Diagnostic.create(
             range,
-            'local reference not found',
+            message,
             DiagnosticSeverity.Error,
-            code,
-            'apilint',
+            0,
+            'syntax',
           );
-
-          diagnostic.source = 'apilint';
-          diagnostic.data = {
-            quickFix: [],
-          } as LinterMetaData;
-          for (const p of pointers) {
-            // @ts-ignore
-            if (refValueElement !== p.ref && !p.isRef) {
-              diagnostic.data.quickFix.push({
-                message: `update to ${p.ref}`,
-                action: 'updateValue',
-                functionParams: [p.ref],
-              });
-            }
+          if (context && context.relatedInformation) {
+            diagnostic.relatedInformation = [
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'Syntax error while parsing',
+              },
+              {
+                location: {
+                  uri: textDocument.uri,
+                  range: { ...diagnostic.range },
+                },
+                message: 'more things',
+              },
+            ];
           }
-          this.quickFixesMap[code] = diagnostic.data.quickFix;
 
-          refDiagnostics.push(diagnostic);
+          diagnostics.push(diagnostic);
         }
+        processedText = correctPartialKeys(result, textDocument, await isJsonDoc(textDocument));
       }
-      try {
-        // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-        for (const provider of this.validationProviders) {
-          if (
-            provider
-              .namespaces()
-              .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
-            provider.doRefValidation &&
-            provider.providerMode &&
-            provider.providerMode() === ProviderMode.REF
-          ) {
-            // eslint-disable-next-line no-await-in-loop
-            const validationProviderResult = provider.doRefValidation(
-              textDocument,
-              api,
-              refValueElement,
-              referencedElement,
-              toValue(refValueElement),
-              refDiagnostics,
-              context,
+      if (processedText) {
+        docNs = (await findNamespace(processedText, this.settings?.defaultContentLanguage))
+          .namespace;
+        const cacheSecond = this.settings!.documentCache?.get(
+          textDocument,
+          processedText,
+          'doValidation-parse-second',
+        );
+        result =
+          cacheSecond !== undefined ? await abortable(cacheSecond, context?.signal) : undefined;
+      }
+      if (!result) return diagnostics;
+      const { api } = result;
+      if (api === undefined) return diagnostics;
+      await abortable(macrotaskYield(), context?.signal);
+      const specVersion = getSpecVersion(api, this.settings?.defaultContentLanguage?.version);
+
+      const hasSyntaxErrors = !!diagnostics.length;
+
+      const pointersMap: Record<string, Pointer[]> = {};
+      const lintReference = (
+        doc: Element,
+        referencedElement: string,
+        refValueElement: Element,
+      ): Diagnostic[] => {
+        const refDiagnostics: Diagnostic[] = [];
+        if (
+          refValidationMode === ReferenceValidationMode.LEGACY &&
+          toValue(refValueElement).startsWith('#')
+        ) {
+          let pointers = pointersMap[referencedElement];
+          if (!pointers) {
+            pointers = localReferencePointers(doc, referencedElement, true);
+            pointersMap[referencedElement] = pointers;
+          }
+          if (!pointers.some((p) => p.ref === toValue(refValueElement))) {
+            // local ref not found
+            const lintSm = getSourceMap(refValueElement);
+            const location = { offset: lintSm.offset, length: lintSm.length };
+            const range = Range.create(
+              textDocument.positionAt(location.offset),
+              textDocument.positionAt(location.offset + location.length),
             );
-            switch (validationProviderResult.mergeStrategy) {
-              case MergeStrategy.APPEND:
-                refDiagnostics.push(...validationProviderResult.diagnostics);
-                break;
-              case MergeStrategy.PREPEND:
-                refDiagnostics.unshift(...validationProviderResult.diagnostics);
-                break;
-              case MergeStrategy.REPLACE:
-                refDiagnostics.splice(
-                  0,
-                  diagnostics.length,
-                  ...validationProviderResult.diagnostics,
-                );
-                break;
-              case MergeStrategy.IGNORE:
-                break;
-              default:
-                refDiagnostics.push(...validationProviderResult.diagnostics);
-            }
+            const code = `${location.offset.toString()}-${location.length.toString()}-${Date.now()}`;
+            const diagnostic = Diagnostic.create(
+              range,
+              'local reference not found',
+              DiagnosticSeverity.Error,
+              code,
+              'apilint',
+            );
 
-            if (validationProviderResult.quickFixes) {
-              // eslint-disable-next-line guard-for-in
-              for (const fix in validationProviderResult.quickFixes) {
-                this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
-              }
-            }
-            if (provider.break()) {
-              break;
-            }
-          }
-        }
-      } catch (e) {
-        console.log('error in validation provider', e);
-      }
-      return refDiagnostics;
-    };
-
-    const refElements: Element[] = [];
-
-    const lint = (element: Element) => {
-      if (
-        toValue(element.getMetaProperty('referenced-element', '')).length > 0 &&
-        isObject(element) &&
-        element.hasKey('$ref') &&
-        (refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL ||
-          toValue(element.get('$ref')).startsWith('#'))
-      ) {
-        refElements.push(element);
-      }
-      const sm = getSourceMap(element);
-      const referencedElement = toValue(element.getMetaProperty('referenced-element', ''));
-      if (referencedElement.length > 0) {
-        // legacy lint local references
-        if (isObject(element) && element.hasKey('$ref')) {
-          // TODO get ref value from metadata or in adapter
-          diagnostics.push(...lintReference(api, referencedElement, element.get('$ref')));
-        }
-      }
-      if (element.classes) {
-        const set: string[] = Array.from(new Set(toValue(element.classes)));
-        // add element value to the set (e.g. 'pathItem', 'operation'
-        if (!set.includes(element.element)) {
-          set.unshift(element.element);
-        }
-        if (referencedElement.length > 0) {
-          if (!set.includes(referencedElement)) {
-            set.unshift(referencedElement);
-          }
-        }
-        set.unshift('*');
-
-        set.forEach((s) => {
-          // get linter meta from meta
-          const semanticLintingRules = this.getLintingRulesSemantic(api, s, docNs);
-          this.lintingRulesSemanticCache.set(`${docNs}-${s}`, semanticLintingRules);
-          if (semanticLintingRules && semanticLintingRules.length > 0) {
-            for (const meta of semanticLintingRules) {
-              this.processRule(
-                meta,
-                diagnostics,
-                textDocument,
-                api,
-                element,
-                sm,
-                docNs,
-                specVersion,
-              );
-            }
-          }
-        });
-      }
-    };
-    traverse(lint, api);
-    if (refValidationMode !== ReferenceValidationMode.LEGACY) {
-      if (context?.referenceValidationContinueOnError) {
-        diagnostics.push(
-          ...(await this.validateReferencesContinueOnError(
-            result,
-            api,
-            textDocument,
-            nameSpace,
-            context,
-          )),
-        );
-      } else if (refValidationSerialProcessing) {
-        diagnostics.push(
-          ...(await this.validateReferencesSequential(
-            refElements,
-            result,
-            api,
-            textDocument,
-            nameSpace,
-            context,
-          )),
-        );
-      } else {
-        diagnostics.push(
-          ...(await this.validateReferencesConcurrent(
-            refElements,
-            result,
-            api,
-            textDocument,
-            nameSpace,
-            context,
-          )),
-        );
-      }
-    }
-    try {
-      const rules = this.settings?.metadata?.rules;
-      if (rules && rules[docNs]?.lint) {
-        for (const r of rules[docNs]!.lint!) {
-          if (r.givenFormat !== undefined && r.givenFormat === LinterGivenFormat.JSONPATH) {
-            const matchesArray = r.given !== undefined && Array.isArray(r.given);
-            if (matchesArray) {
-              const elementsTuples = evaluateMulti(r.given as string[], api);
-              if (elementsTuples && elementsTuples.length > 0) {
-                elementsTuples.forEach((tuple) => {
-                  // const tuplePath = tuple[0];
-                  const tupleElements = tuple[1];
-                  if (tupleElements) {
-                    tupleElements.forEach((el) => {
-                      const sm = getSourceMap(el);
-                      this.processRule(
-                        r,
-                        diagnostics,
-                        textDocument,
-                        api,
-                        el,
-                        sm,
-                        docNs,
-                        specVersion,
-                      );
-                    });
-                  }
+            diagnostic.source = 'apilint';
+            diagnostic.data = {
+              quickFix: [],
+            } as LinterMetaData;
+            for (const p of pointers) {
+              // @ts-ignore
+              if (refValueElement !== p.ref && !p.isRef) {
+                diagnostic.data.quickFix.push({
+                  message: `update to ${p.ref}`,
+                  action: 'updateValue',
+                  functionParams: [p.ref],
                 });
               }
             }
-            const matchesString = r.given !== undefined && typeof r.given === 'string';
-            if (matchesString) {
-              const elements = evaluate(r.given as string, api);
-              if (elements && elements.length > 0) {
-                for (const ruleElement of elements) {
-                  const sm = getSourceMap(ruleElement);
-                  this.processRule(
-                    r,
-                    diagnostics,
-                    textDocument,
-                    api,
-                    ruleElement,
-                    sm,
-                    docNs,
-                    specVersion,
+            this.quickFixesMap[code] = diagnostic.data.quickFix;
+
+            refDiagnostics.push(diagnostic);
+          }
+        }
+        try {
+          // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+          for (const provider of this.validationProviders) {
+            if (
+              provider
+                .namespaces()
+                .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+              provider.doRefValidation &&
+              provider.providerMode &&
+              provider.providerMode() === ProviderMode.REF
+            ) {
+              // eslint-disable-next-line no-await-in-loop
+              const validationProviderResult = provider.doRefValidation(
+                textDocument,
+                api,
+                refValueElement,
+                referencedElement,
+                toValue(refValueElement),
+                refDiagnostics,
+                context,
+              );
+              switch (validationProviderResult.mergeStrategy) {
+                case MergeStrategy.APPEND:
+                  refDiagnostics.push(...validationProviderResult.diagnostics);
+                  break;
+                case MergeStrategy.PREPEND:
+                  refDiagnostics.unshift(...validationProviderResult.diagnostics);
+                  break;
+                case MergeStrategy.REPLACE:
+                  refDiagnostics.splice(
+                    0,
+                    diagnostics.length,
+                    ...validationProviderResult.diagnostics,
                   );
+                  break;
+                case MergeStrategy.IGNORE:
+                  break;
+                default:
+                  refDiagnostics.push(...validationProviderResult.diagnostics);
+              }
+
+              if (validationProviderResult.quickFixes) {
+                // eslint-disable-next-line guard-for-in
+                for (const fix in validationProviderResult.quickFixes) {
+                  this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
+                }
+              }
+              if (provider.break()) {
+                break;
+              }
+            }
+          }
+        } catch (e) {
+          console.log('error in validation provider', e);
+        }
+        return refDiagnostics;
+      };
+
+      const refElements: Element[] = [];
+
+      const lint = (element: Element) => {
+        if (
+          toValue(element.getMetaProperty('referenced-element', '')).length > 0 &&
+          isObject(element) &&
+          element.hasKey('$ref') &&
+          (refValidationMode === ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL ||
+            toValue(element.get('$ref')).startsWith('#'))
+        ) {
+          refElements.push(element);
+        }
+        const sm = getSourceMap(element);
+        const referencedElement = toValue(element.getMetaProperty('referenced-element', ''));
+        if (referencedElement.length > 0) {
+          // legacy lint local references
+          if (isObject(element) && element.hasKey('$ref')) {
+            // TODO get ref value from metadata or in adapter
+            diagnostics.push(...lintReference(api, referencedElement, element.get('$ref')));
+          }
+        }
+        if (element.classes) {
+          const set: string[] = Array.from(new Set(toValue(element.classes)));
+          // add element value to the set (e.g. 'pathItem', 'operation'
+          if (!set.includes(element.element)) {
+            set.unshift(element.element);
+          }
+          if (referencedElement.length > 0) {
+            if (!set.includes(referencedElement)) {
+              set.unshift(referencedElement);
+            }
+          }
+          set.unshift('*');
+
+          set.forEach((s) => {
+            // get linter meta from meta
+            const semanticLintingRules = this.getLintingRulesSemantic(api, s, docNs);
+            this.lintingRulesSemanticCache.set(`${docNs}-${s}`, semanticLintingRules);
+            if (semanticLintingRules && semanticLintingRules.length > 0) {
+              for (const meta of semanticLintingRules) {
+                this.processRule(
+                  meta,
+                  diagnostics,
+                  textDocument,
+                  api,
+                  element,
+                  sm,
+                  docNs,
+                  specVersion,
+                );
+              }
+            }
+          });
+        }
+      };
+      traverse(lint, api);
+      await abortable(macrotaskYield(), context?.signal);
+      if (refValidationMode !== ReferenceValidationMode.LEGACY) {
+        if (context?.referenceValidationContinueOnError) {
+          diagnostics.push(
+            ...(await abortable(
+              this.validateReferencesContinueOnError(result, api, textDocument, nameSpace, context),
+              context?.signal,
+            )),
+          );
+        } else if (refValidationSerialProcessing) {
+          diagnostics.push(
+            ...(await abortable(
+              this.validateReferencesSequential(
+                refElements,
+                result,
+                api,
+                textDocument,
+                nameSpace,
+                context,
+              ),
+              context?.signal,
+            )),
+          );
+        } else {
+          diagnostics.push(
+            ...(await abortable(
+              this.validateReferencesConcurrent(
+                refElements,
+                result,
+                api,
+                textDocument,
+                nameSpace,
+                context,
+              ),
+              context?.signal,
+            )),
+          );
+        }
+      }
+      try {
+        const rules = this.settings?.metadata?.rules;
+        if (rules && rules[docNs]?.lint) {
+          for (const r of rules[docNs]!.lint!) {
+            if (r.givenFormat !== undefined && r.givenFormat === LinterGivenFormat.JSONPATH) {
+              const matchesArray = r.given !== undefined && Array.isArray(r.given);
+              if (matchesArray) {
+                const elementsTuples = evaluateMulti(r.given as string[], api);
+                if (elementsTuples && elementsTuples.length > 0) {
+                  elementsTuples.forEach((tuple) => {
+                    // const tuplePath = tuple[0];
+                    const tupleElements = tuple[1];
+                    if (tupleElements) {
+                      tupleElements.forEach((el) => {
+                        const sm = getSourceMap(el);
+                        this.processRule(
+                          r,
+                          diagnostics,
+                          textDocument,
+                          api,
+                          el,
+                          sm,
+                          docNs,
+                          specVersion,
+                        );
+                      });
+                    }
+                  });
+                }
+              }
+              const matchesString = r.given !== undefined && typeof r.given === 'string';
+              if (matchesString) {
+                const elements = evaluate(r.given as string, api);
+                if (elements && elements.length > 0) {
+                  for (const ruleElement of elements) {
+                    const sm = getSourceMap(ruleElement);
+                    this.processRule(
+                      r,
+                      diagnostics,
+                      textDocument,
+                      api,
+                      ruleElement,
+                      sm,
+                      docNs,
+                      specVersion,
+                    );
+                  }
                 }
               }
             }
           }
         }
+      } catch (e) {
+        console.log('error in retrieving jsonpath rules', e);
       }
-    } catch (e) {
-      console.log('error in retrieving jsonpath rules', e);
-    }
-    perfEnd(PerfLabels.START);
-    if (!hasSyntaxErrors) {
-      try {
-        // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
-        for (const provider of this.validationProviders) {
-          if (
-            provider
-              .namespaces()
-              .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
-            provider.doValidation &&
-            (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
-          ) {
-            // eslint-disable-next-line no-await-in-loop
-            const validationProviderResult = await provider.doValidation(
-              textDocument,
-              api,
-              diagnostics,
-              context,
-            );
-            switch (validationProviderResult.mergeStrategy) {
-              case MergeStrategy.APPEND:
-                diagnostics.push(...validationProviderResult.diagnostics);
+      perfEnd(PerfLabels.START);
+      if (!hasSyntaxErrors) {
+        try {
+          // TODO (francesco@tumanischvili@smartbear.com)  try using the "repaired" version of the doc (serialize apidom skipping errors and missing)
+          for (const provider of this.validationProviders) {
+            if (
+              provider
+                .namespaces()
+                .some((ns) => ns.namespace === docNs && ns.version === specVersion) &&
+              provider.doValidation &&
+              (!provider.providerMode || provider.providerMode() === ProviderMode.FULL)
+            ) {
+              // eslint-disable-next-line no-await-in-loop
+              const validationProviderResult = await provider.doValidation(
+                textDocument,
+                api,
+                diagnostics,
+                context,
+              );
+              switch (validationProviderResult.mergeStrategy) {
+                case MergeStrategy.APPEND:
+                  diagnostics.push(...validationProviderResult.diagnostics);
+                  break;
+                case MergeStrategy.PREPEND:
+                  diagnostics.unshift(...validationProviderResult.diagnostics);
+                  break;
+                case MergeStrategy.REPLACE:
+                  diagnostics.splice(
+                    0,
+                    diagnostics.length,
+                    ...validationProviderResult.diagnostics,
+                  );
+                  break;
+                case MergeStrategy.IGNORE:
+                  break;
+                default:
+                  diagnostics.push(...validationProviderResult.diagnostics);
+              }
+              if (validationProviderResult.quickFixes) {
+                // eslint-disable-next-line guard-for-in
+                for (const fix in validationProviderResult.quickFixes) {
+                  this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
+                }
+              }
+              if (provider.break()) {
                 break;
-              case MergeStrategy.PREPEND:
-                diagnostics.unshift(...validationProviderResult.diagnostics);
-                break;
-              case MergeStrategy.REPLACE:
-                diagnostics.splice(0, diagnostics.length, ...validationProviderResult.diagnostics);
-                break;
-              case MergeStrategy.IGNORE:
-                break;
-              default:
-                diagnostics.push(...validationProviderResult.diagnostics);
-            }
-            if (validationProviderResult.quickFixes) {
-              // eslint-disable-next-line guard-for-in
-              for (const fix in validationProviderResult.quickFixes) {
-                this.quickFixesMap[fix] = validationProviderResult.quickFixes[fix];
               }
             }
-            if (provider.break()) {
-              break;
-            }
           }
+        } catch (e) {
+          console.log('error in validation provider');
         }
-      } catch (e) {
-        console.log('error in validation provider');
       }
+
+      this.referenceNamesCache = new Set();
+      this.propertyValuesCache.clear();
+      this.propertySiblingValuesCache.clear();
+
+      return diagnostics;
+    } catch (error) {
+      this.referenceNamesCache = new Set();
+      this.propertyValuesCache.clear();
+      this.propertySiblingValuesCache.clear();
+
+      if (error instanceof DOMException && error.name === 'AbortError') {
+        return diagnostics;
+      }
+      throw error;
     }
-
-    this.referenceNamesCache = [];
-    this.propertyValuesCache.clear();
-
-    return diagnostics;
   }
 
   private processRule(
@@ -1048,6 +1119,10 @@ export class DefaultValidationService implements ValidationService {
 
                   if (param === 'propertyValues') {
                     return this.propertyValuesCache;
+                  }
+
+                  if (param === 'propertySiblingValues') {
+                    return this.propertySiblingValuesCache;
                   }
 
                   return param;

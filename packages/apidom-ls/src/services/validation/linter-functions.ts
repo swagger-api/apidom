@@ -1037,63 +1037,102 @@ export const standardLinterfunctions: FunctionItem[] = [
       element: Element,
       elementOrClasses: string[],
       key: string,
-      propertyValues: Map<string, string[]>,
+      propertyValues: Map<string, Set<unknown>>,
     ): boolean => {
-      const api = root(element);
-      const value = toValue(element);
       const cacheKey = elementOrClasses.join(',');
 
-      if (!propertyValues.has(cacheKey) && api) {
-        traverse((el: Element) => {
-          const classes: ArrayElement = el.getMetaProperty('classes', []);
-          if (
-            (elementOrClasses.includes(el.element) ||
-              classes.filter((classElement: Element) =>
-                elementOrClasses.includes(toValue(classElement)),
-              ).length === classes.length) &&
-            isObject(el) &&
-            el.hasKey(key)
-          ) {
-            const elValue = toValue(el.get(key));
-            const cachedValues = propertyValues.get(cacheKey) ?? [];
+      if (!propertyValues.has(cacheKey)) {
+        const api = root(element);
 
-            cachedValues.push(elValue);
-            propertyValues.set(cacheKey, cachedValues);
-          }
-        }, api);
+        if (api) {
+          const counts = new Map<unknown, number>();
+
+          traverse((el: Element) => {
+            const classes: ArrayElement = el.getMetaProperty('classes', []);
+
+            if (
+              (elementOrClasses.includes(el.element) ||
+                classes.filter((classElement: Element) =>
+                  elementOrClasses.includes(toValue(classElement)),
+                ).length === classes.length) &&
+              isObject(el) &&
+              el.hasKey(key)
+            ) {
+              const elValue = toValue(el.get(key));
+              counts.set(elValue, (counts.get(elValue) ?? 0) + 1);
+            }
+          }, api);
+
+          const duplicates = new Set<unknown>();
+          counts.forEach((count, val) => {
+            if (count > 1) duplicates.add(val);
+          });
+          propertyValues.set(cacheKey, duplicates);
+        }
       }
 
-      const cachedValues = propertyValues.get(cacheKey) ?? [];
-
-      if (cachedValues.filter((cachedValue) => cachedValue === value).length > 1) {
-        return false;
-      }
-
-      return true;
+      const duplicates = propertyValues.get(cacheKey);
+      return duplicates === undefined || !duplicates.has(toValue(element));
     },
   },
   {
     functionName: 'apilintPropertyUniqueSiblingValue',
-    function: (element, elementOrClasses, key) => {
+    function: (
+      element,
+      elementOrClasses,
+      key,
+      propertySiblingValues: Map<object, Map<string, Set<unknown>>>,
+    ) => {
+      const parent = element.parent?.parent?.parent;
+
+      if (!parent) {
+        return true;
+      }
+
       const value = toValue(element);
+      const cacheKey = `${elementOrClasses}:${key}`;
 
-      const filterSiblingsOAS2 = (
-        el: Element & { key?: { content?: string }; content: { value?: string } },
-      ) => isString(el) && el.key?.content === key && toValue(el.content.value) === value;
+      let containerCache = propertySiblingValues.get(parent);
 
-      const filterSiblingsOAS3 = (el: Element) =>
-        isObject(el) && el.hasKey(key) && toValue(el.get(key)) === value;
+      if (!containerCache) {
+        containerCache = new Map();
+        propertySiblingValues.set(parent, containerCache);
+      }
 
-      const elements = filter((el: Element) => {
-        const classes: string[] = toValue(el.getMetaProperty('classes', []));
+      if (!containerCache.has(cacheKey)) {
+        const counts = new Map<unknown, number>();
 
-        return (
-          (elementOrClasses.includes(el.element) ||
-            classes.every((v) => elementOrClasses.includes(v))) &&
-          (filterSiblingsOAS2(el) || filterSiblingsOAS3(el))
-        );
-      }, element.parent?.parent?.parent);
-      return elements.length <= 1;
+        traverse((el: Element) => {
+          const classes: string[] = toValue(el.getMetaProperty('classes', []));
+          const typeMatches =
+            elementOrClasses.includes(el.element) ||
+            classes.every((v: string) => elementOrClasses.includes(v));
+
+          if (typeMatches) {
+            if (isObject(el) && el.hasKey(key)) {
+              const elValue = toValue(el.get(key));
+              counts.set(elValue, (counts.get(elValue) ?? 0) + 1);
+            } else if (
+              isString(el) &&
+              (el as Element & { key?: { content?: string } }).key?.content === key
+            ) {
+              const elValue = toValue(
+                (el as Element & { content: { value?: string } }).content.value,
+              );
+              counts.set(elValue, (counts.get(elValue) ?? 0) + 1);
+            }
+          }
+        }, parent);
+
+        const duplicates = new Set<unknown>();
+        counts.forEach((count, val) => {
+          if (count > 1) duplicates.add(val);
+        });
+
+        containerCache.set(cacheKey, duplicates);
+      }
+
+      return !containerCache.get(cacheKey)!.has(value);
     },
   },
   {
@@ -1448,7 +1487,7 @@ export const standardLinterfunctions: FunctionItem[] = [
   },
   {
     functionName: 'apilintReferenceNotUsed',
-    function: (element: Element & { content?: { key?: string } }, referenceNames: string[]) => {
+    function: (element: Element & { content?: { key?: string } }, referenceNames: Set<string>) => {
       const elParent: Element = element.parent?.parent?.parent?.parent;
       if (
         (typeof elParent?.hasKey !== 'function' || !elParent.hasKey('schemas')) &&
@@ -1457,7 +1496,7 @@ export const standardLinterfunctions: FunctionItem[] = [
         return true;
       }
 
-      if (referenceNames.length === 0) {
+      if (referenceNames.size === 0) {
         const api = root(element);
         const isReferenceElement = (el: Element & { content?: { key?: string } }) => {
           if (!isObjectElement(el) || !el.hasKey('$ref')) {
@@ -1473,14 +1512,16 @@ export const standardLinterfunctions: FunctionItem[] = [
           return isReferenceElement(el);
         }, api);
 
-        referenceNames.push(
-          ...referenceElements.map((refElement: ObjectElement) =>
-            toValue(refElement.get('$ref')).split('/').at(-1),
-          ),
-        );
+        referenceElements.forEach((refElement) => {
+          referenceNames.add(
+            toValue((refElement as ObjectElement).get('$ref'))
+              .split('/')
+              .at(-1),
+          );
+        });
       }
 
-      return referenceNames.includes(toValue(element.parent.key));
+      return referenceNames.has(toValue(element.parent.key));
     },
   },
   {

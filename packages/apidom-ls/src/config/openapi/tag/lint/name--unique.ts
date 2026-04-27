@@ -10,7 +10,7 @@ const nameUniqueLint: LinterMeta = {
   message: 'Tag Objects must have unique `name` field values.',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintPropertyUniqueSiblingValue',
-  linterParams: ['tags', 'name'],
+  linterParams: ['tags', 'name', 'propertySiblingValues'],
   marker: 'value',
   target: 'name',
   markerTarget: 'name',

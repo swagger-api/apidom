@@ -54,6 +54,13 @@ export type { YamlAnchorOptions } from './yaml/nodes/YamlAnchor.ts';
 export { YamlStyle, YamlStyleGroup } from './yaml/nodes/YamlStyle.ts';
 export { default as YamlFailsafeSchema } from './yaml/schemas/failsafe/index.ts';
 export { default as YamlJsonSchema } from './yaml/schemas/json/index.ts';
+export {
+  formatFlowPlain,
+  formatFlowSingleQuoted,
+  formatFlowDoubleQuoted,
+  formatBlockLiteral,
+  formatBlockFolded,
+} from './yaml/schemas/canonical-format.ts';
 export { default as YamlReferenceManager } from './yaml/anchors-aliases/ReferenceManager.ts';
 export {
   isAlias as isYamlAlias,

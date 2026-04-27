@@ -343,6 +343,7 @@ export interface ValidationContext {
   referenceValidationMode?: ReferenceValidationMode;
   referenceValidationSequentialProcessing?: boolean;
   referenceValidationContinueOnError?: boolean;
+  signal?: AbortSignal;
 }
 
 /**

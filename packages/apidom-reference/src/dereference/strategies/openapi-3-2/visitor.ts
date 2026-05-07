@@ -189,26 +189,32 @@ class OpenAPI3_2DereferenceVisitor {
 
   protected runPropagationPass(): boolean {
     let anyPropagated = false;
+
     this.pendingPropagations.forEach(({ referencingElement, referencedElement }) => {
       const errorsToPropagate = this.errorPropagationCache.get(referencedElement);
+
       if (Array.isArray(errorsToPropagate) && errorsToPropagate.length > 0) {
         errorsToPropagate.forEach((error) => {
           const existing = this.errorPropagationCache.get(referencingElement);
+
           if (!existing?.includes(error)) {
             this.options.dereference.dereferenceOpts?.errors.push({
               error,
               refEl: referencingElement,
             });
+
             if (existing) {
               existing.push(error);
             } else {
               this.errorPropagationCache.set(referencingElement, [error]);
             }
+
             anyPropagated = true;
           }
         });
       }
     });
+
     return anyPropagated;
   }
 
@@ -225,12 +231,12 @@ class OpenAPI3_2DereferenceVisitor {
     opts?: { directAncestors?: Set<Element>; isExternalReference?: boolean },
   ) {
     if (this.options.dereference.dereferenceOpts?.continueOnError) {
-      const { directAncestors, isExternalReference } = opts ?? {};
-      const isExternal =
-        (isExternalReference ?? false) &&
-        (this.options.dereference.dereferenceOpts?.skipNestedExternal ?? false);
+      const { directAncestors, isExternalReference = false } = opts ?? {};
+      const skipNestedExternal =
+        this.options.dereference.dereferenceOpts?.skipNestedExternal ?? false;
+      const skipPropagation = isExternalReference && skipNestedExternal;
 
-      if (directAncestors && !isExternal) {
+      if (directAncestors && !skipPropagation) {
         for (const ancestor of directAncestors) {
           const existing = this.errorPropagationCache.get(ancestor);
           if (existing) {
@@ -254,7 +260,7 @@ class OpenAPI3_2DereferenceVisitor {
 
       this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
 
-      if (!isExternal) {
+      if (!skipPropagation) {
         const affected = new Set<Element>(this.errorContext);
         affected.delete(refEl);
 

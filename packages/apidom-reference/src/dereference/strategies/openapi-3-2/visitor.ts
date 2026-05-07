@@ -171,10 +171,6 @@ class OpenAPI3_2DereferenceVisitor {
   }
 
   protected popErrorContext(el: Element) {
-    if (!this.options.dereference.dereferenceOpts?.continueOnError) {
-      return;
-    }
-
     if (this.errorContext[this.errorContext.length - 1] === el) {
       this.errorContext.pop();
     } else {

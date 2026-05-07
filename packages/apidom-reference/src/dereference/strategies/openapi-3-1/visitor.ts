@@ -149,15 +149,9 @@ class OpenAPI3_1DereferenceVisitor {
   }
 
   protected popErrorContext(el: Element) {
-    if (!this.options.dereference.dereferenceOpts?.continueOnError) {
-      return;
-    }
-
-    // defensive: pop only if it matches last
     if (this.errorContext[this.errorContext.length - 1] === el) {
       this.errorContext.pop();
     } else {
-      // fallback: remove first match from end (rare, but safer)
       for (let i = this.errorContext.length - 1; i >= 0; i -= 1) {
         if (this.errorContext[i] === el) {
           this.errorContext.splice(i, 1);

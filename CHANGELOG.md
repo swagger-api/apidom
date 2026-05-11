@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.11.0](https://github.com/swagger-api/apidom/compare/v1.10.2...v1.11.0) (2026-04-27)
+
+### Features
+
+- add missing lint rule for allowed fields for AsyncAPI3 (swg-16802) ([#5165](https://github.com/swagger-api/apidom/issues/5165)) ([c99277e](https://github.com/swagger-api/apidom/commit/c99277e9efca2f7154bf44a8d9944138fd4ce60b))
+
 ## [1.10.2](https://github.com/swagger-api/apidom/compare/v1.10.1...v1.10.2) (2026-04-13)
 
 ### Bug Fixes

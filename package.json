@@ -46,6 +46,9 @@
   "workspaces": [
     "./packages/*"
   ],
+  "overrides": {
+    "serialize-javascript": "^7.0.5"
+  },
   "devDependencies": {
     "@babel/cli": "=7.28.0",
     "@babel/core": "=7.27.1",

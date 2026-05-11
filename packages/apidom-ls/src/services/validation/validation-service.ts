@@ -84,7 +84,7 @@ const abortable = <T>(p: Promise<T>, signal?: AbortSignal): Promise<T> => {
       resolve(value);
     };
 
-    const onRejected = (reason: any) => {
+    const onRejected = (reason: unknown) => {
       signal.removeEventListener('abort', onAbort);
       reject(reason);
     };
@@ -128,7 +128,7 @@ export class DefaultValidationService implements ValidationService {
 
   private propertyValuesCache: Map<string, Set<unknown>> = new Map();
 
-  private propertySiblingValuesCache: Map<object, Map<string, Set<unknown>>> = new Map();
+  private propertySiblingValuesCache: WeakMap<Element, Map<string, Set<unknown>>> = new WeakMap();
 
   private readonly cachedParsers: Parser[] = [];
 
@@ -1043,13 +1043,13 @@ export class DefaultValidationService implements ValidationService {
 
       this.referenceNamesCache = new Set();
       this.propertyValuesCache.clear();
-      this.propertySiblingValuesCache.clear();
+      this.propertySiblingValuesCache = new WeakMap();
 
       return diagnostics;
     } catch (error) {
       this.referenceNamesCache = new Set();
       this.propertyValuesCache.clear();
-      this.propertySiblingValuesCache.clear();
+      this.propertySiblingValuesCache = new WeakMap();
 
       if (error instanceof DOMException && error.name === 'AbortError') {
         return diagnostics;

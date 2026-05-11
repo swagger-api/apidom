@@ -1081,7 +1081,7 @@ export const standardLinterfunctions: FunctionItem[] = [
       element,
       elementOrClasses,
       key,
-      propertySiblingValues: Map<object, Map<string, Set<unknown>>>,
+      propertySiblingValues: WeakMap<Element, Map<string, Set<unknown>>>,
     ) => {
       const parent = element.parent?.parent?.parent;
 

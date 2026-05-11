@@ -267,8 +267,8 @@ const walkFunctions = {
       member.endPositionColumn = pairEndCol;
       member.endIndex = pairEndIdx;
     }
-    (member as any).content.key = keyElement;
-    (member as any).content.value = valueElement;
+    member.key = keyElement;
+    member.value = valueElement;
 
     return member;
   },
@@ -354,8 +354,7 @@ const walkFunctions = {
     return element;
   },
   walkError: (cursor: Cursor, ctx: DirectContext): null => {
-    // @ts-ignore — currentNode exists on both cursor types
-    const isUnexpected = !(cursor.currentNode as any).hasError;
+    const isUnexpected = !cursor.currentNode.hasError;
     const message = isUnexpected ? '(Unexpected YAML syntax error)' : '(Error YAML syntax error)';
     const ann = new AnnotationElement(message);
     ann.classes.push('error');

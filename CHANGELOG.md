@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.1](https://github.com/swagger-api/apidom/compare/v1.11.0...v1.11.1) (2026-05-12)
+
+### Bug Fixes
+
+- **deps-dev:** address serialize-js vulnerability ([#5174](https://github.com/swagger-api/apidom/issues/5174)) ([41b1dff](https://github.com/swagger-api/apidom/commit/41b1dff37f3c3b4a739e15b2f6d5c62db773dfe5))
+
 # [1.11.0](https://github.com/swagger-api/apidom/compare/v1.10.2...v1.11.0) (2026-04-27)
 
 ### Features

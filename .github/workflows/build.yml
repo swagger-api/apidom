@@ -41,8 +41,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -62,8 +60,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -82,8 +78,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
-        with:
-          ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
       - name: Setup Node.js
         uses: actions/setup-node@v6
         with:
@@ -100,8 +94,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v6
-      with:
-        ref: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.sha || github.sha }}
     - name: Setup Node.js
       uses: actions/setup-node@v6
       with:
@@ -124,3 +116,4 @@ jobs:
       with:
         name: build
         path: ./packages/apidom-playground/build
+        

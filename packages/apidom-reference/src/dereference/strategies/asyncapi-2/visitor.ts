@@ -26,6 +26,7 @@ import {
   isReferenceElement,
   keyMap,
   ReferenceElement,
+  AsyncApi2Element,
 } from '@swagger-api/apidom-ns-asyncapi-2';
 
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
@@ -70,6 +71,9 @@ export interface AsyncAPI2DereferenceVisitorOptions {
   readonly indirections?: Element[];
   readonly ancestors?: AncestorLineage<Element>;
   readonly refractCache?: Map<string, Element>;
+  readonly errorContext?: Element[];
+  readonly errorPropagationCache?: Map<Element, unknown[]>;
+  readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
 }
 
 /**
@@ -88,6 +92,15 @@ class AsyncAPI2DereferenceVisitor {
 
   protected readonly refractCache: Map<string, Element>;
 
+  protected readonly errorContext: Element[];
+
+  protected readonly errorPropagationCache: Map<Element, unknown[]> = new Map();
+
+  protected readonly pendingPropagations: Array<{
+    referencingElement: Element;
+    referencedElement: Element;
+  }> = [];
+
   constructor({
     reference,
     namespace,
@@ -95,6 +108,9 @@ class AsyncAPI2DereferenceVisitor {
     indirections = [],
     ancestors = new AncestorLineage(),
     refractCache = new Map(),
+    errorContext = [],
+    errorPropagationCache = new Map(),
+    pendingPropagations = [],
   }: AsyncAPI2DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -102,11 +118,97 @@ class AsyncAPI2DereferenceVisitor {
     this.options = options;
     this.ancestors = new AncestorLineage(...ancestors);
     this.refractCache = refractCache;
+    this.errorContext = errorContext;
+    this.errorPropagationCache = errorPropagationCache;
+    this.pendingPropagations = pendingPropagations;
   }
 
-  protected handleDereferenceError(error: unknown, refEl: Element) {
+  protected popErrorContext(el: Element) {
+    if (this.errorContext[this.errorContext.length - 1] === el) {
+      this.errorContext.pop();
+    } else {
+      for (let i = this.errorContext.length - 1; i >= 0; i -= 1) {
+        if (this.errorContext[i] === el) {
+          this.errorContext.splice(i, 1);
+          break;
+        }
+      }
+    }
+  }
+
+  protected runPropagationPass(): boolean {
+    let anyPropagated = false;
+
+    this.pendingPropagations.forEach(({ referencingElement, referencedElement }) => {
+      const errorsToPropagate = this.errorPropagationCache.get(referencedElement);
+
+      if (Array.isArray(errorsToPropagate) && errorsToPropagate.length > 0) {
+        errorsToPropagate.forEach((error) => {
+          const existing = this.errorPropagationCache.get(referencingElement);
+
+          if (!existing?.includes(error)) {
+            this.options.dereference.dereferenceOpts?.errors.push({
+              error,
+              refEl: referencingElement,
+            });
+
+            if (existing) {
+              existing.push(error);
+            } else {
+              this.errorPropagationCache.set(referencingElement, [error]);
+            }
+
+            anyPropagated = true;
+          }
+        });
+      }
+    });
+
+    return anyPropagated;
+  }
+
+  protected propagateErrors(): void {
+    while (this.runPropagationPass()) {
+      // repeat until no new errors are propagated (handles transitive chains)
+    }
+    this.pendingPropagations.length = 0;
+  }
+
+  protected handleDereferenceError(
+    error: unknown,
+    refEl: Element,
+    opts?: { directAncestors?: Set<Element>; isExternalReference?: boolean },
+  ) {
     if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      const { directAncestors, isExternalReference = false } = opts ?? {};
+      const skipNestedExternal =
+        this.options.dereference.dereferenceOpts?.skipNestedExternal ?? false;
+      const skipPropagation = isExternalReference && skipNestedExternal;
+
+      if (directAncestors && !skipPropagation) {
+        for (const ancestor of directAncestors) {
+          const existing = this.errorPropagationCache.get(ancestor);
+          if (existing) {
+            existing.push(error);
+          } else {
+            this.errorPropagationCache.set(ancestor, [error]);
+          }
+        }
+      }
+
       this.options.dereference.dereferenceOpts?.errors.push({ error, refEl });
+
+      if (!skipPropagation) {
+        const affected = new Set<Element>(this.errorContext);
+        affected.delete(refEl);
+
+        this.popErrorContext(refEl);
+
+        for (const el of affected) {
+          this.options.dereference.dereferenceOpts?.errors.push({ error, refEl: el });
+        }
+      }
+
       return undefined;
     }
     throw error;
@@ -192,6 +294,22 @@ class AsyncAPI2DereferenceVisitor {
     return [ancestorsLineage, directAncestors];
   }
 
+  public readonly AsyncApi2Element = {
+    leave: (
+      asyncApi2Element: AsyncApi2Element,
+      key: string | number,
+      parent: Element | undefined,
+    ) => {
+      if (!this.options.dereference.dereferenceOpts?.continueOnError) {
+        return undefined;
+      }
+
+      this.propagateErrors();
+
+      return !parent ? asyncApi2Element : undefined;
+    },
+  };
+
   public async ReferenceElement(
     referencingElement: ReferenceElement,
     key: string | number,
@@ -227,7 +345,10 @@ class AsyncAPI2DereferenceVisitor {
     try {
       reference = await this.toReference(toValue(referencingElement.$ref));
     } catch (error) {
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
@@ -243,7 +364,10 @@ class AsyncAPI2DereferenceVisitor {
       referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     } catch (error) {
       this.indirections.pop();
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     referencedElement.id = identityManager.identify(referencedElement);
@@ -274,7 +398,10 @@ class AsyncAPI2DereferenceVisitor {
     if (referencingElement === referencedElement) {
       const error = new ApiDOMError('Recursive Reference Object detected');
       this.indirections.pop();
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     // detect maximum depth of dereferencing
@@ -283,7 +410,10 @@ class AsyncAPI2DereferenceVisitor {
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
       this.indirections.pop();
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -293,7 +423,10 @@ class AsyncAPI2DereferenceVisitor {
       if (this.options.dereference.circular === 'error') {
         const error = new ApiDOMError('Circular reference detected');
         this.indirections.pop();
-        return this.handleDereferenceError(error, referencingElement);
+        return this.handleDereferenceError(error, referencingElement, {
+          directAncestors,
+          isExternalReference,
+        });
       }
 
       if (this.options.dereference.circular === 'replace') {
@@ -328,12 +461,12 @@ class AsyncAPI2DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         isReferenceElement(referencedElement) ||
-        shouldDetectCircular ||
-        this.options.dereference.dereferenceOpts?.continueOnError) &&
+        shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
+      this.errorContext.push(referencingElement);
 
       const visitor = new AsyncAPI2DereferenceVisitor({
         reference,
@@ -342,6 +475,9 @@ class AsyncAPI2DereferenceVisitor {
         options: this.getNestedVisitorOptions(referencingElement),
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        errorContext: this.errorContext,
+        errorPropagationCache: this.errorPropagationCache,
+        pendingPropagations: this.pendingPropagations,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -350,11 +486,17 @@ class AsyncAPI2DereferenceVisitor {
         });
       } catch (error) {
         this.indirections.pop();
-        return this.handleDereferenceError(error, referencingElement);
+        return this.handleDereferenceError(error, referencingElement, {
+          directAncestors,
+          isExternalReference,
+        });
       }
 
       // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);
+      this.popErrorContext(referencingElement);
+    } else if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.pendingPropagations.push({ referencingElement, referencedElement });
     }
 
     this.indirections.pop();
@@ -450,7 +592,10 @@ class AsyncAPI2DereferenceVisitor {
     try {
       reference = await this.toReference(toValue(referencingElement.$ref));
     } catch (error) {
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     const $refBaseURI = url.resolve(retrievalURI, toValue(referencingElement.$ref));
@@ -466,7 +611,10 @@ class AsyncAPI2DereferenceVisitor {
       referencedElement = evaluate<Element>(reference.value.result, jsonPointer);
     } catch (error) {
       this.indirections.pop();
-      return this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     referencedElement.id = identityManager.identify(referencedElement);
@@ -489,7 +637,10 @@ class AsyncAPI2DereferenceVisitor {
     if (referencingElement === referencedElement) {
       const error = new ApiDOMError('Recursive Channel Item Object reference detected');
       this.indirections.pop();
-      this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     // detect maximum depth of dereferencing
@@ -498,7 +649,10 @@ class AsyncAPI2DereferenceVisitor {
         `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
       );
       this.indirections.pop();
-      this.handleDereferenceError(error, referencingElement);
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
     }
 
     // detect second deep dive into the same fragment and avoid it
@@ -506,8 +660,15 @@ class AsyncAPI2DereferenceVisitor {
       reference.refSet!.circular = true;
 
       if (this.options.dereference.circular === 'error') {
-        throw new ApiDOMError('Circular reference detected');
-      } else if (this.options.dereference.circular === 'replace') {
+        const error = new ApiDOMError('Circular reference detected');
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement, {
+          directAncestors,
+          isExternalReference,
+        });
+      }
+
+      if (this.options.dereference.circular === 'replace') {
         const refElement = new RefElement(referencedElement.id, {
           type: 'channel-item',
           uri: reference.uri,
@@ -539,12 +700,12 @@ class AsyncAPI2DereferenceVisitor {
       (isExternalReference ||
         isNonRootDocument ||
         (isChannelItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-        shouldDetectCircular ||
-        this.options.dereference.dereferenceOpts?.continueOnError) &&
+        shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
       directAncestors.add(referencingElement);
+      this.errorContext.push(referencingElement);
 
       const visitor = new AsyncAPI2DereferenceVisitor({
         reference,
@@ -553,6 +714,9 @@ class AsyncAPI2DereferenceVisitor {
         options: this.getNestedVisitorOptions(referencingElement),
         refractCache: this.refractCache,
         ancestors: ancestorsLineage,
+        errorContext: this.errorContext,
+        errorPropagationCache: this.errorPropagationCache,
+        pendingPropagations: this.pendingPropagations,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -561,11 +725,17 @@ class AsyncAPI2DereferenceVisitor {
         });
       } catch (error) {
         this.indirections.pop();
-        return this.handleDereferenceError(error, referencingElement);
+        return this.handleDereferenceError(error, referencingElement, {
+          directAncestors,
+          isExternalReference,
+        });
       }
 
       // remove referencing reference from ancestors lineage
       directAncestors.delete(referencingElement);
+      this.popErrorContext(referencingElement);
+    } else if (this.options.dereference.dereferenceOpts?.continueOnError) {
+      this.pendingPropagations.push({ referencingElement, referencedElement });
     }
 
     this.indirections.pop();

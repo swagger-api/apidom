@@ -110,6 +110,7 @@ const removeQuotes = curry((quoteType, val) =>
 /**
  * Formats Flow Scalar Plain style.
  * https://yaml.org/spec/1.2/spec.html#id2788859
+ * @public
  */
 export const formatFlowPlain = pipe(
   normalizeLineBreaks,
@@ -123,6 +124,7 @@ export const formatFlowPlain = pipe(
 /**
  * Formats Flow Scalar Single-Quoted style.
  * https://yaml.org/spec/1.2/spec.html#id2788097
+ * @public
  */
 
 export const formatFlowSingleQuoted = pipe(
@@ -138,6 +140,7 @@ export const formatFlowSingleQuoted = pipe(
 /**
  * Formats Flow Scalar Double-Quoted style.
  * https://yaml.org/spec/1.2/spec.html#id2787109
+ * @public
  */
 export const formatFlowDoubleQuoted = pipe(
   normalizeLineBreaks,
@@ -154,6 +157,7 @@ export const formatFlowDoubleQuoted = pipe(
 /**
  * Formats Block Scalar Literal style.
  * https://yaml.org/spec/1.2/spec.html#id2795688
+ * @public
  */
 export const formatBlockLiteral = (content: string): string => {
   const indentation = getIndentation(content);
@@ -170,6 +174,7 @@ export const formatBlockLiteral = (content: string): string => {
 /**
  * Formats BLock Scalar Folded style.
  * https://yaml.org/spec/1.2/spec.html#id2796251
+ * @public
  */
 export const formatBlockFolded = (content: string): string => {
   const indentation = getIndentation(content);

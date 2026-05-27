@@ -2,11 +2,11 @@ import { ParseResultElement } from '@swagger-api/apidom-core';
 import { Tree as WebTree } from 'web-tree-sitter';
 
 import lexicalAnalysis from './lexical-analysis/browser.ts';
-import syntacticAnalysis from './syntactic-analysis/indirect/index.ts';
+import syntacticAnalysis from './syntactic-analysis/index.ts';
 
 export { mediaTypes, namespace } from './adapter.ts';
 export type { YamlMediaTypes } from './media-types.ts';
-export type { Tree } from './syntactic-analysis/indirect/index.ts';
+export type { Tree } from './syntactic-analysis/index.ts';
 export { lexicalAnalysis, syntacticAnalysis };
 
 /**

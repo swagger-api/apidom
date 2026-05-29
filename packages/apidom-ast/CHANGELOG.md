@@ -3,12 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.11.2](https://github.com/swagger-api/apidom/compare/v1.11.1...v1.11.2) (2026-05-29)
-
-### Performance Improvements
-
-- validation service improvements ([#5166](https://github.com/swagger-api/apidom/issues/5166)) ([77b0614](https://github.com/swagger-api/apidom/commit/77b061420a5cb90189e2cf2db70ecde55f26d93c))
-
 ## [1.11.1](https://github.com/swagger-api/apidom/compare/v1.11.0...v1.11.1) (2026-05-12)
 
 **Note:** Version bump only for package @swagger-api/apidom-ast

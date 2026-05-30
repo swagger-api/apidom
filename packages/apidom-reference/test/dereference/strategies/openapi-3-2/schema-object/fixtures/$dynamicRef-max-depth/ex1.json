@@ -1,0 +1,4 @@
+{
+  "$dynamicAnchor": "profileType",
+  "$ref": "./ex2.json#/$defs/Profile"
+}

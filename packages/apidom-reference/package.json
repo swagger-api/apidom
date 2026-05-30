@@ -225,6 +225,11 @@
       "require": "./src/dereference/strategies/openapi-3-1/selectors/$anchor.cjs",
       "types": "./types/dereference/strategies/openapi-3-1/selectors/$anchor.d.ts"
     },
+    "./dereference/strategies/openapi-3-1/selectors/$dynamicAnchor": {
+      "import": "./src/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.mjs",
+      "require": "./src/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.d.ts"
+    },
     "./dereference/strategies/openapi-3-1/selectors/uri": {
       "import": "./src/dereference/strategies/openapi-3-1/selectors/uri.mjs",
       "require": "./src/dereference/strategies/openapi-3-1/selectors/uri.cjs",
@@ -239,6 +244,11 @@
       "import": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.mjs",
       "require": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.cjs",
       "types": "./types/dereference/strategies/openapi-3-2/selectors/$anchor.d.ts"
+    },
+    "./dereference/strategies/openapi-3-2/selectors/$dynamicAnchor": {
+      "import": "./src/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.mjs",
+      "require": "./src/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.d.ts"
     },
     "./dereference/strategies/openapi-3-2/selectors/uri": {
       "import": "./src/dereference/strategies/openapi-3-2/selectors/uri.mjs",

@@ -53,9 +53,12 @@ export { default as UnmatchedBundleStrategyError } from './errors/UnmatchedBundl
 export { default as DereferenceError } from './errors/DereferenceError.ts';
 export { default as EvaluationElementIdError } from './errors/EvaluationElementIdError.ts';
 export { default as EvaluationJsonSchema$anchorError } from './errors/EvaluationJsonSchema$anchorError.ts';
+export { default as EvaluationJsonSchema$dynamicAnchorError } from './errors/EvaluationJsonSchema$dynamicAnchorError.ts';
 export { default as EvaluationJsonSchemaUriError } from './errors/EvaluationJsonSchemaUriError.ts';
 export { default as InvalidJsonSchema$anchorError } from './errors/InvalidJsonSchema$anchorError.ts';
+export { default as InvalidJsonSchema$dynamicAnchorError } from './errors/InvalidJsonSchema$dynamicAnchorError.ts';
 export { default as JsonSchema$anchorError } from './errors/JsonSchema$anchorError.ts';
+export { default as JsonSchema$dynamicAnchorError } from './errors/JsonSchema$dynamicAnchorError.ts';
 export { default as JsonSchemaURIError } from './errors/JsonSchemaUriError.ts';
 export { default as MaximumDereferenceDepthError } from './errors/MaximumDereferenceDepthError.ts';
 export { default as MaximumResolveDepthError } from './errors/MaximumResolveDepthError.ts';

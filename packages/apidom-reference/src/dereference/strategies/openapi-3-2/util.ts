@@ -44,6 +44,27 @@ export const resolveSchema$idField = (retrievalURI: string, schemaElement: Schem
   );
 };
 
+export const resolveSchema$dynamicRefField = (
+  retrievalURI: string,
+  schemaElement: SchemaElement,
+) => {
+  if (typeof schemaElement.$dynamicRef === 'undefined') {
+    return undefined;
+  }
+
+  const hash = url.getHash(toValue(schemaElement.$dynamicRef));
+  const ancestorsSchemaIdentifiers = toValue(schemaElement.meta.get('ancestorsSchemaIdentifiers'));
+  const $dynamicRefBaseURI = reduce(
+    (acc: string, uri: string): string => {
+      return url.resolve(acc, url.sanitize(url.stripHash(uri)));
+    },
+    retrievalURI,
+    [...ancestorsSchemaIdentifiers, toValue(schemaElement.$dynamicRef)],
+  );
+
+  return `${$dynamicRefBaseURI}${hash === '#' ? '' : hash}`;
+};
+
 /**
  * Cached version of SchemaElement.refract.
  */

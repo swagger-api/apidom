@@ -912,22 +912,55 @@ describe('dereference', function () {
           });
         });
 
-        context(
-          'given Schema Objects with $dynamicRef targeting ordinary $anchor',
-          function () {
-            const fixturePath = path.join(rootFixturePath, '$dynamicRef-static-anchor');
+        context('given Schema Objects with deeply nested wrapper $defs bindings', function () {
+          const fixturePath = path.join(rootFixturePath, '$dynamicRef-wrapper-defs');
 
-            specify('should behave like $ref and not apply dynamic scope', async function () {
+          specify(
+            'should resolve $dynamicRef through the explicit dynamic scope stack',
+            async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
               const actual = await dereference(rootFilePath, {
                 parse: { mediaType: mediaTypes.latest('json') },
               });
-              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+              const dataPath =
+                '/0/components/schemas/Container/$defs/level1/$defs/level2/properties/leaf';
+              const data = evaluate(actual, dataPath);
+              const dataVal = toValue(data as Element) as any;
 
-              assert.deepEqual(toValue(actual), expected);
+              assert.strictEqual(dataVal?.properties?.source?.const, 'outer');
+            },
+          );
+        });
+
+        context('given Schema Objects with $ref-entered wrapper $defs bindings', function () {
+          const fixturePath = path.join(rootFixturePath, '$dynamicRef-wrapper-ref-template');
+
+          specify('should resolve $dynamicRef to the caller binding', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
             });
-          },
-        );
+            const dataPath = '/0/components/schemas/Concrete/properties/payload';
+            const data = evaluate(actual, dataPath);
+            const dataVal = toValue(data as Element) as any;
+
+            assert.strictEqual(dataVal?.properties?.source?.const, 'concrete');
+          });
+        });
+
+        context('given Schema Objects with $dynamicRef targeting ordinary $anchor', function () {
+          const fixturePath = path.join(rootFixturePath, '$dynamicRef-static-anchor');
+
+          specify('should behave like $ref and not apply dynamic scope', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
 
         context(
           'given Schema Objects with $dynamicRef creating recursive tree and circular=ignore',
@@ -1101,10 +1134,7 @@ describe('dereference', function () {
         context(
           'given Schema Objects with $dynamicRef pointing to non-existent anchor and continueOnError',
           function () {
-            const fixturePath = path.join(
-              rootFixturePath,
-              '$dynamicRef-continue-on-error-anchor',
-            );
+            const fixturePath = path.join(rootFixturePath, '$dynamicRef-continue-on-error-anchor');
 
             specify('should collect error and continue', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
@@ -1123,10 +1153,7 @@ describe('dereference', function () {
         context(
           'given Schema Objects with $dynamicRef pointing to missing external file and continueOnError',
           function () {
-            const fixturePath = path.join(
-              rootFixturePath,
-              '$dynamicRef-continue-on-error-missing',
-            );
+            const fixturePath = path.join(rootFixturePath, '$dynamicRef-continue-on-error-missing');
 
             specify('should collect error and continue', async function () {
               const rootFilePath = path.join(fixturePath, 'root.json');
@@ -1190,24 +1217,21 @@ describe('dereference', function () {
           },
         );
 
-        context(
-          'given Schema Objects with direct self-referencing $dynamicRef',
-          function () {
-            const fixturePath = path.join(rootFixturePath, '$dynamicRef-self-referencing');
+        context('given Schema Objects with direct self-referencing $dynamicRef', function () {
+          const fixturePath = path.join(rootFixturePath, '$dynamicRef-self-referencing');
 
-            specify('should throw error for direct self-reference', async function () {
-              const rootFilePath = path.join(fixturePath, 'root.json');
-              try {
-                await dereference(rootFilePath, {
-                  parse: { mediaType: mediaTypes.latest('json') },
-                });
-                assert.fail('should throw DereferenceError');
-              } catch (e) {
-                assert.instanceOf(e, DereferenceError);
-              }
-            });
-          },
-        );
+          specify('should throw error for direct self-reference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            try {
+              await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              assert.fail('should throw DereferenceError');
+            } catch (e) {
+              assert.instanceOf(e, DereferenceError);
+            }
+          });
+        });
 
         context(
           'given Schema Objects with $dynamicRef and ancestor $id changing base URI',

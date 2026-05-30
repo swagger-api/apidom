@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { ObjectElement, toValue } from '@swagger-api/apidom-core';
+import { toValue } from '@swagger-api/apidom-core';
 import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-2';
 
 import {
@@ -49,10 +49,7 @@ describe('dereference', function () {
           });
 
           specify('should throw for invalid anchor', function () {
-            assert.throws(
-              () => parse('1invalid'),
-              InvalidJsonSchema$dynamicAnchorError,
-            );
+            assert.throws(() => parse('1invalid'), InvalidJsonSchema$dynamicAnchorError);
           });
         });
 
@@ -64,7 +61,7 @@ describe('dereference', function () {
             });
             const result = evaluate('target', element)!;
 
-            assert.strictEqual(toValue((result as any).$dynamicAnchor), 'target');
+            assert.strictEqual(toValue((result as SchemaElement).$dynamicAnchor), 'target');
           });
 
           specify('should throw when no matching $dynamicAnchor found', function () {

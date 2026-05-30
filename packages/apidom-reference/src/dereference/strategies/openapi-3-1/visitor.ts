@@ -64,6 +64,7 @@ import {
   maybeRefractToSchemaElement,
 } from './util.ts';
 import { AncestorLineage } from '../../util.ts';
+import { DynamicScopeStack } from '../../DynamicScopeStack.ts';
 import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError.ts';
 import type { ReferenceOptions } from '../../../options/index.ts';
 
@@ -104,6 +105,7 @@ export interface OpenAPI3_1DereferenceVisitorOptions {
   readonly errorContext?: Element[];
   readonly errorPropagationCache?: Map<Element, unknown[]>;
   readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
+  readonly dynamicScopeStack?: DynamicScopeStack;
 }
 
 /**
@@ -133,6 +135,8 @@ class OpenAPI3_1DereferenceVisitor {
     referencedElement: Element;
   }> = [];
 
+  protected readonly dynamicScopeStack: DynamicScopeStack;
+
   constructor({
     reference,
     namespace,
@@ -144,6 +148,7 @@ class OpenAPI3_1DereferenceVisitor {
     errorContext = [],
     errorPropagationCache = new Map(),
     pendingPropagations = [],
+    dynamicScopeStack = new DynamicScopeStack(),
   }: OpenAPI3_1DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -155,6 +160,7 @@ class OpenAPI3_1DereferenceVisitor {
     this.errorContext = errorContext;
     this.errorPropagationCache = errorPropagationCache;
     this.pendingPropagations = pendingPropagations;
+    this.dynamicScopeStack = dynamicScopeStack;
   }
 
   protected popErrorContext(el: Element) {
@@ -341,6 +347,33 @@ class OpenAPI3_1DereferenceVisitor {
     const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
 
     return [ancestorsLineage, directAncestors];
+  }
+
+  protected toDynamicScopeStack(
+    ancestorsLineage: AncestorLineage<Element>,
+    documentURI: string,
+  ): DynamicScopeStack {
+    const dynamicScopeStack = this.dynamicScopeStack.clone();
+
+    ancestorsLineage.forEach((ancestors) => {
+      ancestors.forEach((ancestor) => {
+        const isDynamicScopeCandidate =
+          isSchemaElement(ancestor) &&
+          (typeof ancestor.$id !== 'undefined' ||
+            typeof ancestor.$dynamicAnchor !== 'undefined' ||
+            typeof ancestor.get('$defs') !== 'undefined' ||
+            typeof ancestor.$ref !== 'undefined');
+
+        if (
+          isDynamicScopeCandidate &&
+          !dynamicScopeStack.some((frame) => frame.element === ancestor)
+        ) {
+          dynamicScopeStack.pushFrame(ancestor, documentURI, 'applicator');
+        }
+      });
+    });
+
+    return dynamicScopeStack;
   }
 
   public readonly OpenApi3_1Element = {
@@ -530,6 +563,8 @@ class OpenAPI3_1DereferenceVisitor {
       const Visitor = this.constructor as new (
         options: OpenAPI3_1DereferenceVisitorOptions,
       ) => OpenAPI3_1DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
       const visitor = new Visitor({
         reference,
         namespace: this.namespace,
@@ -541,6 +576,7 @@ class OpenAPI3_1DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -773,6 +809,8 @@ class OpenAPI3_1DereferenceVisitor {
       const Visitor = this.constructor as new (
         options: OpenAPI3_1DereferenceVisitorOptions,
       ) => OpenAPI3_1DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$dynamicRef');
       const visitor = new Visitor({
         reference,
         namespace: this.namespace,
@@ -784,6 +822,7 @@ class OpenAPI3_1DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack: this.dynamicScopeStack.clone(),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -1101,6 +1140,8 @@ class OpenAPI3_1DereferenceVisitor {
     const Visitor = this.constructor as new (
       options: OpenAPI3_1DereferenceVisitorOptions,
     ) => OpenAPI3_1DereferenceVisitor;
+    const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, this.reference.uri);
+    dynamicScopeStack.pushFrame(schemaElement, this.reference.uri, '$ref');
     const visitor = new Visitor({
       reference: this.reference,
       namespace: this.namespace,
@@ -1111,6 +1152,7 @@ class OpenAPI3_1DereferenceVisitor {
       allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       errorContext: this.errorContext,
       errorPropagationCache: this.errorPropagationCache,
+      dynamicScopeStack,
     });
 
     let referencedElement: Element;
@@ -1234,7 +1276,9 @@ class OpenAPI3_1DereferenceVisitor {
         referencedElement.id = identityManager.identify(referencedElement);
       } catch (toReferenceError) {
         this.indirections.pop();
-        return this.handleDereferenceError(toReferenceError, referencingElement, { directAncestors });
+        return this.handleDereferenceError(toReferenceError, referencingElement, {
+          directAncestors,
+        });
       }
     }
 
@@ -1244,27 +1288,19 @@ class OpenAPI3_1DereferenceVisitor {
     }
 
     if (isDynamicAnchorTarget) {
-      const dynamicScope = [new Set(this.indirections), ...ancestorsLineage];
-
-      for (let i = 0; i < dynamicScope.length; i += 1) {
-        for (const ancestor of dynamicScope[i]) {
-          const isDynamicScopeCandidate =
-            isSchemaElement(ancestor) &&
-            (typeof ancestor.$id !== 'undefined' ||
-              typeof ancestor.$dynamicAnchor !== 'undefined' ||
-              typeof ancestor.get('$defs') !== 'undefined' ||
-              typeof ancestor.$ref !== 'undefined');
-
-          if (isDynamicScopeCandidate) {
-            try {
-              referencedElement = $dynamicAnchorEvaluate(anchorToken, ancestor)!;
-              reference = this.reference;
-              i = dynamicScope.length;
-              break;
-            } catch {
-              // continue searching outermost-first
-            }
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      const resolved = dynamicScopeStack.resolveDynamicRef(anchorToken);
+      if (resolved !== null) {
+        referencedElement = resolved.referencedElement;
+        if (resolved.documentURI !== this.reference.uri) {
+          try {
+            reference = await this.toReference(url.unsanitize(resolved.documentURI));
+          } catch {
+            // fall back to static target if reference lookup fails
+            reference = this.reference;
           }
+        } else {
+          reference = this.reference;
         }
       }
     }
@@ -1330,6 +1366,8 @@ class OpenAPI3_1DereferenceVisitor {
       const Visitor = this.constructor as new (
         options: OpenAPI3_1DereferenceVisitorOptions,
       ) => OpenAPI3_1DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
       const visitor = new Visitor({
         reference,
         namespace: this.namespace,
@@ -1340,6 +1378,7 @@ class OpenAPI3_1DereferenceVisitor {
         allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
+        dynamicScopeStack,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -1686,10 +1725,15 @@ class OpenAPI3_1DereferenceVisitor {
       isSchemaElement(referencedElement) &&
       !isUndefined(
         find(
-          (element) => isSchemaElement(element) && isStringElement(element.$dynamicRef),
+          (element) =>
+            (isSchemaElement(element) && isStringElement(element.$dynamicRef)) ||
+            (isObjectElement(element) && isStringElement(element.get('$dynamicRef'))),
           referencedElement,
         ),
       );
+    const hasDynamicScopeOverride =
+      typeof referencingElement.$dynamicAnchor !== 'undefined' ||
+      typeof referencingElement.get('$defs') !== 'undefined';
     if (
       (isExternalReference ||
         isNonRootDocument ||
@@ -1697,6 +1741,7 @@ class OpenAPI3_1DereferenceVisitor {
           (isStringElement(referencedElement.$ref) ||
             isStringElement(referencedElement.$dynamicRef))) ||
         containsNested$dynamicRef ||
+        hasDynamicScopeOverride ||
         shouldDetectCircular ||
         this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -1708,6 +1753,8 @@ class OpenAPI3_1DereferenceVisitor {
       const Visitor = this.constructor as new (
         options: OpenAPI3_1DereferenceVisitorOptions,
       ) => OpenAPI3_1DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
       const visitor = new Visitor({
         reference,
         namespace: this.namespace,
@@ -1719,6 +1766,7 @@ class OpenAPI3_1DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {

@@ -200,6 +200,11 @@
       "require": "./src/dereference/strategies/apidom/selectors/element-id.cjs",
       "types": "./types/dereference/strategies/apidom/selectors/element-id.d.ts"
     },
+    "./dereference/DynamicScopeStack": {
+      "import": "./src/dereference/DynamicScopeStack.mjs",
+      "require": "./src/dereference/DynamicScopeStack.cjs",
+      "types": "./types/dereference/DynamicScopeStack.d.ts"
+    },
     "./dereference/strategies/asyncapi-2": {
       "import": "./src/dereference/strategies/asyncapi-2/index.mjs",
       "require": "./src/dereference/strategies/asyncapi-2/index.cjs",

@@ -16,9 +16,9 @@ export default defineConfig({
     target: 'esnext',
     outDir: 'build',
     chunkSizeWarningLimit: 1000,
-    rollupOptions: {
+    rolldownOptions: {
       output: { format: 'umd' },
-      external: ['fs', 'path'],      
+      external: ['fs', 'path'],
       onwarn(warning, warn) {
         if (warning.message.includes('Use of eval')) return;
         if (warning.message.includes('Module "fs" has been externalized')) return;

@@ -1,10 +1,8 @@
 import { readFileSync } from 'node:fs';
 import { createHash } from 'node:crypto';
 import path from 'node:path';
-import { defineConfig, type UserConfig } from 'vite';
-import topLevelAwait from 'vite-plugin-top-level-await';
+import { defineConfig, type UserConfig, type Plugin } from 'vite';
 import terser from '@rollup/plugin-terser';
-import type { Plugin } from 'rollup';
 
 /**
  * Rollup plugin that replicates webpack file-loader behavior for WASM files:
@@ -19,7 +17,7 @@ function wasmUrlLoader(): Plugin {
       const source = readFileSync(id);
       const hash = createHash('md5').update(source).digest('hex');
       const refId = this.emitFile({ type: 'asset', fileName: `${hash}.wasm`, source });
-      return `export default import.meta.ROLLUP_FILE_URL_${refId}`;
+      return { code: `export default import.meta.ROLLUP_FILE_URL_${refId}`, moduleType: 'js' };
     },
   };
 }
@@ -64,7 +62,7 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
 
   return defineConfig({
     mode: 'production',
-    plugins: [wasmUrlLoader(), topLevelAwait()],
+    plugins: [wasmUrlLoader()],
     build: {
       target: 'esnext',
       outDir: 'dist',
@@ -75,7 +73,7 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
         entry: path.resolve(entry),
         name: libraryName,
       },
-      rollupOptions: {
+      rolldownOptions: {
         plugins: [],
         external: ['fs', 'path'],
         output: [
@@ -133,12 +131,6 @@ export function createViteConfig(options: Omit<ViteConfigOptions, 'minify'>): Us
     },
     resolve: {
       extensions: ['.ts', '.mjs', '.js', '.json'],
-    },
-    esbuild: {
-      target: 'es2015',
-      supported: {
-        'top-level-await': false,
-      },
     },
   });
 }

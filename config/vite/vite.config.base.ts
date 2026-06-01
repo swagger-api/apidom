@@ -17,7 +17,7 @@ function wasmUrlLoader(): Plugin {
       const source = readFileSync(id);
       const hash = createHash('md5').update(source).digest('hex');
       const refId = this.emitFile({ type: 'asset', fileName: `${hash}.wasm`, source });
-      return { code: `export default import.meta.ROLLUP_FILE_URL_${refId}`, moduleType: 'js' };
+      return `export default import.meta.ROLLUP_FILE_URL_${refId}`;
     },
   };
 }

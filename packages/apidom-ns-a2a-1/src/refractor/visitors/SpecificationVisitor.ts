@@ -1,6 +1,6 @@
 import { pathSatisfies, path, pick } from 'ramda';
 import { isFunction } from 'ramda-adjunct';
-import { visit, cloneDeep } from '@swagger-api/apidom-core';
+import { visit, cloneDeep, Element } from '@swagger-api/apidom-core';
 
 import Visitor, { VisitorOptions } from './Visitor.ts';
 import FallbackVisitor from './FallbackVisitor.ts';
@@ -56,7 +56,7 @@ class SpecificationVisitor extends Visitor {
     return new VisitorClz(visitorOpts);
   }
 
-  toRefractedElement(specPath: string[], element: any, options = {}) {
+  toRefractedElement(specPath: string[], element: Element, options = {}) {
     /**
      * This is `Visitor shortcut`: mechanism for short-circuiting the traversal and replacing
      * it by basic node cloning.

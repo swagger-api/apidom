@@ -12,7 +12,7 @@ import type VisitorClass from './visitors/Visitor.ts';
 import specification from './specification.ts';
 import { keyMap, getNodeType } from '../traversal/visitor.ts';
 import createToolbox from './toolbox.ts';
-import canonicalizeKeys from './canonicalize.ts';
+import { canonicalizeKeys } from './canonicalize.ts';
 
 /**
  * @public

@@ -1,7 +1,7 @@
 import { Mixin } from 'ts-mixer';
 import { ArrayElement, Element, BREAK } from '@swagger-api/apidom-core';
-import SignaturesElement from '../../../elements/nces/Signatures.ts';
 
+import SignaturesElement from '../../../elements/nces/Signatures.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
 import FallbackVisitor, { FallbackVisitorOptions } from '../FallbackVisitor.ts';
 

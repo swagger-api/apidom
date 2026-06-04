@@ -2,7 +2,7 @@
 
 exports[`adapter should parse 1`] = `
 (ParseResultElement
-  (AgentCardElement
+  (A2aAgentCard1Element
     (MemberElement
       (StringElement)
       (StringElement))

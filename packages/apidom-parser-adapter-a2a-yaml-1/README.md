@@ -1,26 +1,89 @@
 # @swagger-api/apidom-parser-adapter-a2a-yaml-1
 
-Parser adapter for [A2A (Agent-to-Agent) Protocol v1.0](https://a2a-protocol.org/latest/definitions/) AgentCard documents in YAML 1.2 format. Refracts into [`@swagger-api/apidom-ns-a2a-1`](../apidom-ns-a2a-1).
+`@swagger-api/apidom-parser-adapter-a2a-yaml-1` is a parser adapter for [A2A (Agent-to-Agent) Protocol v1.0](https://a2a-protocol.org/latest/specification/) AgentCard documents in [YAML format](https://yaml.org/spec/1.2/spec.html).
+Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
+to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
+which is then refracted with [A2A 1.x.y Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-a2a-1#refractors).
 
 ## Installation
 
+After [prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#prerequisites) for installing this package are satisfied, you can install it
+via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
+
 ```sh
-npm install --save @swagger-api/apidom-parser-adapter-a2a-yaml-1
+ $ npm install @swagger-api/apidom-parser-adapter-a2a-yaml-1
 ```
+
+## Parser adapter API
+
+This parser adapter is fully compatible with parser adapter interface required by [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#mounting-parser-adapters)
+and implements all required properties.
+
+### mediaTypes
+
+Defines list of media types that this parser adapter recognizes.
+
+```js
+[
+  'application/vnd.a2a;version=1.0.0',
+  'application/vnd.a2a+yaml;version=1.0.0',
+]
+```
+
+### detect
+
+A2A AgentCard documents have **no version discriminator field** (unlike OpenAPI's `"openapi": "3.1.0"` or Arazzo's `"arazzo": "1.0.1"`). [Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-a2a-yaml-1/src/adapter.ts) is therefore **structural**: a YAML document is treated as an A2A AgentCard when it parses as YAML and contains both a `capabilities` mapping and a `skills` sequence. False positives are possible — set the `mediaType` on the `File` explicitly when the type is known.
+
+### namespace
+
+This adapter exposes an instance of [A2A 1.x.y ApiDOM namespace](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-a2a-1/README.md).
+
+### parse
+
+`parse` function consumes various options as a second argument. Here is a list of these options:
+
+Option | Type | Default | Description
+--- | --- | --- | ---
+<a name="specObj"></a>`specObj` | `Object` | [Specification Object](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-a2a-1/src/refractor/specification.ts) | This specification object drives the YAML AST transformation to A2A 1.x.y ApiDOM namespace.
+<a name="sourceMap"></a>`sourceMap` | `Boolean` | `false` | Indicate whether to generate source maps.
+<a name="refractorOpts"></a>`refractorOpts` | `Object` | `{}` | Refractor options are passed to refractors during refracting phase.
+
+All unrecognized arbitrary options will be ignored.
 
 ## Usage
 
-```ts
-import * as a2aYamlAdapter from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
-import ApiDOMParser from '@swagger-api/apidom-parser';
+This parser adapter can be used directly or indirectly via [@swagger-api/apidom-parser](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser).
 
-const parser = new ApiDOMParser().use(a2aYamlAdapter);
-const result = await parser.parse(yamlSource);
+### Direct usage
+
+During direct usage you don't need to provide `mediaType` as the `parse` function is already pre-bound
+with [supported media types](#mediatypes).
+
+```js
+import { parse, detect } from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
+
+// detecting
+await detect('capabilities:\n  streaming: true\nskills: []'); // => true
+await detect('test'); // => false
+
+// parsing
+const parseResult = await parse('capabilities:\n  streaming: true\nskills: []', { sourceMap: true });
 ```
 
-## Detection
+### Indirect usage
 
-A2A AgentCard documents have **no version discriminator field**. This adapter uses **structural detection**: a YAML or JSON document is treated as an A2A AgentCard when it contains both a `capabilities` mapping and a `skills` sequence. False positives are possible — set the `mediaType` on the `File` explicitly when known.
+You can omit the `mediaType` option here, but please read [Word on detect vs mediaTypes](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser#word-on-detect-vs-mediatypes) before you do so.
+
+```js
+import ApiDOMParser from '@swagger-api/apidom-parser';
+import * as a2aYamlAdapter from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
+
+const parser = new ApiDOMParser();
+
+parser.use(a2aYamlAdapter);
+
+const parseResult = await parser.parse(yamlSource, { mediaType: a2aYamlAdapter.mediaTypes.latest('yaml') });
+```
 
 ## License
 

@@ -1,4 +1,8 @@
 import allowedFieldsLint from './allowed-fields.ts';
+import idRequiredLint from './id--required.ts';
+import nameRequiredLint from './name--required.ts';
+import descriptionRequiredLint from './description--required.ts';
+import tagsRequiredLint from './tags--required.ts';
 import idLint from './id--type.ts';
 import nameLint from './name--type.ts';
 import descriptionLint from './description--type.ts';
@@ -10,6 +14,10 @@ import securityRequirementsLint from './security-requirements--type.ts';
 
 const lints = [
   allowedFieldsLint,
+  idRequiredLint,
+  nameRequiredLint,
+  descriptionRequiredLint,
+  tagsRequiredLint,
   idLint,
   nameLint,
   descriptionLint,

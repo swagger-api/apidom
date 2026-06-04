@@ -28,7 +28,7 @@ export default {
       },
     ],
   },
-  agentCard: a2a1Meta,
+  a2aAgentCard1: a2a1Meta,
   agentCapabilities: agentCapabilitiesMeta,
   agentSkill: agentSkillMeta,
   agentProvider: agentProviderMeta,

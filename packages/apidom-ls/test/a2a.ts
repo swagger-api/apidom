@@ -20,11 +20,23 @@ const agentCardValid = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'a2a', 'agent-card-valid.json'))
   .toString();
 
+const agentCardMissingRequired = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'a2a', 'agent-card-missing-required.json'))
+  .toString();
+
 describe('apidom-ls-a2a', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
     performanceLogs: logPerformance,
     logLevel,
+    // A2A AgentCard documents carry no version discriminator field, so the
+    // spec version used for lint-rule targeting is pinned to A2A v1.
+    defaultContentLanguage: {
+      namespace: 'a2a',
+      version: '1.0.0',
+      format: 'JSON',
+      mediaType: 'application/vnd.a2a+json;version=1.0.0',
+    },
   };
 
   const languageService: LanguageService = getLanguageService(context);
@@ -51,5 +63,187 @@ describe('apidom-ls-a2a', function () {
 
     const result = await languageService.doValidation(doc, validationContext);
     assert.deepEqual(result, [] as Diagnostic[]);
+  });
+
+  it('reports missing required fields on AgentCard and nested AgentSkill', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/agent-card-missing.json',
+      'json',
+      0,
+      agentCardMissingRequired,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 0, character: 0 }, end: { line: 1, character: 3 } },
+        message: "should always have a 'description' field",
+        severity: 1,
+        code: 9011700,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: "description: ''\n",
+              snippetJson: '"description": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 0, character: 0 }, end: { line: 1, character: 3 } },
+        message: "should always have a 'supportedInterfaces' field",
+        severity: 1,
+        code: 9011800,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'supportedInterfaces' field",
+              action: 'addChild',
+              snippetYaml: 'supportedInterfaces:\n  - \n',
+              snippetJson: '"supportedInterfaces": [],\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 0, character: 0 }, end: { line: 1, character: 3 } },
+        message: "should always have a 'version' field",
+        severity: 1,
+        code: 9011900,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'version' field",
+              action: 'addChild',
+              snippetYaml: "version: ''\n",
+              snippetJson: '"version": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 0, character: 0 }, end: { line: 1, character: 3 } },
+        message: "should always have a 'defaultInputModes' field",
+        severity: 1,
+        code: 9012100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'defaultInputModes' field",
+              action: 'addChild',
+              snippetYaml: 'defaultInputModes:\n  - \n',
+              snippetJson: '"defaultInputModes": [],\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 0, character: 0 }, end: { line: 1, character: 3 } },
+        message: "should always have a 'defaultOutputModes' field",
+        severity: 1,
+        code: 9012200,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'defaultOutputModes' field",
+              action: 'addChild',
+              snippetYaml: 'defaultOutputModes:\n  - \n',
+              snippetJson: '"defaultOutputModes": [],\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 1, character: 10 }, end: { line: 1, character: 13 } },
+        message: "'name' must be a string",
+        severity: 1,
+        code: 9010100,
+        source: 'apilint',
+      },
+      {
+        range: { start: { line: 6, character: 4 }, end: { line: 8, character: 5 } },
+        message: "should always have an 'id' field",
+        severity: 1,
+        code: 9030900,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'id' field",
+              action: 'addChild',
+              snippetYaml: "id: ''\n",
+              snippetJson: '"id": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 6, character: 4 }, end: { line: 8, character: 5 } },
+        message: "should always have a 'name' field",
+        severity: 1,
+        code: 9031000,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'name' field",
+              action: 'addChild',
+              snippetYaml: "name: ''\n",
+              snippetJson: '"name": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 6, character: 4 }, end: { line: 8, character: 5 } },
+        message: "should always have a 'description' field",
+        severity: 1,
+        code: 9031100,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'description' field",
+              action: 'addChild',
+              snippetYaml: "description: ''\n",
+              snippetJson: '"description": "",\n',
+            },
+          ],
+        },
+      },
+      {
+        range: { start: { line: 6, character: 4 }, end: { line: 8, character: 5 } },
+        message: "should always have a 'tags' field",
+        severity: 1,
+        code: 9031200,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'tags' field",
+              action: 'addChild',
+              snippetYaml: 'tags:\n  - \n',
+              snippetJson: '"tags": [],\n',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
   });
 });

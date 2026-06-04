@@ -31,11 +31,7 @@ const completion: ApidomCompletionItem[] = [
     CompletionFormat.QUOTED,
     'Base64url-encoded signature value over the AgentCard payload.',
   ),
-  signatureField(
-    'header',
-    CompletionFormat.OBJECT,
-    'Unprotected JWS header parameters (JOSE).',
-  ),
+  signatureField('header', CompletionFormat.OBJECT, 'Unprotected JWS header parameters (JOSE).'),
 ];
 
 export default completion;

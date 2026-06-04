@@ -35,19 +35,6 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: A2A1,
   },
   {
-    label: 'url',
-    insertText: 'url',
-    kind: 14,
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value: "The agent's primary endpoint URL. Must be a valid absolute HTTPS URL in production.",
-    },
-    targetSpecs: A2A1,
-  },
-  {
     label: 'version',
     insertText: 'version',
     kind: 14,

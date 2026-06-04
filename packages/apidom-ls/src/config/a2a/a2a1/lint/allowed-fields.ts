@@ -14,7 +14,6 @@ const allowedFieldsLint: LinterMeta = {
     [
       'name',
       'description',
-      'url',
       'version',
       'iconUrl',
       'documentationUrl',

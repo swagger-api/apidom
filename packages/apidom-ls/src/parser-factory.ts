@@ -22,6 +22,7 @@ import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElemen
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_0 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_1 } from '@swagger-api/apidom-ns-openapi-3-1';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_2 } from '@swagger-api/apidom-ns-openapi-3-2';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementA2A1 } from '@swagger-api/apidom-ns-a2a-1';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
@@ -222,9 +223,26 @@ export async function parse(
 
     result = await openapi3_2AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'a2a' && contentLanguage.format === 'JSON') {
-    result = await a2a1AdapterJson.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['a2a-1'] || [])],
+      },
+    };
+
+    result = await a2a1AdapterJson.parse(text, options);
   } else if (contentLanguage.namespace === 'a2a' && contentLanguage.format === 'YAML') {
-    result = await a2a1AdapterYaml.parse(text, { sourceMap: true });
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementA2A1(),
+          ...(refractorPlugins?.['a2a-1'] || []),
+        ].filter(Boolean),
+      },
+    };
+
+    result = await a2a1AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {

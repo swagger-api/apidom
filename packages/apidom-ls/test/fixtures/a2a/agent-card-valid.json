@@ -1,7 +1,6 @@
 {
   "name": "Planner Agent",
   "description": "Breaks down a request into actionable tasks.",
-  "url": "https://agent.example.com/",
   "version": "1.0.0",
   "iconUrl": "https://agent.example.com/icon.png",
   "documentationUrl": "https://agent.example.com/docs",
@@ -14,6 +13,13 @@
     "pushNotifications": true,
     "extendedAgentCard": false
   },
+  "supportedInterfaces": [
+    {
+      "url": "https://agent.example.com/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
   "defaultInputModes": ["text", "text/plain"],
   "defaultOutputModes": ["text", "text/plain"],
   "skills": [

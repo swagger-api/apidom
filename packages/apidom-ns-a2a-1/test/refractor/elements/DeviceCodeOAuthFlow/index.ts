@@ -10,6 +10,7 @@ describe('refractor', function () {
         const element = DeviceCodeOAuthFlowElement.refract({
           deviceAuthorizationUrl: 'https://idp.example/device',
           tokenUrl: 'https://idp.example/token',
+          refreshUrl: 'https://idp.example/refresh',
           scopes: {},
         });
 

@@ -29,7 +29,7 @@ const a2a1 = {
   namespace: (options: NamespacePluginOptions) => {
     const { base } = options;
 
-    base.register('agentCard', AgentCardElement);
+    base.register('a2aAgentCard1', AgentCardElement);
     base.register('agentCapabilities', AgentCapabilitiesElement);
     base.register('agentExtension', AgentExtensionElement);
     base.register('agentProvider', AgentProviderElement);

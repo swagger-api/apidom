@@ -36,7 +36,6 @@ describe('refractor', function () {
     specify('should produce typed scalar accessors', function () {
       const element = AgentCardElement.refract(raw) as AgentCardElement;
       assert.strictEqual(element.name?.toValue(), 'Langraph Planner Agent');
-      assert.strictEqual(element.url?.toValue(), 'http://localhost:10102/');
       assert.strictEqual(element.version?.toValue(), '1.0.0');
     });
 

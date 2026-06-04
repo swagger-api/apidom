@@ -11,6 +11,7 @@ describe('refractor', function () {
           url: 'https://example.com/a2a',
           protocolBinding: 'JSONRPC',
           protocolVersion: '1.0',
+          tenant: 'tenant-a',
         });
 
         expect(sexprs(element)).toMatchSnapshot();

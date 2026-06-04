@@ -9,6 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const element = ClientCredentialsOAuthFlowElement.refract({
           tokenUrl: 'https://idp.example/token',
+          refreshUrl: 'https://idp.example/refresh',
           scopes: { admin: 'Admin' },
         });
 

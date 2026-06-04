@@ -10,14 +10,26 @@ describe('refractor', function () {
         const element = AgentCardElement.refract({
           name: 'Demo Agent',
           description: 'A demo A2A agent',
-          url: 'https://demo.example/a2a',
           version: '1.0.0',
+          iconUrl: 'https://demo.example/icon.png',
+          documentationUrl: 'https://demo.example/docs',
+          provider: {
+            organization: 'Demo Inc',
+            url: 'https://demo.example',
+          },
           capabilities: {
             streaming: true,
             pushNotifications: false,
           },
           defaultInputModes: ['text/plain'],
           defaultOutputModes: ['application/json'],
+          supportedInterfaces: [
+            {
+              url: 'https://demo.example/a2a',
+              protocolBinding: 'JSONRPC',
+              protocolVersion: '1.0',
+            },
+          ],
           skills: [
             {
               id: 'lookup',
@@ -35,7 +47,6 @@ describe('refractor', function () {
         const element = AgentCardElement.refract({
           name: 'Secure Agent',
           version: '1.0.0',
-          url: 'https://secure.example/a2a',
           capabilities: {},
           defaultInputModes: [],
           defaultOutputModes: [],

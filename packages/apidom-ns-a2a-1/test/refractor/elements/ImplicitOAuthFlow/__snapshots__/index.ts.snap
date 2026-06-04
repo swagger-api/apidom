@@ -7,5 +7,8 @@ exports[`refractor elements ImplicitOAuthFlowElement should refract to semantic 
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (ObjectElement)))
 `;

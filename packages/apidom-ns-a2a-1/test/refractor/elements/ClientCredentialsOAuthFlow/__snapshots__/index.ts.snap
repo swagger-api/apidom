@@ -7,6 +7,9 @@ exports[`refractor elements ClientCredentialsOAuthFlowElement should refract to 
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (ObjectElement
       (MemberElement
         (StringElement)

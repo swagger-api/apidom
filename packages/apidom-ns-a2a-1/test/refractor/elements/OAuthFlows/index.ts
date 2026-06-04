@@ -12,6 +12,19 @@ describe('refractor', function () {
             authorizationUrl: 'https://x.example/a',
             tokenUrl: 'https://x.example/t',
           },
+          clientCredentials: {
+            tokenUrl: 'https://x.example/t',
+          },
+          deviceCode: {
+            deviceAuthorizationUrl: 'https://x.example/d',
+            tokenUrl: 'https://x.example/t',
+          },
+          implicit: {
+            authorizationUrl: 'https://x.example/a',
+          },
+          password: {
+            tokenUrl: 'https://x.example/t',
+          },
         });
 
         expect(sexprs(element)).toMatchSnapshot();

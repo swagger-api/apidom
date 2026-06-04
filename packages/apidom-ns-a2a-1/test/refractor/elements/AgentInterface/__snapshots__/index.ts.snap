@@ -10,5 +10,8 @@ exports[`refractor elements AgentInterfaceElement should refract to semantic Api
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (StringElement)))
 `;

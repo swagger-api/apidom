@@ -25,7 +25,7 @@ import SupportedInterfacesVisitor from './visitors/a2a-1/SupportedInterfacesVisi
 import SecurityRequirementsVisitor from './visitors/a2a-1/SecurityRequirementsVisitor.ts';
 import ExtensionsVisitor from './visitors/a2a-1/ExtensionsVisitor.ts';
 import SecuritySchemesVisitor from './visitors/a2a-1/SecuritySchemesVisitor.ts';
-import SecurityRequirementSchemesVisitor from './visitors/a2a-1/SecurityRequirementSchemesVisitor.ts';
+import SecurityRequirementSchemesVisitor from './visitors/a2a-1/security-requirement/SchemesVisitor.ts';
 import FallbackVisitor from './visitors/FallbackVisitor.ts';
 
 /**
@@ -55,7 +55,6 @@ const specification = {
           fixedFields: {
             name: { $ref: '#/visitors/value' },
             description: { $ref: '#/visitors/value' },
-            url: { $ref: '#/visitors/value' },
             version: { $ref: '#/visitors/value' },
             iconUrl: { $ref: '#/visitors/value' },
             documentationUrl: { $ref: '#/visitors/value' },

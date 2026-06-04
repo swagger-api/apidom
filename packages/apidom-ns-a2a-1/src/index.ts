@@ -19,6 +19,7 @@ export { default } from './namespace.ts';
 
 export { default as refract, createRefractor } from './refractor/index.ts';
 export { default as specificationObj } from './refractor/specification.ts';
+export { default as refractorPluginReplaceEmptyElement } from './refractor/plugins/replace-empty-element.ts';
 
 // Generic visitor base classes
 export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
@@ -153,7 +154,7 @@ export type {
 export type {
   default as SecurityRequirementSchemesVisitor,
   SecurityRequirementSchemesVisitorOptions,
-} from './refractor/visitors/a2a-1/SecurityRequirementSchemesVisitor.ts';
+} from './refractor/visitors/a2a-1/security-requirement/SchemesVisitor.ts';
 
 // Predicates
 export {

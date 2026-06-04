@@ -11,6 +11,7 @@ describe('refractor', function () {
           uri: 'urn:example:ext',
           description: 'demo',
           required: true,
+          params: { foo: 'bar' },
         });
 
         expect(sexprs(element)).toMatchSnapshot();

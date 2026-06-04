@@ -15,6 +15,7 @@ describe('refractor', function () {
           examples: ['Find X'],
           inputModes: ['text/plain'],
           outputModes: ['application/json'],
+          securityRequirements: [{ schemes: { oauth: ['read'] } }],
         });
 
         expect(sexprs(element)).toMatchSnapshot();

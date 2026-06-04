@@ -10,6 +10,9 @@ exports[`refractor elements AuthorizationCodeOAuthFlowElement should refract to 
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (BooleanElement))
   (MemberElement
     (StringElement)

@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`refractor plugins replace-empty-element should leave non-empty values untouched 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (AgentCapabilitiesElement
+      (MemberElement
+        (StringElement)
+        (BooleanElement)))))
+`;
+
+exports[`refractor plugins replace-empty-element should replace empty capabilities with an AgentCapabilitiesElement 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (AgentCapabilitiesElement)))
+`;
+
+exports[`refractor plugins replace-empty-element should replace empty provider with an AgentProviderElement 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (AgentProviderElement)))
+`;
+
+exports[`refractor plugins replace-empty-element should replace empty securitySchemes with a SecuritySchemesElement 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement)))
+`;
+
+exports[`refractor plugins replace-empty-element should replace empty skills with a SkillsElement 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement)))
+`;

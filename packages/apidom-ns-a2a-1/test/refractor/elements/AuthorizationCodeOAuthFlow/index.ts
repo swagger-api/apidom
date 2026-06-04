@@ -10,6 +10,7 @@ describe('refractor', function () {
         const element = AuthorizationCodeOAuthFlowElement.refract({
           authorizationUrl: 'https://idp.example/authorize',
           tokenUrl: 'https://idp.example/token',
+          refreshUrl: 'https://idp.example/refresh',
           pkceRequired: true,
           scopes: { read: 'Read access' },
         });

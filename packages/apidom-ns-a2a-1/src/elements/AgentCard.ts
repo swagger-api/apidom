@@ -17,7 +17,7 @@ import AgentProviderElement from './AgentProvider.ts';
 class AgentCard extends ObjectElement {
   constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
     super(content, meta, attributes);
-    this.element = 'agentCard';
+    this.element = 'a2aAgentCard1';
     this.classes.push('api');
     this.classes.push('agent-card');
   }
@@ -36,14 +36,6 @@ class AgentCard extends ObjectElement {
 
   set description(description: StringElement | undefined) {
     this.set('description', description);
-  }
-
-  get url(): StringElement | undefined {
-    return this.get('url');
-  }
-
-  set url(url: StringElement | undefined) {
-    this.set('url', url);
   }
 
   get version(): StringElement | undefined {

@@ -10,5 +10,8 @@ exports[`refractor elements DeviceCodeOAuthFlowElement should refract to semanti
     (StringElement))
   (MemberElement
     (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
     (ObjectElement)))
 `;

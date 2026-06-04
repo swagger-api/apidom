@@ -4,7 +4,6 @@ import {
   dereference,
   refract as baseRefract,
   dispatchRefractorPlugins,
-  isElement,
 } from '@swagger-api/apidom-core';
 import { path } from 'ramda';
 
@@ -21,10 +20,12 @@ const refract = <T extends Element>(
   value: unknown,
   { specPath = ['visitors', 'document', 'objects', 'AgentCard', '$visitor'], plugins = [] } = {},
 ): T => {
-  // Canonicalise snake_case keys → camelCase on raw input. Skip if the value
-  // is already an ApiDOM Element (caller passed a generic-refracted tree).
-  const canonicalised = isElement(value) ? value : canonicalizeKeys(value);
-  const element = baseRefract(canonicalised);
+  // Canonicalise snake_case keys → camelCase. Both entry points (a plain JS
+  // value and the generic Element passed by the parser adapters) converge on
+  // a generic Element after `baseRefract`, so canonicalising the element tree
+  // here covers every path before the namespace visitors run.
+  const element = baseRefract(value);
+  canonicalizeKeys(element);
   const resolvedSpec = dereference(specification);
 
   /**

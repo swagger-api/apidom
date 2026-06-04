@@ -36,7 +36,7 @@ export const isAgentCardElement = createPredicate(
     return (element: unknown): element is AgentCardElement =>
       element instanceof AgentCardElement ||
       (hasBasicElementProps(element) &&
-        isElementType('agentCard', element) &&
+        isElementType('a2aAgentCard1', element) &&
         primitiveEq('object', element) &&
         hasClass('api', element) &&
         hasClass('agent-card', element));

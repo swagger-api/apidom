@@ -15,7 +15,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  * @public
  */
 export const keyMap = {
-  AgentCardElement: ['content'],
+  A2aAgentCard1Element: ['content'],
   AgentCapabilitiesElement: ['content'],
   AgentExtensionElement: ['content'],
   AgentProviderElement: ['content'],

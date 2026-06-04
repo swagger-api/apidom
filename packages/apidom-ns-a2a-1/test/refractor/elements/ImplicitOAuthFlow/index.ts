@@ -9,6 +9,7 @@ describe('refractor', function () {
       specify('should refract to semantic ApiDOM tree', function () {
         const element = ImplicitOAuthFlowElement.refract({
           authorizationUrl: 'https://idp.example/authorize',
+          refreshUrl: 'https://idp.example/refresh',
           scopes: {},
         });
 

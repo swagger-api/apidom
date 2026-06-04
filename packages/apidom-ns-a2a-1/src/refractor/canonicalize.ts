@@ -7,9 +7,16 @@
  * side of the conversion may emit either form.
  *
  * This module exposes a single function `canonicalizeKeys` that recursively
- * rewrites known snake_case keys to their camelCase equivalents. It is
- * applied to the raw input value *before* refraction, so the visitor pipeline
- * downstream only ever sees camelCase keys.
+ * rewrites known snake_case keys to their camelCase equivalents *on an ApiDOM
+ * element tree*. It runs against the generic ApiDOM produced by `baseRefract`,
+ * before the namespace visitor pipeline, so downstream visitors only ever see
+ * camelCase keys.
+ *
+ * Operating on the element tree (rather than a plain JS value) is required
+ * because documents reach the refractor through two paths: callers may pass a
+ * plain JS value, but the parser adapters pass the already-refracted generic
+ * Element from `parseJSON` / `parseYAML`. Both converge on a generic Element
+ * after `baseRefract`, so canonicalising there covers every entry point.
  *
  * Note: the mapping is global rather than element-scoped. This works because
  * every snake_case key listed below appears in only one logical position in
@@ -19,6 +26,15 @@
  *
  * @public
  */
+import {
+  Element,
+  MemberElement,
+  toValue,
+  isElement,
+  isObjectElement,
+  isArrayElement,
+  isStringElement,
+} from '@swagger-api/apidom-core';
 
 const SNAKE_TO_CAMEL: Record<string, string> = {
   // AgentCard
@@ -63,25 +79,37 @@ const SNAKE_TO_CAMEL: Record<string, string> = {
 };
 
 /**
- * Recursively rewrite known snake_case keys to camelCase in a plain JS value.
- * Pure: returns a new structure; the input is not mutated. No-op for keys
- * not in the mapping table.
+ * Recursively rewrite known snake_case member keys to camelCase in an ApiDOM
+ * element tree. Mutates `element` in place (the generic tree is freshly built
+ * by `baseRefract`, so in-place rewriting is safe) and returns it. No-op for
+ * keys not in the mapping table. Key `meta`/`attributes` (e.g. source maps)
+ * are preserved because only the key's primitive content is rewritten.
  *
  * @public
  */
-export const canonicalizeKeys = (value: unknown): unknown => {
-  if (Array.isArray(value)) {
-    return value.map(canonicalizeKeys);
+export const canonicalizeKeys = (element: Element): Element => {
+  if (isObjectElement(element)) {
+    (element.content as unknown as MemberElement[]).forEach((member) => {
+      const { key, value } = member;
+      if (isStringElement(key)) {
+        const canonicalKey = SNAKE_TO_CAMEL[toValue(key) as string];
+        if (typeof canonicalKey === 'string') {
+          // minim's base typing declares `content` as `Array<unknown>`, but a
+          // StringElement's content is the string primitive — assign through a
+          // narrowed target so the rewrite type-checks.
+          (key as unknown as { content: string }).content = canonicalKey;
+        }
+      }
+      if (isElement(value)) {
+        canonicalizeKeys(value);
+      }
+    });
+  } else if (isArrayElement(element)) {
+    (element.content as unknown as Element[]).forEach((item) => {
+      canonicalizeKeys(item);
+    });
   }
-  if (value !== null && typeof value === 'object') {
-    const result: Record<string, unknown> = {};
-    for (const [key, val] of Object.entries(value)) {
-      const canonicalKey = SNAKE_TO_CAMEL[key] ?? key;
-      result[canonicalKey] = canonicalizeKeys(val);
-    }
-    return result;
-  }
-  return value;
+  return element;
 };
 
 export default canonicalizeKeys;

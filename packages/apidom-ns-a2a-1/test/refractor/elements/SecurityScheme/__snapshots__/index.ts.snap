@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`refractor elements SecuritySchemeElement should refract to semantic ApiDOM tree 1`] = `
+exports[`refractor elements SecuritySchemeElement should refract apiKeySecurityScheme variant 1`] = `
 (SecuritySchemeElement
   (MemberElement
     (StringElement)
@@ -8,6 +8,58 @@ exports[`refractor elements SecuritySchemeElement should refract to semantic Api
       (MemberElement
         (StringElement)
         (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements SecuritySchemeElement should refract httpAuthSecurityScheme variant 1`] = `
+(SecuritySchemeElement
+  (MemberElement
+    (StringElement)
+    (HttpAuthSecuritySchemeElement
+      (MemberElement
+        (StringElement)
+        (StringElement))
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements SecuritySchemeElement should refract mtlsSecurityScheme variant 1`] = `
+(SecuritySchemeElement
+  (MemberElement
+    (StringElement)
+    (MutualTlsSecuritySchemeElement
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements SecuritySchemeElement should refract oauth2SecurityScheme variant 1`] = `
+(SecuritySchemeElement
+  (MemberElement
+    (StringElement)
+    (Oauth2SecuritySchemeElement
+      (MemberElement
+        (StringElement)
+        (OauthFlowsElement
+          (MemberElement
+            (StringElement)
+            (ClientCredentialsOAuthFlowElement
+              (MemberElement
+                (StringElement)
+                (StringElement))))))
+      (MemberElement
+        (StringElement)
+        (StringElement)))))
+`;
+
+exports[`refractor elements SecuritySchemeElement should refract openIdConnectSecurityScheme variant 1`] = `
+(SecuritySchemeElement
+  (MemberElement
+    (StringElement)
+    (OpenIdConnectSecuritySchemeElement
       (MemberElement
         (StringElement)
         (StringElement)))))

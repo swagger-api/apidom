@@ -26,5 +26,16 @@ exports[`refractor elements AgentSkillElement should refract to semantic ApiDOM 
   (MemberElement
     (StringElement)
     (ArrayElement
-      (StringElement))))
+      (StringElement)))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (SecurityRequirementElement
+        (MemberElement
+          (StringElement)
+          (ObjectElement
+            (MemberElement
+              (StringElement)
+              (ArrayElement
+                (StringElement)))))))))
 `;

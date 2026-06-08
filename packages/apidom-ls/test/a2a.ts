@@ -24,6 +24,31 @@ const agentCardMissingRequired = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'a2a', 'agent-card-missing-required.json'))
   .toString();
 
+const agentCardOAuthValid = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'a2a', 'agent-card-oauth-valid.json'))
+  .toString();
+
+const agentCardOAuthMissingScopes = fs
+  .readFileSync(path.join(__dirname, 'fixtures', 'a2a', 'agent-card-oauth-missing-scopes.json'))
+  .toString();
+
+const agentCardClientCredentialsMissingScopes = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'a2a',
+      'agent-card-client-credentials-missing-scopes.json',
+    ),
+  )
+  .toString();
+
+const agentCardDeviceCodeMissingScopes = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'a2a', 'agent-card-device-code-missing-scopes.json'),
+  )
+  .toString();
+
 describe('apidom-ls-a2a', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -33,9 +58,9 @@ describe('apidom-ls-a2a', function () {
     // spec version used for lint-rule targeting is pinned to A2A v1.
     defaultContentLanguage: {
       namespace: 'a2a',
-      version: '1.0.0',
+      version: '1.0.1',
       format: 'JSON',
-      mediaType: 'application/vnd.a2a+json;version=1.0.0',
+      mediaType: 'application/vnd.a2a+json;version=1.0.1',
     },
   };
 
@@ -239,6 +264,137 @@ describe('apidom-ls-a2a', function () {
               action: 'addChild',
               snippetYaml: 'tags:\n  - \n',
               snippetJson: '"tags": [],\n',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('validates an AgentCard with oauth2 authorization code flow and scopes with no diagnostics', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc = TextDocument.create('foo://bar/oauth-valid.json', 'json', 0, agentCardOAuthValid);
+    const result = await languageService.doValidation(doc, validationContext);
+    assert.deepEqual(result, [] as Diagnostic[]);
+  });
+
+  it('reports missing scopes on AuthorizationCodeOAuthFlow', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc = TextDocument.create(
+      'foo://bar/oauth-missing-scopes.json',
+      'json',
+      0,
+      agentCardOAuthMissingScopes,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 26, character: 10 }, end: { line: 26, character: 29 } },
+        message: "should always have a 'scopes' field",
+        severity: 1,
+        code: 9090800,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'scopes' field",
+              action: 'addChild',
+              snippetYaml: 'scopes: \n  \n',
+              snippetJson: '"scopes": {\n  \n  },\n',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('reports missing scopes on ClientCredentialsOAuthFlow', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc = TextDocument.create(
+      'foo://bar/cc-missing-scopes.json',
+      'json',
+      0,
+      agentCardClientCredentialsMissingScopes,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 26, character: 10 }, end: { line: 26, character: 29 } },
+        message: "should always have a 'scopes' field",
+        severity: 1,
+        code: 9100500,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'scopes' field",
+              action: 'addChild',
+              snippetYaml: 'scopes: \n  \n',
+              snippetJson: '"scopes": {\n  \n  },\n',
+            },
+          ],
+        },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('reports missing scopes on DeviceCodeOAuthFlow', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc = TextDocument.create(
+      'foo://bar/dc-missing-scopes.json',
+      'json',
+      0,
+      agentCardDeviceCodeMissingScopes,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 26, character: 10 }, end: { line: 26, character: 22 } },
+        message: "should always have a 'scopes' field",
+        severity: 1,
+        code: 9110700,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'scopes' field",
+              action: 'addChild',
+              snippetYaml: 'scopes: \n  \n',
+              snippetJson: '"scopes": {\n  \n  },\n',
             },
           ],
         },

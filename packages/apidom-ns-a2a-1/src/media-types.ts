@@ -39,6 +39,9 @@ const mediaTypes = new A2AMediaTypes(
   'application/vnd.a2a;version=1.0.0',
   'application/vnd.a2a+json;version=1.0.0',
   'application/vnd.a2a+yaml;version=1.0.0',
+  'application/vnd.a2a;version=1.0.1',
+  'application/vnd.a2a+json;version=1.0.1',
+  'application/vnd.a2a+yaml;version=1.0.1',
 );
 
 export default mediaTypes;

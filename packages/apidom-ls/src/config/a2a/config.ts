@@ -13,6 +13,12 @@ import clientCredentialsOAuthFlowMeta from './client-credentials-oauth-flow/meta
 import deviceCodeOAuthFlowMeta from './device-code-oauth-flow/meta.ts';
 import implicitOAuthFlowMeta from './implicit-oauth-flow/meta.ts';
 import passwordOAuthFlowMeta from './password-oauth-flow/meta.ts';
+import agentExtensionMeta from './agent-extension/meta.ts';
+import apiKeySecuritySchemeMeta from './api-key-security-scheme/meta.ts';
+import httpAuthSecuritySchemeMeta from './http-auth-security-scheme/meta.ts';
+import oauth2SecuritySchemeMeta from './oauth2-security-scheme/meta.ts';
+import openIdConnectSecuritySchemeMeta from './open-id-connect-security-scheme/meta.ts';
+import mutualTlsSecuritySchemeMeta from './mutual-tls-security-scheme/meta.ts';
 import ApilintCodes from '../codes.ts';
 
 export default {
@@ -41,4 +47,10 @@ export default {
   deviceCodeOAuthFlow: deviceCodeOAuthFlowMeta,
   implicitOAuthFlow: implicitOAuthFlowMeta,
   passwordOAuthFlow: passwordOAuthFlowMeta,
+  agentExtension: agentExtensionMeta,
+  apiKeySecurityScheme: apiKeySecuritySchemeMeta,
+  httpAuthSecurityScheme: httpAuthSecuritySchemeMeta,
+  oauth2SecurityScheme: oauth2SecuritySchemeMeta,
+  openIdConnectSecurityScheme: openIdConnectSecuritySchemeMeta,
+  mutualTlsSecurityScheme: mutualTlsSecuritySchemeMeta,
 };

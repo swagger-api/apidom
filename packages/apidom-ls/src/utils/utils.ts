@@ -978,9 +978,9 @@ export async function findNamespace(
 
   if (await a2a1AdapterJson.detect(text)) {
     // A2A AgentCard documents have no version discriminator field, so we
-    // pin the LS namespace identification to A2A v1 (the only published
-    // protocol version at time of writing).
-    const version = '1.0.0';
+    // pin the LS namespace identification to A2A v1 (matches the registered
+    // media types in the adapter).
+    const version = '1.0.1';
 
     return {
       namespace: 'a2a',
@@ -991,7 +991,7 @@ export async function findNamespace(
   }
 
   if (await a2a1AdapterYaml.detect(text)) {
-    const version = '1.0.0';
+    const version = '1.0.1';
 
     return {
       namespace: 'a2a',

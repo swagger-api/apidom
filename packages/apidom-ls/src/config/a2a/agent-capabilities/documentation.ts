@@ -17,7 +17,7 @@ const documentation = [
   },
   {
     target: 'extensions',
-    docs: 'Array of [Agent Extension Objects](https://a2a-protocol.org/latest/specification/#agentextension) — protocol extensions supported by the agent.',
+    docs: 'Array of [Agent Extension Objects](https://a2a-protocol.org/latest/specification/#444-agentextension) — protocol extensions supported by the agent.',
     targetSpecs: A2A1,
   },
   {

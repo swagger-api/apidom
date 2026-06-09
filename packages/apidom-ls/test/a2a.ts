@@ -34,12 +34,7 @@ const agentCardOAuthMissingScopes = fs
 
 const agentCardClientCredentialsMissingScopes = fs
   .readFileSync(
-    path.join(
-      __dirname,
-      'fixtures',
-      'a2a',
-      'agent-card-client-credentials-missing-scopes.json',
-    ),
+    path.join(__dirname, 'fixtures', 'a2a', 'agent-card-client-credentials-missing-scopes.json'),
   )
   .toString();
 

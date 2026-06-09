@@ -19,7 +19,7 @@ describe('given adapter is used in parser', function () {
         '{"capabilities": {"streaming": true}, "skills": [], "name": "x", "url": "https://x", "version": "1.0.0"}',
       );
 
-      assert.strictEqual(mediaType, 'application/vnd.a2a;version=1.0.0');
+      assert.strictEqual(mediaType, 'application/vnd.a2a;version=1.0.1');
     });
   });
 

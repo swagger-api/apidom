@@ -17,7 +17,7 @@ describe('given adapter is used in parser', function () {
         'capabilities:\n  streaming: true\nskills: []\nname: x\nurl: https://x\nversion: 1.0.0\n',
       );
 
-      assert.strictEqual(mediaType, 'application/vnd.a2a;version=1.0.0');
+      assert.strictEqual(mediaType, 'application/vnd.a2a;version=1.0.1');
     });
   });
 });

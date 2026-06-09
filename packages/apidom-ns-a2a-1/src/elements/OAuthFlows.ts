@@ -3,13 +3,11 @@ import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
 import AuthorizationCodeOAuthFlowElement from './AuthorizationCodeOAuthFlow.ts';
 import ClientCredentialsOAuthFlowElement from './ClientCredentialsOAuthFlow.ts';
 import DeviceCodeOAuthFlowElement from './DeviceCodeOAuthFlow.ts';
-import ImplicitOAuthFlowElement from './ImplicitOAuthFlow.ts';
-import PasswordOAuthFlowElement from './PasswordOAuthFlow.ts';
 
 /**
  * @public
  *
- * Container for the five OAuth 2.0 flow configurations. Any subset may be
+ * Container for the three OAuth 2.0 flow configurations. Any subset may be
  * populated at once (this is not a discriminated union).
  */
 class OAuthFlows extends ObjectElement {
@@ -41,22 +39,6 @@ class OAuthFlows extends ObjectElement {
 
   set deviceCode(deviceCode: DeviceCodeOAuthFlowElement | undefined) {
     this.set('deviceCode', deviceCode);
-  }
-
-  get implicit(): ImplicitOAuthFlowElement | undefined {
-    return this.get('implicit');
-  }
-
-  set implicit(implicit: ImplicitOAuthFlowElement | undefined) {
-    this.set('implicit', implicit);
-  }
-
-  get password(): PasswordOAuthFlowElement | undefined {
-    return this.get('password');
-  }
-
-  set password(password: PasswordOAuthFlowElement | undefined) {
-    this.set('password', password);
   }
 }
 

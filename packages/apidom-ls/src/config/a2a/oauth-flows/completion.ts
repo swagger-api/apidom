@@ -20,8 +20,6 @@ const completion: ApidomCompletionItem[] = [
   flowField('authorizationCode', 'OAuth 2.0 Authorization Code flow configuration.'),
   flowField('clientCredentials', 'OAuth 2.0 Client Credentials flow configuration.'),
   flowField('deviceCode', 'OAuth 2.0 Device Authorization Grant flow configuration.'),
-  flowField('implicit', 'OAuth 2.0 Implicit flow configuration.'),
-  flowField('password', 'OAuth 2.0 Resource Owner Password flow configuration.'),
 ];
 
 export default completion;

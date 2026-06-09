@@ -25,17 +25,5 @@ exports[`refractor elements OAuthFlowsElement should refract to semantic ApiDOM 
         (StringElement))
       (MemberElement
         (StringElement)
-        (StringElement))))
-  (MemberElement
-    (StringElement)
-    (ImplicitOAuthFlowElement
-      (MemberElement
-        (StringElement)
-        (StringElement))))
-  (MemberElement
-    (StringElement)
-    (PasswordOAuthFlowElement
-      (MemberElement
-        (StringElement)
         (StringElement)))))
 `;

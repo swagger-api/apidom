@@ -16,8 +16,6 @@ import OAuthFlowsVisitor from './visitors/a2a-1/oauth-flows/index.ts';
 import AuthorizationCodeOAuthFlowVisitor from './visitors/a2a-1/authorization-code-oauth-flow/index.ts';
 import ClientCredentialsOAuthFlowVisitor from './visitors/a2a-1/client-credentials-oauth-flow/index.ts';
 import DeviceCodeOAuthFlowVisitor from './visitors/a2a-1/device-code-oauth-flow/index.ts';
-import ImplicitOAuthFlowVisitor from './visitors/a2a-1/implicit-oauth-flow/index.ts';
-import PasswordOAuthFlowVisitor from './visitors/a2a-1/password-oauth-flow/index.ts';
 import StringListVisitor from './visitors/a2a-1/string-list/index.ts';
 import SkillsVisitor from './visitors/a2a-1/SkillsVisitor.ts';
 import SignaturesVisitor from './visitors/a2a-1/SignaturesVisitor.ts';
@@ -189,8 +187,6 @@ const specification = {
               $ref: '#/visitors/document/objects/ClientCredentialsOAuthFlow',
             },
             deviceCode: { $ref: '#/visitors/document/objects/DeviceCodeOAuthFlow' },
-            implicit: { $ref: '#/visitors/document/objects/ImplicitOAuthFlow' },
-            password: { $ref: '#/visitors/document/objects/PasswordOAuthFlow' },
           },
         },
         AuthorizationCodeOAuthFlow: {
@@ -215,22 +211,6 @@ const specification = {
           $visitor: DeviceCodeOAuthFlowVisitor,
           fixedFields: {
             deviceAuthorizationUrl: { $ref: '#/visitors/value' },
-            tokenUrl: { $ref: '#/visitors/value' },
-            refreshUrl: { $ref: '#/visitors/value' },
-            scopes: { $ref: '#/visitors/value' },
-          },
-        },
-        ImplicitOAuthFlow: {
-          $visitor: ImplicitOAuthFlowVisitor,
-          fixedFields: {
-            authorizationUrl: { $ref: '#/visitors/value' },
-            refreshUrl: { $ref: '#/visitors/value' },
-            scopes: { $ref: '#/visitors/value' },
-          },
-        },
-        PasswordOAuthFlow: {
-          $visitor: PasswordOAuthFlowVisitor,
-          fixedFields: {
             tokenUrl: { $ref: '#/visitors/value' },
             refreshUrl: { $ref: '#/visitors/value' },
             scopes: { $ref: '#/visitors/value' },

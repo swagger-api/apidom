@@ -37,8 +37,6 @@ export const keyMap = {
   AuthorizationCodeOAuthFlowElement: ['content'],
   ClientCredentialsOAuthFlowElement: ['content'],
   DeviceCodeOAuthFlowElement: ['content'],
-  ImplicitOAuthFlowElement: ['content'],
-  PasswordOAuthFlowElement: ['content'],
   StringListElement: ['content'],
   ...keyMapBase,
 };

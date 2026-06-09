@@ -16,8 +16,6 @@ import OAuthFlowsElement from '../elements/OAuthFlows.ts';
 import AuthorizationCodeOAuthFlowElement from '../elements/AuthorizationCodeOAuthFlow.ts';
 import ClientCredentialsOAuthFlowElement from '../elements/ClientCredentialsOAuthFlow.ts';
 import DeviceCodeOAuthFlowElement from '../elements/DeviceCodeOAuthFlow.ts';
-import ImplicitOAuthFlowElement from '../elements/ImplicitOAuthFlow.ts';
-import PasswordOAuthFlowElement from '../elements/PasswordOAuthFlow.ts';
 import StringListElement from '../elements/StringList.ts';
 import { createRefractor } from './index.ts';
 
@@ -147,20 +145,6 @@ DeviceCodeOAuthFlowElement.refract = createRefractor([
   'DeviceCodeOAuthFlow',
   '$visitor',
 ]);
-ImplicitOAuthFlowElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'ImplicitOAuthFlow',
-  '$visitor',
-]);
-PasswordOAuthFlowElement.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  'PasswordOAuthFlow',
-  '$visitor',
-]);
 StringListElement.refract = createRefractor([
   'visitors',
   'document',
@@ -188,7 +172,5 @@ export {
   AuthorizationCodeOAuthFlowElement,
   ClientCredentialsOAuthFlowElement,
   DeviceCodeOAuthFlowElement,
-  ImplicitOAuthFlowElement,
-  PasswordOAuthFlowElement,
   StringListElement,
 };

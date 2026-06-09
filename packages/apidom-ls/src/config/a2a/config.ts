@@ -11,8 +11,6 @@ import oauthFlowsMeta from './oauth-flows/meta.ts';
 import authorizationCodeOAuthFlowMeta from './authorization-code-oauth-flow/meta.ts';
 import clientCredentialsOAuthFlowMeta from './client-credentials-oauth-flow/meta.ts';
 import deviceCodeOAuthFlowMeta from './device-code-oauth-flow/meta.ts';
-import implicitOAuthFlowMeta from './implicit-oauth-flow/meta.ts';
-import passwordOAuthFlowMeta from './password-oauth-flow/meta.ts';
 import agentExtensionMeta from './agent-extension/meta.ts';
 import apiKeySecuritySchemeMeta from './api-key-security-scheme/meta.ts';
 import httpAuthSecuritySchemeMeta from './http-auth-security-scheme/meta.ts';
@@ -45,8 +43,6 @@ export default {
   authorizationCodeOAuthFlow: authorizationCodeOAuthFlowMeta,
   clientCredentialsOAuthFlow: clientCredentialsOAuthFlowMeta,
   deviceCodeOAuthFlow: deviceCodeOAuthFlowMeta,
-  implicitOAuthFlow: implicitOAuthFlowMeta,
-  passwordOAuthFlow: passwordOAuthFlowMeta,
   agentExtension: agentExtensionMeta,
   apiKeySecurityScheme: apiKeySecuritySchemeMeta,
   httpAuthSecurityScheme: httpAuthSecuritySchemeMeta,

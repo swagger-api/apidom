@@ -42,7 +42,7 @@ const documentation = [
   },
   {
     target: 'securityRequirements',
-    docs: 'Array of [Security Requirement Objects](https://a2a-protocol.org/latest/specification/#securityrequirement) necessary for this skill.',
+    docs: 'Array of [Security Requirement Objects](https://a2a-protocol.org/latest/specification/#451-securityscheme) necessary for this skill.',
     targetSpecs: A2A1,
   },
 ];

@@ -19,8 +19,6 @@ import {
   isAuthorizationCodeOAuthFlowElement,
   isClientCredentialsOAuthFlowElement,
   isDeviceCodeOAuthFlowElement,
-  isImplicitOAuthFlowElement,
-  isPasswordOAuthFlowElement,
   isStringListElement,
   AgentCardElement,
   AgentCapabilitiesElement,
@@ -40,8 +38,6 @@ import {
   AuthorizationCodeOAuthFlowElement,
   ClientCredentialsOAuthFlowElement,
   DeviceCodeOAuthFlowElement,
-  ImplicitOAuthFlowElement,
-  PasswordOAuthFlowElement,
   StringListElement,
 } from '../src/index.ts';
 
@@ -125,16 +121,6 @@ const cases: PredicateCase[] = [
     name: 'isDeviceCodeOAuthFlowElement',
     predicate: isDeviceCodeOAuthFlowElement,
     Cls: DeviceCodeOAuthFlowElement,
-  },
-  {
-    name: 'isImplicitOAuthFlowElement',
-    predicate: isImplicitOAuthFlowElement,
-    Cls: ImplicitOAuthFlowElement,
-  },
-  {
-    name: 'isPasswordOAuthFlowElement',
-    predicate: isPasswordOAuthFlowElement,
-    Cls: PasswordOAuthFlowElement,
   },
   { name: 'isStringListElement', predicate: isStringListElement, Cls: StringListElement },
 ];

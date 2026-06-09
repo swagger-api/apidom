@@ -32,8 +32,6 @@ import OAuthFlowsElement from '../../elements/OAuthFlows.ts';
 import AuthorizationCodeOAuthFlowElement from '../../elements/AuthorizationCodeOAuthFlow.ts';
 import ClientCredentialsOAuthFlowElement from '../../elements/ClientCredentialsOAuthFlow.ts';
 import DeviceCodeOAuthFlowElement from '../../elements/DeviceCodeOAuthFlow.ts';
-import ImplicitOAuthFlowElement from '../../elements/ImplicitOAuthFlow.ts';
-import PasswordOAuthFlowElement from '../../elements/PasswordOAuthFlow.ts';
 // non-concrete Elements (NCEs)
 import SkillsElement from '../../elements/nces/Skills.ts';
 import SignaturesElement from '../../elements/nces/Signatures.ts';
@@ -170,12 +168,6 @@ const schema = {
     deviceCode(...args: any[]) {
       return new DeviceCodeOAuthFlowElement(...args);
     },
-    implicit(...args: any[]) {
-      return new ImplicitOAuthFlowElement(...args);
-    },
-    password(...args: any[]) {
-      return new PasswordOAuthFlowElement(...args);
-    },
   },
   AuthorizationCodeOAuthFlowElement: {
     scopes(...args: any[]) {
@@ -188,16 +180,6 @@ const schema = {
     },
   },
   DeviceCodeOAuthFlowElement: {
-    scopes(...args: any[]) {
-      return new ObjectElement(...args);
-    },
-  },
-  ImplicitOAuthFlowElement: {
-    scopes(...args: any[]) {
-      return new ObjectElement(...args);
-    },
-  },
-  PasswordOAuthFlowElement: {
     scopes(...args: any[]) {
       return new ObjectElement(...args);
     },

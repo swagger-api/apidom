@@ -18,8 +18,6 @@ import OAuthFlowsElement from './elements/OAuthFlows.ts';
 import AuthorizationCodeOAuthFlowElement from './elements/AuthorizationCodeOAuthFlow.ts';
 import ClientCredentialsOAuthFlowElement from './elements/ClientCredentialsOAuthFlow.ts';
 import DeviceCodeOAuthFlowElement from './elements/DeviceCodeOAuthFlow.ts';
-import ImplicitOAuthFlowElement from './elements/ImplicitOAuthFlow.ts';
-import PasswordOAuthFlowElement from './elements/PasswordOAuthFlow.ts';
 import StringListElement from './elements/StringList.ts';
 
 /**
@@ -47,8 +45,6 @@ const a2a1 = {
     base.register('authorizationCodeOAuthFlow', AuthorizationCodeOAuthFlowElement);
     base.register('clientCredentialsOAuthFlow', ClientCredentialsOAuthFlowElement);
     base.register('deviceCodeOAuthFlow', DeviceCodeOAuthFlowElement);
-    base.register('implicitOAuthFlow', ImplicitOAuthFlowElement);
-    base.register('passwordOAuthFlow', PasswordOAuthFlowElement);
     base.register('stringList', StringListElement);
 
     return base;

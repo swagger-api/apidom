@@ -18,8 +18,6 @@ import OAuthFlowsElement from './elements/OAuthFlows.ts';
 import AuthorizationCodeOAuthFlowElement from './elements/AuthorizationCodeOAuthFlow.ts';
 import ClientCredentialsOAuthFlowElement from './elements/ClientCredentialsOAuthFlow.ts';
 import DeviceCodeOAuthFlowElement from './elements/DeviceCodeOAuthFlow.ts';
-import ImplicitOAuthFlowElement from './elements/ImplicitOAuthFlow.ts';
-import PasswordOAuthFlowElement from './elements/PasswordOAuthFlow.ts';
 import StringListElement from './elements/StringList.ts';
 import SkillsElement from './elements/nces/Skills.ts';
 import SignaturesElement from './elements/nces/Signatures.ts';
@@ -278,34 +276,6 @@ export const isDeviceCodeOAuthFlowElement = createPredicate(
         isElementType('deviceCodeOAuthFlow', element) &&
         primitiveEq('object', element) &&
         hasClass('device-code-oauth-flow', element));
-  },
-);
-
-/**
- * @public
- */
-export const isImplicitOAuthFlowElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is ImplicitOAuthFlowElement =>
-      element instanceof ImplicitOAuthFlowElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('implicitOAuthFlow', element) &&
-        primitiveEq('object', element) &&
-        hasClass('implicit-oauth-flow', element));
-  },
-);
-
-/**
- * @public
- */
-export const isPasswordOAuthFlowElement = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is PasswordOAuthFlowElement =>
-      element instanceof PasswordOAuthFlowElement ||
-      (hasBasicElementProps(element) &&
-        isElementType('passwordOAuthFlow', element) &&
-        primitiveEq('object', element) &&
-        hasClass('password-oauth-flow', element));
   },
 );
 

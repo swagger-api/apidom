@@ -60,7 +60,7 @@ const SNAKE_TO_CAMEL: Record<string, string> = {
   oauth2_metadata_url: 'oauth2MetadataUrl',
   // OpenIdConnectSecurityScheme
   open_id_connect_url: 'openIdConnectUrl',
-  // OAuth flow types (Authorization, ClientCredentials, DeviceCode, Implicit, Password)
+  // OAuth flow types (Authorization, ClientCredentials, DeviceCode)
   authorization_url: 'authorizationUrl',
   token_url: 'tokenUrl',
   refresh_url: 'refreshUrl',

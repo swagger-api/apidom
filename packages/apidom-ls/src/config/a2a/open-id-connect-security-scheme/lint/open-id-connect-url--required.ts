@@ -4,25 +4,25 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { A2A1 } from '../../target-specs.ts';
 
-const authorizationUrlRequiredLint: LinterMeta = {
-  code: ApilintCodes.A2A1_IMPLICIT_OAUTH_FLOW_FIELD_AUTHORIZATION_URL_REQUIRED,
+const openIdConnectUrlRequiredLint: LinterMeta = {
+  code: ApilintCodes.A2A1_OPEN_ID_CONNECT_SECURITY_SCHEME_FIELD_OPEN_ID_CONNECT_URL_REQUIRED,
   source: 'apilint',
-  message: "should always have an 'authorizationUrl' field",
+  message: "should always have an 'openIdConnectUrl' field",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'hasRequiredField',
-  linterParams: ['authorizationUrl'],
+  linterParams: ['openIdConnectUrl'],
   marker: 'key',
   targetSpecs: A2A1,
   data: {
     quickFix: [
       {
-        message: "add 'authorizationUrl' field",
+        message: "add 'openIdConnectUrl' field",
         action: 'addChild',
-        snippetYaml: "authorizationUrl: ''\n",
-        snippetJson: '"authorizationUrl": "",\n',
+        snippetYaml: "openIdConnectUrl: ''\n",
+        snippetJson: '"openIdConnectUrl": "",\n',
       },
     ],
   },
 };
 
-export default authorizationUrlRequiredLint;
+export default openIdConnectUrlRequiredLint;

@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 AgentCapabilities fields.
- * See [AgentCapabilities](https://a2a-protocol.org/latest/specification/#agentcapabilities).
+ * See [AgentCapabilities](https://a2a-protocol.org/latest/specification/#443-agentcapabilities).
  */
 const documentation = [
   {

@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 AuthorizationCodeOAuthFlow fields.
- * See [AuthorizationCodeOAuthFlow](https://a2a-protocol.org/latest/specification/#authorizationcodeoauthflow).
+ * See [AuthorizationCodeOAuthFlow](https://a2a-protocol.org/latest/specification/#458-authorizationcodeoauthflow).
  */
 const documentation = [
   {

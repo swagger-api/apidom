@@ -114,14 +114,6 @@ export type {
   DeviceCodeOAuthFlowVisitorOptions,
 } from './refractor/visitors/a2a-1/device-code-oauth-flow/index.ts';
 export type {
-  default as ImplicitOAuthFlowVisitor,
-  ImplicitOAuthFlowVisitorOptions,
-} from './refractor/visitors/a2a-1/implicit-oauth-flow/index.ts';
-export type {
-  default as PasswordOAuthFlowVisitor,
-  PasswordOAuthFlowVisitorOptions,
-} from './refractor/visitors/a2a-1/password-oauth-flow/index.ts';
-export type {
   default as StringListVisitor,
   StringListVisitorOptions,
 } from './refractor/visitors/a2a-1/string-list/index.ts';
@@ -176,8 +168,6 @@ export {
   isAuthorizationCodeOAuthFlowElement,
   isClientCredentialsOAuthFlowElement,
   isDeviceCodeOAuthFlowElement,
-  isImplicitOAuthFlowElement,
-  isPasswordOAuthFlowElement,
   isStringListElement,
   isSkillsElement,
   isSignaturesElement,
@@ -220,7 +210,5 @@ export {
   AuthorizationCodeOAuthFlowElement,
   ClientCredentialsOAuthFlowElement,
   DeviceCodeOAuthFlowElement,
-  ImplicitOAuthFlowElement,
-  PasswordOAuthFlowElement,
   StringListElement,
 } from './refractor/registration.ts';

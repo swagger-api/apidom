@@ -50,12 +50,43 @@ describe('refractor', function () {
         expect(sexprs(agentCardElement)).toMatchSnapshot();
       });
 
+      specify('should refract skills array items into AgentSkill elements', async function () {
+        const yamlDefinition = dedent`
+          name: agent example
+          skills:
+            -
+        `;
+        const apiDOM = await parse(yamlDefinition);
+        const agentCardElement = AgentCardElement.refract(apiDOM.result, {
+          plugins: [refractorPluginReplaceEmptyElement()],
+        });
+
+        expect(sexprs(agentCardElement)).toMatchSnapshot();
+      });
+
       specify(
         'should replace empty securitySchemes with a SecuritySchemesElement',
         async function () {
           const yamlDefinition = dedent`
           name: agent example
           securitySchemes:
+        `;
+          const apiDOM = await parse(yamlDefinition);
+          const agentCardElement = AgentCardElement.refract(apiDOM.result, {
+            plugins: [refractorPluginReplaceEmptyElement()],
+          });
+
+          expect(sexprs(agentCardElement)).toMatchSnapshot();
+        },
+      );
+
+      specify(
+        'should refract securitySchemes object values into SecurityScheme elements',
+        async function () {
+          const yamlDefinition = dedent`
+          name: agent example
+          securitySchemes:
+            securityScheme1:
         `;
           const apiDOM = await parse(yamlDefinition);
           const agentCardElement = AgentCardElement.refract(apiDOM.result, {

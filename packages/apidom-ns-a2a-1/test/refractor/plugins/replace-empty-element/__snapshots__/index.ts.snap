@@ -13,6 +13,30 @@ exports[`refractor plugins replace-empty-element should leave non-empty values u
         (BooleanElement)))))
 `;
 
+exports[`refractor plugins replace-empty-element should refract securitySchemes object values into SecurityScheme elements 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ObjectElement
+      (MemberElement
+        (StringElement)
+        (SecuritySchemeElement)))))
+`;
+
+exports[`refractor plugins replace-empty-element should refract skills array items into AgentSkill elements 1`] = `
+(A2aAgentCard1Element
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (ArrayElement
+      (AgentSkillElement))))
+`;
+
 exports[`refractor plugins replace-empty-element should replace empty capabilities with an AgentCapabilitiesElement 1`] = `
 (A2aAgentCard1Element
   (MemberElement

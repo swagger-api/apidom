@@ -10,7 +10,7 @@ const allowedFieldsLint: LinterMeta = {
   message: 'Object includes not allowed fields',
   severity: DiagnosticSeverity.Error,
   linterFunction: 'allowedFields',
-  linterParams: [['authorizationCode', 'clientCredentials', 'deviceCode']],
+  linterParams: [['authorizationCode', 'clientCredentials', 'implicit', 'password', 'deviceCode']],
   marker: 'key',
   targetSpecs: A2A1,
 };

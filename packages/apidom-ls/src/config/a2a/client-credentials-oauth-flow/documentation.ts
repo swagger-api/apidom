@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 ClientCredentialsOAuthFlow fields.
- * See [ClientCredentialsOAuthFlow](https://a2a-protocol.org/latest/specification/#clientcredentialsoauthflow).
+ * See [ClientCredentialsOAuthFlow](https://a2a-protocol.org/latest/specification/#459-clientcredentialsoauthflow).
  */
 const documentation = [
   {

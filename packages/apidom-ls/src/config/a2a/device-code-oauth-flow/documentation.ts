@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 DeviceCodeOAuthFlow fields (RFC 8628).
- * See [DeviceCodeOAuthFlow](https://a2a-protocol.org/latest/specification/#devicecodeoauthflow).
+ * See [DeviceCodeOAuthFlow](https://a2a-protocol.org/latest/specification/#4510-devicecodeoauthflow).
  */
 const documentation = [
   {

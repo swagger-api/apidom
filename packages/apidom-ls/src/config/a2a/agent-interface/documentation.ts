@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 AgentInterface fields.
- * See [AgentInterface](https://a2a-protocol.org/latest/specification/#agentinterface).
+ * See [AgentInterface](https://a2a-protocol.org/latest/specification/#446-agentinterface).
  */
 const documentation = [
   {

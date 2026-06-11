@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 AgentSkill fields.
- * See [AgentSkill](https://a2a-protocol.org/latest/specification/#agentskill).
+ * See [AgentSkill](https://a2a-protocol.org/latest/specification/#445-agentskill).
  */
 const documentation = [
   {
@@ -42,7 +42,7 @@ const documentation = [
   },
   {
     target: 'securityRequirements',
-    docs: 'Array of [Security Requirement Objects](https://a2a-protocol.org/latest/specification/#451-securityscheme) necessary for this skill.',
+    docs: 'Array of [Security Requirement Objects](https://a2a-protocol.org/latest/definitions/#security-requirement) — specifies which security schemes clients must satisfy to use this skill.',
     targetSpecs: A2A1,
   },
 ];

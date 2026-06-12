@@ -99,6 +99,43 @@ Fetch every object definition from the spec. For each object record:
 **Fetch strategy when the page is too long:**
 The spec page may truncate in `WebFetch`. Use the curl+Python approach above, searching for each section heading. Always take the **last** occurrence of a heading string (the actual content, not the TOC entry).
 
+**Mandatory table verification — do not skip:**
+After extracting a section, confirm you actually have the Fixed Fields table and not just the TOC entry. The extracted text MUST contain both the field name AND a `Yes` or `No` value in proximity. Use this pattern:
+
+```bash
+curl -s "{spec-url}" | python3 -c "
+import sys, re
+from html.parser import HTMLParser
+
+class TextExtractor(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.text = []
+    def handle_data(self, data):
+        stripped = data.strip()
+        if stripped:
+            self.text.append(stripped)
+
+parser = TextExtractor()
+parser.feed(sys.stdin.read())
+full = '\n'.join(parser.text)
+
+# Search for the object section that contains the actual Fixed Fields table.
+# Look for occurrences that contain BOTH field names AND Yes/No required values.
+object_name = 'AgentCard'  # replace with target object
+positions = [m.start() for m in re.finditer(object_name, full)]
+for pos in positions:
+    snippet = full[pos:pos+4000]
+    # Require that the snippet contains actual table data (Yes/No required column)
+    if 'Yes' in snippet or 'No' in snippet:
+        if 'Required' in snippet or 'Description' in snippet:
+            print(snippet)
+            break
+"
+```
+
+If none of the occurrences contain `Yes`/`No` near a `Required` column, the spec page is rendering client-side and the table was not captured — try `curl -L` or fetch the raw source directly.
+
 ### Phase 3: Build the Implementation Map
 
 For each element registered in `config.ts`:
@@ -149,6 +186,14 @@ For each `*--required.ts` file, check whether the spec marks the field as **Yes*
 
 **Do not flag:**
 - Fields correctly marked Yes in the spec
+
+**Self-check gate — mandatory before reporting any finding here:**
+Before adding ANY entry to this issue section, re-fetch the exact Fixed Fields table row for that field using the mandatory table verification approach from Phase 2. You MUST be able to quote the raw table row (field name + type + Yes/No + description text) as evidence. If you cannot produce the raw row, do not flag the rule — absence of evidence is not evidence of incorrectness.
+
+Example of required evidence:
+> Raw spec row: `capabilities | AgentCapabilities | Yes | A2A Capability set supported by the agent.`
+
+A finding with no quoted raw row is **not admissible** in this section.
 
 #### 4.2 Missing Required-Field Rules
 
@@ -342,6 +387,10 @@ Structure the report as follows. Only include sections that have findings.
 Include a spec source link (section number + URL) for **every finding**. A finding without a spec citation is not actionable.
 
 ## Key Lessons
+
+### TOC Entries Are Not Fixed Fields Tables
+
+Spec pages typically have a table of contents near the top listing section headings (e.g. `4.4.1. AgentCard`). These TOC entries appear earlier in the document than the actual object definitions and contain **no** field data. If you extract a section and the result does not contain `Yes` or `No` in a `Required` column, you have the TOC entry, not the actual table — fetch again using the last-occurrence strategy. Never infer a field's required status from a TOC entry, a secondary source (proto file, JSON Schema), or prior knowledge. Always quote the raw table row as evidence before reporting a finding.
 
 ### Deprecated Objects May Have No Spec Section
 Objects removed or deprecated in a spec version often appear only as variant fields inside a parent (e.g. `Optional (OneOf)`), with no separate section and no field table. Any `--required.ts` rule for fields on such objects cannot be verified against the spec and should be removed or flagged.

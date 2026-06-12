@@ -19,7 +19,7 @@ This skill verifies that the language service configuration for a given specific
 - **Documentation URL anchors**: Links resolve to real spec sections
 - **Element config coverage**: Every element type registered in the namespace is also registered in `config.ts`
 
-The skill was developed from a full review of the A2A 1.0 implementation (PROVCON-5343) and encodes the lessons learned from that session.
+The skill encodes lessons learned from production reviews of multiple specification namespaces.
 
 ## When to Use
 
@@ -89,10 +89,11 @@ Fetch every object definition from the spec. For each object record:
 - Exact camelCase field name as used in JSON (see §5.5 JSON Field Naming Convention or equivalent)
 - Required: Yes / No
 - Type
+- **New vs inherited** (if this spec extends a parent version): explicitly mark each field as NEW (added in this version) or INHERITED (already in parent). Only NEW fields need to be added to the implementation; INHERITED fields must already be present. Cross-check by reading the parent version's element files.
 
-**Key pitfalls learned from A2A review:**
-- Deprecated objects (e.g. `ImplicitOAuthFlow`, `PasswordOAuthFlow`) may appear only as field types within a parent object, with **no separate section and no field table** — do not invent required/optional status for them
-- Discriminated unions (e.g. `SecurityScheme`, `OAuthFlows`) list their variant fields as `Optional (OneOf)` — this is distinct from "optional field on the object"
+**Key pitfalls:**
+- Deprecated or removed objects may appear only as field types within a parent, with **no separate section and no field table** — do not invent required/optional status for them
+- Discriminated unions list their variant fields as `Optional (OneOf)` — this is distinct from "optional field on the object"
 - A "MUST contain exactly one of" note on a union does **not** make any individual variant field required
 
 **Fetch strategy when the page is too long:**
@@ -165,6 +166,8 @@ For each `allowed-fields.ts`, compare `linterParams[0]` against the spec's field
 - A field in the array is not in the spec (extra field — causes false positives)
 - A spec field is absent from the array (missing field — allows unknown fields through)
 
+**When extending a parent version**: If a version-scoped file exists (e.g., `allowed-fields-3-2.ts`), verify it contains ALL fields valid for that version — both new fields and fields carried over from the parent. New fields added to an existing object are the most common source of omissions. Also check: if the 3.2 list is identical to the 3.1 list, the file may be redundant or the new fields may have been forgotten.
+
 #### 4.4 Missing Type Lint Rules
 
 For each field that appears in `allowed-fields.ts` (or that has a `*--required.ts` rule), check whether a `{field}--type.ts` rule also exists. The spec's type column is the source of truth.
@@ -177,6 +180,8 @@ ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -- "--typ
 ```
 
 Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is validated for presence but not for correctness — a common gap.
+
+**Linter function for array-of-objects fields**: A field that is an array of spec objects (not primitives) should use `apilintChildrenOfElementsOrClasses` (with the element class name as param), not `apilintType`. Flag if `apilintType` is used for a field whose spec type is an array of objects.
 
 #### 4.5 Missing Enum/Value-Constraint Rules
 
@@ -206,13 +211,12 @@ For each `documentation.ts` file, check every `docs` string against the spec:
 
 If a `docs` string says "(required)" or "optional", verify it matches the spec's Yes/No for that field.
 
-**Common mistake found in A2A review:**
 ```typescript
-// ❌ WRONG — capabilities is required (Yes) per spec
-docs: '...optional capabilities supported by the agent...'
+// ❌ WRONG — field is required (Yes) per spec
+docs: '...optional {field} supported by ...'
 
-// ❌ WRONG — ImplicitOAuthFlow has no spec section; field is optional
-docs: 'The authorization URL to be used for this flow (string, required).'
+// ❌ WRONG — object has no spec section; field is actually optional
+docs: 'The {field} to be used for this flow (string, required).'
 ```
 
 #### 5.2 Field Descriptions
@@ -247,14 +251,16 @@ A common pattern: a new element config is added quickly with `allowed-fields.ts`
 
 For each URL in documentation files, verify the anchor resolves to a real section on the spec page.
 
-**Anchor format rules (learned from A2A review):**
+Different spec sites use different anchor formats — determine the correct format by inspecting the actual page before checking anchors:
 
-| Spec site | Correct anchor format | Wrong formats to catch |
-|---|---|---|
-| `a2a-protocol.org/latest/specification/` | `#451-securityscheme` (numbered) | `#securityscheme`, `#SecurityScheme` |
-| `a2a-protocol.org/latest/definitions/` | `#agent-capabilities` (kebab-case) | `#agentcapabilities`, `#AgentCapabilities` |
-| `spec.openapis.org` | Check actual page anchors | Varies |
-| `github.com/.../versions/X.md` | `#camelCaseAnchor` | `#kebab-case-anchor` |
+| Spec site pattern | Common anchor format |
+|---|---|
+| Numbered section pages (e.g. `#451-objectname`) | lowercase with hyphens, prefixed by section number |
+| GitHub Markdown (e.g. `github.com/.../versions/X.md`) | `#camelCaseAnchor` |
+| `spec.openapis.org` | varies by version — check the actual page |
+| Separate definition/reference pages | often kebab-case (`#object-name`) |
+
+If the same spec has multiple pages (e.g. a `/specification/` page and a `/definitions/` page), anchor formats typically differ between them. Pick one page as the canonical URL and use its anchor format consistently within each file.
 
 **Extract all URLs from docs:**
 ```bash
@@ -264,8 +270,6 @@ grep -rn "https://" packages/apidom-ls/src/config/{spec-dir}/*/documentation.ts
 Check each unique anchor:
 - Does the section exist in the spec?
 - Is the anchor format correct for that spec site?
-
-**A2A-specific note**: The `/specification/` page uses numbered anchors (`#441-agentcard`); the `/definitions/` page uses kebab-case (`#agent-card`). These are different pages — pick one consistently per file.
 
 ### Phase 7: Produce the Report
 
@@ -337,40 +341,46 @@ Structure the report as follows. Only include sections that have findings.
 
 Include a spec source link (section number + URL) for **every finding**. A finding without a spec citation is not actionable.
 
-## Key Lessons from A2A 1.0 Review
+## Key Lessons
 
-### Deprecated Flows Have No Spec Section
-`ImplicitOAuthFlow` and `PasswordOAuthFlow` appear only as `Optional (OneOf)` fields inside `OAuthFlows`. They have no field tables in the spec. Any `--required.ts` rule for fields on these objects cannot be verified and should be removed.
+### Deprecated Objects May Have No Spec Section
+Objects removed or deprecated in a spec version often appear only as variant fields inside a parent (e.g. `Optional (OneOf)`), with no separate section and no field table. Any `--required.ts` rule for fields on such objects cannot be verified against the spec and should be removed or flagged.
 
 ### Secondary Sources Can Contradict the Spec
-The A2A `/definitions/` page and `a2a.proto` both marked `ImplicitOAuthFlow.authorization_url` as optional. However, the user confirmed `authorizationUrl` is required for `ImplicitOAuthFlow`. Always confirm against the specification page — it is the sole source of truth.
+Definition pages, proto files, and JSON schemas are secondary sources that can diverge from the specification page on required/optional designations. Always confirm against the specification page — it is the sole source of truth.
 
-### `scopes` Is Systematically Missing
-For all active (non-deprecated) OAuth flows, `scopes` was marked **Yes** but no `scopes--required.ts` existed. Check for this pattern when reviewing any OAuth-style spec.
+### OAuth-style Specs Systematically Miss `scopes--required.ts`
+For all active (non-deprecated) OAuth flows, `scopes` is commonly marked **Yes** in the spec but `scopes--required.ts` is often absent. Check for this pattern when reviewing any OAuth-style spec.
 
 ### New Element Configs May Have No Required Rules
-When element configs are added quickly (stubs), they often contain only `allowed-fields.ts`. Always cross-check against the spec to add required-field rules.
+When element configs are added quickly (stubs), they often contain only `allowed-fields.ts`. Always cross-check each field against the spec to add required-field rules.
 
 ### Spec Page Truncation
-`WebFetch` truncates long spec pages before reaching late sections (e.g., section 4.5 on A2A). Always fall back to `curl | python3` extraction when `WebFetch` reports truncation.
+`WebFetch` truncates long spec pages before reaching late sections. Always fall back to `curl | python3` extraction when `WebFetch` reports truncation.
 
 ### Required vs Optional Wording in Docs
 The word "optional" in a `docs` string is factually wrong for a required field. Always match the spec's Yes/No designation.
 
 ### URL Anchor Formats Differ Between Spec Pages
-The `/specification/` and `/definitions/` pages on the same spec site use different anchor formats. Mixing them creates broken links. Pick the spec page as the canonical URL and use its actual anchor format.
+A spec site may have multiple pages (specification, definitions, reference) each using a different anchor format. Mixing them creates broken links. Pick one canonical page per element and use its actual anchor format consistently.
 
 ### Type Rules Are Systematically Missing in New Configs
-When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules. Type rules (`*--type.ts`) are almost always missing. For every required field check, ask: "Is there a paired type rule?" In A2A, `scheme--type.ts`, `location--type.ts`, `name--type.ts`, etc. were all absent.
+When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules. Type rules (`*--type.ts`) are almost always missing. For every required field check, ask: "Is there a paired type rule?"
 
 ### Completion Files Are Omitted in Quick Stubs
-New element configs added as stubs often have no `completion.ts` at all, or export `never[]`. This silently disables IDE auto-complete for every field in that element. Check for this pattern for every registered config key — in A2A, all six security-scheme subtypes lacked completion files.
+New element configs added as stubs often have no `completion.ts` at all, or export `never[]`. This silently disables IDE auto-complete for every field in that element. Check for this pattern for every registered config key.
 
-### Security Scheme Subtypes Need Separate Config Entries
-When a spec defines a discriminated union (e.g. `SecurityScheme` with subtypes `ApiKeySecurityScheme`, `HttpAuthSecurityScheme`, etc.), each subtype **must have its own config.ts entry** using the subtype's element name as the key. A single entry for the union type is not enough — the subtypes' fields will have no lint/docs/completion coverage. In A2A, five security-scheme subtype entries were missing from `config.ts`.
+### Discriminated Union Subtypes Need Separate Config Entries
+When a spec defines a discriminated union (e.g. a `SecurityScheme` type with subtypes), each subtype **must have its own `config.ts` entry** using the subtype's element name as the key. A single entry for the union type is not enough — the subtypes' fields will have no lint/docs/completion coverage.
+
+### New Fields on Existing Objects Are Systematically Missed When Extending a Parent Version
+When a spec version adds new fields to existing objects (e.g. `prefixEncoding`, `itemEncoding` added to `Encoding`), those fields are routinely absent from `allowed-fields`, `documentation.ts`, `completion.ts`, AND lint rules. Always build a diff of new vs inherited fields per object and check all four coverage areas for each new field.
+
+### Array-of-Objects Fields Need a Different Linter Function
+A field that is an array of spec objects should use `apilintChildrenOfElementsOrClasses` (with the element class name), not `apilintType`. Using `apilintType` with `['array']` validates the container but not the element type of its members.
 
 ### Deprecated/Removed Objects May Still Have Config Dirs
-If a spec removes an object in a new version, its config directory may persist in the implementation. In A2A 1.0, `ImplicitOAuthFlow` and `PasswordOAuthFlow` were removed but config dirs remained. Always check the spec changelog and flag config dirs for objects that no longer exist in the target version.
+If a spec removes an object in a new version, its config directory may persist in the implementation. Always check the spec changelog and flag config dirs for objects that no longer exist in the target version.
 
 ## Example Invocation
 
@@ -379,6 +389,6 @@ If a spec removes an object in a new version, its config directory may persist i
 ```
 
 Then provide when prompted:
-- Spec URL: `https://a2a-protocol.org/latest/specification/`
-- Config dir: `packages/apidom-ls/src/config/a2a/`
-- Namespace: `packages/apidom-ns-a2a-1/`
+- Spec URL: e.g. `https://spec.openapis.org/oas/v3.2.0` or `https://www.asyncapi.com/docs/reference/specification/v3.0.0`
+- Config dir: e.g. `packages/apidom-ls/src/config/openapi/`
+- Namespace: e.g. `packages/apidom-ns-openapi-3-2/`

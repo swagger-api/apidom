@@ -115,6 +115,13 @@ cat packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/allowed-fields.t
 # Find all required-field rules
 find packages/apidom-ls/src/config/{spec-dir} -name "*--required.ts"
 
+# Find all type-checking rules
+find packages/apidom-ls/src/config/{spec-dir} -name "*--type.ts"
+
+# Check which elements have completion files vs stubs
+find packages/apidom-ls/src/config/{spec-dir} -name "completion.ts" | sort
+grep -rn "never\[\]" packages/apidom-ls/src/config/{spec-dir}/*/completion.ts
+
 # Find all element types in the namespace
 grep -r "this.element = " packages/{namespace-pkg}/src/elements/
 ```
@@ -124,6 +131,10 @@ Also read `config.ts` to identify which element types are registered:
 ```bash
 cat packages/apidom-ls/src/config/{spec-dir}/config.ts
 ```
+
+**Discriminated union subtypes**: For any union type (e.g. `SecurityScheme` with variants `ApiKeySecurityScheme`, `OAuth2SecurityScheme`, etc.), verify that **each subtype** has its own element type key registered in `config.ts`. A missing subtype entry means zero lint/docs/completion for all of that subtype's fields.
+
+**Deprecated/removed objects**: Also fetch the spec's changelog or "What's New" page to identify objects removed in this version. Flag any existing config directories that correspond to removed objects — they can cause spurious rules to fire.
 
 ### Phase 4: Check Lint Rules
 
@@ -154,7 +165,24 @@ For each `allowed-fields.ts`, compare `linterParams[0]` against the spec's field
 - A field in the array is not in the spec (extra field — causes false positives)
 - A spec field is absent from the array (missing field — allows unknown fields through)
 
-#### 4.4 Missing Element Configs
+#### 4.4 Missing Type Lint Rules
+
+For each field that appears in `allowed-fields.ts` (or that has a `*--required.ts` rule), check whether a `{field}--type.ts` rule also exists. The spec's type column is the source of truth.
+
+**Flag as missing if** the spec specifies a type for the field (string, number, boolean, array, object) and no `*--type.ts` rule exists.
+
+```bash
+# For a given element, list existing type rules
+ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -- "--type"
+```
+
+Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is validated for presence but not for correctness — a common gap.
+
+#### 4.5 Missing Enum/Value-Constraint Rules
+
+For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` or `{field}--values.ts` rule exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
+
+#### 4.6 Missing Element Configs
 
 Compare element types from `config.ts` against all element types defined in the namespace:
 
@@ -168,7 +196,7 @@ grep "^  [a-zA-Z]" packages/apidom-ls/src/config/{spec-dir}/config.ts
 
 **Flag any element type present in the namespace but absent from `config.ts`.**
 
-For each missing config, note which fields are required per spec — these need `*--required.ts` rules in the new config.
+For each missing config, note which fields are required per spec — these need `*--required.ts` rules in the new config. Also flag missing discriminated-union subtype entries (see Phase 3 note).
 
 ### Phase 5: Check Documentation Values
 
@@ -194,6 +222,26 @@ Verify the description text matches the spec's description for that field. Parap
 #### 5.3 Empty Documentation Arrays
 
 Flag any `const documentation: never[] = []` — these stubs provide no hover information. List which fields from the spec should have entries.
+
+#### 5.4 Missing or Empty Completion Files
+
+For each element registered in `config.ts`, check whether a `completion.ts` file exists and contains entries.
+
+**Flag as missing** if no `completion.ts` exists for an element.
+
+**Flag as empty** if `completion.ts` exports `never[]` or an empty array — completion entries drive IDE auto-complete for all fields and are especially important for required fields.
+
+```bash
+# Find elements with no completion file
+for dir in packages/apidom-ls/src/config/{spec-dir}/*/; do
+  [ ! -f "${dir}completion.ts" ] && echo "No completion.ts: $dir"
+done
+
+# Find completion stubs
+grep -rln "never\[\]\|= \[\]" packages/apidom-ls/src/config/{spec-dir}/*/completion.ts
+```
+
+A common pattern: a new element config is added quickly with `allowed-fields.ts` only; `completion.ts` is left as a stub or omitted entirely.
 
 ### Phase 6: Check Documentation URL Anchors
 
@@ -259,15 +307,32 @@ Structure the report as follows. Only include sections that have findings.
 |---|---|---|
 | file.ts:N | #wrong | #correct |
 
+### Issue 7 — Missing Type Lint Rules
+| Missing file | Field | Spec type | Spec source |
+|---|---|---|---|
+| path/to/missing--type.ts | fieldName | string | §X.Y link |
+
+### Issue 8 — Missing or Empty Completion Files
+| Element config dir | Status | Fields to add |
+|---|---|---|
+| path/to/element/ | missing / empty | field1, field2 |
+
+### Advisory — Enum/Value-Constraint Rules to Consider
+| Element | Field | Allowed values | Peer example |
+|---|---|---|---|
+| element | fieldName | val1\|val2\|val3 | openapi/foo/lint/bar--equals.ts |
+
 ### Summary
 | Category | Count |
 |---|---|
 | Incorrect required rules | N |
 | Missing required rules | N |
+| Missing type rules | N |
 | Missing element configs | N |
 | Documentation value errors | N |
 | Empty documentation stubs | N |
 | Wrong URL anchors | N |
+| Missing/empty completion files | N |
 ```
 
 Include a spec source link (section number + URL) for **every finding**. A finding without a spec citation is not actionable.
@@ -294,6 +359,18 @@ The word "optional" in a `docs` string is factually wrong for a required field. 
 
 ### URL Anchor Formats Differ Between Spec Pages
 The `/specification/` and `/definitions/` pages on the same spec site use different anchor formats. Mixing them creates broken links. Pick the spec page as the canonical URL and use its actual anchor format.
+
+### Type Rules Are Systematically Missing in New Configs
+When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules. Type rules (`*--type.ts`) are almost always missing. For every required field check, ask: "Is there a paired type rule?" In A2A, `scheme--type.ts`, `location--type.ts`, `name--type.ts`, etc. were all absent.
+
+### Completion Files Are Omitted in Quick Stubs
+New element configs added as stubs often have no `completion.ts` at all, or export `never[]`. This silently disables IDE auto-complete for every field in that element. Check for this pattern for every registered config key — in A2A, all six security-scheme subtypes lacked completion files.
+
+### Security Scheme Subtypes Need Separate Config Entries
+When a spec defines a discriminated union (e.g. `SecurityScheme` with subtypes `ApiKeySecurityScheme`, `HttpAuthSecurityScheme`, etc.), each subtype **must have its own config.ts entry** using the subtype's element name as the key. A single entry for the union type is not enough — the subtypes' fields will have no lint/docs/completion coverage. In A2A, five security-scheme subtype entries were missing from `config.ts`.
+
+### Deprecated/Removed Objects May Still Have Config Dirs
+If a spec removes an object in a new version, its config directory may persist in the implementation. In A2A 1.0, `ImplicitOAuthFlow` and `PasswordOAuthFlow` were removed but config dirs remained. Always check the spec changelog and flag config dirs for objects that no longer exist in the target version.
 
 ## Example Invocation
 

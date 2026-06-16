@@ -17,6 +17,7 @@ import httpAuthSecuritySchemeMeta from './http-auth-security-scheme/meta.ts';
 import oauth2SecuritySchemeMeta from './oauth2-security-scheme/meta.ts';
 import openIdConnectSecuritySchemeMeta from './open-id-connect-security-scheme/meta.ts';
 import mutualTlsSecuritySchemeMeta from './mutual-tls-security-scheme/meta.ts';
+import securityRequirementMeta from './security-requirement/meta.ts';
 import ApilintCodes from '../codes.ts';
 
 export default {
@@ -49,4 +50,5 @@ export default {
   oauth2SecurityScheme: oauth2SecuritySchemeMeta,
   openIdConnectSecurityScheme: openIdConnectSecuritySchemeMeta,
   mutualTlsSecurityScheme: mutualTlsSecuritySchemeMeta,
+  securityRequirement: securityRequirementMeta,
 };

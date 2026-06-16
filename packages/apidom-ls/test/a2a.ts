@@ -44,6 +44,17 @@ const agentCardDeviceCodeMissingScopes = fs
   )
   .toString();
 
+const agentCardSecurityRequirementNotAllowedFields = fs
+  .readFileSync(
+    path.join(
+      __dirname,
+      'fixtures',
+      'a2a',
+      'agent-card-security-requirement-not-allowed-fields.json',
+    ),
+  )
+  .toString();
+
 describe('apidom-ls-a2a', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -354,6 +365,35 @@ describe('apidom-ls-a2a', function () {
             },
           ],
         },
+      },
+    ];
+    assert.deepEqual(result, expected);
+  });
+
+  it('reports not-allowed fields on SecurityRequirement', async function () {
+    this.timeout(10000);
+
+    const validationContext: ValidationContext = {
+      comments: DiagnosticSeverity.Error,
+      maxNumberOfProblems: 100,
+      relatedInformation: false,
+    };
+
+    const doc = TextDocument.create(
+      'foo://bar/security-requirement-not-allowed-fields.json',
+      'json',
+      0,
+      agentCardSecurityRequirementNotAllowedFields,
+    );
+
+    const result = await languageService.doValidation(doc, validationContext);
+    const expected: Diagnostic[] = [
+      {
+        range: { start: { line: 43, character: 4 }, end: { line: 48, character: 5 } },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
       },
     ];
     assert.deepEqual(result, expected);

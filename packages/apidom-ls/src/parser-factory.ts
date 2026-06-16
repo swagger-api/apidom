@@ -10,6 +10,8 @@ import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asynca
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
+import * as a2a1AdapterJson from '@swagger-api/apidom-parser-adapter-a2a-json-1';
+import * as a2a1AdapterYaml from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -219,6 +221,10 @@ export async function parse(
     };
 
     result = await openapi3_2AdapterYaml.parse(text, options);
+  } else if (contentLanguage.namespace === 'a2a' && contentLanguage.format === 'JSON') {
+    result = await a2a1AdapterJson.parse(text, { sourceMap: true });
+  } else if (contentLanguage.namespace === 'a2a' && contentLanguage.format === 'YAML') {
+    result = await a2a1AdapterYaml.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {

@@ -81,6 +81,7 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
  $ npm install @swagger-api/apidom-json-pointer-relative
  $ npm install @swagger-api/apidom-logging
  $ npm install @swagger-api/apidom-ls
+ $ npm install @swagger-api/apidom-ns-a2a-1
  $ npm install @swagger-api/apidom-ns-api-design-systems
  $ npm install @swagger-api/apidom-ns-arazzo-1
  $ npm install @swagger-api/apidom-ns-asyncapi-2
@@ -93,6 +94,8 @@ You can install ApiDOM packages using [npm CLI](https://docs.npmjs.com/cli):
  $ npm install @swagger-api/apidom-ns-openapi-3-0
  $ npm install @swagger-api/apidom-ns-openapi-3-1
  $ npm install @swagger-api/apidom-parser
+ $ npm install @swagger-api/apidom-parser-adapter-a2a-json-1
+ $ npm install @swagger-api/apidom-parser-adapter-a2a-yaml-1
  $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-json
  $ npm install @swagger-api/apidom-parser-adapter-api-design-systems-yaml
  $ npm install @swagger-api/apidom-parser-adapter-arazzo-json-1
@@ -628,6 +631,7 @@ The namespace packages provide ApiDOM namespaces for specifications, consisiting
 
 Available namespaces:
 
+- [A2A 1.0.0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-a2a-1)
 - [API Design Systems](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-api-design-systems)
 - [Arazzo 1.0.1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-arazzo-1)
 - [AsyncAPI 2.x.y](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-asyncapi-2)
@@ -648,6 +652,7 @@ The base parser adapters support [JSON](https://github.com/swagger-api/apidom/tr
 
 Available parser adapters for ApiDOM namespaces:
 
+- A2A 1.0.0 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-a2a-json-1) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-a2a-yaml-1)
 - API Design Systems - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-yaml)
 - Arazzo 1.0.1 - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-json-1) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-yaml-1)
 - AsyncAPI 2.x.y - [JSON](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-2) / [YAML](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-2)
@@ -671,6 +676,7 @@ Available parse strategies:
 - YAML 1.2 format
 - Binary format
 - ApiDOM - JSON
+- A2A 1.0.0 - JSON / YAML
 - API Design Systems - JSON / YAML
 - Arazzo 1.0.1 - JSON / YAML
 - AsyncAPI 2.x.y - JSON / YAML

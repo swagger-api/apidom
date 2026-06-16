@@ -1,0 +1,44 @@
+{
+  "name": "Planner Agent",
+  "description": "Breaks down a request into actionable tasks.",
+  "url": "https://agent.example.com/",
+  "version": "1.0.0",
+  "iconUrl": "https://agent.example.com/icon.png",
+  "documentationUrl": "https://agent.example.com/docs",
+  "provider": {
+    "organization": "Example Co.",
+    "url": "https://example.com/"
+  },
+  "capabilities": {
+    "streaming": true,
+    "pushNotifications": true,
+    "extendedAgentCard": false
+  },
+  "defaultInputModes": ["text", "text/plain"],
+  "defaultOutputModes": ["text", "text/plain"],
+  "skills": [
+    {
+      "id": "planner",
+      "name": "Task Planner",
+      "description": "Plans tasks based on user goals.",
+      "tags": ["planner"],
+      "examples": ["Plan a business trip"]
+    }
+  ],
+  "securitySchemes": {
+    "bearer": {
+      "httpAuthSecurityScheme": {
+        "description": "Bearer token authentication.",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  },
+  "securityRequirements": [
+    {
+      "schemes": {
+        "bearer": []
+      }
+    }
+  ]
+}

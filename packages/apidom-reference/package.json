@@ -123,6 +123,16 @@
       "require": "./src/parse/parsers/arazzo-yaml-1/index.cjs",
       "types": "./types/parse/parsers/arazzo-yaml-1/index.d.ts"
     },
+    "./parse/parsers/a2a-json-1": {
+      "import": "./src/parse/parsers/a2a-json-1/index.mjs",
+      "require": "./src/parse/parsers/a2a-json-1/index.cjs",
+      "types": "./types/parse/parsers/a2a-json-1/index.d.ts"
+    },
+    "./parse/parsers/a2a-yaml-1": {
+      "import": "./src/parse/parsers/a2a-yaml-1/index.mjs",
+      "require": "./src/parse/parsers/a2a-yaml-1/index.cjs",
+      "types": "./types/parse/parsers/a2a-yaml-1/index.d.ts"
+    },
     "./parse/parsers/apidom-json": {
       "import": "./src/parse/parsers/apidom-json/index.mjs",
       "require": "./src/parse/parsers/apidom-json/index.cjs",
@@ -313,6 +323,7 @@
   },
   "optionalDependencies": {
     "@swagger-api/apidom-json-pointer": "^1.11.2",
+    "@swagger-api/apidom-ns-a2a-1": "^1.11.2",
     "@swagger-api/apidom-ns-arazzo-1": "^1.11.2",
     "@swagger-api/apidom-ns-asyncapi-2": "^1.11.2",
     "@swagger-api/apidom-ns-openapi-2": "^1.11.2",
@@ -321,6 +332,8 @@
     "@swagger-api/apidom-ns-openapi-3-2": "^1.11.2",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "^1.11.2",
     "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "^1.11.2",
+    "@swagger-api/apidom-parser-adapter-a2a-json-1": "^1.11.2",
+    "@swagger-api/apidom-parser-adapter-a2a-yaml-1": "^1.11.2",
     "@swagger-api/apidom-parser-adapter-arazzo-json-1": "^1.11.2",
     "@swagger-api/apidom-parser-adapter-arazzo-yaml-1": "^1.11.2",
     "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "^1.11.2",
@@ -340,6 +353,7 @@
   },
   "devDependencies": {
     "@swagger-api/apidom-json-pointer": "*",
+    "@swagger-api/apidom-ns-a2a-1": "*",
     "@swagger-api/apidom-ns-arazzo-1": "*",
     "@swagger-api/apidom-ns-asyncapi-2": "*",
     "@swagger-api/apidom-ns-openapi-2": "*",
@@ -348,6 +362,8 @@
     "@swagger-api/apidom-ns-openapi-3-2": "*",
     "@swagger-api/apidom-parser-adapter-api-design-systems-json": "*",
     "@swagger-api/apidom-parser-adapter-api-design-systems-yaml": "*",
+    "@swagger-api/apidom-parser-adapter-a2a-json-1": "*",
+    "@swagger-api/apidom-parser-adapter-a2a-yaml-1": "*",
     "@swagger-api/apidom-parser-adapter-arazzo-json-1": "*",
     "@swagger-api/apidom-parser-adapter-arazzo-yaml-1": "*",
     "@swagger-api/apidom-parser-adapter-asyncapi-json-2": "*",

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.3](https://github.com/swagger-api/apidom/compare/v1.11.2...v1.11.3) (2026-06-22)
+
+### Bug Fixes
+
+- **deps:** update @babel/core from 7.27.1 to 7.29.7 ([#5185](https://github.com/swagger-api/apidom/issues/5185)) ([eb83ecc](https://github.com/swagger-api/apidom/commit/eb83ecc03905ae225a96469b0dfa775f0837335b))
+
 ## [1.11.2](https://github.com/swagger-api/apidom/compare/v1.11.1...v1.11.2) (2026-06-02)
 
 ### Bug Fixes

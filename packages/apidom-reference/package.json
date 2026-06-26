@@ -200,6 +200,11 @@
       "require": "./src/dereference/strategies/apidom/selectors/element-id.cjs",
       "types": "./types/dereference/strategies/apidom/selectors/element-id.d.ts"
     },
+    "./dereference/DynamicScopeStack": {
+      "import": "./src/dereference/DynamicScopeStack.mjs",
+      "require": "./src/dereference/DynamicScopeStack.cjs",
+      "types": "./types/dereference/DynamicScopeStack.d.ts"
+    },
     "./dereference/strategies/asyncapi-2": {
       "import": "./src/dereference/strategies/asyncapi-2/index.mjs",
       "require": "./src/dereference/strategies/asyncapi-2/index.cjs",
@@ -225,6 +230,11 @@
       "require": "./src/dereference/strategies/openapi-3-1/selectors/$anchor.cjs",
       "types": "./types/dereference/strategies/openapi-3-1/selectors/$anchor.d.ts"
     },
+    "./dereference/strategies/openapi-3-1/selectors/$dynamicAnchor": {
+      "import": "./src/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.mjs",
+      "require": "./src/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-1/selectors/$dynamicAnchor.d.ts"
+    },
     "./dereference/strategies/openapi-3-1/selectors/uri": {
       "import": "./src/dereference/strategies/openapi-3-1/selectors/uri.mjs",
       "require": "./src/dereference/strategies/openapi-3-1/selectors/uri.cjs",
@@ -239,6 +249,11 @@
       "import": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.mjs",
       "require": "./src/dereference/strategies/openapi-3-2/selectors/$anchor.cjs",
       "types": "./types/dereference/strategies/openapi-3-2/selectors/$anchor.d.ts"
+    },
+    "./dereference/strategies/openapi-3-2/selectors/$dynamicAnchor": {
+      "import": "./src/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.mjs",
+      "require": "./src/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.cjs",
+      "types": "./types/dereference/strategies/openapi-3-2/selectors/$dynamicAnchor.d.ts"
     },
     "./dereference/strategies/openapi-3-2/selectors/uri": {
       "import": "./src/dereference/strategies/openapi-3-2/selectors/uri.mjs",

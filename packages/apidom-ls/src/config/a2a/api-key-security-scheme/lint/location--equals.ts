@@ -4,8 +4,8 @@ import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { A2A1 } from '../../target-specs.ts';
 
-const locationValueLint: LinterMeta = {
-  code: ApilintCodes.A2A1_API_KEY_SECURITY_SCHEME_FIELD_LOCATION_VALUE,
+const locationEqualsLint: LinterMeta = {
+  code: ApilintCodes.A2A1_API_KEY_SECURITY_SCHEME_FIELD_LOCATION_EQUALS,
   source: 'apilint',
   message: "'location' must be one of allowed values: query, header, cookie",
   severity: DiagnosticSeverity.Error,
@@ -17,4 +17,4 @@ const locationValueLint: LinterMeta = {
   targetSpecs: A2A1,
 };
 
-export default locationValueLint;
+export default locationEqualsLint;

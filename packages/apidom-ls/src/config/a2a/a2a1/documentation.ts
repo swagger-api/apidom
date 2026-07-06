@@ -14,7 +14,7 @@ const documentation = [
   },
   {
     target: 'capabilities',
-    docs: '[Agent Capabilities Object](https://a2a-protocol.org/latest/definitions/#agent-capabilities) — required. Declares the A2A capability set supported by the agent (streaming, push notifications, extensions, extended agent card).',
+    docs: '[Agent Capabilities Object](https://a2a-protocol.org/latest/specification/#443-agentcapabilities) — required. Declares the A2A capability set supported by the agent (streaming, push notifications, extensions, extended agent card).',
     targetSpecs: A2A1,
   },
   {

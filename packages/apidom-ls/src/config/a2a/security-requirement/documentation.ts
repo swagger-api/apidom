@@ -2,7 +2,7 @@ import { A2A1 } from '../target-specs.ts';
 
 /**
  * Hover documentation for A2A v1 SecurityRequirement fields.
- * See [SecurityRequirement](https://a2a-protocol.org/latest/definitions/#security-requirement).
+ * See [Security Objects](https://a2a-protocol.org/latest/specification/#45-security-objects).
  */
 const documentation = [
   {

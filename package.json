@@ -50,6 +50,9 @@
     "serialize-javascript": "^7.0.5",
     "@istanbuljs/load-nyc-config": {
       "js-yaml": "^3.15.0"
+    },
+    "lerna": {
+      "js-yaml": "^4.2.0"
     }
   },
   "devDependencies": {

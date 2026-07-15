@@ -9,8 +9,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "=24.17",
-    "npm": ">=11.13.0"
+    "node": "=24.18",
+    "npm": ">=11.16.0"
   },
   "comments": {
     "scripts": {

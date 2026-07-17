@@ -22,7 +22,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org
@@ -59,7 +59,7 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           registry-url: https://registry.npmjs.org

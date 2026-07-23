@@ -139,6 +139,50 @@ const plugin = ({ predicates, namespace }) => ({
 AgentCardElement.refract(objectElement, { plugins: [plugin] }); // => AgentCardElement({ name = 'Recipe Agent', version = '2.0.0' })
 ```
 
+#### Replace Empty Element plugin
+
+This plugin is specific to YAML 1.2 format, which allows defining key-value pairs with empty key,
+empty value, or both. If the value is not provided in YAML format, this plugin compensates for
+this missing value with the most appropriate semantic element type.
+
+```js
+import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
+import { refractorPluginReplaceEmptyElement, AgentCardElement } from '@swagger-api/apidom-ns-a2a-1';
+
+const yamlDefinition = `
+name: Recipe Agent
+url: https://recipes.example.com/a2a
+version: 1.0.0
+capabilities:
+`;
+const apiDOM = await parse(yamlDefinition);
+const agentCardElement = AgentCardElement.refract(apiDOM.result, {
+  plugins: [refractorPluginReplaceEmptyElement()],
+});
+
+// =>
+// (AgentCardElement
+//   (MemberElement
+//     (StringElement)
+//     (StringElement))
+//   (MemberElement
+//     (StringElement)
+//     (StringElement))
+//   (MemberElement
+//     (StringElement)
+//     (StringElement))
+//   (MemberElement
+//     (StringElement)
+//     (AgentCapabilitiesElement)))
+
+// => without the plugin the result would be as follows:
+// (AgentCardElement
+//   ...
+//   (MemberElement
+//     (StringElement)
+//     (StringElement)))
+```
+
 ## Implementation notes
 
 - **Source of truth.** A2A's normative spec is the [Protocol Buffers definition](https://github.com/a2aproject/A2A). The [JSON Schema bundle](https://a2a-protocol.org/latest/spec/a2a.json) used here is non-normative and machine-generated from the `.proto` files. Use the `.proto` to resolve ambiguities.

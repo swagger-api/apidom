@@ -16,8 +16,13 @@ class AgentSkill extends ObjectElement {
     this.classes.push('agent-skill');
   }
 
-  // No typed `id` getter: Element base class declares `id` as a meta property (Element.id).
-  // Overriding with `StringElement | undefined` breaks TS assignability. Access via `element.get('id')`.
+  get idProp(): StringElement | undefined {
+    return this.get('id');
+  }
+
+  set idProp(idProp: StringElement | undefined) {
+    this.set('id', idProp);
+  }
 
   get name(): StringElement | undefined {
     return this.get('name');

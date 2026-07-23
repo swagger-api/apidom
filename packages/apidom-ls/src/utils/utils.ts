@@ -10,6 +10,8 @@ import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asynca
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
+import * as a2a1AdapterJson from '@swagger-api/apidom-parser-adapter-a2a-json-1';
+import * as a2a1AdapterYaml from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -971,6 +973,31 @@ export async function findNamespace(
       format: 'YAML',
       admitsRefsSiblings: true,
       mediaType: openapi32AdapterYaml.mediaTypes.findBy(version, 'yaml'),
+    };
+  }
+
+  if (await a2a1AdapterJson.detect(text)) {
+    // A2A AgentCard documents have no version discriminator field, so we
+    // pin the LS namespace identification to A2A v1 (matches the registered
+    // media types in the adapter).
+    const version = '1.0.1';
+
+    return {
+      namespace: 'a2a',
+      version,
+      format: 'JSON',
+      mediaType: a2a1AdapterJson.mediaTypes.findBy(version, 'json'),
+    };
+  }
+
+  if (await a2a1AdapterYaml.detect(text)) {
+    const version = '1.0.1';
+
+    return {
+      namespace: 'a2a',
+      version,
+      format: 'YAML',
+      mediaType: a2a1AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
   }
 

@@ -1,0 +1,11 @@
+{
+  "name": 123,
+  "capabilities": {
+    "streaming": true
+  },
+  "skills": [
+    {
+      "examples": ["do a thing"]
+    }
+  ]
+}

@@ -22,6 +22,8 @@ import AsyncAPIYAML2Parser from '../parse/parsers/asyncapi-yaml-2/index.ts';
 import AsyncAPIYAML3Parser from '../parse/parsers/asyncapi-yaml-3/index.ts';
 import ArazzoJSON1Parser from '../parse/parsers/arazzo-json-1/index.ts';
 import ArazzoYAML1Parser from '../parse/parsers/arazzo-yaml-1/index.ts';
+import A2AJSON1Parser from '../parse/parsers/a2a-json-1/index.ts';
+import A2AYAML1Parser from '../parse/parsers/a2a-yaml-1/index.ts';
 import APIDOMJSONParser from '../parse/parsers/apidom-json/index.ts';
 import JSONParser from '../parse/parsers/json/index.ts';
 import YAMLParser from '../parse/parsers/yaml-1-2/index.ts';
@@ -52,6 +54,8 @@ options.parse.parsers = [
   new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new A2AJSON1Parser({ allowEmpty: true, sourceMap: false }),
+  new A2AYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),

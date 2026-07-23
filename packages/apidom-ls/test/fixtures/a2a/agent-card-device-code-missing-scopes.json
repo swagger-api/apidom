@@ -1,0 +1,36 @@
+{
+  "name": "OAuth Agent",
+  "description": "Agent with OAuth2 device code flow missing scopes.",
+  "version": "1.0.0",
+  "supportedInterfaces": [
+    {
+      "url": "https://agent.example.com/a2a/v1",
+      "protocolBinding": "JSONRPC",
+      "protocolVersion": "1.0"
+    }
+  ],
+  "capabilities": { "streaming": false },
+  "defaultInputModes": ["text"],
+  "defaultOutputModes": ["text"],
+  "skills": [
+    {
+      "id": "skill1",
+      "name": "Skill One",
+      "description": "A skill.",
+      "tags": ["test"]
+    }
+  ],
+  "securitySchemes": {
+    "oauth": {
+      "oauth2SecurityScheme": {
+        "flows": {
+          "deviceCode": {
+            "deviceAuthorizationUrl": "https://example.com/device",
+            "tokenUrl": "https://example.com/token"
+          }
+        }
+      }
+    }
+  },
+  "securityRequirements": [{ "schemes": { "oauth": [] } }]
+}

@@ -4,7 +4,7 @@ import Visitor, { VisitorOptions } from './Visitor.ts';
 
 /**
  * This visitor is responsible for falling back to current traversed element.
- * Given ArazzoSpecificationVisitor expects ObjectElement to be traversed. If
+ * Given AgentCardVisitor expects ObjectElement to be traversed. If
  * different Element is provided FallBackVisitor is responsible to assigning
  * this Element as current element.
  */

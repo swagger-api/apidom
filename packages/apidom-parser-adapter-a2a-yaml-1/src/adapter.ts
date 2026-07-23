@@ -30,11 +30,10 @@ export const detectionRegExp =
  * @public
  */
 export const detect = async (source: string): Promise<boolean> => {
-  if (!(await detectYAML(source))) return false;
   const hasCapabilities =
     /^(["']?)capabilities\1\s*:/m.test(source) || /"capabilities"\s*:\s*\{/.test(source);
   const hasSkills = /^(["']?)skills\1\s*:/m.test(source) || /"skills"\s*:\s*\[/.test(source);
-  return hasCapabilities && hasSkills;
+  return hasCapabilities && hasSkills && (await detectYAML(source));
 };
 
 /**

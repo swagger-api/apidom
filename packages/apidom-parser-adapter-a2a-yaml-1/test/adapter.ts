@@ -55,6 +55,27 @@ describe('adapter', function () {
     });
   });
 
+  context('given invalid yaml file', function () {
+    specify('should return empty parser result', async function () {
+      const parseResult = await adapter.parse(' %YAML x ', { sourceMap: true });
+
+      assert.isTrue(parseResult.isEmpty);
+    });
+  });
+
+  context('given YAML with empty node', function () {
+    specify('should generate source maps', async function () {
+      const yamlSource = 'capabilities:\nskills:';
+
+      const { result } = await adapter.parse(yamlSource, { sourceMap: true });
+      // @ts-ignore
+      const skillsValue = result.get('skills');
+
+      expect(skillsValue?.startPositionRow).to.equal(1);
+      expect(skillsValue?.startPositionColumn).to.equal(7);
+    });
+  });
+
   context('detectionRegExp', function () {
     specify('should match a YAML document with capabilities key', function () {
       assert.isTrue(adapter.detectionRegExp.test('capabilities:\n  streaming: true\n'));

@@ -1,23 +1,11 @@
 import { startsWith } from 'ramda';
-import {
-  MemberElement,
-  ObjectElement,
-  isStringElement,
-  toValue,
-  isObjectElement,
-} from '@swagger-api/apidom-core';
-
-export interface ReferenceLikeElement extends ObjectElement {
-  hasKey: (value: '$ref') => true;
-}
+import { MemberElement, isStringElement, toValue } from '@swagger-api/apidom-core';
 
 /**
  * @public
  */
-export const isA2ASpecificationExtension = (element: MemberElement): boolean => {
+const isA2ASpecificationExtension = (element: MemberElement): boolean => {
   return isStringElement(element.key) && startsWith('x-', toValue(element.key));
 };
 
-export const isReferenceLikeElement = (element: unknown): element is ReferenceLikeElement => {
-  return isObjectElement(element) && element.hasKey('$ref');
-};
+export default isA2ASpecificationExtension;

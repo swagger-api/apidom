@@ -138,7 +138,7 @@ export type {
 export type {
   default as ExtensionsVisitor,
   ExtensionsVisitorOptions,
-} from './refractor/visitors/a2a-1/ExtensionsVisitor.ts';
+} from './refractor/visitors/a2a-1/agent-capabilities/ExtensionsVisitor.ts';
 export type {
   default as SecuritySchemesVisitor,
   SecuritySchemesVisitorOptions,
@@ -177,7 +177,7 @@ export {
   isSecuritySchemesElement,
 } from './predicates.ts';
 
-export { isA2ASpecificationExtension } from './refractor/predicates.ts';
+export { default as isA2ASpecificationExtension } from './refractor/predicates.ts';
 
 export { keyMap, getNodeType } from './traversal/visitor.ts';
 

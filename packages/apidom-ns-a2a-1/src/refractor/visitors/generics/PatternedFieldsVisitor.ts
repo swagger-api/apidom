@@ -10,7 +10,7 @@ import {
 
 import type { SpecPath } from './FixedFieldsVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
-import { isA2ASpecificationExtension } from '../../predicates.ts';
+import isA2ASpecificationExtension from '../../predicates.ts';
 
 export type { SpecPath };
 

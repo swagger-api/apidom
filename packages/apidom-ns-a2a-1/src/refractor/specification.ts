@@ -21,7 +21,7 @@ import SkillsVisitor from './visitors/a2a-1/SkillsVisitor.ts';
 import SignaturesVisitor from './visitors/a2a-1/SignaturesVisitor.ts';
 import SupportedInterfacesVisitor from './visitors/a2a-1/SupportedInterfacesVisitor.ts';
 import SecurityRequirementsVisitor from './visitors/a2a-1/SecurityRequirementsVisitor.ts';
-import ExtensionsVisitor from './visitors/a2a-1/ExtensionsVisitor.ts';
+import ExtensionsVisitor from './visitors/a2a-1/agent-capabilities/ExtensionsVisitor.ts';
 import SecuritySchemesVisitor from './visitors/a2a-1/SecuritySchemesVisitor.ts';
 import SecurityRequirementSchemesVisitor from './visitors/a2a-1/security-requirement/SchemesVisitor.ts';
 import FallbackVisitor from './visitors/FallbackVisitor.ts';

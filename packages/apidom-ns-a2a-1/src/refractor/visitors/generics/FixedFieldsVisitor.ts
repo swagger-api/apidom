@@ -9,7 +9,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
-import { isA2ASpecificationExtension } from '../../predicates.ts';
+import isA2ASpecificationExtension from '../../predicates.ts';
 
 /**
  * @public

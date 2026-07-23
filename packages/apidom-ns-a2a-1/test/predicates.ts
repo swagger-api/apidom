@@ -134,6 +134,13 @@ describe('predicates', function () {
         });
       });
 
+      context('given subtype instance value', function () {
+        specify('should return true', function () {
+          class SubElement extends (Cls as unknown as new () => object) {}
+          assert.isTrue(predicate(new SubElement()));
+        });
+      });
+
       context('given non-matching values', function () {
         specify('should return false for plain object', function () {
           assert.isFalse(predicate({}));

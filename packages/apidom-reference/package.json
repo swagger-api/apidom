@@ -317,7 +317,7 @@
     "@swagger-api/apidom-error": "^1.11.3",
     "@types/ramda": "~0.30.0",
     "axios": "^1.18.0",
-    "minimatch": "^10.2.1",
+    "minimatch": "^10.2.6",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0"
   },

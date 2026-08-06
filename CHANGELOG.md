@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
+
+### Bug Fixes
+
+- **a2a:** address namespace review feedback (PROVCON-5343) ([afe8660](https://github.com/swagger-api/apidom/commit/afe8660fb4672574c671239d7fd61851e6c553f6))
+- **deps:** bump minimatch to v10.2.6 ([#5203](https://github.com/swagger-api/apidom/issues/5203)) ([7360b2f](https://github.com/swagger-api/apidom/commit/7360b2f441abe110f9e54d15bba0c9630d8a5ad0))
+
+### Features
+
+- further tweaks in light of skill (PROVCON-5343) ([921ffe9](https://github.com/swagger-api/apidom/commit/921ffe9e14de2717100e23ccac3d584d2d2e264e))
+- lint (PROVCON-5343) ([a143149](https://github.com/swagger-api/apidom/commit/a143149f6605e2140b3e013f625c324104fddb88))
+- lint (PROVCON-5343) ([6644586](https://github.com/swagger-api/apidom/commit/6644586cb4f83e5f9e5e56cc332c95f1069ca7d1))
+- **ls:** add A2A completions for security/agent extension (PROVCON-5343) ([7856583](https://github.com/swagger-api/apidom/commit/78565835152be60cb310065cdede290a51f8156d))
+- **ls:** add A2A required-field lints and element docs (PROVCON-5343) ([1a97a94](https://github.com/swagger-api/apidom/commit/1a97a946bb2bdcff74d86442a463d433640726f4))
+- **ls:** add A2A type/enum lints for security schemes (PROVCON-5343) ([3c4b0d6](https://github.com/swagger-api/apidom/commit/3c4b0d6725d4340f0900e41d477395b525dba0a3))
+- review feedback (PROVCON-5343) ([e4dd510](https://github.com/swagger-api/apidom/commit/e4dd510b303087493a190ee5c240858f376ffcc4))
+- review feedback and 1.0.1 upgrade (PROVCON-5343) ([6819f3b](https://github.com/swagger-api/apidom/commit/6819f3b0abd173919748e3093a4367403ddc8f97))
+- support a2a in apidom (PROVCON-5343) ([2150345](https://github.com/swagger-api/apidom/commit/21503453894940443b344b618fde523db37ce893))
+- update for pr reviews (PROVCON-5343) ([51baadb](https://github.com/swagger-api/apidom/commit/51baadb015c9c98013c526201857b6cf1edad237))
+- update id and readme (PROVCON-5343) ([7708415](https://github.com/swagger-api/apidom/commit/77084155ee07e58c66a15c4945c4b890a5573e36))
+- update security requirements (PROVCON-5343) ([69e0dc2](https://github.com/swagger-api/apidom/commit/69e0dc2f35fc990960331090c902016126452497))
+- update security scheme, rename (PROVCON-5343) ([8e25d92](https://github.com/swagger-api/apidom/commit/8e25d92e987fb9fd779afb5c2664a698f837eb4c))
+- update test for a2a 1.0.1 (PROVCON-5343) ([9e72659](https://github.com/swagger-api/apidom/commit/9e72659ad5c4d6e8b56e0ce24ef128cee105825f))
+
 ## [1.11.3](https://github.com/swagger-api/apidom/compare/v1.11.2...v1.11.3) (2026-06-22)
 
 ### Bug Fixes

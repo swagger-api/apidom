@@ -110,5 +110,19 @@
     "typescript": "=5.5.4",
     "vite": "^8.0.0",
     "vite-plugin-wasm": "^3.6.0"
+  },
+  "allowScripts": {
+    "nx@23.1.1": true,
+    "tree-sitter@0.21.1": true,
+    "tree-sitter@0.22.4": true,
+    "tree-sitter-json@0.24.8": true,
+    "@tree-sitter-grammars/tree-sitter-yaml@0.7.1": true,
+    "tree-sitter-cli@0.24.5": true,
+    "@parcel/watcher@2.5.1": false,
+    "core-js@3.44.0": false,
+    "core-js-pure@3.42.0": false,
+    "fsevents@2.3.3": false,
+    "microtime@3.1.1": false,
+    "unrs-resolver@1.11.1": false
   }
 }

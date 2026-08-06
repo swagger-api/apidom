@@ -33,8 +33,6 @@ export { default as PatternedFieldsVisitor } from './refractor/visitors/generics
 export type { PatternedFieldsVisitorOptions } from './refractor/visitors/generics/PatternedFieldsVisitor.ts';
 export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor.ts';
 export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor.ts';
-export { default as SpecificationExtensionVisitor } from './refractor/visitors/SpecificationExtensionVisitor.ts';
-export type { SpecificationExtensionVisitorOptions } from './refractor/visitors/SpecificationExtensionVisitor.ts';
 export { default as SpecificationVisitor } from './refractor/visitors/SpecificationVisitor.ts';
 export type { SpecificationVisitorOptions } from './refractor/visitors/SpecificationVisitor.ts';
 export { default as Visitor } from './refractor/visitors/Visitor.ts';
@@ -176,8 +174,6 @@ export {
   isExtensionsElement,
   isSecuritySchemesElement,
 } from './predicates.ts';
-
-export { default as isA2ASpecificationExtension } from './refractor/predicates.ts';
 
 export { keyMap, getNodeType } from './traversal/visitor.ts';
 

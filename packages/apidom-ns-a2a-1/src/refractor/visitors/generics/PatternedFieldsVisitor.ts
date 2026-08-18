@@ -10,7 +10,6 @@ import {
 
 import type { SpecPath } from './FixedFieldsVisitor.ts';
 import SpecificationVisitor, { SpecificationVisitorOptions } from '../SpecificationVisitor.ts';
-import isA2ASpecificationExtension from '../../predicates.ts';
 
 export type { SpecPath };
 
@@ -21,8 +20,6 @@ export interface PatternedFieldsVisitorOptions extends SpecificationVisitorOptio
   readonly specPath: SpecPath;
   readonly ignoredFields?: string[];
   readonly fieldPatternPredicate?: (...args: unknown[]) => boolean;
-  readonly canSupportSpecificationExtensions?: boolean;
-  readonly specificationExtensionPredicate?: typeof isA2ASpecificationExtension;
 }
 
 /**
@@ -35,16 +32,10 @@ class PatternedFieldsVisitor extends SpecificationVisitor {
 
   protected fieldPatternPredicate: (value: unknown) => boolean = stubFalse;
 
-  protected canSupportSpecificationExtensions: boolean = false;
-
-  protected specificationExtensionPredicate = isA2ASpecificationExtension;
-
   constructor({
     specPath,
     ignoredFields,
     fieldPatternPredicate,
-    canSupportSpecificationExtensions,
-    specificationExtensionPredicate,
     ...rest
   }: PatternedFieldsVisitorOptions) {
     super({ ...rest });
@@ -54,27 +45,12 @@ class PatternedFieldsVisitor extends SpecificationVisitor {
     if (typeof fieldPatternPredicate === 'function') {
       this.fieldPatternPredicate = fieldPatternPredicate;
     }
-    if (typeof canSupportSpecificationExtensions === 'boolean') {
-      this.canSupportSpecificationExtensions = canSupportSpecificationExtensions;
-    }
-    if (typeof specificationExtensionPredicate === 'function') {
-      this.specificationExtensionPredicate = specificationExtensionPredicate;
-    }
   }
 
   ObjectElement(objectElement: ObjectElement) {
     // @ts-ignore
     objectElement.forEach((value: Element, key: Element, memberElement: MemberElement) => {
-      if (
-        this.canSupportSpecificationExtensions &&
-        this.specificationExtensionPredicate(memberElement)
-      ) {
-        const extensionElement = this.toRefractedElement(['document', 'extension'], memberElement);
-        this.element.content.push(extensionElement);
-      } else if (
-        !this.ignoredFields.includes(toValue(key)) &&
-        this.fieldPatternPredicate(toValue(key))
-      ) {
+      if (!this.ignoredFields.includes(toValue(key)) && this.fieldPatternPredicate(toValue(key))) {
         const specPath = this.specPath(value);
         const patternedFieldElement = this.toRefractedElement(specPath, value);
         const newMemberElement = new MemberElement(cloneDeep(key), patternedFieldElement);

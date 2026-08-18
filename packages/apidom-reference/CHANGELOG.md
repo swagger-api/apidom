@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
+
+### Bug Fixes
+
+- **deps:** bump minimatch to v10.2.6 ([#5203](https://github.com/swagger-api/apidom/issues/5203)) ([7360b2f](https://github.com/swagger-api/apidom/commit/7360b2f441abe110f9e54d15bba0c9630d8a5ad0))
+
+### Features
+
+- support a2a in apidom (PROVCON-5343) ([2150345](https://github.com/swagger-api/apidom/commit/21503453894940443b344b618fde523db37ce893))
+
 ## [1.11.3](https://github.com/swagger-api/apidom/compare/v1.11.2...v1.11.3) (2026-06-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

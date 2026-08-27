@@ -15,7 +15,7 @@ export class OpenAPIMediaTypes extends MediaTypes<string> {
     return this.filter((mediaType) => mediaType.includes(effectiveFormat));
   }
 
-  findBy(version = '3.1.0', format: Format = 'generic') {
+  findBy(version = '3.1.2', format: Format = 'generic') {
     const search =
       format === 'generic'
         ? `vnd.oai.openapi;version=${version}`
@@ -37,6 +37,12 @@ const mediaTypes = new OpenAPIMediaTypes(
   'application/vnd.oai.openapi;version=3.1.0',
   'application/vnd.oai.openapi+json;version=3.1.0',
   'application/vnd.oai.openapi+yaml;version=3.1.0',
+  'application/vnd.oai.openapi;version=3.1.1',
+  'application/vnd.oai.openapi+json;version=3.1.1',
+  'application/vnd.oai.openapi+yaml;version=3.1.1',
+  'application/vnd.oai.openapi;version=3.1.2',
+  'application/vnd.oai.openapi+json;version=3.1.2',
+  'application/vnd.oai.openapi+yaml;version=3.1.2',
 );
 
 export default mediaTypes;

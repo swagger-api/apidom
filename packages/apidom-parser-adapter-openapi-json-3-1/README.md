@@ -1,6 +1,6 @@
 # @swagger-api/apidom-parser-adapter-openapi-json-3-1
 
-`@swagger-api/apidom-parser-adapter-openapi-json-3-1` is a parser adapter for the [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) in [JSON format](https://www.json.org/json-en.html).
+`@swagger-api/apidom-parser-adapter-openapi-json-3-1` is a parser adapter for the [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) in [JSON format](https://www.json.org/json-en.html).
 Under the hood this adapter uses [apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [OpenAPI 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).

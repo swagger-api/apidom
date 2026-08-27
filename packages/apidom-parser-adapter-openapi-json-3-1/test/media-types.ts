@@ -24,7 +24,7 @@ describe('given adapter is used in parser', function () {
 
   context('given OpenAPI 3.1.2 definition in JSON format', function () {
     specify('should find appropriate media type', async function () {
-      const mediaType = await parser.findMediaType('{"openapi": "3.1.2}');
+      const mediaType = await parser.findMediaType('{"openapi": "3.1.2"}');
 
       assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.1.2');
     });

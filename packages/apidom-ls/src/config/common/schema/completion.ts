@@ -1424,7 +1424,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminatorObject)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaComposition) for more details.',
+        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#discriminator-object)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.0.3.md#schemaComposition) for more details.',
     },
     targetSpecs: OpenAPI30,
   },
@@ -1438,7 +1438,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#discriminatorObject)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#schemaComposition) for more details.',
+        '[Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#discriminator-object)\n\\\n\\\nAdds support for polymorphism. The discriminator is an object name that is used to differentiate between other schemas which may satisfy the payload description. See [Composition and Inheritance](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#composition-and-inheritance-polymorphism) for more details.',
     },
     targetSpecs: OpenAPI31,
   },
@@ -1538,7 +1538,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#xmlObject)\n\\\n\\\nThis MAY be used only on properties schemas. It has no effect on root schemas. Adds additional metadata to describe the XML representation of this property.',
+        '[XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#xml-object)\n\\\n\\\nThis MAY be used only on properties schemas. It has no effect on root schemas. Adds additional metadata to describe the XML representation of this property.',
     },
     targetSpecs: OpenAPI31,
   },
@@ -1580,7 +1580,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation for this schema.',
+        'External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#external-documentation-object)\n\\\n\\\nAdditional external documentation for this schema.',
     },
     targetSpecs: OpenAPI31,
   },

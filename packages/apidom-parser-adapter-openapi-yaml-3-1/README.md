@@ -1,6 +1,6 @@
 # @swagger-api/apidom-parser-adapter-openapi-yaml-3-1
 
-`@swagger-api/apidom-parser-adapter-openapi-yaml-3-1` is a parser adapter for the [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
+`@swagger-api/apidom-parser-adapter-openapi-yaml-3-1` is a parser adapter for the [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) in [YAML format](https://yaml.org/spec/1.2/spec.html).
 Under the hood this adapter uses [apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
 to parse a source string into generic ApiDOM in [base ApiDOM namespace](https://github.com/swagger-api/apidom/tree/main/packages/apidom-core#base-namespace)
 which is then refracted with [OpenAPI 3.1.0 Refractors](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1#refractors).

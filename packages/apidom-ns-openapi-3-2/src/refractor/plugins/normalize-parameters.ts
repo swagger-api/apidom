@@ -37,7 +37,7 @@ const plugin =
     /**
      * Establishes identity between two Parameter Objects.
      *
-     * {@link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#parameter-object}
+     * {@link https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#operation-parameters}
      */
     const parameterEquals = (parameter1: ParameterElement, parameter2: ParameterElement) => {
       if (!predicates.isParameterElement(parameter1)) return false;

@@ -13,4 +13,20 @@ describe('given adapter is used in parser', function () {
       assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.1.0');
     });
   });
+
+  context('given OpenAPI 3.1.1 definition in JSON format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.1.1"}');
+
+      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.1.1');
+    });
+  });
+
+  context('given OpenAPI 3.1.2 definition in JSON format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('{"openapi": "3.1.2"}');
+
+      assert.strictEqual(mediaType, 'application/vnd.oai.openapi+json;version=3.1.2');
+    });
+  });
 });

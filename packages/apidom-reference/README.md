@@ -1250,7 +1250,7 @@ Supported media types:
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-1)
 
-External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.1.2](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.1.x](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
 
 Supported media types:
 

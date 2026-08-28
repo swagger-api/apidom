@@ -1250,7 +1250,7 @@ Supported media types:
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/openapi-3-1)
 
-External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
+External resolution strategy for understanding and resolving external dependencies of [OpenApi 3.1.2](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
 
 Supported media types:
 
@@ -1626,7 +1626,7 @@ Supported media types:
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1)
 
-Dereference strategy for dereferencing [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
+Dereference strategy for dereferencing [OpenApi 3.1.2](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
 
 Supported media types:
 
@@ -1927,7 +1927,7 @@ every strategy differs significantly. `Bundle component` comes with single (1) d
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/openapi-3-1)
 
-Bundle strategy for bundling [OpenApi 3.1.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
+Bundle strategy for bundling [OpenApi 3.1.2](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md) definitions.
 
 Supported media types:
 

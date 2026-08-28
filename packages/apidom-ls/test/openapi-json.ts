@@ -94,7 +94,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-url) value of `/`.',
           },
           insertText: '"servers": [\n  $1\n],',
           insertTextFormat: 2,
@@ -212,7 +212,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-url) value of `/`.',
           },
           insertText: '"servers": [\n  $1\n],\n',
           insertTextFormat: 2,
@@ -330,7 +330,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-url) value of `/`.',
           },
           insertText: '"servers": [\n  $1\n],\n',
           insertTextFormat: 2,

@@ -2,27 +2,27 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI310 } from '../../target-specs.ts';
+import { OpenAPI312 } from '../../target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const valuePattern3_1_0Lint: LinterMeta = {
-  code: ApilintCodes.OPENAPI3_1_OPENAPI_VALUE_PATTERN_3_1_0,
+const valuePattern3_1_2Lint: LinterMeta = {
+  code: ApilintCodes.OPENAPI3_1_OPENAPI_VALUE_PATTERN_3_1_2,
   source: 'apilint',
-  message: "'openapi' value must be 3.1.0",
+  message: "'openapi' value must be 3.1.2",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValueRegex',
-  linterParams: ['3\\.1\\.0'],
+  linterParams: ['3\\.1\\.2'],
   marker: 'value',
   data: {
     quickFix: [
       {
-        message: "update to '3.1.0'",
+        message: "update to '3.1.2'",
         action: 'updateValue',
-        functionParams: ['3.1.0'],
+        functionParams: ['3.1.2'],
       },
     ],
   },
-  targetSpecs: OpenAPI310,
+  targetSpecs: OpenAPI312,
 };
 
-export default valuePattern3_1_0Lint;
+export default valuePattern3_1_2Lint;

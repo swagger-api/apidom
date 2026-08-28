@@ -30,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#oauth-flows-object)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
+        '[OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#oauth-flow-object)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
     },
     targetSpecs: OpenAPI31,
   },

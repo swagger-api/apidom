@@ -1,28 +1,28 @@
-# @swagger-api/apidom-ns-openapi-3-1
+# @swagger-api/apidom-ns-openapi-3-2
 
-`@swagger-api/apidom-ns-openapi-3-1` contains ApiDOM namespace specific to [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md).
+`@swagger-api/apidom-ns-openapi-3-2` contains ApiDOM namespace specific to [OpenAPI 3.2.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md).
 
 ## Installation
 
 You can install this package via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ```sh
- $ npm install @swagger-api/apidom-ns-openapi-3-1
+ $ npm install @swagger-api/apidom-ns-openapi-3-2
 ```
 
-## OpenAPI 3.1.0 namespace
+## OpenAPI 3.2.0 namespace
 
-OpenAPI 3.1.0 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-1/src/elements) implemented on top
+OpenAPI 3.2.0 namespace consists of [number of elements](https://github.com/swagger-api/apidom/tree/main/packages/apidom-ns-openapi-3-2/src/elements) implemented on top
 of [primitive ones](https://github.com/refractproject/minim/tree/master/lib/primitives).
 
 ```js
 import { createNamespace } from '@swagger-api/apidom-core';
-import openApi3_1Namespace from '@swagger-api/apidom-ns-openapi-3-1';
+import openApi3_2Namespace from '@swagger-api/apidom-ns-openapi-3-2';
 
-const namespace = createNamespace(openApi3_1Namespace);
+const namespace = createNamespace(openApi3_2Namespace);
 
 const objectElement = new namespace.elements.Object();
-const openApiElement = new namespace.elements.OpenApi3_1();
+const openApiElement = new namespace.elements.OpenApi3_2();
 ```
 
 When namespace instance is created in this way, it will extend the base namespace
@@ -31,39 +31,39 @@ with the namespace provided as an argument.
 Elements from the namespace can also be used directly by importing them.
 
 ```js
-import { OpenApi3_1Element, InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import { OpenApi3_2Element, InfoElement } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const infoElement = new InfoElement();
-const openApiElement = new OpenApi3_1Element();
+const openApiElement = new OpenApi3_2Element();
 ```
 
 ## Predicates
 
-This package exposes [predicates](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/predicates.ts)
+This package exposes [predicates](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-2/src/predicates.ts)
 for all higher order elements that are part of this namespace.
 
 ```js
-import { isOpenApi3_1Element, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { isOpenApi3_2Element, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
-const openApiElement = new OpenApi3_1Element();
+const openApiElement = new OpenApi3_2Element();
 
-isOpenApi3_1Element(openApiElement); // => true
+isOpenApi3_2Element(openApiElement); // => true
 ```
 
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom-core` package.
-This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L24) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-1/src/traversal/visitor.ts#L6).
+This package comes with its own [keyMap](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-2/src/traversal/visitor.ts#L24) and [nodeTypeGetter](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ns-openapi-3-2/src/traversal/visitor.ts#L6).
 To learn more about these `visit` configuration options please refer to [@swagger-api/apidom-ast documentation](https://github.com/swagger-api/apidom/blob/main/packages/apidom-ast/README.md#visit).
 
 ```js
 import { visit } from '@swagger-api/apidom-core';
-import { OpenApi3_1Element, keyMap, getNodeType } from '@swagger-api/apidom-ns-openapi-3-1';
+import { OpenApi3_2Element, keyMap, getNodeType } from '@swagger-api/apidom-ns-openapi-3-2';
 
-const element = new OpenApi3_1Element();
+const element = new OpenApi3_2Element();
 
 const visitor = {
-  OpenApi3_1Element(openApiElement) {
+  OpenApi3_2Element(openApiElement) {
     console.dir(openApiElement);
   },
 };
@@ -79,7 +79,7 @@ or generic ApiDOM structures into structures built from elements of this namespa
 **Refracting JavaScript structures**:
 
 ```js
-import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const object = {
     title: 'my title',
@@ -94,7 +94,7 @@ InfoElement.refract(object); // => InfoElement({ title, description, version })
 
 ```js
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const objectElement = new ObjectElement({
     title: 'my title',
@@ -111,7 +111,7 @@ Refractors can accept plugins as a second argument of refract static method.
 
 ```js
 import { ObjectElement } from '@swagger-api/apidom-core';
-import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-1';
+import { InfoElement } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const objectElement = new ObjectElement({
     title: 'my title',
@@ -139,7 +139,7 @@ InfoElement.refract(objectElement, { plugins: [plugin] }); // => InfoElement({ t
 
 You can define as many plugins as needed to enhance the resulting namespaced ApiDOM structure.
 If multiple plugins with the same visitor method are defined, they run in parallel (just like in Babel).
-All the plugins available in `@swagger-api/apidom-ns-openapi-3-1` are idempotent and the normalization state is stored in the root `OpenApi3_1Element` in `<storageField>`. `<storageField>` can be customized in the plugin configuration (default: `x-normalized`).
+All the plugins available in `@swagger-api/apidom-ns-openapi-3-2` are idempotent and the normalization state is stored in the root `OpenApi3_2Element` in `<storageField>`. `<storageField>` can be customized in the plugin configuration (default: `x-normalized`).
 
 #### Replace Empty Element plugin
 
@@ -149,19 +149,19 @@ this missing value with the most appropriate semantic element type.
 
 ```js
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginReplaceEmptyElement, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginReplaceEmptyElement, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 info:
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginReplaceEmptyElement()],
 });
 
 // =>
-// (OpenApi3_1Element
+// (OpenApi3_2Element
 //   (MemberElement
 //     (StringElement)
 //     (OpenapiElement))
@@ -170,7 +170,7 @@ const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
 //     (InfoElement)))
 
 // => without the plugin the result would be as follows:
-// (OpenApi3_1Element
+// (OpenApi3_2Element
 //   (MemberElement
 //     (StringElement)
 //     (OpenapiElement))
@@ -190,24 +190,24 @@ and make sure Link.operationId fields are pointing to correct and normalized Ope
 ```js
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginNormalizeOperationIds, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginNormalizeOperationIds, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 paths:
   /:
     get:
       operationId: get operation ^
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeOperationIds()],
 });
 
 toValue(openApiElement);
 // =>
 // {
-//   "openapi": "3.1.0",
+//   "openapi": "3.2.0",
 //   "paths": {
 //     "/": {
 //       "get": {
@@ -223,17 +223,17 @@ should look like.
 ```typescript
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginNormalizeOperationIds, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginNormalizeOperationIds, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 paths:
   /:
     get:
       operationId: get operation ^
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeOperationIds({
     operationIdNormalizer: (operationId: string, path: string, method: string): string => {
       // operationId - value of Original.operationId field
@@ -246,7 +246,7 @@ const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
 toValue(openApiElement);
 // =>
 // {
-//   "openapi": "3.1.0",
+//   "openapi": "3.2.0",
 //   "paths": {
 //     "/": {
 //       "get": {
@@ -268,10 +268,10 @@ Duplicates Parameters from Path Items to Operation Objects using following rules
 ```js
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginNormalizeParameters, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginNormalizeParameters, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 paths:
   /:
     parameters:
@@ -282,14 +282,14 @@ paths:
     get: {}
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeParameters()],
 });
 
 toValue(openApiElement);
 // =>
 // {
-//   "openapi": "3.1.0",
+//   "openapi": "3.2.0",
 //   "paths": {
 //   "/": {
 //     "parameters": [
@@ -326,10 +326,10 @@ If Operation.security field is not defined, this field will inherit security fro
 ```js
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginNormalizeSecurityRequirements, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginNormalizeSecurityRequirements, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 security:
   - petstore_auth:
       - write:pets
@@ -339,14 +339,14 @@ paths:
     get: {}
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeSecurityRequirements()],
 });
 
 toValue(openApiElement);
 // =>
 // {
-//   "openapi": "3.1.0",
+//   "openapi": "3.2.0",
 //   "security": [
 //     {
 //       "petstore_auth": [
@@ -374,7 +374,7 @@ toValue(openApiElement);
 
 #### Normalize Server Objects plugin
 
-List of Server Objects can be defined in OpenAPI 3.1 on multiple levels:
+List of Server Objects can be defined in OpenAPI 3.2 on multiple levels:
 
 - OpenAPI.servers
 - PathItem.servers
@@ -386,10 +386,10 @@ If an alternative server object is specified at the Operation Object level, it w
 ```js
 import { toValue } from '@swagger-api/apidom-core';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
-import { refractorPluginNormalizeServers, OpenApi3_1Element } from '@swagger-api/apidom-ns-openapi-3-1';
+import { refractorPluginNormalizeServers, OpenApi3_2Element } from '@swagger-api/apidom-ns-openapi-3-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 servers:
  - url: https://example.com/
    description: production server
@@ -398,14 +398,14 @@ paths:
     get: {}
 `;
 const apiDOM = await parse(yamlDefinition);
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeServers()],
 });
 
 toValue(openApiElement);
 // =>
 // {
-//   "openapi": "3.1.0",
+//   "openapi": "3.2.0",
 //   "servers": [
 //     {
 //       "url": "https://example.com/",
@@ -441,11 +441,11 @@ toValue(openApiElement);
 
 ```js
 import { toValue } from '@swagger-api/apidom-core';
-import { OpenApi3_1Element, refractorPluginNormalizeParameterExamples } from '@swagger-api/apidom-ns-openapi-3-1';
+import { OpenApi3_2Element, refractorPluginNormalizeParameterExamples } from '@swagger-api/apidom-ns-openapi-3-2';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 paths:
   /:
     get:
@@ -462,13 +462,13 @@ paths:
 const apiDOM = await parse(yamlDefinition);
 
 //default
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeParameterExamples()],
 });
 toValue(openApiElement);
 // =>
 // {
-//   openapi: '3.1.0',
+//   openapi: '3.2.0',
 //   paths: {
 //     '/': {
 //       get: {
@@ -487,13 +487,13 @@ toValue(openApiElement);
 // }
 
 // custom storage field name
-const openApiElementWithCustomField = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElementWithCustomField = OpenApi3_2Element.refract(apiDOM.result, {
   plugins: [refractorPluginNormalizeParameterExamples({ storageField: '$$my-normalized' })],
 });
 toValue(openApiElementWithCustomField);
 // =>
 // {
-//   openapi: '3.1.0',
+//   openapi: '3.2.0',
 //   paths: {
 //     '/': {
 //       get: {
@@ -521,11 +521,11 @@ toValue(openApiElementWithCustomField);
 
 ```js
 import { toValue } from '@swagger-api/apidom-core';
-import { OpenApi3_1Element, refractorPluginNormalizeHeaderExamples } from '@swagger-api/apidom-ns-openapi-3-1';
+import { OpenApi3_2Element, refractorPluginNormalizeHeaderExamples } from '@swagger-api/apidom-ns-openapi-3-2';
 import { parse } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
 const yamlDefinition = `
-openapi: 3.1.0
+openapi: 3.2.0
 paths:
   /:
     get:
@@ -543,13 +543,13 @@ paths:
 const apiDOM = await parse(yamlDefinition);
 
 // default
-const openApiElement = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElement = OpenApi3_2Element.refract(apiDOM.result, {
    plugins: [refractorPluginNormalizeHeaderExamples()],
 });
 toValue(openApiElement);
 // =>
 // {
-//   openapi: '3.1.0',
+//   openapi: '3.2.0',
 //   paths: {
 //     '/': {
 //       get: {
@@ -573,13 +573,13 @@ toValue(openApiElement);
 
 // custom storage field name
 
-const openApiElementWithCustomField = OpenApi3_1Element.refract(apiDOM.result, {
+const openApiElementWithCustomField = OpenApi3_2Element.refract(apiDOM.result, {
    plugins: [refractorPluginNormalizeHeaderExamples({ storageField: '$$normalized' })],
 });
 toValue(openApiElementWithCustomField);
 // =>
 // {
-//   openapi: '3.1.0',
+//   openapi: '3.2.0',
 //   paths: {
 //     '/': {
 //       get: {
@@ -611,13 +611,13 @@ This plugin normalizes the `discriminator.mapping` field in a Schema Object by:
 
 The `discriminator.mapping` field is not modified by the plugin.
 
-This plugin is intended to run on dereferenced OpenAPI 3.1 documents. During dereferencing Schema Objects are annotated with meta properties and the `allOf` mapping is created for Schema Objects defined in `components.schemas`.
+This plugin is intended to run on dereferenced OpenAPI 3.2 documents. During dereferencing Schema Objects are annotated with meta properties and the `allOf` mapping is created for Schema Objects defined in `components.schemas`.
 
 ```json
 
 // fixture-example.json
 {
-  "openapi": "3.1.0",
+  "openapi": "3.2.0",
   "components": {
     "schemas": {
       "MyResponse": {
@@ -687,7 +687,7 @@ import {
   keyMap,
   getNodeType,
   mediaTypes,
-} from '@swagger-api/apidom-ns-openapi-3-1';
+} from '@swagger-api/apidom-ns-openapi-3-2';
 const uri = 'path/to/fixture-example.json'; // the arbitrary file name shown above
 
 // 1) dereference the document to annotate schemas with required metadata
@@ -697,7 +697,7 @@ const dereferenced = await dereference(uri, {
     baseURI: uri,
     resolvers: [ new FileResolver({ fileAllowList: [/\.json$/] }) ],
   },
-  dereference: { strategyOpts: { 'openapi-3-1': { dereferenceDiscriminatorMapping: true } } },
+  dereference: { strategyOpts: { 'openapi-3-2': { dereferenceDiscriminatorMapping: true } } },
 });
 
 // 2) dispatch the plugin and pass the same baseURI
@@ -710,7 +710,7 @@ toValue(normalized)
 
 // =>
 // {
-//   openapi: '3.1.0',
+//   openapi: '3.2.0',
 //   components: {
 //     schemas: {
 //       MyResponse: {
@@ -801,38 +801,3 @@ toValue(normalized)
 //   'x-normalized': { 'discriminator-mapping': [ '/components/schemas/MyResponse' ] }
 // }
 ```
-
-## Implementation progress
-
-Only fully implemented specification objects should be checked here.
-
-- [x] [OpenAPI Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#openapi-object)
-- [x] [Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#info-object)
-- [x] [Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#contact-object)
-- [x] [License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#license-object)
-- [x] [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)
-- [x] [Server Variable Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-variable-object)
-- [x] [Components](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#components-object)
-- [x] [Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#paths-object)
-- [x] [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#path-item-object)
-- [x] [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#operation-object)
-- [x] [External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#external-documentation-object)
-- [x] [Parameter Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#parameter-object)
-- [x] [Request Body Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#request-body-object)
-- [x] [Media Type Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#media-type-object)
-- [x] [Encoding Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#encoding-object)
-- [x] [Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#responses-object)
-- [x] [Callback Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#callback-object)
-- [x] [Example Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#example-object)
-- [x] [Link Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#link-object)
-- [x] [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#header-object)
-- [x] [Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#tag-object)
-- [x] [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#reference-object)
-- [x] [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#schema-object)
-- [x] [Discriminator Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#discriminator-object)
-- [x] [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#xml-object)
-- [x] [Security Scheme Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#security-scheme-object)
-- [x] [OAuth Flows Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#oauth-flows-object)
-- [x] [OAuth Flow Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#oauth-flow-object)
-- [x] [Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#security-requirement-object)
-- [x] [Specification extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#specification-extensions)

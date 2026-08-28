@@ -1,6 +1,10 @@
 # @swagger-api/apidom-ns-openapi-3-1
 
-`@swagger-api/apidom-ns-openapi-3-1` contains ApiDOM namespace specific to [OpenApi 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md).
+`@swagger-api/apidom-ns-openapi-3-1` contains ApiDOM namespace supports following OpenAPI specification versions:
+
+- [OpenAPI 3.1.2 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md)
+- [OpenAPI 3.1.1 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.1.md)
+- [OpenAPI 3.1.0 specification](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md)
 
 ## Installation
 

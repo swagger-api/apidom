@@ -58,7 +58,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#header-object) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#referenceObject)]\n\\\n\\\nA map allowing additional information to be provided as headers, for example `Content-Disposition`. `Content-Type` is described separately and SHALL be ignored in this section. This property SHALL be ignored if the request body media type is not a `multipart`.',
+        'Map[`string`, [Header Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#header-object) \\| [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#reference-object)]\n\\\n\\\nA map allowing additional information to be provided as headers, for example `Content-Disposition`. `Content-Type` is described separately and SHALL be ignored in this section. This property SHALL be ignored if the request body media type is not a `multipart`.',
     },
     targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },

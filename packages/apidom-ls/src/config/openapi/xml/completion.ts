@@ -98,7 +98,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#xmlName).',
+        'The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#fixed-fields-23).',
     },
     targetSpecs: [...OpenAPI31, ...OpenAPI32],
   },

@@ -118,7 +118,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#contactObject)\n\\\n\\\nThe contact information for the exposed API.',
+              '[Contact Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#contact-object)\n\\\n\\\nThe contact information for the exposed API.',
           },
           targetSpecs: OpenAPI31,
         },
@@ -130,7 +130,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#licenseObject)\n\\\n\\\nThe license information for the exposed API.',
+              '[License Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#license-object)\n\\\n\\\nThe license information for the exposed API.',
           },
           targetSpecs: OpenAPI31,
         },
@@ -160,7 +160,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#schema-object) contained within this OAS document. This MUST be in the form of a URI.',
           },
           insertText: 'jsonSchemaDialect: $1\n',
           insertTextFormat: 2,
@@ -172,7 +172,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
           },
           insertText: 'servers: \n  - $1\n',
           insertTextFormat: 2,
@@ -184,7 +184,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#paths-object)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
           },
           insertText: 'paths: \n  $1\n',
           insertTextFormat: 2,
@@ -196,7 +196,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#path-item-object) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
           },
           insertText: 'webhooks: \n  $1\n',
           insertTextFormat: 2,
@@ -208,7 +208,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#components-object)\n\\\n\\\nAn element to hold various schemas for the specification.',
           },
           insertText: 'components: \n  $1\n',
           insertTextFormat: 2,
@@ -220,7 +220,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#security-requirement-object)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
           },
           insertText: 'security: \n  - $1\n',
           insertTextFormat: 2,
@@ -232,7 +232,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#tag-object)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#operation-object) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
           },
           insertText: 'tags: \n  - $1\n',
           insertTextFormat: 2,
@@ -244,7 +244,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#external-documentation-object)\n\\\n\\\nAdditional external documentation.',
           },
           insertText: 'externalDocs: \n  $1\n',
           insertTextFormat: 2,
@@ -266,7 +266,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#infoObject)\n\\\n\\\n**REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.',
+              '[Info Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#info-object)\n\\\n\\\n**REQUIRED**. Provides metadata about the API. The metadata MAY be used by tooling as required.',
           },
           insertText: 'info: \n  $1\n',
           insertTextFormat: 2,
@@ -278,7 +278,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#schemaObject) contained within this OAS document. This MUST be in the form of a URI.',
+              'The default value for the `$schema` keyword within [Schema Objects](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#schema-object) contained within this OAS document. This MUST be in the form of a URI.',
           },
           insertText: 'jsonSchemaDialect: $1\n',
           insertTextFormat: 2,
@@ -290,7 +290,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverObject)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverObject) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
+              '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn array of Server Objects, which provide connectivity information to a target server. If the `servers` property is not provided, or is an empty array, the default value would be a [Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object) with a [url](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#serverUrl) value of `/`.',
           },
           insertText: 'servers: \n  - $1\n',
           insertTextFormat: 2,
@@ -302,7 +302,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#pathsObject)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
+              '[Paths Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#paths-object)\n\\\n\\\n**REQUIRED**. The available paths and operations for the API.',
           },
           insertText: 'paths: \n  $1\n',
           insertTextFormat: 2,
@@ -314,7 +314,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#pathItemObject) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
+              'Map[`string`, [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#path-item-object) &#124; [Reference Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#referenceObject)]\n\\\n\\\nThe incoming webhooks that MAY be received as part of this API and that the API consumer MAY choose to implement. Closely related to the `callbacks` feature, this section describes requests initiated other than by an API call, for example by an out of band registration. The key name is a unique string to refer to each webhook, while the (optionally referenced) Path Item Object describes a request that may be initiated by the API provider and the expected responses. An [example](https://github.com/OAI/OpenAPI-Specification/blob/main/examples/v3.1/webhook-example.yaml) is available.',
           },
           insertText: 'webhooks: \n  $1\n',
           insertTextFormat: 2,
@@ -326,7 +326,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#componentsObject)\n\\\n\\\nAn element to hold various schemas for the specification.',
+              '[Components Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#components-object)\n\\\n\\\nAn element to hold various schemas for the specification.',
           },
           insertText: 'components: \n  $1\n',
           insertTextFormat: 2,
@@ -338,7 +338,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#securityRequirementObject)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
+              '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#security-requirement-object)]\n\\\n\\\nA declaration of which security mechanisms can be used across the API. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. Individual operations can override this definition. To make security optional, an empty security requirement (`{}`) can be included in the array.',
           },
           insertText: 'security: \n  - $1\n',
           insertTextFormat: 2,
@@ -350,7 +350,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#tagObject)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#operationObject) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
+              "[[Tag Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#tag-object)]\n\\\n\\\nA list of tags used by the specification with additional metadata. The order of the tags can be used to reflect on their order by the parsing tools. Not all tags that are used by the [Operation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#operation-object) must be declared. The tags that are not declared MAY be organized randomly or based on the tools' logic. Each tag name in the list MUST be unique.",
           },
           insertText: 'tags: \n  - $1\n',
           insertTextFormat: 2,
@@ -362,7 +362,7 @@ const completionTestInput = [
           documentation: {
             kind: 'markdown',
             value:
-              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#externalDocumentationObject)\n\\\n\\\nAdditional external documentation.',
+              '[External Documentation Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#external-documentation-object)\n\\\n\\\nAdditional external documentation.',
           },
           insertText: 'externalDocs: \n  $1\n',
           insertTextFormat: 2,

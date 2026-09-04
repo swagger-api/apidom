@@ -4,7 +4,8 @@
   "description": "Advanced algorithms for semantic ApiDOM manipulations like dereferencing or resolution.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
   },
   "type": "module",
   "sideEffects": [

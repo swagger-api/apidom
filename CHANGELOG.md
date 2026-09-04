@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
+
+### Bug Fixes
+
+- **build:** add npm provenance to all package publishConfig ([#5228](https://github.com/swagger-api/apidom/issues/5228)) ([5437816](https://github.com/swagger-api/apidom/commit/5437816502aead06b9e9c1a7bbe4de9e5d86c0dc))
+- **dev-deps:** bump lerna, js-yaml and brace-expansion ([#5218](https://github.com/swagger-api/apidom/issues/5218)) ([96f1cb2](https://github.com/swagger-api/apidom/commit/96f1cb20185be369f1a14ba9de4bc4f151e224cd))
+- **ls:** support OpenAPI 3.1.1 and 3.1.2 ([#5221](https://github.com/swagger-api/apidom/issues/5221)) ([ca1773d](https://github.com/swagger-api/apidom/commit/ca1773dc1e9c5951fc837436386f2238916fa298))
+- **media-types:** detect OpenAPI 3.1.1 and 3.1.2 media types ([#5220](https://github.com/swagger-api/apidom/issues/5220)) ([f28b846](https://github.com/swagger-api/apidom/commit/f28b8464d5dd10ae1de68ca1eecbf7210ec0037e))
+- remove extensions ([1025818](https://github.com/swagger-api/apidom/commit/1025818c8527b2d2b9e9b7e59a7998a4c5abfbb8))
+
+### Reverts
+
+- Revert "chore(release): cut the v1.12.1 release [skip ci]" (#5227) ([7357915](https://github.com/swagger-api/apidom/commit/7357915793963cf518411ceb149a58c8965ec9c7)), closes [#5227](https://github.com/swagger-api/apidom/issues/5227)
+
 # [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
 
 ### Bug Fixes

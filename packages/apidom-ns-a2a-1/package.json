@@ -1,6 +1,6 @@
 {
   "name": "@swagger-api/apidom-ns-a2a-1",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "description": "A2A (Agent-to-Agent) Protocol v1 namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
@@ -43,7 +43,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.12.0",
+    "@swagger-api/apidom-core": "^1.12.1",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",

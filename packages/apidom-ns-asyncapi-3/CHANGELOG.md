@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
+
+### Bug Fixes
+
+- **build:** add npm provenance to all package publishConfig ([#5228](https://github.com/swagger-api/apidom/issues/5228)) ([5437816](https://github.com/swagger-api/apidom/commit/5437816502aead06b9e9c1a7bbe4de9e5d86c0dc))
+
+### Reverts
+
+- Revert "chore(release): cut the v1.12.1 release [skip ci]" (#5227) ([7357915](https://github.com/swagger-api/apidom/commit/7357915793963cf518411ceb149a58c8965ec9c7)), closes [#5227](https://github.com/swagger-api/apidom/issues/5227)
+
 # [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-asyncapi-3

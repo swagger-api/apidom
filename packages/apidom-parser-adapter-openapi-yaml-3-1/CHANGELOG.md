@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
+
+### Bug Fixes
+
+- **media-types:** detect OpenAPI 3.1.1 and 3.1.2 media types ([#5220](https://github.com/swagger-api/apidom/issues/5220)) ([f28b846](https://github.com/swagger-api/apidom/commit/f28b8464d5dd10ae1de68ca1eecbf7210ec0037e))
+
 # [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-openapi-yaml-3-1

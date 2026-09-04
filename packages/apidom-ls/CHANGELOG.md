@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
+
+### Bug Fixes
+
+- **ls:** support OpenAPI 3.1.1 and 3.1.2 ([#5221](https://github.com/swagger-api/apidom/issues/5221)) ([ca1773d](https://github.com/swagger-api/apidom/commit/ca1773dc1e9c5951fc837436386f2238916fa298))
+
 # [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
 
 ### Features

@@ -3,12 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
-
-### Bug Fixes
-
-- remove extensions ([1025818](https://github.com/swagger-api/apidom/commit/1025818c8527b2d2b9e9b7e59a7998a4c5abfbb8))
-
 # [1.12.0](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.12.0) (2026-08-03)
 
 ### Bug Fixes

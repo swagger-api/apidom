@@ -4,7 +4,8 @@
   "description": "OpenAPI 3.2.x namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
   },
   "type": "module",
   "sideEffects": [

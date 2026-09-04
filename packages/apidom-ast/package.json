@@ -4,7 +4,8 @@
   "description": "Tools necessary for parsing stage of ApiDOM, specifically for syntactic analysis.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
   },
   "type": "module",
   "sideEffects": false,

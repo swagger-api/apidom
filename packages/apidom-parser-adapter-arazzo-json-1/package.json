@@ -4,7 +4,8 @@
   "description": "Parser adapter for parsing JSON documents into Arazzo 1.x.y namespace.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
   },
   "type": "module",
   "sideEffects": false,

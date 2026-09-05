@@ -1,0 +1,29 @@
+{
+  "openapi": "3.2.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "friend": {
+            "$dynamicRef": "#UserType"
+          }
+        }
+      },
+      "UserType": {
+        "$dynamicAnchor": "UserType",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

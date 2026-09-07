@@ -9,6 +9,7 @@ Three comprehensive Claude Code skills for adding specification support to the A
 ### 1. `/add-namespace` - Add Namespace Package
 ### 2. `/add-parser-adapter` - Add Parser Adapter Packages
 ### 3. `/update-ls-config` - Update Language Service Config
+### 4. `/review-ls-changes` - Review Language Service Changes Against Spec
 
 ## Recent Updates (2026-01-28)
 

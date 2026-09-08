@@ -1,5 +1,8 @@
 name: Release monorepo packages to GitHub Package Registry
 on:
+  workflow_dispatch:
+    branches:
+      - main
   workflow_run:
     workflows: ["Release monorepo packages"]
     types:

@@ -1,9 +1,6 @@
 name: Release monorepo packages
 on:
   workflow_dispatch:
-    branches:
-      - main
-      - release/1.11.x
 
 env:
   CPU_CORES: 2
@@ -71,8 +68,9 @@ jobs:
         run: |
           git config user.email "swagger-bot@smartbear.com"
           git config user.name "swagger-bot"
-          git pull --rebase origin main
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          git pull --rebase origin "$CURRENT_BRANCH"
           npm install
           git add package-lock.json
           git diff --cached --quiet || git commit -m "chore: sync lockfile"
-          git push origin main
+          git push origin "$CURRENT_BRANCH"

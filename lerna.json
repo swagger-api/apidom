@@ -8,7 +8,7 @@
       "hoist": true
     },
     "version": {
-      "allowBranch": ["main"],
+      "allowBranch": ["main", "release/1.11.x"],
       "conventionalCommits": true,
       "createRelease": "github",
       "message": "chore(release): cut the %s release [skip ci]",

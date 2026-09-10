@@ -46,6 +46,6 @@ jobs:
       - name: Execute tests in monorepo
         run: npm run test
       - name: Publish monorepo npm packages
-        run: npx lerna publish from-package --no-private --yes --no-git-reset --registry=https://npm.pkg.github.com
+        run: npx lerna publish from-package --no-private --yes --dist-tag v1.11-maintenance --no-git-reset --registry=https://npm.pkg.github.com
         env:
           NODE_AUTH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}

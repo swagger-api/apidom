@@ -4,7 +4,7 @@ on:
     workflows: ["Release monorepo packages"]
     types:
       - completed
-    branches: [main]
+    branches: [main, release/1.11.x]
 
 env:
   CPU_CORES: 2

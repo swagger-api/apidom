@@ -972,6 +972,11 @@ class OpenAPI3_1DereferenceVisitor {
       return undefined;
     }
 
+    // ignore already dereferenced ExampleElement; value field was transcluded from externalValue field
+    if (exampleElement.value?.meta.hasKey('ref-origin')) {
+      return undefined;
+    }
+
     // value and externalValue fields are mutually exclusive
     if (exampleElement.hasKey('value') && isStringElement(exampleElement.externalValue)) {
       const error = new ApiDOMError(

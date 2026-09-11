@@ -3,16 +3,6 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
-## [1.12.2](https://github.com/swagger-api/apidom/compare/v1.12.1...v1.12.2) (2026-09-11)
-
-### Bug Fixes
-
-- **deps:** bump js-yaml to 4.3.2 and smol-toml to 1.8.0 ([#5235](https://github.com/swagger-api/apidom/issues/5235)) ([2a73174](https://github.com/swagger-api/apidom/commit/2a73174014a228b8de2143319809179cce47f853))
-
-### Reverts
-
-- Revert "ci(release): add temporary workflow_dispatch trigger to GPR release w…" (#5232) ([cdc3ff0](https://github.com/swagger-api/apidom/commit/cdc3ff039c8f8ab26532df948b78d165434d86e4)), closes [#5232](https://github.com/swagger-api/apidom/issues/5232)
-
 ## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
 
 ### Bug Fixes

@@ -48,14 +48,11 @@
   ],
   "overrides": {
     "serialize-javascript": "^7.0.5",
-    "@istanbuljs/load-nyc-config": {
-      "js-yaml": "^3.15.0"
-    },
     "lerna": {
-      "js-yaml": "4.3.1"
+      "js-yaml": "4.3.2"
     },
     "nx": {
-      "brace-expansion": "5.0.9"
+      "smol-toml": "1.8.0"
     }
   },
   "devDependencies": {
@@ -118,7 +115,7 @@
     "vite-plugin-wasm": "^3.6.0"
   },
   "allowScripts": {
-    "nx@23.1.1": true,
+    "nx@23.2.0": true,
     "tree-sitter@0.21.1": true,
     "tree-sitter@0.22.4": true,
     "tree-sitter-json@0.24.8": true,

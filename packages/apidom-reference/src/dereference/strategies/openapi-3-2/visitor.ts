@@ -45,6 +45,11 @@ import {
 } from '@swagger-api/apidom-ns-openapi-3-2';
 
 import { isAnchor, uriToAnchor, evaluate as $anchorEvaluate } from './selectors/$anchor.ts';
+import {
+  isDynamicAnchor,
+  uriToDynamicAnchor,
+  evaluate as $dynamicAnchorEvaluate,
+} from './selectors/$dynamicAnchor.ts';
 import { evaluate as uriEvaluate } from './selectors/uri.ts';
 import MaximumDereferenceDepthError from '../../../errors/MaximumDereferenceDepthError.ts';
 import MaximumResolveDepthError from '../../../errors/MaximumResolveDepthError.ts';
@@ -54,8 +59,13 @@ import Reference from '../../../Reference.ts';
 import ReferenceSet from '../../../ReferenceSet.ts';
 import File from '../../../File.ts';
 import Resolver from '../../../resolve/resolvers/Resolver.ts';
-import { resolveSchema$refField, maybeRefractToSchemaElement } from './util.ts';
+import {
+  resolveSchema$refField,
+  resolveSchema$dynamicRefField,
+  maybeRefractToSchemaElement,
+} from './util.ts';
 import { AncestorLineage } from '../../util.ts';
+import { DynamicScopeStack } from '../../DynamicScopeStack.ts';
 import EvaluationJsonSchemaUriError from '../../../errors/EvaluationJsonSchemaUriError.ts';
 import type { ReferenceOptions } from '../../../options/index.ts';
 
@@ -113,6 +123,7 @@ export interface OpenAPI3_2DereferenceVisitorOptions {
   readonly errorContext?: Element[];
   readonly errorPropagationCache?: Map<Element, unknown[]>;
   readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
+  readonly dynamicScopeStack?: DynamicScopeStack;
 }
 
 /**
@@ -144,6 +155,8 @@ class OpenAPI3_2DereferenceVisitor {
     referencedElement: Element;
   }> = [];
 
+  protected readonly dynamicScopeStack: DynamicScopeStack;
+
   constructor({
     reference,
     namespace,
@@ -156,6 +169,7 @@ class OpenAPI3_2DereferenceVisitor {
     errorContext = [],
     errorPropagationCache = new Map(),
     pendingPropagations = [],
+    dynamicScopeStack = new DynamicScopeStack(),
   }: OpenAPI3_2DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -168,6 +182,7 @@ class OpenAPI3_2DereferenceVisitor {
     this.errorContext = errorContext;
     this.errorPropagationCache = errorPropagationCache;
     this.pendingPropagations = pendingPropagations;
+    this.dynamicScopeStack = dynamicScopeStack;
   }
 
   protected popErrorContext(el: Element) {
@@ -273,13 +288,17 @@ class OpenAPI3_2DereferenceVisitor {
   }
 
   protected getNestedVisitorOptions(referencingElement: ObjectElement): ReferenceOptions {
+    const referencingValueElement =
+      referencingElement.get('$ref') ?? referencingElement.get('$dynamicRef');
+    const isInternalReference =
+      isStringElement(referencingValueElement) && toValue(referencingValueElement).startsWith('#');
+
     return {
       ...this.options,
       resolve: {
         ...this.options.resolve,
         external:
-          this.options.dereference?.dereferenceOpts?.skipNestedExternal &&
-          toValue(referencingElement.get('$ref')).startsWith('#')
+          this.options.dereference?.dereferenceOpts?.skipNestedExternal && isInternalReference
             ? false
             : this.options.resolve.external,
       },
@@ -350,6 +369,33 @@ class OpenAPI3_2DereferenceVisitor {
     const ancestorsLineage = new AncestorLineage(...this.ancestors, directAncestors);
 
     return [ancestorsLineage, directAncestors];
+  }
+
+  protected toDynamicScopeStack(
+    ancestorsLineage: AncestorLineage<Element>,
+    documentURI: string,
+  ): DynamicScopeStack {
+    const dynamicScopeStack = this.dynamicScopeStack.clone();
+
+    ancestorsLineage.forEach((ancestors) => {
+      ancestors.forEach((ancestor) => {
+        const isDynamicScopeCandidate =
+          isSchemaElement(ancestor) &&
+          (typeof ancestor.$id !== 'undefined' ||
+            typeof ancestor.$dynamicAnchor !== 'undefined' ||
+            typeof ancestor.get('$defs') !== 'undefined' ||
+            typeof ancestor.$ref !== 'undefined');
+
+        if (
+          isDynamicScopeCandidate &&
+          !dynamicScopeStack.some((frame) => frame.element === ancestor)
+        ) {
+          dynamicScopeStack.pushFrame(ancestor, documentURI, 'applicator');
+        }
+      });
+    });
+
+    return dynamicScopeStack;
   }
 
   /**
@@ -609,7 +655,12 @@ class OpenAPI3_2DereferenceVisitor {
           ? this.extractSelfFromReference(reference)
           : this.$selfValue;
 
-      const visitor = new OpenAPI3_2DereferenceVisitor({
+      const Visitor = this.constructor as new (
+        options: OpenAPI3_2DereferenceVisitorOptions,
+      ) => OpenAPI3_2DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
+      const visitor = new Visitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -621,6 +672,7 @@ class OpenAPI3_2DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -861,7 +913,12 @@ class OpenAPI3_2DereferenceVisitor {
           ? this.extractSelfFromReference(reference)
           : this.$selfValue;
 
-      const visitor = new OpenAPI3_2DereferenceVisitor({
+      const Visitor = this.constructor as new (
+        options: OpenAPI3_2DereferenceVisitorOptions,
+      ) => OpenAPI3_2DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$dynamicRef');
+      const visitor = new Visitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -873,6 +930,7 @@ class OpenAPI3_2DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack: this.dynamicScopeStack.clone(),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -1208,7 +1266,12 @@ class OpenAPI3_2DereferenceVisitor {
 
     // For MemberElement (discriminator mapping), we stay in the same document context
     // so we keep using the current $selfValue
-    const visitor = new OpenAPI3_2DereferenceVisitor({
+    const Visitor = this.constructor as new (
+      options: OpenAPI3_2DereferenceVisitorOptions,
+    ) => OpenAPI3_2DereferenceVisitor;
+    const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, this.reference.uri);
+    dynamicScopeStack.pushFrame(schemaElement, this.reference.uri, '$ref');
+    const visitor = new Visitor({
       reference: this.reference,
       namespace: this.namespace,
       indirections: [...this.indirections],
@@ -1217,6 +1280,9 @@ class OpenAPI3_2DereferenceVisitor {
       ancestors: ancestorsLineage,
       allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
       $selfValue: this.$selfValue,
+      errorContext: this.errorContext,
+      errorPropagationCache: this.errorPropagationCache,
+      dynamicScopeStack,
     });
 
     let referencedElement: Element;
@@ -1253,6 +1319,295 @@ class OpenAPI3_2DereferenceVisitor {
     return !parent ? memberElementCopy : undefined;
   }
 
+  protected async resolveSchema$dynamicRef(
+    referencingElement: SchemaElement,
+    key: string | number,
+    parent: Element | undefined,
+    path: (string | number)[],
+    ancestors: [Element | Element[]],
+    link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
+  ) {
+    if (this.indirections.includes(referencingElement)) {
+      return false;
+    }
+
+    const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
+
+    let reference: Reference;
+
+    try {
+      reference = await this.toReference(url.unsanitize(this.reference.uri));
+    } catch (error) {
+      return this.handleDereferenceError(error, referencingElement, { directAncestors });
+    }
+
+    const { uri: retrievalURI } = reference;
+    const $dynamicRefBaseURI = resolveSchema$dynamicRefField(retrievalURI, referencingElement)!;
+    const anchorToken = uriToDynamicAnchor($dynamicRefBaseURI);
+
+    this.indirections.push(referencingElement);
+
+    let referencedElement: Element;
+    let isInternalReference = false;
+    let isDynamicAnchorTarget = false;
+
+    try {
+      const staticSelector = isDynamicAnchor(anchorToken)
+        ? url.stripHash($dynamicRefBaseURI)
+        : $dynamicRefBaseURI;
+      const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result as Element);
+      referencedElement = uriEvaluate(staticSelector, referenceAsSchema)!;
+      if (isDynamicAnchor(anchorToken)) {
+        try {
+          referencedElement = $dynamicAnchorEvaluate(anchorToken, referencedElement)!;
+          isDynamicAnchorTarget = true;
+        } catch {
+          referencedElement = $anchorEvaluate(anchorToken, referencedElement)!;
+        }
+      }
+      referencedElement = maybeRefractToSchemaElement(referencedElement);
+      referencedElement.id = identityManager.identify(referencedElement);
+      isInternalReference = true;
+    } catch (error) {
+      if (!(error instanceof EvaluationJsonSchemaUriError)) {
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement, { directAncestors });
+      }
+
+      const staticRetrievalURI = this.toBaseURI($dynamicRefBaseURI);
+      isInternalReference = url.stripHash(this.reference.uri) === staticRetrievalURI;
+
+      if (!this.options.resolve.internal && isInternalReference) {
+        this.indirections.pop();
+        return undefined;
+      }
+      if (!this.options.resolve.external && !isInternalReference) {
+        this.indirections.pop();
+        return undefined;
+      }
+
+      try {
+        reference = await this.toReference(url.unsanitize($dynamicRefBaseURI));
+        const referenceAsSchema = maybeRefractToSchemaElement(reference.value.result as Element);
+        if (isDynamicAnchor(anchorToken)) {
+          try {
+            referencedElement = $dynamicAnchorEvaluate(anchorToken, referenceAsSchema)!;
+            isDynamicAnchorTarget = true;
+          } catch {
+            referencedElement = $anchorEvaluate(anchorToken, referenceAsSchema)!;
+          }
+        } else {
+          referencedElement = jsonPointerEvaluate(
+            referenceAsSchema,
+            URIFragmentIdentifier.fromURIReference($dynamicRefBaseURI),
+          );
+        }
+        referencedElement = maybeRefractToSchemaElement(referencedElement);
+        referencedElement.id = identityManager.identify(referencedElement);
+      } catch (toReferenceError) {
+        this.indirections.pop();
+        return this.handleDereferenceError(toReferenceError, referencingElement, {
+          directAncestors,
+        });
+      }
+    }
+
+    if (!this.options.resolve.internal && isInternalReference) {
+      this.indirections.pop();
+      return undefined;
+    }
+
+    if (isDynamicAnchorTarget) {
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      const resolved = dynamicScopeStack.resolveDynamicRef(anchorToken);
+      if (resolved !== null) {
+        referencedElement = resolved.referencedElement;
+        if (resolved.documentURI !== this.reference.uri) {
+          try {
+            reference = await this.toReference(url.unsanitize(resolved.documentURI));
+          } catch {
+            // fall back to static target if reference lookup fails
+            reference = this.reference;
+          }
+        } else {
+          reference = this.reference;
+        }
+      }
+    }
+
+    if (referencingElement === referencedElement) {
+      const error = new ApiDOMError('Recursive Schema Object reference detected');
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, { directAncestors });
+    }
+
+    if (this.indirections.length > this.options.dereference.maxDepth) {
+      const error = new MaximumDereferenceDepthError(
+        `Maximum dereference depth of "${this.options.dereference.maxDepth}" has been exceeded in file "${this.reference.uri}"`,
+      );
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, { directAncestors });
+    }
+
+    const shouldResolveReferencedSchema =
+      isSchemaElement(referencedElement) &&
+      (isStringElement(referencedElement.$ref) || isStringElement(referencedElement.$dynamicRef));
+
+    if (ancestorsLineage.includes(referencedElement) && !shouldResolveReferencedSchema) {
+      reference.refSet!.circular = true;
+
+      if (this.options.dereference.circular === 'error') {
+        const error = new ApiDOMError('Circular reference detected');
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement, { directAncestors });
+      }
+
+      if (this.options.dereference.circular === 'replace') {
+        const refElement = new RefElement(referencedElement.id, {
+          type: 'json-schema',
+          uri: reference.uri,
+          $dynamicRef: toValue(referencingElement.$dynamicRef),
+          baseURI: url.resolve(retrievalURI, $dynamicRefBaseURI),
+          referencingElement,
+        });
+        const replacer =
+          this.options.dereference.strategyOpts['openapi-3-2']?.circularReplacer ??
+          this.options.dereference.circularReplacer;
+        const replacement = replacer(refElement);
+
+        link.replaceWith(replacement, mutationReplacer);
+
+        return !parent ? replacement : false;
+      }
+    }
+
+    const isNonRootDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
+    const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
+    if (
+      (!isInternalReference ||
+        isNonRootDocument ||
+        shouldResolveReferencedSchema ||
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
+      !ancestorsLineage.includesCycle(referencedElement)
+    ) {
+      directAncestors.add(referencingElement);
+
+      const targetSelfValue =
+        !isInternalReference || isNonRootDocument
+          ? this.extractSelfFromReference(reference)
+          : this.$selfValue;
+
+      const Visitor = this.constructor as new (
+        options: OpenAPI3_2DereferenceVisitorOptions,
+      ) => OpenAPI3_2DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
+      const visitor = new Visitor({
+        reference,
+        namespace: this.namespace,
+        indirections: [...this.indirections],
+        options: this.getNestedVisitorOptions(referencingElement),
+        refractCache: this.refractCache,
+        ancestors: ancestorsLineage,
+        allOfDiscriminatorMapping: this.allOfDiscriminatorMapping,
+        $selfValue: targetSelfValue,
+        errorContext: this.errorContext,
+        errorPropagationCache: this.errorPropagationCache,
+        dynamicScopeStack,
+      });
+      try {
+        referencedElement = await visitAsync(referencedElement, visitor, {
+          keyMap,
+          nodeTypeGetter: getNodeType,
+        });
+      } catch (error) {
+        this.indirections.pop();
+        return this.handleDereferenceError(error, referencingElement, { directAncestors });
+      }
+
+      directAncestors.delete(referencingElement);
+    }
+
+    this.indirections.pop();
+
+    if (isBooleanJsonSchemaElement(referencedElement as unknown)) {
+      const booleanJsonSchemaElement: BooleanElement = cloneDeep(referencedElement!);
+      booleanJsonSchemaElement.setMetaProperty('id', identityManager.generateId());
+      booleanJsonSchemaElement.setMetaProperty('ref-fields', {
+        $dynamicRef: toValue(referencingElement.$dynamicRef),
+        $dynamicRefBaseURI,
+      });
+      const refOriginURI = !isInternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+      booleanJsonSchemaElement.setMetaProperty('ref-origin', refOriginURI);
+      booleanJsonSchemaElement.setMetaProperty(
+        'ref-referencing-element-id',
+        cloneDeep(identityManager.identify(referencingElement)),
+      );
+
+      link.replaceWith(booleanJsonSchemaElement, mutationReplacer);
+
+      return !parent ? booleanJsonSchemaElement : false;
+    }
+
+    if (isSchemaElement(referencedElement)) {
+      const mergedElement = new SchemaElement(
+        [...referencedElement.content] as any,
+        cloneDeep(referencedElement.meta),
+        cloneDeep(referencedElement.attributes),
+      );
+      mergedElement.setMetaProperty('id', identityManager.generateId());
+      referencingElement.forEach((value: Element, keyElement: Element, item: Element) => {
+        mergedElement.remove(toValue(keyElement));
+        mergedElement.content.push(item);
+      });
+      mergedElement.remove('$dynamicRef');
+      mergedElement.setMetaProperty('ref-fields', {
+        $dynamicRef: toValue(referencingElement.$dynamicRef),
+        $dynamicRefBaseURI,
+      });
+      const refOriginURI = !isInternalReference
+        ? this.extractSelfFromReference(reference) || reference.uri
+        : this.$selfValue || reference.uri;
+      mergedElement.setMetaProperty('ref-origin', refOriginURI);
+      mergedElement.setMetaProperty(
+        'ref-referencing-element-id',
+        cloneDeep(identityManager.identify(referencingElement)),
+      );
+
+      if (this.options.dereference.dereferenceOpts?.continueOnError) {
+        mergedElement.setMetaProperty('ref-referencing-element', referencingElement);
+      }
+
+      // creating mapping for allOf discriminator
+      if (this.options.dereference.strategyOpts['openapi-3-2']?.dereferenceDiscriminatorMapping) {
+        const parentElement = ancestors[ancestors.length - 1];
+        const parentSchemaElement = [...directAncestors].findLast(isSchemaElement);
+        const parentSchemaElementName = parentSchemaElement?.getMetaProperty('schemaName');
+        const mergedElementName = toValue(mergedElement.getMetaProperty('schemaName'));
+
+        if (
+          mergedElementName &&
+          parentSchemaElementName &&
+          // @ts-ignore
+          parentElement?.classes?.contains('json-schema-allOf')
+        ) {
+          const currentMapping = this.allOfDiscriminatorMapping.get(mergedElementName) ?? [];
+          currentMapping.push(parentSchemaElement!);
+          this.allOfDiscriminatorMapping.set(mergedElementName, currentMapping);
+        }
+      }
+
+      referencedElement = mergedElement;
+    }
+
+    link.replaceWith(referencedElement!, mutationReplacer);
+
+    return !parent ? referencedElement : undefined;
+  }
+
   public async SchemaElement(
     referencingElement: SchemaElement,
     key: string | number,
@@ -1261,9 +1616,15 @@ class OpenAPI3_2DereferenceVisitor {
     ancestors: [Element | Element[]],
     link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
-    // skip current referencing schema as $ref keyword was not defined
-    if (!isStringElement(referencingElement.$ref)) {
+    const has$ref = isStringElement(referencingElement.$ref);
+    const has$dynamicRef = isStringElement(referencingElement.$dynamicRef);
+
+    if (!has$ref && !has$dynamicRef) {
       return undefined;
+    }
+
+    if (has$dynamicRef && !has$ref) {
+      return this.resolveSchema$dynamicRef(referencingElement, key, parent, path, ancestors, link);
     }
 
     // skip current referencing element as it's already been access
@@ -1497,16 +1858,34 @@ class OpenAPI3_2DereferenceVisitor {
      * Cases to consider:
      *  1. We're crossing document boundary
      *  2. Fragment is from non-root document
-     *  3. Fragment is a Schema Object with $ref field. We need to follow it to get the eventual value
+     *  3. Fragment is a Schema Object with $ref or $dynamicRef field. We need to follow it to get the eventual value
      *  4. We are dereferencing the fragment lazily/eagerly depending on circular mode
      */
     const isNonRootDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
     const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
+    const containsNested$dynamicRef =
+      isSchemaElement(referencedElement) &&
+      !isUndefined(
+        find(
+          (element) =>
+            (isSchemaElement(element) && isStringElement(element.$dynamicRef)) ||
+            (isObjectElement(element) && isStringElement(element.get('$dynamicRef'))),
+          referencedElement,
+        ),
+      );
+    const hasDynamicScopeOverride =
+      typeof referencingElement.$dynamicAnchor !== 'undefined' ||
+      typeof referencingElement.get('$defs') !== 'undefined';
     if (
       (isExternalReference ||
         isNonRootDocument ||
-        (isSchemaElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
-        shouldDetectCircular) &&
+        (isSchemaElement(referencedElement) &&
+          (isStringElement(referencedElement.$ref) ||
+            isStringElement(referencedElement.$dynamicRef))) ||
+        containsNested$dynamicRef ||
+        hasDynamicScopeOverride ||
+        shouldDetectCircular ||
+        this.options.dereference.dereferenceOpts?.continueOnError) &&
       !ancestorsLineage.includesCycle(referencedElement)
     ) {
       // append referencing reference to ancestors lineage
@@ -1519,7 +1898,12 @@ class OpenAPI3_2DereferenceVisitor {
           ? this.extractSelfFromReference(reference)
           : this.$selfValue;
 
-      const visitor = new OpenAPI3_2DereferenceVisitor({
+      const Visitor = this.constructor as new (
+        options: OpenAPI3_2DereferenceVisitorOptions,
+      ) => OpenAPI3_2DereferenceVisitor;
+      const dynamicScopeStack = this.toDynamicScopeStack(ancestorsLineage, retrievalURI);
+      dynamicScopeStack.pushFrame(referencingElement, retrievalURI, '$ref');
+      const visitor = new Visitor({
         reference,
         namespace: this.namespace,
         indirections: [...this.indirections],
@@ -1531,6 +1915,7 @@ class OpenAPI3_2DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        dynamicScopeStack,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {

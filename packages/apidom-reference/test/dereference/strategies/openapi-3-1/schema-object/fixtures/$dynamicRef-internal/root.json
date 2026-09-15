@@ -1,0 +1,32 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "profile": {
+            "$dynamicRef": "#profileType"
+          }
+        }
+      },
+      "Profile": {
+        "$dynamicAnchor": "profileType",
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

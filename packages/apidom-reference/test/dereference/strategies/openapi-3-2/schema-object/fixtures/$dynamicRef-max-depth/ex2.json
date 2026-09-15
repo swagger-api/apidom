@@ -1,0 +1,7 @@
+{
+  "$defs": {
+    "Profile": {
+      "$ref": "./ex3.json"
+    }
+  }
+}

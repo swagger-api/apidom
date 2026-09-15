@@ -51,8 +51,8 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.11.4",
-    "@swagger-api/apidom-error": "^1.11.4",
+    "@swagger-api/apidom-core": "~1.11.4",
+    "@swagger-api/apidom-error": "~1.11.4",
     "@swaggerexpert/json-pointer": "^2.10.1"
   },
   "files": [

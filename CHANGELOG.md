@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.4](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.11.4) (2026-09-15)
+
+### Bug Fixes
+
+- **build:** add npm provenance to all package publishConfig ([#5228](https://github.com/swagger-api/apidom/issues/5228)) ([b54b093](https://github.com/swagger-api/apidom/commit/b54b0938eba99f495e926afcd1f1fb1f09fbda48))
+- **deps:** bump minimatch to v10.2.6 ([#5203](https://github.com/swagger-api/apidom/issues/5203)) ([f2b6b87](https://github.com/swagger-api/apidom/commit/f2b6b878614e65ff2f04e0af4fc8746ccd0ce662))
+- **dev-deps:** bump lerna, js-yaml and brace-expansion ([#5218](https://github.com/swagger-api/apidom/issues/5218)) ([6edf048](https://github.com/swagger-api/apidom/commit/6edf048305d57db5bd77d0e19ba0908e72ee89f5))
+- **ls:** support OpenAPI 3.1.1 and 3.1.2 ([#5221](https://github.com/swagger-api/apidom/issues/5221)) ([00765c7](https://github.com/swagger-api/apidom/commit/00765c7f51721aab60be64d8872edca68abe08bb))
+- **media-types:** detect OpenAPI 3.1.1 and 3.1.2 media types ([#5220](https://github.com/swagger-api/apidom/issues/5220)) ([49b3595](https://github.com/swagger-api/apidom/commit/49b3595a600fdec5dd5c25b9f69f1838fc03ebc2))
+
+### Reverts
+
+- Revert "ci(release): add temporary workflow_dispatch trigger to GPR release w…" (#5232) ([6b089ee](https://github.com/swagger-api/apidom/commit/6b089eed7c92b301c2fff705b15bfcad5eaf866b)), closes [#5232](https://github.com/swagger-api/apidom/issues/5232)
+
 ## [1.11.3](https://github.com/swagger-api/apidom/compare/v1.11.2...v1.11.3) (2026-06-22)
 
 ### Bug Fixes

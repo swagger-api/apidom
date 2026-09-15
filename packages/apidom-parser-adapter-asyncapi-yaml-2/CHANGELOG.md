@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.4](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.11.4) (2026-09-15)
+
+### Bug Fixes
+
+- **build:** add npm provenance to all package publishConfig ([#5228](https://github.com/swagger-api/apidom/issues/5228)) ([b54b093](https://github.com/swagger-api/apidom/commit/b54b0938eba99f495e926afcd1f1fb1f09fbda48))
+
 ## [1.11.3](https://github.com/swagger-api/apidom/compare/v1.11.2...v1.11.3) (2026-06-22)
 
 **Note:** Version bump only for package @swagger-api/apidom-parser-adapter-asyncapi-yaml-2

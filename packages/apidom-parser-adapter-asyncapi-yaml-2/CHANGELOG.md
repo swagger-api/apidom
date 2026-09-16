@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.11.5](https://github.com/swagger-api/apidom/compare/v1.11.4...v1.11.5) (2026-09-16)
+
+### Bug Fixes
+
+- **release:** tighten inter-package version ranges from ^ to ~ ([50d6fdd](https://github.com/swagger-api/apidom/commit/50d6fdd260e39159d162b292a65a3830a884b2d5))
+
 ## [1.11.4](https://github.com/swagger-api/apidom/compare/v1.11.3...v1.11.4) (2026-09-15)
 
 ### Bug Fixes

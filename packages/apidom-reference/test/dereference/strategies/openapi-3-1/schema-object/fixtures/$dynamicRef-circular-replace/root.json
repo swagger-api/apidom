@@ -1,0 +1,24 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Category": {
+        "$dynamicAnchor": "CategoryNode",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$dynamicRef": "#CategoryNode"
+            }
+          }
+        }
+      }
+    }
+  }
+}

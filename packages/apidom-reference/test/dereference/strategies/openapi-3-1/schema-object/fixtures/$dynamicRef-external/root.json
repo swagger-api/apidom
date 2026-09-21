@@ -1,0 +1,26 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "$dynamicRef": "./ex.json#profileType"
+          }
+        }
+      },
+      "LocalProfile": {
+        "$dynamicAnchor": "profileType",
+        "type": "object",
+        "properties": {
+          "localOnly": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

@@ -45,7 +45,7 @@ jobs:
           mkdir deploy-dir
           unzip build.zip -d deploy-dir
       - name: Deploy 🚀
-        uses: JamesIves/github-pages-deploy-action@8fd6702fce085de3b0afba6ffc90602776d25e80
+        uses: JamesIves/github-pages-deploy-action@4bb54dbf29e668920952c3807d36f165438a2aab
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages # The branch the action should deploy to.

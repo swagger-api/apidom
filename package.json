@@ -49,10 +49,13 @@
   "overrides": {
     "serialize-javascript": "^7.0.5",
     "lerna": {
-      "js-yaml": "4.3.2"
+      "js-yaml": "4.3.2",
+      "pacote": "21.5.1"
     },
     "nx": {
-      "smol-toml": "1.8.0"
+      "axios": "1.20.0",
+      "brace-expansion": "5.0.12",
+      "smol-toml": "1.9.0"
     }
   },
   "devDependencies": {
@@ -115,17 +118,17 @@
     "vite-plugin-wasm": "^3.6.0"
   },
   "allowScripts": {
-    "nx@23.2.0": true,
+    "nx@23.2.1": true,
     "tree-sitter@0.21.1": true,
     "tree-sitter@0.22.4": true,
     "tree-sitter-json@0.24.8": true,
     "@tree-sitter-grammars/tree-sitter-yaml@0.7.1": true,
     "tree-sitter-cli@0.24.5": true,
-    "@parcel/watcher@2.5.1": false,
+    "@parcel/watcher@2.6.0": false,
     "core-js@3.44.0": false,
     "core-js-pure@3.42.0": false,
     "fsevents@2.3.3": false,
     "microtime@3.1.1": false,
-    "unrs-resolver@1.11.1": false
+    "unrs-resolver@1.12.2": false
   }
 }

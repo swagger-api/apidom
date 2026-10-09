@@ -160,6 +160,23 @@ describe('dereference', function () {
             });
           });
 
+          context(
+            'given Example Object is inside externally referenced Path Item Object',
+            function () {
+              const fixturePath = path.join(rootFixturePath, 'external-value-path-item-ref');
+
+              specify('should dereference', async function () {
+                const rootFilePath = path.join(fixturePath, 'root.json');
+                const actual = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              });
+            },
+          );
+
           context('given both value and externalValue fields are defined', function () {
             const fixturePath = path.join(rootFixturePath, 'external-value-value-both-defined');
 

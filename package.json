@@ -109,7 +109,7 @@
     "vite-plugin-wasm": "^3.6.0"
   },
   "allowScripts": {
-    "nx@23.2.1": true,
+    "nx@23.3.0": true,
     "tree-sitter@0.21.1": true,
     "tree-sitter@0.22.4": true,
     "tree-sitter-json@0.24.8": true,

@@ -1332,9 +1332,9 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#responsesObject)\n\\\n\\\nThe list of possible responses as they are returned from executing this operation.',
+            '[Responses Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#response-object)\n\\\n\\\nThe list of possible responses as they are returned from executing this operation.',
         },
-        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        targetSpecs: [...OpenAPI31],
         filterText: 'se',
         textEdit: {
           range: { start: { line: 4, character: 6 }, end: { line: 4, character: 8 } },
@@ -1349,9 +1349,9 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nA declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. To make security optional, an empty security requirement (`{}`) can be included in the array. This definition overrides any declared top-level [`security`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#oasSecurity). To remove a top-level security declaration, an empty array can be used.',
+            '[[Security Requirement Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#security-requirement-object)]\n\\\n\\\nA declaration of which security mechanisms can be used for this operation. The list of values includes alternative security requirement objects that can be used. Only one of the security requirement objects need to be satisfied to authorize a request. To make security optional, an empty security requirement (`{}`) can be included in the array. This definition overrides any declared top-level [`security`](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#oas-security). To remove a top-level security declaration, an empty array can be used.',
         },
-        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        targetSpecs: [...OpenAPI31],
         preselect: true,
         filterText: 'se',
         textEdit: {
@@ -1367,9 +1367,9 @@ describe('apidom-ls-complete', function () {
         documentation: {
           kind: 'markdown',
           value:
-            '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#serverObject)]\n\\\n\\\nAn alternative `server` array to service this operation. If an alternative `server` object is specified at the Path Item Object or Root level, it will be overridden by this value.',
+            '[[Server Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.2.md#server-object)]\n\\\n\\\nAn alternative `server` array to service this operation. If an alternative `server` object is specified at the Path Item Object or Root level, it will be overridden by this value.',
         },
-        targetSpecs: [{ namespace: 'openapi', version: '3.1.0' }],
+        targetSpecs: [...OpenAPI31],
         preselect: true,
         filterText: 'se',
         textEdit: {

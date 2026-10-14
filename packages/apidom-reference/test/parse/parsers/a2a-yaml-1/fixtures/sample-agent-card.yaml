@@ -1,0 +1,38 @@
+name: Recipe Agent
+description: Helps users find and follow recipes
+url: https://recipes.example.com/a2a
+version: 1.0.0
+provider:
+  organization: Example Foods
+  url: https://example.com
+capabilities:
+  streaming: true
+  pushNotifications: false
+  extendedAgentCard: false
+defaultInputModes:
+  - text/plain
+defaultOutputModes:
+  - application/json
+skills:
+  - id: find-recipe
+    name: Find Recipe
+    description: Locate recipes matching ingredients or cuisine.
+    tags:
+      - recipes
+      - search
+    examples:
+      - Find a vegan pasta recipe
+    inputModes:
+      - text/plain
+    outputModes:
+      - application/json
+securitySchemes:
+  apiKey:
+    apiKeySecurityScheme:
+      name: X-API-Key
+      location: header
+      description: API key authentication
+securityRequirements:
+  - schemes:
+      apiKey:
+        list: []

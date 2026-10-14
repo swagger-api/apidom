@@ -1,10 +1,11 @@
 name: Release monorepo packages to GitHub Package Registry
 on:
+  workflow_dispatch:
   workflow_run:
     workflows: ["Release monorepo packages"]
     types:
       - completed
-    branches: [main]
+    branches: [main, release/1.11.x]
 
 env:
   CPU_CORES: 2
@@ -13,20 +14,24 @@ env:
 
 jobs:
   release:
-    if: github.event.workflow_run.conclusion == 'success'
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     name: Release to GitHub Package Registry
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
     env:
       HUSKY: 0 # disabled husky and lint staged; https://typicode.github.io/husky/#/?id=with-env-variables
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
+          ref: ${{ github.event.workflow_run.head_branch || github.ref }}
           token: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
       - name: Setup Node.js
-        uses: actions/setup-node@v6
+        uses: actions/setup-node@v7
         with:
           node-version-file: .nvmrc
           registry-url: https://npm.pkg.github.com/

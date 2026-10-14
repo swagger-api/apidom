@@ -6,6 +6,10 @@ export const OpenAPI302 = [{ namespace: 'openapi', version: '3.0.2' }];
 export const OpenAPI303 = [{ namespace: 'openapi', version: '3.0.3' }];
 export const OpenAPI304 = [{ namespace: 'openapi', version: '3.0.4' }];
 
+export const OpenAPI310 = [{ namespace: 'openapi', version: '3.1.0' }];
+export const OpenAPI311 = [{ namespace: 'openapi', version: '3.1.1' }];
+export const OpenAPI312 = [{ namespace: 'openapi', version: '3.1.2' }];
+
 export const OpenAPI30 = [
   ...OpenAPI300,
   ...OpenAPI301,
@@ -13,6 +17,6 @@ export const OpenAPI30 = [
   ...OpenAPI303,
   ...OpenAPI304,
 ];
-export const OpenAPI31 = [{ namespace: 'openapi', version: '3.1.0' }];
+export const OpenAPI31 = [...OpenAPI310, ...OpenAPI311, ...OpenAPI312];
 export const OpenAPI32 = [{ namespace: 'openapi', version: '3.2.0' }];
 export const OpenAPI3 = [...OpenAPI30, ...OpenAPI31, ...OpenAPI32];

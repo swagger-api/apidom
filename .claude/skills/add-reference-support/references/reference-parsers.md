@@ -89,6 +89,14 @@ Same structure as JSON parser but:
 
 ## 2.2 Create Tests in apidom-reference
 
+Copy the sibling parser's test file (e.g. `test/parse/parsers/asyncapi-json-3/index.ts`) and keep all of its contexts: `canParse` (proper and improper media type, unknown extension, no extension, buffer and string detection), `parse` (string, buffer, non-matching data, empty file) and `sourceMap` (enabled, disabled). PR #5182's A2A parser tests had fewer cases and were sent back. Verify:
+
+```bash
+node .claude/skills/add-spec-version/scripts/check-test-parity.mjs \
+  packages/apidom-reference/test/parse/parsers/{spec}-json-{version}/index.ts \
+  packages/apidom-reference/test/parse/parsers/asyncapi-json-3/index.ts --mask asyncapi,3.0.0
+```
+
 For JSON parser, create `packages/apidom-reference/test/parse/parsers/{spec}-json-{version}/index.ts`:
 
 ```typescript

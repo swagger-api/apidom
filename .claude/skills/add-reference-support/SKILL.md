@@ -71,6 +71,7 @@ npm run build && npm run typescript:check-types && npm run lint && npm test
 - All existing tests still pass (fixture bumps in extend mode must not change expected output beyond the version string).
 - New mode: `grep -n "{spec}-{version}\|{Spec}.*{Version}" src/configuration/saturated.ts` shows the two parsers and three strategies.
 - Detection order: a document of the parent version is still parsed by the parent's parser, and a document of the new version by the new parser (add a test in `test/parse/` if missing).
+- New parser tests match the sibling parser's tests: `check-test-parity.mjs` reports no unjustified `MISSING` (see `references/reference-parsers.md`, 2.2).
 
 ## Troubleshooting
 

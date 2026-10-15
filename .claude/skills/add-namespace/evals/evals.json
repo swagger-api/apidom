@@ -29,6 +29,28 @@
         "No duplicated parent root element file (OpenApi3-1.ts)",
         "JsonSchemaDialect default is https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
       ]
+    },
+    {
+      "id": 2,
+      "name": "a2a-namespace-conventions-pr5182",
+      "fixture": {
+        "checkout": "215034538^",
+        "note": "repo state before PR #5182 (A2A support)"
+      },
+      "prompt": "Create the namespace package apidom-ns-a2a-1 for the A2A protocol 1.0 Agent Card (https://a2a-protocol.org/latest/specification/). Produce the element list with fields, the root element name, the replace-empty-element plugin schema, the list of files copied from another namespace and what you removed from them, and the README outline. Don't write the full package.",
+      "expected_output": "Plan that avoids the namespace review findings of PR #5182.",
+      "files": [],
+      "assertions": [
+        "Targets the latest A2A 1.0.x patch release and checks the what's-new page for removals",
+        "Does not include the implicit or password OAuth flows",
+        "Does not add a url field to AgentCard",
+        "Includes AgentSkill id via a renamed accessor (e.g. idProp) instead of skipping it",
+        "Root element name includes spec and version (e.g. a2aAgentCard1)",
+        "replace-empty-element schema covers object fields, array items ('<*>') and map values ('[key: *]')",
+        "Removes reference and specification extension predicates/visitors copied from another namespace",
+        "README outline matches the sibling namespace's sections, including Replace Empty Element plugin",
+        "CHANGELOG is header-only"
+      ]
     }
   ]
 }

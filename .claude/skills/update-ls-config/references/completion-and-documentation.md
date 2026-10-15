@@ -4,6 +4,20 @@ Read this during **Phase 5** when generating `completion.ts` (step 5.2) and `doc
 
 > For OpenAPI 3.2+ documentation links, the GitHub URL + camelCase anchor rule from SKILL.md "Critical Rules" applies (e.g. `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#infoObject`). Example links below are illustrative only.
 
+## Documentation URLs per Spec
+
+Link to the page and anchor that exist in the spec's canonical rendering. Copy the anchor from the page source (`id="..."`), never derive it from the object name, and run `verify-urls.mjs` on the config directory: a missing anchor on markdown sources and on static HTML pages is reported `BROKEN`.
+
+| Spec | Page | Anchor form | Example |
+|------|------|-------------|---------|
+| OpenAPI 3.0.x | `https://spec.openapis.org/oas/v3.0.4.html` | kebab-case | `#info-object` |
+| OpenAPI 3.1.x | `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md` | as in `CLAUDE.md` | `#infoObject` |
+| OpenAPI 3.2.x | `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md` | as in `CLAUDE.md` | `#infoObject` |
+| AsyncAPI 2.x / 3.x | `https://www.asyncapi.com/docs/reference/specification/v{x.y.z}` | camelCase object name (rendered client-side, so `verify-urls` reports `UNVERIFIED`; check in a browser) | `#channelObject` |
+| A2A 1.x | `https://a2a-protocol.org/latest/specification/` (not `/latest/definitions/`) | section number + lowercase object name | `#443-agentcapabilities`, `#452-apikeysecurityscheme` |
+
+A new spec gets a row here before its LS config is written. Each element's `documentation.ts` file comment links its object the same way (`See [AgentCapabilities](https://a2a-protocol.org/latest/specification/#443-agentcapabilities).`).
+
 #### 5.2 Generate completion.ts
 
 This file defines autocomplete suggestions for each element type. Based on OpenAPI 3.2.0 implementation (70+ items), provide comprehensive coverage of all properties at all nesting levels.

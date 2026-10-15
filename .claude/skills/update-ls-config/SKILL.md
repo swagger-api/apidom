@@ -62,7 +62,7 @@ These apply to every phase. Where a template in `references/` shows a different 
 4. **No `'reference'` in `linterParams`**: the refractor handles reference elements.
 5. **No unnecessary comments** in straightforward validation code.
 6. **Only new fields**: check the parent version's config and namespace element first; never redefine fields inherited from the parent version. Scope new rules with the correct `targetSpecs`.
-7. **OpenAPI 3.2+ documentation URLs must be GitHub links with camelCase anchors**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject` (not `spec.openapis.org`, not kebab-case). OAS 3.0.x keeps `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor`; OAS 3.1.x keeps the GitHub `3.1.0.md#camelCaseAnchor` format.
+7. **Documentation URLs follow the per-spec table** in `references/completion-and-documentation.md` ("Documentation URLs per Spec") and are checked with `verify-urls.mjs`. For OpenAPI, **3.2+ documentation URLs must be GitHub links with camelCase anchors**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject` (not `spec.openapis.org`, not kebab-case). OAS 3.0.x keeps `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor`; OAS 3.1.x keeps the GitHub `3.1.0.md#camelCaseAnchor` format.
 8. **Tests use `assert.deepEqual` on full Diagnostic objects** (range, message, severity, code, source, data). Never filter and check selected properties. See `packages/apidom-ls/CLAUDE.md` section 8:
    ```typescript
    const result = await languageService.doValidation(doc);
@@ -165,23 +165,28 @@ If the version introduces new HTTP methods, dynamic collections, version-specifi
 
 ### Phase 6: Update Element-Specific Configs
 
-For each element type in the namespace (e.g., Info, Server, PathItem):
+For **every** element registered in the namespace (`src/namespace.ts`), except internal helper elements that don't correspond to a spec object (list them, e.g. A2A `stringList`), and only for objects of the current spec version (no config for objects the version removed, such as A2A 1.0's implicit and password OAuth flows, or for objects the spec doesn't define):
 
-1. **Check if element config directory exists**:
-   - Path: `packages/apidom-ls/src/config/{spec}/{element-name}/`
-   - If it doesn't exist and element is specific to this version, create it
+1. **Config directory and meta**: `packages/apidom-ls/src/config/{spec}/{element-name}/` with `meta.ts`, `completion.ts`, `documentation.ts`, `lint/`, and the meta registered under the element name in `config/{spec}/config.ts`. PR #5182 left 7 elements unregistered.
 
-2. **Generate element completion config**:
-   - List all properties of the element
-   - Generate completion items for each property
+2. **Completion**: one item per field of the element, in the element's own `completion.ts` (not as conditional items in the root's file).
 
-3. **Generate element documentation config**:
-   - Document complex properties
+3. **Documentation**: one `target` entry per field, simple scalars included, plus the object-level entry. Each entry links to the field's or object's anchor in the spec (see "Documentation URLs per Spec" in `references/completion-and-documentation.md`).
 
-4. **Generate element lint rules**:
-   - Type validation for each property
-   - Required field validation
-   - Allowed fields validation
+4. **Lint rules**, per field:
+   - `{field}--type.ts` for every field (`apilintType` for primitives, `apilintElementOrClass` / `apilintArrayOfElementsOrClasses` / `apilintChildrenOfElementsOrClasses` for objects, arrays and maps)
+   - `{field}--required.ts` for every field marked Required in the field map / spec table
+   - `{field}--equals.ts` (`apilintValueOrArray`) for every field with a fixed set of values (e.g. API Key `location`: `query`, `header`, `cookie`); never `--value` or `--enum`
+   - `allowed-fields.ts` listing every field
+
+5. **Check coverage** (catches everything above that's missing; PR #5182 got 29 comments for it):
+   ```bash
+   cd packages/apidom-ls && npm run build:es && cd -
+   node .claude/skills/add-spec-version/scripts/check-ls-coverage.mjs \
+     packages/apidom-ns-{spec}-{version} packages/apidom-ls/src/config/{spec} \
+     --ignore {internal elements} [--orphans]
+   ```
+   Resolve every finding. Compare its `required` lines with the field map's Required column. Use `--orphans` when the config directory serves only this namespace.
 
 Use `references/completion-and-documentation.md` and `references/lint-rules.md` for templates, and the "Common Element Types to Include" list in `references/special-cases-and-elements.md` as the baseline set.
 
@@ -223,17 +228,23 @@ On failures, **read `references/troubleshooting.md`**.
 
 ### Phase 9: Document Changes
 
-Update `packages/apidom-ls/README.md` or `CHANGELOG.md` to reflect:
-- New specification version support
-- Added completion items
-- Added validation rules
-- Any breaking changes
+Update `packages/apidom-ls/README.md` where it lists supported specifications. Don't edit `CHANGELOG.md`; release automation writes it from Conventional Commits.
+
+Then verify every documentation link (a missing anchor on the spec page is `BROKEN`):
+
+```bash
+node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/{spec}
+```
 
 ## Final Verification Checklist
 
 - [ ] Target spec symbol added to `target-specs.ts` and `targetSpecs` array
 - [ ] `{version}/completion.ts`, `documentation.ts`, `lint/index.ts`, `meta.ts` exist and are wired into `config/{spec}/config.ts`
-- [ ] Every new element/field has completion, documentation (if complex/union) and lint coverage
+- [ ] Every namespace element (except listed internal helpers) has a config directory and a meta registered in `config.ts`
+- [ ] Every field has a completion item, a documentation entry (scalars included) and a `--type` rule; Required fields have `--required`; enum fields have `--equals`
+- [ ] `check-ls-coverage.mjs` reports 0 problems (or each remaining one is justified)
+- [ ] No config for objects the spec version removed or doesn't define
+- [ ] `verify-urls.mjs` reports 0 `BROKEN` for the config directory
 - [ ] No fields inherited from the parent version are redefined; `targetSpecs` scope is correct
 - [ ] Lint messages match Critical Rule 2 patterns; files named `{field}--{type}.ts`
 - [ ] No `'reference'` in any `linterParams`

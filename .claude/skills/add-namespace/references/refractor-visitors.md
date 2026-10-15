@@ -308,11 +308,14 @@ const specification = {
 ## Visitor Naming Conventions
 - Visitor class names: `{ElementName}Visitor`
 - Visitor directories: kebab-case (e.g., `source-description/`, `success-action/`)
+- A field visitor used by one element only (e.g. the `extensions` array of Agent Capabilities, the `schemes` map of Security Requirement) lives in that element's directory: `visitors/{spec}-{version}/agent-capabilities/ExtensionsVisitor.ts`. Only visitors shared by several elements go to a shared directory.
 
 ## Specification Extensions Support
-For elements supporting `x-*` extension properties:
+Only when the spec allows `x-*` extension properties on that object:
 1. Set `canSupportSpecificationExtensions = true` in visitor
 2. Use `FixedFieldsVisitor` mixin (handles extensions automatically)
+
+If the spec has no extensions at all (A2A), drop `SpecificationExtensionVisitor`, `isSpecificationExtension` and the extension branches from the copied generic visitors. Same for references: no Reference Object / `$ref` in the spec means no `isReferenceLikeElement` and no reference visitors.
 
 ## Parent Namespace Inheritance
 When basing on existing namespace:

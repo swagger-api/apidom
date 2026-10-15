@@ -9,7 +9,9 @@
  * Checks:
  *   - HTTP status is 2xx (after redirects)
  *   - anchor exists on the target page: `id="x"` / `name="x"` in HTML, or for GitHub
- *     markdown blobs an explicit `<a name="x">` or a heading whose GitHub slug is `x`
+ *     markdown blobs an explicit `<a name="x">` or a heading whose GitHub slug is `x`.
+ *     A missing anchor is BROKEN on markdown sources and on HTML pages with server-rendered
+ *     ids (e.g. a2a-protocol.org); UNVERIFIED only on pages that may render anchors client-side.
  *
  * Exit code 1 when any URL or anchor is broken.
  */
@@ -100,6 +102,11 @@ const hasAnchor = ({ text, markdown }, anchor) => {
     .some((line) => githubSlug(line.replace(/^#+\s*/, '')) === anchor);
 };
 
+// enough heading ids in the HTML to trust that anchors are rendered server-side
+const SERVER_RENDERED_ID_THRESHOLD = 20;
+const hasServerRenderedIds = ({ text }) =>
+  (text.match(/\sid=["'][^"']+["']/g) ?? []).length >= SERVER_RENDERED_ID_THRESHOLD;
+
 const args = process.argv.slice(2);
 if (args.length === 0) {
   console.error('Usage: node verify-urls.mjs <file-or-dir>... | --diff [base]');
@@ -123,8 +130,11 @@ const checkUrl = async ([raw, where]) => {
   } else if (page.status < 200 || page.status >= 300) {
     results.broken.push(`${url}  (HTTP ${page.status})  ${where}`);
   } else if (anchor && !hasAnchor(page, decodeURIComponent(anchor))) {
-    // Markdown sources are authoritative; HTML pages may render anchors client-side.
-    const bucket = page.markdown ? results.broken : results.unverified;
+    // Markdown sources are authoritative. HTML pages that already carry server-rendered anchors
+    // (static site generators such as MkDocs) are too: a missing anchor there is a broken link.
+    // Only pages without server-rendered ids may add anchors client-side.
+    const bucket =
+      page.markdown || hasServerRenderedIds(page) ? results.broken : results.unverified;
     bucket.push(`${url}  (anchor #${anchor} not found)  ${where}`);
   }
 };

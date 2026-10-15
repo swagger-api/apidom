@@ -6,6 +6,8 @@ This directory contains Claude Code skills for common development tasks in the A
 
 **2026-10-15**:
 
+- Lessons from the PR #5182 (A2A) review, 92 comments: new `check-ls-coverage.mjs` (per element and field: meta, docs, completion, type/allowed-fields rules, placeholder rules, rule names) and `check-test-parity.mjs` (test cases missing compared with a sibling package); `verify-urls.mjs` now fails on missing anchors of static HTML spec pages; `/add-namespace` gained the replace-empty-element plugin step, copy-then-prune, root element naming, reserved field names and sibling-parity tests; CHANGELOGs stay header-only; `/update-ls-config` requires docs, completion and type rules for every field and has a per-spec documentation URL table.
+
 - `/add-spec-version` now works in four phases, each ending in its own stacked PR: namespace, parser adapters, apidom-reference, apidom-ls. It can start at any phase and first checks (`scripts/phase-status.mjs`) that earlier phases are complete.
 - New `/add-reference-support` skill takes over the apidom-reference wiring from `/add-parser-adapter`.
 - `/add-parser-adapter` and `/add-reference-support` support the extend variant: a version added to an existing namespace (e.g. AsyncAPI 2.6, AsyncAPI 3.1).
@@ -48,6 +50,8 @@ Orchestrates adding a new spec or spec version across the monorepo in four phase
    - `scripts/check-redefined-fields.mjs`: getters that duplicate a parent element
    - `scripts/verify-urls.mjs`: URLs and `#anchors` that don't resolve
    - `scripts/find-unwired.sh`: files that mention the parent version but not the new one
+   - `scripts/check-ls-coverage.mjs`: LS completion, docs and lint coverage per namespace element and field
+   - `scripts/check-test-parity.mjs`: test cases a sibling package has and the new one lacks
 4. Handles both variants: a new namespace package (OpenAPI 3.2) and a version added to an existing namespace (AsyncAPI 2.6, PRs #2535-#2538)
 
 Progress lives in an uncommitted `ADD-{SPEC}-{VERSION}.md` tracking doc, so work can resume across sessions.
@@ -171,10 +175,10 @@ Each `evals/evals.json` follows the skill-creator schema plus a `fixture` field 
 
 | Skill | Eval | Fixture |
 |-------|------|---------|
-| add-namespace | OAS 3.2 element field set (PR #5110 review findings) | `git worktree add <dir> ef97b5c32^` |
+| add-namespace | OAS 3.2 element field set (PR #5110 review findings); A2A namespace conventions (PR #5182 review findings) | `git worktree add <dir> ef97b5c32^`, `215034538^` |
 | add-parser-adapter | OAS 3.2 adapters; AsyncAPI 2.6 adapter extension (PR #2536) | `ef97b5c32^`, `35c7e8f0d` |
 | add-reference-support | OAS 3.2 reference wiring plan; AsyncAPI 2.6 reference extension (PR #2537) | `ef97b5c32^`, `c2d643904` |
-| update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings) | `c201bb1f8^` |
+| update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings); A2A LS coverage (PR #5182 review findings) | `c201bb1f8^`, `6644586cb` |
 | review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + `git am evals/planted-defects.patch` |
 | add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan | `ef97b5c32^`, `main`, `36cbf2f73` |
 

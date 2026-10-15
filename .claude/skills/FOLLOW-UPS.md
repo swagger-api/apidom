@@ -1,6 +1,6 @@
 # Follow-ups from the Skills Restructuring Session (2026-10-14)
 
-These items came up while splitting the spec skills, adding `/add-spec-version` and running the first evals. None were fixed in that session. Each section says what was found, how to check it is still true, and how to fix it.
+These items came up while splitting the spec skills, adding `/add-spec-version` and running the first evals, and (2.7-2.10) while analyzing the PR #5182 (A2A) review with the new coverage scripts. None were fixed in those sessions. Each section says what was found, how to check it is still true, and how to fix it.
 
 Status legend: ⏳ open, ✅ done (add commit/PR reference).
 
@@ -89,6 +89,36 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 - **Where:** `packages/apidom-reference/package.json` has `./dereference/strategies/asyncapi-2` (line ~214) but no `asyncapi-3`, although `src/dereference/strategies/asyncapi-3/` exists.
 - **Fix:** add the `asyncapi-3` entry with the same `import`/`require`/`types` shape as `asyncapi-2`. Check the other AsyncAPI 3 resolve, bundle and parser subpaths at the same time. Verify by importing `@swagger-api/apidom-reference/dereference/strategies/asyncapi-3` from a built package.
 - **Commit:** `fix(reference): export AsyncAPI 3 dereference strategy`
+
+---
+
+### 2.7 ⏳ A2A documentation links point at non-existent anchors
+
+- **Where:** `packages/apidom-ls/src/config/a2a/a2a1/completion.ts` and `a2a1/documentation.ts` link to `https://a2a-protocol.org/latest/definitions/#agent-card`, `#agent-capabilities`, `#agent-provider`, `#agent-skill`, `#agent-interface`, `#agent-card-signature`, `#security-scheme`, `#security-requirement` (11 occurrences); `agent-provider/documentation.ts:5` links to `/latest/specification/#agentprovider`. None of these anchors exist. PR #5182 review fixed the element directories but not these.
+- **Found by:** `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/a2a` (9 `BROKEN` URLs).
+- **Fix:** use `https://a2a-protocol.org/latest/specification/#{section}-{objectname}` with the section ids from the page (`#441-agentcard`, `#442-agentprovider`, `#443-agentcapabilities`, `#445-agentskill`, `#446-agentinterface`, `#447-agentcardsignature`, `#451-securityscheme`; check the security requirement anchor on the page, the spec may only describe it inline). Re-run until 0 `BROKEN`.
+- **Commit:** `fix(ls): correct A2A documentation links`
+
+### 2.8 ⏳ A2A Agent Card scalar fields have no hover documentation
+
+- **Where:** `packages/apidom-ls/src/config/a2a/a2a1/documentation.ts` documents only the object-valued fields. `name`, `description`, `version`, `iconUrl`, `documentationUrl`, `defaultInputModes`, `defaultOutputModes` have no entry.
+- **Found by:** `node .claude/skills/add-spec-version/scripts/check-ls-coverage.mjs packages/apidom-ns-a2a-1 packages/apidom-ls/src/config/a2a --ignore stringList --orphans` (`NO-DOCS a2aAgentCard1`).
+- **Fix:** add one `target` entry per field with the spec's description and a link to `#441-agentcard`. Add a hover test for one of them.
+- **Commit:** `feat(ls): add A2A Agent Card field documentation`
+
+### 2.9 ⏳ A2A `securityRequirement.schemes` has no type lint
+
+- **Where:** `packages/apidom-ls/src/config/a2a/security-requirement/lint/` has only `allowed-fields`.
+- **Found by:** the same `check-ls-coverage.mjs` run (`NO-TYPE securityRequirement schemes`).
+- **Fix:** add `schemes--type.ts` (`apilintType`, `object`; or the map-values form used for similar maps), a new code in `codes.ts`, and a test with full `Diagnostic` objects.
+- **Commit:** `feat(ls): add A2A security requirement schemes type lint`
+
+### 2.10 ⏳ AsyncAPI 3 placeholder lint rules never run
+
+- **Where:** 20 lint files in `packages/apidom-ls/src/config/asyncapi` contain only `targetSpecs` (some with `// add remaining docs here`) and no `linterFunction`, `code` or `message`, e.g. `server/lint/host--required.ts`, `server/lint/host--type.ts`, `channel/lint/address--type.ts`, `channel/lint/allowed-fields.ts`, `components/lint/replies--values-type.ts`, `async-api-version/lint/value--pattern-3-0-0.ts`. They are registered in the `lint/index.ts` files, so they look like coverage but validate nothing: an AsyncAPI 3.0 server without `host` gets no diagnostic. Added in #5102.
+- **Found by:** `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi` (`STUB`), and `grep -L linterFunction $(find packages/apidom-ls/src/config -path '*/lint/*.ts' ! -name index.ts)`.
+- **Fix:** implement each rule after the 2.x sibling rule of the same field (copy message pattern, linter function, a new code), scoped to `AsyncAPI3`. Add tests per rule. Then re-run the script: 0 `STUB`.
+- **Commit:** `fix(ls): implement AsyncAPI 3 placeholder lint rules`
 
 ---
 

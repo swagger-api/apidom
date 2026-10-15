@@ -140,7 +140,7 @@ npm run lint              # Linting
 - **package.json**: Scripts, dependencies, exports
 - **tsconfig.json**: TypeScript compilation settings
 - **config/api-extractor/**: API documentation extraction
-- **config/webpack/**: Browser bundle configuration
+- **vite.config.ts**: Browser (UMD) bundle configuration
 
 ### Architecture Patterns
 

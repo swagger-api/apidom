@@ -91,6 +91,12 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 2. Read `config.ts` and list the namespace's element types (`this.element = `).
 3. Verify **each discriminated-union subtype** has its own `config.ts` key.
 4. Check the spec changelog for removed objects; keep their config dirs if an older supported version still defines them, but verify `targetSpecs` scoping.
+5. Run the mechanical coverage check first and turn its output into findings (Issues 2, 3, 5, 7, 8, 10); then spend the manual review on what it can't see (required-ness, values, scoping):
+   ```bash
+   node .claude/skills/add-spec-version/scripts/check-ls-coverage.mjs \
+     packages/apidom-ns-{spec}-{version} packages/apidom-ls/src/config/{spec} --ignore {internal elements}
+   ```
+   `NO-META` = Issue 3, `NO-DOCS` = Issue 5, `NO-TYPE` = Issue 7, `NO-COMPL` = Issue 8, `NAMING`/`STUB` = Issue 10. Build apidom-ls (`npm run build:es`) first; without the built `config.mjs` helper-generated completion items are missed.
 
 ### Phase 4: Check Lint Rules
 

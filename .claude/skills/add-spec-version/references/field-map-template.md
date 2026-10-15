@@ -5,6 +5,8 @@ Copy into `ADD-{SPEC}-{VERSION}.md` at the repo root (not committed). Every late
 ```markdown
 # Add {Spec} {Version}
 
+- Spec version: {x.y.z} (latest patch release on {date}; releases page: {URL})
+- Changes page read: {what's new / changelog URL}
 - Spec source: {raw markdown URL}
 - Parent spec source: {raw markdown URL or "none"}
 - Parent namespace: packages/apidom-ns-{parent}
@@ -44,6 +46,9 @@ object/array/element values).
 |--------|--------|-------|
 | {New Object} | NEW | needs element, visitor, predicate, LS config dir |
 | {Removed Object} | REMOVED | throwing getter / no LS config for this version |
+| {Helper} (e.g. StringList NCE) | INTERNAL | namespace helper, not a spec object; no LS config (`--ignore` in check-ls-coverage) |
+
+Every namespace element and LS config directory maps to exactly one row of this table.
 
 ## URLs
 
@@ -59,6 +64,10 @@ object/array/element values).
 ```
 
 ## Tips for Building the Map
+
+- Start from the latest patch release and its changes page; removals (A2A 1.0 dropped the implicit and password OAuth flows) rarely show up in the tables.
+- Take fields only from this version's Fixed Fields tables; the JSON Schema, examples and sibling specs add fields that don't exist (`AgentCard.url` in PR #5182).
+- Note fields named like ApiDOM element properties (`id`, `meta`, `content`, `attributes`, `classes`); they need renamed accessors (`idProp`).
 
 - Read the parent spec's Fixed Fields table side by side with the new one; diff field names per object. Diffing the raw markdown of both versions (`diff <(grep '^| <a name' parent.md) <(grep '^| <a name' new.md)`) is a quick first pass, but always confirm in the tables because anchor naming can change between versions.
 - Search the new spec for phrases like "added in", "new in", "deprecated", "removed" to find changes outside the tables.

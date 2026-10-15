@@ -15,10 +15,11 @@ This file holds the workflow and the rules. Code templates and longer examples l
 
 | Reference file | Contents | Read when |
 |----------------|----------|-----------|
-| `references/package-config.md` | Directory layout, `package.json`, `tsconfig.json`, `tsconfig.declaration.json` | Phase 2, Phase 3 steps 3.1, 3.10, 3.11 |
-| `references/elements-and-namespace.md` | Element class template, type mappings, `namespace.ts`, `predicates.ts`, `media-types.ts`, `registration.ts`, `index.ts`, naming conventions, CSS classes, NCEs | Phase 3 steps 3.2-3.5, 3.8, 3.9 |
+| `references/package-config.md` | Directory layout, `package.json`, `tsconfig.json`, `tsconfig.declaration.json`, README structure, CHANGELOG header | Phase 2, Phase 3 steps 3.1, 3.10, 3.11, 3.13 |
+| `references/elements-and-namespace.md` | Element class template, type mappings, `namespace.ts`, `predicates.ts`, `media-types.ts`, `registration.ts`, `index.ts`, naming conventions (incl. root element), reserved field names, CSS classes, NCEs | Phase 3 steps 3.2-3.5, 3.8, 3.9 |
 | `references/refractor-visitors.md` | Fixed fields / map / dynamic type detection visitors, `specification.ts`, advanced specification patterns, parent namespace inheritance, common specification features (from OAS 3.2) | Phase 1 (feature checklist), Phase 3 steps 3.6, 3.7 |
-| `references/testing.md` | Element refractor test, `test/predicates.ts`, `test/tsconfig.json` | Phase 5 |
+| `references/replace-empty-element.md` | Plugin template, which fields need `schema` entries, wiring, tests | Phase 3 step 3.12, Phase 5 |
+| `references/testing.md` | Sibling parity, every-field rule, element refractor test, `test/predicates.ts`, adapter-path normalization test | Phase 5 |
 | `references/troubleshooting.md` | Build errors, test failures, type errors | Phase 6, when something fails |
 
 ## When to Use
@@ -117,7 +118,7 @@ Read "Package Directory Layout" in `references/package-config.md` and create tha
 
 - `src/elements/` (plus `nces/` for Named Collection Elements), `src/refractor/` (visitors, plugins, specification, registration, toolbox), `src/traversal/`, and `src/{index,namespace,predicates,media-types}.ts`
 - `test/` (refractor element tests with `__snapshots__/`, fixtures, `mocha-bootstrap.ts`, `predicates.ts`, `tsconfig.json`)
-- `config/api-extractor/` and `config/webpack/`
+- `config/api-extractor/` and `vite.config.ts`
 - `package.json`, `tsconfig.json`, `tsconfig.declaration.json`, `README.md`
 
 Search the repository for an existing package with the same name or overlapping files before creating anything.
@@ -139,13 +140,18 @@ Work through these steps in order. Each step names the reference file holding it
 | 3.9 | `src/index.ts` (main export) | `references/elements-and-namespace.md` |
 | 3.10 | `tsconfig.json` | `references/package-config.md` |
 | 3.11 | `tsconfig.declaration.json` | `references/package-config.md` |
+| 3.12 | `src/refractor/plugins/replace-empty-element.ts` | `references/replace-empty-element.md` |
+| 3.13 | `README.md` and `CHANGELOG.md` | `references/package-config.md` |
 
 Key points per step (details and code are in the reference files):
 
 - **3.1**: Add the parent namespace to `dependencies` if extending an existing namespace.
-- **3.2**: When extending a parent version, the element class extends the parent element and adds getters/setters only for fields that are NEW in this version. Redefining inherited fields is the most common mistake in review, because it duplicates behaviour that already works.
+- **3.2**: When extending a parent version, the element class extends the parent element and adds getters/setters only for fields that are NEW in this version. Redefining inherited fields is the most common mistake in review, because it duplicates behaviour that already works. Fields named like an ApiDOM element property (`id`, `element`, `meta`, `attributes`, `content`, `classes`, ...) get a renamed accessor; see "Reserved Field Names" in `references/elements-and-namespace.md`. Implement every field of the field map and nothing else: no field from another version or from the spec's JSON Schema that isn't in its Fixed Fields table (PR #5182 added a non-existent `AgentCard.url` and missed `AgentSkill.id`).
+- **Root element name**: `{spec}{Name}{major}` style, unique across namespaces: `openApi3_1`, `asyncApi3`, `arazzoSpecification1`, `a2aAgentCard1`. A bare object name such as `agentCard` doesn't identify the spec and version, and was renamed in review (PR #5182).
 - **3.4**: Every element needs an `is{ElementName}Element` predicate; add `hasClass` checks for elements with CSS classes.
-- **3.6**: Pick the visitor type per field: `FixedFieldsVisitor` for objects with known properties, `MapVisitor` for dynamic key-value collections, and dynamic type detection for collections that can hold a Reference or a concrete element. Set `canSupportSpecificationExtensions` to `true` for elements that accept `x-*` fields.
+- **3.6**: Pick the visitor type per field: `FixedFieldsVisitor` for objects with known properties, `MapVisitor` for dynamic key-value collections, and dynamic type detection for collections that can hold a Reference or a concrete element. Set `canSupportSpecificationExtensions` to `true` only for elements that accept `x-*` fields per the spec. A visitor used by a single element lives in that element's visitor directory (`visitors/{spec}-{version}/agent-capabilities/ExtensionsVisitor.ts`), not at the top level.
+- **3.12**: Add a `schema` entry for every object-, array- and map-valued field of the field map, including array items (`'<*>'`) and map values (`'[key: *]'`). apidom-ls needs it for YAML documents.
+- **3.13**: README: copy the sibling namespace's README and keep its sections and order (Installation, namespace, Predicates, Traversal, Refractors, Refractor plugins with "Replace Empty Element plugin", Implementation progress), adapting examples. CHANGELOG: header only, no entries; release automation writes them (see `references/package-config.md`).
 - **3.7**: When extending a parent, spread the parent `specificationObj` and override only changed or new objects, reusing parent visitors where possible.
 - Naming: element classes PascalCase, registered element names camelCase, visitor directories kebab-case (see the naming sections in the reference files).
 
@@ -166,14 +172,26 @@ Copy the following files from a similar namespace package (e.g., `apidom-ns-araz
 11. `src/traversal/visitor.ts`
 12. `test/mocha-bootstrap.ts`
 13. `config/api-extractor/api-extractor.json` (update package name)
-14. `config/webpack/browser.config.js` (update package name)
+14. `vite.config.ts` (update package and library name)
+
+**Copy, then prune.** Copied files carry the source spec's features and wording. After copying:
+
+- Spec has no Reference Object / `$ref`: remove `isReferenceLikeElement` and reference handling from `src/refractor/predicates.ts` and the visitors.
+- Spec has no `x-*` extensions: remove `SpecificationExtensionVisitor`, `isSpecificationExtension` and the `canSupportSpecificationExtensions` branches. PR #5182 kept both for A2A, which has neither; the code could never run.
+- Grep the copied files for the source spec's names and fix comments and doc blocks (`FallbackVisitor` still said "Given OpenApi3_1Visitor ...").
+
+```bash
+grep -rn -i -e "{source-spec}" -e "{SourceRoot}" packages/apidom-ns-{spec}-{version}/src
+```
 
 ### Phase 5: Generate Tests
 
-Before writing tests, read `references/testing.md`. Create:
+Before writing tests, read `references/testing.md`. Its two rules: mirror the sibling package's test files (checked with `check-test-parity.mjs`), and set every field of the element. Create:
 
-- `test/refractor/elements/{ElementName}/index.ts` for each element (snapshot test of the refracted tree)
-- `test/predicates.ts` covering every `is{ElementName}Element` predicate (true and false cases)
+- `test/refractor/elements/{ElementName}/index.ts` for each element (snapshot test of the refracted tree, every field set)
+- `test/predicates.ts` covering every `is{ElementName}Element` predicate (instance, subtype, non-element, duck-typing)
+- `test/refractor/plugins/replace-empty-element/` (object fields, array items, map values)
+- an adapter-path test for any input normalization the refractor does
 - `test/tsconfig.json`
 
 ### Phase 6: Build and Test
@@ -214,7 +232,9 @@ If any of these fail, read `references/troubleshooting.md`.
    }
    ```
 
-3. **Update CHANGELOG.md** in the package root
+3. **Root `package.json` `unlink` script** and root `README.md` package list: add the new package.
+
+Do not add entries to the package `CHANGELOG.md`; it keeps only the standard header until the first release.
 
 ## Final Verification Checklist
 
@@ -224,36 +244,27 @@ Before reporting the namespace as done:
 - [ ] ALL new fields from the specification's "Fixed Fields" tables are implemented, and no invented fields were added
 - [ ] Every URL used (dialects, schemas, specification links) was verified with `curl -I` and returns 200
 - [ ] No duplicate files (searched before creating)
-- [ ] Every element has an element class, a namespace registration, a predicate, a visitor, a `specification.ts` entry, a `registration.ts` refractor, exports in `src/index.ts`, and a test
+- [ ] Every element has an element class, a namespace registration, a predicate, a visitor, a `specification.ts` entry, a `registration.ts` refractor, exports in `src/index.ts`, and a test that sets every field
+- [ ] `replace-empty-element` plugin covers every object/array/map field (incl. array items and map values), is exported, tested and documented in the README
+- [ ] Root element name follows `{spec}{Name}{major}`; reserved field names use renamed accessors
+- [ ] No copied predicates, visitors or comments for features the spec doesn't have (references, `x-*` extensions, other spec names)
+- [ ] README has the sibling namespace's sections; CHANGELOG is header-only
+- [ ] `check-test-parity.mjs` against the sibling's tests: every `MISSING` added or justified
 - [ ] All imports use the `.ts` extension
 - [ ] `npm run build` succeeds
 - [ ] `npm run test` passes
 - [ ] `npm run typescript:check-types` passes
 - [ ] `npm run lint` passes
-- [ ] Root configuration (workspaces, tsconfig references, CHANGELOG.md) updated
+- [ ] Root configuration (workspaces, tsconfig references, `unlink` script, README package list) updated
 
 ## Next Steps After Namespace Creation
 
-After completing the namespace package, you'll need to:
+`/add-spec-version` runs these as separate phases, one PR each:
 
-1. **Create parser adapters** for the specification (separate packages):
-   - `apidom-parser-adapter-{spec}-json-{version}`
-   - `apidom-parser-adapter-{spec}-yaml-{version}`
-
-2. **Add support to apidom-reference**:
-   - Parse plugins
-   - Dereference strategies
-   - Resolution strategies
-
-3. **Add support to apidom-ls** (Language Server):
-   - Validation rules
-   - Documentation on hover
-   - Completion providers
-   - Semantic tokens
-
-4. **Update swagger-editor** (if applicable):
-   - Import new namespace
-   - Add preview plugin
+1. **Parser adapters** (`/add-parser-adapter`): `apidom-parser-adapter-{spec}-json-{version}` and `-yaml-{version}`
+2. **apidom-reference** (`/add-reference-support`): parse parsers, resolve/dereference/bundle strategies
+3. **apidom-ls** (`/update-ls-config`, then `/review-ls-changes`): completion, documentation, lint
+4. **swagger-editor** (outside this repo, if applicable): import the namespace, add a preview plugin
 
 ## References
 

@@ -30,8 +30,10 @@ The review of PR #5110 (OAS 3.2) found three recurring defect classes; the gates
 |------|-----|
 | `scripts/phase-status.mjs --spec {spec} --version {x.y.z}` | Which phases are complete (code on `main`, PR open/merged, code only, missing), the next phase, its branch name and the branch to start it from. `--field` when the document's version field differs from the spec id; `--base` to compare against another ref. |
 | `scripts/check-redefined-fields.mjs <packages/apidom-ns-X>` | Getters duplicating an ancestor element. `REDEFINED` = remove; `OVERRIDE` = keep only if the version changed the type; `REMOVED` = throwing getter for a dropped field. |
-| `scripts/verify-urls.mjs <paths...>` or `--diff main` | Fetches every URL and checks `#anchors`. `BROKEN` fails the gate; `UNVERIFIED` needs a manual look. |
+| `scripts/verify-urls.mjs <paths...>` or `--diff main` | Fetches every URL and checks `#anchors` (markdown sources and static HTML pages: missing anchor is `BROKEN`). `BROKEN` fails the gate; `UNVERIFIED` needs a manual look. |
 | `scripts/find-unwired.sh <parent-id> <new-id>` | Files mentioning the parent version but not the new one (new variant). |
+| `scripts/check-ls-coverage.mjs <ns-package> <ls-config-dir>` | Per element and field: meta registered, documentation entry, completion item, type rule, allowed-fields entry; placeholder lint rules (`STUB`); lint file names that don't match their linter function. Lists required-field rules for comparison with the field map. |
+| `scripts/check-test-parity.mjs <new-test> <sibling-test> --mask <words>` | Test cases (`describe`/`context`/`specify` outline) present in the sibling package's test file but missing in the new one. |
 | `references/field-map-template.md` | Tracking document and field map structure. |
 | `references/phase-checklists.md` | Per-phase file checklists for the extend and new variants, with worked examples. |
 | `references/pr-workflow.md` | Branch names, PR titles and body, stacking and rebasing. |
@@ -57,10 +59,13 @@ Run scripts from the repo root: `node .claude/skills/add-spec-version/scripts/<s
 
 Done once, before phase 1 (or when resuming without a tracking doc). The tracking doc stays uncommitted.
 
-1. Fetch the **official** specification source, preferably raw markdown, and the parent version's. Release notes and summaries miss fields; Fixed Fields tables are the source of truth. For extend-variant minor releases, also read the release notes for new bindings or extensions (AsyncAPI 3.1 only added the ROS 2 binding).
-2. Build the field map per `references/field-map-template.md`: every object, every field, with type, required flag and `NEW` / `CHANGED-TYPE` / `REMOVED` / `INHERITED` status. Cross-check `INHERITED` against the parent namespace's element files.
-3. Record every external URL (dialect, meta-schema, JSON Schema files, doc base URLs) and run `verify-urls.mjs` on the tracking doc. Never derive a URL from a pattern.
-4. **Checkpoint:** show the user the NEW / CHANGED-TYPE / REMOVED rows and the URL list, and get confirmation before generating code.
+1. **Pin the version.** List the spec's releases (GitHub releases or tags of the spec repository, and the versions the spec site serves) and target the latest patch release of the requested line. PR #5182 was written against A2A 1.0.0 while 1.0.1 was out, and had to be upgraded during review. Record the exact version and the source URL in the tracking doc.
+2. Fetch the **official** specification source for that exact version, preferably raw markdown, and the parent version's. Release notes and summaries miss fields; Fixed Fields tables are the source of truth. For extend-variant minor releases, also read the release notes for new bindings or extensions (AsyncAPI 3.1 only added the ROS 2 binding).
+3. **Read the changes page** ("What's new", changelog, migration guide) for removals and renames. They often aren't visible in the new tables: A2A 1.0 removed the implicit and password OAuth flows, which PR #5182 still implemented. Every removed object or field becomes a `REMOVED` row.
+4. Build the field map per `references/field-map-template.md`: every object, every field, with type, required flag and `NEW` / `CHANGED-TYPE` / `REMOVED` / `INHERITED` status. Cross-check `INHERITED` against the parent namespace's element files. Fields come only from the Fixed Fields tables of this version: not from the JSON Schema, examples, other versions or similar specs (PR #5182 invented `AgentCard.url` and missed `AgentSkill.id`). Mark fields whose names clash with ApiDOM element properties (`id`, `meta`, `content`, ...); `add-namespace` gives them renamed accessors.
+5. List every object in the Objects table, and every helper element the namespace will need that isn't a spec object (NCEs, string lists) as `INTERNAL`. Each namespace element and each LS config directory must trace back to one row; anything else is invented (PR #5182 documented a Security Requirement object the spec doesn't define).
+6. Record every external URL (dialect, meta-schema, JSON Schema files, doc base URLs) and run `verify-urls.mjs` on the tracking doc. Never derive a URL from a pattern. For the LS documentation base URL and anchor form, add or check the spec's row in "Documentation URLs per Spec" (`update-ls-config/references/completion-and-documentation.md`).
+7. **Checkpoint:** show the user the NEW / CHANGED-TYPE / REMOVED rows and the URL list, and get confirmation before generating code.
 
 ## Phase 1: Namespace
 
@@ -68,7 +73,9 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
 2. **Gate 1**:
    - `cd packages/apidom-ns-{...} && npm run build && npm run typescript:check-types && npm run lint && npm test`
    - `check-redefined-fields.mjs packages/apidom-ns-{...}`: 0 `REDEFINED`; every `OVERRIDE` justified by the field map.
-   - Field-map coverage: every `NEW` field is in (a) its element, (b) `refractor/specification.ts` with the right visitor, (c) `replace-empty-element` when its value is an object/array/element. Grep each field name; list misses in the tracking doc.
+   - Field-map coverage: every `NEW` field is in (a) its element, (b) `refractor/specification.ts` with the right visitor, (c) `replace-empty-element` when its value is an object/array/element (array items and map values included). Grep each field name; list misses in the tracking doc. Every element traces to a field-map object or an `INTERNAL` row.
+   - No copied features the spec lacks (Reference/`$ref` predicates, `x-*` extension visitors), no copied comments naming another spec.
+   - Tests mirror the sibling namespace's (`check-test-parity.mjs` per test file) and set every field; README has the sibling's sections; CHANGELOG is header-only.
    - No duplicate element files carried over from the parent, no element for a field that lives elsewhere.
    - `verify-urls.mjs packages/apidom-ns-{...}/src`: 0 `BROKEN`.
 3. Open PR 1 (`references/pr-workflow.md`), then ask whether to continue with phase 2.
@@ -80,6 +87,7 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
    - Build, types, lint and tests of both adapters and `apidom-parser`.
    - Detection is exclusive: new-version documents are detected by the intended adapters only. New variant: the parent's adapters reject the new version and vice versa. Extend variant: other specs' adapters reject it (their negative tests now use the new version).
    - `grep -rn "{previous latest version}"` over the adapters, `apidom-parser` tests and READMEs: every remaining hit is intentional.
+   - New variant: `check-test-parity.mjs` against the sibling adapter's `test/adapter.ts`; READMEs have the sibling's sections; `detect` runs the regex before format detection.
 3. Open PR 2 on top of PR 1, then ask whether to continue with phase 3.
 
 ## Phase 3: apidom-reference
@@ -98,7 +106,8 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
 2. Run `/review-ls-changes` in a fresh subagent that only gets the spec name/version and the branch, so it reviews against the spec rather than against what was just written. Fix every finding.
 3. **Gate 4**:
    - `cd packages/apidom-ls && npm run build && npm run typescript:check-types && npm run lint && npm test`
-   - Field-map coverage: every `NEW` field has a completion item, a documentation entry and lint rules (allowed-fields, `--type`, `--required` when required).
+   - `check-ls-coverage.mjs packages/apidom-ns-{...} packages/apidom-ls/src/config/{spec} --ignore {INTERNAL elements}` reports 0 problems (build apidom-ls first). Its `required` lines match the field map's Required column.
+   - Field-map coverage: every `NEW` field has a completion item, a documentation entry and lint rules (allowed-fields, `--type`, `--required` when required, `--equals` for enums). No config for `REMOVED` objects of this version.
    - Lint messages follow existing patterns (`should always have a '{field}'`, `'{field}' must be a {type}`); new codes in `codes.ts` are unique.
    - Older versions don't accept what's new (e.g. AsyncAPI 3.0.0 documents don't accept `ros2` bindings); a test proves it.
    - `verify-urls.mjs --diff main`: 0 `BROKEN`.

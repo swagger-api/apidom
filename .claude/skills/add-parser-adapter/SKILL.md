@@ -207,25 +207,13 @@ If anything fails, **read `references/troubleshooting.md`**.
 
 ### Phase 9: Update Documentation
 
-1. **Update parser adapter README files**:
-   - Explain what the adapter does
-   - Show usage examples
-   - Document detection patterns
-   - List supported media types
-
-2. **Create CHANGELOG.md** for new packages:
+1. **README files**: copy the README of the closest sibling adapter (same format; e.g. `apidom-parser-adapter-asyncapi-json-3/README.md`) and keep its sections and order: title and description, `## Installation`, `## Parser adapter API` (`mediaTypes`, `detect`, `namespace`, `parse`), `## Usage` (`### Direct usage`, `### Indirect usage` with the "Word on detect vs mediaTypes" link). Adapt names, media types and examples. The `detect` section must say what detection looks at (version field and accepted versions, or the structural markers and their known false positives). Reviewers compare the two READMEs side by side (PR #5182, 2 comments).
+2. **CHANGELOG.md**: header only, no entries. Release automation writes them:
    ```markdown
-   # Changelog
+   # Change Log
 
    All notable changes to this project will be documented in this file.
-
-   ## [1.0.0] - YYYY-MM-DD
-
-   ### Added
-   - Initial release
-   - Parser adapter for {Spec Name} {Version} JSON documents
-   - Detection support for {specField} field
-   - Full refraction into semantic ApiDOM
+   See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
    ```
 
 ## Critical Rules
@@ -235,6 +223,9 @@ If anything fails, **read `references/troubleshooting.md`**.
 - YAML adapter detection must accept both YAML and JSON forms; JSON adapter detection only JSON.
 - Detection must accept patch bumps and reject major bumps and invalid versions (e.g. `01`, `x`). Minor bumps depend on the namespace scope: OpenAPI 3.x adapters reject the next minor (3.1 rejects `3.2.0`, 3.2 rejects `3.3.0`); major-scoped specs (AsyncAPI, Arazzo) accept it.
 - Media types always combine `'generic'` with the format-specific types.
+- `detect` runs the cheap regex check **first** and the format detection (`detectJSON`/`detectYAML`, which runs tree-sitter lexical analysis) last: `detectionRegExp.test(source) && (await detectYAML(source))`. Extra structural checks also go before the `await`.
+- Specs without a version field (A2A) need structural detection (required top-level keys). Detection is then weaker: it needs all markers present and can match nested keys. Say so in the `detect` doc comment and the README, and test both a minimal positive document and the known false-positive shape.
+- Tests mirror the sibling adapter's `test/adapter.ts` context by context (`given definition in YAML 1.2 format`, `given definition in JSON format`, `given definition of unknown type`, `given zero byte empty file`, `given non-zero byte empty file`, `given invalid yaml file`, `given YAML with empty node`, `detectionRegExp`). Check with `node .claude/skills/add-spec-version/scripts/check-test-parity.mjs <new test> <sibling test> --mask <sibling spec words>`; every `MISSING` context is added or justified.
 - New adapters are useless to apidom-reference and apidom-ls until wired there: follow up with `/add-reference-support` and `/update-ls-config`.
 
 ### Naming Conventions
@@ -288,7 +279,8 @@ New adapter packages (repeat for `json` and `yaml`):
 - [ ] `.../config/api-extractor/api-extractor.json` and `.../vite.config.ts` (`packageName`/`libraryName` updated)
 - [ ] `.../.mocharc.json`, `.../.eslintignore`, `.../.gitignore`
 - [ ] `.../test/adapter.ts`, `.../test/media-types.ts`, `.../test/fixtures/sample-spec.{json|yaml}`, `.../test/mocha-bootstrap.ts`, `.../test/.eslintrc`, `.../test/tsconfig.json`
-- [ ] `.../README.md` and `.../CHANGELOG.md`
+- [ ] `.../README.md` (sibling's sections) and `.../CHANGELOG.md` (header only)
+- [ ] `check-test-parity.mjs` against the sibling adapter's `test/adapter.ts`: no unjustified `MISSING`
 
 Repository root:
 - [ ] `package.json` `unlink` script, `README.md` package list, `package-lock.json`
@@ -310,6 +302,6 @@ After running this skill, verify:
 - [ ] All adapter tests pass
 - [ ] `apidom-parser` tests pass
 - [ ] Full monorepo builds successfully
-- [ ] Documentation updated (README, CHANGELOG)
+- [ ] Documentation updated (README with sibling's sections; CHANGELOG header only)
 - [ ] Type checking passes for all packages
 - [ ] Linting passes for all packages

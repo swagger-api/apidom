@@ -1,5 +1,7 @@
 # Parser Adapter Test Templates (Phases 4.7 and 5.5)
 
+The templates are a starting point; the closest sibling adapter's `test/adapter.ts` is the reference. Keep every one of its contexts (formats, unknown type, zero-byte and non-zero-byte empty files, invalid YAML, YAML with empty node, `detectionRegExp`) and verify with `check-test-parity.mjs` (see SKILL.md Critical Rules). Put each concern in its own `context`, as the sibling does, instead of folding it into another test.
+
 ## Version-bump expectations depend on the namespace scope
 
 The detection tests must mirror what `{versionPattern}` accepts, which depends on how the namespace is scoped:

@@ -238,6 +238,29 @@ export { {ElementName}Element } from './refractor/registration.ts';
 - Element class names: PascalCase (e.g., `WorkflowElement`, `InfoElement`, `JsonSchemaDialectElement`)
 - Element type names (registered in namespace): camelCase (e.g., `'workflow'`, `'info'`, `'jsonSchemaDialect'`)
 - File names: Match class names (e.g., `Workflow.ts`, `Info.ts`, `JsonSchemaDialect.ts`)
+- **Root element**: name it after the spec and major version so it identifies the document type across namespaces: `openApi3_1` (`OpenApi3_1Element`), `asyncApi3`, `arazzoSpecification1`, `a2aAgentCard1` (`A2aAgentCard1Element`). Not the bare object name (`agentCard`).
+- Abbreviations follow the closest existing namespace: `oauthFlows`, `OAuthFlowsElement` as in OpenAPI.
+
+## Reserved Field Names
+
+Some spec field names clash with properties every ApiDOM element already has. A getter named after them would shadow the element's own property and break refracting, traversal or serialization. Use a suffixed accessor that reads the member, as `apidom-ns-json-schema-draft-4/src/elements/JSONSchema.ts` does for `id`:
+
+```typescript
+get idProp(): StringElement | undefined {
+  return this.get('id');
+}
+
+set idProp(idProp: StringElement | undefined) {
+  this.set('id', idProp);
+}
+```
+
+| Spec field | Accessor |
+|------------|----------|
+| `id` | `idProp` |
+| `element`, `meta`, `attributes`, `content`, `classes`, `children`, `parent`, `length`, `value` | `{name}Prop` |
+
+The field itself is still refracted under its real key: list it in `specification.ts` fixed fields as usual. Don't skip the field (PR #5182 first dropped `AgentSkill.id` because of the clash).
 
 ## CSS Classes for Specialized Elements
 Add CSS classes to elements that need specialized identification:

@@ -32,6 +32,10 @@ In `packages/apidom-ns-{spec}-{major}/`:
 ### New (`/add-namespace`)
 
 - [ ] Run `/add-namespace` with the field map
+- [ ] `replace-empty-element` plugin for every object/array/map field (array items, map values), exported, tested, in README
+- [ ] Copied predicates/visitors pruned to the spec's features (no `$ref`/`x-*` support the spec lacks)
+- [ ] README with the sibling namespace's sections; CHANGELOG header only
+- [ ] Tests mirror the sibling's (`check-test-parity.mjs`) and set every field
 - [ ] Root `package.json` `unlink` script and root `README.md` package list
 - [ ] `package-lock.json` via `npm i`
 
@@ -49,6 +53,9 @@ In `packages/apidom-ns-{spec}-{major}/`:
 ### New (`/add-parser-adapter` Phases 1-5, 7-9)
 
 - [ ] JSON and YAML adapter packages
+- [ ] READMEs with the sibling adapter's sections (incl. what `detect` looks at); CHANGELOG header only
+- [ ] `test/adapter.ts` mirrors the sibling's contexts (`check-test-parity.mjs`)
+- [ ] `detect` runs the regex before format detection
 - [ ] Detection exclusive against the parent's adapters (test both directions)
 - [ ] Root `package.json` `unlink`, root `README.md`, `package-lock.json`
 
@@ -91,6 +98,8 @@ In `packages/apidom-ls/`:
 
 ### Both
 
+- [ ] `check-ls-coverage.mjs` reports 0 problems (`--ignore` only `INTERNAL` elements)
+- [ ] `verify-urls.mjs` on the config directory: 0 `BROKEN`
 - [ ] `/review-ls-changes` in a fresh subagent; every finding fixed
 - [ ] apidom-playground wiring (new variant only; see `integration-points.md`)
 - [ ] `find-unwired.sh {parent-id} {new-id}` (new variant) or `grep -rn "{previous version}"` over `packages/apidom-ls/src` (extend variant): every hit wired or justified

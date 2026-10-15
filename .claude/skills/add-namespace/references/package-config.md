@@ -54,11 +54,11 @@ packages/apidom-ns-{spec}-{version}/
 ├── config/
 │   ├── api-extractor/
 │   │   └── api-extractor.json
-│   └── webpack/
-│       └── browser.config.js
+├── vite.config.ts
 ├── package.json
 ├── tsconfig.json
 ├── tsconfig.declaration.json
+├── CHANGELOG.md
 └── README.md
 ```
 
@@ -87,10 +87,10 @@ packages/apidom-ns-{spec}-{version}/
   },
   "types": "./types/apidom-ns-{spec}-{version}.d.ts",
   "scripts": {
-    "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
+    "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-6} typescript:declaration build:es build:cjs build:umd:browser",
     "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
     "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir src --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
-    "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
+    "build:umd:browser": "vite build",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf --glob 'src/**/*.mjs' 'test/**/*.mjs' ./dist ./types",
@@ -154,4 +154,27 @@ packages/apidom-ns-{spec}-{version}/
     "outDir": "./types"
   }
 }
+```
+
+## 3.13 README.md and CHANGELOG.md
+
+**README**: copy the sibling namespace's README (`apidom-ns-arazzo-1/README.md` for a new spec, the parent's for a new version) and keep its section structure and order:
+
+1. `# @swagger-api/apidom-ns-{spec}-{version}` and the one-paragraph description
+2. `## Installation`
+3. `## {Spec} {version} namespace`
+4. `## Predicates`
+5. `## Traversal`
+6. `## Refractors`, with `### Refractor plugins` and `#### Replace Empty Element plugin`
+7. `## Implementation progress` (one row per spec object)
+
+Adapt names, versions and examples; don't add, drop or reorder sections. Reviewers compare the two files side by side (PR #5182).
+
+**CHANGELOG**: header only. Release automation (lerna, Conventional Commits) writes the entries; hand-written "Initial release" entries or a CHANGELOG copied from the parent package (OAS 3.2 copied 3.1's history) both get flagged.
+
+```markdown
+# Change Log
+
+All notable changes to this project will be documented in this file.
+See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 ```

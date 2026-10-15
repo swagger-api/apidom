@@ -1,7 +1,7 @@
 import { JSONPointerEvaluateError, URIFragmentIdentifier } from '@swaggerexpert/json-pointer';
-import { evaluate as baseEvaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
 import { Element, cloneDeep } from '@swagger-api/apidom-core';
 
+import baseEvaluate from '../evaluate.ts';
 import EvaluationJsonPointerError from './errors/EvaluationJsonPointerError.ts';
 
 /**

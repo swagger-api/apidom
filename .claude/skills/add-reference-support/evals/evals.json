@@ -1,0 +1,44 @@
+{
+  "skill_name": "add-reference-support",
+  "evals": [
+    {
+      "id": 1,
+      "name": "oas32-reference-wiring",
+      "fixture": {
+        "checkout": "ef97b5c32^",
+        "note": "repo state before OAS 3.2 support (PR #5110)"
+      },
+      "prompt": "Assume apidom-ns-openapi-3-2 and the adapters apidom-parser-adapter-openapi-json-3-2 / -yaml-3-2 exist and are built (mirroring the 3.1 ones for version 3.2.0). Plan the apidom-reference integration for OpenAPI 3.2 in integration-plan.md: every file to create or modify, including the exact saturated.ts changes. Don't write the code.",
+      "expected_output": "Complete apidom-reference plan for a new namespace.",
+      "files": [],
+      "assertions": [
+        "Plan adds parse parsers openapi-json-3-2 and openapi-yaml-3-2",
+        "Plan adds resolve, dereference and bundle strategies for openapi-3-2",
+        "Plan registers both parsers directly after the 3.1 parsers and all three strategies in saturated.ts",
+        "Plan adds the adapters and namespace to optionalDependencies and devDependencies, and exports entries for parsers and strategies",
+        "Plan includes dereference and bundle tests",
+        "Plan updates the apidom-reference README",
+        "Plan addresses detection order between 3.1 and 3.2 parsers"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "asyncapi26-extend-reference",
+      "fixture": {
+        "checkout": "c2d643904",
+        "note": "AsyncAPI 2.6.0 namespace (#2535) and adapters (#2536) done; reference (#2537) not yet"
+      },
+      "prompt": "Add AsyncAPI 2.6.0 support to apidom-reference.",
+      "expected_output": "Changes equivalent to PR #2537.",
+      "files": [],
+      "assertions": [
+        "Does not create new parser or strategy directories",
+        "Adds the 2.6.0 media types to every AsyncAPI list in the apidom-reference README (parsers, resolve and dereference strategies)",
+        "Bumps the asyncapi-2 dereference fixtures from 2.5.0 to 2.6.0",
+        "Bumps asyncapi-json-2 and asyncapi-yaml-2 parser tests to 2.6.0",
+        "Bumps OpenAPI parser tests that use the asyncapi 2.5.0 media type as a negative case",
+        "Checks whether new Pulsar binding objects need dereference handling"
+      ]
+    }
+  ]
+}

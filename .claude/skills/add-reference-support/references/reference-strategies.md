@@ -1,4 +1,4 @@
-# apidom-reference Resolve, Dereference and Bundle Strategies (Phase 7)
+# apidom-reference Resolve, Dereference and Bundle Strategies (Phase 3)
 
 Based on the OpenAPI 3.2.0 implementation (`packages/apidom-reference/src/{resolve,dereference,bundle}/strategies/openapi-3-2/`). The fastest correct path is to copy the parent version's folders (e.g. `openapi-3-1` → `openapi-3-2`) and rename the version identifiers; the templates below show the required shape.
 
@@ -12,7 +12,7 @@ Template variables (in addition to those in `reference-parsers.md`):
 - `{specName}{Version}Namespace`: namespace default import, e.g. `openApi3_2Namespace`
 - `{RootElement}`: root element class, e.g. `OpenApi3_2Element`
 
-## 7.1 Create Resolve Strategy
+## 3.1 Create Resolve Strategy
 
 Create `packages/apidom-reference/src/resolve/strategies/{spec}-{version}/index.ts`:
 
@@ -78,7 +78,7 @@ class {SpecName}{Version}ResolveStrategy extends ResolveStrategy {
 export default {SpecName}{Version}ResolveStrategy;
 ```
 
-## 7.2 Create Dereference Strategy
+## 3.2 Create Dereference Strategy
 
 Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/index.ts`:
 
@@ -152,7 +152,7 @@ export {
 export default {SpecName}{Version}DereferenceStrategy;
 ```
 
-## 7.3 Create Dereference Visitor
+## 3.3 Create Dereference Visitor
 
 Create `packages/apidom-reference/src/dereference/strategies/{spec}-{version}/visitor.ts` (a sibling of `index.ts`, not in a `visitors/` subfolder).
 
@@ -196,7 +196,7 @@ class {SpecName}{Version}DereferenceVisitor {
 export default {SpecName}{Version}DereferenceVisitor;
 ```
 
-## 7.4 Create util.ts and Selectors
+## 3.4 Create util.ts and Selectors
 
 Needed when the spec embeds JSON Schema 2020-12 style schemas (`$id`, `$anchor`), as OpenAPI 3.1/3.2 do. Specs without them (e.g. AsyncAPI 2/3, whose dereference folders contain only `index.ts` and `visitor.ts`) skip this step.
 
@@ -206,7 +206,7 @@ Copy from the parent version and only change the namespace import (`@swagger-api
 - `dereference/strategies/{spec}-{version}/selectors/$anchor.ts`: exports `isAnchor`, `uriToAnchor`, `parse`, `evaluate` and re-exports the `$anchor` error classes
 - `dereference/strategies/{spec}-{version}/selectors/uri.ts`: exports `evaluate` (JSON Schema `$id` + JSON Pointer / `$anchor` evaluation, imports `resolveSchema$idField` from `../util.ts`) and re-exports the URI error classes
 
-## 7.5 Create Bundle Strategy
+## 3.5 Create Bundle Strategy
 
 Create `packages/apidom-reference/src/bundle/strategies/{spec}-{version}/index.ts`:
 
@@ -251,7 +251,7 @@ class {SpecName}{Version}BundleStrategy extends BundleStrategy {
 export default {SpecName}{Version}BundleStrategy;
 ```
 
-## 7.6 Register Strategies and Add `exports` Subpaths
+## 3.6 Register Strategies and Add `exports` Subpaths
 
 ### saturated.ts
 
@@ -320,9 +320,9 @@ Add a subpath export for each strategy (and each dereference selector) to `packa
 }
 ```
 
-Omit the selector entries if the strategy has no `selectors/` (see 7.4).
+Omit the selector entries if the strategy has no `selectors/` (see 3.4).
 
-## 7.7 Create Tests for Reference Strategies
+## 3.7 Create Tests for Reference Strategies
 
 Create tests in `packages/apidom-reference/test/`, mirroring the parent version's layout (one folder per object type, each with `index.ts` and `fixtures/`):
 
@@ -367,4 +367,4 @@ describe('dereference', function () {
 });
 ```
 
-**Important Note**: The reference strategy implementation (Phase 7) is optional for basic parser adapter functionality but **highly recommended** for production use. OpenAPI 3.2.0 included complete reference integration from the start. If skipping initially, create a follow-up task to add these strategies.
+**Important Note**: Strategies are not optional for a new spec version. Without them, `$ref`s in documents of the new version are neither resolved, dereferenced nor bundled. OpenAPI 3.2.0 included complete reference integration from the start.

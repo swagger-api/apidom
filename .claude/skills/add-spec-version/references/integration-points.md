@@ -1,9 +1,10 @@
-# Integration Points Outside the New Packages
+# Integration Points Outside the New Packages (new variant)
 
 Worked example: OAS 3.2 support, commit `ef97b5c32` (PR #5110). Inspect any item with
-`git show ef97b5c32 -- <path>` and mirror the change for the new version.
+`git show ef97b5c32 -- <path>` and mirror the change for the new version. For the extend variant
+(version added to an existing namespace) use `phase-checklists.md` instead.
 
-## apidom-reference (Stage 2, covered by /add-parser-adapter)
+## apidom-reference (Phase 3, covered by /add-reference-support)
 
 - [ ] `src/parse/parsers/{spec}-json-{version}/index.ts` and `{spec}-yaml-{version}/index.ts`
 - [ ] `src/resolve/strategies/{spec}-{version}/index.ts`
@@ -13,7 +14,7 @@ Worked example: OAS 3.2 support, commit `ef97b5c32` (PR #5110). Inspect any item
 - [ ] `package.json`: dependencies on the new namespace and adapters, plus `exports` entries for every new parser and strategy path
 - [ ] Tests and fixtures for parse, resolve, dereference and bundle
 
-## apidom-ls (Stage 3; only the config directories are covered by /update-ls-config)
+## apidom-ls (Phase 4; only the config directories are covered by /update-ls-config)
 
 - [ ] `src/config/{spec}/**`: completion, documentation, lint, `meta.ts`, `target-specs.ts`
 - [ ] `src/config/codes.ts`: new unique diagnostic codes
@@ -26,17 +27,17 @@ Worked example: OAS 3.2 support, commit `ef97b5c32` (PR #5110). Inspect any item
 - [ ] `package.json`: dependencies on the new namespace and adapters
 - [ ] Tests: JSON and YAML fixtures for valid documents (expect no apilint diagnostics) and each new lint rule (full `Diagnostic` objects via `assert.deepEqual`)
 
-## apidom-playground (Stage 5)
+## apidom-playground (Phase 4)
 
 - [ ] `package.json`: dependencies on the new namespace and adapters
 - [ ] `src/playground/apidom.worker.js`: `.use()` the new JSON and YAML adapters
 - [ ] `src/playground/selectors.js`: import the namespace plugin and media types, add the media-type branch and the media types to the list
 
-## Repository root (Stage 5)
+## Repository root (Phases 1 and 2, in the PR that creates the packages)
 
 - [ ] `package.json` `unlink` script: add every new package name (this list was not updated for OAS 3.2 or A2A, so check it against `ls packages`)
 - [ ] `package-lock.json`: regenerate with `npm i`
-- [ ] `README.md` package lists and any package READMEs that enumerate supported specs (apidom-reference README lists parsers and strategies)
+- [ ] `README.md` package lists and any package READMEs that enumerate supported specs (the apidom-reference README, listing parsers and strategies, belongs to Phase 3)
 
 ## Quick audit
 

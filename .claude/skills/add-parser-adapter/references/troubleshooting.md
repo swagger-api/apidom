@@ -30,11 +30,6 @@
 
 ## Integration Issues
 
-**Parser not found in apidom-reference**:
-- Verify parser is imported in `saturated.ts`
-- Check parser is added to `options.parse.parsers` array
-- Ensure parser class name matches import
-
 **Media type detection fails**:
 - Check media types are correctly imported from namespace
 - Verify filterByFormat includes both 'generic' and format-specific types

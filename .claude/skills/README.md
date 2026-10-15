@@ -4,6 +4,12 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ## Recent Updates
 
+**2026-10-15**:
+
+- `/add-spec-version` now works in four phases, each ending in its own stacked PR: namespace, parser adapters, apidom-reference, apidom-ls. It can start at any phase and first checks (`scripts/phase-status.mjs`) that earlier phases are complete.
+- New `/add-reference-support` skill takes over the apidom-reference wiring from `/add-parser-adapter`.
+- `/add-parser-adapter` and `/add-reference-support` support the extend variant: a version added to an existing namespace (e.g. AsyncAPI 2.6, AsyncAPI 3.1).
+
 **2026-10-14**:
 
 - New `/add-spec-version` orchestrator chains the four skills below with verification gates and bundles helper scripts (redefined-field check, URL/anchor check, unwired-file audit).
@@ -26,15 +32,23 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ### `/add-spec-version` - Add a Specification Version End to End
 
-Orchestrates adding a new spec or spec version across the monorepo. Use this as the entry point; it calls the skills below.
+Orchestrates adding a new spec or spec version across the monorepo in four phases. Use this as the entry point; it calls the skills below.
+
+| Phase | Package(s) | Skill | PR |
+|-------|------------|-------|----|
+| 1 | `apidom-ns-*` | `/add-namespace` (or extend checklist) | `feat/{spec}-{version}/phase-1` |
+| 2 | parser adapters, `apidom-parser` | `/add-parser-adapter` | `.../phase-2`, stacked on phase 1 |
+| 3 | `apidom-reference` | `/add-reference-support` | `.../phase-3`, stacked on phase 2 |
+| 4 | `apidom-ls`, playground | `/update-ls-config`, `/review-ls-changes` | `.../phase-4`, stacked on phase 3 |
 
 1. Builds a field map (new / changed / removed / inherited fields per object) from the official spec and the parent namespace, and asks for confirmation
-2. Runs `/add-namespace`, `/add-parser-adapter`, `/update-ls-config` and `/review-ls-changes` in order
-3. Gates every stage: build, types, lint, tests, field-map coverage, plus the bundled scripts:
+2. Each phase ends in one PR; a phase starts only when the previous one's PR is open or merged (or its code is on `main`). Invoking it at a later phase (e.g. "do phase 3 for AsyncAPI 3.1") first checks the earlier phases and stops if one is missing
+3. Gates every phase: build, types, lint, tests, field-map coverage, plus the bundled scripts:
+   - `scripts/phase-status.mjs`: which phases are complete, the next phase, its branch and base
    - `scripts/check-redefined-fields.mjs`: getters that duplicate a parent element
    - `scripts/verify-urls.mjs`: URLs and `#anchors` that don't resolve
    - `scripts/find-unwired.sh`: files that mention the parent version but not the new one
-4. Covers wiring the other skills don't (LS parser factory and detection, JSON Schema validation, playground, root scripts)
+4. Handles both variants: a new namespace package (OpenAPI 3.2) and a version added to an existing namespace (AsyncAPI 2.6, PRs #2535-#2538)
 
 Progress lives in an uncommitted `ADD-{SPEC}-{VERSION}.md` tracking doc, so work can resume across sessions.
 
@@ -73,7 +87,7 @@ Claude will guide you through:
 
 ### `/add-parser-adapter` - Add Parser Adapter Packages
 
-Creates parser adapter packages for existing namespaces and integrates them with apidom-reference.
+Creates JSON and YAML parser adapter packages for a namespace, or extends existing adapters for a version added to an existing namespace.
 
 **Usage:**
 ```
@@ -81,28 +95,36 @@ Creates parser adapter packages for existing namespaces and integrates them with
 ```
 
 Claude will:
-1. Discover namespaces without parser adapters
+1. Discover namespaces without parser adapters (or detect the extend variant)
 2. Present options for which namespace to add parsers for
-3. Generate both JSON and YAML parser adapter packages
-4. Create integration code in apidom-reference
-5. Build and test the new parsers
+3. Generate both JSON and YAML parser adapter packages, or update detection tests, fixtures and READMEs of existing ones
+4. Build and test the adapters and `apidom-parser`
 
 **When to use:**
 - After creating a new namespace with `/add-namespace`
 - When an existing namespace lacks parser adapters
-- To enable parsing support for a namespace in apidom-reference
+- When a new version was added to an existing namespace (e.g. AsyncAPI 2.6)
 
 **What it creates:**
 - `packages/apidom-parser-adapter-{spec}-json-{version}/` package
 - `packages/apidom-parser-adapter-{spec}-yaml-{version}/` package
-- Parser classes in `packages/apidom-reference/src/parse/parsers/`
-- Integration with apidom-reference saturated configuration
-- Complete tests for all parsers
+- Complete tests for both adapters
+
+apidom-reference integration is done by `/add-reference-support`.
 
 **Prerequisites:**
 - Target namespace package must exist
 - Namespace package must be built
 - Know the specification version field name (e.g., "openapi", "asyncapi")
+
+### `/add-reference-support` - Add apidom-reference Support
+
+Makes a spec version parseable, resolvable, dereferenceable and bundleable through apidom-reference.
+
+- **New namespace**: parse parsers wrapping the adapters, resolve/dereference/bundle strategies, `saturated.ts` registrations, `package.json` dependencies and exports, tests, README
+- **Version in an existing namespace**: README media types, fixture and parser test bumps, dereference handling for new referenceable fields (AsyncAPI 2.6, PR #2537)
+
+**Prerequisites:** namespace and both adapters exist and are built.
 
 ### `/update-ls-config` - Update Language Service Config
 
@@ -150,10 +172,11 @@ Each `evals/evals.json` follows the skill-creator schema plus a `fixture` field 
 | Skill | Eval | Fixture |
 |-------|------|---------|
 | add-namespace | OAS 3.2 element field set (PR #5110 review findings) | `git worktree add <dir> ef97b5c32^` |
-| add-parser-adapter | OAS 3.2 adapters + apidom-reference wiring | `ef97b5c32^` |
+| add-parser-adapter | OAS 3.2 adapters; AsyncAPI 2.6 adapter extension (PR #2536) | `ef97b5c32^`, `35c7e8f0d` |
+| add-reference-support | OAS 3.2 reference wiring plan; AsyncAPI 2.6 reference extension (PR #2537) | `ef97b5c32^`, `c2d643904` |
 | update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings) | `c201bb1f8^` |
 | review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + `git am evals/planted-defects.patch` |
-| add-spec-version | OAS 3.2 field map and integration plan | `ef97b5c32^` |
+| add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan | `ef97b5c32^`, `main`, `36cbf2f73` |
 
 Run them with the `skill-creator` skill: one subagent with the skill and one baseline (previous skill version, or no skill) per eval, working read-only in the fixture worktree and writing to an outputs directory outside the repo. Most assertions are checkable by script (getter names, regexes, file names, message patterns).
 

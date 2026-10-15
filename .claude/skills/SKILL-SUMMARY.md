@@ -10,6 +10,8 @@ Three comprehensive Claude Code skills for adding specification support to the A
 ### 2. `/add-parser-adapter` - Add Parser Adapter Packages
 ### 3. `/update-ls-config` - Update Language Service Config
 ### 4. `/review-ls-changes` - Review Language Service Changes Against Spec
+### 5. `/add-reference-support` - Add apidom-reference Support
+### 6. `/add-spec-version` - Orchestrator: four phases (namespace, parser adapters, apidom-reference, apidom-ls), one stacked PR each
 
 ## Recent Updates (2026-01-28)
 
@@ -197,14 +199,12 @@ Creates a complete namespace package for a new API specification version.
 
 ### 2. `/add-parser-adapter` - Add Parser Adapter Packages
 
-Creates parser adapter packages for existing namespaces and integrates them with apidom-reference.
+Creates parser adapter packages for existing namespaces, or extends existing adapters for a version added to an existing namespace. apidom-reference wiring is done by `/add-reference-support`.
 
-**When to use**: After creating a namespace or when parser adapters are missing.
+**When to use**: After creating a namespace, when parser adapters are missing, or when an existing namespace gains a version.
 
 **What it creates**:
 - JSON and YAML parser adapter packages
-- Parser classes in apidom-reference
-- Integration with saturated configuration
 - Complete test suites
 
 ### 3. `/update-ls-config` - Update Language Service Config
@@ -223,20 +223,19 @@ Updates apidom-ls configuration for a namespace package by analyzing structure a
 
 ### After creating a namespace package (`/add-namespace`):
 
+Prefer `/add-spec-version`, which runs the steps below as four phases with one PR each.
+
 1. **Create parser adapters** using `/add-parser-adapter`:
    - Generates both JSON and YAML adapters
-   - Integrates with apidom-reference automatically
 
-2. **Add IDE support** using `/update-ls-config`:
+2. **Add apidom-reference support** using `/add-reference-support`:
+   - Parse parsers, resolve/dereference/bundle strategies, `saturated.ts`
+
+3. **Add IDE support** using `/update-ls-config`:
    - Generates autocomplete configuration
    - Generates hover documentation
    - Generates validation rules
    - Integrates with apidom-ls
-
-3. **Add advanced features** (manual):
-   - Dereference strategies in apidom-reference
-   - Resolution strategies
-   - Bundle strategies (if applicable)
 
 4. **Update swagger-editor** (if applicable):
    - Import namespace
@@ -245,14 +244,10 @@ Updates apidom-ls configuration for a namespace package by analyzing structure a
 ### After creating parser adapters (`/add-parser-adapter`):
 
 1. **Test integration**:
-   - Use parsers with apidom-reference
    - Test detection and parsing
    - Verify media type handling
 
-2. **Add advanced parsing features** (optional):
-   - Custom resolve strategies
-   - Dereference strategies
-   - Bundle strategies
+2. **Wire into apidom-reference** using `/add-reference-support`
 
 ## Troubleshooting
 

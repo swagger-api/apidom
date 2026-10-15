@@ -1,6 +1,6 @@
 # Tracking Document and Field Map Template
 
-Copy into `ADD-{SPEC}-{VERSION}.md` at the repo root (not committed). Every later stage reads the field map instead of re-deriving fields from memory.
+Copy into `ADD-{SPEC}-{VERSION}.md` at the repo root (not committed). Every later phase reads the field map instead of re-deriving fields from memory.
 
 ```markdown
 # Add {Spec} {Version}
@@ -8,24 +8,25 @@ Copy into `ADD-{SPEC}-{VERSION}.md` at the repo root (not committed). Every late
 - Spec source: {raw markdown URL}
 - Parent spec source: {raw markdown URL or "none"}
 - Parent namespace: packages/apidom-ns-{parent}
-- New packages: apidom-ns-{spec}-{version}, apidom-parser-adapter-{spec}-json-{version}, apidom-parser-adapter-{spec}-yaml-{version}
+- Packages: apidom-ns-{spec}-{version}, apidom-parser-adapter-{spec}-json-{version}, apidom-parser-adapter-{spec}-yaml-{version} (new variant), or the existing ones (extend variant)
 
-## Stage status
+## Phases
 
-| Stage | Status | Gate result |
-|-------|--------|-------------|
-| 0 Field map | done / in progress | user confirmed on {date} |
-| 1 Namespace | | |
-| 2 Parser adapters + reference | | |
-| 3 Language service | | |
-| 4 Spec review | | |
-| 5 Wiring + full verification | | |
+Variant: extend ({existing namespace}) / new
+
+| Phase | Branch | PR | Gate result |
+|-------|--------|----|-------------|
+| Field map | - | - | user confirmed on {date} |
+| 1 Namespace | feat/{spec}-{version}/phase-1 | #{n} (open/merged) | |
+| 2 Parser adapters | feat/{spec}-{version}/phase-2 | | |
+| 3 apidom-reference | feat/{spec}-{version}/phase-3 | | |
+| 4 apidom-ls | feat/{spec}-{version}/phase-4 | | |
 
 ## Field map
 
 Status values: NEW (not in parent), CHANGED-TYPE (exists in parent, type differs), REMOVED (in parent, gone now), INHERITED (unchanged; listed only to prove it was checked).
 
-| Object | Field | Type | Required | Status | ns | refractor | empty-el | deref | completion | docs | lint |
+| Object | Field | Type | Required | Status | ns (P1) | refractor (P1) | empty-el (P1) | deref (P3) | completion (P4) | docs (P4) | lint (P4) |
 |--------|-------|------|----------|--------|----|-----------|----------|-------|------------|------|------|
 | Components | mediaTypes | Map[string, Media Type \| Reference] | no | NEW | | | | | | | |
 | Components | pathItems | Map[string, Path Item] | no | INHERITED (3.1) | - | - | - | - | - | - | - |

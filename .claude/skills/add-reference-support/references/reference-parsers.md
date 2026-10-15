@@ -1,8 +1,8 @@
-# apidom-reference Parse Integration (Phase 6)
+# apidom-reference Parse Integration (Phase 2)
 
 Add the new parser adapters to the `apidom-reference` package. Based on OpenAPI 3.2.0 implementation, a complete integration requires creating components for all four phases: **parse**, **resolve**, **dereference**, and **bundle**.
 
-## 6.1 Create Parser Classes in apidom-reference
+## 2.1 Create Parser Classes in apidom-reference
 
 For JSON parser, create `packages/apidom-reference/src/parse/parsers/{spec}-json-{version}/index.ts`:
 
@@ -87,7 +87,7 @@ Same structure as JSON parser but:
 - Import from `@swagger-api/apidom-parser-adapter-{spec}-yaml-{version}`
 - Update parser name to `'{spec}-yaml-{version}'`
 
-## 6.2 Create Tests in apidom-reference
+## 2.2 Create Tests in apidom-reference
 
 For JSON parser, create `packages/apidom-reference/test/parse/parsers/{spec}-json-{version}/index.ts`:
 
@@ -160,7 +160,7 @@ Similar test structure for YAML parser.
 
 Create fixture files in `test/parse/parsers/{spec}-json-{version}/fixtures/` and `test/parse/parsers/{spec}-yaml-{version}/fixtures/`.
 
-## 6.3 Update saturated.ts Configuration
+## 2.3 Update saturated.ts Configuration
 
 Edit `packages/apidom-reference/src/configuration/saturated.ts`:
 
@@ -186,11 +186,11 @@ Edit `packages/apidom-reference/src/configuration/saturated.ts`:
    - A new specification goes after the last versioned spec group (currently A2A) and **before** API Design Systems
    - Keep the generic parsers (`APIDOMJSONParser`, `JSONParser`, `YAMLParser`, `BinaryParser`) at the end
 
-## 6.4 Update package.json Dependencies
+## 2.4 Update package.json Dependencies
 
 Edit `packages/apidom-reference/package.json`.
 
-Spec-specific packages are **not** regular `dependencies` (those hold only core packages such as `apidom-core`, `apidom-error`). Add each new adapter package (and the namespace package, if it is not listed yet; it is needed by the strategies in Phase 7) to **both** `optionalDependencies` and `devDependencies`, keeping both lists alphabetically sorted:
+Spec-specific packages are **not** regular `dependencies` (those hold only core packages such as `apidom-core`, `apidom-error`). Add each new adapter package (and the namespace package, if it is not listed yet; it is needed by the strategies in Phase 3) to **both** `optionalDependencies` and `devDependencies`, keeping both lists alphabetically sorted:
 
 ```json
 {
@@ -209,7 +209,7 @@ Spec-specific packages are **not** regular `dependencies` (those hold only core 
 
 `{currentVersion}`: do not hard-code it; use the value the neighbouring `@swagger-api/apidom-*` entries in `optionalDependencies` already use (equal to `"version"` in `packages/apidom-reference/package.json`).
 
-## 6.5 Add package.json `exports` Subpaths
+## 2.5 Add package.json `exports` Subpaths
 
 Every parser is also exposed as a subpath export of `@swagger-api/apidom-reference`. Add one entry per parser to `exports` in `packages/apidom-reference/package.json`, next to the entries for the sibling versions of the same spec:
 
@@ -230,4 +230,4 @@ Every parser is also exposed as a subpath export of `@swagger-api/apidom-referen
 }
 ```
 
-The strategies created in Phase 7 need the same kind of entries (see `reference-strategies.md`, 7.6).
+The strategies created in Phase 3 need the same kind of entries (see `reference-strategies.md`, 3.6).

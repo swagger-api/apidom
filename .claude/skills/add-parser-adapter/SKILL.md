@@ -1,6 +1,6 @@
 ---
 name: add-parser-adapter
-description: Creates the JSON and YAML parser adapter packages (`apidom-parser-adapter-{spec}-json-{version}` / `apidom-parser-adapter-{spec}-yaml-{version}`) for an existing ApiDOM namespace (`apidom-ns-*`) and wires them into apidom-reference (parse parsers, resolve/dereference/bundle strategies, `saturated.ts`, dependencies). Use when a namespace lacks JSON/YAML parsing, right after `/add-namespace`, or when a spec version must become parseable, resolvable, dereferenceable or bundleable via apidom-reference, even if the user doesn't say "parser adapter".
+description: Creates the JSON and YAML parser adapter packages (`apidom-parser-adapter-{spec}-json-{version}` / `apidom-parser-adapter-{spec}-yaml-{version}`) for an existing ApiDOM namespace (`apidom-ns-*`), or extends existing adapters when a new version is added to an existing namespace (e.g. AsyncAPI 2.6, AsyncAPI 3.1): detection, media types, tests, READMEs and apidom-parser priority tests. Use when a namespace lacks JSON/YAML parsing, right after `/add-namespace`, as phase 2 of /add-spec-version, or when a spec version must become detectable and parseable, even if the user doesn't say "parser adapter". apidom-reference wiring is a separate skill, /add-reference-support.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -8,19 +8,24 @@ user-invocable: true
 # Add Parser Adapter Skill
 
 **Skill Name:** `add-parser-adapter`
-**Description:** Creates parser adapter packages for existing ApiDOM namespace packages and integrates them with apidom-reference.
+**Description:** Creates or extends parser adapter packages for ApiDOM namespace packages.
 
 ## Overview
 
-This skill automates the process of creating parser adapter packages for API namespaces that don't yet have parsers. It discovers which `apidom-ns-*` packages are missing corresponding `apidom-parser-adapter-*` packages, allows you to select which ones to create, generates the complete parser adapter packages (both JSON and YAML), and integrates them with `apidom-reference`.
+This skill has two modes:
+
+- **New**: a namespace has no adapters yet. It discovers which `apidom-ns-*` packages are missing `apidom-parser-adapter-*` packages, lets you select which to create, and generates both the JSON and YAML adapter packages (Phases 1-5, 8-9).
+- **Extend**: a new version was added to an existing namespace whose adapters already exist (e.g. AsyncAPI 2.6 in `apidom-ns-asyncapi-2`). Only detection, tests and docs change (Phase 6).
+
+apidom-reference integration (parse parsers, resolve/dereference/bundle strategies, `saturated.ts`) is **not** part of this skill; run `/add-reference-support` afterwards.
 
 ## When to Use
 
 Use this skill when:
 - A namespace package exists but lacks parser adapters
 - You need to add JSON and/or YAML parsing support for an existing namespace
-- You want to make a namespace usable in apidom-reference workflows
 - You've just created a new namespace using `/add-namespace` and need to add parsers
+- A new version was added to an existing namespace and its adapters must detect it
 
 ## Prerequisites
 
@@ -40,13 +45,13 @@ Load these only when the phase that needs them starts:
 | `references/user-selection-questions.md` | Phase 2 | Exact `AskUserQuestion` payloads |
 | `references/adapter-package-templates.md` | Phases 4 and 5 | Directory layout, package.json, tsconfigs, config files (incl. `vite.config.ts`), `src/adapter.ts`, `src/media-types.ts`, template variables, detection regexps |
 | `references/adapter-test-templates.md` | Phases 4.7 and 5.5 | `test/adapter.ts`, `test/media-types.ts`, fixtures for JSON and YAML adapters |
-| `references/reference-parsers.md` | Phase 6 | apidom-reference parser classes, parser tests, `saturated.ts` parser registration, package.json `optionalDependencies`/`devDependencies` and `exports` |
-| `references/reference-strategies.md` | Phase 7 | Resolve/dereference/bundle strategies, dereference visitor, util and selectors, strategy registration and `exports`, strategy tests |
-| `references/troubleshooting.md` | Phase 8, whenever build/tests/integration fail | Build errors, test failures, integration issues |
+| `references/troubleshooting.md` | Phase 8, whenever build/tests fail | Build errors, test failures, detection issues |
 
 ## Skill Instructions
 
 ### Phase 1: Discover Missing Parser Adapters
+
+If the version belongs to an existing namespace whose adapters exist, skip to Phase 6 (extend mode).
 
 Scan the packages directory to identify namespaces without parser adapters:
 
@@ -132,33 +137,33 @@ Create the YAML parser adapter package (similar to JSON but with YAML-specific c
 4. `src/media-types.ts` (5.4): `filterByFormat('generic')` + `filterByFormat('yaml')`.
 5. Tests (5.5): YAML fixtures, YAML-specific detection, plus JSON detection.
 
-### Phase 6: Integrate with apidom-reference
+### Phase 6: Extend Existing Adapters (extend mode only)
 
-Add the new parser adapters to the `apidom-reference` package. Based on OpenAPI 3.2.0 implementation, a complete integration requires creating components for all four phases: **parse**, **resolve**, **dereference**, and **bundle**.
+Worked example: AsyncAPI 2.6.0, PR #2536 (commit `c2d643904`, `git show c2d643904 -- <path>`). Repeat for the JSON and the YAML adapter of the namespace.
 
-**Read `references/reference-parsers.md` now.** Then:
+1. **Detection**: check that `detectionRegExp` in `src/adapter.ts` matches the new version and still rejects versions outside the namespace (e.g. the next major). Change it only when it doesn't; `asyncapi-*-2` already matched `2.x.y`.
+2. **Media types**: `src/media-types.ts` derives from the namespace, so the new version comes in automatically. Verify in a test (`test/media-types.ts`) through the namespace, e.g. that `mediaTypes.latest()` is now the new version.
+3. **Adapter tests** (`test/adapter.ts`): add positive detection for `{version}` and a patch release (`2.6.0`, `2.6.1`) via both `detect` and `detectionRegExp`; bump "latest" samples to the new version.
+4. **Fixtures**: bump `test/fixtures/sample-api.{json,yaml}` (and `test/perf/fixtures/*`) to the new version.
+5. **Other specs' adapters**: their negative detection tests use this spec's latest version (e.g. `openapi-json-3-1` asserts it does not detect `"asyncapi": "2.5.0"`); bump them to the new version.
+6. **apidom-parser**: `packages/apidom-parser/test/adapter-priority.ts` and `packages/apidom-parser/README.md` use the latest version of the spec; bump them.
+7. **READMEs**: in both adapter READMEs add the spec link (`[{Spec} {version} specification](...)`), the new media types to the supported list, and use the new version in `detect`/`parse` examples.
 
-1. Create parser classes `packages/apidom-reference/src/parse/parsers/{spec}-json-{version}/index.ts` and `.../{spec}-yaml-{version}/index.ts` (6.1).
-2. Create parser tests and fixtures in `packages/apidom-reference/test/parse/parsers/{spec}-{json|yaml}-{version}/` (6.2).
-3. Import and register both parsers in `options.parse.parsers` in `packages/apidom-reference/src/configuration/saturated.ts` (6.3), following the Parser Registration Order below.
-4. Add both adapter packages (and the namespace package, if missing) to `optionalDependencies` (`^{currentVersion}`) and `devDependencies` (`"*"`) of `packages/apidom-reference/package.json` (6.4).
-5. Add `exports` subpath entries `./parse/parsers/{spec}-json-{version}` and `./parse/parsers/{spec}-yaml-{version}` to `packages/apidom-reference/package.json` (6.5).
+Find every place still pinned to the previous latest version:
 
-### Phase 7: Create Additional Reference Strategies
+```bash
+grep -rn --include='*.ts' --include='*.md' --include='*.json' --include='*.yaml' \
+  -e '{field}": "{previous}"' -e '{field}: {previous}' -e 'version={previous}' \
+  packages/apidom-parser-adapter-* packages/apidom-parser --exclude-dir=node_modules
+```
 
-**Read `references/reference-strategies.md` now.** Then create, under `packages/apidom-reference/src/`:
+Then continue with Phase 8 for the touched packages.
 
-1. Resolve strategy: `resolve/strategies/{spec}-{version}/index.ts`, extends `ResolveStrategy` (7.1).
-2. Dereference strategy: `dereference/strategies/{spec}-{version}/index.ts`, extends `DereferenceStrategy` (7.2).
-3. Dereference visitor: `dereference/strategies/{spec}-{version}/visitor.ts`, copied from the parent version (7.3).
-4. `util.ts` and selectors: `dereference/strategies/{spec}-{version}/util.ts`, `selectors/$anchor.ts`, `selectors/uri.ts` (7.4).
-5. Bundle strategy: `bundle/strategies/{spec}-{version}/index.ts`, extends `BundleStrategy` (7.5).
-6. Register all three strategies in `saturated.ts` (`options.resolve.strategies`, `options.dereference.strategies`, `options.bundle.strategies`) and add their `exports` subpath entries to `package.json` (7.6).
-7. Tests in `test/dereference/` and `test/bundle/` (optionally `test/resolve/`) under `strategies/{spec}-{version}/` (7.7).
+### Phase 7: Repository Wiring (new mode only)
 
-All three strategies share the plain name `'{spec}-{version}'` (e.g. `'openapi-3-2'`); the resolve strategy finds the dereference strategy by that name.
-
-Phase 7 is optional for basic parser adapter functionality but **highly recommended** for production use. If skipping initially, create a follow-up task to add these strategies.
+1. Add both new package names to the root `package.json` `unlink` script.
+2. Add the packages to the root `README.md` package list.
+3. Run `npm i` at the root to update `package-lock.json`.
 
 ### Phase 8: Build and Test
 
@@ -188,20 +193,13 @@ If anything fails, **read `references/troubleshooting.md`**.
    npm run lint
    ```
 
-3. **Build apidom-reference**:
+3. **Run apidom-parser tests** (adapter priority):
    ```bash
-   cd ../../apidom-reference
-   npm run build
-   ```
-
-4. **Run apidom-reference tests**:
-   ```bash
+   cd ../../apidom-parser
    npm run test
-   npm run typescript:check-types
-   npm run lint
    ```
 
-5. **Run full monorepo build** (from root):
+4. **Run full monorepo build** (from root):
    ```bash
    npm run build
    npm run test
@@ -215,10 +213,7 @@ If anything fails, **read `references/troubleshooting.md`**.
    - Document detection patterns
    - List supported media types
 
-2. **Update apidom-reference README**:
-   - Add new parsers to supported specifications list
-
-3. **Create CHANGELOG.md** for new packages:
+2. **Create CHANGELOG.md** for new packages:
    ```markdown
    # Changelog
 
@@ -240,7 +235,7 @@ If anything fails, **read `references/troubleshooting.md`**.
 - YAML adapter detection must accept both YAML and JSON forms; JSON adapter detection only JSON.
 - Detection must accept patch bumps and reject major bumps and invalid versions (e.g. `01`, `x`). Minor bumps depend on the namespace scope: OpenAPI 3.x adapters reject the next minor (3.1 rejects `3.2.0`, 3.2 rejects `3.3.0`); major-scoped specs (AsyncAPI, Arazzo) accept it.
 - Media types always combine `'generic'` with the format-specific types.
-- Register parsers and strategies in `saturated.ts` in the order below; never forget the resolve/dereference/bundle registrations.
+- New adapters are useless to apidom-reference and apidom-ls until wired there: follow up with `/add-reference-support` and `/update-ls-config`.
 
 ### Naming Conventions
 
@@ -251,15 +246,6 @@ If anything fails, **read `references/troubleshooting.md`**.
   - `apidom-parser-adapter-asyncapi-yaml-3`
   - `apidom-parser-adapter-json-schema-json-2019-09`
   - `apidom-parser-adapter-arazzo-yaml-1`
-
-**Parser Classes in apidom-reference**:
-- Pattern: `{SpecName}{Format}{Version}Parser`
-- Use underscores for version separators in class names: `3_2`, `2019_09`
-- Examples:
-  - `OpenAPIJSON3_2Parser`
-  - `AsyncAPIYAML3Parser`
-  - `JSONSchema2019_09Parser`
-  - `ArazzoJSON1Parser`
 
 **Directory Names**:
 - Use kebab-case with hyphens
@@ -279,18 +265,6 @@ If anything fails, **read `references/troubleshooting.md`**.
 - No version in package name
 - Pattern: `apidom-parser-adapter-api-design-systems-{format}`
 
-### Parser Registration Order
-
-In `saturated.ts` (`options.parse.parsers`), maintain the current order:
-1. OpenAPI (2, 3.0, 3.1, 3.2, oldest to newest)
-2. AsyncAPI (2, 3)
-3. Arazzo (1)
-4. A2A (1)
-5. API Design Systems (after all versioned specs, not first)
-6. Generic parsers at the end: ApiDOM JSON, JSON, YAML 1.2, Binary
-
-Within a spec, the JSON parser precedes the YAML parser of the same version, and a new version is inserted directly after its parent version (e.g. the 3.2 pair right after the 3.1 pair). A brand-new spec goes after the last versioned spec group and before API Design Systems. Strategy arrays follow the same version order, with `ApiDOMResolveStrategy` / `ApiDOMDereferenceStrategy` always last.
-
 ## References
 
 - **Existing Parser Adapters**:
@@ -298,10 +272,8 @@ Within a spec, the JSON parser precedes the YAML parser of the same version, and
   - OpenAPI (reference implementation): `apidom-parser-adapter-openapi-json-3-2`, `apidom-parser-adapter-openapi-yaml-3-2`
   - AsyncAPI: `apidom-parser-adapter-asyncapi-yaml-3`
 
-- **apidom-reference Integration**:
-  - Parser classes: `packages/apidom-reference/src/parse/parsers/`
-  - Configuration: `packages/apidom-reference/src/configuration/saturated.ts`
-  - Tests: `packages/apidom-reference/test/parse/parsers/`
+- **Extend mode example**: PR #2536 (AsyncAPI 2.6.0), commit `c2d643904`
+- **Next step**: `/add-reference-support` (apidom-reference parsers and strategies)
 
 - **Architecture**: See CLAUDE.md "Parser Adapters" section
 
@@ -318,21 +290,15 @@ New adapter packages (repeat for `json` and `yaml`):
 - [ ] `.../test/adapter.ts`, `.../test/media-types.ts`, `.../test/fixtures/sample-spec.{json|yaml}`, `.../test/mocha-bootstrap.ts`, `.../test/.eslintrc`, `.../test/tsconfig.json`
 - [ ] `.../README.md` and `.../CHANGELOG.md`
 
-`packages/apidom-reference`:
-- [ ] `src/parse/parsers/{spec}-json-{version}/index.ts` and `src/parse/parsers/{spec}-yaml-{version}/index.ts`
-- [ ] `test/parse/parsers/{spec}-json-{version}/` and `test/parse/parsers/{spec}-yaml-{version}/` (tests + fixtures)
-- [ ] `src/configuration/saturated.ts`: parser imports + `options.parse.parsers`
-- [ ] `package.json`: both adapters (and namespace) in `optionalDependencies` and `devDependencies`
-- [ ] `package.json`: `exports` entries for both parsers
-- [ ] `src/resolve/strategies/{spec}-{version}/index.ts`
-- [ ] `src/dereference/strategies/{spec}-{version}/index.ts`
-- [ ] `src/dereference/strategies/{spec}-{version}/visitor.ts` and `util.ts`
-- [ ] `src/dereference/strategies/{spec}-{version}/selectors/$anchor.ts` and `selectors/uri.ts`
-- [ ] `src/bundle/strategies/{spec}-{version}/index.ts`
-- [ ] `src/configuration/saturated.ts`: strategy imports + `options.resolve.strategies`, `options.dereference.strategies`, `options.bundle.strategies`
-- [ ] `package.json`: `exports` entries for the resolve, dereference (+ selectors) and bundle strategies
-- [ ] `test/dereference/strategies/{spec}-{version}/`, `test/bundle/strategies/{spec}-{version}/` (optionally `test/resolve/strategies/{spec}-{version}/`)
-- [ ] `README.md`: new parsers in supported specifications list
+Repository root:
+- [ ] `package.json` `unlink` script, `README.md` package list, `package-lock.json`
+
+Extend mode:
+- [ ] Detection covers the new version (and patch releases), rejects other majors
+- [ ] `test/adapter.ts`, `test/media-types.ts`, fixtures bumped in both adapters
+- [ ] Other specs' adapter negative tests bumped
+- [ ] `apidom-parser` adapter-priority test and README bumped
+- [ ] Both adapter READMEs: spec link, media types, examples
 
 ### Verification
 
@@ -342,12 +308,7 @@ After running this skill, verify:
 - [ ] YAML parser adapter package created
 - [ ] Both adapters build successfully
 - [ ] All adapter tests pass
-- [ ] Parser classes created in apidom-reference
-- [ ] Parser tests created in apidom-reference
-- [ ] saturated.ts updated with new parsers
-- [ ] apidom-reference `optionalDependencies`, `devDependencies` and `exports` updated
-- [ ] apidom-reference builds successfully
-- [ ] apidom-reference tests pass
+- [ ] `apidom-parser` tests pass
 - [ ] Full monorepo builds successfully
 - [ ] Documentation updated (README, CHANGELOG)
 - [ ] Type checking passes for all packages

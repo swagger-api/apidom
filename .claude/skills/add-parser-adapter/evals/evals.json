@@ -3,23 +3,41 @@
   "evals": [
     {
       "id": 1,
-      "name": "oas32-adapters-and-reference-wiring",
+      "name": "oas32-adapters",
       "fixture": {
         "checkout": "ef97b5c32^",
         "note": "repo state before OAS 3.2 support (PR #5110)"
       },
-      "prompt": "The namespace package apidom-ns-openapi-3-2 is being added (assume it exists and mirrors apidom-ns-openapi-3-1, exporting OpenApi3_2Element, refractorPluginReplaceEmptyElement and mediaTypes for version 3.2.0). Create the JSON and YAML parser adapters for it and plan the apidom-reference integration. Produce: the src/adapter.ts and src/media-types.ts files of apidom-parser-adapter-openapi-json-3-2 and apidom-parser-adapter-openapi-yaml-3-2, and integration-plan.md listing every file to create or modify in apidom-reference (and anywhere else), including the exact saturated.ts changes.",
-      "expected_output": "Adapters whose detection regexes match only 3.2.x documents, plus a complete integration plan.",
+      "prompt": "The namespace package apidom-ns-openapi-3-2 is being added (assume it exists and mirrors apidom-ns-openapi-3-1, exporting OpenApi3_2Element, refractorPluginReplaceEmptyElement and mediaTypes for version 3.2.0). Create the JSON and YAML parser adapters for it. Produce: the src/adapter.ts and src/media-types.ts files of apidom-parser-adapter-openapi-json-3-2 and apidom-parser-adapter-openapi-yaml-3-2, and integration-plan.md listing every other file to create or modify for the adapters.",
+      "expected_output": "Adapters whose detection regexes match only 3.2.x documents, plus an adapter integration plan that leaves apidom-reference to /add-reference-support.",
       "files": [],
       "assertions": [
         "JSON adapter detectionRegExp matches \"openapi\": \"3.2.0\" and \"3.2.1\" and does not match 3.1.0 or 3.0.3",
         "YAML adapter detectionRegExp matches openapi: 3.2.0 (plain, quoted, and JSON-style) and does not match 3.1.0",
         "JSON and YAML media types cover OpenAPI 3.2.0 (derived from the 3.2 namespace by format, or listed explicitly)",
-        "Plan adds apidom-reference parse parsers openapi-json-3-2 and openapi-yaml-3-2",
-        "Plan adds resolve, dereference and bundle strategies for openapi-3-2",
-        "Plan registers parsers and all three strategies in saturated.ts",
-        "Plan updates apidom-reference package.json (dependencies and exports)",
-        "Plan addresses detection exclusivity or registration order against the 3.1 adapters"
+        "Plan addresses detection exclusivity or registration order against the 3.1 adapters",
+        "Plan lists root package.json unlink script and README package list",
+        "Plan defers apidom-reference wiring to /add-reference-support instead of doing it"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "asyncapi26-extend-adapters",
+      "fixture": {
+        "checkout": "35c7e8f0d",
+        "note": "AsyncAPI 2.6.0 added to apidom-ns-asyncapi-2 (#2535); adapters not yet updated"
+      },
+      "prompt": "apidom-ns-asyncapi-2 now supports AsyncAPI 2.6.0. Update the parser adapters for it.",
+      "expected_output": "Changes equivalent to PR #2536: no new packages, tests/fixtures/READMEs bumped.",
+      "files": [],
+      "assertions": [
+        "Does not create new adapter packages",
+        "Adds 2.6.0 and 2.6.1 positive detection tests to apidom-parser-adapter-asyncapi-json-2 and -yaml-2",
+        "Bumps sample-api fixtures to 2.6.0",
+        "Bumps the OpenAPI adapters' negative asyncapi detection tests to 2.6.0",
+        "Updates packages/apidom-parser/test/adapter-priority.ts to 2.6.0",
+        "Adds the 2.6.0 media types and spec link to both adapter READMEs",
+        "Does not modify packages/apidom-reference"
       ]
     }
   ]

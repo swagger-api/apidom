@@ -127,11 +127,14 @@ ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -- "--typ
 
 Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is validated for presence but not for correctness — a common gap.
 
-**Linter function for array-of-objects fields**: A field that is an array of spec objects (not primitives) should use `apilintChildrenOfElementsOrClasses` (with the element class name as param), not `apilintType`. Flag if `apilintType` is used for a field whose spec type is an array of objects.
+**Linter function for array and map fields**: A field that is an array of spec objects (not primitives) should use `apilintArrayOfElementsOrClasses` with the element name as param (e.g. `linterParams: [['server']]`), either in its `--type.ts` (as in `a2a/a2a1/lint/skills--type.ts`) or in a `--items-type.ts` paired with a `--type.ts` rule for the container (as in `openapi/openapi3_2/lint/servers--items-type.ts`). A map of spec objects uses `apilintChildrenOfElementsOrClasses` (in `--type.ts` or `--values-type.ts`). Flag:
+- `apilintType` alone for a field whose spec type is an array or map of objects (members are never checked)
+- `apilintChildrenOfElementsOrClasses` on an array field: it returns `false` for any non-object, so every valid array is reported
+- `apilintArrayOfElementsOrClasses` on a map field, for the same reason the other way round
 
 ### 4.6 Missing Enum/Value-Constraint Rules
 
-For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` or `{field}--values.ts` rule exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
+For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` rule (`apilintValueOrArray`, `linterParams: [['query', 'header', 'cookie']]`) exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
 
 ### 4.7 Missing Element Configs
 
@@ -158,12 +161,12 @@ These defects are mechanical, so check them with commands rather than by reading
 # Duplicate diagnostic code values (any output is a finding)
 grep -oE "= [0-9]+," packages/apidom-ls/src/config/codes.ts | sort | uniq -d
 
-# New codes: compare each with its neighbours; codes step by 100 per field rule
+# New codes: compare each with its neighbours (naming and numbering below)
 git diff -U2 main...HEAD -- packages/apidom-ls/src/config/codes.ts
 
-# Non-standard required/type messages in changed rule files
+# Non-standard required messages in changed rule files
 git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' \
-  | xargs grep -n "message:" | grep -E "must contain|value must be"
+  | xargs grep -n "message:" | grep "must contain"
 
 # 'reference' in linterParams (the refractor already handles Reference Objects)
 git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' \
@@ -175,4 +178,6 @@ for f in $(git diff --name-only --diff-filter=A main...HEAD -- 'packages/apidom-
 done
 ```
 
-Compare message wording against 2-3 existing rules of the same kind in the same spec directory before flagging; some older directories use variants (e.g. `'{field}' value must be a string`), and consistency within the directory matters more than the global pattern.
+Type messages are not uniform across the repo, so they can't be grepped for: `config/openapi/` mostly uses `summary must be a string`, `config/asyncapi/` mostly `'name' value must be a string`, and `config/a2a/` `'name' must be a string`. Compare each new message with 2-3 existing rules of the same kind in the same spec directory and flag only inconsistencies within that directory.
+
+**Code naming and numbering** (see the `OPENAPI3_2` and `A2A1` blocks in `codes.ts`): names follow `{SPEC}{VERSION}_{ELEMENT}_FIELD_{FIELD}_{RULE}` (`OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE`, `A2A1_AGENT_CARD_FIELD_NAME_REQUIRED`), with the prefix of the version that introduced the field. Each spec version has a base (`OPENAPI3_2 = 7100000`, `A2A1 = 9000000`), each element a `10000` block (`OPENAPI3_2_OPEN_API = 7110000`), each field the next multiple of `100`, and a second rule for the same field follows without a value so the enum assigns `+1` (`OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED`). The A2A block gives required rules their own `100` slot instead; check that new codes follow the pattern of the block they extend.

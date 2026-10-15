@@ -1,21 +1,16 @@
 ---
 name: add-parser-adapter
 description: Creates the JSON and YAML parser adapter packages (`apidom-parser-adapter-{spec}-json-{version}` / `apidom-parser-adapter-{spec}-yaml-{version}`) for an existing ApiDOM namespace (`apidom-ns-*`), or extends existing adapters when a new version is added to an existing namespace (e.g. AsyncAPI 2.6, AsyncAPI 3.1): detection, media types, tests, READMEs and apidom-parser priority tests. Use when a namespace lacks JSON/YAML parsing, right after `/add-namespace`, as phase 2 of /add-spec-version, or when a spec version must become detectable and parseable, even if the user doesn't say "parser adapter". apidom-reference wiring is a separate skill, /add-reference-support.
-disable-model-invocation: false
-user-invocable: true
 ---
 
 # Add Parser Adapter Skill
-
-**Skill Name:** `add-parser-adapter`
-**Description:** Creates or extends parser adapter packages for ApiDOM namespace packages.
 
 ## Overview
 
 This skill has two modes:
 
-- **New**: a namespace has no adapters yet. It discovers which `apidom-ns-*` packages are missing `apidom-parser-adapter-*` packages, lets you select which to create, and generates both the JSON and YAML adapter packages (Phases 1-5, 8-9).
-- **Extend**: a new version was added to an existing namespace whose adapters already exist (e.g. AsyncAPI 2.6 in `apidom-ns-asyncapi-2`). Only detection, tests and docs change (Phase 6).
+- **New**: a namespace has no adapters yet. It discovers which `apidom-ns-*` packages are missing `apidom-parser-adapter-*` packages, lets you select which to create, and generates both the JSON and YAML adapter packages (Phases 1-5 and 7-9).
+- **Extend**: a new version was added to an existing namespace whose adapters already exist (e.g. AsyncAPI 2.6 in `apidom-ns-asyncapi-2`). Only detection, tests and docs change (Phase 6, then Phase 8).
 
 apidom-reference integration (parse parsers, resolve/dereference/bundle strategies, `saturated.ts`) is **not** part of this skill; run `/add-reference-support` afterwards.
 
@@ -42,7 +37,7 @@ Load these only when the phase that needs them starts:
 
 | File | Read during | Contents |
 |------|-------------|----------|
-| `references/user-selection-questions.md` | Phase 2 | Exact `AskUserQuestion` payloads |
+| `references/user-selection-questions.md` | Phase 2, only when asking the user | Exact `AskUserQuestion` payloads |
 | `references/adapter-package-templates.md` | Phases 4 and 5 | Directory layout, package.json, tsconfigs, config files (incl. `vite.config.ts`), `src/adapter.ts`, `src/media-types.ts`, template variables, detection regexps |
 | `references/adapter-test-templates.md` | Phases 4.7 and 5.5 | `test/adapter.ts`, `test/media-types.ts`, fixtures for JSON and YAML adapters |
 | `references/troubleshooting.md` | Phase 8, whenever build/tests fail | Build errors, test failures, detection issues |
@@ -86,12 +81,14 @@ Scan the packages directory to identify namespaces without parser adapters:
    }
    ```
 
-### Phase 2: User Selection
+### Phase 2: Select the Target
 
-**Read `references/user-selection-questions.md` now** for the exact question payloads.
+**Invoked from `/add-spec-version`, or a tracking doc `ADD-{SPEC}-{VERSION}.md` exists at the repo root**: the target namespace is the one named there. Take the spec name, version, version field, accepted version pattern and sibling adapter from the tracking doc and its field map, and read the root element class from the namespace (Phase 3). Don't ask the user.
 
-1. Present the missing adapters to the user using `AskUserQuestion` (one option per missing namespace, e.g. "OpenAPI 3.2 (JSON + YAML)").
-2. After selection, ask for: the specification version field name, the version pattern, and the root specification element class name (or discover it from namespace exports).
+**Otherwise**, if the request names the namespace, use it. Only when it is ambiguous (several namespaces lack adapters and the request doesn't say which), **read `references/user-selection-questions.md`** and:
+
+1. Present the missing adapters with `AskUserQuestion` (one option per missing namespace, e.g. "OpenAPI 3.2 (JSON + YAML)").
+2. Ask only for what Phase 3 can't infer from the namespace and the spec: usually the version pattern to accept, and for specs without a version field, which structural markers identify a document.
 
 ### Phase 3: Extract Namespace Information
 
@@ -124,7 +121,7 @@ Read the namespace package to extract required information:
 3. Generate `src/adapter.ts` (4.3) exporting `detectionRegExp`, `detect`, `parse`, `namespace` and re-exporting `mediaTypes`. Fill all template variables listed with the template.
 4. Generate `src/media-types.ts` (4.4) using `filterByFormat('generic')` + `filterByFormat('json')`.
 5. Generate `tsconfig.json` and `tsconfig.declaration.json` (4.5).
-6. Copy config files from an existing adapter (e.g., `apidom-parser-adapter-openapi-json-3-2`): `config/api-extractor/`, `vite.config.ts` (browser bundle, update `packageName`/`libraryName`), `.mocharc.json`, `.eslintignore`, `.gitignore`, test config (4.6).
+6. Copy config files from an existing adapter (e.g., `apidom-parser-adapter-openapi-json-3-1`): `config/api-extractor/`, `vite.config.ts` (browser bundle, update `packageName`/`libraryName`), `.mocharc.json`, `.eslintignore`, `.gitignore`, `.npmrc`, test config (4.6).
 7. Generate tests: `test/adapter.ts`, `test/media-types.ts`, `test/fixtures/sample-spec.json` (4.7).
 
 ### Phase 5: Generate YAML Parser Adapter
@@ -142,7 +139,7 @@ Create the YAML parser adapter package (similar to JSON but with YAML-specific c
 Worked example: AsyncAPI 2.6.0, PR #2536 (commit `c2d643904`, `git show c2d643904 -- <path>`). Repeat for the JSON and the YAML adapter of the namespace.
 
 1. **Detection**: check that `detectionRegExp` in `src/adapter.ts` matches the new version and still rejects versions outside the namespace (e.g. the next major). Change it only when it doesn't; `asyncapi-*-2` already matched `2.x.y`.
-2. **Media types**: `src/media-types.ts` derives from the namespace, so the new version comes in automatically. Verify in a test (`test/media-types.ts`) through the namespace, e.g. that `mediaTypes.latest()` is now the new version.
+2. **Media types**: `src/media-types.ts` derives from the namespace, so the new version comes in automatically. Verify it through the parser in `test/media-types.ts`: `new ApiDOMParser().use(adapter)`, then assert that `parser.findMediaType('{"{field}": "{version}"}')` returns the new version's media type (see `apidom-parser-adapter-openapi-json-3-2/test/media-types.ts`). Don't assert on `mediaTypes.latest()` directly.
 3. **Adapter tests** (`test/adapter.ts`): add positive detection for `{version}` and a patch release (`2.6.0`, `2.6.1`) via both `detect` and `detectionRegExp`; bump "latest" samples to the new version.
 4. **Fixtures**: bump `test/fixtures/sample-api.{json,yaml}` (and `test/perf/fixtures/*`) to the new version.
 5. **Other specs' adapters**: their negative detection tests use this spec's latest version (e.g. `openapi-json-3-1` asserts it does not detect `"asyncapi": "2.5.0"`); bump them to the new version.
@@ -225,7 +222,11 @@ If anything fails, **read `references/troubleshooting.md`**.
 - Media types always combine `'generic'` with the format-specific types.
 - `detect` runs the cheap regex check **first** and the format detection (`detectJSON`/`detectYAML`, which runs tree-sitter lexical analysis) last: `detectionRegExp.test(source) && (await detectYAML(source))`. Extra structural checks also go before the `await`.
 - Specs without a version field (A2A) need structural detection (required top-level keys). Detection is then weaker: it needs all markers present and can match nested keys. Say so in the `detect` doc comment and the README, and test both a minimal positive document and the known false-positive shape.
-- Tests mirror the sibling adapter's `test/adapter.ts` context by context (`given definition in YAML 1.2 format`, `given definition in JSON format`, `given definition of unknown type`, `given zero byte empty file`, `given non-zero byte empty file`, `given invalid yaml file`, `given YAML with empty node`, `detectionRegExp`). Check with `node .claude/skills/add-spec-version/scripts/check-test-parity.mjs <new test> <sibling test> --mask <sibling spec words>`; every `MISSING` context is added or justified.
+- Tests mirror the sibling adapter's `test/adapter.ts` context by context. The full sets (as in `openapi-*-3-1`, `asyncapi-*-3`, `arazzo-*-1`; the `openapi-*-3-2` adapters lack several contexts, so don't use them as the parity sibling):
+  - **JSON adapter**: `given definition in JSON format`, `given definition in YAML 1.2 format` (not detected), `given definition of unknown type`, `given zero byte empty file`, `given non-zero byte empty file`, `given invalid json file`, `detectionRegExp`.
+  - **YAML adapter**: `given definition in YAML 1.2 format`, `given definition in JSON format` (detected, YAML is a superset), `given definition of unknown type`, `given zero byte empty file`, `given non-zero byte empty file`, `given invalid yaml file`, `given YAML with empty node`, `detectionRegExp`.
+
+  Check with `node .claude/skills/add-spec-version/scripts/check-test-parity.mjs <new test> <sibling test> --mask <sibling spec words>`; every `MISSING` context is added or justified.
 - New adapters are useless to apidom-reference and apidom-ls until wired there: follow up with `/add-reference-support` and `/update-ls-config`.
 
 ### Naming Conventions
@@ -235,13 +236,8 @@ If anything fails, **read `references/troubleshooting.md`**.
 - Examples:
   - `apidom-parser-adapter-openapi-json-3-2`
   - `apidom-parser-adapter-asyncapi-yaml-3`
-  - `apidom-parser-adapter-json-schema-json-2019-09`
+  - `apidom-parser-adapter-json-schema-json-2020-12`
   - `apidom-parser-adapter-arazzo-yaml-1`
-
-**Directory Names**:
-- Use kebab-case with hyphens
-- Pattern: `{spec}-{format}-{version}`
-- Examples: `openapi-json-3-2`, `asyncapi-yaml-3`
 
 ### Special Cases
 
@@ -249,7 +245,7 @@ If anything fails, **read `references/troubleshooting.md`**.
 - Namespace pattern: `apidom-ns-json-schema-{version}`
 - Parser pattern: `apidom-parser-adapter-json-schema-{format}-{version}`
 - Examples:
-  - `apidom-parser-adapter-json-schema-json-2019-09`
+  - `apidom-parser-adapter-json-schema-json-2020-12`
   - `apidom-parser-adapter-json-schema-yaml-2020-12`
 
 **API Design Systems**:
@@ -260,13 +256,11 @@ If anything fails, **read `references/troubleshooting.md`**.
 
 - **Existing Parser Adapters**:
   - Simple: `apidom-parser-adapter-arazzo-json-1`
-  - OpenAPI (reference implementation): `apidom-parser-adapter-openapi-json-3-2`, `apidom-parser-adapter-openapi-yaml-3-2`
+  - OpenAPI: `apidom-parser-adapter-openapi-{json,yaml}-3-1` (complete test contexts); `-3-2` is the newest source but its tests lack several contexts
   - AsyncAPI: `apidom-parser-adapter-asyncapi-yaml-3`
 
 - **Extend mode example**: PR #2536 (AsyncAPI 2.6.0), commit `c2d643904`
 - **Next step**: `/add-reference-support` (apidom-reference parsers and strategies)
-
-- **Architecture**: See CLAUDE.md "Parser Adapters" section
 
 ## Post-Creation Checklist
 
@@ -277,7 +271,7 @@ New adapter packages (repeat for `json` and `yaml`):
 - [ ] `.../src/adapter.ts` and `.../src/media-types.ts`
 - [ ] `.../tsconfig.json` and `.../tsconfig.declaration.json`
 - [ ] `.../config/api-extractor/api-extractor.json` and `.../vite.config.ts` (`packageName`/`libraryName` updated)
-- [ ] `.../.mocharc.json`, `.../.eslintignore`, `.../.gitignore`
+- [ ] `.../.mocharc.json`, `.../.eslintignore`, `.../.gitignore`, `.../.npmrc`
 - [ ] `.../test/adapter.ts`, `.../test/media-types.ts`, `.../test/fixtures/sample-spec.{json|yaml}`, `.../test/mocha-bootstrap.ts`, `.../test/.eslintrc`, `.../test/tsconfig.json`
 - [ ] `.../README.md` (sibling's sections) and `.../CHANGELOG.md` (header only)
 - [ ] `check-test-parity.mjs` against the sibling adapter's `test/adapter.ts`: no unjustified `MISSING`
@@ -296,10 +290,7 @@ Extend mode:
 
 After running this skill, verify:
 
-- [ ] JSON parser adapter package created
-- [ ] YAML parser adapter package created
-- [ ] Both adapters build successfully
-- [ ] All adapter tests pass
+- [ ] Both adapters build and their tests pass
 - [ ] `apidom-parser` tests pass
 - [ ] Full monorepo builds successfully
 - [ ] Documentation updated (README with sibling's sections; CHANGELOG header only)

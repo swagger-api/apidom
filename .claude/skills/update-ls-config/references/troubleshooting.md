@@ -8,7 +8,7 @@ Read this when Phase 8 (build, type check, IDE test) fails or behaves unexpected
 
 ### Issue: Documentation URLs are incorrect
 
-**Solution**: Verify the specification documentation base URL. Different versions may have different URL structures. Check existing version configs for the pattern.
+**Solution**: Verify the specification documentation base URL. Different versions may have different URL structures. Don't copy links from existing version configs: many OpenAPI ones point at anchors that no longer exist. Use the page from "Documentation URLs per Spec" in `completion-and-documentation.md`, copy the anchor from the spec page, and run `verify-urls.mjs` on the config directory.
 
 ### Issue: Lint rules are too strict
 
@@ -25,5 +25,5 @@ Read this when Phase 8 (build, type check, IDE test) fails or behaves unexpected
 
 **Solution**:
 1. Check all imports use `.ts` extension
-2. Verify all referenced target spec symbols exist in target-specs.ts
+2. Verify all referenced target spec constants exist in target-specs.ts
 3. Run `npm run lint:fix` to fix formatting issues

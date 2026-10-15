@@ -9,13 +9,13 @@
 
 **TypeScript errors**:
 - Run `npm run typescript:check-types` to identify issues
-- Check that tsconfig references are correct
+- Check that `tsconfig.json` extends `../../tsconfig.json` like the sibling adapter's
 - Ensure all types are properly exported from namespace
 
 ## Test Failures
 
 **Snapshot mismatches**:
-- Run `npm run test:update-snapshots` to update
+- Adapter packages have no `test:update-snapshots` script. Regenerate snapshots with `UPDATE_SNAPSHOT=1 npm run test` in the adapter directory (`mocha-chai-jest-snapshot` reads `UPDATE_SNAPSHOT`), then review the `test/__snapshots__/*.snap` diff
 - Verify test fixtures are valid specification documents
 
 **Detection failures**:

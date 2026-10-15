@@ -28,12 +28,12 @@ The review of PR #5110 (OAS 3.2) found three recurring defect classes; the gates
 
 | Tool | Use |
 |------|-----|
-| `scripts/phase-status.mjs --spec {spec} --version {x.y.z}` | Which phases are complete (code on `main`, PR open/merged, code only, missing), the next phase, its branch name and the branch to start it from. `--field` when the document's version field differs from the spec id; `--base` to compare against another ref. |
-| `scripts/check-redefined-fields.mjs <packages/apidom-ns-X>` | Getters duplicating an ancestor element. `REDEFINED` = remove; `OVERRIDE` = keep only if the version changed the type; `REMOVED` = throwing getter for a dropped field. |
-| `scripts/verify-urls.mjs <paths...>` or `--diff main` | Fetches every URL and checks `#anchors` (markdown sources and static HTML pages: missing anchor is `BROKEN`). `BROKEN` fails the gate; `UNVERIFIED` needs a manual look. |
-| `scripts/find-unwired.sh <parent-id> <new-id>` | Files mentioning the parent version but not the new one (new variant). |
-| `scripts/check-ls-coverage.mjs <ns-package> <ls-config-dir>` | Per element and field: meta registered, documentation entry, completion item, type rule, allowed-fields entry; placeholder lint rules (`STUB`); lint file names that don't match their linter function. Lists required-field rules for comparison with the field map. |
-| `scripts/check-test-parity.mjs <new-test> <sibling-test> --mask <words>` | Test cases (`describe`/`context`/`specify` outline) present in the sibling package's test file but missing in the new one. |
+| `scripts/phase-status.mjs --spec {spec} --version {x.y.z} [--phase n]` | Which phases are complete (code on `main`, PR open/merged, code only, missing), the next phase, its branch name and the branch to start it from. Exit 1 when a phase before `--phase n` is not done (without `--phase`: a gap, e.g. phase 3 missing while phase 4 is done). `--field` when the document's version field differs from the spec id; `--no-version-field` for specs without one (A2A; auto-detected); `--base` to compare against another ref. |
+| `scripts/check-redefined-fields.mjs <packages/apidom-ns-X>` | Getters (with or without return type) duplicating an ancestor element. `REDEFINED` = remove (exit 1); `RETYPED` = same type name, now this namespace's own class: keep when the refractor produces it; `OVERRIDE` = keep only if the version changed the type; `REMOVED` = throwing getter for a dropped field. |
+| `scripts/verify-urls.mjs <paths...>` or `--diff main` | Fetches every URL and checks `#anchors` (markdown sources and static HTML pages: missing anchor is `BROKEN`). `--diff` covers committed, uncommitted and untracked changes; `--timeout` per request (15 s). `BROKEN` fails the gate (exit 1); `UNVERIFIED` (incl. timeouts) needs a manual look. |
+| `scripts/find-unwired.sh <parent-id> <new-id>` | Files (packages, root `package.json` and `README.md`) mentioning the parent version but not the new one (new variant); exit 1 when any. Documented ignore list for known false positives (`--all` disables it). |
+| `scripts/check-ls-coverage.mjs <ns-package> <ls-config-dir>` | Per element (name resolved through parent namespaces) and own field (`--inherited` for all): meta registered, documentation entry, completion item, type rule, allowed-fields entry; placeholder lint rules (`STUB`); linter functions that don't exist (`UNKNOWN-FN`); lint file names that don't match their linter function. Warns on a stale apidom-ls build (`--source` reads the .ts files). Lists required-field rules for comparison with the field map. |
+| `scripts/check-test-parity.mjs <new-test> <sibling-test> --mask <words>` | Test cases (`describe`/`context`/`specify`/`it` outline, incl. `.skip`/`.only`) present in the sibling package's test file but missing in the new one; `--mask` words match whole words. Exit 1 on `MISSING` or `.only`. |
 | `references/field-map-template.md` | Tracking document and field map structure. |
 | `references/phase-checklists.md` | Per-phase file checklists for the extend and new variants, with worked examples. |
 | `references/pr-workflow.md` | Branch names, PR titles and body, stacking and rebasing. |
@@ -107,7 +107,7 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
 3. **Gate 4**:
    - `cd packages/apidom-ls && npm run build && npm run typescript:check-types && npm run lint && npm test`
    - `check-ls-coverage.mjs packages/apidom-ns-{...} packages/apidom-ls/src/config/{spec} --ignore {INTERNAL elements}` reports 0 problems (build apidom-ls first). Its `required` lines match the field map's Required column.
-   - Field-map coverage: every `NEW` field has a completion item, a documentation entry and lint rules (allowed-fields, `--type`, `--required` when required, `--equals` for enums). No config for `REMOVED` objects of this version.
+   - Field-map coverage: every `NEW` field has a completion item, a documentation entry (or, for an object-valued field documented in its own element directory, a line in the header comment) and lint rules (allowed-fields, `--type`, `--required` when required, `--equals` for enums). No config for `REMOVED` objects of this version.
    - Lint messages follow existing patterns (`should always have a '{field}'`, `'{field}' must be a {type}`); new codes in `codes.ts` are unique.
    - Older versions don't accept what's new (e.g. AsyncAPI 3.0.0 documents don't accept `ros2` bindings); a test proves it.
    - `verify-urls.mjs --diff main`: 0 `BROKEN`.

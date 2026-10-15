@@ -70,7 +70,7 @@ In `packages/apidom-ns-{spec}-{major}/`:
 
 ### New
 
-- [ ] Parsers, resolve/dereference/bundle strategies, `saturated.ts`, `package.json` dependencies and `exports`, tests, README
+- [ ] Parsers; resolve/dereference/bundle strategies only if the spec has Reference Objects or `$ref` (/add-reference-support Phase 3); `saturated.ts`, `package.json` dependencies and `exports`, tests, README
 
 ## Phase 4: apidom-ls
 
@@ -87,7 +87,7 @@ In `packages/apidom-ls/`:
 - [ ] Documentation and completion that follow the latest version: bump spec URLs and versions
 - [ ] `src/config/codes.ts`: new unique codes
 - [ ] `src/services/completion/completion-service.ts`: version-specific insert text (e.g. `asyncapi: '2.6.0$1'`)
-- [ ] JSON Schema validation, only where the family has it (AsyncAPI 2.x, OpenAPI 3.1+; AsyncAPI 3 has none): `src/services/validation/json-schema/{spec}-{xy}/` (downloaded from a verified URL), `src/services/validation/providers/{spec}-{xy}-json-schema-validation-provider.ts`, export in `src/index.ts`
+- [ ] JSON Schema validation, only where the family has it (AsyncAPI 2.x, OpenAPI 3.1+; AsyncAPI 3 has none): `src/services/validation/json-schema/{spec-dir}-{xy}/` (e.g. `async-api-26`, `open-api-32`) (downloaded from a verified URL), `src/services/validation/providers/{spec}-{xy}-json-schema-validation-provider.ts`, export in `src/index.ts`
 - [ ] Tests: `test/{spec}-json.ts`, `test/{spec}-yaml.ts`, `test/complete.ts`, completion fixtures for the family, tests for new objects with full `Diagnostic` objects via `assert.deepEqual`
 
 ### New (`/update-ls-config` plus the LS items in `integration-points.md`)

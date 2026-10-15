@@ -3,7 +3,7 @@
 Based on the OpenAPI 3.2.0 implementation (`packages/apidom-reference/src/{resolve,dereference,bundle}/strategies/openapi-3-2/`). The fastest correct path is to copy the parent version's folders (e.g. `openapi-3-1` → `openapi-3-2`) and rename the version identifiers; the templates below show the required shape.
 
 Key facts:
-- All three strategies use the **same plain name** `'{spec}-{version}'` (e.g. `'openapi-3-2'`); never add `-dereference` / `-bundle` suffixes. The resolve strategy looks up the dereference strategy by this name.
+- All strategies of a spec version use the **same plain name** `'{spec}-{version}'` (e.g. `'openapi-3-2'`); never add `-dereference` / `-bundle` suffixes. The resolve strategy looks up the dereference strategy by this name.
 - Each strategy extends **its own base class**: `ResolveStrategy`, `DereferenceStrategy`, `BundleStrategy`. Resolve and bundle do **not** extend the dereference strategy.
 - The dereference folder is flat: `index.ts`, `visitor.ts`, `util.ts`, `selectors/` directly inside `dereference/strategies/{spec}-{version}/`. There is no `visitors/` subdirectory.
 
@@ -11,6 +11,17 @@ Template variables (in addition to those in `reference-parsers.md`):
 - `{SpecName}{Version}`: class prefix, e.g. `OpenAPI3_2`
 - `{specName}{Version}Namespace`: namespace default import, e.g. `openApi3_2Namespace`
 - `{RootElement}`: root element class, e.g. `OpenApi3_2Element`
+
+## Contents
+
+- 3.1 Create Resolve Strategy
+- 3.2 Create Dereference Strategy
+- 3.3 Create Dereference Visitor
+- 3.4 Create util.ts and Selectors
+- 3.5 Create Bundle Strategy
+- 3.6 Register Strategies and Add `exports` Subpaths (`saturated.ts`, `package.json` `exports`)
+- 3.7 Create Tests for Reference Strategies
+- When strategies are needed (end of file)
 
 ## 3.1 Create Resolve Strategy
 
@@ -367,4 +378,4 @@ describe('dereference', function () {
 });
 ```
 
-**Important Note**: Strategies are not optional for a new spec version. Without them, `$ref`s in documents of the new version are neither resolved, dereferenced nor bundled. OpenAPI 3.2.0 included complete reference integration from the start.
+**When strategies are needed**: without them, `$ref`s in documents of the new version are neither resolved, dereferenced nor bundled. A new version of a spec that already has strategies needs the same set as its parent (OpenAPI 3.2.0 shipped resolve, dereference and bundle from the start, like 3.1). Specs without Reference Objects or `$ref` (A2A) ship parsers only. Arazzo has Reference Objects but currently ships parsers only too. Current coverage: resolve for `openapi-2`, `openapi-3-0`, `openapi-3-1`, `openapi-3-2`, `asyncapi-2`; dereference for those plus `asyncapi-3`; bundle only for `openapi-3-1` and `openapi-3-2`.

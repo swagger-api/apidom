@@ -1,8 +1,6 @@
 ---
 name: add-namespace
-description: Creates a new namespace package (apidom-ns-{spec}-{version}) for a new API specification or a new specification version in the ApiDOM monorepo, including element classes, refractor visitors, the specification object, predicates, media types, tests and package config. Use when adding support for a new spec (e.g. RAML, API Blueprint) or a new version of an existing one (e.g. OpenAPI 3.3, AsyncAPI 4.0), even if the user only asks to "add support for" a spec version and never says "namespace".
-disable-model-invocation: false
-user-invocable: true
+description: Creates or fixes a namespace package (apidom-ns-{spec}-{version}) in the ApiDOM monorepo for a new API specification or a new specification version, including element classes, refractor visitors, the specification object, predicates, media types, tests and package config. Use when the namespace package itself is the job, for example "create apidom-ns-openapi-3-3", "add the elements for RAML", "fix the refractor/specification object of the new namespace", or as phase 1 of /add-spec-version, even if the user doesn't say "namespace". End-to-end requests to "add support for" a spec version (namespace, parser adapters, apidom-reference, apidom-ls) belong to /add-spec-version, which runs this skill as its first phase.
 ---
 
 # Add Namespace Package Skill
@@ -17,7 +15,7 @@ This file holds the workflow and the rules. Code templates and longer examples l
 |----------------|----------|-----------|
 | `references/package-config.md` | Directory layout, `package.json`, `tsconfig.json`, `tsconfig.declaration.json`, README structure, CHANGELOG header | Phase 2, Phase 3 steps 3.1, 3.10, 3.11, 3.13 |
 | `references/elements-and-namespace.md` | Element class template, type mappings, `namespace.ts`, `predicates.ts`, `media-types.ts`, `registration.ts`, `index.ts`, naming conventions (incl. root element), reserved field names, CSS classes, NCEs | Phase 3 steps 3.2-3.5, 3.8, 3.9 |
-| `references/refractor-visitors.md` | Fixed fields / map / dynamic type detection visitors, `specification.ts`, advanced specification patterns, parent namespace inheritance, common specification features (from OAS 3.2) | Phase 1 (feature checklist), Phase 3 steps 3.6, 3.7 |
+| `references/refractor-visitors.md` | Fixed fields / map / reference-or-object / patterned fields visitors, extending a parent's visitor, `specification.ts` for a brand-new spec and for a parent extension, common specification features (from OAS 3.2) | Phase 1 (feature checklist), Phase 3 steps 3.6, 3.7 |
 | `references/replace-empty-element.md` | Plugin template, which fields need `schema` entries, wiring, tests | Phase 3 step 3.12, Phase 5 |
 | `references/testing.md` | Sibling parity, every-field rule, element refractor test, `test/predicates.ts`, adapter-path normalization test | Phase 5 |
 | `references/troubleshooting.md` | Build errors, test failures, type errors | Phase 6, when something fails |
@@ -43,72 +41,57 @@ Before running this skill:
 3. **Identify all elements**: List all object types defined in the specification
 4. **Map specification structure**: Understand the hierarchical relationships between elements
 
-## IMPORTANT: Common Mistakes to Avoid
+## Rules That Reviews Keep Catching
 
-**READ THIS SECTION CAREFULLY** before starting implementation. Refer to `CLAUDE.md` in the repository root for detailed guidelines.
+The root `CLAUDE.md` ("Best Practices for Adding Specification Versions") is always loaded and covers
+the general rules: check the parent version first, verify every field against the spec, implement all
+new fields, verify URLs, search before creating. This skill adds the namespace-specific parts:
 
-### Critical Validation Steps
-
-When implementing a new specification version (especially when extending a parent version):
-
-1. **Check Parent Version First** (⚠️ MOST COMMON MISTAKE):
-   - Before adding ANY field to an element, check if it already exists in the parent version
-   - Example: Don't add `Components.pathItems` in OAS 3.2 if it already exists in OAS 3.1
-   - Read the parent namespace element file: `packages/apidom-ns-{parent}/src/elements/{ElementName}.ts`
-   - Read the parent specification document to understand what fields already exist
-
-2. **Verify Field Existence in Specification**:
-   - Confirm field names appear in official specification "Fixed Fields" tables
-   - Don't add fields that don't exist (e.g., don't add `components.webhooks` if spec has `webhooks` at root level)
-   - Cross-reference with JSON Schema files and specification examples
-
-3. **Implement ALL New Fields**:
-   - Create a comprehensive checklist of ALL objects and fields
-   - Compare systematically against parent version
-   - Don't skip fields that seem unimportant - implement everything
-
-4. **Verify All URLs**:
-   - Test every URL with `curl -I <url>` before using it
-   - Common URLs: dialect URLs, schema URLs, specification URLs
-   - Example: Use `https://spec.openapis.org/oas/3.2/dialect/2025-09-17` (with date), not `.../dialect/base`
-
-5. **Search Before Creating**:
-   - Before creating new files, search for similar existing files
-   - Use Glob/Grep to find related implementations
-   - Don't create duplicates (e.g., `OpenApi3-1.ts` when `OpenApi3-2.ts` should be used)
-
-### Pre-Implementation Checklist
-
-Before writing ANY code:
-- [ ] Read FULL official specification (not summaries)
-- [ ] Read parent version specification (if extending)
-- [ ] Read parent namespace implementation files
-- [ ] Create comparison table: parent version vs current version
-- [ ] Mark which fields are NEW vs inherited
-- [ ] Verify all URLs exist (test with curl)
-- [ ] List ALL new fields for each object
+1. **The field map is the source of fields.** Work from the parent-vs-new field map (built by
+   `/add-spec-version`, or by you in Phase 1). Each field comes from this version's Fixed Fields tables
+   and is marked `NEW` or `INHERITED`. The spec's JSON Schema may be used to double-check a field's
+   type, never as a source of fields: it can contain fields that aren't in the Fixed Fields tables
+   (PR #5182 added a non-existent `AgentCard.url` and missed `AgentSkill.id`).
+2. **Inherited fields are not redefined**, neither as element getters nor as new field visitors in
+   `specification.ts`; the parent's code already handles them, and a copy drifts from it. Run
+   `node .claude/skills/add-spec-version/scripts/check-redefined-fields.mjs packages/apidom-ns-{spec}-{version}`
+   when extending a parent.
+3. **Verify URLs with the script**, not by eye: dialect, schema and specification URLs (including
+   `#anchors`) go through
+   `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ns-{spec}-{version}`.
+   It checks status codes and anchors. Fall back to `curl -I <url>` only for a single URL the script
+   reports as `UNVERIFIED`.
+4. **Copy real files, then adapt.** The templates in `references/` are taken from
+   `apidom-ns-arazzo-1`, `apidom-ns-a2a-1` and `apidom-ns-openapi-3-2`; when a template and the sibling
+   package disagree, the sibling package is right.
 
 ## Skill Instructions
 
 ### Phase 1: Gather Information
 
-Ask the user for the following information:
+You need:
 
-1. **Specification Name**: The name of the specification (e.g., 'openapi', 'asyncapi', 'arazzo')
-2. **Specification Version**: The version string (e.g., '3-1', '2', '4-0')
-3. **Package Description**: Short description for package.json
-4. **Parent Namespace** (optional): If basing on existing namespace, which one? (e.g., '@swagger-api/apidom-ns-asyncapi-2')
-5. **Specification Elements**: List of all element types in the specification with their properties
+1. **Specification name** (e.g. `openapi`, `asyncapi`, `arazzo`) and **version** in package form
+   (`3-2`, `1`)
+2. **Package description** for `package.json`
+3. **Parent namespace**, if the version extends an existing one (e.g.
+   `@swagger-api/apidom-ns-openapi-3-1` for OpenAPI 3.2), and the **sibling package** to copy from
+   (`apidom-ns-arazzo-1` or `apidom-ns-a2a-1` for a brand-new spec, the parent otherwise)
+4. **The field map**: every object of the spec, every field with its type, whether it is a fixed or
+   patterned field, and `NEW` / `INHERITED` status against the parent. Also note the root object, which
+   fields are maps or arrays (they become NCEs), whether the spec has a Reference Object (`$ref`) and
+   whether it allows `x-*` extensions.
 
-   For each element, collect:
-   - Element name (PascalCase, e.g., 'Workflow', 'Info', 'Server')
-   - Element type: 'object' | 'array' | 'string' | 'number' | 'boolean'
-   - Properties (for object types):
-     - Property name (camelCase)
-     - Property type (StringElement, ArrayElement, ObjectElement, or custom element type)
-     - Whether it's a fixed field or patterned field
-   - CSS classes (optional, for specialized element identification)
-   - Whether it's the root specification element
+Where to get it, in order:
+
+- **Invoked from `/add-spec-version`, or a tracking doc `ADD-{SPEC}-{VERSION}.md` exists at the repo
+  root**: take items 1-4 from the tracking doc and its field map. Don't ask the user again.
+- **Otherwise**: read the official specification yourself and build the field map following
+  `.claude/skills/add-spec-version/references/field-map-template.md`. The element list comes from the
+  spec's object definitions and Fixed Fields tables, not from the user typing it out.
+
+Ask the user only for what can't be inferred: typically the spec URL or version if they weren't given,
+and the package description if the spec's own summary doesn't fit.
 
 While building the parent-vs-current comparison table, skim "Common Specification Features to Support" in `references/refractor-visitors.md`. It lists the kinds of changes new versions typically introduce (new HTTP methods, dynamic operation collections, reusable component types, global configuration fields, webhooks, self-reference fields, extended metadata fields), which makes it harder to overlook a new field.
 
@@ -149,32 +132,44 @@ Key points per step (details and code are in the reference files):
 - **3.2**: When extending a parent version, the element class extends the parent element and adds getters/setters only for fields that are NEW in this version. Redefining inherited fields is the most common mistake in review, because it duplicates behaviour that already works. Fields named like an ApiDOM element property (`id`, `element`, `meta`, `attributes`, `content`, `classes`, ...) get a renamed accessor; see "Reserved Field Names" in `references/elements-and-namespace.md`. Implement every field of the field map and nothing else: no field from another version or from the spec's JSON Schema that isn't in its Fixed Fields table (PR #5182 added a non-existent `AgentCard.url` and missed `AgentSkill.id`).
 - **Root element name**: `{spec}{Name}{major}` style, unique across namespaces: `openApi3_1`, `asyncApi3`, `arazzoSpecification1`, `a2aAgentCard1`. A bare object name such as `agentCard` doesn't identify the spec and version, and was renamed in review (PR #5182).
 - **3.4**: Every element needs an `is{ElementName}Element` predicate; add `hasClass` checks for elements with CSS classes.
-- **3.6**: Pick the visitor type per field: `FixedFieldsVisitor` for objects with known properties, `MapVisitor` for dynamic key-value collections, and dynamic type detection for collections that can hold a Reference or a concrete element. Set `canSupportSpecificationExtensions` to `true` only for elements that accept `x-*` fields per the spec. A visitor used by a single element lives in that element's visitor directory (`visitors/{spec}-{version}/agent-capabilities/ExtensionsVisitor.ts`), not at the top level.
+- **3.6**: Pick the visitor type per field: `FixedFieldsVisitor` for objects with known properties, `MapVisitor` for key-value collections of one type, and a `specPath` function using `isReferenceLikeElement` for collections whose values can be a Reference Object or a concrete object. When extending a parent, an existing object's visitor subclasses the parent's visitor and only swaps the element class. Set `canSupportSpecificationExtensions` to `true` only for elements that accept `x-*` fields per the spec. A visitor used by a single element lives in that element's visitor directory (`visitors/{spec}-{version}/agent-capabilities/ExtensionsVisitor.ts`), not at the top level.
 - **3.12**: Add a `schema` entry for every object-, array- and map-valued field of the field map, including array items (`'<*>'`) and map values (`'[key: *]'`). apidom-ls needs it for YAML documents.
 - **3.13**: README: copy the sibling namespace's README and keep its sections and order (Installation, namespace, Predicates, Traversal, Refractors, Refractor plugins with "Replace Empty Element plugin", Implementation progress), adapting examples. CHANGELOG: header only, no entries; release automation writes them (see `references/package-config.md`).
-- **3.7**: When extending a parent, spread the parent `specificationObj` and override only changed or new objects, reusing parent visitors where possible.
+- **3.7**: When extending a parent, list every object with this version's own `$visitor`, and fill `fixedFields` field by field: reuse the parent's entry (`ParentSpecification.visitors.document.objects.{Object}.fixedFields.{field}`) for inherited fields and add new fields with a `// {Spec} {version} addition` comment. Don't spread the parent's `objects`; see `apidom-ns-openapi-3-2/src/refractor/specification.ts`.
 - Naming: element classes PascalCase, registered element names camelCase, visitor directories kebab-case (see the naming sections in the reference files).
 
 ### Phase 4: Copy Supporting Files
 
-Copy the following files from a similar namespace package (e.g., `apidom-ns-arazzo-1`):
+Which files are copied depends on whether the namespace stands alone or extends a parent.
 
-1. `src/refractor/visitors/generics/FixedFieldsVisitor.ts`
-2. `src/refractor/visitors/generics/PatternedFieldsVisitor.ts`
-3. `src/refractor/visitors/generics/MapVisitor.ts`
-4. `src/refractor/visitors/FallbackVisitor.ts`
-5. `src/refractor/visitors/SpecificationExtensionVisitor.ts`
-6. `src/refractor/visitors/SpecificationVisitor.ts`
-7. `src/refractor/visitors/Visitor.ts`
-8. `src/refractor/index.ts` (createRefractor function)
-9. `src/refractor/toolbox.ts`
-10. `src/refractor/predicates.ts`
-11. `src/traversal/visitor.ts`
-12. `test/mocha-bootstrap.ts`
-13. `config/api-extractor/api-extractor.json` (update package name)
-14. `vite.config.ts` (update package and library name)
+**Brand-new spec** (no parent, like `apidom-ns-arazzo-1` and `apidom-ns-a2a-1`): copy these from the
+sibling package and adapt them:
 
-**Copy, then prune.** Copied files carry the source spec's features and wording. After copying:
+1. `src/refractor/visitors/generics/FixedFieldsVisitor.ts`, `PatternedFieldsVisitor.ts`, `MapVisitor.ts`
+2. `src/refractor/visitors/FallbackVisitor.ts`, `SpecificationVisitor.ts`, `Visitor.ts`
+3. `src/refractor/visitors/SpecificationExtensionVisitor.ts` (only if the spec has `x-*` extensions)
+4. `src/refractor/predicates.ts` (`isReferenceLikeElement`, extension predicate)
+5. `src/refractor/index.ts` (`refract`, `createRefractor`), `src/refractor/toolbox.ts`
+6. `src/traversal/visitor.ts`
+7. `test/mocha-bootstrap.ts`, `.mocharc.json`, `.eslintignore`, `.gitignore`, `.npmrc`
+8. `config/api-extractor/api-extractor.json`, `vite.config.ts` (update package and library name)
+
+**Extending a parent** (like `apidom-ns-openapi-3-2` on `apidom-ns-openapi-3-1`): the generic
+visitors, `FallbackVisitor`, `SpecificationVisitor`, `Visitor`, `SpecificationExtensionVisitor` and
+`isReferenceLikeElement` are imported from the parent package, not copied; the new package has no
+`visitors/generics/` directory and no `src/refractor/predicates.ts`. Copy from the parent and adapt
+only:
+
+1. `src/refractor/index.ts` (default `specPath` points at the new root object, `Visitor` type imported
+   from the parent), `src/refractor/toolbox.ts` (uses this namespace's predicates and namespace)
+2. `src/traversal/visitor.ts`
+3. The parent's refractor plugins (`src/refractor/plugins/`), so they produce this version's elements
+4. Test setup, dotfiles, `config/api-extractor/api-extractor.json`, `vite.config.ts` as above
+
+`src/index.ts` then re-exports the inherited visitor classes from the parent (see 3.9 in
+`references/elements-and-namespace.md`).
+
+**Copy, then prune** (brand-new spec). Copied files carry the source spec's features and wording. After copying:
 
 - Spec has no Reference Object / `$ref`: remove `isReferenceLikeElement` and reference handling from `src/refractor/predicates.ts` and the visitors.
 - Spec has no `x-*` extensions: remove `SpecificationExtensionVisitor`, `isSpecificationExtension` and the `canSupportSpecificationExtensions` branches. PR #5182 kept both for A2A, which has neither; the code could never run.
@@ -219,20 +214,16 @@ Before writing tests, read `references/testing.md`. Its two rules: mirror the si
 
 If any of these fail, read `references/troubleshooting.md`.
 
-### Phase 7: Update Root Configuration
+### Phase 7: Update Root Files
 
-1. **Add to root package.json workspaces** (if not already included by glob pattern)
+The root `package.json` `workspaces` glob (`./packages/*`) already picks up the new package, and the
+root `tsconfig.json` has no project references, so neither needs an entry. What does change:
 
-2. **Update root tsconfig.json** with project reference:
-   ```json
-   {
-     "references": [
-       { "path": "./packages/apidom-ns-{spec}-{version}" }
-     ]
-   }
-   ```
-
-3. **Root `package.json` `unlink` script** and root `README.md` package list: add the new package.
+1. **`package-lock.json`**: run `npm i` at the repo root so the new workspace is recorded.
+2. **Root `README.md`**: add the package to the `npm install` list and to "Available namespaces" under
+   "ApiDOM Namespaces", in alphabetical order.
+3. **Root `package.json` `unlink` script**: add the package name. The list is maintained by hand and is
+   behind (OAS 3.2 and A2A were not added), so compare it with `ls packages` while you are there.
 
 Do not add entries to the package `CHANGELOG.md`; it keeps only the standard header until the first release.
 
@@ -242,7 +233,7 @@ Before reporting the namespace as done:
 
 - [ ] No fields from the parent version are redefined in element classes or the specification object
 - [ ] ALL new fields from the specification's "Fixed Fields" tables are implemented, and no invented fields were added
-- [ ] Every URL used (dialects, schemas, specification links) was verified with `curl -I` and returns 200
+- [ ] `verify-urls.mjs` passes for every URL used (dialects, schemas, specification links, anchors)
 - [ ] No duplicate files (searched before creating)
 - [ ] Every element has an element class, a namespace registration, a predicate, a visitor, a `specification.ts` entry, a `registration.ts` refractor, exports in `src/index.ts`, and a test that sets every field
 - [ ] `replace-empty-element` plugin covers every object/array/map field (incl. array items and map values), is exported, tested and documented in the README
@@ -255,7 +246,7 @@ Before reporting the namespace as done:
 - [ ] `npm run test` passes
 - [ ] `npm run typescript:check-types` passes
 - [ ] `npm run lint` passes
-- [ ] Root configuration (workspaces, tsconfig references, `unlink` script, README package list) updated
+- [ ] Root files updated: `package-lock.json` (`npm i`), README package lists, `unlink` script
 
 ## Next Steps After Namespace Creation
 
@@ -268,7 +259,6 @@ Before reporting the namespace as done:
 
 ## References
 
-- **PDF Instructions**: Section on "Adding a completely new specification"
 - **Example Packages**:
   - Simple: `apidom-ns-arazzo-1` (26 elements, workflow-focused)
   - Medium: `apidom-ns-openapi-3-1` (34 elements, JSON Schema integration)

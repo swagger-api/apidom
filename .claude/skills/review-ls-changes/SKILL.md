@@ -1,14 +1,9 @@
 ---
 name: review-ls-changes
 description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". Not for JSON Schema dialect configs.
-disable-model-invocation: false
-user-invocable: true
 ---
 
 # Review Language Service Changes Skill
-
-**Skill Name:** `review-ls-changes`
-**Description:** Reviews changes in `packages/apidom-ls` against the target specification, producing a structured report of incorrect, missing, and incomplete lint rules and documentation.
 
 ## Overview
 
@@ -28,7 +23,7 @@ Read these on demand, at the step that points to them — not all up front:
 | File | Contents | Read when |
 |---|---|---|
 | `references/spec-field-extraction.md` | Source-of-truth rules, curl+Python extraction scripts, required-field formats, raw Markdown sources, mandatory table verification | Phase 2 (before fetching any spec content) and before reporting any Issue 1 finding |
-| `references/lint-rule-checks.md` | Implementation-map commands, detailed criteria for checks 4.1–4.7, `targetSpecs` grep commands | Phases 3 and 4 |
+| `references/lint-rule-checks.md` | Implementation-map commands, detailed criteria for checks 4.1–4.8, `targetSpecs` grep commands | Phases 3 and 4 |
 | `references/docs-completion-anchor-checks.md` | Documentation value checks, completion file commands, anchor format table | Phases 5 and 6 |
 | `references/key-lessons.md` | Recurring mistake patterns from past reviews | Before Phase 4, and whenever a finding seems borderline |
 
@@ -106,10 +101,10 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 - [ ] **4.2 Missing required-field rules** — every spec-required field has `{field}--required.ts` (watch for `*--type.ts` without a paired `*--required.ts`).
 - [ ] **4.3 Allowed-fields accuracy** — `linterParams[0]` has no extra and no missing fields; version-scoped files (e.g. `allowed-fields-3-2.ts`) contain new AND carried-over fields.
 - [ ] **4.4 Target spec scoping** — existing entries for unchanged fields include the new version; entries for NEW fields target only the new version; removed/changed fields stay limited; version-scoped files do not overlap and cover every supported version.
-- [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType`.
-- [ ] **4.6 Enum/value-constraint rules** (advisory) — candidates for `{field}--equals.ts` / `{field}--values.ts`.
+- [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintArrayOfElementsOrClasses` and map-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType` alone.
+- [ ] **4.6 Enum/value-constraint rules** (advisory) — candidates for `{field}--equals.ts` (`apilintValueOrArray`).
 - [ ] **4.7 Missing element configs** — every namespace element type (and union subtype) is registered in `config.ts`.
-- [ ] **4.8 Rule conventions** — new codes in `codes.ts` are unique and follow the numbering of their neighbours (e.g. x100 steps per field); messages follow existing patterns (`should always have a '{field}'`, `'{field}' must be a {type}`); no `'reference'` in `linterParams`; file names `{field}--{type}.ts`; every new rule file is imported in its `lint/index.ts`.
+- [ ] **4.8 Rule conventions** — new codes in `codes.ts` are unique and follow the naming (`{SPEC}{VERSION}_{ELEMENT}_FIELD_{FIELD}_{RULE}`) and numbering of their block (element block per `10000`, `100` per field, `+1` for a second rule on the same field); messages match the style of the same spec directory (`should always have a '{field}'`; type messages vary per directory); no `'reference'` in `linterParams`; file names `{kebab-field}--{rule}.ts`; every new rule file is imported in its `lint/index.ts`.
 
 ### Phase 5: Check Documentation Values
 
@@ -203,6 +198,8 @@ Structure the report as follows. Only include sections that have findings.
 | Wrong URL anchors | N |
 | Missing/empty completion files | N |
 | Incorrect target spec scoping | N |
+| Rule convention violations | N |
+| Advisory: enum/value-constraint rules to consider | N |
 ```
 
 Include a spec source link (section number + URL) for **every finding**. A finding without a spec citation is not actionable.
@@ -217,7 +214,7 @@ Recurring mistake patterns (TOC entries mistaken for tables, required-status for
 /review-ls-changes
 ```
 
-Then provide when prompted:
+When run as a subagent (for example from `/add-spec-version`), or when the branch name, the diff or a tracking document such as `ADD-{SPEC}-{VERSION}.md` makes the inputs clear, infer them and state what you inferred in the report instead of asking. Otherwise provide when prompted:
 - Spec URL: e.g. `https://spec.openapis.org/oas/v3.2.0` or `https://www.asyncapi.com/docs/reference/specification/v3.0.0`
 - Config dir: e.g. `packages/apidom-ls/src/config/openapi/`
 - Namespace: e.g. `packages/apidom-ns-openapi-3-2/`

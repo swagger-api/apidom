@@ -43,7 +43,7 @@ When a spec defines a discriminated union (e.g. a `SecurityScheme` type with sub
 When a spec version adds new fields to existing objects (e.g. `prefixEncoding`, `itemEncoding` added to `Encoding`), those fields are routinely absent from `allowed-fields`, `documentation.ts`, `completion.ts`, AND lint rules. Always build a diff of new vs inherited fields per object and check all four coverage areas for each new field.
 
 ### Array-of-Objects Fields Need a Different Linter Function
-A field that is an array of spec objects should use `apilintChildrenOfElementsOrClasses` (with the element class name), not `apilintType`. Using `apilintType` with `['array']` validates the container but not the element type of its members.
+A field that is an array of spec objects should use `apilintArrayOfElementsOrClasses` with the element name (e.g. `[['agentSkill']]`), not `apilintType`. Using `apilintType` with `['array']` validates the container but not the element type of its members. Maps of spec objects use `apilintChildrenOfElementsOrClasses` instead; it returns `false` for anything that is not an object, so using it on an array field flags every valid array (see `services/validation/linter-functions.ts`).
 
 ### Deprecated/Removed Objects May Still Have Config Dirs
 If a spec removes an object in a new version, its config directory may persist in the implementation. Always check the spec changelog. If an older version that still defines the object is supported by the LS, **do not remove the config** — verify that its rules, documentation, and completion entries are scoped via `targetSpecs` to the versions where the object exists. Flag the directory for removal only if no supported version defines the object.

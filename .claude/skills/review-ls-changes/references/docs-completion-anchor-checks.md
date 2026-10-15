@@ -55,7 +55,7 @@ Different spec sites use different anchor formats — determine the correct form
 | Spec site pattern | Common anchor format |
 |---|---|
 | Numbered section pages (e.g. `#451-objectname`) | lowercase with hyphens, prefixed by section number |
-| GitHub Markdown (e.g. `github.com/.../versions/X.md`) | `#camelCaseAnchor` |
+| GitHub Markdown (e.g. `github.com/.../versions/X.md`) | heading slugs are kebab-case (`#path-item-object`); `<a name="...">` field anchors vary by version (OAS 3.1 `#oasInfo`, OAS 3.2 `#oas-info`). Check the raw markdown |
 | `spec.openapis.org` | varies by version — check the actual page |
 | Separate definition/reference pages | often kebab-case (`#object-name`) |
 

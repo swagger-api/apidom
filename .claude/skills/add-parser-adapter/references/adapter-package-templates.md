@@ -45,6 +45,7 @@ packages/apidom-parser-adapter-{spec}-json-{version}/
 ├── .eslintignore
 ├── .gitignore
 ├── .mocharc.json
+├── .npmrc
 ├── vite.config.ts
 ├── package.json
 ├── tsconfig.json
@@ -241,7 +242,7 @@ Copy from an existing parser adapter (e.g., `apidom-parser-adapter-openapi-json-
 
 1. **config/api-extractor/api-extractor.json** - Copy as-is (points at `../../types/adapter.d.ts`)
 2. **vite.config.ts** - Update `packageName` and `libraryName` (see below)
-3. **.mocharc.json**, **.eslintignore** - Copy as-is
+3. **.mocharc.json**, **.eslintignore**, **.npmrc** - Copy as-is (`.npmrc` sets `save-prefix="="` and `save=false`; take it from `apidom-parser-adapter-arazzo-json-1` or `-openapi-json-3-1`, since the OpenAPI 3.2 adapters lack it)
 4. **.gitignore** - Copy and update the package name in the `/swagger-api-apidom-parser-adapter-*.tgz` line
 5. **test/mocha-bootstrap.ts**, **test/.eslintrc**, **test/tsconfig.json** - Copy as-is
 

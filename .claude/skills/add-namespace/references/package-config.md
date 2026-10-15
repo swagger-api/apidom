@@ -6,7 +6,10 @@ and 3.11. Replace every `{spec}`, `{version}` and `{Specification Name}` placeho
 
 ## Package Directory Layout
 
-Create the following directory structure:
+Create the following directory structure. It is the layout of a brand-new spec (`apidom-ns-arazzo-1`).
+When extending a parent, leave out `visitors/generics/`, `FallbackVisitor.ts`,
+`SpecificationExtensionVisitor.ts`, `SpecificationVisitor.ts`, `Visitor.ts` and `refractor/predicates.ts`;
+they are imported from the parent package (see Phase 4 in `SKILL.md`).
 
 ```
 packages/apidom-ns-{spec}-{version}/
@@ -55,6 +58,7 @@ packages/apidom-ns-{spec}-{version}/
 │   ├── api-extractor/
 │   │   └── api-extractor.json
 ├── vite.config.ts
+├── .eslintignore, .gitignore, .mocharc.json, .npmrc   # copy from the sibling package
 ├── package.json
 ├── tsconfig.json
 ├── tsconfig.declaration.json
@@ -67,11 +71,12 @@ packages/apidom-ns-{spec}-{version}/
 ```json
 {
   "name": "@swagger-api/apidom-ns-{spec}-{version}",
-  "version": "1.0.0",
+  "version": "{monorepoVersion}",
   "description": "{Specification Name} {Version} namespace for ApiDOM.",
   "publishConfig": {
     "access": "public",
-    "registry": "https://registry.npmjs.org"
+    "registry": "https://registry.npmjs.org",
+    "provenance": true
   },
   "type": "module",
   "sideEffects": [
@@ -97,7 +102,7 @@ packages/apidom-ns-{spec}-{version}/
     "test": "NODE_ENV=test ts-mocha --exit",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
+    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json 2>&1 | shx grep -v 'Visitor_base'",
     "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
@@ -109,7 +114,7 @@ packages/apidom-ns-{spec}-{version}/
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.2.2",
+    "@swagger-api/apidom-core": "^{monorepoVersion}",
     "@types/ramda": "~0.30.0",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0",
@@ -128,17 +133,21 @@ packages/apidom-ns-{spec}-{version}/
 }
 ```
 
-**Note**: Add parent namespace to dependencies if extending an existing namespace.
+`{monorepoVersion}` is the current `version` in the root `lerna.json`; all packages are released
+together and depend on each other at that version. Take it, and the third-party dependency ranges,
+from `lerna.json` and a sibling namespace's `package.json` rather than from this template, which goes
+stale with every release. If extending an existing namespace, add the parent namespace (at the same
+`^{monorepoVersion}`) to `dependencies`, plus any other namespaces the parent's `package.json` lists
+that your code imports directly.
 
 ## 3.10 tsconfig.json
 
 ```json
 {
   "extends": "../../tsconfig.json",
-  "include": ["src/**/*"],
-  "compilerOptions": {
-    "composite": true
-  }
+  "include": [
+    "src/**/*"
+  ]
 }
 ```
 
@@ -149,12 +158,16 @@ packages/apidom-ns-{spec}-{version}/
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./types"
+    "declarationDir": "types",
+    "noEmit": false,
+    "emitDeclarationOnly": true
   }
 }
 ```
+
+The root `tsconfig.json` sets `noEmit: true`, so `noEmit: false` is what lets declarations be written.
+Don't add `composite`, `declarationMap` or `outDir`; no namespace package uses them, and
+`api-extractor` expects the declarations in `types/`.
 
 ## 3.13 README.md and CHANGELOG.md
 

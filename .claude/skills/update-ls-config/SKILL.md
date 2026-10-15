@@ -1,24 +1,15 @@
 ---
 name: update-ls-config
 description: Adds or updates apidom-ls language service configuration (completion items, hover documentation, lint rules, meta.ts and target-spec wiring) in packages/apidom-ls/src/config for a namespace package by analyzing its elements, refractor specification and parser adapters. Use when a new spec namespace or version (e.g. apidom-ns-openapi-3-2, apidom-ns-asyncapi-3, Arazzo) needs IDE support, or when an existing namespace gains new elements or fields that need autocomplete, hover docs or validation, even if the user doesn't say "ls config".
-disable-model-invocation: false
-user-invocable: true
 ---
 
 # Update Language Service Config Skill
-
-**Skill Name:** `update-ls-config`
-**Description:** Updates apidom-ls configuration for a specific namespace package by analyzing the namespace structure and creating completion, documentation, and lint configurations.
 
 ## Overview
 
 This skill automates the process of updating the language service (apidom-ls) configuration for a namespace package. It analyzes the namespace package structure, corresponding parser adapter packages, and generates appropriate configuration files for IDE features like autocomplete, hover documentation, and validation.
 
-**Scale**: Based on OpenAPI 3.2.0 implementation, expect to create:
-- 70+ completion items for comprehensive property suggestions
-- 50+ lint rules for validation (one per element type minimum)
-- Documentation for complex/union type properties
-- Support for all specification elements and their nested properties
+**Scope**: coverage is per field per element. Every object the spec defines gets a config directory, and every field of it gets a completion item, a documentation entry and a type rule, plus `--required` and `--equals` rules where the spec calls for them. `check-ls-coverage.mjs` (Phase 6 step 5) checks this mechanically, so there is no target number of items or rules.
 
 ### Reference Files (load on demand)
 
@@ -26,7 +17,7 @@ This skill automates the process of updating the language service (apidom-ls) co
 |------|-----------|
 | `references/version-wiring.md` | Phase 4 (target-specs.ts), Phase 5.1 (directory layout), 5.7 (meta.ts), Phase 7 (config.ts, symbols.ts); naming conventions |
 | `references/completion-and-documentation.md` | Phase 5.2 (completion.ts), 5.3 (documentation.ts), Phase 6 element completion/docs |
-| `references/lint-rules.md` | Phase 5.4-5.6 (allowed-fields, `{field}--{type}.ts`, lint index), Phase 6 element lint rules |
+| `references/lint-rules.md` | Phase 5.4-5.6 (where rules live, file naming, `codes.ts`, allowed-fields, per-field rules, lint index), Phase 6 element lint rules |
 | `references/special-cases-and-elements.md` | Phase 5/6 when the spec adds new methods, dynamic collections, version-specific, hierarchical, global, `$self` or `$ref`-or-inline fields; baseline element list |
 | `references/troubleshooting.md` | Phase 8 build/type-check/IDE failures |
 | `packages/apidom-ls/CLAUDE.md` | Before writing any lint rule or test (linter function choice, message patterns, test patterns, pitfalls) |
@@ -51,40 +42,20 @@ Before running this skill:
 
 These apply to every phase. Where a template in `references/` shows a different placeholder, these rules win.
 
-1. **Copy existing patterns first**: before writing any rule, find 2-3 similar existing rules and copy their shape (e.g. `find packages/apidom-ls/src/config -name "*--required*.ts" | head -3`). Read `packages/apidom-ls/CLAUDE.md` (sections 1-7) instead of reinventing guidance.
-2. **Lint error message patterns** (copy exactly):
-   - Required: `"should always have a '{field}'"` (never `"must contain '{field}' field"`)
-   - Type: `"'{field}' must be a {type}"`
-   - Array of elements: `"'{field}' must be an array of {Type} Objects"`
-   - Array of primitives: `"'{field}' must be an array of {type}s"`
-   - Map values: `"{Object} values must be of {Type} shape"`
-3. **File naming**: `{field}--{type}.ts` or `{field}--{type}-{version}.ts` (e.g. `title--required.ts`, `summary--type.ts`). Never verbose names like `field--required-when-condition.ts`.
-4. **No `'reference'` in `linterParams`**: the refractor handles reference elements.
-5. **No unnecessary comments** in straightforward validation code.
+1. **Copy existing patterns first**: find 2-3 similar rules in the same spec directory and copy their shape (`packages/apidom-ls/CLAUDE.md` section 7). Real files are the source of truth whenever a template disagrees with them.
+2. **Messages**: required rules say `"should always have a '{field}'"`, never `"must contain '{field}' field"`. Type messages follow the style of the spec directory (`references/lint-rules.md`, "Messages"); arrays and maps follow `packages/apidom-ls/CLAUDE.md` section 4.
+3. **File naming**: `{kebab-field}--{rule}.ts`, e.g. `default-input-modes--required.ts`, `servers--items-type.ts`, `location--equals.ts` (full list in `references/lint-rules.md`). Never descriptive names such as `field--required-when-condition.ts`.
+4. **No `'reference'` in `linterParams`**: the refractor already turns Reference Objects into reference elements.
+5. **No explanatory comments** in straightforward rule files; they repeat the code.
 6. **Only new fields**: check the parent version's config and namespace element first; never redefine fields inherited from the parent version. Scope new rules with the correct `targetSpecs`.
-7. **Documentation URLs follow the per-spec table** in `references/completion-and-documentation.md` ("Documentation URLs per Spec") and are checked with `verify-urls.mjs`. For OpenAPI, **3.2+ documentation URLs must be GitHub links with camelCase anchors**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject` (not `spec.openapis.org`, not kebab-case). OAS 3.0.x keeps `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor`; OAS 3.1.x keeps the GitHub `3.1.0.md#camelCaseAnchor` format.
-8. **Tests use `assert.deepEqual` on full Diagnostic objects** (range, message, severity, code, source, data). Never filter and check selected properties. See `packages/apidom-ls/CLAUDE.md` section 8:
-   ```typescript
-   const result = await languageService.doValidation(doc);
-   const expected: Diagnostic[] = [
-     {
-       range: { start: { line: 10, character: 14 }, end: { line: 10, character: 28 } },
-       message: "'enum' must be an array of strings",
-       severity: 1,
-       code: 2120100,
-       source: 'apilint',
-       data: {},
-     },
-   ];
-   assert.deepEqual(result, expected);
-   ```
-   For valid documents: `assert.deepEqual(apilintErrors, [])`.
+7. **Documentation URLs follow the per-spec table** in `references/completion-and-documentation.md` ("Documentation URLs per Spec") and are checked with `verify-urls.mjs`. For OpenAPI 3.2+, links go to the GitHub markdown (`https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md`), not `spec.openapis.org`. In every spec, use the anchor that exists on the page (copy it from the markdown or page source, e.g. `3.2.0.md#path-item-object`) instead of deriving it from a naming convention; the upstream anchor style differs between versions and has changed before. Root `CLAUDE.md` ("apidom-ls Documentation URL Requirements") has the details.
+8. **Tests compare full Diagnostic objects with `assert.deepEqual`** (range, message, severity, code, source, data), and valid documents assert an empty list; see `packages/apidom-ls/CLAUDE.md` section 8 for the pattern and how to capture the actual values.
 
 ## Skill Instructions
 
 ### Phase 1: Gather Information
 
-Ask the user for the following information:
+Collect the following. When the skill runs as a subagent (for example from `/add-spec-version`), or when the values can be inferred from the branch name, the diff or a tracking document such as `ADD-{SPEC}-{VERSION}.md`, infer them and state what you inferred instead of asking:
 
 1. **Namespace Package Name**: The namespace package to generate config for (e.g., 'apidom-ns-openapi-3-2', 'apidom-ns-asyncapi-3')
 2. **Specification Type**: The specification family (e.g., 'openapi', 'asyncapi', 'arazzo')
@@ -139,25 +110,25 @@ Based on the specification type and version:
 
 3. **Check if version directory exists**:
    - If NO: Create new directory structure
-   - If YES: Ask user whether to update or skip
+   - If YES: ask the user whether to update or skip. When running as a subagent or when the task already says to update (e.g. adding coverage for new fields), update it without asking.
 
-Version directory naming: lowercase with underscore (`openapi3_2`, `asyncapi3`, `arazzo1_0`), matching other version directories.
+Version directory naming: lowercase, with an underscore between major and minor where the directory is per minor version (`openapi3_2`, `asyncapi3`, `a2a1`), matching sibling version directories.
 
 ### Phase 4: Generate Target Spec Definition
 
 **Read `references/version-wiring.md`** (sections "Target Spec Naming Convention" and "Update target-specs.ts").
 
-1. Open `packages/apidom-ls/src/config/{spec}/target-specs.ts`.
-2. Add the new version constant if it doesn't exist (e.g. `export const OpenAPI32 = Symbol.for('openapi3.2');`).
-3. Update the `targetSpecs` array to include the new symbol.
+1. Open `packages/apidom-ls/src/config/{spec}/target-specs.ts` (create it for a new spec, shaped like `config/a2a/target-specs.ts`).
+2. Add one constant per released version of the new line, each an array of `{ namespace, version }` objects (e.g. `OpenAPI310`, `OpenAPI311`, `OpenAPI312`, combined into `OpenAPI31`). While a line has a single released version, its constant can be defined directly, as `export const OpenAPI32 = [{ namespace: 'openapi', version: '3.2.0' }];` is.
+3. Add the new constant to the aggregates that should include it (e.g. `OpenAPI3 = [...OpenAPI30, ...OpenAPI31, ...OpenAPI32]`). Remember that every existing entry using that aggregate now applies to the new version too.
 
 ### Phase 5: Generate Configuration Files
 
 1. **5.1 Create version directory** `packages/apidom-ls/src/config/{spec}/{version}/` with `completion.ts`, `documentation.ts`, `lint/` and `meta.ts`. Layout: `references/version-wiring.md`.
-2. **5.2 Generate completion.ts**: **read `references/completion-and-documentation.md`** for the template, coverage strategy (root, nested, collection, value and special-field completions), format selection rules, condition functions and the OpenAPI 3.2.0 item breakdown. Aim for comprehensive coverage of all properties at all nesting levels.
-3. **5.3 Generate documentation.ts**: same reference file. Document complex/union-type properties; list omitted simple fields in the header comment; link with correct version URLs (Critical Rule 7).
+2. **5.2 Generate completion.ts**: **read `references/completion-and-documentation.md`** for how items are selected, the field and value item templates, conditions and format mapping. This file covers the root object's fields only; nested objects get their own `completion.ts` in Phase 6.
+3. **5.3 Generate documentation.ts**: same reference file. One entry per field; only object-valued fields documented in their own element directory may be omitted, and they are listed in the header comment. Link with correct version URLs (Critical Rule 7).
 4. **5.4 Generate lint/allowed-fields.ts**: **read `references/lint-rules.md`** for the template.
-5. **5.5 Generate lint/{element}--type.ts files**: same reference file for the type validation template, linter functions by validation type, linter function mapping, coverage list and the Info lint directory example. Apply Critical Rules 2-5.
+5. **5.5 Generate per-field rule files** (`{field}--type.ts`, `{field}--required.ts`, ...): same reference file for the templates, the linter function mapping, message styles and the `codes.ts` naming and numbering. Apply Critical Rules 2-5.
 6. **5.6 Generate lint/index.ts**: aggregate all lint rules (template in `references/lint-rules.md`).
 7. **5.7 Generate meta.ts**: aggregate lint, completion and documentation (template in `references/version-wiring.md`).
 
@@ -171,7 +142,7 @@ For **every** element registered in the namespace (`src/namespace.ts`), except i
 
 2. **Completion**: one item per field of the element, in the element's own `completion.ts` (not as conditional items in the root's file).
 
-3. **Documentation**: one `target` entry per field, simple scalars included, plus the object-level entry. Each entry links to the field's or object's anchor in the spec (see "Documentation URLs per Spec" in `references/completion-and-documentation.md`).
+3. **Documentation**: one `target` entry per field, simple scalars included, plus the object-level entry (no `target`). The only fields that may be left out are object-valued fields documented in their own element directory, listed in the header comment (see 5.3). Each entry links to the field's or object's anchor in the spec (see "Documentation URLs per Spec" in `references/completion-and-documentation.md`).
 
 4. **Lint rules**, per field:
    - `{field}--type.ts` for every field (`apilintType` for primitives, `apilintElementOrClass` / `apilintArrayOfElementsOrClasses` / `apilintChildrenOfElementsOrClasses` for objects, arrays and maps)
@@ -194,8 +165,8 @@ Use `references/completion-and-documentation.md` and `references/lint-rules.md` 
 
 **Read `references/version-wiring.md`** (section "Update Main Config Files").
 
-1. **7.1** In `config/{spec}/config.ts`, add import and export for the new version config (`{version}Meta`).
-2. **7.2** In `config/{spec}/symbols.ts`, add symbols if new element types were introduced.
+1. **7.1** In `config/{spec}/config.ts`, import the version meta and add it as a key of the default-export object, keyed by the root element's name (`this.element`): `openApi3_2: openapi3_2Meta` in `config/openapi/config.ts`, `a2aAgentCard1: a2a1Meta` in `config/a2a/config.ts`. For a brand-new spec, also register `config/{spec}/config.ts` in `metadataMaps` in `config/config.ts`.
+2. **7.2** `config/{spec}/symbols.ts` only controls which elements appear in the document outline. Add element names there only if new elements should show in the outline; most versions need no change (A2A has no `symbols.ts`).
 
 ### Phase 8: Validation and Testing
 
@@ -216,13 +187,12 @@ Use `references/completion-and-documentation.md` and `references/lint-rules.md` 
    npm run typescript:check-types
    ```
 
-4. **Test the configuration**:
-   - Open a sample file in an IDE with the language server
-   - Verify autocomplete works for the new version
-   - Verify hover documentation appears
-   - Verify validation/linting works
+4. **Test the configuration programmatically** in `packages/apidom-ls/test/`, following existing tests:
+   - Completion: `languageService.doCompletion(doc, position, completionContext)`, as in `test/openapi-3-2-completion.ts`
+   - Hover documentation: `languageService.doHover(doc, position)`, as in `test/openapi-3-2-documentation.ts`
+   - Validation: `languageService.doValidation(doc, validationContext)`, as in `test/a2a.ts`
 
-5. **Add/update tests** in `packages/apidom-ls/test/` following Critical Rule 8, then run `npm run test` in `packages/apidom-ls`.
+   Cover new fields with at least one valid and one invalid document, following Critical Rule 8, then run `npm run test` in `packages/apidom-ls`.
 
 On failures, **read `references/troubleshooting.md`**.
 
@@ -238,17 +208,17 @@ node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/
 
 ## Final Verification Checklist
 
-- [ ] Target spec symbol added to `target-specs.ts` and `targetSpecs` array
+- [ ] `target-specs.ts` has a `{ namespace, version }` constant for every released version, and the aggregates include it
 - [ ] `{version}/completion.ts`, `documentation.ts`, `lint/index.ts`, `meta.ts` exist and are wired into `config/{spec}/config.ts`
 - [ ] Every namespace element (except listed internal helpers) has a config directory and a meta registered in `config.ts`
-- [ ] Every field has a completion item, a documentation entry (scalars included) and a `--type` rule; Required fields have `--required`; enum fields have `--equals`
+- [ ] Every field has a completion item, a documentation entry (scalars included; only object-valued fields documented in their own element directory may be omitted, listed in the header comment) and a `--type` rule; Required fields have `--required`; enum fields have `--equals`
 - [ ] `check-ls-coverage.mjs` reports 0 problems (or each remaining one is justified)
 - [ ] No config for objects the spec version removed or doesn't define
 - [ ] `verify-urls.mjs` reports 0 `BROKEN` for the config directory
 - [ ] No fields inherited from the parent version are redefined; `targetSpecs` scope is correct
-- [ ] Lint messages match Critical Rule 2 patterns; files named `{field}--{type}.ts`
+- [ ] Lint messages match Critical Rule 2 patterns; files named `{kebab-field}--{rule}.ts`; new codes in `codes.ts` follow the naming and numbering of their block
 - [ ] No `'reference'` in any `linterParams`
-- [ ] OAS 3.2+ docs URLs are GitHub links with camelCase anchors
+- [ ] OAS 3.2+ docs URLs are GitHub `3.2.0.md` links, with anchors that exist there (`verify-urls.mjs`: 0 `BROKEN`)
 - [ ] Tests use `assert.deepEqual` with full Diagnostic objects
 - [ ] All imports use `.ts` extension; single quotes
 - [ ] `npm run build`, `npm run test`, `npm run typescript:check-types` and `npm run lint` pass

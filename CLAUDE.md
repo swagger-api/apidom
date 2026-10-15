@@ -408,8 +408,8 @@ static default = new JsonSchemaDialect('https://spec.openapis.org/oas/3.2/dialec
 
 **Verification**:
 ```bash
-curl -I https://spec.openapis.org/oas/3.2/dialect/2025-09-17
-# Must return 200 OK
+node .claude/skills/add-spec-version/scripts/verify-urls.mjs <files or dirs>
+# 0 BROKEN; it also checks #anchors, which `curl -I` can't
 ```
 
 #### 5. Search Before Creating
@@ -475,20 +475,20 @@ class Info extends InfoElement {
 **Correct URL pattern for OAS 3.2+**:
 ```typescript
 // ✅ CORRECT: Use GitHub URLs for 3.2+
-docs: '#### [Object Name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#objectName)...'
+docs: '#### [Path Item Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#path-item-object)...'
 
 // ❌ WRONG: Don't use spec.openapis.org for 3.2+
-docs: '#### [Object Name](https://spec.openapis.org/oas/v3.2.0.html#object-name)...'
+docs: '#### [Path Item Object](https://spec.openapis.org/oas/v3.2.0.html#path-item-object)...'
 ```
 
-**Anchor format for OAS 3.2+**: Use camelCase for anchors (e.g., `#pathItemObject`), not kebab-case (e.g., `#path-item-object`).
+**Anchor rule**: Use the anchor that actually exists in the spec markdown of that version, and verify it with `node .claude/skills/add-spec-version/scripts/verify-urls.mjs <paths>` (0 `BROKEN`). Don't derive anchors from a naming convention: the upstream markdown has changed its anchor style between versions and may change it again.
 
-**Version-specific patterns**:
-- **OpenAPI 3.0.x**: Use `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor` (existing format, do NOT change)
-- **OpenAPI 3.1.x**: Uses `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md#camelCaseAnchor` (existing format)
-- **OpenAPI 3.2.x**: Use `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#camelCaseAnchor` (GitHub URLs required)
+**Anchor styles at the time of writing** (check the markdown, these are not a rule):
+- **OpenAPI 3.0.x**: `https://spec.openapis.org/oas/v3.0.4.html#path-item-object` (existing format, do NOT change)
+- **OpenAPI 3.1.x**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md`; object headings are kebab-case (`#path-item-object`), field anchors are camelCase (`<a name="oasInfo">` → `#oasInfo`)
+- **OpenAPI 3.2.x**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md`; object headings and field anchors are both kebab-case (`#path-item-object`, `<a name="oas-info">` → `#oas-info`)
 
-**Why**: GitHub URLs for 3.2+ are the canonical source and are more stable than the rendered spec site.
+**Why**: GitHub URLs for 3.2+ are the canonical source and are more stable than the rendered spec site. A link to an anchor that doesn't exist still loads, but lands at the top of a 5,000-line page, so anchors must be verified rather than guessed.
 
 ### Before Committing
 

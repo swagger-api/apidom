@@ -6,7 +6,7 @@ Status legend: ⏳ open, ✅ done (add commit/PR reference).
 
 ---
 
-## 1. ⏳ Decision: anchor format in OAS documentation URLs
+## 1. ⏳ Anchor format in OAS documentation URLs (decided 2026-10-15, link fixes open)
 
 **Finding.** `CLAUDE.md` ("apidom-ls Documentation URL Requirements") says OAS 3.2+ doc links must use camelCase anchors (`3.2.0.md#pathItemObject`). The upstream markdown no longer has them:
 
@@ -23,17 +23,15 @@ node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/
   | grep '^BROKEN' | grep -E '3\.2\.0\.md|2\.0\.md|3\.1\.0\.md'
 ```
 
-**Decision needed.** Recommended: drop the "camelCase" rule and replace it with "use the anchor that exists in the spec markdown, verified with `verify-urls.mjs`". That rule survives future upstream reformatting.
+**Decision (2026-10-15): accepted.** The "camelCase" rule is dropped; the rule is now "use the anchor that exists in the spec markdown, verified with `verify-urls.mjs`".
 
-**If accepted, change all of these together** (one commit, `docs:` or `chore(ls):`):
+Steps 1-4 are done (skills restructuring branch, skills audit). Step 5 is open:
 
 1. `CLAUDE.md`, "apidom-ls Documentation URL Requirements": replace the camelCase rule and the per-version anchor list.
 2. `.claude/skills/update-ls-config/SKILL.md`, Critical Rule 7 and the final checklist item about camelCase anchors.
 3. `.claude/skills/update-ls-config/references/completion-and-documentation.md`, the note at the top.
 4. `.claude/skills/review-ls-changes/references/docs-completion-anchor-checks.md`, the anchor format table row for GitHub markdown.
 5. Then fix the links themselves in a separate commit (`fix(ls): correct OpenAPI documentation anchors`): run the command above, rewrite each broken anchor to the one that exists, and re-run until 0 `BROKEN`.
-
-**If rejected**, record why in `CLAUDE.md` so the next review doesn't re-raise it, and accept that those links land at the top of the page.
 
 ---
 
@@ -120,36 +118,94 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 - **Fix:** implement each rule after the 2.x sibling rule of the same field (copy message pattern, linter function, a new code), scoped to `AsyncAPI3`. Add tests per rule. Then re-run the script: 0 `STUB`.
 - **Commit:** `fix(ls): implement AsyncAPI 3 placeholder lint rules`
 
+### 2.11 ⏳ A2A completion items use condition functions that don't exist
+
+- **Where:** `packages/apidom-ls/src/config/a2a/a2a1/completion.ts` (from line ~211): 10 items with `conditions: [{ function: 'isInsideAgentCapabilities' }]`, `isInsideAgentSkill`, and similar.
+- **Effect:** no such functions exist; `utils/utils.ts` skips unknown condition functions without failing, so these completion items are offered everywhere in an Agent Card, not only inside the intended object. The names came from an invented template in `update-ls-config` (fixed in the 2026-10-15 skills audit).
+- **Check:** `grep -rn "isInside" packages/apidom-ls/src --include='*.ts'` and compare with the condition functions the completion service actually defines.
+- **Fix:** move each field's completion item into its element's own `completion.ts` (e.g. `config/a2a/agent-capabilities/completion.ts`) without conditions, as other specs do, and drop them from the root file. Add a completion test for one nested object.
+- **Commit:** `fix(ls): scope A2A completion items to their objects`
+
+### 2.12 ⏳ OpenAPI 2 dereference strategy re-exports an AsyncAPI 2 type
+
+- **Where:** `packages/apidom-reference/src/dereference/strategies/openapi-2/index.ts:42`: `export type { AsyncAPI2DereferenceVisitorOptions } from '../asyncapi-2/visitor.ts';`. The other OpenAPI strategies export their own visitor options (`openapi-3-0/index.ts:23`).
+- **Found by:** `find-unwired.sh` during the 2026-10-15 skills audit. Probably a copy-paste slip.
+- **Fix:** export the OpenAPI 2 visitor options type from `./visitor.ts` instead (check its exported name). Type-only change; run `npm run typescript:check-types` in apidom-reference.
+- **Commit:** `fix(reference): export OpenAPI 2 dereference visitor options type`
+
+### 2.13 ⏳ OAS 3.2 `$self` URI lint rule is never registered
+
+- **Where:** `packages/apidom-ls/src/config/openapi/openapi3_2/lint/self--format-uri-reference.ts` exists but isn't imported in `openapi3_2/lint/index.ts`, so an invalid `$self` gets no diagnostic.
+- **Check:** `grep -c "self--format" packages/apidom-ls/src/config/openapi/openapi3_2/lint/index.ts` prints 0.
+- **Careful:** it uses `linterFunction: 'apilintValidURIReferenceOrFragment'`, which is not defined anywhere in `packages/apidom-ls/src` (only in config files). Registering it as is would hit an unknown linter function at validation time. Implement the function (or use an existing URI-reference linter function) first.
+- **Fix:** then import and register it; add a test with an invalid `$self` and a full `Diagnostic` object. While there, check its code (`OPENAPI3_2_OPEN_API_FIELD_SELF_FORMAT_URI_REFERENCE = 7111001`; the first rule of a field is usually `...00`).
+- **Commit:** `fix(ls): register OpenAPI 3.2 $self format lint rule`
+
+### 2.14 ⏳ `codes.ts` oddities (check before changing, codes are user-visible)
+
+- Some `OPENAPI3_2_EXAMPLE_*` / `OPENAPI3_2_DISCRIMINATOR_*` codes sit inside the 3.0 range (5200500, 5250300).
+- A constant is spelled `OPENAPI3_O_SERVER_...` (letter O instead of zero).
+- Renaming a constant is internal; changing a numeric code changes what users see and may break suppressions, so decide per item.
+
+### 2.15 ⏳ A2A required-field messages deviate from the repo pattern
+
+- **Where:** the 56 `*--required.ts` rules under `packages/apidom-ls/src/config/a2a/` use `"should always have a '{field}' field"`; the other 165 required rules in apidom-ls use `"should always have a '{field}'"`.
+- **Fix:** align the A2A messages (and their test expectations). User-visible text change only; codes stay. Until then the skills tell agents not to copy the A2A form.
+- **Commit:** `fix(ls): align A2A required-field lint messages`
+
+### 2.16 ⏳ OAS 3.2 LS gaps reported by the improved `check-ls-coverage.mjs`
+
+Found by the scripts agent during the 2026-10-15 skills audit; re-check each with `check-ls-coverage.mjs packages/apidom-ns-openapi-3-2 packages/apidom-ls/src/config/openapi` (build apidom-ls first, the script warns when the build is stale):
+
+- no `openapi` version value-pattern rule for 3.2.0, although `OPENAPI3_2_OPENAPI_VALUE_PATTERN_3_2_0` exists in `codes.ts`
+- no `components.schemas` values-type rule for 3.2; 28 common schema lint files target `OpenAPI31` only
+- hover docs missing for `defaultMapping`, `dataValue`, `serializedValue`, `prefixEncoding`, `deviceAuthorizationUrl`, `oauth2MetadataUrl`, `deprecated`
+- completion items missing for Media Type `prefixEncoding` / `itemEncoding`
+- A2A adapter READMEs list only 1.0.0 media types although the namespace also has 1.0.1
+
 ---
 
 ## 3. Session leftovers (cleanup)
 
 | Item | Location | What to do |
 |------|----------|------------|
-| Eval viewer server | http://localhost:3117 (pid in `/tmp/eval-viewer.pid`) | Leave review feedback first if you want an eval round 2; then `kill $(cat /tmp/eval-viewer.pid)` |
-| Eval workspace | `~/WebstormProjects/apidom-skills-workspace` (outside the repo) | Holds snapshots, eval outputs, graders (`graders/grade.py`) and ground-truth PR comments. Keep it for round 2; otherwise delete it after removing the worktrees |
-| Git worktrees | `wt-review`, `wt-pre-oas32`, `wt-pre-asyncapi3-ls` in the workspace | Remove with the commands below |
-| Branch | `eval/review-planted-defects` | Recreate any time from `main` + `.claude/skills/review-ls-changes/evals/planted-defects.patch` |
-| Stale doc | `.claude/skills/SKILL-SUMMARY.md` | Out of date (describes a single 742-line skill file). Delete it or fold anything still useful into `.claude/skills/README.md` |
+| Eval viewer server | http://localhost:3117 (pid in `/tmp/eval-viewer.pid`) | From iteration 1; `kill $(cat /tmp/eval-viewer.pid)` if still running |
+| Eval workspace | `~/WebstormProjects/apidom-skills-workspace` (outside the repo) | Holds iteration 1, the prepared iteration 2 (section 4), snapshots, graders (`graders/grade.py`) and ground-truth PR comments. Keep it until section 4 is done |
+| Git worktrees | `wt-review`, `wt-pre-oas32`, `wt-pre-asyncapi3-ls`, `wt-pre-a2a`, `wt-asyncapi26-ns`, `wt-asyncapi26-adapters`, `wt-a2a-ls1`, `wt-asyncapi26-ref`, `wt-main` in the workspace | Fixtures for section 4; remove with the commands below afterwards |
+| Branch | `eval/review-planted-defects` | Recreate any time from `main` + the patch (see the eval's `fixture.note`) |
+| ✅ Stale doc | `.claude/skills/SKILL-SUMMARY.md` | Deleted in the 2026-10-15 skills audit |
 
-Cleanup commands (run from the repo root, after the viewer is no longer needed):
+Cleanup commands (run from the repo root, after section 4 is done):
 
 ```bash
 kill $(cat /tmp/eval-viewer.pid) 2>/dev/null
-git worktree remove ../apidom-skills-workspace/wt-review
-git worktree remove ../apidom-skills-workspace/wt-pre-oas32
-git worktree remove ../apidom-skills-workspace/wt-pre-asyncapi3-ls
+for wt in wt-review wt-pre-oas32 wt-pre-asyncapi3-ls wt-pre-a2a wt-asyncapi26-ns wt-asyncapi26-adapters wt-a2a-ls1 wt-asyncapi26-ref wt-main; do
+  git worktree remove ../apidom-skills-workspace/$wt
+done
 git branch -D eval/review-planted-defects
-# optional, only if no eval round 2 is planned:
-rm -rf ../apidom-skills-workspace
+rm -rf ../apidom-skills-workspace   # optional
 ```
 
 ---
 
-## 4. ⏳ Next eval round (optional)
+## 4. ⏳ Eval iteration 2 and description optimization (deferred: token-heavy)
 
-Iteration 1 showed that the OAS 3.2 replays don't separate old and new skills, because `CLAUDE.md` and the skills already contain the PR #5110 answers. For a meaningful round 2:
+Deferred on 2026-10-15 because a full run is expensive: 14 evals × 2 configurations = 28 agent runs (several write whole config directories), plus 28 grading runs. Run it as its own session, or start with the subset below.
 
-- Use a spec version the skills have not seen (e.g. a newer Arazzo or AsyncAPI minor, or a synthetic "3.3" diff), so the field map can't be recalled from the instructions.
-- Make the planted-defect review set harder: subtle `targetSpecs` overlaps, carried-over fields missing from a version-scoped `allowed-fields`, wrong `apilintElementOrClass` element names.
-- Rerun with `skill-creator`, pass `--previous-workspace .../iteration-1` to the viewer, and compare.
+**What is ready:**
+
+- Baseline snapshot of the skills before the 2026-10-15 audit: `apidom-skills-workspace/skill-snapshot-iter2/`.
+- `apidom-skills-workspace/iteration-2/eval-{skill}--{eval-name}/eval_metadata.json` for all 14 evals (prompt, fixture worktree, assertions), with empty `new_skill/outputs` and `old_skill/outputs`.
+- Fixture worktrees (section 3), one per fixture commit; `wt-main` is `f85f39593`.
+- Two evals on versions no skill or `CLAUDE.md` mentions, so they measure generalization rather than recall: `add-spec-version` eval 4 (Arazzo 1.1.0, extend variant) and eval 5 (Overlay 1.2.0, brand-new spec). Their assertions were written from the spec markdown on 2026-10-15.
+
+**Cheapest useful run (4 agent runs + grading):** `add-spec-version` evals 4 and 5, new skills vs snapshot. They are planning-only, and they are the only evals the answers haven't leaked into.
+
+**Full run:** for each eval, one runner with the new skills (`.claude/skills`) and one with the snapshot, both read-only in the fixture worktree, writing to `outputs/` plus an `actions.md` log (commands run, assumed answers to questions, final message). Runners must read the skill files directly from their skills root and must not use the Skill tool, which would load the current skills for both configurations. Then grade (`skill-creator` `agents/grader.md`; field names `text`/`passed`/`evidence`), aggregate with `skill-creator` `scripts/aggregate_benchmark`, and open the viewer with `--previous-workspace .../iteration-1`.
+
+**Still worth adding:**
+
+- A clean-diff `review-ls-changes` eval that measures false positives.
+- A harder planted-defect set: subtle `targetSpecs` overlaps, carried-over fields missing from a version-scoped `allowed-fields`, wrong `apilintElementOrClass` element names.
+
+**Description optimization** (`skill-creator` `scripts/run_loop`, `claude -p` × 3 per query per iteration) is deferred for the same reason. Start with `add-namespace` vs `add-spec-version`, whose descriptions used to overlap; `add-namespace` now defers end-to-end requests to `/add-spec-version`.

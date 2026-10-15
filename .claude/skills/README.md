@@ -74,7 +74,7 @@ Claude will guide you through:
 
 **When to use:**
 - Adding support for a new API specification (e.g., RAML, API Blueprint)
-- Adding a new major version of an existing spec (e.g., OpenAPI 4.0)
+- Adding a new version of an existing spec that gets its own namespace package (e.g., OpenAPI 3.3 or 4.0); versions that go into an existing namespace use `/add-spec-version`'s extend checklist
 
 **What it creates:**
 - Complete `packages/apidom-ns-{spec}-{version}/` directory
@@ -82,7 +82,7 @@ Claude will guide you through:
 - Visitor implementations
 - Predicates for type checking
 - Test structure with examples
-- Configuration files (package.json, tsconfig, webpack)
+- Configuration files (package.json, tsconfig, vite, api-extractor)
 
 **Prerequisites:**
 - Thoroughly understand the specification document
@@ -179,80 +179,45 @@ Each `evals/evals.json` follows the skill-creator schema plus a `fixture` field 
 | add-parser-adapter | OAS 3.2 adapters; AsyncAPI 2.6 adapter extension (PR #2536) | `ef97b5c32^`, `35c7e8f0d` |
 | add-reference-support | OAS 3.2 reference wiring plan; AsyncAPI 2.6 reference extension (PR #2537) | `ef97b5c32^`, `c2d643904` |
 | update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings); A2A LS coverage (PR #5182 review findings) | `c201bb1f8^`, `6644586cb` |
-| review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + `git am evals/planted-defects.patch` |
-| add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan | `ef97b5c32^`, `main`, `36cbf2f73` |
+| review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + the patch (copy it to `/tmp` first, it isn't on `main`; see the eval's `fixture.note`) |
+| add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan; **unseen:** Arazzo 1.1 plan (extend), Overlay 1.2 plan (brand-new spec) | `ef97b5c32^`, `f85f39593`, `36cbf2f73`, `f85f39593`, `f85f39593` |
 
 Run them with the `skill-creator` skill: one subagent with the skill and one baseline (previous skill version, or no skill) per eval, working read-only in the fixture worktree and writing to an outputs directory outside the repo. Most assertions are checkable by script (getter names, regexes, file names, message patterns).
 
-Caveat: the root `CLAUDE.md` and the skills themselves mention several OAS 3.2 findings, so these evals measure regressions and relative improvements more than absolute ability on an unseen spec.
+Fixture worktrees are old commits: they have no `.claude/skills`, no `node_modules` and no builds. Call the scripts by their path in the main checkout, and expect `check-ls-coverage.mjs` to fall back to pattern mode there.
+
+Caveat: the root `CLAUDE.md` and the skills themselves mention most OAS 3.2, AsyncAPI 2.6 and A2A findings, so those evals measure regressions more than ability. The Arazzo 1.1 and Overlay evals use versions that no skill or `CLAUDE.md` mentions; they are the ones that show whether the workflow generalizes. Keep it that way: don't copy their answers into the skills.
 
 ## Using Skills
 
 Skills are invoked using slash commands in Claude Code:
 
 ```bash
-/add-namespace
+/add-spec-version
 ```
 
-Claude will then interactively guide you through the process, asking for required information and generating all necessary files.
+Claude may also pick a skill on its own when a request matches its `description`. For end-to-end "add support for {spec} {version}" requests that is `/add-spec-version`, which calls the other skills phase by phase.
 
 ## Creating New Skills
 
-To create a new skill:
+1. Create `.claude/skills/{skill-name}/SKILL.md` with frontmatter:
 
-1. Create a directory in `.claude/skills/` with your skill name (e.g., `my-skill/`)
-2. Create a `SKILL.md` file inside the directory
-3. Add YAML frontmatter at the top with metadata:
+   ```markdown
+   ---
+   name: my-skill
+   description: What the skill does and when to use it, including phrasings that don't name the skill.
+   ---
+   ```
 
-```markdown
----
-name: my-skill
-description: Brief description of what the skill does
-disable-model-invocation: false
-user-invocable: true
----
-
-# Skill Name
-
-**Skill Name:** `skill-command`
-**Description:** Brief description
-
-## Overview
-Detailed description of what the skill does
-
-## When to Use
-List scenarios when this skill should be used
-
-## Prerequisites
-List any prerequisites
-
-## Skill Instructions
-Step-by-step instructions for Claude to follow
-
-### Phase 1: Title
-Instructions...
-
-### Phase 2: Title
-Instructions...
-
-## Important Patterns
-Key patterns and conventions to follow
-
-## Troubleshooting
-Common issues and solutions
-
-## References
-Related documentation
-```
-
-4. Test the skill by invoking it: `/my-skill`
+2. Keep `SKILL.md` to the workflow, the rules and a checklist (well under 500 lines). Put templates and long examples in `references/`, and say in `SKILL.md` at which step each reference file is read. Put deterministic checks in `scripts/`.
+3. Add `evals/evals.json` with at least one eval on a fixture commit, and run it with `skill-creator` against a baseline.
 
 ### YAML Frontmatter Fields
 
 - `name`: Command name for the skill (required)
 - `description`: What the skill does - Claude uses this to decide when to apply it (recommended)
-- `disable-model-invocation`: Set to `true` to prevent Claude auto-triggering (default: `false`)
-- `user-invocable`: Set to `false` to hide from `/` menu (default: `true`)
+- `disable-model-invocation`: Set to `true` to prevent Claude auto-triggering (default: `false`; omit when using the default)
+- `user-invocable`: Set to `false` to hide from `/` menu (default: `true`; omit when using the default)
 - `allowed-tools`: Tools Claude can use without asking permission (optional)
 - `model`: Specific model to use when skill is active (optional)
 - `context`: Set to `fork` to run in isolated subagent context (optional)
@@ -260,25 +225,17 @@ Related documentation
 
 ## Skill Development Guidelines
 
-When creating skills for ApiDOM:
+Lessons from the 2026-10-15 audit, which found templates that no longer matched the code and rules that contradicted each other:
 
-1. **Follow established patterns**: Study existing packages to understand conventions
-2. **Be comprehensive**: Include all necessary files and configurations
-3. **Provide templates**: Include code templates with placeholders
-4. **Add validation**: Include steps to verify the generated code works
-5. **Document patterns**: Explain naming conventions and architectural decisions
-6. **Reference examples**: Point to existing packages as references
+1. **Templates come from real files.** Copy a template from an existing package and name that file next to it, so the next maintainer can diff the two. Never write a template from memory: the audit found invented `target-specs.ts`, `linterParams` and completion-condition shapes, and one of them had already been copied into the A2A config.
+2. **Never name a function, script, flag or file that you haven't checked exists.** apidom-ls silently ignores unknown completion condition functions, so an invented name produces no error, only wrong behaviour.
+3. **One rule, one place.** When a rule lives in `CLAUDE.md` or `packages/apidom-ls/CLAUDE.md`, point to it instead of restating it. Copies drift and end up contradicting each other.
+4. **Prefer a script over a prose check** when the check is mechanical, and keep `add-spec-version/scripts/test/smoke.sh` passing after changing a script.
+5. **Questions need a fallback.** Skills also run as subagents (from `/add-spec-version`) that can't ask the user, so each "ask the user" step says where to infer the answer from (tracking doc, branch, field map).
+6. **Lessons go into rules, answers don't.** Add the general lesson from a review (e.g. "fields come only from Fixed Fields tables"), not the specific answer for one spec version, or the evals stop measuring anything.
 
 ## Related Documentation
 
 - **CLAUDE.md**: Project-specific instructions for Claude Code
-- **Namespace Packages**: `packages/apidom-ns-*/` directories
-
-## Contributing
-
-To improve existing skills or add new ones:
-
-1. Test the skill thoroughly on real use cases
-2. Update documentation to reflect any changes
-3. Add troubleshooting sections for common issues
-4. Include references to related code examples
+- **packages/apidom-ls/CLAUDE.md**: Lint rule and test patterns for apidom-ls
+- **FOLLOW-UPS.md**: Open decisions and probable bugs found while working on the skills

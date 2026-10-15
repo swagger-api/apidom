@@ -7,7 +7,7 @@
       "fixture": {
         "branch": "eval/review-planted-defects",
         "base": "main",
-        "note": "one commit on top of main planting 8 defects in OAS 3.2 LS config; recreate with: git checkout -b eval/review-planted-defects main && git am evals/planted-defects.patch"
+        "note": "one commit on top of main planting 8 defects in OAS 3.2 LS config; the patch file is not on main, so copy it out first: cp .claude/skills/review-ls-changes/evals/planted-defects.patch /tmp/ && git checkout -b eval/review-planted-defects main && git am /tmp/planted-defects.patch"
       },
       "prompt": "Review the apidom-ls changes on the current branch (diff against main) against the OpenAPI 3.2.0 specification and write the review report.",
       "expected_output": "Report that finds all planted defects with spec citations.",
@@ -19,7 +19,7 @@
         "Flags deviceAuthorizationUrl required rule as wrongly applied to every OAuth Flow",
         "Flags the non-standard required message \"must contain ... field\"",
         "Flags Response summary documentation wrongly marked REQUIRED",
-        "Flags the XML Object 3.2 documentation link pointing to spec.openapis.org instead of GitHub",
+        "Flags the XML Object 3.2 documentation link pointing to spec.openapis.org instead of the GitHub 3.2.0.md, and proposes an anchor that exists there (#xml-object)",
         "Flags the new diagnostic code 7165150 as off-pattern (neighbouring codes step by 100)"
       ]
     }

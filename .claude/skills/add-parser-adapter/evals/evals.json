@@ -1,0 +1,26 @@
+{
+  "skill_name": "add-parser-adapter",
+  "evals": [
+    {
+      "id": 1,
+      "name": "oas32-adapters-and-reference-wiring",
+      "fixture": {
+        "checkout": "ef97b5c32^",
+        "note": "repo state before OAS 3.2 support (PR #5110)"
+      },
+      "prompt": "The namespace package apidom-ns-openapi-3-2 is being added (assume it exists and mirrors apidom-ns-openapi-3-1, exporting OpenApi3_2Element, refractorPluginReplaceEmptyElement and mediaTypes for version 3.2.0). Create the JSON and YAML parser adapters for it and plan the apidom-reference integration. Produce: the src/adapter.ts and src/media-types.ts files of apidom-parser-adapter-openapi-json-3-2 and apidom-parser-adapter-openapi-yaml-3-2, and integration-plan.md listing every file to create or modify in apidom-reference (and anywhere else), including the exact saturated.ts changes.",
+      "expected_output": "Adapters whose detection regexes match only 3.2.x documents, plus a complete integration plan.",
+      "files": [],
+      "assertions": [
+        "JSON adapter detectionRegExp matches \"openapi\": \"3.2.0\" and \"3.2.1\" and does not match 3.1.0 or 3.0.3",
+        "YAML adapter detectionRegExp matches openapi: 3.2.0 (plain, quoted, and JSON-style) and does not match 3.1.0",
+        "JSON and YAML media types cover OpenAPI 3.2.0 (derived from the 3.2 namespace by format, or listed explicitly)",
+        "Plan adds apidom-reference parse parsers openapi-json-3-2 and openapi-yaml-3-2",
+        "Plan adds resolve, dereference and bundle strategies for openapi-3-2",
+        "Plan registers parsers and all three strategies in saturated.ts",
+        "Plan updates apidom-reference package.json (dependencies and exports)",
+        "Plan addresses detection exclusivity or registration order against the 3.1 adapters"
+      ]
+    }
+  ]
+}

@@ -4,17 +4,39 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ## Recent Updates
 
-**2026-01-28**: All three skills have been significantly enhanced based on comprehensive analysis of the OpenAPI 3.2.0 implementation. Key improvements include:
+**2026-10-14**:
 
-- **Advanced visitor patterns** (Fixed Fields, Map, Dynamic Detection)
-- **Complete reference integration** (parse + resolve + dereference + bundle)
-- **Comprehensive language service scale** (70+ completions, 50+ lint rules)
-- **Production testing patterns** (media types through parser integration)
-- **Modern specification features** (dynamic operations, webhooks, global config)
+- New `/add-spec-version` orchestrator chains the four skills below with verification gates and bundles helper scripts (redefined-field check, URL/anchor check, unwired-file audit).
+- Every skill now follows progressive disclosure: a short `SKILL.md` with the workflow, and detailed templates in `references/`, loaded only when a phase needs them.
+- Every skill has `evals/evals.json` with an eval that replays a real review (PR #5110 OAS 3.2, PR #5104 AsyncAPI 3) or planted defects. See "Evaluating Skills" below.
 
-See `SKILL-IMPROVEMENTS-2026-01.md` for complete details.
+**2026-01-28**: Skills enhanced based on the OpenAPI 3.2.0 implementation (visitor patterns, reference integration, language service scale, testing patterns).
+
+## Skill Layout
+
+```
+{skill}/
+├── SKILL.md        # workflow, critical rules, checklist (loaded on invocation)
+├── references/     # templates and detailed guidance (read when a phase says so)
+├── scripts/        # deterministic helpers (add-spec-version only)
+└── evals/          # eval prompts, assertions and fixtures
+```
 
 ## Available Skills
+
+### `/add-spec-version` - Add a Specification Version End to End
+
+Orchestrates adding a new spec or spec version across the monorepo. Use this as the entry point; it calls the skills below.
+
+1. Builds a field map (new / changed / removed / inherited fields per object) from the official spec and the parent namespace, and asks for confirmation
+2. Runs `/add-namespace`, `/add-parser-adapter`, `/update-ls-config` and `/review-ls-changes` in order
+3. Gates every stage: build, types, lint, tests, field-map coverage, plus the bundled scripts:
+   - `scripts/check-redefined-fields.mjs`: getters that duplicate a parent element
+   - `scripts/verify-urls.mjs`: URLs and `#anchors` that don't resolve
+   - `scripts/find-unwired.sh`: files that mention the parent version but not the new one
+4. Covers wiring the other skills don't (LS parser factory and detection, JSON Schema validation, playground, root scripts)
+
+Progress lives in an uncommitted `ADD-{SPEC}-{VERSION}.md` tracking doc, so work can resume across sessions.
 
 ### `/add-namespace` - Add Namespace Package
 
@@ -116,6 +138,26 @@ Claude will:
 - Namespace package must exist and be built
 - Parser adapter packages should exist (recommended)
 - Access to specification documentation for generating docs
+
+### `/review-ls-changes` - Review Language Service Changes
+
+Reviews apidom-ls changes on a branch against the official specification (lint rules, documentation values, completion, URL anchors) and produces a findings report with spec citations.
+
+## Evaluating Skills
+
+Each `evals/evals.json` follows the skill-creator schema plus a `fixture` field that names the repository state the eval runs against:
+
+| Skill | Eval | Fixture |
+|-------|------|---------|
+| add-namespace | OAS 3.2 element field set (PR #5110 review findings) | `git worktree add <dir> ef97b5c32^` |
+| add-parser-adapter | OAS 3.2 adapters + apidom-reference wiring | `ef97b5c32^` |
+| update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings) | `c201bb1f8^` |
+| review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + `git am evals/planted-defects.patch` |
+| add-spec-version | OAS 3.2 field map and integration plan | `ef97b5c32^` |
+
+Run them with the `skill-creator` skill: one subagent with the skill and one baseline (previous skill version, or no skill) per eval, working read-only in the fixture worktree and writing to an outputs directory outside the repo. Most assertions are checkable by script (getter names, regexes, file names, message patterns).
+
+Caveat: the root `CLAUDE.md` and the skills themselves mention several OAS 3.2 findings, so these evals measure regressions and relative improvements more than absolute ability on an unseen spec.
 
 ## Using Skills
 

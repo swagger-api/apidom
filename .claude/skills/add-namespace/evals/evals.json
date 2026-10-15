@@ -1,0 +1,34 @@
+{
+  "skill_name": "add-namespace",
+  "evals": [
+    {
+      "id": 1,
+      "name": "oas32-element-field-set",
+      "fixture": {
+        "checkout": "ef97b5c32^",
+        "note": "repo state before OAS 3.2 support (PR #5110)"
+      },
+      "prompt": "We're adding OpenAPI 3.2.0 support to ApiDOM as a new namespace package apidom-ns-openapi-3-2 that extends apidom-ns-openapi-3-1. Spec: https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md. For now I only need the element layer: (1) field-map.md listing, per object, the fields that are new in 3.2 compared to ApiDOM's 3.1 namespace, and (2) the element class files (src/elements/*.ts and src/elements/nces/*.ts) for every element that needs a 3.2-specific class, including JsonSchemaDialect.ts with the correct default dialect URL.",
+      "expected_output": "Element classes that add exactly the fields new in OAS 3.2 and nothing inherited from 3.1; correct value types; verified dialect URL.",
+      "files": [],
+      "assertions": [
+        "Components adds mediaTypes",
+        "Components does not redefine pathItems (already in OAS 3.1)",
+        "No webhooks field or ComponentsWebhooks element under Components",
+        "Encoding adds encoding, prefixEncoding and itemEncoding",
+        "MediaType adds itemSchema, prefixEncoding and itemEncoding",
+        "prefixEncoding is typed as an array and itemEncoding as an Encoding element",
+        "OAuthFlow adds deviceAuthorizationUrl and OAuthFlows adds deviceAuthorization",
+        "Xml adds nodeType",
+        "SecurityScheme adds deprecated and oauth2MetadataUrl",
+        "Response adds summary",
+        "Tag adds summary, parent and kind",
+        "Example adds dataValue and serializedValue; Discriminator adds defaultMapping; Server adds name",
+        "PathItem adds query and additionalOperations; root element adds $self",
+        "License does not redefine identifier and Info does not redefine summary (both in OAS 3.1)",
+        "No duplicated parent root element file (OpenApi3-1.ts)",
+        "JsonSchemaDialect default is https://spec.openapis.org/oas/3.2/dialect/2025-09-17"
+      ]
+    }
+  ]
+}

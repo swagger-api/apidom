@@ -2,45 +2,69 @@
 /**
  * Reports which of the four add-spec-version phases are complete for a spec version, and
  * which phase may start next (and from which branch).
- *
- * Usage:
- *   node phase-status.mjs --spec asyncapi --version 3.1.0 [--field asyncapi] [--base origin/main]
- *
- *   --spec     spec id used in package names (openapi, asyncapi, arazzo, a2a, ...)
- *   --version  full spec version (3.1.0)
- *   --field    root version field in documents (default: --spec)
- *   --base     ref that counts as merged (default: origin/main; run `git fetch` first)
- *
- * A phase is complete when its code evidence is present on --base (merged), or when a PR for
- * its branch `feat/{spec}-{version}/phase-{n}` is open or merged. Phases are stacked: phase n
- * branches from phase n-1's branch while that PR is open, otherwise from --base. FROM is the
- * ref to branch from, PR BASE the branch the PR targets.
- *
- * Code evidence (tracked and untracked files, checked on --base and on the working tree):
- *   1 namespace       packages/apidom-ns-{spec}-* /src/media-types.ts contains `version={version}`
- *   2 parser adapters JSON and YAML adapter READMEs list `version={version}` media types
- *   3 reference       packages/apidom-reference/test contains a `{field}: {version}` document
- *   4 language service packages/apidom-ls/src/config/{spec}/target-specs.ts declares `version: '{version}'`
- * Lines asserting non-detection (`isFalse`) don't count as evidence.
  */
 import { execFileSync } from 'node:child_process';
-import { parseArgs } from 'node:util';
 
-const { values: args } = parseArgs({
+import { parseCli } from './lib/cli.mjs';
+
+const USAGE = `
+Usage:
+  node phase-status.mjs --spec <spec> --version <x.y.z> [--phase <n>] [--field <f>]
+    [--no-version-field] [--base <ref>]
+
+  --spec              spec id used in package names (openapi, asyncapi, arazzo, a2a, ...)
+  --version           full spec version (3.1.0)
+  --phase             phase you intend to start (1-4); exit code 1 unless all earlier phases
+                      are DONE
+  --field             root version field in documents (default: --spec)
+  --no-version-field  the spec's documents carry no version field (A2A Agent Cards): phase 3
+                      evidence is the presence of apidom-reference parsers
+                      src/parse/parsers/{spec}-json-* and {spec}-yaml-*, which is not
+                      version-specific. Applied automatically when no apidom-reference test
+                      contains a \`{field}:\` key at all.
+  --base              ref that counts as merged (default: origin/main; run \`git fetch\` first)
+  -h, --help          show this help
+
+A phase is complete (DONE) when its code evidence is present on --base (merged), or when a PR
+for its branch \`feat/{spec}-{version}/phase-{n}\` is open or merged. Phases are stacked: phase n
+branches from phase n-1's branch while that PR is open, otherwise from --base. FROM is the ref to
+branch from, PR BASE the branch the PR targets.
+
+Code evidence (tracked and untracked files, checked on --base and on the working tree):
+  1 namespace        packages/apidom-ns-{spec}-*/src/media-types.ts contains \`version={version}\`
+  2 parser adapters  JSON and YAML adapter READMEs list \`version={version}\` media types
+  3 reference        packages/apidom-reference/test contains a \`{field}: {version}\` document
+                     (--no-version-field: reference parser directories exist)
+  4 language service packages/apidom-ls/src/config/{spec}/target-specs.ts declares
+                     \`version: '{version}'\`
+Lines asserting non-detection (\`isFalse\`) don't count as evidence.
+
+Exit codes:
+  0  with --phase n: phases 1..n-1 are all DONE. Without --phase: no gap, i.e. no phase is
+     incomplete while a later one has code or a PR (all complete also exits 0)
+  1  with --phase n: a phase before n is not DONE (MISSING or CODE ONLY). Without --phase: a gap
+     (e.g. phase 3 MISSING while phase 4 is DONE)
+  2  usage error
+`;
+
+const { values: args } = parseCli(USAGE, {
   options: {
     spec: { type: 'string' },
     version: { type: 'string' },
+    phase: { type: 'string' },
     field: { type: 'string' },
+    'no-version-field': { type: 'boolean', default: false },
     base: { type: 'string' },
+  },
+  validate: ({ values }) => {
+    if (!values.spec || !values.version) return '--spec and --version are required';
+    if (!/^\d+\.\d+\.\d+$/.test(values.version)) return '--version must look like x.y.z';
+    if (values.phase !== undefined && !/^[1-4]$/.test(values.phase)) return '--phase must be 1-4';
+    return undefined;
   },
 });
 const { spec, version } = args;
-if (!spec || !version) {
-  console.error(
-    'Usage: phase-status.mjs --spec <spec> --version <x.y.z> [--field <f>] [--base <ref>]',
-  );
-  process.exit(2);
-}
+const requestedPhase = args.phase === undefined ? undefined : Number(args.phase);
 const field = args.field ?? spec;
 const base = args.base ?? 'origin/main';
 const esc = version.replaceAll('.', '\\.');
@@ -122,6 +146,29 @@ const hasEvidence = (ref, phase) =>
 const baseExists = run('git', ['rev-parse', '--verify', '--quiet', base]) !== null;
 if (!baseExists) console.warn(`warning: base ref ${base} not found; merged state not checked`);
 
+// specs whose documents carry no version field (A2A Agent Cards) can't match `{field}: {version}`
+const REFERENCE_TEST = 'packages/apidom-reference/test';
+const fieldKeyNeedle = `(^|[^A-Za-z0-9_-])"?${field}"?[[:space:]]*:`;
+const fieldSeen = [baseExists ? base : null, undefined]
+  .filter((ref) => ref !== null)
+  .some(
+    (ref) =>
+      (grepFiles(ref, { pattern: fieldKeyNeedle, paths: [REFERENCE_TEST] }) ?? []).length > 0,
+  );
+const noVersionField = args['no-version-field'] || !fieldSeen;
+if (noVersionField) {
+  if (!args['no-version-field'])
+    console.warn(
+      `note: no apidom-reference test contains a "${field}:" key; assuming the spec has no ` +
+        'version field (pass --field if it has one)',
+    );
+  PHASES[2].checks = ['json', 'yaml'].map((format) => ({
+    pattern: '.',
+    paths: [`packages/apidom-reference/src/parse/parsers/${spec}-${format}-*`],
+  }));
+  PHASES[2].note = 'parser dirs; not version-specific';
+}
+
 const ghAvailable = run('gh', ['--version']) !== null;
 if (!ghAvailable) console.warn('warning: gh CLI unavailable; PR state not checked');
 
@@ -156,11 +203,30 @@ const results = PHASES.map((phase) => {
   return { ...phase, merged, local, pr, status, done: status.startsWith('DONE') };
 });
 
-console.log(`${spec} ${version} (field "${field}", base ${base})\n`);
+const fieldText = noVersionField ? 'no version field' : `field "${field}"`;
+console.log(`${spec} ${version} (${fieldText}, base ${base})\n`);
 for (const r of results) {
   const pr = r.pr ? `  ${r.pr.url} [${r.pr.state}, base ${r.pr.baseRefName}]` : '';
-  console.log(`Phase ${r.n} ${r.name.padEnd(16)} ${r.status}${pr}`);
+  const note = r.note ? `  (${r.note})` : '';
+  console.log(`Phase ${r.n} ${r.name.padEnd(16)} ${r.status}${pr}${note}`);
 }
+
+// exit code: earlier phases incomplete before the requested phase, or a gap in the sequence
+const started = (r) => r.done || r.local || Boolean(r.pr);
+const blocking =
+  requestedPhase === undefined
+    ? results.filter((r) => !r.done && results.some((later) => later.n > r.n && started(later)))
+    : results.filter((r) => r.n < requestedPhase && !r.done);
+const exitCode = blocking.length > 0 ? 1 : 0;
+const explainBlocking = () => {
+  if (blocking.length === 0) return;
+  const list = blocking.map((r) => `${r.n} (${r.name}: ${r.status})`).join(', ');
+  console.log(
+    requestedPhase === undefined
+      ? `\nGAP: phase(s) ${list} incomplete although a later phase has code or a PR.`
+      : `\nBLOCKED: phase ${requestedPhase} requested, but earlier phase(s) ${list} are not DONE.`,
+  );
+};
 
 const next = results.find((r) => !r.done);
 if (!next) {
@@ -195,3 +261,6 @@ if (ghAvailable) {
       console.log(`  #${c.number} ${c.title} [${c.headRefName}] ${c.url}`);
   }
 }
+
+explainBlocking();
+process.exit(exitCode);

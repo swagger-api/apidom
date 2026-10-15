@@ -1,18 +1,25 @@
 ---
 name: add-namespace
-description: Creates a new namespace package for a new API specification version in the ApiDOM monorepo
+description: Creates a new namespace package (apidom-ns-{spec}-{version}) for a new API specification or a new specification version in the ApiDOM monorepo, including element classes, refractor visitors, the specification object, predicates, media types, tests and package config. Use when adding support for a new spec (e.g. RAML, API Blueprint) or a new version of an existing one (e.g. OpenAPI 3.3, AsyncAPI 4.0), even if the user only asks to "add support for" a spec version and never says "namespace".
 disable-model-invocation: false
 user-invocable: true
 ---
 
 # Add Namespace Package Skill
 
-**Skill Name:** `add-namespace`
-**Description:** Creates a new namespace package for a new API specification version in the ApiDOM monorepo.
-
 ## Overview
 
 This skill guides you through creating a complete namespace package (`apidom-ns-{spec}-{version}`) for a new API specification version. It automates the creation of all required files and directories following ApiDOM's established patterns.
+
+This file holds the workflow and the rules. Code templates and longer examples live in `references/` and are meant to be read on demand, at the phase that needs them:
+
+| Reference file | Contents | Read when |
+|----------------|----------|-----------|
+| `references/package-config.md` | Directory layout, `package.json`, `tsconfig.json`, `tsconfig.declaration.json` | Phase 2, Phase 3 steps 3.1, 3.10, 3.11 |
+| `references/elements-and-namespace.md` | Element class template, type mappings, `namespace.ts`, `predicates.ts`, `media-types.ts`, `registration.ts`, `index.ts`, naming conventions, CSS classes, NCEs | Phase 3 steps 3.2-3.5, 3.8, 3.9 |
+| `references/refractor-visitors.md` | Fixed fields / map / dynamic type detection visitors, `specification.ts`, advanced specification patterns, parent namespace inheritance, common specification features (from OAS 3.2) | Phase 1 (feature checklist), Phase 3 steps 3.6, 3.7 |
+| `references/testing.md` | Element refractor test, `test/predicates.ts`, `test/tsconfig.json` | Phase 5 |
+| `references/troubleshooting.md` | Build errors, test failures, type errors | Phase 6, when something fails |
 
 ## When to Use
 
@@ -102,660 +109,45 @@ Ask the user for the following information:
    - CSS classes (optional, for specialized element identification)
    - Whether it's the root specification element
 
+While building the parent-vs-current comparison table, skim "Common Specification Features to Support" in `references/refractor-visitors.md`. It lists the kinds of changes new versions typically introduce (new HTTP methods, dynamic operation collections, reusable component types, global configuration fields, webhooks, self-reference fields, extended metadata fields), which makes it harder to overlook a new field.
+
 ### Phase 2: Create Package Structure
 
-Create the following directory structure:
+Read "Package Directory Layout" in `references/package-config.md` and create that tree under `packages/apidom-ns-{spec}-{version}/`. In short:
 
-```
-packages/apidom-ns-{spec}-{version}/
-├── src/
-│   ├── elements/
-│   │   ├── nces/              # Named Collection Elements
-│   │   └── {ElementName}.ts
-│   ├── refractor/
-│   │   ├── visitors/
-│   │   │   ├── generics/
-│   │   │   │   ├── FixedFieldsVisitor.ts
-│   │   │   │   ├── PatternedFieldsVisitor.ts
-│   │   │   │   └── MapVisitor.ts
-│   │   │   ├── {spec}-{version}/
-│   │   │   │   ├── {element-name}/
-│   │   │   │   │   └── index.ts
-│   │   │   │   └── index.ts
-│   │   │   ├── FallbackVisitor.ts
-│   │   │   ├── SpecificationExtensionVisitor.ts
-│   │   │   ├── SpecificationVisitor.ts
-│   │   │   └── Visitor.ts
-│   │   ├── plugins/
-│   │   ├── index.ts
-│   │   ├── registration.ts
-│   │   ├── specification.ts
-│   │   ├── predicates.ts
-│   │   └── toolbox.ts
-│   ├── traversal/
-│   │   └── visitor.ts
-│   ├── index.ts
-│   ├── namespace.ts
-│   ├── predicates.ts
-│   └── media-types.ts
-├── test/
-│   ├── refractor/
-│   │   ├── elements/
-│   │   │   └── {ElementName}/
-│   │   │       ├── index.ts
-│   │   │       └── __snapshots__/
-│   │   └── plugins/
-│   ├── fixtures/
-│   ├── mocha-bootstrap.ts
-│   ├── predicates.ts
-│   └── tsconfig.json
-├── config/
-│   ├── api-extractor/
-│   │   └── api-extractor.json
-│   └── webpack/
-│       └── browser.config.js
-├── package.json
-├── tsconfig.json
-├── tsconfig.declaration.json
-└── README.md
-```
+- `src/elements/` (plus `nces/` for Named Collection Elements), `src/refractor/` (visitors, plugins, specification, registration, toolbox), `src/traversal/`, and `src/{index,namespace,predicates,media-types}.ts`
+- `test/` (refractor element tests with `__snapshots__/`, fixtures, `mocha-bootstrap.ts`, `predicates.ts`, `tsconfig.json`)
+- `config/api-extractor/` and `config/webpack/`
+- `package.json`, `tsconfig.json`, `tsconfig.declaration.json`, `README.md`
+
+Search the repository for an existing package with the same name or overlapping files before creating anything.
 
 ### Phase 3: Generate Core Files
 
-#### 3.1 package.json
-
-```json
-{
-  "name": "@swagger-api/apidom-ns-{spec}-{version}",
-  "version": "1.0.0",
-  "description": "{Specification Name} {Version} namespace for ApiDOM.",
-  "publishConfig": {
-    "access": "public",
-    "registry": "https://registry.npmjs.org"
-  },
-  "type": "module",
-  "sideEffects": [
-    "./src/refractor/registration.mjs",
-    "./src/refractor/registration.cjs"
-  ],
-  "unpkg": "./dist/apidom-ns-{spec}-{version}.browser.min.js",
-  "main": "./src/index.cjs",
-  "exports": {
-    "types": "./types/apidom-ns-{spec}-{version}.d.ts",
-    "import": "./src/index.mjs",
-    "require": "./src/index.cjs"
-  },
-  "types": "./types/apidom-ns-{spec}-{version}.d.ts",
-  "scripts": {
-    "build": "npm run clean && run-p --max-parallel ${CPU_CORES:-2} typescript:declaration build:es build:cjs build:umd:browser",
-    "build:es": "cross-env BABEL_ENV=es babel src --out-dir src --extensions '.ts' --out-file-extension '.mjs' --root-mode 'upward'",
-    "build:cjs": "cross-env BABEL_ENV=cjs babel src --out-dir src --extensions '.ts' --out-file-extension '.cjs' --root-mode 'upward'",
-    "build:umd:browser": "cross-env BABEL_ENV=browser webpack --config config/webpack/browser.config.js --progress",
-    "lint": "eslint ./",
-    "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf --glob 'src/**/*.mjs' 'test/**/*.mjs' ./dist ./types",
-    "test": "NODE_ENV=test ts-mocha --exit",
-    "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 BABEL_ENV=cjs mocha",
-    "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
-    "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
-    "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
-    "postpack": "rimraf NOTICE LICENSES"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/swagger-api/apidom.git"
-  },
-  "author": "SmartBear",
-  "license": "Apache-2.0",
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-core": "^1.2.2",
-    "@types/ramda": "~0.30.0",
-    "ramda": "~0.30.0",
-    "ramda-adjunct": "^5.0.0",
-    "ts-mixer": "^6.0.3"
-  },
-  "files": [
-    "src/**/*.mjs",
-    "src/**/*.cjs",
-    "dist/",
-    "types/apidom-ns-{spec}-{version}.d.ts",
-    "LICENSES",
-    "NOTICE",
-    "README.md",
-    "CHANGELOG.md"
-  ]
-}
-```
-
-**Note**: Add parent namespace to dependencies if extending an existing namespace.
-
-#### 3.2 Element Class Template
-
-For each element, create `src/elements/{ElementName}.ts`:
-
-```typescript
-import {
-  ObjectElement,
-  ArrayElement,
-  StringElement,
-  NumberElement,
-  BooleanElement,
-  Attributes,
-  Meta,
-} from '@swagger-api/apidom-core';
-
-/**
- * @public
- */
-class {ElementName} extends {BaseElementType} {
-  constructor(content?: {ContentType}, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = '{elementName}';
-
-    // Add CSS classes if needed
-    // this.classes.push('{className}');
-  }
-
-  // Generate getter/setter pairs for each property
-  get {propertyName}(): {PropertyType} | undefined {
-    return this.get('{propertyName}');
-  }
-
-  set {propertyName}({propertyName}: {PropertyType} | undefined) {
-    this.set('{propertyName}', {propertyName});
-  }
-}
-
-export default {ElementName};
-```
-
-**Element Type Mapping**:
-- Object elements → `extends ObjectElement`, content type: `Record<string, unknown>`
-- Array elements → `extends ArrayElement`, content type: `Array<unknown>`
-- String elements → `extends StringElement`, content type: `string`
-- Number elements → `extends NumberElement`, content type: `number`
-- Boolean elements → `extends BooleanElement`, content type: `boolean`
-
-**Property Type Mapping**:
-- Use `StringElement` for string properties
-- Use `NumberElement` for number properties
-- Use `BooleanElement` for boolean properties
-- Use `ArrayElement` for array properties
-- Use `ObjectElement` for generic object properties
-- Use custom element types for typed objects (e.g., `InfoElement`, `ServerElement`)
-
-#### 3.3 namespace.ts
-
-```typescript
-import { NamespacePluginOptions } from '@swagger-api/apidom-core';
-
-import {ElementName}Element from './elements/{ElementName}.ts';
-// Import all element classes...
-
-/**
- * @public
- */
-const {specName}{version} = {
-  namespace: (options: NamespacePluginOptions) => {
-    const { base } = options;
-
-    // Register all elements
-    base.register('{elementName}', {ElementName}Element);
-    // Register remaining elements...
-
-    return base;
-  },
-};
-
-export default {specName}{version};
-```
-
-#### 3.4 predicates.ts
-
-```typescript
-import { createPredicate } from '@swagger-api/apidom-core';
-
-import {ElementName}Element from './elements/{ElementName}.ts';
-// Import all element classes...
-
-/**
- * @public
- */
-export const is{ElementName}Element = createPredicate(
-  ({ hasBasicElementProps, isElementType, primitiveEq, hasClass }) => {
-    return (element: unknown): element is {ElementName}Element =>
-      element instanceof {ElementName}Element ||
-      (hasBasicElementProps(element) &&
-        isElementType('{elementName}', element) &&
-        primitiveEq('{primitiveType}', element));
-        // Add hasClass checks if element has CSS classes:
-        // && hasClass('{className}', element));
-  },
-);
-
-// Create predicates for all elements...
-```
-
-**Primitive Type Mapping**:
-- ObjectElement → `'object'`
-- ArrayElement → `'array'`
-- StringElement → `'string'`
-- NumberElement → `'number'`
-- BooleanElement → `'boolean'`
-
-#### 3.5 media-types.ts
-
-```typescript
-/**
- * @public
- */
-export interface {SpecName}MediaTypes {
-  latest: (format: Format) => string;
-  generic: (format: Format) => string;
-}
-
-/**
- * @public
- */
-export type Format = 'json' | 'yaml';
-
-const jsonMediaType = (version: string) =>
-  `application/vnd.{spec}.{version}+json`;
-
-const yamlMediaType = (version: string) =>
-  `application/vnd.{spec}.{version}+yaml`;
-
-const mediaTypes: {SpecName}MediaTypes = {
-  latest: (format = 'json') =>
-    format === 'json' ? jsonMediaType('{version}') : yamlMediaType('{version}'),
-  generic: (format = 'json') =>
-    format === 'json' ? 'application/json' : 'application/yaml',
-};
-
-export default mediaTypes;
-```
-
-#### 3.6 Visitor Templates
-
-**Standard Fixed Fields Visitor** (for most object elements):
-
-For each element, create `src/refractor/visitors/{spec}-{version}/{element-name}/index.ts`:
-
-```typescript
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
-
-import {ElementName}Element from '../../../../elements/{ElementName}.ts';
-import FixedFieldsVisitor, {
-  FixedFieldsVisitorOptions,
-  SpecPath,
-} from '../../generics/FixedFieldsVisitor.ts';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-
-/**
- * @public
- */
-export interface {ElementName}VisitorOptions
-  extends FixedFieldsVisitorOptions,
-    FallbackVisitorOptions {}
-
-/**
- * @public
- */
-class {ElementName}Visitor extends Mixin(FixedFieldsVisitor, FallbackVisitor) {
-  declare public readonly element: {ElementName}Element;
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', '{ElementName}']>;
-
-  declare protected readonly canSupportSpecificationExtensions: true;
-
-  constructor(options: {ElementName}VisitorOptions) {
-    super(options);
-    this.element = new {ElementName}Element();
-    this.specPath = always(['document', 'objects', '{ElementName}']);
-    this.canSupportSpecificationExtensions = true;
-  }
-}
-
-export default {ElementName}Visitor;
-```
-
-**Note**: Set `canSupportSpecificationExtensions` to `true` if the element supports extension fields (e.g., `x-*` properties).
-
-**Map Visitor** (for dynamic key-value objects like components.mediaTypes, additionalOperations):
-
-```typescript
-import { Mixin } from 'ts-mixer';
-import { T as stubTrue, always } from 'ramda';
-import { isStringElement } from '@swagger-api/apidom-core';
-
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-
-/**
- * @public
- */
-export interface {CollectionName}VisitorOptions extends MapVisitorOptions, FallbackVisitorOptions {}
-
-/**
- * @public
- */
-class {CollectionName}Visitor extends Mixin(MapVisitor, FallbackVisitor) {
-  declare public readonly element: {CollectionElement};
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', '{ParentObject}']>;
-
-  declare protected readonly canSupportSpecificationExtensions: false;
-
-  constructor(options: {CollectionName}VisitorOptions) {
-    super(options);
-    this.element = new {CollectionElement}();
-    this.specPath = always(['document', 'objects', '{ParentObject}']);
-    this.canSupportSpecificationExtensions = false;
-  }
-
-  ObjectElement(objectElement: ObjectElement) {
-    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
-
-    // Decorate each child element if needed
-    // Example: Mark elements as references or operations
-    this.element.forEach((value: Element, key: Element) => {
-      // Add metadata to help identify element types
-      if (isStringElement(key)) {
-        value.setMetaProperty('{metadata-name}', key.toValue());
-      }
-    });
-
-    this.copyMetaAndAttributes(objectElement, result);
-    return result;
-  }
-}
-
-export default {CollectionName}Visitor;
-```
-
-**Dynamic Type Detection Visitor** (for fields that can be Reference OR specific type):
-
-```typescript
-import { Mixin } from 'ts-mixer';
-import { always } from 'ramda';
-import { ObjectElement, isStringElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
-
-import MapVisitor, { MapVisitorOptions, SpecPath } from '../../generics/MapVisitor.ts';
-import FallbackVisitor, { FallbackVisitorOptions } from '../../FallbackVisitor.ts';
-import { isReferenceElement } from '../../../..';
-
-/**
- * Handles fields that can contain either Reference objects or specific element types.
- * Decorates with metadata to help dereference strategies.
- *
- * @public
- */
-class {CollectionName}Visitor extends Mixin(MapVisitor, FallbackVisitor) {
-  declare public readonly element: {CollectionElement};
-
-  declare protected readonly specPath: SpecPath<['document', 'objects', '{ParentObject}']>;
-
-  constructor(options: {CollectionName}VisitorOptions) {
-    super(options);
-    this.element = new {CollectionElement}();
-    this.specPath = always(['document', 'objects', '{ParentObject}']);
-    this.canSupportSpecificationExtensions = false;
-  }
-
-  ObjectElement(objectElement: ObjectElement) {
-    const result = MapVisitor.prototype.ObjectElement.call(this, objectElement);
-
-    // Detect and decorate elements based on their structure
-    this.element.forEach((value: Element, key: Element, memberElement: MemberElement) => {
-      // Determine if this is a Reference or actual element
-      if (isObjectElement(value)) {
-        const hasRef = value.hasKey('$ref');
-
-        if (hasRef) {
-          // It's a reference - decorate with referenced element type
-          memberElement.setMetaProperty('referenced-element', '{elementType}');
-        }
-      }
-
-      // Add identifying metadata
-      if (isStringElement(key)) {
-        value.setMetaProperty('{name-property}', key.toValue());
-      }
-    });
-
-    this.copyMetaAndAttributes(objectElement, result);
-    return result;
-  }
-}
-
-export default {CollectionName}Visitor;
-```
-
-**Use Cases:**
-- **FixedFieldsVisitor**: Standard objects with known properties (Info, Server, License)
-- **MapVisitor**: Dynamic collections (components.schemas, components.mediaTypes, additionalOperations)
-- **Dynamic Detection**: Collections that can contain references or actual elements (webhooks, paths)
-
-#### 3.7 specification.ts
-
-```typescript
-import FallbackVisitor from './visitors/FallbackVisitor.ts';
-import {ElementName}Visitor from './visitors/{spec}-{version}/{element-name}/index.ts';
-import {DynamicCollection}Visitor from './visitors/{spec}-{version}/{collection-name}/index.ts';
-// Import all visitors...
-
-/**
- * Specification object allows us to have complete control over visitors
- * when traversing the ApiDOM.
- * Specification also allows us to create amended refractors from
- * existing ones by manipulating it.
- *
- * Note: Specification object allows to use absolute internal JSON pointers.
- *
- * @public
- */
-const specification = {
-  visitors: {
-    value: FallbackVisitor,
-    document: {
-      objects: {
-        {ElementName}: {
-          $visitor: {ElementName}Visitor,
-          fixedFields: {
-            // Simple value fields (string, number, boolean)
-            {propertyName}: { $ref: '#/visitors/value' },
-
-            // Nested object references
-            {nestedProperty}: { $ref: '#/visitors/document/objects/{NestedElement}' },
-
-            // Array fields with specific visitor
-            {arrayProperty}: {ArrayVisitor},
-
-            // Dynamic collections (maps with unknown keys)
-            {dynamicCollection}: {
-              $visitor: {DynamicCollection}Visitor,
-              // Define what visitor handles the values in the map
-              value: { $ref: '#/visitors/document/objects/{ValueElement}' },
-            },
-
-            // Collections that can be Reference OR specific element
-            {mixedCollection}: {
-              $visitor: {MixedCollection}Visitor,
-              value(element: Element) {
-                // Dynamically determine visitor based on element structure
-                if (isObjectElement(element) && element.hasKey('$ref')) {
-                  // It's a reference
-                  return { $ref: '#/visitors/value' };
-                }
-                // It's an actual element
-                return { $ref: '#/visitors/document/objects/{ActualElement}' };
-              },
-            },
-          },
-        },
-        // Define all element structures...
-      },
-    },
-  },
-};
-
-export default specification;
-```
-
-**Advanced Specification Patterns:**
-
-1. **Inheriting from Parent Version** (e.g., OpenAPI 3.2 extending 3.1):
-```typescript
-import { specificationObj as parentSpec } from '@swagger-api/apidom-ns-{parent}';
-
-const specification = {
-  visitors: {
-    ...parentSpec.visitors,
-    document: {
-      objects: {
-        ...parentSpec.visitors.document.objects,
-        // Override root element with new fields
-        {RootElement}: {
-          $visitor: {RootElement}Visitor,
-          fixedFields: {
-            ...parentSpec.visitors.document.objects.{RootElement}.fixedFields,
-            // Add new fields
-            {newField}: { $ref: '#/visitors/value' },
-          },
-        },
-        // Add completely new elements
-        {NewElement}: {
-          $visitor: {NewElement}Visitor,
-          fixedFields: {
-            // ...
-          },
-        },
-      },
-    },
-  },
-};
-```
-
-2. **Patterned Fields** (for fields with dynamic keys matching a pattern):
-```typescript
-{
-  $visitor: PatternedFieldsVisitor,
-  patternedFields: {
-    // Keys starting with 'x-' are extensions
-    '^x-': { $ref: '#/visitors/value' },
-  },
-}
-```
-
-3. **Conditional Visitors** (different handling based on content):
-```typescript
-{
-  value(element: Element) {
-    if (isConditionMet(element)) {
-      return { $ref: '#/visitors/document/objects/{ElementA}' };
-    }
-    return { $ref: '#/visitors/document/objects/{ElementB}' };
-  },
-}
-```
-
-#### 3.8 registration.ts
-
-```typescript
-import {ElementName}Element from '../elements/{ElementName}.ts';
-// Import all elements...
-import { createRefractor } from './index.ts';
-
-{ElementName}Element.refract = createRefractor([
-  'visitors',
-  'document',
-  'objects',
-  '{ElementName}',
-  '$visitor',
-]);
-
-// Register all elements...
-```
-
-#### 3.9 index.ts (main export)
-
-```typescript
-export {
-  isRefElement,
-  isLinkElement as isLinkPrimitiveElement,
-  isMemberElement,
-  isObjectElement,
-  isArrayElement,
-  isBooleanElement,
-  isNullElement,
-  isElement,
-  isNumberElement,
-  isStringElement,
-} from '@swagger-api/apidom-core';
-
-export { default as mediaTypes, {SpecName}MediaTypes } from './media-types.ts';
-export type { Format } from './media-types.ts';
-
-// eslint-disable-next-line no-restricted-exports
-export { default } from './namespace.ts';
-
-export { default as refract, createRefractor } from './refractor/index.ts';
-export { default as specificationObj } from './refractor/specification.ts';
-
-// Export visitor base classes
-export { default as FixedFieldsVisitor } from './refractor/visitors/generics/FixedFieldsVisitor.ts';
-export type {
-  FixedFieldsVisitorOptions,
-  SpecPath,
-} from './refractor/visitors/generics/FixedFieldsVisitor.ts';
-export { default as FallbackVisitor } from './refractor/visitors/FallbackVisitor.ts';
-export type { FallbackVisitorOptions } from './refractor/visitors/FallbackVisitor.ts';
-
-// Export visitor types
-export type {
-  default as {ElementName}Visitor,
-  {ElementName}VisitorOptions,
-} from './refractor/visitors/{spec}-{version}/{element-name}/index.ts';
-// Export all visitor types...
-
-// Export predicates
-export {
-  is{ElementName}Element,
-  // Export all predicates...
-} from './predicates.ts';
-
-// Export elements
-export { {ElementName}Element } from './refractor/registration.ts';
-// Export all elements...
-```
-
-#### 3.10 tsconfig.json
-
-```json
-{
-  "extends": "../../tsconfig.json",
-  "include": ["src/**/*"],
-  "compilerOptions": {
-    "composite": true
-  }
-}
-```
-
-#### 3.11 tsconfig.declaration.json
-
-```json
-{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "outDir": "./types"
-  }
-}
-```
+Work through these steps in order. Each step names the reference file holding its template; read that file before writing the step's code, and replace every `{placeholder}`.
+
+| Step | File(s) | Template in |
+|------|---------|-------------|
+| 3.1 | `package.json` | `references/package-config.md` |
+| 3.2 | `src/elements/{ElementName}.ts` for each element | `references/elements-and-namespace.md` |
+| 3.3 | `src/namespace.ts` | `references/elements-and-namespace.md` |
+| 3.4 | `src/predicates.ts` | `references/elements-and-namespace.md` |
+| 3.5 | `src/media-types.ts` | `references/elements-and-namespace.md` |
+| 3.6 | `src/refractor/visitors/{spec}-{version}/{element-name}/index.ts` for each element | `references/refractor-visitors.md` |
+| 3.7 | `src/refractor/specification.ts` | `references/refractor-visitors.md` |
+| 3.8 | `src/refractor/registration.ts` | `references/elements-and-namespace.md` |
+| 3.9 | `src/index.ts` (main export) | `references/elements-and-namespace.md` |
+| 3.10 | `tsconfig.json` | `references/package-config.md` |
+| 3.11 | `tsconfig.declaration.json` | `references/package-config.md` |
+
+Key points per step (details and code are in the reference files):
+
+- **3.1**: Add the parent namespace to `dependencies` if extending an existing namespace.
+- **3.2**: When extending a parent version, the element class extends the parent element and adds getters/setters only for fields that are NEW in this version. Redefining inherited fields is the most common mistake in review, because it duplicates behaviour that already works.
+- **3.4**: Every element needs an `is{ElementName}Element` predicate; add `hasClass` checks for elements with CSS classes.
+- **3.6**: Pick the visitor type per field: `FixedFieldsVisitor` for objects with known properties, `MapVisitor` for dynamic key-value collections, and dynamic type detection for collections that can hold a Reference or a concrete element. Set `canSupportSpecificationExtensions` to `true` for elements that accept `x-*` fields.
+- **3.7**: When extending a parent, spread the parent `specificationObj` and override only changed or new objects, reusing parent visitors where possible.
+- Naming: element classes PascalCase, registered element names camelCase, visitor directories kebab-case (see the naming sections in the reference files).
 
 ### Phase 4: Copy Supporting Files
 
@@ -778,70 +170,11 @@ Copy the following files from a similar namespace package (e.g., `apidom-ns-araz
 
 ### Phase 5: Generate Tests
 
-For each element, create a test file `test/refractor/elements/{ElementName}/index.ts`:
+Before writing tests, read `references/testing.md`. Create:
 
-```typescript
-import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
-
-import { {ElementName}Element } from '../../../../src/index.ts';
-
-describe('refractor', function () {
-  context('elements', function () {
-    context('{ElementName}Element', function () {
-      specify('should refract to semantic ApiDOM tree', function () {
-        const {elementName}Element = {ElementName}Element.refract({
-          {propertyName}: 'value',
-          // Add sample data...
-        });
-
-        expect(sexprs(elementName)).toMatchSnapshot();
-      });
-    });
-  });
-});
-```
-
-Create `test/predicates.ts`:
-
-```typescript
-import { expect } from 'chai';
-
-import { {ElementName}Element, is{ElementName}Element } from '../src/index.ts';
-
-describe('predicates', function () {
-  context('is{ElementName}Element', function () {
-    context('when element is {ElementName}Element', function () {
-      specify('should return true', function () {
-        const element = new {ElementName}Element();
-
-        expect(is{ElementName}Element(element)).to.be.true;
-      });
-    });
-
-    context('when element is not {ElementName}Element', function () {
-      specify('should return false', function () {
-        expect(is{ElementName}Element({})).to.be.false;
-        expect(is{ElementName}Element(null)).to.be.false;
-        expect(is{ElementName}Element(undefined)).to.be.false;
-      });
-    });
-  });
-});
-```
-
-Create `test/tsconfig.json`:
-
-```json
-{
-  "extends": "../../../tsconfig.test.json",
-  "compilerOptions": {
-    "types": ["mocha", "chai", "node"]
-  },
-  "include": ["./**/*"],
-  "references": [{ "path": ".." }]
-}
-```
+- `test/refractor/elements/{ElementName}/index.ts` for each element (snapshot test of the refracted tree)
+- `test/predicates.ts` covering every `is{ElementName}Element` predicate (true and false cases)
+- `test/tsconfig.json`
 
 ### Phase 6: Build and Test
 
@@ -866,6 +199,8 @@ Create `test/tsconfig.json`:
    npm run lint
    ```
 
+If any of these fail, read `references/troubleshooting.md`.
+
 ### Phase 7: Update Root Configuration
 
 1. **Add to root package.json workspaces** (if not already included by glob pattern)
@@ -881,113 +216,21 @@ Create `test/tsconfig.json`:
 
 3. **Update CHANGELOG.md** in the package root
 
-## Important Patterns
+## Final Verification Checklist
 
-### Common Specification Features to Support
+Before reporting the namespace as done:
 
-Based on learnings from OpenAPI 3.2.0 and other implementations, watch for these common patterns:
-
-1. **New HTTP Methods or Operations**:
-   - Example: OpenAPI 3.2 added `query` as a standard HTTP method
-   - Add as fixed fields in PathItem-like objects
-   - Map to same visitor as other operations (GET, POST, etc.)
-
-2. **Dynamic Operation Collections**:
-   - Example: OpenAPI 3.2's `additionalOperations` allows custom HTTP methods
-   - Use MapVisitor + dynamic type detection
-   - Decorate with `referenced-element` metadata for references
-
-3. **Reusable Component Types**:
-   - Example: OpenAPI 3.2's `components.mediaTypes` for reusable media type definitions
-   - Add to Components object as map visitor
-   - Update allowed fields validation
-
-4. **Global Configuration Fields**:
-   - Example: OpenAPI 3.2's `jsonSchemaDialect` sets default JSON Schema dialect
-   - Add as simple string/URI field to root element
-   - Document purpose and valid values
-
-5. **Webhook/Callback Patterns**:
-   - Example: OpenAPI 3.2's `webhooks` (inverted API calls)
-   - Similar structure to main paths/operations
-   - Decorate with identifying metadata (e.g., `webhook-name`)
-
-6. **Self-Reference Fields**:
-   - Example: OpenAPI 3.2's `$self` for document URI
-   - Simple string field for URI reference
-   - Used for relative reference resolution
-
-7. **Extended Metadata Fields**:
-   - Example: OpenAPI 3.2's `Server.name` and `License.identifier`
-   - Add to existing objects as optional fields
-   - Update parent version's element definitions
-
-### Element Naming Conventions
-- Element class names: PascalCase (e.g., `WorkflowElement`, `InfoElement`, `JsonSchemaDialectElement`)
-- Element type names (registered in namespace): camelCase (e.g., `'workflow'`, `'info'`, `'jsonSchemaDialect'`)
-- File names: Match class names (e.g., `Workflow.ts`, `Info.ts`, `JsonSchemaDialect.ts`)
-
-### Visitor Naming Conventions
-- Visitor class names: `{ElementName}Visitor`
-- Visitor directories: kebab-case (e.g., `source-description/`, `success-action/`)
-
-### CSS Classes for Specialized Elements
-Add CSS classes to elements that need specialized identification:
-```typescript
-constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
-  super(content, meta, attributes);
-  this.element = 'workflow';
-  this.classes.push('workflow-outputs');
-}
-```
-
-### Named Collection Elements (NCEs)
-For specialized array types, create NCE classes in `src/elements/nces/`:
-```typescript
-import { ArrayElement, Attributes, Meta } from '@swagger-api/apidom-core';
-
-class WorkflowSteps extends ArrayElement {
-  constructor(content?: Array<unknown>, meta?: Meta, attributes?: Attributes) {
-    super(content, meta, attributes);
-    this.element = 'array';
-    this.classes.push('workflow-steps');
-  }
-}
-
-export default WorkflowSteps;
-```
-
-### Specification Extensions Support
-For elements supporting `x-*` extension properties:
-1. Set `canSupportSpecificationExtensions = true` in visitor
-2. Use `FixedFieldsVisitor` mixin (handles extensions automatically)
-
-### Parent Namespace Inheritance
-When basing on existing namespace:
-1. Import parent specification object
-2. Extend/override only changed elements
-3. Reuse parent visitors where possible
-
-Example:
-```typescript
-import { specificationObj as parentSpecification } from '@swagger-api/apidom-ns-{parent}';
-
-const specification = {
-  visitors: {
-    ...parentSpecification.visitors,
-    document: {
-      objects: {
-        ...parentSpecification.visitors.document.objects,
-        // Override only changed elements
-        {ElementName}: {
-          $visitor: {ElementName}Visitor,
-          // ...
-        },
-      },
-    },
-  },
-};
-```
+- [ ] No fields from the parent version are redefined in element classes or the specification object
+- [ ] ALL new fields from the specification's "Fixed Fields" tables are implemented, and no invented fields were added
+- [ ] Every URL used (dialects, schemas, specification links) was verified with `curl -I` and returns 200
+- [ ] No duplicate files (searched before creating)
+- [ ] Every element has an element class, a namespace registration, a predicate, a visitor, a `specification.ts` entry, a `registration.ts` refractor, exports in `src/index.ts`, and a test
+- [ ] All imports use the `.ts` extension
+- [ ] `npm run build` succeeds
+- [ ] `npm run test` passes
+- [ ] `npm run typescript:check-types` passes
+- [ ] `npm run lint` passes
+- [ ] Root configuration (workspaces, tsconfig references, CHANGELOG.md) updated
 
 ## Next Steps After Namespace Creation
 
@@ -1012,23 +255,6 @@ After completing the namespace package, you'll need to:
    - Import new namespace
    - Add preview plugin
 
-## Troubleshooting
-
-### Build Errors
-- Ensure all imports use `.ts` extension
-- Check that all element classes are properly exported
-- Verify TypeScript configuration is correct
-
-### Test Failures
-- Run `npm run test:update-snapshots` to update snapshots after changes
-- Ensure test data matches specification structure
-- Check that all predicates are properly exported
-
-### Type Errors
-- Verify all visitor interfaces extend correct base interfaces
-- Check that element content types match base class expectations
-- Ensure all visitor options are properly typed
-
 ## References
 
 - **PDF Instructions**: Section on "Adding a completely new specification"
@@ -1037,3 +263,4 @@ After completing the namespace package, you'll need to:
   - Medium: `apidom-ns-openapi-3-1` (34 elements, JSON Schema integration)
   - Complex: `apidom-ns-asyncapi-3` (131 elements, protocol bindings)
 - **Architecture**: See CLAUDE.md "Three-Stage Processing Pipeline"
+- **Templates and examples**: `references/` (see the table in the Overview)

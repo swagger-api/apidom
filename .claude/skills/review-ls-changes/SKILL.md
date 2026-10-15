@@ -1,6 +1,6 @@
 ---
 name: review-ls-changes
-description: Reviews changes in the apidom-ls package against the target API specification, checking lint rules, documentation values, and URL anchors for correctness and completeness
+description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". Not for JSON Schema dialect configs.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -20,6 +20,17 @@ This skill verifies that the language service configuration for a given specific
 - **Element config coverage**: Every element type registered in the namespace is also registered in `config.ts`
 
 The skill encodes lessons learned from production reviews of multiple specification namespaces.
+
+### Reference Files
+
+Read these on demand, at the step that points to them — not all up front:
+
+| File | Contents | Read when |
+|---|---|---|
+| `references/spec-field-extraction.md` | Source-of-truth rules, curl+Python extraction scripts, required-field formats, raw Markdown sources, mandatory table verification | Phase 2 (before fetching any spec content) and before reporting any Issue 1 finding |
+| `references/lint-rule-checks.md` | Implementation-map commands, detailed criteria for checks 4.1–4.7, `targetSpecs` grep commands | Phases 3 and 4 |
+| `references/docs-completion-anchor-checks.md` | Documentation value checks, completion file commands, anchor format table | Phases 5 and 6 |
+| `references/key-lessons.md` | Recurring mistake patterns from past reviews | Before Phase 4, and whenever a finding seems borderline |
 
 ## When to Use
 
@@ -47,34 +58,7 @@ Use this skill when:
 
 **Always verify against the official specification page**, not secondary sources (definitions pages, proto files, JSON schemas). These secondary sources can diverge from the spec in required/optional designations.
 
-For specs with a normative proto file or JSON Schema, use the spec page first. If the spec page cannot be fully fetched (too long), use curl + Python to extract the relevant section:
-
-```bash
-curl -s "{spec-url}" | python3 -c "
-import sys, re
-from html.parser import HTMLParser
-
-class TextExtractor(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.text = []
-    def handle_data(self, data):
-        stripped = data.strip()
-        if stripped:
-            self.text.append(stripped)
-
-parser = TextExtractor()
-parser.feed(sys.stdin.read())
-full = '\n'.join(parser.text)
-
-# Find target section — adjust pattern as needed
-positions = [m.start() for m in re.finditer('4\\.5\\. Security Objects', full)]
-start = positions[-1]  # last occurrence = actual content (earlier ones are TOC)
-print(full[start:start+20000])
-"
-```
-
-**Always use the last occurrence** of a section heading — earlier occurrences are usually the table of contents, not the actual content.
+**Always use the last occurrence** of a section heading — earlier occurrences are usually the table of contents, not the actual content. Extraction scripts and fetch strategies are in `references/spec-field-extraction.md`.
 
 ## Skill Instructions
 
@@ -89,310 +73,54 @@ Ask the user (or infer from the current branch/diff) for:
 
 ### Phase 2: Build the Spec Field Map
 
-Fetch every object definition from the spec. For each object record:
-- Exact camelCase field name as used in JSON (see §5.5 JSON Field Naming Convention or equivalent)
-- Required: Yes / No
-- Type
-- **New vs inherited** (if this spec extends a parent version): explicitly mark each field as NEW (added in this version) or INHERITED (already in parent). Only NEW fields need to be added to the implementation; INHERITED fields must already be present. Cross-check by reading the parent version's element files.
+**Read `references/spec-field-extraction.md` now**, before fetching any spec content.
 
-**Key pitfalls:**
-- An object may be referenced as a field type within a parent but have **no definition of its own** (no section, no field table) — do not invent required/optional status for its fields
-- Fields that are alternatives of a union / `oneOf` (only one of them may be present) are not individually required, even if the union itself is required
-- A "MUST contain exactly one of" note on a union does **not** make any individual variant field required
+1. Identify how the spec marks required fields (separate `Required` column, `REQUIRED` marker in the description, or prose only) by inspecting one known object first.
+2. Fetch every object definition. Prefer the raw Markdown source; fall back to curl+Python extraction when `WebFetch` truncates. Take the **last** occurrence of each heading.
+3. For each object record: exact camelCase field name, Required (Yes / No), Type, and **NEW vs INHERITED** when the spec extends a parent version (cross-check against the parent version's element files).
+4. Confirm each extraction contains the actual Fixed Fields table rows with required-status information — not the TOC entry.
+5. Note conditionally required fields separately; they need conditional rules, not plain `--required.ts`.
 
-**Fetch strategy when the page is too long:**
-The spec page may truncate in `WebFetch`. Prefer the raw Markdown source when the spec is published from a repository (see below). Otherwise use the curl+Python approach above, searching for each section heading. Always take the **last** occurrence of a heading string (the actual content, not the TOC entry).
-
-**Identify how the spec marks required fields — before building the map:**
-Specs express required status in different ways. Determine which one applies by inspecting one known object first:
-
-| Format | Example specs | What a required field looks like |
-|---|---|---|
-| Separate `Required` column | A2A | `capabilities \| AgentCapabilities \| Yes \| A2A Capability set...` |
-| Marker inside the Description column | OpenAPI, AsyncAPI, Arazzo | `openapi \| string \| **REQUIRED**. This string MUST be...` |
-| Prose only (keyword descriptions) | JSON Schema | Not supported — see [When NOT to Use](#when-not-to-use) |
-
-For the description-marker format:
-- A field is required **only** if its description starts with the `REQUIRED` marker (exact spelling/punctuation varies: `**REQUIRED**.` in OpenAPI, `**REQUIRED.**` in AsyncAPI). Its absence means optional — there is no `No` value to look for.
-- Read the spec's preamble for the default rule, e.g. OpenAPI: *"if a field is not explicitly **REQUIRED** or described with a MUST or SHALL, it can be considered OPTIONAL."*
-- Watch for **conditionally required** fields described in prose (e.g. OpenAPI Parameter `required` is REQUIRED and MUST be `true` when `in` is `"path"`). These need a conditional rule, not a plain `--required.ts`; note them separately in the field map.
-
-**Prefer the raw Markdown source** when the spec is maintained as Markdown in a repository — tables are plain `|`-delimited rows, there is no client-side rendering, and the TOC is not interleaved with content:
-- OpenAPI 3.2: `https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/versions/3.2.0.md`
-- AsyncAPI 3.0: `https://raw.githubusercontent.com/asyncapi/spec/v3.0.0/spec/asyncapi.md`
-
-```bash
-# Print a field row from the Markdown source (works for both required-marker formats)
-curl -s "{raw-markdown-url}" | grep -nE "^\|?\s*(<a name=\"[^\"]*\"></a>)?{fieldName}\s*\|"
-```
-
-**Mandatory table verification — do not skip:**
-After extracting a section, confirm you actually have the Fixed Fields table and not just the TOC entry. The extracted text MUST contain the field rows with their required-status information, in the format identified above:
-- Separate `Required` column: the field name AND a `Yes` / `No` value in the same row
-- Description marker: the field name AND its full description text (so the presence or absence of the `REQUIRED` marker can be confirmed)
-
-For HTML-only specs, use this pattern:
-
-```bash
-curl -s "{spec-url}" | python3 -c "
-import sys, re
-from html.parser import HTMLParser
-
-class TextExtractor(HTMLParser):
-    def __init__(self):
-        super().__init__()
-        self.text = []
-    def handle_data(self, data):
-        stripped = data.strip()
-        if stripped:
-            self.text.append(stripped)
-
-parser = TextExtractor()
-parser.feed(sys.stdin.read())
-full = '\n'.join(parser.text)
-
-# Section heading of the target object (adjust to the spec's heading style)
-heading = r'\n[\d.]+\s*AgentCard\n'
-# Next section heading — marks the end of the target section
-next_heading = r'\n\d+(\.\d+)+\.?\s*\S+\n'
-# Header of the Fixed Fields table: 'Required' (separate column) or 'Description'
-table_header = 'Required'
-# Required-status evidence: r'\n(Yes|No)\n' (separate column) or r'REQUIRED' (description marker)
-required_marker = r'\n(Yes|No)\n'
-
-for m in re.finditer(heading, full):
-    body = full[m.end():m.end() + 8000]
-    end = re.search(next_heading, body)
-    section = body[:end.start()] if end else body
-    # TOC entries are immediately followed by the next heading, so their section is empty
-    if table_header in section and re.search(required_marker, section):
-        print(section)
-        break
-else:
-    print('NO FIXED FIELDS TABLE FOUND')
-"
-```
-
-Anchor on the object's **section heading**, not on any occurrence of the object name — the name also appears in other objects' tables and method descriptions (e.g. `AgentCard` occurs in the request/response tables of operations returning it), which would otherwise yield the wrong table.
-
-Notes:
-- For description-marker specs, an object with no required fields will legitimately contain no `REQUIRED` marker — in that case confirm the table by its header and field rows instead, and record all fields as optional.
-- If no occurrence contains the table, the spec page is likely rendering client-side and the table was not captured — try `curl -L` or fetch the raw source directly.
+Key pitfalls: objects referenced only as a field type (no section, no field table) have no verifiable required status; union / `oneOf` alternatives are not individually required, and "MUST contain exactly one of" does not make any variant required.
 
 ### Phase 3: Build the Implementation Map
 
-For each element registered in `config.ts`:
+**Read the "Phase 3 Detail" section of `references/lint-rule-checks.md`** for the exact commands.
 
-```bash
-# List all element configs
-find packages/apidom-ls/src/config/{spec-dir} -name "*.ts" | sort
-
-# List all lint rules per element
-ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/
-
-# Read allowed-fields to compare field list
-cat packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/allowed-fields.ts
-
-# Find all required-field rules
-find packages/apidom-ls/src/config/{spec-dir} -name "*--required.ts"
-
-# Find all type-checking rules
-find packages/apidom-ls/src/config/{spec-dir} -name "*--type.ts"
-
-# Check which elements have completion files vs stubs
-find packages/apidom-ls/src/config/{spec-dir} -name "completion.ts" | sort
-grep -rn "never\[\]" packages/apidom-ls/src/config/{spec-dir}/*/completion.ts
-
-# Find all element types in the namespace
-grep -r "this.element = " packages/{namespace-pkg}/src/elements/
-```
-
-Also read `config.ts` to identify which element types are registered:
-
-```bash
-cat packages/apidom-ls/src/config/{spec-dir}/config.ts
-```
-
-**Discriminated union subtypes**: For any union type (e.g. `SecurityScheme` with variants `ApiKeySecurityScheme`, `OAuth2SecurityScheme`, etc.), verify that **each subtype** has its own element type key registered in `config.ts`. A missing subtype entry means zero lint/docs/completion for all of that subtype's fields.
-
-**Deprecated/removed objects**: Also fetch the spec's changelog or "What's New" page to identify objects removed in this version. For each config directory that corresponds to a removed object:
-- If the LS still supports an older spec version where the object exists, the config directory **must stay**. Verify instead that its rules, documentation, and completion entries have `targetSpecs` limited to the versions where the object exists (see [4.4 Target Spec Scoping](#44-target-spec-scoping)).
-- Flag the directory for removal only if no supported version defines the object.
+1. List all element configs, lint rules, `allowed-fields.ts`, `*--required.ts`, `*--type.ts`, and `completion.ts` files under the config directory.
+2. Read `config.ts` and list the namespace's element types (`this.element = `).
+3. Verify **each discriminated-union subtype** has its own `config.ts` key.
+4. Check the spec changelog for removed objects; keep their config dirs if an older supported version still defines them, but verify `targetSpecs` scoping.
 
 ### Phase 4: Check Lint Rules
 
-#### 4.1 Incorrect Required-Field Rules
+**Read the "Phase 4 Detail" section of `references/lint-rule-checks.md`** for full criteria and commands, and `references/key-lessons.md` for recurring patterns. Check:
 
-For each `*--required.ts` file, check whether the spec marks the field as **required**.
-
-**Flag as incorrect if:**
-- The spec marks the field as optional (`No` in a Required column, or no `REQUIRED` marker in the description)
-- The object has **no definition of its own** in the spec (it is only referenced as a field type in a parent, with no field table) — required status is unverifiable, so there should be no `--required.ts` rule for its fields
-
-**Do not flag:**
-- Fields the spec marks as required
-- Conditional rules for fields that are required only in some situations (e.g. OpenAPI Parameter `required` when `in: path`) — verify the condition instead
-
-**Self-check gate — mandatory before reporting any finding here:**
-Before adding ANY entry to this issue section, re-fetch the exact Fixed Fields table row for that field using the mandatory table verification approach from Phase 2. You MUST be able to quote the raw table row (field name + type + required status + description text) as evidence. If you cannot produce the raw row, do not flag the rule — absence of evidence is not evidence of incorrectness.
-
-Examples of required evidence:
-> Raw spec row (Required column): `capabilities | AgentCapabilities | Yes | A2A Capability set supported by the agent.`
-
-> Raw spec row (description marker): ``| <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the API. |``
-
-A finding with no quoted raw row is **not admissible** in this section.
-
-#### 4.2 Missing Required-Field Rules
-
-For each object in the spec with required fields, verify a `{field}--required.ts` rule exists.
-
-**Flag as missing if** no such rule exists and the spec marks the field as required.
-
-Common pattern: `*--type.ts` exists but the paired `*--required.ts` is absent — this is a systematic gap.
-
-#### 4.3 Allowed-Fields Accuracy
-
-For each `allowed-fields.ts`, compare `linterParams[0]` against the spec's field list for that object.
-
-**Flag if:**
-- A field in the array is not in the spec (extra field — causes false positives)
-- A spec field is absent from the array (missing field — allows unknown fields through)
-
-**When extending a parent version**: If a version-scoped file exists (e.g., `allowed-fields-3-2.ts`), verify it contains ALL fields valid for that version — both new fields and fields carried over from the parent. New fields added to an existing object are the most common source of omissions. Also check: if the 3.2 list is identical to the 3.1 list, the file may be redundant or the new fields may have been forgotten.
-
-#### 4.4 Target Spec Scoping
-
-Lint rules, `documentation.ts` entries, and `completion.ts` entries carry a `targetSpecs` property built from the constants in `packages/apidom-ls/src/config/{spec-dir}/target-specs.ts` (e.g. `OpenAPI30`, `OpenAPI31`, `OpenAPI32`, and the aggregate `OpenAPI3`). When a new version is added to an existing spec, check scoping in both directions:
-
-**Existing rules/docs/completion — must now include the new version** when the field or object is unchanged in it:
-- Either the entry uses an aggregate constant that already includes the new version (e.g. `OpenAPI3`), or the new version constant was added explicitly (e.g. `[...OpenAPI31, ...OpenAPI32]`)
-- An entry still scoped to older versions only means documents in the new version silently get no validation, hover docs, or completion for that field
-
-**New rules/docs/completion — must target only the new version** when they cover fields or objects NEW in that version:
-- e.g. `media-type/lint/item-schema--type.ts` (`itemSchema` is new in OAS 3.2) must use `targetSpecs: OpenAPI32`, not `OpenAPI3`
-- A wider scope makes the rule fire, or the completion appear, for older-version documents where the field is not valid
-
-**Removed or changed fields** must keep `targetSpecs` limited to the versions where they are valid — never delete such entries while older versions are still supported.
-
-**Version-scoped files** (e.g. `allowed-fields.ts` + `allowed-fields-3-2.ts`): their `targetSpecs` must not overlap, and together they must cover every supported version.
-
-```bash
-cat packages/apidom-ls/src/config/{spec-dir}/target-specs.ts
-
-# Review targetSpecs per element
-grep -rn "targetSpecs" packages/apidom-ls/src/config/{spec-dir}/{element-dir}/
-
-# Candidate lint rules that do NOT apply to the new version (adjust constant names).
-# Not all are wrong — rules for older-only fields are expected here; review each one.
-grep -rl "targetSpecs" packages/apidom-ls/src/config/openapi/*/lint/ --include="*.ts" \
-  | xargs grep -LE "OpenAPI32|OpenAPI3([^0-9]|$)"
-```
-
-`documentation.ts` and `completion.ts` contain several entries per file with different `targetSpecs`, so review them entry by entry rather than per file.
-
-#### 4.5 Missing Type Lint Rules
-
-For each field that appears in `allowed-fields.ts` (or that has a `*--required.ts` rule), check whether a `{field}--type.ts` rule also exists. The spec's type column is the source of truth.
-
-**Flag as missing if** the spec specifies a type for the field (string, number, boolean, array, object) and no `*--type.ts` rule exists.
-
-```bash
-# For a given element, list existing type rules
-ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -- "--type"
-```
-
-Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is validated for presence but not for correctness — a common gap.
-
-**Linter function for array-of-objects fields**: A field that is an array of spec objects (not primitives) should use `apilintChildrenOfElementsOrClasses` (with the element class name as param), not `apilintType`. Flag if `apilintType` is used for a field whose spec type is an array of objects.
-
-#### 4.6 Missing Enum/Value-Constraint Rules
-
-For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` or `{field}--values.ts` rule exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
-
-#### 4.7 Missing Element Configs
-
-Compare element types from `config.ts` against all element types defined in the namespace:
-
-```bash
-# All element types in namespace
-grep -r "this.element = " packages/{namespace-pkg}/src/elements/ | grep -v "nces/"
-
-# All keys in config.ts
-grep "^  [a-zA-Z]" packages/apidom-ls/src/config/{spec-dir}/config.ts
-```
-
-**Flag any element type present in the namespace but absent from `config.ts`.**
-
-For each missing config, note which fields are required per spec — these need `*--required.ts` rules in the new config. Also flag missing discriminated-union subtype entries (see Phase 3 note).
+- [ ] **4.1 Incorrect required-field rules** — every `*--required.ts` matches a field the spec marks required; no required rules for fields of objects without their own definition. **Self-check gate:** before reporting, re-fetch and quote the raw Fixed Fields table row (see `references/spec-field-extraction.md`). A finding with no quoted raw row is **not admissible**.
+- [ ] **4.2 Missing required-field rules** — every spec-required field has `{field}--required.ts` (watch for `*--type.ts` without a paired `*--required.ts`).
+- [ ] **4.3 Allowed-fields accuracy** — `linterParams[0]` has no extra and no missing fields; version-scoped files (e.g. `allowed-fields-3-2.ts`) contain new AND carried-over fields.
+- [ ] **4.4 Target spec scoping** — existing entries for unchanged fields include the new version; entries for NEW fields target only the new version; removed/changed fields stay limited; version-scoped files do not overlap and cover every supported version.
+- [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType`.
+- [ ] **4.6 Enum/value-constraint rules** (advisory) — candidates for `{field}--equals.ts` / `{field}--values.ts`.
+- [ ] **4.7 Missing element configs** — every namespace element type (and union subtype) is registered in `config.ts`.
+- [ ] **4.8 Rule conventions** — new codes in `codes.ts` are unique and follow the numbering of their neighbours (e.g. x100 steps per field); messages follow existing patterns (`should always have a '{field}'`, `'{field}' must be a {type}`); no `'reference'` in `linterParams`; file names `{field}--{type}.ts`; every new rule file is imported in its `lint/index.ts`.
 
 ### Phase 5: Check Documentation Values
 
-For each `documentation.ts` file, check every `docs` string against the spec:
+**Read the "Phase 5 Detail" section of `references/docs-completion-anchor-checks.md`.** For each `documentation.ts` and `completion.ts`, check:
 
-#### 5.1 Required/Optional Labels
-
-If a `docs` string says "(required)" or "optional", verify it matches the spec's required/optional designation for that field.
-
-```typescript
-// ❌ WRONG — field is required per spec
-docs: '...optional {field} supported by ...'
-
-// ❌ WRONG — object has no spec section; field is actually optional
-docs: 'The {field} to be used for this flow (string, required).'
-```
-
-#### 5.2 Field Descriptions
-
-Verify the description text matches the spec's description for that field. Paraphrasing is acceptable; factual errors (wrong type, wrong semantics) must be flagged.
-
-#### 5.3 Empty Documentation Arrays
-
-Flag any `const documentation: never[] = []` — these stubs provide no hover information. List which fields from the spec should have entries.
-
-#### 5.4 Missing or Empty Completion Files
-
-For each element registered in `config.ts`, check whether a `completion.ts` file exists and contains entries.
-
-**Flag as missing** if no `completion.ts` exists for an element.
-
-**Flag as empty** if `completion.ts` exports `never[]` or an empty array — completion entries drive IDE auto-complete for all fields and are especially important for required fields.
-
-```bash
-# Find elements with no completion file
-for dir in packages/apidom-ls/src/config/{spec-dir}/*/; do
-  [ ! -f "${dir}completion.ts" ] && echo "No completion.ts: $dir"
-done
-
-# Find completion stubs
-grep -rln "never\[\]\|= \[\]" packages/apidom-ls/src/config/{spec-dir}/*/completion.ts
-```
-
-A common pattern: a new element config is added quickly with `allowed-fields.ts` only; `completion.ts` is left as a stub or omitted entirely.
+- [ ] **5.1** "(required)" / "optional" labels match the spec designation
+- [ ] **5.2** Field descriptions are factually correct (paraphrasing is fine; wrong type/semantics is not)
+- [ ] **5.3** No `const documentation: never[] = []` stubs
+- [ ] **5.4** Every registered element has a non-empty `completion.ts`
 
 ### Phase 6: Check Documentation URL Anchors
 
-For each URL in documentation files, verify the anchor resolves to a real section on the spec page.
+**Read the "Phase 6 Detail" section of `references/docs-completion-anchor-checks.md`** for the anchor format table and extraction command.
 
-Different spec sites use different anchor formats — determine the correct format by inspecting the actual page before checking anchors:
-
-| Spec site pattern | Common anchor format |
-|---|---|
-| Numbered section pages (e.g. `#451-objectname`) | lowercase with hyphens, prefixed by section number |
-| GitHub Markdown (e.g. `github.com/.../versions/X.md`) | `#camelCaseAnchor` |
-| `spec.openapis.org` | varies by version — check the actual page |
-| Separate definition/reference pages | often kebab-case (`#object-name`) |
-
-If the same spec has multiple pages (e.g. a `/specification/` page and a `/definitions/` page), anchor formats typically differ between them. Pick one page as the canonical URL and use its anchor format consistently within each file.
-
-**Extract all URLs from docs:**
-```bash
-grep -rn "https://" packages/apidom-ls/src/config/{spec-dir}/*/documentation.ts
-```
-
-Check each unique anchor:
-- Does the section exist in the spec?
-- Is the anchor format correct for that spec site?
+1. Determine the correct anchor format by inspecting the actual spec page.
+2. Extract every URL from `documentation.ts` files. `node .claude/skills/add-spec-version/scripts/verify-urls.mjs --diff main` checks every added URL and anchor against the real page (GitHub `.md` anchors are checked against the raw markdown); `BROKEN` lines are findings, `UNVERIFIED` lines need a manual look.
+3. For each unique anchor, verify the section exists and the anchor format is correct; use one canonical page per element consistently.
 
 ### Phase 7: Produce the Report
 
@@ -449,6 +177,9 @@ Structure the report as follows. Only include sections that have findings.
 |---|---|---|---|
 | path/to/rule.ts:N | fieldName | OpenAPI3 | OpenAPI32 (field new in 3.2) |
 
+### Issue 10 — Rule Convention Violations
+[Duplicate codes, non-standard messages, `'reference'` in linterParams, unregistered rule files, wrong enum values]
+
 ### Advisory — Enum/Value-Constraint Rules to Consider
 | Element | Field | Allowed values | Peer example |
 |---|---|---|---|
@@ -472,54 +203,7 @@ Include a spec source link (section number + URL) for **every finding**. A findi
 
 ## Key Lessons
 
-### TOC Entries Are Not Fixed Fields Tables
-
-Spec pages typically have a table of contents near the top listing section headings (e.g. `4.4.1. AgentCard`). These TOC entries appear earlier in the document than the actual object definitions and contain **no** field data. If you extract a section and the result does not contain the field rows with their required status (a `Yes`/`No` column, or the full description text for specs that use a `REQUIRED` marker), you have the TOC entry, not the actual table — fetch again by anchoring on the section heading. Never infer a field's required status from a TOC entry, a secondary source (proto file, JSON Schema), or prior knowledge. Always quote the raw table row as evidence before reporting a finding.
-
-### Required Status Is Not Always a Separate Column
-Some specs have a dedicated `Required` column (`Yes`/`No`); others (OpenAPI, AsyncAPI, Arazzo) put a `REQUIRED` marker at the start of the description and treat everything else as optional. Identify the format before building the field map, and never search for `Yes`/`No` in a spec that does not use them.
-
-### Objects Without Their Own Definition Get No Required Rules
-If an object is only referenced as a field type in a parent and has no definition of its own in the spec (no section, no field table), the required status of its fields cannot be verified. There should be no `--required.ts` rule for such fields — flag any that exist.
-
-### Secondary Sources Can Contradict the Spec
-Definition pages, proto files, and JSON schemas are secondary sources that can diverge from the specification page on required/optional designations. Always confirm against the specification page — it is the sole source of truth.
-
-### OAuth-style Specs Systematically Miss `scopes--required.ts`
-For all active (non-deprecated) OAuth flows, `scopes` is commonly marked required in the spec but `scopes--required.ts` is often absent. Check for this pattern when reviewing any OAuth-style spec.
-
-### New Element Configs May Have No Required Rules
-When element configs are added quickly (stubs), they often contain only `allowed-fields.ts`. Always cross-check each field against the spec to add required-field rules.
-
-### Spec Page Truncation
-`WebFetch` truncates long spec pages before reaching late sections. Always fall back to `curl | python3` extraction when `WebFetch` reports truncation.
-
-### Required vs Optional Wording in Docs
-The word "optional" in a `docs` string is factually wrong for a required field. Always match the spec's required/optional designation.
-
-### URL Anchor Formats Differ Between Spec Pages
-A spec site may have multiple pages (specification, definitions, reference) each using a different anchor format. Mixing them creates broken links. Pick one canonical page per element and use its actual anchor format consistently.
-
-### Type Rules Are Systematically Missing in New Configs
-When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules. Type rules (`*--type.ts`) are almost always missing. For every required field check, ask: "Is there a paired type rule?"
-
-### Completion Files Are Omitted in Quick Stubs
-New element configs added as stubs often have no `completion.ts` at all, or export `never[]`. This silently disables IDE auto-complete for every field in that element. Check for this pattern for every registered config key.
-
-### Discriminated Union Subtypes Need Separate Config Entries
-When a spec defines a discriminated union (e.g. a `SecurityScheme` type with subtypes), each subtype **must have its own `config.ts` entry** using the subtype's element name as the key. A single entry for the union type is not enough — the subtypes' fields will have no lint/docs/completion coverage.
-
-### New Fields on Existing Objects Are Systematically Missed When Extending a Parent Version
-When a spec version adds new fields to existing objects (e.g. `prefixEncoding`, `itemEncoding` added to `Encoding`), those fields are routinely absent from `allowed-fields`, `documentation.ts`, `completion.ts`, AND lint rules. Always build a diff of new vs inherited fields per object and check all four coverage areas for each new field.
-
-### Array-of-Objects Fields Need a Different Linter Function
-A field that is an array of spec objects should use `apilintChildrenOfElementsOrClasses` (with the element class name), not `apilintType`. Using `apilintType` with `['array']` validates the container but not the element type of its members.
-
-### Deprecated/Removed Objects May Still Have Config Dirs
-If a spec removes an object in a new version, its config directory may persist in the implementation. Always check the spec changelog. If an older version that still defines the object is supported by the LS, **do not remove the config** — verify that its rules, documentation, and completion entries are scoped via `targetSpecs` to the versions where the object exists. Flag the directory for removal only if no supported version defines the object.
-
-### Target Specs Must Be Updated in Both Directions
-When a new version is added, existing entries for unchanged fields must gain the new version in `targetSpecs` (otherwise the new version gets no coverage), while entries for fields new in that version must target **only** the new version (otherwise they fire for older documents). Both mistakes are easy to miss because the rule files themselves look correct.
+Recurring mistake patterns (TOC entries mistaken for tables, required-status formats, secondary sources, missing `scopes--required.ts`, missing type/completion files in stubs, union subtypes, new fields on existing objects, array-of-objects linters, removed objects, two-way `targetSpecs` updates) are documented in `references/key-lessons.md`. Read it before Phase 4.
 
 ## Example Invocation
 

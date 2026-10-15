@@ -1,0 +1,178 @@
+# Lint Rule Checks
+
+Detailed commands and check criteria for building the **implementation map** (Phase 3 of `SKILL.md`) and for **checking lint rules** (Phase 4 of `SKILL.md`): incorrect/missing required rules, allowed-fields accuracy, `targetSpecs` scoping, type rules, enum/value constraints, and element config coverage.
+
+## Phase 3 Detail: Build the Implementation Map
+
+For each element registered in `config.ts`:
+
+```bash
+# List all element configs
+find packages/apidom-ls/src/config/{spec-dir} -name "*.ts" | sort
+
+# List all lint rules per element
+ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/
+
+# Read allowed-fields to compare field list
+cat packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/allowed-fields.ts
+
+# Find all required-field rules
+find packages/apidom-ls/src/config/{spec-dir} -name "*--required.ts"
+
+# Find all type-checking rules
+find packages/apidom-ls/src/config/{spec-dir} -name "*--type.ts"
+
+# Check which elements have completion files vs stubs
+find packages/apidom-ls/src/config/{spec-dir} -name "completion.ts" | sort
+grep -rn "never\[\]" packages/apidom-ls/src/config/{spec-dir}/*/completion.ts
+
+# Find all element types in the namespace
+grep -r "this.element = " packages/{namespace-pkg}/src/elements/
+```
+
+Also read `config.ts` to identify which element types are registered:
+
+```bash
+cat packages/apidom-ls/src/config/{spec-dir}/config.ts
+```
+
+**Discriminated union subtypes**: For any union type (e.g. `SecurityScheme` with variants `ApiKeySecurityScheme`, `OAuth2SecurityScheme`, etc.), verify that **each subtype** has its own element type key registered in `config.ts`. A missing subtype entry means zero lint/docs/completion for all of that subtype's fields.
+
+**Deprecated/removed objects**: Also fetch the spec's changelog or "What's New" page to identify objects removed in this version. For each config directory that corresponds to a removed object:
+- If the LS still supports an older spec version where the object exists, the config directory **must stay**. Verify instead that its rules, documentation, and completion entries have `targetSpecs` limited to the versions where the object exists (see [4.4 Target Spec Scoping](#44-target-spec-scoping)).
+- Flag the directory for removal only if no supported version defines the object.
+
+## Phase 4 Detail: Check Lint Rules
+
+### 4.1 Incorrect Required-Field Rules
+
+For each `*--required.ts` file, check whether the spec marks the field as **required**.
+
+**Flag as incorrect if:**
+- The spec marks the field as optional (`No` in a Required column, or no `REQUIRED` marker in the description)
+- The object has **no definition of its own** in the spec (it is only referenced as a field type in a parent, with no field table) — required status is unverifiable, so there should be no `--required.ts` rule for its fields
+
+**Do not flag:**
+- Fields the spec marks as required
+- Conditional rules for fields that are required only in some situations (e.g. OpenAPI Parameter `required` when `in: path`) — verify the condition instead
+
+**Self-check gate — mandatory before reporting any finding here:**
+Before adding ANY entry to this issue section, re-fetch the exact Fixed Fields table row for that field using the mandatory table verification approach from Phase 2. You MUST be able to quote the raw table row (field name + type + required status + description text) as evidence. If you cannot produce the raw row, do not flag the rule — absence of evidence is not evidence of incorrectness.
+
+Examples of required evidence:
+> Raw spec row (Required column): `capabilities | AgentCapabilities | Yes | A2A Capability set supported by the agent.`
+
+> Raw spec row (description marker): ``| <a name="info-title"></a>title | `string` | **REQUIRED**. The title of the API. |``
+
+A finding with no quoted raw row is **not admissible** in this section.
+
+### 4.2 Missing Required-Field Rules
+
+For each object in the spec with required fields, verify a `{field}--required.ts` rule exists.
+
+**Flag as missing if** no such rule exists and the spec marks the field as required.
+
+Common pattern: `*--type.ts` exists but the paired `*--required.ts` is absent — this is a systematic gap.
+
+### 4.3 Allowed-Fields Accuracy
+
+For each `allowed-fields.ts`, compare `linterParams[0]` against the spec's field list for that object.
+
+**Flag if:**
+- A field in the array is not in the spec (extra field — causes false positives)
+- A spec field is absent from the array (missing field — allows unknown fields through)
+
+**When extending a parent version**: If a version-scoped file exists (e.g., `allowed-fields-3-2.ts`), verify it contains ALL fields valid for that version — both new fields and fields carried over from the parent. New fields added to an existing object are the most common source of omissions. Also check: if the 3.2 list is identical to the 3.1 list, the file may be redundant or the new fields may have been forgotten.
+
+### 4.4 Target Spec Scoping
+
+Lint rules, `documentation.ts` entries, and `completion.ts` entries carry a `targetSpecs` property built from the constants in `packages/apidom-ls/src/config/{spec-dir}/target-specs.ts` (e.g. `OpenAPI30`, `OpenAPI31`, `OpenAPI32`, and the aggregate `OpenAPI3`). When a new version is added to an existing spec, check scoping in both directions:
+
+**Existing rules/docs/completion — must now include the new version** when the field or object is unchanged in it:
+- Either the entry uses an aggregate constant that already includes the new version (e.g. `OpenAPI3`), or the new version constant was added explicitly (e.g. `[...OpenAPI31, ...OpenAPI32]`)
+- An entry still scoped to older versions only means documents in the new version silently get no validation, hover docs, or completion for that field
+
+**New rules/docs/completion — must target only the new version** when they cover fields or objects NEW in that version:
+- e.g. `media-type/lint/item-schema--type.ts` (`itemSchema` is new in OAS 3.2) must use `targetSpecs: OpenAPI32`, not `OpenAPI3`
+- A wider scope makes the rule fire, or the completion appear, for older-version documents where the field is not valid
+
+**Removed or changed fields** must keep `targetSpecs` limited to the versions where they are valid — never delete such entries while older versions are still supported.
+
+**Version-scoped files** (e.g. `allowed-fields.ts` + `allowed-fields-3-2.ts`): their `targetSpecs` must not overlap, and together they must cover every supported version.
+
+```bash
+cat packages/apidom-ls/src/config/{spec-dir}/target-specs.ts
+
+# Review targetSpecs per element
+grep -rn "targetSpecs" packages/apidom-ls/src/config/{spec-dir}/{element-dir}/
+
+# Candidate lint rules that do NOT apply to the new version (adjust constant names).
+# Not all are wrong — rules for older-only fields are expected here; review each one.
+grep -rl "targetSpecs" packages/apidom-ls/src/config/openapi/*/lint/ --include="*.ts" \
+  | xargs grep -LE "OpenAPI32|OpenAPI3([^0-9]|$)"
+```
+
+`documentation.ts` and `completion.ts` contain several entries per file with different `targetSpecs`, so review them entry by entry rather than per file.
+
+### 4.5 Missing Type Lint Rules
+
+For each field that appears in `allowed-fields.ts` (or that has a `*--required.ts` rule), check whether a `{field}--type.ts` rule also exists. The spec's type column is the source of truth.
+
+**Flag as missing if** the spec specifies a type for the field (string, number, boolean, array, object) and no `*--type.ts` rule exists.
+
+```bash
+# For a given element, list existing type rules
+ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -- "--type"
+```
+
+Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is validated for presence but not for correctness — a common gap.
+
+**Linter function for array-of-objects fields**: A field that is an array of spec objects (not primitives) should use `apilintChildrenOfElementsOrClasses` (with the element class name as param), not `apilintType`. Flag if `apilintType` is used for a field whose spec type is an array of objects.
+
+### 4.6 Missing Enum/Value-Constraint Rules
+
+For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` or `{field}--values.ts` rule exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
+
+### 4.7 Missing Element Configs
+
+Compare element types from `config.ts` against all element types defined in the namespace:
+
+```bash
+# All element types in namespace
+grep -r "this.element = " packages/{namespace-pkg}/src/elements/ | grep -v "nces/"
+
+# All keys in config.ts
+grep "^  [a-zA-Z]" packages/apidom-ls/src/config/{spec-dir}/config.ts
+```
+
+**Flag any element type present in the namespace but absent from `config.ts`.**
+
+For each missing config, note which fields are required per spec — these need `*--required.ts` rules in the new config. Also flag missing discriminated-union subtype entries (see Phase 3 note).
+
+
+### 4.8 Rule Conventions
+
+These defects are mechanical, so check them with commands rather than by reading:
+
+```bash
+# Duplicate diagnostic code values (any output is a finding)
+grep -oE "= [0-9]+," packages/apidom-ls/src/config/codes.ts | sort | uniq -d
+
+# New codes: compare each with its neighbours; codes step by 100 per field rule
+git diff -U2 main...HEAD -- packages/apidom-ls/src/config/codes.ts
+
+# Non-standard required/type messages in changed rule files
+git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' \
+  | xargs grep -n "message:" | grep -E "must contain|value must be"
+
+# 'reference' in linterParams (the refractor already handles Reference Objects)
+git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' \
+  | xargs grep -n "linterParams" | grep "'reference'"
+
+# Rule files not imported by their lint/index.ts
+for f in $(git diff --name-only --diff-filter=A main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' | grep -v index.ts); do
+  grep -q "./$(basename "$f")'" "$(dirname "$f")/index.ts" || echo "not registered: $f"
+done
+```
+
+Compare message wording against 2-3 existing rules of the same kind in the same spec directory before flagging; some older directories use variants (e.g. `'{field}' value must be a string`), and consistency within the directory matters more than the global pattern.

@@ -1,6 +1,6 @@
 ---
 name: update-ls-config
-description: Updates apidom-ls configuration for a namespace package by analyzing the namespace structure and creating completion, documentation, and lint configurations
+description: Adds or updates apidom-ls language service configuration (completion items, hover documentation, lint rules, meta.ts and target-spec wiring) in packages/apidom-ls/src/config for a namespace package by analyzing its elements, refractor specification and parser adapters. Use when a new spec namespace or version (e.g. apidom-ns-openapi-3-2, apidom-ns-asyncapi-3, Arazzo) needs IDE support, or when an existing namespace gains new elements or fields that need autocomplete, hover docs or validation, even if the user doesn't say "ls config".
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -20,6 +20,17 @@ This skill automates the process of updating the language service (apidom-ls) co
 - Documentation for complex/union type properties
 - Support for all specification elements and their nested properties
 
+### Reference Files (load on demand)
+
+| File | Read when |
+|------|-----------|
+| `references/version-wiring.md` | Phase 4 (target-specs.ts), Phase 5.1 (directory layout), 5.7 (meta.ts), Phase 7 (config.ts, symbols.ts); naming conventions |
+| `references/completion-and-documentation.md` | Phase 5.2 (completion.ts), 5.3 (documentation.ts), Phase 6 element completion/docs |
+| `references/lint-rules.md` | Phase 5.4-5.6 (allowed-fields, `{field}--{type}.ts`, lint index), Phase 6 element lint rules |
+| `references/special-cases-and-elements.md` | Phase 5/6 when the spec adds new methods, dynamic collections, version-specific, hierarchical, global, `$self` or `$ref`-or-inline fields; baseline element list |
+| `references/troubleshooting.md` | Phase 8 build/type-check/IDE failures |
+| `packages/apidom-ls/CLAUDE.md` | Before writing any lint rule or test (linter function choice, message patterns, test patterns, pitfalls) |
+
 ## When to Use
 
 Use this skill when:
@@ -35,6 +46,39 @@ Before running this skill:
 2. **Parser adapters exist** (recommended): Both JSON and YAML parser adapter packages should exist
 3. **Package is built**: Run `npm run build` in the namespace package directory
 4. **Specification documentation**: Have access to the specification documentation URLs for generating docs
+
+## Critical Rules
+
+These apply to every phase. Where a template in `references/` shows a different placeholder, these rules win.
+
+1. **Copy existing patterns first**: before writing any rule, find 2-3 similar existing rules and copy their shape (e.g. `find packages/apidom-ls/src/config -name "*--required*.ts" | head -3`). Read `packages/apidom-ls/CLAUDE.md` (sections 1-7) instead of reinventing guidance.
+2. **Lint error message patterns** (copy exactly):
+   - Required: `"should always have a '{field}'"` (never `"must contain '{field}' field"`)
+   - Type: `"'{field}' must be a {type}"`
+   - Array of elements: `"'{field}' must be an array of {Type} Objects"`
+   - Array of primitives: `"'{field}' must be an array of {type}s"`
+   - Map values: `"{Object} values must be of {Type} shape"`
+3. **File naming**: `{field}--{type}.ts` or `{field}--{type}-{version}.ts` (e.g. `title--required.ts`, `summary--type.ts`). Never verbose names like `field--required-when-condition.ts`.
+4. **No `'reference'` in `linterParams`**: the refractor handles reference elements.
+5. **No unnecessary comments** in straightforward validation code.
+6. **Only new fields**: check the parent version's config and namespace element first; never redefine fields inherited from the parent version. Scope new rules with the correct `targetSpecs`.
+7. **OpenAPI 3.2+ documentation URLs must be GitHub links with camelCase anchors**: `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#pathItemObject` (not `spec.openapis.org`, not kebab-case). OAS 3.0.x keeps `https://spec.openapis.org/oas/v3.0.4.html#kebab-case-anchor`; OAS 3.1.x keeps the GitHub `3.1.0.md#camelCaseAnchor` format.
+8. **Tests use `assert.deepEqual` on full Diagnostic objects** (range, message, severity, code, source, data). Never filter and check selected properties. See `packages/apidom-ls/CLAUDE.md` section 8:
+   ```typescript
+   const result = await languageService.doValidation(doc);
+   const expected: Diagnostic[] = [
+     {
+       range: { start: { line: 10, character: 14 }, end: { line: 10, character: 28 } },
+       message: "'enum' must be an array of strings",
+       severity: 1,
+       code: 2120100,
+       source: 'apilint',
+       data: {},
+     },
+   ];
+   assert.deepEqual(result, expected);
+   ```
+   For valid documents: `assert.deepEqual(apilintErrors, [])`.
 
 ## Skill Instructions
 
@@ -97,387 +141,27 @@ Based on the specification type and version:
    - If NO: Create new directory structure
    - If YES: Ask user whether to update or skip
 
+Version directory naming: lowercase with underscore (`openapi3_2`, `asyncapi3`, `arazzo1_0`), matching other version directories.
+
 ### Phase 4: Generate Target Spec Definition
 
-#### 4.1 Update target-specs.ts
+**Read `references/version-wiring.md`** (sections "Target Spec Naming Convention" and "Update target-specs.ts").
 
-Location: `packages/apidom-ls/src/config/{spec}/target-specs.ts`
-
-Add the new version constant if it doesn't exist:
-
-```typescript
-export const {SpecCamelCase}{VersionNoUnderscore} = Symbol.for('{spec}{version}');
-```
-
-Example:
-```typescript
-export const OpenAPI32 = Symbol.for('openapi3.2');
-```
-
-Update the `targetSpecs` array to include the new symbol.
+1. Open `packages/apidom-ls/src/config/{spec}/target-specs.ts`.
+2. Add the new version constant if it doesn't exist (e.g. `export const OpenAPI32 = Symbol.for('openapi3.2');`).
+3. Update the `targetSpecs` array to include the new symbol.
 
 ### Phase 5: Generate Configuration Files
 
-#### 5.1 Create Version Directory Structure
+1. **5.1 Create version directory** `packages/apidom-ls/src/config/{spec}/{version}/` with `completion.ts`, `documentation.ts`, `lint/` and `meta.ts`. Layout: `references/version-wiring.md`.
+2. **5.2 Generate completion.ts**: **read `references/completion-and-documentation.md`** for the template, coverage strategy (root, nested, collection, value and special-field completions), format selection rules, condition functions and the OpenAPI 3.2.0 item breakdown. Aim for comprehensive coverage of all properties at all nesting levels.
+3. **5.3 Generate documentation.ts**: same reference file. Document complex/union-type properties; list omitted simple fields in the header comment; link with correct version URLs (Critical Rule 7).
+4. **5.4 Generate lint/allowed-fields.ts**: **read `references/lint-rules.md`** for the template.
+5. **5.5 Generate lint/{element}--type.ts files**: same reference file for the type validation template, linter functions by validation type, linter function mapping, coverage list and the Info lint directory example. Apply Critical Rules 2-5.
+6. **5.6 Generate lint/index.ts**: aggregate all lint rules (template in `references/lint-rules.md`).
+7. **5.7 Generate meta.ts**: aggregate lint, completion and documentation (template in `references/version-wiring.md`).
 
-```
-packages/apidom-ls/src/config/{spec}/{version}/
-├── completion.ts        # Autocomplete configuration
-├── documentation.ts     # Hover documentation
-├── lint/               # Validation rules directory
-│   ├── allowed-fields.ts
-│   ├── {element}--type.ts
-│   └── index.ts
-└── meta.ts             # Aggregates all configs
-```
-
-#### 5.2 Generate completion.ts
-
-This file defines autocomplete suggestions for each element type. Based on OpenAPI 3.2.0 implementation (70+ items), provide comprehensive coverage of all properties at all nesting levels.
-
-**Template:**
-```typescript
-import {
-  ApidomCompletionItem,
-  CompletionFormat,
-  CompletionType,
-} from '../../../apidom-language-types.ts';
-import { {TargetSpecConstant} } from '../target-specs.ts';
-
-const completion: ApidomCompletionItem[] = [
-  // Root level properties
-  {
-    label: '{propertyName}',
-    insertText: '{propertyName}',
-    kind: 14,
-    format: CompletionFormat.{FORMAT}, // QUOTED, OBJECT, ARRAY, etc.
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value: '{documentation from spec with links}',
-    },
-    targetSpecs: {TargetSpecConstant},
-  },
-
-  // Nested object properties (e.g., info.title, server.url)
-  {
-    label: '{parentElement} -> {propertyName}',
-    insertText: '{propertyName}',
-    kind: 14,
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.PROPERTY,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value: '{documentation}',
-    },
-    conditions: [
-      {
-        function: 'isInside{ParentElement}',
-      },
-    ],
-    targetSpecs: {TargetSpecConstant},
-  },
-
-  // Value completions (e.g., HTTP methods, enum values)
-  {
-    label: '{value}',
-    insertText: '{value}',
-    kind: 12, // Value kind
-    format: CompletionFormat.QUOTED,
-    type: CompletionType.VALUE,
-    insertTextFormat: 2,
-    documentation: {
-      kind: 'markdown',
-      value: '{description of this value}',
-    },
-    conditions: [
-      {
-        function: 'isValueCompletion',
-        params: ['{propertyName}'],
-      },
-    ],
-    targetSpecs: {TargetSpecConstant},
-  },
-];
-
-export default completion;
-```
-
-**Comprehensive Coverage Strategy**:
-
-1. **Root Element Properties**:
-   - Include ALL properties defined in root specification element
-   - Examples: openapi, info, servers, paths, components, security, tags, externalDocs
-   - Include new fields (e.g., OpenAPI 3.2's jsonSchemaDialect, webhooks, $self)
-
-2. **Nested Element Properties**:
-   - For EVERY element type, create completions for its properties
-   - Use conditions to show completions in correct context
-   - Examples:
-     - Info: title, version, description, summary, contact, license, termsOfService
-     - Server: url, description, variables, name (new in 3.2)
-     - License: name, url, identifier (new in 3.2)
-     - PathItem: get, post, put, delete, patch, options, head, trace, query (new in 3.2), servers, parameters
-     - Operation: operationId, summary, description, parameters, requestBody, responses, callbacks, security
-
-3. **Collection/Map Properties**:
-   - For dynamic collections (paths, components.schemas, webhooks), add completions for:
-     - Pattern keys (e.g., "/users/{id}" for paths)
-     - Component names with common patterns
-     - HTTP methods for operations
-
-4. **Value Completions**:
-   - Enum values (e.g., parameter.in: "query", "header", "path", "cookie")
-   - Common HTTP methods
-   - Standard MIME types
-   - JSON Schema types
-
-5. **Special Field Completions**:
-   - $ref completions with JSON Pointer patterns
-   - Media type strings (application/json, application/yaml, etc.)
-   - Security scheme types (apiKey, http, oauth2, openIdConnect)
-
-**Format Selection Rules**:
-- String values → `CompletionFormat.QUOTED`
-- Objects → `CompletionFormat.OBJECT`
-- Arrays → `CompletionFormat.ARRAY`
-- Numbers/booleans → `CompletionFormat.UNQUOTED`
-- URLs/URIs → `CompletionFormat.QUOTED`
-
-**Documentation Best Practices**:
-- Link directly to specification section (e.g., `[Documentation](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#info-object)`)
-- Include brief description from spec
-- Mention if field is required or optional
-- Note any constraints or formats
-- Reference related fields
-
-**Condition Functions**:
-Common conditions to control when completions appear:
-```typescript
-conditions: [
-  { function: 'isInside{ElementType}' },  // Inside specific element
-  { function: 'isValueCompletion', params: ['{propertyName}'] },  // Completing value
-  { function: 'hasParent', params: ['{parentElement}'] },  // Has specific parent
-]
-```
-
-**OpenAPI 3.2.0 Pattern**: Created 70+ completion items organized by:
-- Root properties (15 items)
-- Info properties (7 items)
-- Server properties (4 items)
-- Components properties (10+ items for each type)
-- PathItem properties (15+ items including new QUERY method)
-- Operation properties (20+ items)
-- Response, Parameter, RequestBody, MediaType properties
-- Schema properties (JSON Schema keywords)
-- Security properties
-
-#### 5.3 Generate documentation.ts
-
-This file provides hover documentation for properties.
-
-**Template:**
-```typescript
-import { {TargetSpecConstant} } from '../target-specs.ts';
-
-/**
- * Omitted fixed fields:
- * {List fields that don't need documentation here}
- *
- * Field omission reason: omitted fields do have a non-union type. Thus,
- * documentation for these fields doesn't need to be specified here and will
- * come directly from the type itself. Description of these fields doesn't
- * contain significant information.
- */
-
-const documentation = [
-  {
-    target: '{propertyName}',
-    docs: '{markdown documentation from spec}',
-    targetSpecs: {TargetSpecConstant},
-  },
-  // Repeat for properties that need documentation...
-];
-
-export default documentation;
-```
-
-**Steps:**
-1. For each property in the root element:
-   - If property has complex type or union type, add documentation entry
-   - If property type is simple and self-explanatory, omit (list in comment)
-   - Link to specification documentation with proper version URLs
-
-#### 5.4 Generate lint/allowed-fields.ts
-
-Defines which fields are allowed in the root element.
-
-**Template:**
-```typescript
-import { DiagnosticSeverity } from 'vscode-languageserver-types';
-
-import ApilintCodes from '../../../codes.ts';
-import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { {TargetSpecConstant} } from '../../target-specs.ts';
-
-const allowedFieldsLint: LinterMeta = {
-  code: ApilintCodes.NOT_ALLOWED_FIELDS,
-  source: 'apilint',
-  message: 'Object includes not allowed fields',
-  severity: DiagnosticSeverity.Error,
-  linterFunction: 'allowedFields',
-  linterParams: [
-    '{field1}',
-    '{field2}',
-    // ... list all allowed fields
-  ],
-  marker: 'key',
-  targetSpecs: {TargetSpecConstant},
-};
-
-export default allowedFieldsLint;
-```
-
-#### 5.5 Generate lint/{element}--type.ts files
-
-For each element type, create a type validation lint rule. Based on OpenAPI 3.2.0, create comprehensive coverage:
-
-**Standard Type Validation Template:**
-```typescript
-import { DiagnosticSeverity } from 'vscode-languageserver-types';
-
-import ApilintCodes from '../../../codes.ts';
-import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { {TargetSpecConstant} } from '../../target-specs.ts';
-
-const {element}TypeLint: LinterMeta = {
-  code: ApilintCodes.{SPEC}_{VERSION}_{ELEMENT}_TYPE,
-  source: 'apilint',
-  message: "'{element}' value must be {expectedType}",
-  severity: DiagnosticSeverity.Error,
-  linterFunction: '{linterFunction}',
-  linterParams: ['{expectedElementType}'],
-  marker: 'value',
-  target: '{propertyName}',
-  data: {
-    quickFix: [
-      {
-        message: "replace it with {expectedType}",
-        action: 'replaceWith',
-        functionParams: ['{defaultValue}'],
-      },
-    ],
-  },
-  targetSpecs: {TargetSpecConstant},
-};
-
-export default {element}TypeLint;
-```
-
-**Linter functions by validation type:**
-
-1. **Element Type Validation** - `apilintElementOrClass`:
-   ```typescript
-   linterFunction: 'apilintElementOrClass',
-   linterParams: ['{ElementType}Element'],  // e.g., 'InfoElement', 'ServerElement'
-   ```
-
-2. **Value Type Validation** - `apilintType`:
-   ```typescript
-   linterFunction: 'apilintType',
-   linterParams: ['string'],  // 'string', 'array', 'object', 'number', 'boolean'
-   ```
-
-3. **Required Field Validation** - `apilintContainsRequiredField`:
-   ```typescript
-   linterFunction: 'apilintContainsRequiredField',
-   linterParams: ['{requiredFieldName}'],
-   message: "'{element}' must contain '{requiredFieldName}' field",
-   ```
-
-4. **Allowed Values Validation** - `apilintValueOrArray`:
-   ```typescript
-   linterFunction: 'apilintValueOrArray',
-   linterParams: ['{allowedValue1}', '{allowedValue2}'],
-   message: "'{element}' must be one of: {allowedValue1}, {allowedValue2}",
-   ```
-
-5. **Allowed Fields Validation** - `allowedFields`:
-   ```typescript
-   linterFunction: 'allowedFields',
-   linterParams: ['field1', 'field2', 'field3', ...],
-   message: "Object includes not allowed fields",
-   ```
-
-**Comprehensive Lint Coverage** (as seen in OpenAPI 3.2.0):
-
-Create lint files for:
-- **Root element** validation (type, required fields, allowed fields)
-- **Each nested element** (Info, Server, License, Contact, etc.)
-- **Each array element** (servers, tags, security, etc.)
-- **Each collection element** (paths, components, webhooks, etc.)
-- **Special validations** (media types, HTTP methods, JSON Schema dialects)
-
-**Example: Complete lint structure for Info element**:
-```
-lint/
-├── info/
-│   ├── allowed-fields.ts      # Validate only specified fields
-│   ├── title--type.ts         # title must be string
-│   ├── title--required.ts     # title is required
-│   ├── version--type.ts       # version must be string
-│   ├── version--required.ts   # version is required
-│   ├── description--type.ts   # description must be string
-│   ├── summary--type.ts       # summary must be string (new in 3.2)
-│   ├── contact--type.ts       # contact must be Contact element
-│   ├── license--type.ts       # license must be License element
-│   └── index.ts               # Export all lint rules
-```
-
-**OpenAPI 3.2.0 Pattern**: Created 56+ lint rule directories covering every element type and their properties comprehensively.
-
-#### 5.6 Generate lint/index.ts
-
-Aggregates all lint rules.
-
-**Template:**
-```typescript
-import allowedFieldsLint from './allowed-fields.ts';
-import {element1}TypeLint from './{element1}--type.ts';
-import {element2}TypeLint from './{element2}--type.ts';
-// ... import all lint rules
-
-const lints = [
-  allowedFieldsLint,
-  {element1}TypeLint,
-  {element2}TypeLint,
-  // ... list all lint rules
-];
-
-export default lints;
-```
-
-#### 5.7 Generate meta.ts
-
-Aggregates completion, documentation, and lint configs.
-
-**Template:**
-```typescript
-import lint from './lint/index.ts';
-import completion from './completion.ts';
-import documentation from './documentation.ts';
-import { FormatMeta } from '../../../apidom-language-types.ts';
-
-const meta: FormatMeta = {
-  lint,
-  completion,
-  documentation,
-};
-
-export default meta;
-```
+If the version introduces new HTTP methods, dynamic collections, version-specific, hierarchical, global configuration, self-reference or `$ref`-or-inline fields, **read `references/special-cases-and-elements.md`**.
 
 ### Phase 6: Update Element-Specific Configs
 
@@ -499,26 +183,14 @@ For each element type in the namespace (e.g., Info, Server, PathItem):
    - Required field validation
    - Allowed fields validation
 
+Use `references/completion-and-documentation.md` and `references/lint-rules.md` for templates, and the "Common Element Types to Include" list in `references/special-cases-and-elements.md` as the baseline set.
+
 ### Phase 7: Update Main Config Files
 
-#### 7.1 Update config/{spec}/config.ts
+**Read `references/version-wiring.md`** (section "Update Main Config Files").
 
-Add import and export for the new version config:
-
-```typescript
-import {version}Meta from './{version}/meta.ts';
-
-// In the exports or config object:
-export { {version}Meta };
-```
-
-#### 7.2 Update config/{spec}/symbols.ts
-
-If new element types were introduced, add symbols:
-
-```typescript
-export const {element}Symbol = Symbol.for('{namespace}.{element}');
-```
+1. **7.1** In `config/{spec}/config.ts`, add import and export for the new version config (`{version}Meta`).
+2. **7.2** In `config/{spec}/symbols.ts`, add symbols if new element types were introduced.
 
 ### Phase 8: Validation and Testing
 
@@ -545,6 +217,10 @@ export const {element}Symbol = Symbol.for('{namespace}.{element}');
    - Verify hover documentation appears
    - Verify validation/linting works
 
+5. **Add/update tests** in `packages/apidom-ls/test/` following Critical Rule 8, then run `npm run test` in `packages/apidom-ls`.
+
+On failures, **read `references/troubleshooting.md`**.
+
 ### Phase 9: Document Changes
 
 Update `packages/apidom-ls/README.md` or `CHANGELOG.md` to reflect:
@@ -553,152 +229,18 @@ Update `packages/apidom-ls/README.md` or `CHANGELOG.md` to reflect:
 - Added validation rules
 - Any breaking changes
 
-## Special Features and Edge Cases
+## Final Verification Checklist
 
-Based on OpenAPI 3.2.0 and other implementations, handle these special cases:
-
-### 1. New HTTP Methods or Operations
-When a specification adds new standard operations (like OpenAPI 3.2's QUERY):
-- Add completion item with same structure as existing methods
-- Add to PathItem allowed fields
-- Create lint rule for type validation
-- Update documentation with method-specific details
-
-### 2. Dynamic Collections
-For fields with arbitrary keys (additionalOperations, webhooks, components.mediaTypes):
-- Create value completions for common patterns
-- Document the key format/pattern
-- Provide lint rules for value types
-- Add documentation explaining the collection purpose
-
-### 3. Version-Specific Fields
-When adding fields not in parent version:
-- Ensure targetSpecs correctly limits to this version
-- Document what's new in the field description
-- Add appropriate default values in quick fixes
-- Create comprehensive lint coverage
-
-### 4. Hierarchical Fields
-For nested structures with multiple levels (like OpenAPI 3.2's tag hierarchical fields):
-- Create completions for each nesting level
-- Use conditions to show relevant properties
-- Document the hierarchy structure
-- Validate structure at each level
-
-### 5. Global Configuration Fields
-For fields affecting document-wide behavior (like jsonSchemaDialect):
-- Provide documentation explaining scope of impact
-- Include valid values as completions
-- Link to related specification sections
-- Validate format and allowed values
-
-### 6. Self-Reference Fields
-For fields like $self that establish document URI:
-- Validate URI format
-- Document purpose for relative reference resolution
-- Provide examples in documentation
-
-### 7. Reference vs Inline Content
-For fields that accept either $ref or inline content:
-- Provide completions for both patterns
-- Document when to use each approach
-- Validate structure for inline content
-- Add lint rules for reference format
-
-## Important Patterns
-
-### Completion Format Mapping
-
-| Property Type | CompletionFormat |
-|--------------|------------------|
-| String | QUOTED |
-| Object | OBJECT |
-| Array | ARRAY |
-| Number | UNQUOTED |
-| Boolean | UNQUOTED |
-| Any | UNQUOTED |
-
-### Linter Function Mapping
-
-| Validation Type | linterFunction | linterParams |
-|----------------|----------------|--------------|
-| Element type | apilintElementOrClass | ['ElementName'] |
-| Value type | apilintType | ['string'\|'array'\|'object'\|'number'\|'boolean'] |
-| Required field | apilintContainsRequiredField | ['fieldName'] |
-| Allowed fields | allowedFields | [...fieldNames] |
-
-### Target Spec Naming Convention
-
-- **OpenAPI**: `OpenAPI{major}{minor}` (e.g., `OpenAPI32` for 3.2)
-- **AsyncAPI**: `AsyncAPI{major}` (e.g., `AsyncAPI3` for 3.x)
-- **Arazzo**: `Arazzo{major}_{minor}` (e.g., `Arazzo1_0` for 1.0)
-
-### Version Directory Naming
-
-- Use lowercase with underscore: `openapi3_2`, `asyncapi3`, `arazzo1_0`
-- Must match the pattern used in other version directories
-
-## Common Element Types to Include
-
-For most specifications, generate configs for these common elements:
-
-### Root Element
-- Version field (e.g., `openapi`, `asyncapi`)
-- Info object
-- Servers array
-- Security array
-- Tags array
-- External docs object
-
-### Info Element
-- title (required string)
-- version (required string)
-- description (optional string)
-- termsOfService (optional string)
-- contact (optional object)
-- license (optional object)
-
-### Server Element
-- url (required string)
-- description (optional string)
-- variables (optional object)
-
-### Contact Element
-- name (optional string)
-- url (optional string)
-- email (optional string)
-
-### License Element
-- name (required string)
-- url (optional string)
-
-## Troubleshooting
-
-### Issue: Cannot find element definitions
-
-**Solution**: Ensure the namespace package is built. Element definitions are in `packages/{namespace}/src/elements/`. If elements are not clearly defined, check the refractor specification.
-
-### Issue: Documentation URLs are incorrect
-
-**Solution**: Verify the specification documentation base URL. Different versions may have different URL structures. Check existing version configs for the pattern.
-
-### Issue: Lint rules are too strict
-
-**Solution**: Review the specification to determine which fields are truly required vs optional. Use `DiagnosticSeverity.Warning` for optional best practices.
-
-### Issue: Completion not showing up
-
-**Solution**:
-1. Check that `targetSpecs` is correctly set
-2. Verify the completion format matches the property type
-3. Ensure meta.ts properly exports the completion array
-
-### Issue: Build errors in apidom-ls
-
-**Solution**:
-1. Check all imports use `.ts` extension
-2. Verify all referenced target spec symbols exist in target-specs.ts
-3. Run `npm run lint:fix` to fix formatting issues
+- [ ] Target spec symbol added to `target-specs.ts` and `targetSpecs` array
+- [ ] `{version}/completion.ts`, `documentation.ts`, `lint/index.ts`, `meta.ts` exist and are wired into `config/{spec}/config.ts`
+- [ ] Every new element/field has completion, documentation (if complex/union) and lint coverage
+- [ ] No fields inherited from the parent version are redefined; `targetSpecs` scope is correct
+- [ ] Lint messages match Critical Rule 2 patterns; files named `{field}--{type}.ts`
+- [ ] No `'reference'` in any `linterParams`
+- [ ] OAS 3.2+ docs URLs are GitHub links with camelCase anchors
+- [ ] Tests use `assert.deepEqual` with full Diagnostic objects
+- [ ] All imports use `.ts` extension; single quotes
+- [ ] `npm run build`, `npm run test`, `npm run typescript:check-types` and `npm run lint` pass
 
 ## References
 
@@ -714,6 +256,7 @@ For most specifications, generate configs for these common elements:
 - `packages/apidom-ls/src/config/codes.ts` - All diagnostic codes
 - `packages/apidom-ls/src/apidom-language-types.ts` - Type definitions
 - `packages/apidom-ls/src/config/config.ts` - Main config aggregator
+- `packages/apidom-ls/CLAUDE.md` - Lint rule and test guidelines
 
 ### Related Documentation
 

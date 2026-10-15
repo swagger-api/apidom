@@ -1,0 +1,28 @@
+{
+  "skill_name": "add-spec-version",
+  "evals": [
+    {
+      "id": 1,
+      "name": "oas32-stage0-plan",
+      "fixture": {
+        "checkout": "ef97b5c32^",
+        "note": "repo state before OAS 3.2 support (PR #5110)"
+      },
+      "prompt": "I want to add OpenAPI 3.2.0 support to ApiDOM (parent version 3.1). Do only the research and planning step: produce the tracking document with the field map (new vs inherited fields per object), the external URLs we'll need, and every integration point across packages. Don't write code yet.",
+      "expected_output": "Tracking doc with accurate field map, verified URLs and complete cross-package integration list.",
+      "files": [],
+      "assertions": [
+        "Field map names at least 15 of the 18 distinctive OAS 3.2 new fields",
+        "Components.pathItems, License.identifier and Info.summary are treated as inherited, not new",
+        "Does not list a webhooks field on Components",
+        "Dialect URL is https://spec.openapis.org/oas/3.2/dialect/2025-09-17 (not /dialect/base)",
+        "Lists apidom-reference parsers, resolve/dereference/bundle strategies and saturated.ts",
+        "Lists apidom-ls parser-factory.ts and content detection in utils",
+        "Lists apidom-playground wiring",
+        "Lists the root package.json unlink script",
+        "Mentions propagating new fields to the replace-empty-element refractor plugin",
+        "Addresses detection exclusivity between the 3.1 and 3.2 adapters"
+      ]
+    }
+  ]
+}

@@ -335,9 +335,15 @@ the content of the value (reference or object, which subtype) is decided by the 
 
 ### Extending a parent version
 
-`apidom-ns-openapi-3-2/src/refractor/specification.ts` does not spread the parent's `objects`. It lists
-every object again with the new version's own `$visitor` (so refracting produces the new version's
-element classes), and fills `fixedFields` field by field:
+Every object the new version defines an element class for gets the new version's own `$visitor`, so
+refracting produces the new version's element classes. Two patterns do this; neither spreads the
+parent's `objects`. Listing suits specs with many objects (OpenAPI, AsyncAPI); patching suits specs
+with few objects and a small change (JSON Schema dialects).
+
+#### Listing every object
+
+`apidom-ns-openapi-3-2/src/refractor/specification.ts` lists every object again with the new
+version's own `$visitor`, and fills `fixedFields` field by field:
 
 - an inherited, unchanged primitive or parent-specific visitor: reuse the parent's entry,
   `ParentSpecification.visitors.document.objects.{Object}.fixedFields.{field}`
@@ -381,6 +387,56 @@ Spreading is used only for whole visitor definitions borrowed from another names
 reviewers' "is this field inherited or new?" question answerable from the file, and what keeps a
 spread from silently pulling parent visitors that build the parent's element classes.
 
+#### Patching the parent
+
+The JSON Schema namespaces (`apidom-ns-json-schema-draft-6` to `apidom-ns-json-schema-2020-12`) have
+four objects, define their own element class for two of them (`JSONSchema`, `LinkDescription`; the
+`JSONReference` and `Media` elements are re-exported from draft-4) and change a few fields per
+version, so they patch the parent's `specificationObj` instead of listing it. Shape of
+`apidom-ns-json-schema-2020-12/src/refractor/specification.ts`:
+
+```typescript
+import { pipe, assocPath, dissocPath } from 'ramda';
+import { specificationObj } from '@swagger-api/apidom-ns-json-schema-2019-09';
+
+import JSONSchemaVisitor from './visitors/json-schema/index.ts';
+import JSONSchemaLinkDescriptionVisitor from './visitors/json-schema/link-description/index.ts';
+
+const specification = pipe(
+  assocPath(['visitors', 'document', 'objects', 'JSONSchema', '$visitor'], JSONSchemaVisitor),
+  // removed in this version
+  dissocPath(['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', '$recursiveRef']),
+  // new in this version
+  assocPath(
+    ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', '$dynamicRef'],
+    specificationObj.visitors.value,
+  ),
+  // inherited, but its value is the parent's visitor class
+  assocPath(
+    ['visitors', 'document', 'objects', 'JSONSchema', 'fixedFields', 'not'],
+    JSONSchemaVisitor,
+  ),
+  assocPath(
+    ['visitors', 'document', 'objects', 'LinkDescription', '$visitor'],
+    JSONSchemaLinkDescriptionVisitor,
+  ),
+  // ...
+)(specificationObj);
+
+export default specification as typeof specificationObj;
+```
+
+- `assocPath` the `$visitor` of every object this version defines an element class for. An object
+  you skip keeps the parent's visitor and builds the parent's element, and nothing in the file shows
+  it. Only objects whose element is reused from the parent (`JSONReference`, `Media`) keep it.
+- An inherited field whose value is a visitor class (not a `{ $ref }`) still builds the parent's
+  element; reassign it, as 2020-12 does for `not`, `if`, `items`, `contains` and the other subschema
+  fields. `{ $ref }` entries resolve against the patched object and need no change.
+- `dissocPath` what the new version removes (2019-09 drops `definitions` and `JSONReference`'s
+  `$visitor`).
+- When the spec has more than a handful of objects, list them instead: the `assocPath` chain gets
+  longer than the listing and hides which fields are inherited.
+
 ## Visitor Naming Conventions
 - Visitor class names: `{ElementName}Visitor`
 - Visitor directories: kebab-case (e.g., `source-description/`, `success-action/`)
@@ -392,7 +448,9 @@ Only when the spec allows `x-*` extension properties on that object:
 2. Use the `FixedFieldsVisitor` mixin (it handles extensions automatically)
 3. Register `extension: { $visitor: SpecificationExtensionVisitor }` in `specification.ts`
 
-If the spec has no extensions at all (A2A), drop `SpecificationExtensionVisitor`, `isSpecificationExtension` and the extension branches from the copied generic visitors. Same for references: no Reference Object / `$ref` in the spec means no `isReferenceLikeElement` and no reference visitors.
+Every supported spec that has extensions prefixes them with `x-`, and each namespace's extension predicate (`isOpenApiExtension`, `isAsyncApiExtension`, `isArazzoSpecificationExtension`, ...) checks exactly that. A spec with another prefix only needs a different predicate: the generic `FixedFieldsVisitor` and `PatternedFieldsVisitor` take it through their `specificationExtensionPredicate` option.
+
+If the spec has no extensions at all (A2A), drop `SpecificationExtensionVisitor`, the extension predicate and the extension branches from the copied generic visitors. Same for references: no Reference Object / `$ref` in the spec means no `isReferenceLikeElement` and no reference visitors.
 
 ## Common Specification Features to Support
 

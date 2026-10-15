@@ -30,8 +30,8 @@ The word "optional" in a `docs` string is factually wrong for a required field. 
 ### URL Anchor Formats Differ Between Spec Pages
 A spec site may have multiple pages (specification, definitions, reference) each using a different anchor format. Mixing them creates broken links. Pick one canonical page per element and use its actual anchor format consistently.
 
-### Type Rules Are Systematically Missing in New Configs
-When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules. Type rules (`*--type.ts`) are almost always missing. For every required field check, ask: "Is there a paired type rule?"
+### Value Rules Are Systematically Missing in New Configs
+When an element config is added quickly, it typically gets only `allowed-fields.ts` and `*--required.ts` rules; rules that check the value are almost always missing. For each field in `allowed-fields.ts`, required or optional, check for a `*--type.ts` rule, an `*--equals.ts` rule when the spec allows only a fixed set of values, and a `*--format-*.ts` rule when the spec requires a URI or email format (checks 4.5 and 4.6 in `lint-rule-checks.md`).
 
 ### Completion Files Are Omitted in Quick Stubs
 New element configs added as stubs often have no `completion.ts` at all, or export `never[]`. This silently disables IDE auto-complete for every field in that element. Check for this pattern for every registered config key.

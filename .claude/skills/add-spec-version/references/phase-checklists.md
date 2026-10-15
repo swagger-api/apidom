@@ -80,7 +80,7 @@ In `packages/apidom-ls/`:
 
 - [ ] `src/config/{spec}/{spec}-version/` (e.g. `async-api-version`): completion item for the version, `lint/value--pattern-{x}-{y}-{z}.ts` registered in `lint/index.ts`, documentation pointing at the version
 - [ ] `src/config/{spec}/target-specs.ts`: new constant (e.g. `AsyncAPI310`) added to its family group (e.g. `AsyncAPI3`)
-- [ ] `src/config/{spec}/{element}/` for every `NEW` object: `meta.ts`, `documentation.ts`, `completion.ts`, `lint/` (`allowed-fields`, `--type`, `--required`, `--equals`); objects without fields get `meta`, `documentation` and an empty `allowed-fields` rule
+- [ ] `src/config/{spec}/{element}/` for every `NEW` object: `meta.ts`, `documentation.ts`, `completion.ts`, `lint/` (`allowed-fields`, `--type`, `--required`, `--equals`, `--format-*`); objects without fields get `meta`, `documentation` and an empty `allowed-fields` rule
 - [ ] Register new metas in `src/config/{spec}/config.ts`
 - [ ] Every `NEW` field on existing objects: completion item, documentation entry, lint rules
 - [ ] Version-ranged rule files: rename when the range just extends (`allowed-fields-2-4--2-5.ts` to `allowed-fields-2-4--2-6.ts`); split when the new version accepts something the older ones must not (e.g. `ros2` in 3.1 bindings, not in 3.0)

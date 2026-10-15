@@ -37,7 +37,7 @@ config/openapi/info/lint/
 └── index.ts
 ```
 
-Coverage is per field per element: every field gets a type rule, every required field a `--required` rule, every enum field an `--equals` rule, and every element an allowed-fields rule. `check-ls-coverage.mjs` (Phase 6 step 5 in SKILL.md) checks this mechanically; there is no target number of rules.
+Coverage is per field per element: every field gets a type rule, every required field a `--required` rule, every enum field an `--equals` rule, every URL/URI or email field a `--format-uri` / `--format-email` rule, and every element an allowed-fields rule. `check-ls-coverage.mjs` (Phase 6 step 5 in SKILL.md) checks this mechanically; there is no target number of rules.
 
 ## File Naming
 
@@ -50,8 +50,9 @@ Coverage is per field per element: every field gets a type rule, every required 
 | `--values-type` | values of a map, paired with a `--type` rule for the container | `openapi/server/lint/variables--values-type.ts` |
 | `--required` | `hasRequiredField` | `title--required.ts` |
 | `--equals` | `apilintValueOrArray` for a fixed set of values | `xml/lint/node-type--equals.ts`, `a2a/api-key-security-scheme/lint/location--equals.ts` |
-| `--format-uri` | URI format checks | `terms-of-service--format-uri.ts` |
-| `--format-uri-reference` | URI-reference format checks | `openapi/openapi3_2/lint/self--format-uri-reference.ts` |
+| `--format-uri` | URI format checks (`apilintValidURI`) | `terms-of-service--format-uri.ts` |
+| `--format-email` | email format checks (`apilintValueRegex`, `['.+@{1}.+']`) | `openapi/contact/lint/email--format-email.ts` |
+| `--format-uri-reference` | URI-reference format checks; its linter function `apilintValidURIReferenceOrFragment` isn't implemented yet, so don't copy it | `openapi/openapi3_2/lint/self--format-uri-reference.ts` |
 | `--pattern-{x}-{y}-{z}` | version value pattern for one spec version (`value--pattern-2-6-0.ts`) | `asyncapi/async-api-version/lint/value--pattern-2-6-0.ts` |
 
 Variants that already exist: a qualifier after the rule when one field has several rules of the same kind (`asyncapi/security-scheme/lint/in--equals-api-key.ts`), and version ranges on allowed-fields files split by version (`allowed-fields-3-1--3-2.ts`). Older OpenAPI root directories use `webhooks--values--type.ts`; prefer `--values-type` for new files. Never invent descriptive names such as `field--required-when-condition.ts`, `--value.ts`, `--values.ts` or `--enum.ts`; `check-ls-coverage.mjs` flags `apilintValueOrArray` rules that are not named `--equals`.

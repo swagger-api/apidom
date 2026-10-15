@@ -134,7 +134,18 @@ Pattern: when `*--required.ts` exists but `*--type.ts` does not, the field is va
 
 ### 4.6 Missing Enum/Value-Constraint Rules
 
-For fields whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`), check whether a `{field}--equals.ts` rule (`apilintValueOrArray`, `linterParams: [['query', 'header', 'cookie']]`) exists. These are advisory ("consider adding") rather than required, but note any obvious candidates where peer specs (OpenAPI, AsyncAPI) already have such rules.
+Every field whose spec allows only a fixed set of values (e.g., `location` must be `query | header | cookie`) needs a `{field}--equals.ts` rule (`apilintValueOrArray`, `linterParams: [['query', 'header', 'cookie']]`). `update-ls-config` creates one for every such field, as recent configs do (`openapi/xml/lint/node-type--equals.ts`, `a2a/api-key-security-scheme/lint/location--equals.ts`), so a missing one is a finding (Issue 11), like a missing type rule.
+
+The same applies to format constraints: a field the spec defines as a URL/URI needs `{field}--format-uri.ts` (`apilintValidURI`), and an email field `{field}--format-email.ts` (`apilintValueRegex`, as in `openapi/contact/lint/email--format-email.ts`). URI-reference fields are the exception: `openapi3_2/lint/self--format-uri-reference.ts` names `apilintValidURIReferenceOrFragment`, which `services/validation/linter-functions.ts` doesn't define, so there is no working rule to ask for yet.
+
+**Flag as missing if** the spec text fixes the values ("MUST be one of", "Valid values are", a list of quoted values in the type or description) or the format ("MUST be in the form of a URL", "MUST be in the format of an email address") and no matching rule exists. When the allowed values depend on another field, the rule needs a `conditions` entry (see `asyncapi/security-scheme/lint/in--equals-api-key.ts`).
+
+**Do not flag** fields whose values the spec gives only as examples or leaves open (extensible lists, values from an external registry such as the HTTP authentication schemes for OpenAPI's `scheme`).
+
+```bash
+# For a given element, list existing value-constraint rules
+ls packages/apidom-ls/src/config/{spec-dir}/{element-dir}/lint/ | grep -E -- "--(equals|format)"
+```
 
 ### 4.7 Missing Element Configs
 

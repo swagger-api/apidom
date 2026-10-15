@@ -6,6 +6,7 @@ This directory contains Claude Code skills for common development tasks in the A
 
 **2026-10-15**:
 
+- PR #5259 review: `--equals` and `--format-uri` / `--format-email` rules are required, not advisory, in both `/update-ls-config` and `/review-ls-changes` (new Issue 11); type rules are checked for every field, not only required ones; `/add-namespace` documents the `pipe(assocPath, dissocPath)` way of extending a parent specification (JSON Schema dialects) next to listing every object.
 - Lessons from the PR #5182 (A2A) review, 92 comments: new `check-ls-coverage.mjs` (per element and field: meta, docs, completion, type/allowed-fields rules, placeholder rules, rule names) and `check-test-parity.mjs` (test cases missing compared with a sibling package); `verify-urls.mjs` now fails on missing anchors of static HTML spec pages; `/add-namespace` gained the replace-empty-element plugin step, copy-then-prune, root element naming, reserved field names and sibling-parity tests; CHANGELOGs stay header-only; `/update-ls-config` requires docs, completion and type rules for every field and has a per-spec documentation URL table.
 
 - `/add-spec-version` now works in four phases, each ending in its own stacked PR: namespace, parser adapters, apidom-reference, apidom-ls. It can start at any phase and first checks (`scripts/phase-status.mjs`) that earlier phases are complete.

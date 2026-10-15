@@ -163,6 +163,16 @@ Found by the scripts agent during the 2026-10-15 skills audit; re-check each wit
 - completion items missing for Media Type `prefixEncoding` / `itemEncoding`
 - A2A adapter READMEs list only 1.0.0 media types although the namespace also has 1.0.1
 
+### 2.17 ⏳ Missing `--equals` / `--format-*` rules in AsyncAPI 3 and A2A
+
+Since the PR #5259 review, `--equals` and `--format-*` rules are required for every field with a fixed set of values or a URI/email format (`update-ls-config`, check 4.6 of `review-ls-changes`). Existing configs that predate this:
+
+- AsyncAPI 3 Operation `action` (`send` | `receive`) has only `action--required.ts` and `action--type.ts`.
+- AsyncAPI Security Scheme `type--equals-2-1--2-6.ts` targets 2.1.0-2.6.0 only, so an AsyncAPI 3.0 security scheme `type` isn't checked. Confirm the 3.0.0 value list matches 2.6.0, then extend `targetSpecs` (or add a 3.0 file if it differs).
+- A2A has no `--format-*` rules at all (`find packages/apidom-ls/src/config/a2a -name '*--format*'` prints nothing), although its allowed fields include `url`, `iconUrl`, `documentationUrl`, `authorizationUrl`, `tokenUrl`, `refreshUrl`, `deviceAuthorizationUrl` and `openIdConnectUrl`. Check each against the spec text before adding a rule.
+- **Fix:** add the rules with new codes in `codes.ts` and tests with full `Diagnostic` objects.
+- **Commit:** `feat(ls): add missing AsyncAPI 3 and A2A value lint rules`
+
 ---
 
 ## 3. Session leftovers (cleanup)

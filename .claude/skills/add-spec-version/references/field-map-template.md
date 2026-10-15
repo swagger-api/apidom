@@ -34,7 +34,11 @@ Status values: NEW (not in parent), CHANGED-TYPE (exists in parent, type differs
 | Components | pathItems | Map[string, Path Item] | no | INHERITED (3.1) | - | - | - | - | - | - | - |
 | Encoding | prefixEncoding | [Encoding] | no | NEW | | | | | | | |
 | Encoding | itemEncoding | Encoding | no | NEW | | | | | | | |
-| OAuthFlow | deviceAuthorizationUrl | string | REQUIRED (deviceAuthorization flow) | NEW | | | | | | | |
+| OAuthFlow | deviceAuthorizationUrl | string (URL) | REQUIRED (deviceAuthorization flow) | NEW | | | | | | | |
+| XML | nodeType | string, one of `element` \| `attribute` \| `text` \| `cdata` \| `none` | no | NEW | | | | | | | |
+
+When the spec fixes a field's values or format, write them into the Type column, as in the last two
+rows: Phase 4 turns them into `--equals` and `--format-*` lint rules.
 
 Tick a column (✓) when the field is handled in that layer; `-` when not applicable
 (e.g. `deref` only for fields that can hold a Reference or `$ref`, `empty-el` only for

@@ -1,6 +1,6 @@
 ---
 name: review-ls-changes
-description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". Not for JSON Schema dialect configs.
+description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, enum/format, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". Not for JSON Schema dialect configs.
 ---
 
 # Review Language Service Changes Skill
@@ -9,7 +9,7 @@ description: Reviews branch or PR changes in packages/apidom-ls against the offi
 
 This skill verifies that the language service configuration for a given specification namespace is correct and complete. It covers:
 
-- **Lint rules**: Required-field rules match what the spec marks as required; no rules exist for fields the spec marks as optional; allowed-fields lists are complete and accurate
+- **Lint rules**: `*--required.ts` rules exist exactly for the fields the spec marks as required (none for optional fields); every field, required or optional, has a type rule, plus `--equals` / `--format-*` rules where the spec fixes its values or format; allowed-fields lists are complete and accurate
 - **Documentation values**: Field descriptions, required/optional labels, and linked text accurately reflect the spec
 - **Documentation URL anchors**: Links resolve to real spec sections
 - **Element config coverage**: Every element type registered in the namespace is also registered in `config.ts`
@@ -82,7 +82,7 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 
 **Read the "Phase 3 Detail" section of `references/lint-rule-checks.md`** for the exact commands.
 
-1. List all element configs, lint rules, `allowed-fields.ts`, `*--required.ts`, `*--type.ts`, and `completion.ts` files under the config directory.
+1. List all element configs, lint rules, `allowed-fields.ts`, `*--required.ts`, `*--type.ts`, `*--equals.ts`, `*--format-*.ts`, and `completion.ts` files under the config directory.
 2. Read `config.ts` and list the namespace's element types (`this.element = `).
 3. Verify **each discriminated-union subtype** has its own `config.ts` key.
 4. Check the spec changelog for removed objects; keep their config dirs if an older supported version still defines them, but verify `targetSpecs` scoping.
@@ -102,7 +102,7 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 - [ ] **4.3 Allowed-fields accuracy** — `linterParams[0]` has no extra and no missing fields; version-scoped files (e.g. `allowed-fields-3-2.ts`) contain new AND carried-over fields.
 - [ ] **4.4 Target spec scoping** — existing entries for unchanged fields include the new version; entries for NEW fields target only the new version; removed/changed fields stay limited; version-scoped files do not overlap and cover every supported version.
 - [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintArrayOfElementsOrClasses` and map-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType` alone.
-- [ ] **4.6 Enum/value-constraint rules** (advisory) — candidates for `{field}--equals.ts` (`apilintValueOrArray`).
+- [ ] **4.6 Missing enum/value-constraint rules** — every field the spec limits to a fixed set of values has `{field}--equals.ts` (`apilintValueOrArray`); every URI/URL or email field has a `--format-uri` / `--format-email` rule.
 - [ ] **4.7 Missing element configs** — every namespace element type (and union subtype) is registered in `config.ts`.
 - [ ] **4.8 Rule conventions** — new codes in `codes.ts` are unique and follow the naming (`{SPEC}{VERSION}_{ELEMENT}_FIELD_{FIELD}_{RULE}`) and numbering of their block (element block per `10000`, `100` per field, `+1` for a second rule on the same field); messages match the style of the same spec directory (`should always have a '{field}'`; type messages vary per directory); no `'reference'` in `linterParams`; file names `{kebab-field}--{rule}.ts`; every new rule file is imported in its `lint/index.ts`.
 
@@ -181,10 +181,11 @@ Structure the report as follows. Only include sections that have findings.
 ### Issue 10 — Rule Convention Violations
 [Duplicate codes, non-standard messages, `'reference'` in linterParams, unregistered rule files, wrong enum values]
 
-### Advisory — Enum/Value-Constraint Rules to Consider
-| Element | Field | Allowed values | Peer example |
+### Issue 11 — Missing Enum/Value-Constraint Lint Rules
+| Missing file | Field | Allowed values / format | Spec source |
 |---|---|---|---|
-| element | fieldName | val1\|val2\|val3 | openapi/foo/lint/bar--equals.ts |
+| path/to/missing--equals.ts | fieldName | val1\|val2\|val3 | §X.Y link |
+| path/to/missing--format-uri.ts | fieldName | URI | §X.Y link |
 
 ### Summary
 | Category | Count |
@@ -199,14 +200,14 @@ Structure the report as follows. Only include sections that have findings.
 | Missing/empty completion files | N |
 | Incorrect target spec scoping | N |
 | Rule convention violations | N |
-| Advisory: enum/value-constraint rules to consider | N |
+| Missing enum/value-constraint rules | N |
 ```
 
 Include a spec source link (section number + URL) for **every finding**. A finding without a spec citation is not actionable.
 
 ## Key Lessons
 
-Recurring mistake patterns (TOC entries mistaken for tables, required-status formats, secondary sources, missing `scopes--required.ts`, missing type/completion files in stubs, union subtypes, new fields on existing objects, array-of-objects linters, removed objects, two-way `targetSpecs` updates) are documented in `references/key-lessons.md`. Read it before Phase 4.
+Recurring mistake patterns (TOC entries mistaken for tables, required-status formats, secondary sources, missing `scopes--required.ts`, missing type/equals/format rules and completion files in stubs, union subtypes, new fields on existing objects, array-of-objects linters, removed objects, two-way `targetSpecs` updates) are documented in `references/key-lessons.md`. Read it before Phase 4.
 
 ## Example Invocation
 

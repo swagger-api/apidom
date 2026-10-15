@@ -9,7 +9,7 @@ description: Adds or updates apidom-ls language service configuration (completio
 
 This skill automates the process of updating the language service (apidom-ls) configuration for a namespace package. It analyzes the namespace package structure, corresponding parser adapter packages, and generates appropriate configuration files for IDE features like autocomplete, hover documentation, and validation.
 
-**Scope**: coverage is per field per element. Every object the spec defines gets a config directory, and every field of it gets a completion item, a documentation entry and a type rule, plus `--required` and `--equals` rules where the spec calls for them. `check-ls-coverage.mjs` (Phase 6 step 5) checks this mechanically, so there is no target number of items or rules.
+**Scope**: coverage is per field per element. Every object the spec defines gets a config directory, and every field of it gets a completion item, a documentation entry and a type rule, plus `--required`, `--equals` and `--format-*` rules where the spec calls for them. `check-ls-coverage.mjs` (Phase 6 step 5) checks this mechanically, so there is no target number of items or rules.
 
 ### Reference Files (load on demand)
 
@@ -148,6 +148,7 @@ For **every** element registered in the namespace (`src/namespace.ts`), except i
    - `{field}--type.ts` for every field (`apilintType` for primitives, `apilintElementOrClass` / `apilintArrayOfElementsOrClasses` / `apilintChildrenOfElementsOrClasses` for objects, arrays and maps)
    - `{field}--required.ts` for every field marked Required in the field map / spec table
    - `{field}--equals.ts` (`apilintValueOrArray`) for every field with a fixed set of values (e.g. API Key `location`: `query`, `header`, `cookie`); never `--value` or `--enum`
+   - `{field}--format-uri.ts` (`apilintValidURI`) for every field the spec defines as a URL/URI, `{field}--format-email.ts` (`apilintValueRegex`) for every email field
    - `allowed-fields.ts` listing every field
 
 5. **Check coverage** (catches everything above that's missing; PR #5182 got 29 comments for it):
@@ -211,7 +212,7 @@ node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/
 - [ ] `target-specs.ts` has a `{ namespace, version }` constant for every released version, and the aggregates include it
 - [ ] `{version}/completion.ts`, `documentation.ts`, `lint/index.ts`, `meta.ts` exist and are wired into `config/{spec}/config.ts`
 - [ ] Every namespace element (except listed internal helpers) has a config directory and a meta registered in `config.ts`
-- [ ] Every field has a completion item, a documentation entry (scalars included; only object-valued fields documented in their own element directory may be omitted, listed in the header comment) and a `--type` rule; Required fields have `--required`; enum fields have `--equals`
+- [ ] Every field has a completion item, a documentation entry (scalars included; only object-valued fields documented in their own element directory may be omitted, listed in the header comment) and a `--type` rule; Required fields have `--required`; enum fields have `--equals`; URL/URI and email fields have `--format-uri` / `--format-email`
 - [ ] `check-ls-coverage.mjs` reports 0 problems (or each remaining one is justified)
 - [ ] No config for objects the spec version removed or doesn't define
 - [ ] `verify-urls.mjs` reports 0 `BROKEN` for the config directory

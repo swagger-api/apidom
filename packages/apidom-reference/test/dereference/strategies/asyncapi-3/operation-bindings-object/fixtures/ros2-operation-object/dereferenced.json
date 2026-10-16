@@ -1,0 +1,46 @@
+[
+  {
+    "asyncapi": "3.1.0",
+    "components": {
+      "operationBindings": {
+        "operationBindings1": {
+          "ros2": {
+            "role": "subscriber",
+            "node": "/turtlesim",
+            "qosPolicies": {
+              "reliability": "reliable",
+              "history": "unknown",
+              "durability": "volatile",
+              "lifespan": -1,
+              "deadline": -1,
+              "liveliness": "automatic",
+              "leaseDuration": -1
+            },
+            "bindingVersion": "0.1.0"
+          }
+        }
+      }
+    },
+    "operations": {
+      "receiveCmdVel": {
+        "action": "receive",
+        "bindings": {
+          "ros2": {
+            "role": "subscriber",
+            "node": "/turtlesim",
+            "qosPolicies": {
+              "reliability": "reliable",
+              "history": "unknown",
+              "durability": "volatile",
+              "lifespan": -1,
+              "deadline": -1,
+              "liveliness": "automatic",
+              "leaseDuration": -1
+            },
+            "bindingVersion": "0.1.0"
+          }
+        }
+      }
+    }
+  }
+]

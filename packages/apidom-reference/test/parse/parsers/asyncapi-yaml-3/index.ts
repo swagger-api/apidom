@@ -24,10 +24,15 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.yaml',
               mediaType: mediaTypes.latest(),
             });
+            const file3 = new File({
+              uri: '/path/to/asyncapi.yaml',
+              mediaType: mediaTypes.findBy('3.0.0', 'yaml'),
+            });
             const parser = new AsyncAPIYAML3Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
+            assert.isTrue(await parser.canParse(file3));
           });
         });
 
@@ -100,7 +105,7 @@ describe('parsers', function () {
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as AsyncAPI 3.0.0', function () {
+        context('and file data is buffer and can be detected as AsyncAPI 3.1.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = new File({
@@ -113,7 +118,7 @@ describe('parsers', function () {
           });
         });
 
-        context('and file data is string and can be detected as AsyncAPI 3.0.0', function () {
+        context('and file data is string and can be detected as AsyncAPI 3.1.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.yaml');
             const file = new File({
@@ -129,7 +134,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 3.0.0 YAML data', function () {
+      context('given AsyncApi 3.1.0 YAML data', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(uri).toString();
@@ -141,7 +146,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 3.0.0 YAML data as buffer', function () {
+      context('given AsyncApi 3.1.0 YAML data as buffer', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.yaml');
           const data = fs.readFileSync(uri);
@@ -153,7 +158,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 3.0.0 YAML data', function () {
+      context('given data that is not an AsyncApi 3.1.0 YAML data', function () {
         specify('should throw ParserError', async function () {
           const file = new File({
             uri: '/path/to/file.yaml',

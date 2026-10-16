@@ -125,7 +125,7 @@ New mode:
 Extend mode:
 - [ ] `README.md` media type lists for parsers and strategies
 - [ ] Fixtures for the latest version bumped
-- [ ] Parser tests (own and other specs' negative tests) bumped
+- [ ] Own parser tests bumped, with an explicit check for the previous version's media type; other specs' negative tests unchanged
 - [ ] Dereference visitor and fixtures for new referenceable fields
 
 Both: build, types, lint and tests of `apidom-reference` pass.

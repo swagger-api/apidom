@@ -48,6 +48,15 @@ A field that is an array of spec objects should use `apilintArrayOfElementsOrCla
 ### Deprecated/Removed Objects May Still Have Config Dirs
 If a spec removes an object in a new version, its config directory may persist in the implementation. Always check the spec changelog. If an older version that still defines the object is supported by the LS, **do not remove the config** — verify that its rules, documentation, and completion entries are scoped via `targetSpecs` to the versions where the object exists. Flag the directory for removal only if no supported version defines the object.
 
+### Prose-Only Changes Need Documentation Updates
+A minor version can change meaning without touching a Fixed Fields table: AsyncAPI 3.1 added a note to Operation `messages` ("excluding this property ... implies that all messages from the channel will be included"), made the Server Object extensible in prose and listed 3.1.0 schema format media types. Diff the prose of both versions and check that `documentation.ts` and `completion.ts` follow it.
+
+### Value Constraints Can Depend on Another Field
+The ROS 2 operation binding allows `publisher`, `action_client`, `service_client` for `action: send` and the other three roles for `receive`. A rule with the six-value union is correct but incomplete; report the missing dependency, and quote any example in the source that contradicts the rule (the README's `Pose` example uses `receive` with `publisher`), so the user can decide whether to enforce it.
+
+### A Key New in One Version Must Be Scoped Everywhere
+A key the new version adds to a shared object (`ros2` in the bindings objects of AsyncAPI 3.1) needs version-scoped allowed-fields, type rule, completion item and documentation row. An object-level documentation entry shared by both versions that lists the new key advertises it to documents whose lint rejects it.
+
 ### Target Specs Must Be Updated in Both Directions
 When a new version is added, existing entries for unchanged fields must gain the new version in `targetSpecs` (otherwise the new version gets no coverage), while entries for fields new in that version must target **only** the new version (otherwise they fire for older documents). Both mistakes are easy to miss because the rule files themselves look correct.
 

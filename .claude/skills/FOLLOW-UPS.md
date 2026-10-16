@@ -117,6 +117,7 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 - **Found by:** `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi` (`STUB`), and `grep -L linterFunction $(find packages/apidom-ls/src/config -path '*/lint/*.ts' ! -name index.ts)`.
 - **Fix:** implement each rule after the 2.x sibling rule of the same field (copy message pattern, linter function, a new code), scoped to `AsyncAPI3`. Add tests per rule. Then re-run the script: 0 `STUB`.
 - **Commit:** `fix(ls): implement AsyncAPI 3 placeholder lint rules`
+- **Progress (2026-10-16):** `async-api-version/lint/value--pattern-3-0-0.ts` is implemented in #5264 (AsyncAPI 3.1.0 apidom-ls); after it merges, `check-ls-coverage.mjs` reports 19 placeholders.
 
 ### 2.11 ⏳ A2A completion items use condition functions that don't exist
 
@@ -219,3 +220,56 @@ Deferred on 2026-10-15 because a full run is expensive: 14 evals × 2 configurat
 - A harder planted-defect set: subtle `targetSpecs` overlaps, carried-over fields missing from a version-scoped `allowed-fields`, wrong `apilintElementOrClass` element names.
 
 **Description optimization** (`skill-creator` `scripts/run_loop`, `claude -p` × 3 per query per iteration) is deferred for the same reason. Start with `add-namespace` vs `add-spec-version`, whose descriptions used to overlap; `add-namespace` now defers end-to-end requests to `/add-spec-version`.
+
+---
+
+## 5. Found while adding AsyncAPI 3.1.0 (2026-10-16, PRs #5261-#5264)
+
+Fixed in those PRs (done once they merge): `apidom-parser-adapter-asyncapi-json-3` ran no tests (`.mocharc.json` `spec` was `test/**/*.mjs`, #5262); the `apidom-reference` README had no AsyncAPI 3 parser or dereference strategy sections (#5263); broken binding, Avro, OpenAPI 3.0.0 and Anypoint MQ links in the AsyncAPI LS docs (#5264); the empty 3.0.0 version value rule (#5264, see 2.10).
+
+### 5.1 ⏳ Empty-document completion still suggests AsyncAPI 2.6.0
+
+- **Where:** `packages/apidom-ls/src/services/completion/completion-service.ts` inserts `asyncapi: '2.6.0$1'` into empty documents; neither the 3.0 nor the 3.1 work changed it.
+- **Decide first:** moving it to the latest 3.x makes every new AsyncAPI document a 3.x document.
+- **Commit:** `feat(ls): suggest AsyncAPI 3.1.0 in empty documents`
+
+### 5.2 ⏳ `bindingVersion` values are never checked
+
+- **Where:** every binding's `lint/binding-version--type.ts` checks the type only; an unknown version (`bindingVersion: '9.9.9'`) matches neither the version directories' conditions nor `latest`, so the binding gets no validation and no diagnostic.
+- **Fix:** add `binding-version--equals.ts` per binding with the versions it has directories for (ROS 2: `0.1.0`), new codes and tests.
+
+### 5.3 ⏳ AsyncAPI 3 LS gaps reported by `check-ls-coverage.mjs`
+
+- Operation Trait: the allowed-fields rules target 2.0-2.6 only (`allowed-fields-2-0--2-3.ts`, `allowed-fields-2-4--2-6.ts`), so 3.x traits accept any field; `title` (new in 3.0) has no type rule and no completion item.
+- `oAuthFlow.availableScopes` has no type rule; `securityScheme.scopes` has no completion item.
+- The script's Server `pathName` findings come from the namespace getter name, not the LS config (which uses `pathname`); see 5.9.
+- Check: `node .claude/skills/add-spec-version/scripts/check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi` (build apidom-ls first).
+
+### 5.4 ⏳ No JSON Schema validation for AsyncAPI 3
+
+- **Where:** `packages/apidom-ls/src/services/validation/providers/` has providers for AsyncAPI 2.0-2.6 only. `asyncapi/spec-json-schemas` publishes `schemas/3.0.0.json` and `3.1.0.json`.
+- **Note:** the ROS 2 binding schema misspells `reliable` as `realiable`; a provider would reject valid documents until that is fixed upstream.
+
+### 5.5 ⏳ `apidom-ns-asyncapi-3` README is minimal
+
+- #5261 replaced the scaffold stub with the supported versions and installation. The sections `apidom-ns-asyncapi-2` has (namespace, predicates, traversal, refractors, refractor plugins, implementation progress with the binding list) are missing.
+
+### 5.6 ⏳ Pulsar server binding hover docs show the channel binding
+
+- **Where:** `packages/apidom-ls/src/config/asyncapi/bindings/pulsar/server-binding/documentation.ts`: the object-level entry is the Channel Binding Object text (copied from `channel-binding/documentation.ts`).
+- **Fix:** use the README's Server Binding Object section (`https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#server-binding-object`).
+
+### 5.7 ⏳ Remaining broken links in untouched AsyncAPI LS files
+
+- #5264 fixed the links on lines it touched (and every other occurrence of the same URLs). After it merges, run `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/asyncapi` and fix what is left. Three `BROKEN` lines are sample values from the spec's own examples (`https://asyncapi.org/terms/`, `https://www.asyncapi.org/support`, `https://github.com/smartylighting/streetlights-server`); keep them as the spec shows them.
+
+### 5.8 ⏳ ROS 2 `role` isn't checked against the operation `action`
+
+- Decided 2026-10-16: `role` is checked against all six values only, because the binding README's own `Pose` example combines `action: receive` with `role: publisher`. Revisit when the README is corrected upstream: add `role--equals-send.ts` / `role--equals-receive.ts` with a `parent.parent.action` condition.
+
+### 5.9 ⏳ AsyncAPI 3 `Server.pathName` getter reads the wrong key
+
+- **Where:** `packages/apidom-ns-asyncapi-3/src/elements/Server.ts:35-41`: `get pathName()` returns `this.get('pathName')` and the setter writes `pathName`, but the spec field and the refractor (`refractor/specification.ts`, `pathname: { $ref: '#/visitors/value' }`) use `pathname`. The getter always returns `undefined` for refracted documents.
+- **Fix:** add `pathname` accessors reading and writing `'pathname'`; keep `pathName` as a deprecated alias or remove it (it is public API, so decide with the maintainers). Add an element test that refracts `{ pathname: '/v1' }` and reads it back.
+- **Commit:** `fix(ns-asyncapi-3): read Server pathname from the pathname field`
+

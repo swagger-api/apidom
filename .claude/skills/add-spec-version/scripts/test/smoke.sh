@@ -90,6 +90,12 @@ printf 'https://{host}.server.com/v1 https://example.com/a [x](https://www.examp
 printf 'https://this-host-does-not-exist.invalid/\n' >"$TMP/urls/b.patch"
 check 'verify-urls offline fixture' 0 node "$SCRIPTS/verify-urls.mjs" --timeout 2000 "$TMP/urls"
 check 'verify-urls --timeout abc' 2 node "$SCRIPTS/verify-urls.mjs" --timeout abc "$TMP/urls"
+check 'verify-urls --new-only without --diff' 2 node "$SCRIPTS/verify-urls.mjs" --new-only "$TMP/urls"
+# --list: an unbalanced `)` ends the URL (markdown table cell glued to a link), balanced ones stay
+printf '`a`|[A](https://a.invalid/x#y)|Text and https://b.invalid/Foo_(bar).\n' >"$TMP/urls/c.md"
+check 'verify-urls --list' 0 node "$SCRIPTS/verify-urls.mjs" --list "$TMP/urls/c.md"
+expect_output 'verify-urls --list cuts at an unbalanced )' '^https://a\.invalid/x#y  '
+expect_output 'verify-urls --list keeps balanced parentheses' '^https://b\.invalid/Foo_\(bar\)  '
 
 if [ "$FAILED" -ne 0 ]; then
   echo 'smoke test FAILED'

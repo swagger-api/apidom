@@ -74,7 +74,7 @@ The prefix names the spec version that introduced the rule, not every version it
 - Each spec version has a base: `OPENAPI3_1 = 7000000`, `OPENAPI3_2 = 7100000`, `A2A1 = 9000000`. A new spec takes the next free base after the highest one in the file.
 - Each element gets a block of `10000` above the base, declared as a bare entry: `OPENAPI3_2_OPEN_API = 7110000`, `A2A1_AGENT_CARD = 9010000`, `A2A1_AGENT_CAPABILITIES = 9020000`.
 - Each field gets the next multiple of `100` in its element block: `..._FIELD_INFO_TYPE = 7110100`, `..._FIELD_SERVERS_TYPE = 7110200`.
-- A second rule for the same field follows on the next line without a value, so the enum assigns `+1`: `OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED` (`7110101`), `OPENAPI3_2_OPEN_API_FIELD_SERVERS_ITEMS_TYPE` (`7110201`). A2A instead gives each required rule its own `100` slot after the type rules (`A2A1_AGENT_CARD_FIELD_NAME_REQUIRED = 9011600`); follow whichever pattern the block you extend uses.
+- A second rule for the same field follows on the next line without a value, so the enum assigns `+1`: `OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED` (`7110101`), `OPENAPI3_2_OPEN_API_FIELD_SERVERS_ITEMS_TYPE` (`7110201`). A2A instead gives each required rule its own `100` slot after the type rules (`A2A1_AGENT_CARD_FIELD_NAME_REQUIRED = 9011600`); follow whichever pattern the block you extend uses. AsyncAPI binding blocks use `+1` for range rules too (`ASYNCAPI2_IBMMQ_SERVER_BINDING_FIELD_HEART_BEAT_INTERVAL_MAXIMUM` after its `_TYPE`); the first ROS 2 draft gave `DOMAIN_ID_MAXIMUM` and `ROLE_EQUALS` their own `100` slots and had to be renumbered in review.
 
 Every code value must be unique; `review-ls-changes` checks this with `grep -oE "= [0-9]+," codes.ts | sort | uniq -d`.
 
@@ -226,6 +226,9 @@ When the allowed values depend on another field, add a `conditions` entry, as `c
 | Required field | `hasRequiredField` | `['title']` | `info/lint/title--required.ts` |
 | Fixed set of values | `apilintValueOrArray` | `[['query', 'header', 'cookie']]` | `a2a/api-key-security-scheme/lint/location--equals.ts` |
 | Allowed fields | `allowedFields` | `[[...fields], 'x-']`, or `[[...fields]]` without extensions | `openapi3_2/lint/allowed-fields.ts`, `a2a/a2a1/lint/allowed-fields.ts` |
+| Integer, range | `apilintNumber`, `apilintMinimum`, `apilintMaximum` | `[true, true, true]` (integer, non-negative, zero allowed), `[0]`, `[231]` | `bindings/ibmmq/server-binding/lint/latest/heart-beat-internal--maximum.ts` (ROS 2 `domain-id--maximum.ts` in #5264) |
+
+`apilintMinimum` and `apilintMaximum` return `false` for non-numbers, so a string value would get both the type error and the range error: give range rules a `{ targets: [{ path: '{field}' }], function: 'apilintElementOrClass', params: [['number']] }` condition, as `bindings/mqtt/operation-binding/lint/0-2-0/message-expiry-interval--minimum.ts` does.
 
 `apilintChildrenOfElementsOrClasses` returns `false` for anything that is not an object, so using it on an array field reports every valid array as an error. `apilintArrayOfElementsOrClasses` returns `false` for anything that is not an array. Check whether the namespace element extends `ArrayElement` or `ObjectElement` before choosing (`packages/apidom-ls/CLAUDE.md` section 3). All linter functions are defined in `packages/apidom-ls/src/services/validation/linter-functions.ts`.
 
@@ -240,6 +243,8 @@ Type messages differ between spec directories, so copy the style of the neighbou
 | `config/a2a/` | `'name' must be a string` | `should always have a 'name' field` |
 
 Arrays and maps of objects use the patterns in `packages/apidom-ls/CLAUDE.md` section 4 (`"'skills' must be an array of Agent Skill Objects"`). Fixed sets of values use `"'{field}' must be one of allowed values"`, optionally followed by `: value1, value2`. Never use `"must contain '{field}' field"`.
+
+When a message quotes the spec (empty binding objects' `allowedFields` rules do: `This object MUST NOT contain any properties. Its name is reserved for future use.`), quote the sentence of that object, not a sibling's: the ROS 2 message binding says `This object DOES NOT contain any ROS 2 specific properties.`, unlike its channel binding.
 
 #### 5.6 Generate lint/index.ts
 

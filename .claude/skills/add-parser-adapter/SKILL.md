@@ -136,14 +136,14 @@ Create the YAML parser adapter package (similar to JSON but with YAML-specific c
 
 ### Phase 6: Extend Existing Adapters (extend mode only)
 
-Worked example: AsyncAPI 2.6.0, PR #2536 (commit `c2d643904`, `git show c2d643904 -- <path>`). Repeat for the JSON and the YAML adapter of the namespace.
+Worked examples: AsyncAPI 2.6.0, PR #2536 (commit `c2d643904`, `git show c2d643904 -- <path>`), and AsyncAPI 3.1.0, PR #5262. Repeat for the JSON and the YAML adapter of the namespace.
 
 1. **Detection**: check that `detectionRegExp` in `src/adapter.ts` matches the new version and still rejects versions outside the namespace (e.g. the next major). Change it only when it doesn't; `asyncapi-*-2` already matched `2.x.y`.
-2. **Media types**: `src/media-types.ts` derives from the namespace, so the new version comes in automatically. Verify it through the parser in `test/media-types.ts`: `new ApiDOMParser().use(adapter)`, then assert that `parser.findMediaType('{"{field}": "{version}"}')` returns the new version's media type (see `apidom-parser-adapter-openapi-json-3-2/test/media-types.ts`). Don't assert on `mediaTypes.latest()` directly.
-3. **Adapter tests** (`test/adapter.ts`): add positive detection for `{version}` and a patch release (`2.6.0`, `2.6.1`) via both `detect` and `detectionRegExp`; bump "latest" samples to the new version.
+2. **Media types**: `src/media-types.ts` derives from the namespace, so the new version comes in automatically. Verify it through the parser in `test/media-types.ts`: `new ApiDOMParser().use(adapter)`, then assert that `parser.findMediaType('{"{field}": "{version}"}')` returns the new version's media type (see `apidom-parser-adapter-openapi-json-3-2/test/media-types.ts`). Keep the previous version's case next to it. Don't assert on `mediaTypes.latest()` directly.
+3. **Adapter tests** (`test/adapter.ts`): add positive detection for `{version}` and a patch release (`2.6.0`, `2.6.1`) via both `detect` and `detectionRegExp`, and a rejection of the next major (`4.0.0` for AsyncAPI 3); bump "latest" samples to the new version. Make sure the tests run at all: `npm test` must report passing tests (`asyncapi-json-3`'s `.mocharc.json` pointed `spec` at `test/**/*.mjs` and ran none).
 4. **Fixtures**: bump `test/fixtures/sample-api.{json,yaml}` (and `test/perf/fixtures/*`) to the new version.
-5. **Other specs' adapters**: their negative detection tests use this spec's latest version (e.g. `openapi-json-3-1` asserts it does not detect `"asyncapi": "2.5.0"`); bump them to the new version.
-6. **apidom-parser**: `packages/apidom-parser/test/adapter-priority.ts` and `packages/apidom-parser/README.md` use the latest version of the spec; bump them.
+5. **Other specs' adapters**: leave their negative detection tests as they are (e.g. `openapi-json-3-1` asserting it does not detect `"asyncapi": "2.6.0"`). #2536 bumped them for AsyncAPI 2.6; for AsyncAPI 3.1 the user rejected swapping their versions, so the new version's coverage stays in its own adapters.
+6. **apidom-parser**: `packages/apidom-parser/test/adapter-priority.ts` and `packages/apidom-parser/README.md`: bump them if they use this spec family (they use AsyncAPI 2 only, so AsyncAPI 3.x versions don't touch them).
 7. **READMEs**: in both adapter READMEs add the spec link (`[{Spec} {version} specification](...)`), the new media types to the supported list, and use the new version in `detect`/`parse` examples.
 
 Find every place still pinned to the previous latest version:
@@ -282,8 +282,9 @@ Repository root:
 Extend mode:
 - [ ] Detection covers the new version (and patch releases), rejects other majors
 - [ ] `test/adapter.ts`, `test/media-types.ts`, fixtures bumped in both adapters
-- [ ] Other specs' adapter negative tests bumped
-- [ ] `apidom-parser` adapter-priority test and README bumped
+- [ ] Other specs' adapter negative tests left unchanged; own adapters test the new version, a patch release and the next major
+- [ ] `apidom-parser` adapter-priority test and README bumped, if they use this spec family
+- [ ] Each adapter's `npm test` reports passing tests (check `.mocharc.json` `spec`)
 - [ ] Both adapter READMEs: spec link, media types, examples
 
 ### Verification

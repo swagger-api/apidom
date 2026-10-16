@@ -13,7 +13,8 @@ Link to the page and anchor that exist in the spec's canonical rendering. Copy t
 | OpenAPI 3.0.x | `https://spec.openapis.org/oas/v3.0.4.html` | kebab-case | `#info-object` |
 | OpenAPI 3.1.x | `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.1.0.md` | mixed: object headings kebab-case, field anchors camelCase | `#info-object`, `#oasInfo` |
 | OpenAPI 3.2.x | `https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md` | kebab-case for object headings and field anchors | `#info-object`, `#oas-info` |
-| AsyncAPI 2.x / 3.x | `https://www.asyncapi.com/docs/reference/specification/v{x.y.z}` | camelCase object name (rendered client-side, so `verify-urls` reports `UNVERIFIED`; check in a browser) | `#channelObject` |
+| AsyncAPI 2.x / 3.x | `https://www.asyncapi.com/docs/reference/specification/v{x.y.z}` | the spec markdown's `<a name>` anchors: camelCase object names and fields. The v3.x pages render them server-side, so `verify-urls` checks them (missing anchor is `BROKEN`); the v2.6.0 page renders them client-side (`UNVERIFIED`; check in a browser) | `#channelObject`, `#operationObjectMessages` |
+| AsyncAPI bindings | `https://github.com/asyncapi/bindings/blob/master/{binding}/README.md` (SNS: `sns/2.x.x/README.md` for AsyncAPI 2, `sns/3.0.0/README.md` for 3) | the README's `<a name>` anchors or heading slugs. Link the README file, not the directory (`bindings/blob/master/kafka#server`): a directory without a README has no anchors | `#server-binding-object`, `#server` |
 | A2A 1.x | `https://a2a-protocol.org/latest/specification/` (not `/latest/definitions/`) | section number + lowercase object name | `#443-agentcapabilities`, `#452-apikeysecurityscheme` |
 
 A new spec gets a row here before its LS config is written. Each element's `documentation.ts` file comment links its object the same way (`See [AgentCapabilities](https://a2a-protocol.org/latest/specification/#443-agentcapabilities).`).

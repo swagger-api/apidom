@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-json-3` is a parser adapter for following AsyncAPI specification versions defined in [JSON format](https://www.json.org/json-en.html):
 
+- [AsyncAPI 3.1.0 specification](https://github.com/asyncapi/spec/blob/v3.1.0/spec/asyncapi.md)
 - [AsyncAPI 3.0.0 specification](https://github.com/asyncapi/spec/blob/v3.0.0/spec/asyncapi.md)
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json)
@@ -30,12 +31,14 @@ Defines list of media types that this parser adapter recognizes.
 [
   'application/vnd.aai.asyncapi;version=3.0.0',
   'application/vnd.aai.asyncapi+json;version=3.0.0',
+  'application/vnd.aai.asyncapi;version=3.1.0',
+  'application/vnd.aai.asyncapi+json;version=3.1.0',
 ]
 ```
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L18) is based on a regular expression matching required AsyncApi 3.0.0 specification symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-asyncapi-json-3/src/adapter.ts#L18) is based on a regular expression matching required AsyncApi 3.x.y specification symbols in JSON format.
 
 ### namespace
 
@@ -66,11 +69,11 @@ with [supported media types](#mediatypes).
 import { parse, detect } from '@swagger-api/apidom-parser-adapter-asyncapi-json-3';
 
 // detecting
-await detect('{"asyncapi": "3.0.0"}'); // => true
+await detect('{"asyncapi": "3.1.0"}'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('{"asyncapi": "3.0.0"}', { sourceMap: true });
+const parseResult = await parse('{"asyncapi": "3.1.0"}', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -85,5 +88,5 @@ const parser = new ApiDOMParser();
 
 parser.use(asyncApiJsonAdapter);
 
-const parseResult = await parser.parse('{"asyncapi": "3.0.1"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
+const parseResult = await parser.parse('{"asyncapi": "3.1.0"}', { mediaType: asyncApiJsonAdapter.mediaTypes.latest('json') });
 ```

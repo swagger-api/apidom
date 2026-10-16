@@ -40,6 +40,19 @@ describe('dereference', function () {
             assert.deepEqual(toValue(actual), expected);
           });
         });
+        context('given ROS 2 binding in server/bindings field', function () {
+          const fixturePath = path.join(rootFixturePath, 'ros2-server-object');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
       });
     });
   });

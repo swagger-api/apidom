@@ -1,0 +1,50 @@
+{
+  "skill_name": "update-ls-config",
+  "evals": [
+    {
+      "id": 1,
+      "name": "asyncapi3-operation-reply-lint",
+      "fixture": {
+        "checkout": "c201bb1f8^",
+        "note": "repo state before AsyncAPI 3 LS validation (PR #5104); operation-reply lint index files are empty"
+      },
+      "prompt": "Add apidom-ls lint rules for the AsyncAPI 3.0 Operation Reply Object and Operation Reply Address Object (packages/apidom-ls/src/config/asyncapi/operation-reply and operation-reply-address). Write the complete rule files and lint/index.ts for both, plus the codes.ts additions as a snippet, mirroring repo paths.",
+      "expected_output": "Complete, repo-consistent lint rules (allowed fields, types, required, $ref) for both objects.",
+      "files": [],
+      "assertions": [
+        "Operation Reply allowed-fields rule lists exactly address, channel, messages, $ref with x- extensions",
+        "Operation Reply Address allowed-fields rule lists exactly description, location, $ref with x- extensions",
+        "location required rule uses message \"should always have a 'location'\" and is conditional on $ref being absent",
+        "No linterParams include 'reference'",
+        "location type message does not mention runtime expression",
+        "address and channel type rules check the element class (operationReplyAddress / channel), not a plain object type",
+        "Rule file names follow {field}--{type}.ts (optionally a version suffix)",
+        "Every rule is scoped with targetSpecs AsyncAPI3",
+        "description type rule exists for Operation Reply Address",
+        "Every rule file is registered in its lint/index.ts",
+        "Rule files contain no explanatory code comments"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "a2a-ls-coverage-pr5182",
+      "fixture": {
+        "checkout": "6644586cb",
+        "note": "PR #5182 (A2A) after its first LS commit; review then found 29 coverage gaps and 16 wrong doc links"
+      },
+      "prompt": "Complete the apidom-ls configuration for A2A 1.0 (namespace packages/apidom-ns-a2a-1, config packages/apidom-ls/src/config/a2a) so that every A2A object has completion, hover documentation and lint rules. Don't write tests.",
+      "expected_output": "Config directories and metas for every A2A element, per-field docs/completion/type rules, required rules per spec, verified doc links.",
+      "files": [],
+      "assertions": [
+        "Registers metas in config.ts for apiKeySecurityScheme, httpAuthSecurityScheme, oauth2SecurityScheme, openIdConnectSecurityScheme, mutualTlsSecurityScheme and agentExtension",
+        "Adds scopes--required rules to the authorization code, client credentials and device code OAuth flows",
+        "Adds location--required and name--required (API key), scheme--required (HTTP auth), flows--required (OAuth2), openIdConnectUrl required (OpenID Connect)",
+        "Adds a location--equals rule (query, header, cookie) using apilintValueOrArray, not a --value file",
+        "Adds documentation entries for scalar fields such as Agent Card name, description and version",
+        "Documentation links use https://a2a-protocol.org/latest/specification/#<section>-<object> anchors, not /latest/definitions/",
+        "Removes or does not add config for the implicit and password OAuth flows (removed in A2A 1.0)",
+        "Runs check-ls-coverage.mjs and verify-urls.mjs and reports their results"
+      ]
+    }
+  ]
+}

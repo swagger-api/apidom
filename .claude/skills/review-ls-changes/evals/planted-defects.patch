@@ -1,0 +1,147 @@
+From 08c813eb6146696cad68534f71aedca5d09e616e Mon Sep 17 00:00:00 2001
+From: Robert Hebel <robert.hebel@smartbear.com>
+Date: Wed, 14 Oct 2026 15:51:30 +0200
+Subject: [PATCH] feat(ls): add OpenAPI 3.2 lint and docs refinements
+
+---
+ packages/apidom-ls/src/config/codes.ts        |  1 +
+ .../device-authorization-url--required.ts     | 19 +++++++++++++++++++
+ .../config/openapi/oauth-flow/lint/index.ts   |  2 ++
+ .../config/openapi/response/documentation.ts  |  2 +-
+ .../security-scheme/lint/deprecated--type.ts  |  8 ++++----
+ .../src/config/openapi/xml/documentation.ts   |  2 +-
+ .../openapi/xml/lint/node-type--equals.ts     |  4 ++--
+ 7 files changed, 30 insertions(+), 8 deletions(-)
+ create mode 100644 packages/apidom-ls/src/config/openapi/oauth-flow/lint/device-authorization-url--required.ts
+
+diff --git a/packages/apidom-ls/src/config/codes.ts b/packages/apidom-ls/src/config/codes.ts
+index 79c4996cd..377245e85 100644
+--- a/packages/apidom-ls/src/config/codes.ts
++++ b/packages/apidom-ls/src/config/codes.ts
+@@ -1385,6 +1385,7 @@ enum ApilintCodes {
+ 
+   OPENAPI3_2_OAUTH_FLOW = 7165000,
+   OPENAPI3_2_OAUTH_FLOW_FIELD_DEVICE_AUTHORIZATION_URL_FORMAT_URI = 7165100,
++  OPENAPI3_2_OAUTH_FLOW_FIELD_DEVICE_AUTHORIZATION_URL_REQUIRED = 7165150,
+ 
+   OPENAPI3_2_OAUTH_FLOWS = 7166000,
+   OPENAPI3_2_OAUTH_FLOWS_FIELD_DEVICE_AUTHORIZATION_TYPE = 7166100,
+diff --git a/packages/apidom-ls/src/config/openapi/oauth-flow/lint/device-authorization-url--required.ts b/packages/apidom-ls/src/config/openapi/oauth-flow/lint/device-authorization-url--required.ts
+new file mode 100644
+index 000000000..4e1c18cdf
+--- /dev/null
++++ b/packages/apidom-ls/src/config/openapi/oauth-flow/lint/device-authorization-url--required.ts
+@@ -0,0 +1,19 @@
++import { DiagnosticSeverity } from 'vscode-languageserver-types';
++
++import ApilintCodes from '../../../codes.ts';
++import { LinterMeta } from '../../../../apidom-language-types.ts';
++import { OpenAPI32 } from '../../target-specs.ts';
++
++const deviceAuthorizationUrlRequiredLint: LinterMeta = {
++  code: ApilintCodes.OPENAPI3_2_OAUTH_FLOW_FIELD_DEVICE_AUTHORIZATION_URL_REQUIRED,
++  source: 'apilint',
++  message: "OAuth Flow must contain 'deviceAuthorizationUrl' field",
++  severity: DiagnosticSeverity.Error,
++  linterFunction: 'hasRequiredField',
++  linterParams: ['deviceAuthorizationUrl'],
++  marker: 'key',
++  data: {},
++  targetSpecs: OpenAPI32,
++};
++
++export default deviceAuthorizationUrlRequiredLint;
+diff --git a/packages/apidom-ls/src/config/openapi/oauth-flow/lint/index.ts b/packages/apidom-ls/src/config/openapi/oauth-flow/lint/index.ts
+index 3d5299bc3..9bf1855bd 100644
+--- a/packages/apidom-ls/src/config/openapi/oauth-flow/lint/index.ts
++++ b/packages/apidom-ls/src/config/openapi/oauth-flow/lint/index.ts
+@@ -2,6 +2,7 @@ import authorizationUrlFormatURILint from './authorization-url--format-uri.ts';
+ import tokenUrlFormatURILint from './token-url--format-uri.ts';
+ import refreshUrlFormatURILint from './refresh-url--format-uri.ts';
+ import deviceAuthorizationUrlFormatURILint from './device-authorization-url--format-uri.ts';
++import deviceAuthorizationUrlRequiredLint from './device-authorization-url--required.ts';
+ import scopesTypeLint from './scopes--type.ts';
+ import allowedFieldsLint from './allowed-fields.ts';
+ import allowedFields3_2Lint from './allowed-fields-3-2.ts';
+@@ -11,6 +12,7 @@ const lints = [
+   tokenUrlFormatURILint,
+   refreshUrlFormatURILint,
+   deviceAuthorizationUrlFormatURILint,
++  deviceAuthorizationUrlRequiredLint,
+   scopesTypeLint,
+   allowedFieldsLint,
+   allowedFields3_2Lint,
+diff --git a/packages/apidom-ls/src/config/openapi/response/documentation.ts b/packages/apidom-ls/src/config/openapi/response/documentation.ts
+index 0ae69403a..6e314016f 100644
+--- a/packages/apidom-ls/src/config/openapi/response/documentation.ts
++++ b/packages/apidom-ls/src/config/openapi/response/documentation.ts
+@@ -58,7 +58,7 @@ const documentation = [
+   },
+   {
+     target: 'summary',
+-    docs: 'A short summary of the response.',
++    docs: '**REQUIRED**. A short summary of the response.',
+     targetSpecs: OpenAPI32,
+   },
+   {
+diff --git a/packages/apidom-ls/src/config/openapi/security-scheme/lint/deprecated--type.ts b/packages/apidom-ls/src/config/openapi/security-scheme/lint/deprecated--type.ts
+index f85952c1a..e12b9f4c6 100644
+--- a/packages/apidom-ls/src/config/openapi/security-scheme/lint/deprecated--type.ts
++++ b/packages/apidom-ls/src/config/openapi/security-scheme/lint/deprecated--type.ts
+@@ -2,19 +2,19 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
+ 
+ import ApilintCodes from '../../../codes.ts';
+ import { LinterMeta } from '../../../../apidom-language-types.ts';
+-import { OpenAPI32 } from '../../target-specs.ts';
++import { OpenAPI3 } from '../../target-specs.ts';
+ 
+ const deprecatedTypeLint: LinterMeta = {
+   code: ApilintCodes.OPENAPI3_2_SECURITY_SCHEME_FIELD_DEPRECATED_TYPE,
+   source: 'apilint',
+-  message: 'deprecated must be a boolean',
++  message: 'deprecated must be a string',
+   severity: DiagnosticSeverity.Error,
+   linterFunction: 'apilintType',
+-  linterParams: ['boolean'],
++  linterParams: ['string'],
+   marker: 'value',
+   target: 'deprecated',
+   data: {},
+-  targetSpecs: OpenAPI32,
++  targetSpecs: OpenAPI3,
+ };
+ 
+ export default deprecatedTypeLint;
+diff --git a/packages/apidom-ls/src/config/openapi/xml/documentation.ts b/packages/apidom-ls/src/config/openapi/xml/documentation.ts
+index b60171b84..fee6cb04d 100644
+--- a/packages/apidom-ls/src/config/openapi/xml/documentation.ts
++++ b/packages/apidom-ls/src/config/openapi/xml/documentation.ts
+@@ -74,7 +74,7 @@ const documentation = [
+     targetSpecs: OpenAPI31,
+   },
+   {
+-    docs: '#### [XML Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#xmlObject)\n\nA metadata object that allows for more fine-tuned XML model definitions.\n\nWhen using arrays, XML element names are *not* inferred (for singular/plural forms) and the `name` property SHOULD be used to add that information.\nSee examples for expected behavior.\n\n##### Fixed Fields\nField Name | Type | Description\n---|:---:|---\nname | `string` | Replaces the name of the element/attribute used for the described schema property. When defined within `items`, it will affect the name of the individual XML elements within the list. When defined alongside `type` being `array` (outside the `items`), it will affect the wrapping element and only if `wrapped` is `true`. If `wrapped` is `false`, it will be ignored.\nnamespace | `string` | The URI of the namespace definition. This MUST be in the form of an absolute URI.\nprefix | `string` | The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#xmlName).\nattribute | `boolean` | Declares whether the property definition translates to an attribute instead of an element. Default value is `false`.\nwrapped | `boolean` | MAY be used only for an array definition. Signifies whether the array is wrapped (for example, `<books><book/><book/></books>`) or unwrapped (`<book/><book/>`). Default value is `false`. The definition takes effect only when defined alongside `type` being `array` (outside the `items`).\nnodeType | `string` | Specifies the type of XML node. Valid values are: "element", "attribute", "text", "cdata", or "none". Default value is "element".\n\nThis object MAY be extended with [Specification Extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#specificationExtensions).\n\n#### Additional documentation topics\n\n##### [XML Object Examples](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#xml-object-examples)\nThe examples of the XML object definitions are included inside a property definition of a [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#schemaObject) with a sample of the XML representation of it.\n',
++    docs: '#### [XML Object](https://spec.openapis.org/oas/v3.2.0.html#xml-object)\n\nA metadata object that allows for more fine-tuned XML model definitions.\n\nWhen using arrays, XML element names are *not* inferred (for singular/plural forms) and the `name` property SHOULD be used to add that information.\nSee examples for expected behavior.\n\n##### Fixed Fields\nField Name | Type | Description\n---|:---:|---\nname | `string` | Replaces the name of the element/attribute used for the described schema property. When defined within `items`, it will affect the name of the individual XML elements within the list. When defined alongside `type` being `array` (outside the `items`), it will affect the wrapping element and only if `wrapped` is `true`. If `wrapped` is `false`, it will be ignored.\nnamespace | `string` | The URI of the namespace definition. This MUST be in the form of an absolute URI.\nprefix | `string` | The prefix to be used for the [name](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#xmlName).\nattribute | `boolean` | Declares whether the property definition translates to an attribute instead of an element. Default value is `false`.\nwrapped | `boolean` | MAY be used only for an array definition. Signifies whether the array is wrapped (for example, `<books><book/><book/></books>`) or unwrapped (`<book/><book/>`). Default value is `false`. The definition takes effect only when defined alongside `type` being `array` (outside the `items`).\nnodeType | `string` | Specifies the type of XML node. Valid values are: "element", "attribute", "text", "cdata", or "none". Default value is "element".\n\nThis object MAY be extended with [Specification Extensions](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#specificationExtensions).\n\n#### Additional documentation topics\n\n##### [XML Object Examples](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#xml-object-examples)\nThe examples of the XML object definitions are included inside a property definition of a [Schema Object](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md#schemaObject) with a sample of the XML representation of it.\n',
+     targetSpecs: OpenAPI32,
+   },
+ ];
+diff --git a/packages/apidom-ls/src/config/openapi/xml/lint/node-type--equals.ts b/packages/apidom-ls/src/config/openapi/xml/lint/node-type--equals.ts
+index c531fecbe..d95b5e06f 100644
+--- a/packages/apidom-ls/src/config/openapi/xml/lint/node-type--equals.ts
++++ b/packages/apidom-ls/src/config/openapi/xml/lint/node-type--equals.ts
+@@ -7,10 +7,10 @@ import { OpenAPI32 } from '../../target-specs.ts';
+ const nodeTypeEqualsLint: LinterMeta = {
+   code: ApilintCodes.OPENAPI3_2_XML_FIELD_NODE_TYPE_EQUALS,
+   source: 'apilint',
+-  message: "'nodeType' must be one of allowed values: element, attribute, text, cdata, none",
++  message: "'nodeType' must be one of allowed values: element, attribute, text, none",
+   severity: DiagnosticSeverity.Error,
+   linterFunction: 'apilintValueOrArray',
+-  linterParams: [['element', 'attribute', 'text', 'cdata', 'none']],
++  linterParams: [['element', 'attribute', 'text', 'none']],
+   marker: 'value',
+   target: 'nodeType',
+   data: {},
+-- 
+2.50.1 (Apple Git-155)
+

@@ -1,0 +1,117 @@
+{
+  "skill_name": "add-spec-version",
+  "evals": [
+    {
+      "id": 1,
+      "name": "oas32-stage0-plan",
+      "fixture": {
+        "checkout": "ef97b5c32^",
+        "note": "repo state before OAS 3.2 support (PR #5110)"
+      },
+      "prompt": "I want to add OpenAPI 3.2.0 support to ApiDOM (parent version 3.1). Do only the research and planning step (before phase 1): produce the tracking document with the field map (new vs inherited fields per object), the external URLs we'll need, and every integration point across packages. Don't write code yet.",
+      "expected_output": "Tracking doc with accurate field map, verified URLs and complete cross-package integration list.",
+      "files": [],
+      "assertions": [
+        "Field map names at least 20 of these 23 new OAS 3.2 fields: Components.mediaTypes; Encoding.encoding, prefixEncoding, itemEncoding; MediaType.itemSchema, prefixEncoding, itemEncoding; OAuthFlow.deviceAuthorizationUrl; OAuthFlows.deviceAuthorization; XML.nodeType; SecurityScheme.deprecated, oauth2MetadataUrl; Response.summary; Tag.summary, parent, kind; Example.dataValue, serializedValue; Discriminator.defaultMapping; Server.name; PathItem.query, additionalOperations; OpenAPI.$self",
+        "Components.pathItems, License.identifier and Info.summary are treated as inherited, not new",
+        "Does not list a webhooks field on Components",
+        "Dialect URL is https://spec.openapis.org/oas/3.2/dialect/2025-09-17 (not /dialect/base)",
+        "Assigns apidom-reference parsers, resolve/dereference/bundle strategies and saturated.ts to phase 3",
+        "Lists apidom-ls parser-factory.ts and content detection in utils",
+        "Lists apidom-playground wiring",
+        "Lists the root package.json unlink script",
+        "Mentions propagating new fields to the replace-empty-element refractor plugin",
+        "States that the 3.1 adapters' detection must reject 3.2.x documents and the 3.2 adapters must reject 3.1.x (or plans a test proving it)",
+        "Plans four phases (namespace, parser adapters, apidom-reference, apidom-ls), each ending in its own PR, stacked in that order"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "asyncapi31-start-at-phase-3-blocked",
+      "fixture": {
+        "checkout": "f85f39593",
+        "note": "main on 2026-10-15; AsyncAPI 3.1.0 not yet in apidom-ns-asyncapi-3 (no phase done). Run with --base HEAD if origin/main has moved on."
+      },
+      "prompt": "Add AsyncAPI 3.1.0 support to apidom-reference (phase 3 of add-spec-version). Go straight to phase 3.",
+      "expected_output": "Refuses to start phase 3, reports phases 1 and 2 as missing, and offers to start with phase 1.",
+      "files": [],
+      "assertions": [
+        "Runs scripts/phase-status.mjs (or an equivalent check) before writing any code",
+        "Reports that phase 1 (namespace) and phase 2 (parser adapters) are not complete",
+        "Does not modify any file under packages/apidom-reference",
+        "Offers to start with phase 1 on branch feat/asyncapi-3.1.0/phase-1",
+        "Identifies the extend variant (version goes into apidom-ns-asyncapi-3), not a new namespace package"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "asyncapi26-phase-4-plan-after-stack",
+      "fixture": {
+        "checkout": "36cbf2f73",
+        "note": "AsyncAPI 2.6 namespace, adapters and reference merged (#2535-#2537); LS (#2538) not yet. origin/main already contains #2538, so the runner must treat HEAD as main: phase-status.mjs needs --base HEAD (stated in the prompt)."
+      },
+      "prompt": "Continue AsyncAPI 2.6.0 support with the language service phase. Plan it (file list, gate) but don't write code or open a PR. Note: this checkout is a snapshot of an older main. Treat HEAD as main and ignore origin/main, which is newer.",
+      "expected_output": "Confirms phases 1-3 complete, plans phase 4 matching #2538.",
+      "files": [],
+      "assertions": [
+        "Confirms phases 1-3 are complete (on base) before planning phase 4",
+        "Plans branch feat/asyncapi-2.6.0/phase-4 from main",
+        "Includes async-api-version completion item and value--pattern-2-6-0 lint rule",
+        "Includes Pulsar binding config (meta, documentation, completion, lint) for server, channel, message and operation bindings",
+        "Includes renaming version-ranged rule files such as allowed-fields-2-4--2-5.ts to allowed-fields-2-4--2-6.ts",
+        "Includes the AsyncAPI 2.6 JSON Schema validation provider and the completion-service.ts insert text bump",
+        "Includes codes.ts and tests (asyncapi-json, asyncapi-yaml, complete)",
+        "Includes running /review-ls-changes before opening the PR"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "arazzo-1-1-plan-unseen",
+      "fixture": {
+        "checkout": "f85f39593",
+        "note": "main on 2026-10-15; apidom-ns-arazzo-1 supports 1.0.1 only. Arazzo 1.1.0 is not mentioned in any skill reference, so this measures the workflow on an unseen version (extend variant)."
+      },
+      "prompt": "I'd like ApiDOM to support Arazzo 1.1. Do only the research and planning step for now: the tracking document with the field map, the external URLs we need and the phase plan. Don't write code.",
+      "expected_output": "Extend-variant plan for apidom-ns-arazzo-1 with an accurate 1.0.1 -> 1.1.0 field map.",
+      "files": [],
+      "assertions": [
+        "Identifies the extend variant: 1.1.0 goes into apidom-ns-arazzo-1 and the existing arazzo-json-1 / arazzo-yaml-1 adapters; no new namespace or adapter packages",
+        "Pins version 1.1.0 (latest 1.x release) and records the source URL of the 1.1.0 markdown",
+        "Marks at least 9 of these 10 fields as NEW: root $self; Step channelPath, timeout, correlationId, action, dependsOn; Success Action parameters; Failure Action parameters; Payload Replacement targetSelectorType; Selector Object type",
+        "Adds Selector Object (context, selector, type) as a new object",
+        "Records that Criterion Expression Type Object was renamed to Expression Type Object (same fields type, version)",
+        "Marks the value types that now accept a Selector Object as CHANGED-TYPE: Workflow outputs, Step outputs, Parameter value, Payload Replacement value",
+        "Records that Source Description type gained the value asyncapi",
+        "Does not mark inherited fields as NEW (e.g. Workflow dependsOn, Info summary, Components inputs, Failure Action retryAfter)",
+        "URL list contains only URLs that resolve (spec markdown or https://spec.openapis.org/arazzo/v1.1.0.html) and anchors taken from the page (e.g. #selector-object), not derived from a pattern",
+        "Plans four phases (namespace, parser adapters, apidom-reference, apidom-ls), each ending in its own stacked PR"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "overlay-new-spec-plan-unseen",
+      "fixture": {
+        "checkout": "f85f39593",
+        "note": "main on 2026-10-15; no Overlay support in ApiDOM and no skill reference mentions the Overlay Specification (brand-new spec variant). Latest release is 1.2.0."
+      },
+      "prompt": "We want ApiDOM to support OpenAPI Overlay documents (https://github.com/OAI/Overlay-Specification). Do the research and planning step only: tracking document with the field map, package names, root element name, detection approach, external URLs and the phase plan. No code yet.",
+      "expected_output": "New-variant plan targeting Overlay 1.2.0 with all six objects and correct fields.",
+      "files": [],
+      "assertions": [
+        "Targets Overlay 1.2.0 (latest release), not 1.0.0 or 1.1.0",
+        "Plans new packages apidom-ns-overlay-1, apidom-parser-adapter-overlay-json-1 and apidom-parser-adapter-overlay-yaml-1",
+        "Field map contains all six objects: Overlay, Info, Components, Action, Reusable Action, Reusable Action Reference",
+        "Overlay Object fields are exactly overlay, $self, info, extends, actions, components, with overlay, info and actions required",
+        "Action Object fields are exactly target (required), description, update, copy, remove",
+        "Reusable Action fields are description and fields; Reusable Action Reference fields are $ref (required), target (required) and description",
+        "Components has a single field actions (map of Reusable Action Objects)",
+        "Records that actions items are either an Action Object or a Reusable Action Reference Object",
+        "Records that every object allows x- specification extensions",
+        "Detection uses the overlay version field (1.x.y) and the plan checks that OpenAPI and other adapters don't claim Overlay documents",
+        "Root element name includes spec and major version (e.g. overlay1), not a bare object name",
+        "Documentation base URL is verified (https://spec.openapis.org/overlay/v1.2.0.html or the 1.2.0 markdown) with anchors taken from the page (e.g. #action-object)",
+        "Decides, with a reason, whether apidom-reference needs dereference handling for the Reusable Action Reference $ref"
+      ]
+    }
+  ]
+}

@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2, AsyncAPI3, AsyncAPI310 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+        '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -30,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+        'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -167,7 +167,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's `host` and `pathname` template.",
+        "Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nA map between a variable name and its value.  The value is used for substitution in the server's `host` and `pathname` template.",
     },
     targetSpecs: AsyncAPI3,
   },
@@ -195,7 +195,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA declaration of which security schemes can be used with this server. The list of values includes alternative security scheme objects that can be used. Only one of the security scheme objects need to be satisfied to authorize a connection or operation.',
+        '[[Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nA declaration of which security schemes can be used with this server. The list of values includes alternative security scheme objects that can be used. Only one of the security scheme objects need to be satisfied to authorize a connection or operation.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -226,7 +226,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of servers.',
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of servers.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -240,7 +240,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this server.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation for this server.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -268,7 +268,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
+        '[Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the server.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -451,6 +451,16 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+  },
+  {
+    target: 'protocol',
+    label: 'ros2',
+    insertText: 'ros2',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: AsyncAPI310,
   },
   {
     target: 'protocolVersion',

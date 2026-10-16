@@ -399,7 +399,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.1.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -411,7 +411,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject).',
+              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -423,7 +423,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.0.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.1.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
           },
           targetSpecs: AsyncAPI3,
         },
@@ -435,7 +435,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -447,7 +447,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) MUST implement.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -459,7 +459,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -481,7 +481,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[AsyncAPI Version String](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SVersionString)\n\\\n\\\n**REQUIRED.** Specifies the AsyncAPI Specification version being used. It can be used by tooling Specifications and clients to interpret the version. The structure shall be `major`.`minor`.`patch`, where `patch` versions _must_ be compatible with the existing `major`.`minor` tooling. Typically patch versions will be introduced to address errors in the documentation, and tooling should typically be compatible with the corresponding `major`.`minor` (1.0.*). Patch versions will correspond to patches of this document.',
+              '[AsyncAPI Version String](https://www.asyncapi.com/docs/reference/specification/v3.1.0#A2SVersionString)\n\\\n\\\n**REQUIRED.** Specifies the AsyncAPI Specification version being used. It can be used by tooling Specifications and clients to interpret the version. The structure shall be `major`.`minor`.`patch`, where `patch` versions _must_ be compatible with the existing `major`.`minor` tooling. Typically patch versions will be introduced to address errors in the documentation, and tooling should typically be compatible with the corresponding `major`.`minor` (1.0.*). Patch versions will correspond to patches of this document.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -493,7 +493,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.1.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -505,7 +505,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject).',
+              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -517,7 +517,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.0.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.1.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
           },
           targetSpecs: AsyncAPI3,
         },
@@ -529,7 +529,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -541,7 +541,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) MUST implement.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -553,7 +553,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -575,7 +575,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
+              '[Identifier](https://www.asyncapi.com/docs/reference/specification/v3.1.0#A2SIdString)\n\\\n\\\nIdentifier of the [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) the AsyncAPI document is defining. This field represents a unique universal identifier of the [application](#definitionsApplication) the AsyncAPI document is defining. It must conform to the URI format, according to [RFC3986](https://tools.ietf.org/html/rfc3986).\n\\\n\\\nIt is RECOMMENDED to use a [URN](https://tools.ietf.org/html/rfc8141) to globally and uniquely identify the application during long periods of time, even after it becomes unavailable or ceases to exist.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -587,7 +587,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Info Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#infoObject)\n\\\n\\\n**REQUIRED.** Provides metadata about the API. The metadata can be used by the clients if needed.',
+              '[Info Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#infoObject)\n\\\n\\\n**REQUIRED.** Provides metadata about the API. The metadata can be used by the clients if needed.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -599,7 +599,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject).',
+              '[Servers Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serversObject)\n\\\n\\\nProvides connection details of servers. The Servers Object is a map of [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -611,7 +611,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.0.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
+              "[Default Content Type](https://www.asyncapi.com/docs/reference/specification/v3.1.0#defaultContentTypeString)\n\\\n\\\nDefault content type to use when encoding/decoding a message's payload.\n\\\n\\\nIt's a string representing the default content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). This value MUST be used by schema parsers when the [contentType](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObjectContentType) property is omitted.\n\nIn case a message can't be encoded/decoded using this value, schema parsers MUST use their default content type.",
           },
           targetSpecs: AsyncAPI3,
         },
@@ -623,7 +623,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Channels Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelsObject)\n\\\n\\\nThe channels used by this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -635,7 +635,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication) MUST implement.',
+              '[Operations Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationsObject)\n\\\n\\\nThe operations this [application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication) MUST implement.',
           },
           targetSpecs: AsyncAPI3,
         },
@@ -647,7 +647,7 @@ const completionTestInput3 = [
           documentation: {
             kind: 'markdown',
             value:
-              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.0.0#definitionsApplication).',
+              '[Components Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#componentsObject)\n\\\n\\\nAn element to hold various reusable objects for the specification. Everything that is defined inside this object represents a resource that MAY or MAY NOT be used in the rest of the document and MAY or MAY NOT be used by the implemented [Application](https://www.asyncapi.com/docs/reference/specification/v3.1.0#definitionsApplication).',
           },
           targetSpecs: AsyncAPI3,
         },

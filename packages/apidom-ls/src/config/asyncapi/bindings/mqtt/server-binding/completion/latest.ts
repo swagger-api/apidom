@@ -110,7 +110,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'MQTT Version `5`. `integer` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nInterval in seconds or a *Schema Object* containing the definition of the interval. The broker maintains a session for a disconnected client until this interval expires.',
+        'MQTT Version `5`. `integer` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nInterval in seconds or a *Schema Object* containing the definition of the interval. The broker maintains a session for a disconnected client until this interval expires.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [
@@ -150,7 +150,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'MQTT Version `5`. `integer` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nNumber of bytes or a *Schema Object* representing the maximum packet size the client is willing to accept.',
+        'MQTT Version `5`. `integer` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nNumber of bytes or a *Schema Object* representing the maximum packet size the client is willing to accept.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [

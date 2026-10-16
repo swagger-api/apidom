@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'List of [Destination Objects](https://github.com/asyncapi/bindings/tree/master/solace#destination-object).',
+        'List of [Destination Objects](https://github.com/asyncapi/bindings/blob/master/solace/README.md#destination-object).',
     },
     conditions: [
       {
@@ -57,7 +57,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nInterval in milliseconds or a [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) containing the definition of the lifetime of the message.',
+        '`integer` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nInterval in milliseconds or a [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) containing the definition of the lifetime of the message.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [
@@ -99,7 +99,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '`integer` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nThe valid priority value range is 0-255 with 0 as the lowest priority and 255 as the highest, or a [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) containing the definition of the priority.',
+        '`integer` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nThe valid priority value range is 0-255 with 0 as the lowest priority and 255 as the highest, or a [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) containing the definition of the priority.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [

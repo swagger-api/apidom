@@ -114,7 +114,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
+        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
     },
     targetSpecs: AsyncAPI3,
   },

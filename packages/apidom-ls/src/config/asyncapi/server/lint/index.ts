@@ -1,6 +1,6 @@
 import allowedFields2_0__2_4Lint from './allowed-fields-2-0--2-4.ts';
 import allowedFields2_5__2_6Lint from './allowed-fields-2-5--2-6.ts';
-import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import allowedFields3_0__3_1Lint from './allowed-fields-3-0--3-1.ts';
 import hostTypeLint from './host--type.ts';
 import hostRequiredLint from './host--required.ts';
 import pathnameTypeLint from './pathname--type.ts';
@@ -42,7 +42,7 @@ const lints = [
   externalDocsTypeLint,
   allowedFields2_0__2_4Lint,
   allowedFields2_5__2_6Lint,
-  allowedFields3_0Lint,
+  allowedFields3_0__3_1Lint,
   $refValidLint,
 ];
 

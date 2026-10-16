@@ -2,6 +2,7 @@
 
 `@swagger-api/apidom-parser-adapter-asyncapi-yaml-3` is a parser adapter for following AsyncAPI specification versions defined in [YAML format](https://yaml.org/spec/1.2/spec.html):
 
+- [AsyncAPI 3.1.0 specification](https://github.com/asyncapi/spec/blob/v3.1.0/spec/asyncapi.md)
 - [AsyncAPI 3.0.0 specification](https://github.com/asyncapi/spec/blob/v3.0.0/spec/asyncapi.md)
 
 Under the hood this adapter uses [@swagger-api/apidom-parser-adapter-yaml-1-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-yaml-1-2)
@@ -16,7 +17,7 @@ After [prerequisites](https://github.com/swagger-api/apidom/blob/main/README.md#
 via [npm CLI](https://docs.npmjs.com/cli) by running the following command:
 
 ```sh
- $ npm install @swagger-api/@swagger-api/apidom-parser-adapter-asyncapi-yaml-3
+ $ npm install @swagger-api/apidom-parser-adapter-asyncapi-yaml-3
 ```
 
 ## Parser adapter API
@@ -31,7 +32,9 @@ Defines list of media types that this parser adapter recognizes.
 ```js
 [
   'application/vnd.aai.asyncapi;version=3.0.0',
-  'application/vnd.aai.asyncapi+yaml;version=3.0.0'
+  'application/vnd.aai.asyncapi+yaml;version=3.0.0',
+  'application/vnd.aai.asyncapi;version=3.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=3.1.0',
 ]
 ```
 
@@ -69,11 +72,11 @@ with [supported media types](#mediatypes).
 import { parse, detect } from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 
 // detecting
-await detect('asyncapi: 3.0.0'); // => true
+await detect('asyncapi: 3.1.0'); // => true
 await detect('test'); // => false
 
 // parsing
-const parseResult = await parse('asyncapi: 3.0.0', { sourceMap: true });
+const parseResult = await parse('asyncapi: 3.1.0', { sourceMap: true });
 ```
 
 ### Indirect usage
@@ -88,5 +91,5 @@ const parser = new ApiDOMParser();
 
 parser.use(asyncApiYamlAdapter);
 
-const parseResult = await parser.parse('asyncapi: 3.0.0', { mediaType: asyncApiYamlAdapter.mediaTypes.latest('yaml') });
+const parseResult = await parser.parse('asyncapi: 3.1.0', { mediaType: asyncApiYamlAdapter.mediaTypes.latest('yaml') });
 ```

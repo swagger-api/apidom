@@ -227,7 +227,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
+                '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
@@ -263,7 +263,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
+                '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
@@ -299,7 +299,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
+                '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis/README.md#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },

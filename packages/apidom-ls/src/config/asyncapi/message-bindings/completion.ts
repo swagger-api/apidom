@@ -176,7 +176,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SNS Message Binding](https://github.com/asyncapi/bindings/blob/master/sns#message)\n\\\n\\\nProtocol-specific information for an SNS message.',
+        '[SNS Message Binding](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#message)\n\\\n\\\nProtocol-specific information for an SNS message.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -190,7 +190,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Solace Message Binding](https://github.com/asyncapi/bindings/blob/master/solace#message)\n\\\n\\\nProtocol-specific information for a Solace message.',
+        '[Solace Message Binding](https://github.com/asyncapi/bindings/blob/master/solace/README.md#message)\n\\\n\\\nProtocol-specific information for a Solace message.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
@@ -238,7 +238,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Redis Message Binding](https://github.com/asyncapi/bindings/blob/master/redis#message)\n\\\n\\\nProtocol-specific information for a Redis message.',
+        '[Redis Message Binding](https://github.com/asyncapi/bindings/blob/master/redis/README.md#message)\n\\\n\\\nProtocol-specific information for a Redis message.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -252,7 +252,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Mercure Message Binding](https://github.com/asyncapi/bindings/blob/master/mercure#message)\n\\\n\\\nProtocol-specific information for a Mercure message.',
+        '[Mercure Message Binding](https://github.com/asyncapi/bindings/blob/master/mercure/README.md#message)\n\\\n\\\nProtocol-specific information for a Mercure message.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
@@ -314,7 +314,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Pulsar Message Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#message-binding-fields)\n\\\n\\\n\tProtocol-specific information for a Pulsar message.',
+        '[Pulsar Message Binding](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#message-binding-fields)\n\\\n\\\n\tProtocol-specific information for a Pulsar message.',
     },
     targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
   },

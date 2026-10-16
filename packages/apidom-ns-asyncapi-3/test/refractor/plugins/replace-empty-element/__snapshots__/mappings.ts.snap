@@ -103,6 +103,31 @@ exports[`given empty value instead of Message.payload with unspecified schema fo
                 (SchemaElement)))))))))
 `;
 
+exports[`given empty value instead of Message.payload.schema with AsyncAPI 3.1.0 schema format should replace empty value with semantic element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (ComponentsElement
+      (MemberElement
+        (StringElement)
+        (ObjectElement
+          (MemberElement
+            (StringElement)
+            (MessageElement
+              (MemberElement
+                (StringElement)
+                (MultiFormatSchemaElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
+                  (MemberElement
+                    (StringElement)
+                    (SchemaElement)))))))))))
+`;
+
 exports[`given empty value instead of Message.payload.schema with supported schema format should replace empty value with semantic element 1`] = `
 (AsyncApi3Element
   (MemberElement
@@ -145,6 +170,37 @@ exports[`given empty value instead of Message.payload.schema with unsupported sc
               (MemberElement
                 (StringElement)
                 (MultiFormatSchemaElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
+                  (MemberElement
+                    (StringElement)
+                    (ObjectElement)))))))))))
+`;
+
+exports[`given empty value instead of Ros2OperationBinding.qosPolicies should replace empty value with generic object element 1`] = `
+(AsyncApi3Element
+  (MemberElement
+    (StringElement)
+    (AsyncApiVersionElement))
+  (MemberElement
+    (StringElement)
+    (OperationsElement
+      (MemberElement
+        (StringElement)
+        (OperationElement
+          (MemberElement
+            (StringElement)
+            (StringElement))
+          (MemberElement
+            (StringElement)
+            (OperationBindingsElement
+              (MemberElement
+                (StringElement)
+                (Ros2OperationBindingElement
+                  (MemberElement
+                    (StringElement)
+                    (StringElement))
                   (MemberElement
                     (StringElement)
                     (StringElement))

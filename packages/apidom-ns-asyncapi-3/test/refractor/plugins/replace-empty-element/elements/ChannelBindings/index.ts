@@ -27,6 +27,7 @@ it('should refract to semantic ApiDOM tree', async function () {
           redis:
           mercure:
           ibmmq:
+          ros2:
        `;
   const apiDOM = await parse(yamlDefinition);
   const channelBindingsElement = ChannelBindingsElement.refract(apiDOM.result, {

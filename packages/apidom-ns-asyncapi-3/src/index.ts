@@ -33,7 +33,7 @@ export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 export {
   /**
-   * AsyncApi 3.0.0 specification elements.
+   * AsyncApi >= 3.0.0 <=3.1.0 specification elements.
    */
   AsyncApi3Element,
   AsyncApiVersionElement,
@@ -147,6 +147,11 @@ export {
   RedisMessageBindingElement,
   RedisOperationBindingElement,
   RedisServerBindingElement,
+  // ROS 2
+  Ros2ChannelBindingElement,
+  Ros2MessageBindingElement,
+  Ros2OperationBindingElement,
+  Ros2ServerBindingElement,
   // SNS
   SnsChannelBindingElement,
   SnsMessageBindingElement,

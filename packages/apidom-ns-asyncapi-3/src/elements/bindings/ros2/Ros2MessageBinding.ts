@@ -1,0 +1,14 @@
+import { ObjectElement, Attributes, Meta } from '@swagger-api/apidom-core';
+
+/**
+ * @public
+ */
+class Ros2MessageBinding extends ObjectElement {
+  constructor(content?: Record<string, unknown>, meta?: Meta, attributes?: Attributes) {
+    super(content, meta, attributes);
+    this.element = 'ros2MessageBinding';
+    this.classes.push('message-binding');
+  }
+}
+
+export default Ros2MessageBinding;

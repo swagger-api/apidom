@@ -176,7 +176,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SNS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sns#operation)\n\\\n\\\nProtocol-specific information for an SNS operation.',
+        '[SNS Operation Binding](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#operation)\n\\\n\\\nProtocol-specific information for an SNS operation.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -190,7 +190,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Solace Operation Binding](https://github.com/asyncapi/bindings/tree/master/solace#operation-binding-object)\n\\\n\\\nProtocol-specific information for a Solace operation.',
+        '[Solace Operation Binding](https://github.com/asyncapi/bindings/blob/master/solace/README.md#operation-binding-object)\n\\\n\\\nProtocol-specific information for a Solace operation.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.3.0' },
@@ -238,7 +238,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Redis Operation Binding](https://github.com/asyncapi/bindings/blob/master/redis#operation)\n\\\n\\\nProtocol-specific information for a Redis operation.',
+        '[Redis Operation Binding](https://github.com/asyncapi/bindings/blob/master/redis/README.md#operation)\n\\\n\\\nProtocol-specific information for a Redis operation.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -252,7 +252,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Mercure Operation Binding](https://github.com/asyncapi/bindings/blob/master/mercure#operation)\n\\\n\\\nProtocol-specific information for a Mercure operation.',
+        '[Mercure Operation Binding](https://github.com/asyncapi/bindings/blob/master/mercure/README.md#operation)\n\\\n\\\nProtocol-specific information for a Mercure operation.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
@@ -274,7 +274,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Google Cloud Pub/Sub Operation Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub#operation)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub operation.',
+        '[Google Cloud Pub/Sub Operation Binding](https://github.com/asyncapi/bindings/blob/master/googlepubsub/README.md#operation)\n\\\n\\\nProtocol-specific information for a Google Cloud Pub/Sub operation.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.5.0' },
@@ -310,7 +310,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Pulsar Operation Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#operation-binding-fields)\n\\\n\\\nProtocol-specific information for a Pulsar operation.',
+        '[Pulsar Operation Binding](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#operation-binding-fields)\n\\\n\\\nProtocol-specific information for a Pulsar operation.',
     },
     targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
   },

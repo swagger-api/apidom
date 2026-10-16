@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'List of [Destination Objects](https://github.com/asyncapi/bindings/tree/master/solace#destination-object).',
+        'List of [Destination Objects](https://github.com/asyncapi/bindings/blob/master/solace/README.md#destination-object).',
     },
     conditions: [
       {

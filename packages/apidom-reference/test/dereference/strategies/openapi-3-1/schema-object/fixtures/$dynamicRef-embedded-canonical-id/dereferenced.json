@@ -1,0 +1,38 @@
+[
+  {
+    "openapi": "3.1.0",
+    "info": { "title": "Test", "version": "1.0.0" },
+    "paths": {},
+    "components": {
+      "schemas": {
+        "Base": {
+          "$id": "https://example.com/schemas/Base",
+          "$dynamicAnchor": "node",
+          "type": "object",
+          "properties": {
+            "source": {
+              "type": "string",
+              "const": "embedded"
+            }
+          }
+        },
+        "Consumer": {
+          "type": "object",
+          "properties": {
+            "child": {
+              "$id": "https://example.com/schemas/Base",
+              "$dynamicAnchor": "node",
+              "type": "object",
+              "properties": {
+                "source": {
+                  "type": "string",
+                  "const": "embedded"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

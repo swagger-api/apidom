@@ -111,6 +111,11 @@ import RedisChannelBindingElement from './elements/bindings/redis/RedisChannelBi
 import RedisMessageBindingElement from './elements/bindings/redis/RedisMessageBinding.ts';
 import RedisOperationBindingElement from './elements/bindings/redis/RedisOperationBinding.ts';
 import RedisServerBindingElement from './elements/bindings/redis/RedisServerBinding.ts';
+// ROS 2
+import Ros2ChannelBindingElement from './elements/bindings/ros2/Ros2ChannelBinding.ts';
+import Ros2MessageBindingElement from './elements/bindings/ros2/Ros2MessageBinding.ts';
+import Ros2OperationBindingElement from './elements/bindings/ros2/Ros2OperationBinding.ts';
+import Ros2ServerBindingElement from './elements/bindings/ros2/Ros2ServerBinding.ts';
 // SNS
 import SnsChannelBindingElement from './elements/bindings/sns/SnsChannelBinding.ts';
 import SnsMessageBindingElement from './elements/bindings/sns/SnsMessageBinding.ts';
@@ -253,6 +258,11 @@ const asyncApi3 = {
     base.register('redisMessageBinding', RedisMessageBindingElement);
     base.register('redisOperationBinding', RedisOperationBindingElement);
     base.register('redisServerBinding', RedisServerBindingElement);
+
+    base.register('ros2ChannelBinding', Ros2ChannelBindingElement);
+    base.register('ros2MessageBinding', Ros2MessageBindingElement);
+    base.register('ros2OperationBinding', Ros2OperationBindingElement);
+    base.register('ros2ServerBinding', Ros2ServerBindingElement);
 
     base.register('snsChannelBinding', SnsChannelBindingElement);
     base.register('snsMessageBinding', SnsMessageBindingElement);

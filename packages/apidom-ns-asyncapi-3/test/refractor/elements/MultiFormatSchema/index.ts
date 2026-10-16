@@ -15,6 +15,17 @@ describe('refractor', function () {
         expect(sexprs(multiFormatSchemaElement)).toMatchSnapshot();
       });
 
+      context('given AsyncAPI 3.1.0 schemaFormat', function () {
+        specify('should refract to semantic ApiDOM tree', function () {
+          const multiFormatSchemaElement = MultiFormatSchemaElement.refract({
+            schemaFormat: 'application/vnd.aai.asyncapi+json;version=3.1.0',
+            schema: {},
+          });
+
+          expect(sexprs(multiFormatSchemaElement)).toMatchSnapshot();
+        });
+      });
+
       context('given schema of type ReferenceElement', function () {
         specify('should refract to semantic ApiDOM tree', function () {
           const multiFormatSchemaElement = MultiFormatSchemaElement.refract({

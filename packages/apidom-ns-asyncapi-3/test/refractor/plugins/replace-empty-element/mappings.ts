@@ -151,6 +151,48 @@ describe('given empty value instead for Schema.properties.*', function () {
   });
 });
 
+describe('given empty value instead of Message.payload.schema with AsyncAPI 3.1.0 schema format', function () {
+  it('should replace empty value with semantic element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 3.1.0
+          components:
+            messages:
+                userSignUp:
+                  payload:
+                    schemaFormat: application/vnd.aai.asyncapi+yaml;version=3.1.0
+                    schema:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
+describe('given empty value instead of Ros2OperationBinding.qosPolicies', function () {
+  it('should replace empty value with generic object element', async function () {
+    const yamlDefinition = dedent`
+          asyncapi: 3.1.0
+          operations:
+            receiveCmdVel:
+              action: receive
+              bindings:
+                ros2:
+                  role: subscriber
+                  node: /turtlesim
+                  qosPolicies:
+        `;
+    const apiDOM = await parse(yamlDefinition);
+    const asyncApiElement = AsyncApi3Element.refract(apiDOM.result, {
+      plugins: [refractorPluginReplaceEmptyElement()],
+    });
+
+    expect(sexprs(asyncApiElement)).toMatchSnapshot();
+  });
+});
+
 describe('given AsyncAPI definition with no empty values', function () {
   it('should do nothing', async function () {
     const yamlDefinition = dedent`

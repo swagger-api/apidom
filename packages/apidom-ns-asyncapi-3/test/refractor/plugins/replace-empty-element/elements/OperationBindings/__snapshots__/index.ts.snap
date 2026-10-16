@@ -49,5 +49,8 @@ exports[`should refract to semantic ApiDOM tree 1`] = `
     (RedisOperationBindingElement))
   (MemberElement
     (StringElement)
-    (MercureOperationBindingElement)))
+    (MercureOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2OperationBindingElement)))
 `;

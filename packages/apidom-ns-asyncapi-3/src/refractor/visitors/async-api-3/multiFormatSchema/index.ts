@@ -13,7 +13,7 @@ import FixedFieldsVisitor, {
 
 /**
  * Implementation of refracting according `schemaFormat` fixed field is now limited,
- * and currently only supports `AsyncAPI Schema Object 3.0.0`
+ * and currently only supports `AsyncAPI Schema Object >= 3.0.0 <=3.1.0`
  * @public
  */
 export interface MultiFormatSchemaVisitorOptions

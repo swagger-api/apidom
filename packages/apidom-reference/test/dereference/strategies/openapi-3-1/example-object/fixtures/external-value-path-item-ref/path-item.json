@@ -1,0 +1,19 @@
+{
+  "post": {
+    "responses": {
+      "200": {
+        "description": "200 response",
+        "content": {
+          "application/json": {
+            "examples": {
+              "example1": {
+                "description": "example1 description",
+                "externalValue": "./ex.json"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -19,6 +19,11 @@ const domainIdMaximumLint: LinterMeta = {
       function: 'apilintValueOrArray',
       params: [['0.1.0']],
     },
+    {
+      targets: [{ path: 'domainId' }],
+      function: 'apilintElementOrClass',
+      params: [['number']],
+    },
   ],
 };
 

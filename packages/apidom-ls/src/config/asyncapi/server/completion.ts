@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2, AsyncAPI3, AsyncAPI310 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -451,6 +451,16 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+  },
+  {
+    target: 'protocol',
+    label: 'ros2',
+    insertText: 'ros2',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    targetSpecs: AsyncAPI310,
   },
   {
     target: 'protocolVersion',

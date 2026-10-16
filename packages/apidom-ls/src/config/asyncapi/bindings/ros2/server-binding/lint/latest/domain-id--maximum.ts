@@ -18,6 +18,11 @@ const domainIdMaximumLint: LinterMeta = {
       function: 'missingField',
       params: ['bindingVersion'],
     },
+    {
+      targets: [{ path: 'domainId' }],
+      function: 'apilintElementOrClass',
+      params: [['number']],
+    },
   ],
 };
 

@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const domainIdTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_ROS2_SERVER_BINDING_FIELD_DOMAIN_ID_TYPE,
   source: 'apilint',
-  message: "'domainId' value must be a positive integer (zero included)",
+  message: "'domainId' must be a non-negative integer",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintNumber',
   linterParams: [true, true, true],

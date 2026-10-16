@@ -1,7 +1,7 @@
 import allowedFields2_0__2_2Lint from './allowed-fields-2-0--2-2.ts';
 import allowedFields2_3Lint from './allowed-fields-2-3.ts';
 import allowedFields2_4__2_6Lint from './allowed-fields-2-4--2-6.ts';
-import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import allowedFields3_0__3_1Lint from './allowed-fields-3-0--3-1.ts';
 import externalDocsValuesTypeLint from './externalDocs--values-type.ts';
 import repliesValuesTypeLint from './replies--values-type.ts';
 import replyAddressesValuesTypeLint from './reply-addresses--values-type.ts';
@@ -21,14 +21,14 @@ import channelBindingsValuesTypeLint from './channel-bindings--values-type.ts';
 import operationBindingsValuesType from './operation-bindings--values-type.ts';
 import messageBindingsValuesType from './message-bindings--values-type.ts';
 import keysPatternLint from './keys--pattern.ts';
-import channelsValuesType3_0Lint from './channels--values-type-3-0.ts';
+import channelsValuesType3_0__3_1Lint from './channels--values-type-3-0--3-1.ts';
 import operationsValuesTypeLint from './operations--values-type.ts';
 
 const lints = [
   allowedFields2_0__2_2Lint,
   allowedFields2_3Lint,
   allowedFields2_4__2_6Lint,
-  allowedFields3_0Lint,
+  allowedFields3_0__3_1Lint,
   externalDocsValuesTypeLint,
   repliesValuesTypeLint,
   replyAddressesValuesTypeLint,
@@ -37,7 +37,7 @@ const lints = [
   serversValuesTypeLint,
   serverVariablesValuesType,
   channelsValuesType2_0__2_6Lint,
-  channelsValuesType3_0Lint,
+  channelsValuesType3_0__3_1Lint,
   messagesValuesTypeLint,
   securitySchemesValuesType,
   parametersValuesType,

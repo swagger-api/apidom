@@ -36,7 +36,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject)\n\\\n\\\n**Optional**. A Schema object containing the definitions for JMS specific headers (so-called protocol headers). This schema MUST be of type object and have a properties key. Examples of JMS protocol headers are JMSMessageID, JMSTimestamp, and JMSCorrelationID.',
+        '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject)\n\\\n\\\n**Optional**. A Schema object containing the definitions for JMS specific headers (so-called protocol headers). This schema MUST be of type object and have a properties key. Examples of JMS protocol headers are JMSMessageID, JMSTimestamp, and JMSCorrelationID.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [

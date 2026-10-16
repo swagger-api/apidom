@@ -29,7 +29,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED.** A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v3.0.0#runtimeExpression) that specifies the location of the reply address.',
+        '**REQUIRED.** A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v3.1.0#runtimeExpression) that specifies the location of the reply address.',
     },
     targetSpecs: AsyncAPI3,
   },

@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2, AsyncAPI3, AsyncAPI310 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -313,6 +313,20 @@ const completion: ApidomCompletionItem[] = [
         '[Pulsar Operation Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#operation-binding-fields)\n\\\n\\\nProtocol-specific information for a Pulsar operation.',
     },
     targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
+  },
+  {
+    label: 'ros2',
+    insertText: 'ros2',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[ROS 2 Operation Binding](https://github.com/asyncapi/bindings/blob/master/ros2/README.md#operation-binding-object)\n\\\n\\\nProtocol-specific information for a ROS 2 operation.',
+    },
+    targetSpecs: AsyncAPI310,
   },
 ];
 

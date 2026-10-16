@@ -55,7 +55,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'MQTT Version `5`. [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nCorrelation Data is used by the sender of the request message to identify which request the response message is for when it is received.',
+        'MQTT Version `5`. [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nCorrelation Data is used by the sender of the request message to identify which request the response message is for when it is received.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [
@@ -114,7 +114,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'MQTT Version `5`. `URI string` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nThe topic (channel URI) for a response message.',
+        'MQTT Version `5`. `URI string` \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nThe topic (channel URI) for a response message.',
     },
     targetSpecs: AsyncAPI3,
     conditions: [

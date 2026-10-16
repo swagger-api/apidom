@@ -1,5 +1,5 @@
 import allowedFieldsLint from './allowed-fields.ts';
-import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import allowedFields3_0__3_1Lint from './allowed-fields-3-0--3-1.ts';
 import descriptionTypeLint from './description--type.ts';
 import serversTypeLint from './servers--type.ts';
 import parametersTypeLint from './parameters--type.ts';
@@ -21,7 +21,7 @@ const lints = [
   bindingsTypeLint,
   allowedFieldsLint,
   $refValidLint,
-  allowedFields3_0Lint,
+  allowedFields3_0__3_1Lint,
   addressTypeLint,
   messagesTypeLint,
   titleTypeLint,

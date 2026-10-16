@@ -75,7 +75,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nSchema definition of the application headers. Schema MUST be a map of key-value pairs. It **MUST NOT** define the protocol headers. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
+        '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nSchema definition of the application headers. Schema MUST be a map of key-value pairs. It **MUST NOT** define the protocol headers. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -103,7 +103,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nDefinition of the message payload. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
+        '[Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaObject) &#124; [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nDefinition of the message payload. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -131,7 +131,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
+        '[Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#correlationIdObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nDefinition of the correlation ID used for message tracing or matching.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -173,7 +173,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v3.0.0#defaultContentTypeString) field.",
+        "The content type to use when encoding/decoding a message's payload. The value MUST be a specific media type (e.g. `application/json`). When omitted, the value MUST be the one specified on the [defaultContentType](https://www.asyncapi.com/docs/reference/specification/v3.1.0#defaultContentTypeString) field.",
     },
     targetSpecs: AsyncAPI3,
   },
@@ -254,7 +254,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of messages.',
+        '[Tags Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagsObject)\n\\\n\\\nA list of tags for logical grouping and categorization of messages.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -282,7 +282,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
+        '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -310,7 +310,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
+        '[Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nA map where the keys describe the name of the protocol and the values describe protocol-specific definitions for the message.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -338,7 +338,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+        '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -366,7 +366,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[[Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageTraitObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nA list of traits to apply to the message object. Traits MUST be merged using [traits merge mechanism](https://www.asyncapi.com/docs/reference/specification/v3.0.0#traits-merge-mechanism). The resulting object MUST be a valid [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject).',
+        '[[Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nA list of traits to apply to the message object. Traits MUST be merged using [traits merge mechanism](https://www.asyncapi.com/docs/reference/specification/v3.1.0#traits-merge-mechanism). The resulting object MUST be a valid [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject).',
     },
     targetSpecs: AsyncAPI3,
   },

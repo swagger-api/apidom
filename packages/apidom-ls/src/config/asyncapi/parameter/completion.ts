@@ -72,7 +72,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        'A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v3.0.0#runtimeExpression) that specifies the location of the parameter value.',
+        'A [runtime expression](https://www.asyncapi.com/docs/reference/specification/v3.1.0#runtimeExpression) that specifies the location of the parameter value.',
     },
     targetSpecs: AsyncAPI3,
   },

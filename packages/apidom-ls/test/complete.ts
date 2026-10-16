@@ -238,6 +238,26 @@ describe('apidom-ls-complete', function () {
               newText: '"3.0.0$1"',
             },
           },
+          {
+            label: '3.1.0',
+            insertText: '"3.1.0$1"',
+            kind: 12,
+            insertTextFormat: 2,
+            filterText: '"2.0.0"',
+            textEdit: {
+              range: {
+                start: {
+                  line: 0,
+                  character: 10,
+                },
+                end: {
+                  line: 0,
+                  character: 17,
+                },
+              },
+              newText: '"3.1.0$1"',
+            },
+          },
         ],
         isIncomplete: false,
       },

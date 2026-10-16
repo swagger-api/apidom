@@ -304,7 +304,7 @@ const documentation = [
   },
   {
     target: 'discriminator',
-    docs: 'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it MUST be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaComposition) for more details.',
+    docs: 'Adds support for polymorphism. The discriminator is the schema property name that is used to differentiate between other schema that inherit this schema. The property name used MUST be defined at this schema and it MUST be in the `required` property list. When used, the value MUST be the name of this schema or any schema that inherits it. See [Composition and Inheritance](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaComposition) for more details.',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -344,7 +344,7 @@ const documentation = [
   },
   {
     target: 'externalDocs',
-    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation for this schema.',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation for this schema.',
     targetSpecs: AsyncAPI3,
   },
   {

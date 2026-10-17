@@ -53,7 +53,7 @@
     "@babel/runtime-corejs3": "^7.26.10",
     "@swagger-api/apidom-core": "^1.12.1",
     "@swagger-api/apidom-error": "^1.12.1",
-    "@swaggerexpert/json-pointer": "^2.10.1"
+    "@swaggerexpert/json-pointer": "^3.0.2"
   },
   "files": [
     "src/**/*.mjs",

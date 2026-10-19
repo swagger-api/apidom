@@ -1,7 +1,7 @@
 /**
  * Omitted fixed fields:
  *  - tags
- *  - externalDocs
+ *  - externalDocs (AsyncAPI 2 only, documented below for AsyncAPI 3)
  *
  * Field omission reason: omitted fields do have a non-union type. Thus,
  * documentation for these fields doesn't need to be specified here and will
@@ -90,6 +90,11 @@ const documentation = [
   {
     target: 'examples',
     docs: '[[Message Example Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageExampleObject)\\]\n\\\n\\\nList of examples.',
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    target: 'externalDocs',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
     targetSpecs: AsyncAPI3,
   },
   {

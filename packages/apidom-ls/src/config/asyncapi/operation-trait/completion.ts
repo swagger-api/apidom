@@ -7,6 +7,19 @@ import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
+    label: 'title',
+    insertText: 'title',
+    kind: 14,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value: 'A human-friendly title for the operation.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     label: 'operationId',
     insertText: 'operationId',
     kind: 14,

@@ -3,6 +3,7 @@ import {
   CompletionItem,
   CompletionItemKind,
   CompletionList,
+  MarkupContent,
   Position,
   Range,
   TextEdit,
@@ -356,17 +357,20 @@ export class DefaultCompletionService implements CompletionService {
     ) {
       const isEmpty = isEmptyLine(textDocument, offset);
       trace('doCompletion - no version', { isEmpty });
-      const asyncItem = CompletionItem.create('asyncapi');
-      asyncItem.insertText = `asyncapi: '2.6.0$1'${isEmpty ? '' : '\n'}`;
-      asyncItem.documentation = {
+      const asyncApiVersionDocumentation: MarkupContent = {
         kind: 'markdown',
         value:
           'The version string signifies the version of the AsyncAPI Specification that the document complies to.\nThe format for this string _must_ be `major`.`minor`.`patch`.  The `patch` _may_ be suffixed by a hyphen and extra alphanumeric characters.\n\\\n\\\nA `major`.`minor` shall be used to designate the AsyncAPI Specification version, and will be considered compatible with the AsyncAPI Specification specified by that `major`.`minor` version.\nThe patch version will not be considered by tooling, making no distinction between `1.0.0` and `1.0.1`.\n\\\n\\\nIn subsequent versions of the AsyncAPI Specification, care will be given such that increments of the `minor` version should not interfere with operations of tooling developed to a lower minor version. Thus a hypothetical `1.1.0` specification should be usable with tooling designed for `1.0.0`.',
       };
-      asyncItem.kind = CompletionItemKind.Keyword;
-      asyncItem.insertTextFormat = 2;
-      asyncItem.insertTextMode = 2;
-      completionList.items.push(asyncItem);
+      ['2.6.0', '3.1.0'].forEach((asyncApiVersion) => {
+        const asyncItem = CompletionItem.create('asyncapi');
+        asyncItem.insertText = `asyncapi: '${asyncApiVersion}$1'${isEmpty ? '' : '\n'}`;
+        asyncItem.documentation = asyncApiVersionDocumentation;
+        asyncItem.kind = CompletionItemKind.Keyword;
+        asyncItem.insertTextFormat = 2;
+        asyncItem.insertTextMode = 2;
+        completionList.items.push(asyncItem);
+      });
 
       const oas30xItem = CompletionItem.create('openapi');
       oas30xItem.insertText = `openapi: '3.0.4$1'${isEmpty ? '' : '\n'}`;

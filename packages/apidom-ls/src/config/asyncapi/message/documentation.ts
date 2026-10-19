@@ -1,7 +1,7 @@
 /**
  * Omitted fixed fields:
  *  - tags
- *  - externalDocs
+ *  - externalDocs (AsyncAPI 2 only, documented below for AsyncAPI 3)
  *
  * Field omission reason: omitted fields do have a non-union type. Thus,
  * documentation for these fields doesn't need to be specified here and will
@@ -105,6 +105,11 @@ const documentation = [
   {
     target: 'traits',
     docs: '[[Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nA list of traits to apply to the message object. Traits MUST be merged using [traits merge mechanism](https://www.asyncapi.com/docs/reference/specification/v3.1.0#traits-merge-mechanism). The resulting object MUST be a valid [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject).',
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    target: 'externalDocs',
+    docs: '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation for this message.',
     targetSpecs: AsyncAPI3,
   },
   {

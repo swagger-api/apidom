@@ -133,6 +133,20 @@ const completion: ApidomCompletionItem[] = [
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
   {
+    label: 'scopes',
+    insertText: 'scopes',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2` or `openIdConnect` type. List of the needed scope names. An empty array means no scopes are needed.',
+    },
+    targetSpecs: AsyncAPI3,
+  },
+  {
     target: 'type',
     label: 'userPassword',
     insertText: 'userPassword',

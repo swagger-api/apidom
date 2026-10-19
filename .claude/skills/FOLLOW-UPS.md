@@ -111,12 +111,13 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 - **Fix:** add `schemes--type.ts` (`apilintType`, `object`; or the map-values form used for similar maps), a new code in `codes.ts`, and a test with full `Diagnostic` objects.
 - **Commit:** `feat(ls): add A2A security requirement schemes type lint`
 
-### 2.10 ⏳ AsyncAPI 3 placeholder lint rules never run
+### 2.10 ✅ AsyncAPI 3 placeholder lint rules never run (done in PR #5264, phase 4 of AsyncAPI 3.1.0)
 
 - **Where:** 20 lint files in `packages/apidom-ls/src/config/asyncapi` contain only `targetSpecs` (some with `// add remaining docs here`) and no `linterFunction`, `code` or `message`, e.g. `server/lint/host--required.ts`, `server/lint/host--type.ts`, `channel/lint/address--type.ts`, `channel/lint/allowed-fields.ts`, `components/lint/replies--values-type.ts`, `async-api-version/lint/value--pattern-3-0-0.ts`. They are registered in the `lint/index.ts` files, so they look like coverage but validate nothing: an AsyncAPI 3.0 server without `host` gets no diagnostic. Added in #5102.
 - **Found by:** `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi` (`STUB`), and `grep -L linterFunction $(find packages/apidom-ls/src/config -path '*/lint/*.ts' ! -name index.ts)`.
 - **Fix:** implement each rule after the 2.x sibling rule of the same field (copy message pattern, linter function, a new code), scoped to `AsyncAPI3`. Add tests per rule. Then re-run the script: 0 `STUB`.
 - **Commit:** `fix(ls): implement AsyncAPI 3 placeholder lint rules`
+- **Done:** 18 placeholder rules implemented for 3.0.0 and 3.1.0 (Channel, Server, Info, Components, Security Scheme), plus new `availableScopes` (OAuth Flow) and `title` (Operation Trait) type rules. `security-scheme/lint/scopes--type.ts` was also missing from its `index.ts`; the empty duplicate `channel/lint/allowed-fields.ts` was deleted. `check-ls-coverage` reports 0 `STUB`. `multiFormatSchema.schema` intentionally has no type rule (spec: any value).
 
 ### 2.11 ⏳ A2A completion items use condition functions that don't exist
 
@@ -167,11 +168,48 @@ Found by the scripts agent during the 2026-10-15 skills audit; re-check each wit
 
 Since the PR #5259 review, `--equals` and `--format-*` rules are required for every field with a fixed set of values or a URI/email format (`update-ls-config`, check 4.6 of `review-ls-changes`). Existing configs that predate this:
 
-- AsyncAPI 3 Operation `action` (`send` | `receive`) has only `action--required.ts` and `action--type.ts`.
+- AsyncAPI 3 Operation `action` (`send` | `receive`) has only `action--required.ts` and `action--type.ts`. (Still open after PR #5264, which only filled type rules.)
 - AsyncAPI Security Scheme `type--equals-2-1--2-6.ts` targets 2.1.0-2.6.0 only, so an AsyncAPI 3.0 security scheme `type` isn't checked. Confirm the 3.0.0 value list matches 2.6.0, then extend `targetSpecs` (or add a 3.0 file if it differs).
 - A2A has no `--format-*` rules at all (`find packages/apidom-ls/src/config/a2a -name '*--format*'` prints nothing), although its allowed fields include `url`, `iconUrl`, `documentationUrl`, `authorizationUrl`, `tokenUrl`, `refreshUrl`, `deviceAuthorizationUrl` and `openIdConnectUrl`. Check each against the spec text before adding a rule.
 - **Fix:** add the rules with new codes in `codes.ts` and tests with full `Diagnostic` objects.
 - **Commit:** `feat(ls): add missing AsyncAPI 3 and A2A value lint rules`
+
+### 2.18 ⏳ AsyncAPI 3 empty-document completion offers only 2.6.0 and 3.1.0
+
+- **Where:** `packages/apidom-ls/src/services/completion/completion-service.ts`, the "no version" branch. After PR #5264 it offers `asyncapi: '2.6.0'` and `asyncapi: '3.1.0'`; `3.0.0` is not offered, and OpenAPI 3.2 is missing next to `openapi: '3.0.4'` / `'3.1.0'`.
+- **Fix:** decide whether to offer every supported minor, or the latest of each major, then add the missing items (OpenAPI 3.2.0 at least) and extend the `empty yaml document` test in `test/complete.ts`.
+- **Commit:** `feat(ls): offer OpenAPI 3.2 in empty document version completion`
+
+### 2.19 ⏳ `$ref` in AsyncAPI 3 Channel `servers` reports "local reference not found"
+
+- **Where:** a channel with `servers: [{ $ref: '#/servers/server1' }]` (server defined at the root) gets an apilint diagnostic "local reference not found" on the `$ref` value, although the target exists. References for `operation.channel` and `reply.channel` resolve fine. Likely the reference check doesn't know the `referenced-element` value `channel-servers` that `apidom-ns-asyncapi-3` sets in `refractor/visitors/async-api-3/channel/ServersVisitor.ts`.
+- **Check:** validate a 3.1.0 document with that shape through `languageService.doValidation`. Found while writing `test/fixtures/validation/asyncapi/fields-types-valid-3-1.yaml`, which uses `servers: []` to avoid it.
+- **Fix:** find where local references are resolved by `referenced-element` in apidom-ls and add the missing mapping (or set a known value in the visitor). Add a validation test with a full `Diagnostic` comparison; switch the valid fixture to a real server reference.
+- **Commit:** `fix(ls): resolve local references in AsyncAPI 3 channel servers`
+
+### 2.20 ⏳ AsyncAPI 3 `Server.pathName` getter reads the wrong key
+
+- **Where:** `packages/apidom-ns-asyncapi-3/src/elements/Server.ts:36` does `this.get('pathName')`, but the spec field and the refractor key (`refractor/specification.ts:280`) are `pathname`, so the getter never returns the parsed value. The setter has the same key.
+- **Found by:** `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi` reports `NO-TYPE/NOT-ALLOWED/NO-COMPL/NO-DOCS server pathName` because it matches getters by key.
+- **Fix:** rename the getter/setter to `pathname` (check callers with `grep -rn pathName packages`), then add a namespace test that parses a server with `pathname` and reads it back. The LS `pathname` rules added in PR #5264 already use the document key, so they don't change.
+- **Commit:** `fix(ns-asyncapi-3): read Server pathname from the pathname key`
+
+### 2.21 ⏳ AsyncAPI 3 OAuth `implicit` flow requires `tokenUrl`
+
+- **Where:** `packages/apidom-ls/src/config/asyncapi/oauth-flow/lint/token-url--required.ts` (and `authorization-url--required.ts`, `scopes--required.ts`) apply to every flow type. In AsyncAPI 3.x `tokenUrl` is required only for `password`, `clientCredentials` and `authorizationCode`; `implicit` needs `authorizationUrl` and `availableScopes`. A valid 3.x implicit flow gets "should always have a 'tokenUrl'" (code 290201).
+- **Check:** validate an `oauth2` security scheme with only `implicit: { authorizationUrl, availableScopes }` in a 3.1.0 document.
+- **Fix:** scope the required rules per flow and version (condition on the parent flow key), and use `availableScopes` instead of `scopes` for 3.x. (The 3.x OAuth Flow allowed-fields rule was added in PR #5264.) Add tests per flow type with full `Diagnostic` objects.
+- **Commit:** `fix(ls): validate AsyncAPI 3 OAuth flow required fields per flow type`
+
+### 2.22 ✅ Remaining AsyncAPI 3 `check-ls-coverage` findings (done in PR #5264, phase 4 of AsyncAPI 3.1.0)
+
+Done: hover docs for `externalDocs` (AsyncAPI 3) on channel, components, info, message, message trait, operation trait, server and tag (the "omitted fields" header comments now say AsyncAPI 2 only); `title` completion and a new `allowed-fields-3-0--3-1.ts` for Operation Trait; `allowed-fields-3-0--3-1.ts` for OAuth Flow (`availableScopes`); `scopes` completion for Security Scheme.
+
+Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/apidom-ls/src/config/asyncapi --source`, all expected:
+
+- `NO-TYPE multiFormatSchema.schema`: any value is allowed, so no type rule fits.
+- `NO-COMPL ros2OperationBinding` / `ros2ServerBinding`: false positive with `--source`; the completion lives in `bindings/ros2/*/completion/` and is covered by tests.
+- `server.pathName` (4 findings): caused by the getter bug in 2.20; docs, completion, type and allowed-fields for `pathname` exist.
 
 ---
 

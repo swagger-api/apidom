@@ -10,3 +10,7 @@ servers:
     protocolVersion: 123
     tags: 123
     variables: 123
+    host: 123
+    pathname: 123
+    title: 123
+    summary: 123

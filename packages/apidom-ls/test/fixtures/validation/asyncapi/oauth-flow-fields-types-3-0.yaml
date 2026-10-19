@@ -11,3 +11,4 @@ components:
           authorizationUrl: '//'
           tokenUrl: '//'
           refreshUrl: '//'
+          availableScopes: 123

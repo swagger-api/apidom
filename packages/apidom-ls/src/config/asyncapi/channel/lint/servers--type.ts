@@ -10,7 +10,7 @@ const serversTypeLint: LinterMeta = {
   message: "'servers' must be an array of Reference Objects",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
-  linterParams: [['reference']],
+  linterParams: [['server', 'channel-servers']],
   marker: 'key',
   markerTarget: 'servers',
   target: 'servers',

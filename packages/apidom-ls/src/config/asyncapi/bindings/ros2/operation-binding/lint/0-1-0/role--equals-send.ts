@@ -3,7 +3,6 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../../../../codes.ts';
 import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 
-// reports only roles of the opposite action; unknown roles are reported by role--equals
 const roleEqualsSendLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_ROS2_OPERATION_BINDING_FIELD_ROLE_EQUALS_SEND,
   source: 'apilint',
@@ -25,11 +24,6 @@ const roleEqualsSendLint: LinterMeta = {
       targets: [{ path: 'parent.parent.action' }],
       function: 'apilintValueOrArray',
       params: [['send']],
-    },
-    {
-      targets: [{ path: 'role' }],
-      function: 'apilintValueOrArray',
-      params: [['subscriber', 'action_server', 'service_server']],
     },
   ],
 };

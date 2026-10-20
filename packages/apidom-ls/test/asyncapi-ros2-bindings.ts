@@ -488,7 +488,8 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 8, character: 14 },
           end: { line: 8, character: 20 },
         },
-        message: "'role' must be one of allowed values",
+        message:
+          "'role' must be one of allowed values: publisher, action_client, service_client, subscriber, action_server, service_server",
         severity: 1,
         code: 2250100,
         source: 'apilint',
@@ -559,9 +560,10 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 44, character: 14 },
           end: { line: 44, character: 20 },
         },
-        message: "'role' must be one of allowed values",
+        message:
+          "'role' must be one of publisher, action_client or service_client when the operation action is 'send'",
         severity: 1,
-        code: 2250100,
+        code: 2250101,
         source: 'apilint',
         data: {},
       },
@@ -609,7 +611,8 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 10 },
         },
-        message: 'This object MUST NOT contain any properties.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -633,7 +636,8 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 10 },
         },
-        message: 'This object MUST NOT contain any properties.',
+        message:
+          'This object MUST NOT contain any properties. Its name is reserved for future use.',
         severity: 1,
         code: 15000,
         source: 'apilint',

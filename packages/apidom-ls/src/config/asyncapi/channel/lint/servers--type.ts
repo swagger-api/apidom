@@ -7,7 +7,7 @@ import { AsyncAPI3 } from '../../target-specs.ts';
 const serversTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_CHANNEL_FIELD_SERVERS_TYPE,
   source: 'apilint',
-  message: "'servers' must be an array of Reference Objects",
+  message: "'servers' must be an array",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintArrayOfElementsOrClasses',
   linterParams: [['server', 'channel-servers']],

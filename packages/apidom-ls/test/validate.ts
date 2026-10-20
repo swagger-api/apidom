@@ -6369,7 +6369,7 @@ describe('apidom-ls-validate', function () {
           start: { line: 13, character: 4 },
           end: { line: 13, character: 11 },
         },
-        message: "'servers' must be an array of Reference Objects",
+        message: "'servers' must be an array",
         severity: 1,
         code: 2021100,
         source: 'apilint',

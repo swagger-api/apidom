@@ -43,7 +43,7 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 
 - **Where:** `packages/apidom-ls/src/services/validation/linter-functions.ts:40`:
   `const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];`
-- **Effect:** linter functions that walk up to the document root don't stop at OAS 3.2 / AsyncAPI 3 roots, so rules relying on the root (e.g. checks against defined components) may misbehave for those versions.
+- **Effect:** linter functions that walk up to the document root don't stop at OAS 3.2 / AsyncAPI 3 roots, so rules relying on the root (e.g. checks against defined components) may misbehave for those versions. `root()` returns `undefined` there, so `apilintFieldValueOrArray` throws when the key is missing on the element and the rule or condition is skipped silently (found while fixing the ROS 2 `role` rules in PR #5264).
 - **Fix:** add `'openApi3_2'` and `'asyncApi3'`. Confirm the element names in `apidom-ns-openapi-3-2/src/elements/OpenApi3-2.ts` and `apidom-ns-asyncapi-3/src/elements/AsyncApi3.ts`. Add apidom-ls tests with an OAS 3.2 document and an AsyncAPI 3.0 document that each hit a root-dependent rule.
 - **Commit:** `fix(ls): recognize OpenAPI 3.2 and AsyncAPI 3 root elements in linter functions`
 

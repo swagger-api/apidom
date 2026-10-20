@@ -217,9 +217,12 @@ const locationEqualsLint: LinterMeta = {
 
 Don't add a `--type` rule next to an `--equals` rule for a string enum: `apilintValueOrArray` already rejects numbers and other non-strings, so both rules report the same value (`role: 1` got two diagnostics until the PR #5264 review removed ROS 2 `role--type.ts`). Existing enum fields have only the `--equals` rule (`bindings/http/operation-binding/lint/0-3-0/method--equals.ts`, `bindings/amqp/channel-binding/lint/0-3-0/is--equals.ts`).
 
-When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`. Condition `targets` paths are resolved from the object the rule runs on (`checkConditions` in `src/utils/utils.ts`): a key segment descends, and each `parent` segment climbs to the enclosing object (two levels: member, then object). From an operation binding, `parent.parent.action` reaches the Operation's `action`. If a segment is missing, the condition fails and the rule is skipped, so the same binding under `components.operationBindings` is not checked. When the general `--equals` rule stays, give the dependent rule a second condition that the value is in the *other* set, so a value that is wrong everywhere gets one diagnostic, not two (`bindings/ros2/operation-binding/lint/0-1-0/role--equals-send.ts`, PR #5264):
+When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`. Condition `targets` paths are resolved from the object the rule runs on (`checkConditions` in `src/utils/utils.ts`): a key segment descends, and each `parent` segment climbs to the enclosing object (two levels: member, then object). From an operation binding, `parent.parent.action` reaches the Operation's `action`. If a segment is missing, the condition fails and the rule is skipped (before `negate` is applied), so the same binding under `components.operationBindings` is not checked by the dependent rules.
+
+Give each dependent rule only its own set, so it reports any wrong value, and let the general `--equals` rule run only when the other field has none of the values the dependent rules handle (missing, another value, or no parent operation). That way every invalid value gets one diagnostic. `apilintKeysContainsValue` on the parent object returns `true` when the key is missing or differs from the value, so one condition per value expresses "neither". From `bindings/ros2/operation-binding/lint/0-1-0/role--equals-send.ts` and `role--equals.ts` (PR #5264, second review round):
 
 ```typescript
+// role--equals-send.ts
   linterParams: [['publisher', 'action_client', 'service_client']],
   target: 'role',
   conditions: [
@@ -229,15 +232,29 @@ When the allowed values depend on another field, add a `conditions` entry, as `c
       function: 'apilintValueOrArray',
       params: [['send']],
     },
+  ],
+
+// role--equals.ts: the six-value union, message lists them
+  message:
+    "'role' must be one of allowed values: publisher, action_client, service_client, subscriber, action_server, service_server",
+  conditions: [
+    // ... the bindingVersion condition of the directory
     {
-      targets: [{ path: 'role' }],
-      function: 'apilintValueOrArray',
-      params: [['subscriber', 'action_server', 'service_server']],
+      targets: [{ path: 'parent.parent' }],
+      function: 'apilintKeysContainsValue',
+      params: [['action'], 'send'],
+    },
+    {
+      targets: [{ path: 'parent.parent' }],
+      function: 'apilintKeysContainsValue',
+      params: [['action'], 'receive'],
     },
   ],
 ```
 
-Name the second rule with a qualifier (`role--equals-send.ts`, `role--equals-receive.ts`) and give it a `+1` code.
+Don't use `negate` with a path to the other field (`parent.parent.action`): a missing segment fails the condition before `negate` applies, so components bindings lose the general rule. `apilintFieldValueOrArray` with `negate` fails too for AsyncAPI 3 and OpenAPI 3.2: when the key is missing it falls back to `root()`, which doesn't know those root elements (FOLLOW-UPS 2.1) and throws, and the rule is skipped silently. Test the dependent rules with a binding under `components` and an operation without the other field.
+
+Name the dependent rules with a qualifier (`role--equals-send.ts`, `role--equals-receive.ts`) and give them `+1` codes.
 
 ### Linter Function Mapping
 
@@ -270,9 +287,9 @@ Type messages differ between spec directories, so copy the style of the neighbou
 
 Arrays and maps of objects use the patterns in `packages/apidom-ls/CLAUDE.md` section 4 (`"'skills' must be an array of Agent Skill Objects"`). Fixed sets of values use `"'{field}' must be one of allowed values"`, optionally followed by `: value1, value2`. Never use `"must contain '{field}' field"`.
 
-Name a spec object in a type message only when the namespace has an element for it (`'tags' must be an array of Tags` in `asyncapi/server/lint/tags--type.ts`). A nested object the namespace keeps as a plain `ObjectElement` gets the generic message: `'qosPolicies' value must be an object` (ROS 2, after the PR #5264 review), like `'queue' value must be an object` in `bindings/sqs/channel-binding/lint/0-3-0/queue--type.ts`.
+Name a spec object in a type message only when the namespace has an element for it (`'tags' must be an array of Tags` in `asyncapi/server/lint/tags--type.ts`). A nested object the namespace keeps as a plain `ObjectElement` gets the generic message: `'qosPolicies' value must be an object` (ROS 2, after the PR #5264 review), like `'queue' value must be an object` in `bindings/sqs/channel-binding/lint/0-3-0/queue--type.ts`. When a field accepts both references and the dereferenced object, don't name either: `'servers' must be an array` (AsyncAPI 3 channel, PR #5264), like `'messages' must be an array` in `asyncapi/operation-reply/lint/messages--type.ts`.
 
-Empty binding objects' `allowedFields` rules say `This object MUST NOT contain any properties. Its name is reserved for future use.` Don't turn descriptive spec prose into a diagnostic: the ROS 2 message binding README says `While this object DOES NOT contain any ROS 2 specific properties, ...`, which as a diagnostic reads as if properties were missing; the rule uses `This object MUST NOT contain any properties.` (matching the other empty bindings, as the reviewer suggested).
+Empty binding objects' `allowedFields` rules say `This object MUST NOT contain any properties. Its name is reserved for future use.` Don't turn descriptive spec prose into a diagnostic: the ROS 2 message binding README says `While this object DOES NOT contain any ROS 2 specific properties, ...`, which as a diagnostic reads as if properties were missing; the rule uses the full sentence of the other empty bindings, including `Its name is reserved for future use.`, which the reviewer asked for after a first fix kept only the first sentence.
 
 #### 5.6 Generate lint/index.ts
 

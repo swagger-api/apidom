@@ -4,6 +4,13 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ## Recent Updates
 
+**2026-10-20** (PR #5264 review, AsyncAPI 3.1.0 LS):
+
+- `/update-ls-config`: rules for fields that can hold references list the dereferenced element name next to the `referenced-element` value (`[['server', 'channel-servers']]`); values that depend on a parent field use a `parent` condition path (ROS 2 `role` / Operation `action`); no `--type` rule next to `--equals`, with the codes renumbered when a field's first rule is dropped; messages name an object only if the namespace has an element for it; completion fixtures go in `test/fixtures/completion/`, and Phase 8 shows how to run one test file.
+- `/review-ls-changes`: four new lessons and checks for the above, including a snippet that finds `--type` rules next to `--equals` (it flags both `role--type.ts` files from the commit that was reviewed).
+- `/add-namespace`: `referenced-element` is the target's element name, used the same way in every visitor.
+- FOLLOW-UPS: 5.8 implemented in the review follow-up (needs confirmation, it conflicts with the binding's own example); new 5.10 for the AsyncAPI 3 `referenced-element` values.
+
 **2026-10-16** (lessons from adding AsyncAPI 3.1.0, PRs #5261-#5264):
 
 - `verify-urls.mjs`: GitHub directory links are checked against the directory's `README.md` (AsyncAPI binding links such as `bindings/blob/master/kafka#server` were false `BROKEN`s); an unbalanced `)` ends a URL, so markdown table cells glued to a link (`[x](url)|Next`) aren't part of it; `--new-only` with `--diff` skips links carried over by rewritten lines; `--list` prints the collected URLs without fetching.

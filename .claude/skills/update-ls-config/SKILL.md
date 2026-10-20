@@ -45,7 +45,7 @@ These apply to every phase. Where a template in `references/` shows a different 
 1. **Copy existing patterns first**: find 2-3 similar rules in the same spec directory and copy their shape (`packages/apidom-ls/CLAUDE.md` section 7). Real files are the source of truth whenever a template disagrees with them.
 2. **Messages**: required rules say `"should always have a '{field}'"`, never `"must contain '{field}' field"`. Type messages follow the style of the spec directory (`references/lint-rules.md`, "Messages"); arrays and maps follow `packages/apidom-ls/CLAUDE.md` section 4.
 3. **File naming**: `{kebab-field}--{rule}.ts`, e.g. `default-input-modes--required.ts`, `servers--items-type.ts`, `location--equals.ts` (full list in `references/lint-rules.md`). Never descriptive names such as `field--required-when-condition.ts`.
-4. **No `'reference'` in `linterParams`**: the refractor already turns Reference Objects into reference elements.
+4. **No `'reference'` in `linterParams`**: the refractor already turns Reference Objects into reference elements, which match the element name through their `referenced-element` meta. For fields that can hold references, list the element name and, if the namespace uses a different `referenced-element` value, that value too, so the rule also passes after dereferencing (`references/lint-rules.md`, "Linter Function Mapping").
 5. **No explanatory comments** in straightforward rule files; they repeat the code.
 6. **Only new fields**: check the parent version's config and namespace element first; never redefine fields inherited from the parent version. Scope new rules with the correct `targetSpecs`.
 7. **Documentation URLs follow the per-spec table** in `references/completion-and-documentation.md` ("Documentation URLs per Spec") and are checked with `verify-urls.mjs`. For OpenAPI 3.2+, links go to the GitHub markdown (`https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md`), not `spec.openapis.org`. In every spec, use the anchor that exists on the page (copy it from the markdown or page source, e.g. `3.2.0.md#path-item-object`) instead of deriving it from a naming convention; the upstream anchor style differs between versions and has changed before. Root `CLAUDE.md` ("apidom-ls Documentation URL Requirements") has the details.
@@ -195,6 +195,14 @@ Use `references/completion-and-documentation.md` and `references/lint-rules.md` 
 
    Cover new fields with at least one valid and one invalid document, following Critical Rule 8, then run `npm run test` in `packages/apidom-ls`.
 
+   Fixtures for validation tests go in `test/fixtures/validation/{spec}/...`, fixtures for completion tests in `test/fixtures/completion/{spec}/...` (`async`, `oas`), never mixed (the ROS 2 completion fixtures were moved in the PR #5264 review). Put the invalid values of one object's fields into one `{object}-field-types.yaml` fixture; add a separate fixture only for a case that can't share a document (another `bindingVersion`, another spec version).
+
+   To run one test file, pass a temporary config: `.mocharc.json` sets `spec: "test/**/*.ts"`, which mocha merges with a file given on the command line, so `npx ts-mocha test/x.ts` still runs the whole suite (about 30 s):
+   ```bash
+   echo '{ "extensions": ["ts"], "loader": "ts-node/esm", "spec": "test/x.ts" }' > /tmp/mocharc.json
+   NODE_ENV=test npx ts-mocha --config /tmp/mocharc.json --exit
+   ```
+
 On failures, **read `references/troubleshooting.md`**.
 
 ### Phase 9: Document Changes
@@ -218,7 +226,8 @@ node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/
 - [ ] `verify-urls.mjs` reports 0 `BROKEN` for the config directory
 - [ ] No fields inherited from the parent version are redefined; `targetSpecs` scope is correct
 - [ ] Lint messages match Critical Rule 2 patterns; files named `{kebab-field}--{rule}.ts`; new codes in `codes.ts` follow the naming and numbering of their block
-- [ ] No `'reference'` in any `linterParams`
+- [ ] No `'reference'` in any `linterParams`; rules for fields that can hold references also accept the dereferenced element
+- [ ] No `--type` rule next to an `--equals` rule for the same string field
 - [ ] OAS 3.2+ docs URLs are GitHub `3.2.0.md` links, with anchors that exist there (`verify-urls.mjs`: 0 `BROKEN`)
 - [ ] Tests use `assert.deepEqual` with full Diagnostic objects
 - [ ] All imports use `.ts` extension; single quotes

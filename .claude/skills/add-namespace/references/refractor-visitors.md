@@ -206,6 +206,14 @@ ArrayElement(arrayElement: ArrayElement) {
 }
 ```
 
+Set `referenced-element` to the element name of the target (`mediaType`, `parameter`, `server`),
+never to a name for the collection or the field (`channel-servers`, `operation-reply-address`). The
+dereference strategy copies the value onto the resolved element, and apidom-ls rules match on it
+(`apilintElementOrClass`): with a collection name, a rule for the field has to list both the element
+name and the meta value (`[['server', 'channel-servers']]` in AsyncAPI 3). Use the same value in every
+visitor that refracts references to the same object; AsyncAPI 3 sets `operationReplyAddress` in one
+visitor and `operation-reply-address` in another (FOLLOW-UPS 5.10).
+
 That visitor extends `Mixin(SpecificationVisitor, FallbackVisitor)` and creates the array's NCE in its
 constructor. Arrays of a single object type use the same shape without the reference branch
 (`workflow/StepsVisitor.ts`).

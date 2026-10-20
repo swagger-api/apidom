@@ -263,9 +263,10 @@ Fixed in those PRs (done once they merge): `apidom-parser-adapter-asyncapi-json-
 
 - #5264 fixed the links on lines it touched (and every other occurrence of the same URLs). After it merges, run `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/asyncapi` and fix what is left. Three `BROKEN` lines are sample values from the spec's own examples (`https://asyncapi.org/terms/`, `https://www.asyncapi.org/support`, `https://github.com/smartylighting/streetlights-server`); keep them as the spec shows them.
 
-### 5.8 ⏳ ROS 2 `role` isn't checked against the operation `action`
+### 5.8 ✅ ROS 2 `role` isn't checked against the operation `action` (done in the PR #5264 review follow-up, confirm)
 
 - Decided 2026-10-16: `role` is checked against all six values only, because the binding README's own `Pose` example combines `action: receive` with `role: publisher`. Revisit when the README is corrected upstream: add `role--equals-send.ts` / `role--equals-receive.ts` with a `parent.parent.action` condition.
+- 2026-10-20: the PR #5264 review raised it again ("I wonder if we could also check the rule based on whether the action is `send` or `receive`, but might be more complicated. This is fine I think."), and the rules were added without re-reading this decision. They follow the README's field table, so the `Pose` example now gets an error. Confirm with the maintainers; to go back to the decision above, delete the two `role--equals-{send,receive}.ts` files per version directory and their codes.
 
 ### 5.9 ⏳ AsyncAPI 3 `Server.pathName` getter reads the wrong key
 
@@ -273,3 +274,8 @@ Fixed in those PRs (done once they merge): `apidom-parser-adapter-asyncapi-json-
 - **Fix:** add `pathname` accessors reading and writing `'pathname'`; keep `pathName` as a deprecated alias or remove it (it is public API, so decide with the maintainers). Add an element test that refracts `{ pathname: '/v1' }` and reads it back.
 - **Commit:** `fix(ns-asyncapi-3): read Server pathname from the pathname field`
 
+### 5.10 ⏳ AsyncAPI 3 `referenced-element` values that aren't element names
+
+- **Where:** most `apidom-ns-asyncapi-3` visitors set `referenced-element` to the element name (`operationReply`, `messageTrait`). Under `src/refractor/visitors/`, `async-api-3/channel/ServersVisitor.ts` sets `channel-servers`, `async-api-3/operation/MessagesVisitor.ts` `operation-message`, `async-api-3/operation-reply/MessagesVisitor.ts` `operation-reply-message`, `async-api-3/components/ReplyAddressesVisitor.ts` `operation-reply-address` (while `async-api-3/operation-reply/AddressVisitor.ts` uses `operationReplyAddress` for the same target) and `generics/ExternalDocumentationVisitor.ts` `ExternalDocumentation`. LS rules then list two names (`[['operationReplyAddress', 'operation-reply-address']]`, `[['server', 'channel-servers']]`). Raised in the PR #5264 review. `ref-header` / `ref-payload` (message headers and payload) mark Schema `$ref`s and are out of scope.
+- **Fix:** use the element name of the target in the visitors, then drop the second name from the LS rules. Check the consumers first (`grep -rn "referenced-element" packages/apidom-reference/src packages/apidom-ls/src`): the dereference strategy copies the value to the resolved element, and the LS uses it to find local reference targets.
+- **Commit:** `fix(ns-asyncapi-3): use element names for referenced-element meta`

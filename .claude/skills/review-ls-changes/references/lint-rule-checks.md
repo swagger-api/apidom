@@ -183,6 +183,12 @@ git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts'
 git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' \
   | xargs grep -n "linterParams" | grep "'reference'"
 
+# --type rules next to an --equals rule for the same field (apilintValueOrArray already rejects non-strings)
+for f in $(git diff --name-only main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*--equals*.ts'); do
+  t="$(dirname "$f")/$(basename "$f" | sed 's/--equals.*/--type.ts/')"
+  [ -f "$t" ] && echo "type and equals: $t"
+done
+
 # Rule files not imported by their lint/index.ts
 for f in $(git diff --name-only --diff-filter=A main...HEAD -- 'packages/apidom-ls/src/config/**/lint/*.ts' | grep -v index.ts); do
   grep -q "./$(basename "$f")'" "$(dirname "$f")/index.ts" || echo "not registered: $f"

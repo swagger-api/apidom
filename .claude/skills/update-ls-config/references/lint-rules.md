@@ -78,6 +78,8 @@ The prefix names the spec version that introduced the rule, not every version it
 
 Every code value must be unique; `review-ls-changes` checks this with `grep -oE "= [0-9]+," codes.ts | sort | uniq -d`.
 
+When a field's first rule is dropped before release, move the explicit value to the rule that is now first, otherwise the `+1` entries shift silently: removing `ASYNCAPI3_ROS2_OPERATION_BINDING_FIELD_ROLE_TYPE = 2250100` in the PR #5264 review made `ROLE_EQUALS` the `2250100` entry, and the tests that compare full diagnostics had to follow.
+
 #### 5.4 Generate lint/allowed-fields.ts
 
 Defines which fields are allowed in the element. `linterParams[0]` is the **array** of field names; the optional second parameter is a prefix for patterned extension fields. Use `'x-'` when the spec allows Specification Extensions on the object. From `config/openapi/openapi3_2/lint/allowed-fields.ts`:
@@ -213,7 +215,29 @@ const locationEqualsLint: LinterMeta = {
 };
 ```
 
-When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`.
+Don't add a `--type` rule next to an `--equals` rule for a string enum: `apilintValueOrArray` already rejects numbers and other non-strings, so both rules report the same value (`role: 1` got two diagnostics until the PR #5264 review removed ROS 2 `role--type.ts`). Existing enum fields have only the `--equals` rule (`bindings/http/operation-binding/lint/0-3-0/method--equals.ts`, `bindings/amqp/channel-binding/lint/0-3-0/is--equals.ts`).
+
+When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`. Condition `targets` paths are resolved from the object the rule runs on (`checkConditions` in `src/utils/utils.ts`): a key segment descends, and each `parent` segment climbs to the enclosing object (two levels: member, then object). From an operation binding, `parent.parent.action` reaches the Operation's `action`. If a segment is missing, the condition fails and the rule is skipped, so the same binding under `components.operationBindings` is not checked. When the general `--equals` rule stays, give the dependent rule a second condition that the value is in the *other* set, so a value that is wrong everywhere gets one diagnostic, not two (`bindings/ros2/operation-binding/lint/0-1-0/role--equals-send.ts`, PR #5264):
+
+```typescript
+  linterParams: [['publisher', 'action_client', 'service_client']],
+  target: 'role',
+  conditions: [
+    // ... the bindingVersion condition of the directory
+    {
+      targets: [{ path: 'parent.parent.action' }],
+      function: 'apilintValueOrArray',
+      params: [['send']],
+    },
+    {
+      targets: [{ path: 'role' }],
+      function: 'apilintValueOrArray',
+      params: [['subscriber', 'action_server', 'service_server']],
+    },
+  ],
+```
+
+Name the second rule with a qualifier (`role--equals-send.ts`, `role--equals-receive.ts`) and give it a `+1` code.
 
 ### Linter Function Mapping
 
@@ -230,6 +254,8 @@ When the allowed values depend on another field, add a `conditions` entry, as `c
 
 `apilintMinimum` and `apilintMaximum` return `false` for non-numbers, so a string value would get both the type error and the range error: give range rules a `{ targets: [{ path: '{field}' }], function: 'apilintElementOrClass', params: [['number']] }` condition, as `bindings/mqtt/operation-binding/lint/0-2-0/message-expiry-interval--minimum.ts` does.
 
+For a field whose members can be Reference Objects, the names in `linterParams` must match both the unresolved reference and the element it is replaced with by dereferencing. `apilintElementOrClass` (`services/validation/linter-functions.ts`) accepts an element whose name, `referenced-element` meta or class is listed, and the dereference strategy copies `referenced-element` onto the resolved element. When the namespace sets `referenced-element` to the element name (`'server'`), `[['server']]` covers both. When it sets another value, list both names, as PR #5264 does in `asyncapi/channel/lint/servers--type.ts` (`[['server', 'channel-servers']]`) and `asyncapi/components/lint/reply-addresses--values-type.ts` (`[['operationReplyAddress', 'operation-reply-address']]`). Find the value with `grep -rn "setMetaProperty('referenced-element'" packages/{namespace}/src`. `[['reference']]` alone, the first draft of the channel `servers` rule in PR #5264, reports every dereferenced document.
+
 `apilintChildrenOfElementsOrClasses` returns `false` for anything that is not an object, so using it on an array field reports every valid array as an error. `apilintArrayOfElementsOrClasses` returns `false` for anything that is not an array. Check whether the namespace element extends `ArrayElement` or `ObjectElement` before choosing (`packages/apidom-ls/CLAUDE.md` section 3). All linter functions are defined in `packages/apidom-ls/src/services/validation/linter-functions.ts`.
 
 ### Messages
@@ -244,7 +270,9 @@ Type messages differ between spec directories, so copy the style of the neighbou
 
 Arrays and maps of objects use the patterns in `packages/apidom-ls/CLAUDE.md` section 4 (`"'skills' must be an array of Agent Skill Objects"`). Fixed sets of values use `"'{field}' must be one of allowed values"`, optionally followed by `: value1, value2`. Never use `"must contain '{field}' field"`.
 
-When a message quotes the spec (empty binding objects' `allowedFields` rules do: `This object MUST NOT contain any properties. Its name is reserved for future use.`), quote the sentence of that object, not a sibling's: the ROS 2 message binding says `This object DOES NOT contain any ROS 2 specific properties.`, unlike its channel binding.
+Name a spec object in a type message only when the namespace has an element for it (`'tags' must be an array of Tags` in `asyncapi/server/lint/tags--type.ts`). A nested object the namespace keeps as a plain `ObjectElement` gets the generic message: `'qosPolicies' value must be an object` (ROS 2, after the PR #5264 review), like `'queue' value must be an object` in `bindings/sqs/channel-binding/lint/0-3-0/queue--type.ts`.
+
+Empty binding objects' `allowedFields` rules say `This object MUST NOT contain any properties. Its name is reserved for future use.` Don't turn descriptive spec prose into a diagnostic: the ROS 2 message binding README says `While this object DOES NOT contain any ROS 2 specific properties, ...`, which as a diagnostic reads as if properties were missing; the rule uses `This object MUST NOT contain any properties.` (matching the other empty bindings, as the reviewer suggested).
 
 #### 5.6 Generate lint/index.ts
 

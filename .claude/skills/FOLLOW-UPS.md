@@ -263,10 +263,10 @@ Fixed in those PRs (done once they merge): `apidom-parser-adapter-asyncapi-json-
 
 - #5264 fixed the links on lines it touched (and every other occurrence of the same URLs). After it merges, run `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/asyncapi` and fix what is left. Three `BROKEN` lines are sample values from the spec's own examples (`https://asyncapi.org/terms/`, `https://www.asyncapi.org/support`, `https://github.com/smartylighting/streetlights-server`); keep them as the spec shows them.
 
-### 5.8 ✅ ROS 2 `role` isn't checked against the operation `action` (done in the PR #5264 review follow-up, confirm)
+### 5.8 ✅ ROS 2 `role` isn't checked against the operation `action` (done in the PR #5264 review follow-up)
 
 - Decided 2026-10-16: `role` is checked against all six values only, because the binding README's own `Pose` example combines `action: receive` with `role: publisher`. Revisit when the README is corrected upstream: add `role--equals-send.ts` / `role--equals-receive.ts` with a `parent.parent.action` condition.
-- 2026-10-20: the PR #5264 review raised it again ("I wonder if we could also check the rule based on whether the action is `send` or `receive`, but might be more complicated. This is fine I think."), and the rules were added without re-reading this decision. They follow the README's field table, so the `Pose` example now gets an error. Confirm with the maintainers; to go back to the decision above, delete the two `role--equals-{send,receive}.ts` files per version directory and their codes.
+- 2026-10-20: added after the PR #5264 review raised it again (`role--equals-send.ts` / `role--equals-receive.ts`). The Fixed Fields table is normative; the `Pose` example contradicts it and is treated as an upstream error, not a reason to skip the rules.
 
 ### 5.9 ⏳ AsyncAPI 3 `Server.pathName` getter reads the wrong key
 

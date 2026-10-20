@@ -77,7 +77,7 @@ Ask the user (or infer from the current branch/diff) for:
 4. Confirm each extraction contains the actual Fixed Fields table rows with required-status information — not the TOC entry.
 5. Note conditionally required fields separately; they need conditional rules, not plain `--required.ts`.
 6. Diff the prose of the new and parent versions as well (notes, value lists, "MAY be extended" sentences): prose-only changes need documentation updates even when no table row changed (AsyncAPI 3.1's Operation `messages` note).
-7. For objects specified outside the spec (AsyncAPI bindings), the binding README is the source; the official JSON Schema is secondary. Note where they disagree and where the README's own examples contradict its rules, and present such findings with both readings rather than as a plain defect.
+7. For objects specified outside the spec (AsyncAPI bindings), the binding README is the source; the official JSON Schema is secondary. Note where they disagree and present such findings with both readings rather than as a plain defect. When the README's own example contradicts its Fixed Fields table, the table wins; the example is an upstream error.
 
 Key pitfalls: objects referenced only as a field type (no section, no field table) have no verifiable required status; union / `oneOf` alternatives are not individually required, and "MUST contain exactly one of" does not make any variant required.
 

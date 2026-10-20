@@ -19,6 +19,7 @@ import { logPerformance, logLevel } from './test-utils.ts';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const bindingsPath = path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'bindings', 'ros2');
+const completionPath = path.join(__dirname, 'fixtures', 'completion', 'async', 'bindings', 'ros2');
 
 const specBindingsValid = fs
   .readFileSync(path.join(bindingsPath, 'ros2-bindings-valid.yaml'))
@@ -72,8 +73,8 @@ const specOperationBindingFieldTypes = fs
   .readFileSync(path.join(bindingsPath, 'ros2-operation-binding-field-types.yaml'))
   .toString();
 
-const specOperationBindingRoleType = fs
-  .readFileSync(path.join(bindingsPath, 'ros2-operation-binding-role-type.yaml'))
+const specOperationBindingRoleAction = fs
+  .readFileSync(path.join(bindingsPath, 'ros2-operation-binding-role-action.yaml'))
   .toString();
 
 const specOperationBindingBindingVersionType = fs
@@ -89,11 +90,11 @@ const specMessageBindingAllowedFieldsLatest = fs
   .toString();
 
 const specServerBindingsCompletion = fs
-  .readFileSync(path.join(bindingsPath, 'ros2-server-bindings-completion.yaml'))
+  .readFileSync(path.join(completionPath, 'ros2-server-bindings-completion.yaml'))
   .toString();
 
 const specServerBindingsCompletion300 = fs
-  .readFileSync(path.join(bindingsPath, 'ros2-server-bindings-completion-3-0-0.yaml'))
+  .readFileSync(path.join(completionPath, 'ros2-server-bindings-completion-3-0-0.yaml'))
   .toString();
 
 describe('asyncapi ROS 2 bindings test', function () {
@@ -489,7 +490,7 @@ describe('asyncapi ROS 2 bindings test', function () {
         },
         message: "'role' must be one of allowed values",
         severity: 1,
-        code: 2250101,
+        code: 2250100,
         source: 'apilint',
         data: {},
       },
@@ -509,7 +510,7 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 10, character: 21 },
           end: { line: 10, character: 29 },
         },
-        message: "'qosPolicies' value must be a Quality of Service Policy Object",
+        message: "'qosPolicies' value must be an object",
         severity: 1,
         code: 2250300,
         source: 'apilint',
@@ -519,35 +520,48 @@ describe('asyncapi ROS 2 bindings test', function () {
     assert.deepEqual(result, expected);
   });
 
-  it("ros2 operation binding - 'role' field type", async function () {
+  it("ros2 operation binding - 'role' value depends on operation 'action'", async function () {
     const doc: TextDocument = TextDocument.create(
-      'foo://bar/ros2-operation-binding-role-type.yaml',
+      'foo://bar/ros2-operation-binding-role-action.yaml',
       'yaml',
       0,
-      specOperationBindingRoleType,
+      specOperationBindingRoleAction,
     );
 
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
         range: {
-          start: { line: 8, character: 14 },
-          end: { line: 8, character: 15 },
+          start: { line: 14, character: 14 },
+          end: { line: 14, character: 24 },
         },
-        message: "'role' value must be a string",
+        message:
+          "'role' must be one of publisher, action_client or service_client when the operation action is 'send'",
         severity: 1,
-        code: 2250100,
+        code: 2250101,
         source: 'apilint',
         data: {},
       },
       {
         range: {
-          start: { line: 8, character: 14 },
-          end: { line: 8, character: 15 },
+          start: { line: 22, character: 14 },
+          end: { line: 22, character: 23 },
+        },
+        message:
+          "'role' must be one of subscriber, action_server or service_server when the operation action is 'receive'",
+        severity: 1,
+        code: 2250102,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 44, character: 14 },
+          end: { line: 44, character: 20 },
         },
         message: "'role' must be one of allowed values",
         severity: 1,
-        code: 2250101,
+        code: 2250100,
         source: 'apilint',
         data: {},
       },
@@ -595,7 +609,7 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 10 },
         },
-        message: 'This object DOES NOT contain any ROS 2 specific properties.',
+        message: 'This object MUST NOT contain any properties.',
         severity: 1,
         code: 15000,
         source: 'apilint',
@@ -619,7 +633,7 @@ describe('asyncapi ROS 2 bindings test', function () {
           start: { line: 7, character: 6 },
           end: { line: 7, character: 10 },
         },
-        message: 'This object DOES NOT contain any ROS 2 specific properties.',
+        message: 'This object MUST NOT contain any properties.',
         severity: 1,
         code: 15000,
         source: 'apilint',

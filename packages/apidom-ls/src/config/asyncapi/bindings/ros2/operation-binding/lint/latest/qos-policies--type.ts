@@ -6,7 +6,7 @@ import { LinterMeta } from '../../../../../../../apidom-language-types.ts';
 const qosPoliciesTypeLint: LinterMeta = {
   code: ApilintCodes.ASYNCAPI3_ROS2_OPERATION_BINDING_FIELD_QOS_POLICIES_TYPE,
   source: 'apilint',
-  message: "'qosPolicies' value must be a Quality of Service Policy Object",
+  message: "'qosPolicies' value must be an object",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintType',
   linterParams: ['object'],

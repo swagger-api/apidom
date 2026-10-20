@@ -65,6 +65,7 @@ Ask the user (or infer from the current branch/diff) for:
 2. **Config directory** — e.g. `packages/apidom-ls/src/config/a2a/`
 3. **Namespace package** — e.g. `packages/apidom-ns-a2a-1/`
 4. **Scope** — all elements or specific ones (default: all)
+5. **Base and decisions** — the branch's base (for stacked PRs the previous phase's branch, not `main`) and any decisions already made with the user (e.g. fields deliberately taken from the JSON Schema). Review only what the base doesn't contain, and report contradictions to recorded decisions, not the decisions themselves. If the working tree has uncommitted changes, review the committed content (`git show {sha}:{path}`) and say so in the report.
 
 ### Phase 2: Build the Spec Field Map
 
@@ -75,6 +76,8 @@ Ask the user (or infer from the current branch/diff) for:
 3. For each object record: exact camelCase field name, Required (Yes / No), Type, and **NEW vs INHERITED** when the spec extends a parent version (cross-check against the parent version's element files).
 4. Confirm each extraction contains the actual Fixed Fields table rows with required-status information — not the TOC entry.
 5. Note conditionally required fields separately; they need conditional rules, not plain `--required.ts`.
+6. Diff the prose of the new and parent versions as well (notes, value lists, "MAY be extended" sentences): prose-only changes need documentation updates even when no table row changed (AsyncAPI 3.1's Operation `messages` note).
+7. For objects specified outside the spec (AsyncAPI bindings), the binding README is the source; the official JSON Schema is secondary. Note where they disagree and present such findings with both readings rather than as a plain defect. When the README's own example contradicts its Fixed Fields table, the table wins; the example is an upstream error.
 
 Key pitfalls: objects referenced only as a field type (no section, no field table) have no verifiable required status; union / `oneOf` alternatives are not individually required, and "MUST contain exactly one of" does not make any variant required.
 
@@ -101,8 +104,8 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 - [ ] **4.2 Missing required-field rules** — every spec-required field has `{field}--required.ts` (watch for `*--type.ts` without a paired `*--required.ts`).
 - [ ] **4.3 Allowed-fields accuracy** — `linterParams[0]` has no extra and no missing fields; version-scoped files (e.g. `allowed-fields-3-2.ts`) contain new AND carried-over fields.
 - [ ] **4.4 Target spec scoping** — existing entries for unchanged fields include the new version; entries for NEW fields target only the new version; removed/changed fields stay limited; version-scoped files do not overlap and cover every supported version.
-- [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintArrayOfElementsOrClasses` and map-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType` alone.
-- [ ] **4.6 Missing enum/value-constraint rules** — every field the spec limits to a fixed set of values has `{field}--equals.ts` (`apilintValueOrArray`); every URI/URL or email field has a `--format-uri` / `--format-email` rule.
+- [ ] **4.5 Missing type lint rules** — every typed field has `{field}--type.ts`; array-of-objects fields use `apilintArrayOfElementsOrClasses` and map-of-objects fields use `apilintChildrenOfElementsOrClasses`, not `apilintType` alone; fields that can hold references also accept the dereferenced element (element name, plus the namespace's `referenced-element` value when it differs).
+- [ ] **4.6 Missing enum/value-constraint rules** — every field the spec limits to a fixed set of values has `{field}--equals.ts` (`apilintValueOrArray`) and no `--type` rule duplicating it; values that depend on a field of a parent object (ROS 2 `role` / Operation `action`) are checked with a `parent` condition path, with one diagnostic per invalid value; every URI/URL or email field has a `--format-uri` / `--format-email` rule.
 - [ ] **4.7 Missing element configs** — every namespace element type (and union subtype) is registered in `config.ts`.
 - [ ] **4.8 Rule conventions** — new codes in `codes.ts` are unique and follow the naming (`{SPEC}{VERSION}_{ELEMENT}_FIELD_{FIELD}_{RULE}`) and numbering of their block (element block per `10000`, `100` per field, `+1` for a second rule on the same field); messages match the style of the same spec directory (`should always have a '{field}'`; type messages vary per directory); no `'reference'` in `linterParams`; file names `{kebab-field}--{rule}.ts`; every new rule file is imported in its `lint/index.ts`.
 
@@ -120,7 +123,8 @@ Key pitfalls: objects referenced only as a field type (no section, no field tabl
 **Read the "Phase 6 Detail" section of `references/docs-completion-anchor-checks.md`** for the anchor format table and extraction command.
 
 1. Determine the correct anchor format by inspecting the actual spec page.
-2. Extract every URL from `documentation.ts` files. `node .claude/skills/add-spec-version/scripts/verify-urls.mjs --diff main` checks every added URL and anchor against the real page (GitHub `.md` anchors are checked against the raw markdown); `BROKEN` lines are findings, `UNVERIFIED` lines need a manual look.
+2. Extract every URL from `documentation.ts` files. `node .claude/skills/add-spec-version/scripts/verify-urls.mjs --diff {base} --new-only` checks every URL the change introduces against the real page (GitHub `.md` anchors against the raw markdown, GitHub directory links against the directory's `README.md`); `BROKEN` lines are findings, `UNVERIFIED` lines need a manual look. Without `--new-only` it also re-checks links that merely sat on rewritten lines; report those under pre-existing problems.
+   Before suggesting a replacement link (e.g. "use the README's URL"), fetch it: the ROS 2 README's own `docs.ros.org/en/rolling/...` links return 404.
 3. For each unique anchor, verify the section exists and the anchor format is correct; use one canonical page per element consistently.
 
 ### Phase 7: Produce the Report

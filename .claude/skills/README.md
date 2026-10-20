@@ -4,6 +4,20 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ## Recent Updates
 
+**2026-10-20** (PR #5264 review, AsyncAPI 3.1.0 LS):
+
+- `/update-ls-config`: rules for fields that can hold references list the dereferenced element name next to the `referenced-element` value (`[['server', 'channel-servers']]`); values that depend on a parent field use a `parent` condition path (ROS 2 `role` / Operation `action`), with the general rule limited by `apilintKeysContainsValue` so each invalid value gets one diagnostic; no `--type` rule next to `--equals`, with the codes renumbered when a field's first rule is dropped; messages name an object only if the namespace has an element for it; completion fixtures go in `test/fixtures/completion/`, and Phase 8 shows how to run one test file.
+- `/review-ls-changes`: four new lessons and checks for the above, including a snippet that finds `--type` rules next to `--equals` (it flags both `role--type.ts` files from the commit that was reviewed).
+- `/add-namespace`: `referenced-element` is the target's element name, used the same way in every visitor.
+- FOLLOW-UPS: 5.8 implemented in the review follow-up (the README example that contradicts its field table is an upstream error); new 5.10 for the AsyncAPI 3 `referenced-element` values.
+
+**2026-10-16** (lessons from adding AsyncAPI 3.1.0, PRs #5261-#5264):
+
+- `verify-urls.mjs`: GitHub directory links are checked against the directory's `README.md` (AsyncAPI binding links such as `bindings/blob/master/kafka#server` were false `BROKEN`s); an unbalanced `)` ends a URL, so markdown table cells glued to a link (`[x](url)|Next`) aren't part of it; `--new-only` with `--diff` skips links carried over by rewritten lines; `--list` prints the collected URLs without fetching.
+- `/add-spec-version`: the field map gains `CHANGED-TEXT` (prose-only changes) and `DECIDE` rows (spec vs. JSON Schema disagreements), resolved at the checkpoint; gates compare against the PR base, accept only new findings, and require adapter tests to actually run; other specs' negative tests stay unchanged; the reviewer runs on committed work.
+- Extend checklists: bindings that exist only from a version, version-scoped completion values and docs, renamed range files with their identifiers, real version-pattern rules, apidom-reference README sections for an undocumented family.
+- `/update-ls-config` and `/review-ls-changes`: AsyncAPI v3.x doc anchors are checkable, binding links point at README files, range rules need a number guard, codes for a second rule use `+1`, and three new review lessons (prose-only changes, field-dependent value sets, keys new in one version).
+
 **2026-10-15**:
 
 - PR #5259 review: `--equals` and `--format-uri` / `--format-email` rules are required, not advisory, in both `/update-ls-config` and `/review-ls-changes` (new Issue 11); type rules are checked for every field, not only required ones; `/add-namespace` documents the `pipe(assocPath, dissocPath)` way of extending a parent specification (JSON Schema dialects) next to listing every object.
@@ -53,7 +67,7 @@ Orchestrates adding a new spec or spec version across the monorepo in four phase
    - `scripts/find-unwired.sh`: files that mention the parent version but not the new one
    - `scripts/check-ls-coverage.mjs`: LS completion, docs and lint coverage per namespace element and field
    - `scripts/check-test-parity.mjs`: test cases a sibling package has and the new one lacks
-4. Handles both variants: a new namespace package (OpenAPI 3.2) and a version added to an existing namespace (AsyncAPI 2.6, PRs #2535-#2538)
+4. Handles both variants: a new namespace package (OpenAPI 3.2) and a version added to an existing namespace (AsyncAPI 2.6, PRs #2535-#2538; AsyncAPI 3.1, PRs #5261-#5264)
 
 Progress lives in an uncommitted `ADD-{SPEC}-{VERSION}.md` tracking doc, so work can resume across sessions.
 

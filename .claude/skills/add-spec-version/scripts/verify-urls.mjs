@@ -10,13 +10,17 @@ import { parseCli } from './lib/cli.mjs';
 
 const USAGE = `
 Usage:
-  node verify-urls.mjs [--timeout <ms>] <file-or-dir>...
+  node verify-urls.mjs [--timeout <ms>] [--list] <file-or-dir>...
       check URLs in the given files/directories (*.ts, *.md, *.json, *.yaml, *.yml)
-  node verify-urls.mjs [--timeout <ms>] --diff [base]
+  node verify-urls.mjs [--timeout <ms>] [--list] [--new-only] --diff [base]
       check URLs on lines added relative to the merge base of \`base\` (default: main) and the
       working tree: committed, staged and unstaged changes, plus all lines of untracked files
       (git ls-files --others --exclude-standard)
 
+  --new-only  with --diff: skip URLs that also appear on a removed line of the same file, i.e.
+              links carried over by lines that were only rewritten (a version bump in a long
+              documentation string re-adds every other link on that line); prints how many
+  --list      print the collected URLs with their location instead of fetching them (exit 0)
   --timeout   per-request timeout in milliseconds (default 15000); a timeout is UNVERIFIED
   -h, --help  show this help
 
@@ -25,11 +29,17 @@ Checks:
   - anchor exists on the target page: \`id="x"\` / \`name="x"\` in HTML, or for GitHub markdown
     blobs an explicit \`<a name="x">\` or a heading whose GitHub slug is \`x\`. A missing anchor
     is BROKEN on markdown sources and on HTML pages with server-rendered ids (e.g.
-    a2a-protocol.org); UNVERIFIED only on pages that may render anchors client-side.
+    a2a-protocol.org, asyncapi.com/docs/reference/specification/v3.x); UNVERIFIED only on pages
+    that may render anchors client-side.
+  - GitHub directory links (github.com/{owner}/{repo}/tree|blob/{ref}/{dir}#x, e.g. AsyncAPI
+    binding links such as bindings/blob/master/kafka#server) are checked against the
+    directory's README.md, which GitHub renders on that page; a directory without a README.md
+    has no anchors (BROKEN).
 
 Skipped: placeholder URLs containing \`{...}\` (https://{host}/), localhost, RFC 2606 example
-domains, and *.patch files. URLs may contain balanced parentheses; a trailing \`)\` closing a
-markdown link \`[x](url)\` is not part of the URL.
+domains, and *.patch files. URLs may contain balanced parentheses; an unbalanced \`)\` ends the
+URL, so neither the \`)\` closing a markdown link \`[x](url)\` nor text glued to it (a markdown
+table cell such as \`[x](url)|Next cell\`) is part of the URL.
 
 Exit codes: 0 nothing BROKEN (UNVERIFIED may remain), 1 BROKEN URL or anchor, 2 usage error.
 `;
@@ -38,10 +48,13 @@ const { values, positionals } = parseCli(USAGE, {
   allowPositionals: true,
   options: {
     diff: { type: 'boolean', default: false },
+    'new-only': { type: 'boolean', default: false },
+    list: { type: 'boolean', default: false },
     timeout: { type: 'string', default: '15000' },
   },
   validate: ({ values: v, positionals: p }) => {
     if (!/^\d+$/.test(v.timeout) || Number(v.timeout) <= 0) return '--timeout must be milliseconds';
+    if (v['new-only'] && !v.diff) return '--new-only requires --diff';
     if (v.diff && p.length > 1) return '--diff takes at most one base ref';
     if (!v.diff && p.length === 0) return 'files/directories or --diff required';
     const absent = v.diff ? undefined : p.find((path) => !existsSync(path));
@@ -53,15 +66,14 @@ const TIMEOUT_MS = Number(values.timeout);
 // parentheses are allowed inside URLs (balanced, e.g. wiki/Foo_(bar)); see trimUrl
 const URL_RE = /https?:\/\/[^\s'"`<>\]\\]+/g;
 const trimUrl = (raw) => {
-  let url = raw;
-  for (;;) {
-    const before = url;
-    url = url.replace(/[.,;:!?*]+$/, '');
-    const opens = (url.match(/\(/g) ?? []).length;
-    const closes = (url.match(/\)/g) ?? []).length;
-    if (url.endsWith(')') && closes > opens) url = url.slice(0, -1);
-    if (url === before) return url;
+  // an unbalanced `)` closes a markdown link: `[x](url)` or `[x](url)|Next table cell`
+  let depth = 0;
+  let end = raw.length;
+  for (let i = 0; i < raw.length && end === raw.length; i += 1) {
+    if (raw[i] === '(') depth += 1;
+    else if (raw[i] === ')' && depth-- === 0) end = i;
   }
+  return raw.slice(0, end).replace(/[.,;:!?*]+$/, '');
 };
 const isPlaceholder = (url) => /[{}]|%7B.*%7D/i.test(url);
 const SKIPPED_FILE = /\.patch$/;
@@ -106,18 +118,30 @@ const collectFromDiff = (base) => {
   // merge base vs working tree: committed + staged + unstaged changes
   const diff = git(['diff', '--unified=0', mergeBase, '--', '.', ':(exclude)*.patch']);
   const found = new Map();
+  const added = [];
+  const removed = new Map(); // file -> URLs on its removed lines
   let file = '';
   let line = 0;
   for (const text of diff.split('\n')) {
     if (text.startsWith('+++ ')) file = text.slice(6);
+    else if (text.startsWith('--- ')) continue;
     else if (text.startsWith('@@')) line = Number(text.match(/\+(\d+)/)?.[1] ?? 0) - 1;
     else if (text.startsWith('+')) {
       line += 1;
-      for (const [raw] of text.matchAll(URL_RE)) {
-        const url = trimUrl(raw);
-        if (!found.has(url)) found.set(url, `${file}:${line}`);
-      }
+      for (const [raw] of text.matchAll(URL_RE)) added.push([trimUrl(raw), file, line]);
+    } else if (text.startsWith('-')) {
+      if (!removed.has(file)) removed.set(file, new Set());
+      for (const [raw] of text.matchAll(URL_RE)) removed.get(file).add(trimUrl(raw));
     }
+  }
+  const carriedOver = new Set();
+  for (const [url, path, at] of added) {
+    if (values['new-only'] && removed.get(path)?.has(url)) carriedOver.add(url);
+    else if (!found.has(url)) found.set(url, `${path}:${at}`);
+  }
+  for (const url of found.keys()) carriedOver.delete(url);
+  if (carriedOver.size > 0) {
+    console.log(`Skipped ${carriedOver.size} URL(s) carried over from rewritten lines (--new-only).`);
   }
   const untracked = git(['ls-files', '--others', '--exclude-standard'])
     .split('\n')
@@ -162,6 +186,13 @@ const fetchPage = async (pageUrl) => {
   return pageCache.get(pageUrl);
 };
 
+// github.com/{owner}/{repo}/tree|blob/{ref}/{dir}: the last path segment has no file extension
+const githubDirReadme = (pageUrl) => {
+  const m = pageUrl.match(/^https:\/\/github\.com\/([^/]+\/[^/]+)\/(?:blob|tree)\/(.+?)\/?$/);
+  if (!m || !m[2].includes('/') || /\.[A-Za-z0-9]+$/.test(m[2].split('/').pop())) return undefined;
+  return `https://github.com/${m[1]}/blob/${m[2]}/README.md`;
+};
+
 const hasAnchor = ({ text, markdown }, anchor) => {
   const escaped = anchor.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   if (new RegExp(`(id|name)=["']${escaped}["']`).test(text)) return true;
@@ -181,6 +212,12 @@ const urls = values.diff
   ? collectFromDiff(positionals[0] ?? 'main')
   : collectFromFiles(positionals);
 
+if (values.list) {
+  for (const [url, where] of urls) console.log(`${url}  ${where}`);
+  console.log(`\nCollected ${urls.size} URL(s); nothing fetched (--list).`);
+  process.exit(0);
+}
+
 const RETRYABLE = new Set([429, 502, 503, 504]);
 const results = { broken: [], unverified: [] };
 
@@ -197,6 +234,16 @@ const checkUrl = async ([raw, where]) => {
     results.unverified.push(`${url}  (${reason})  ${where}`);
   } else if (page.status < 200 || page.status >= 300) {
     results.broken.push(`${url}  (HTTP ${page.status})  ${where}`);
+  } else if (anchor && githubDirReadme(pageUrl)) {
+    const readme = await fetchPage(githubDirReadme(pageUrl));
+    if (readme.status === 0 || RETRYABLE.has(readme.status)) {
+      const reason = readme.status ? `HTTP ${readme.status}` : readme.error;
+      results.unverified.push(`${url}  (README.md: ${reason})  ${where}`);
+    } else if (readme.status !== 200) {
+      results.broken.push(`${url}  (anchor #${anchor}: directory has no README.md)  ${where}`);
+    } else if (!hasAnchor(readme, decodeURIComponent(anchor))) {
+      results.broken.push(`${url}  (anchor #${anchor} not found in README.md)  ${where}`);
+    }
   } else if (anchor && !hasAnchor(page, decodeURIComponent(anchor))) {
     // Markdown sources are authoritative. HTML pages that already carry server-rendered anchors
     // (static site generators such as MkDocs) are too: a missing anchor there is a broken link.

@@ -74,9 +74,11 @@ The prefix names the spec version that introduced the rule, not every version it
 - Each spec version has a base: `OPENAPI3_1 = 7000000`, `OPENAPI3_2 = 7100000`, `A2A1 = 9000000`. A new spec takes the next free base after the highest one in the file.
 - Each element gets a block of `10000` above the base, declared as a bare entry: `OPENAPI3_2_OPEN_API = 7110000`, `A2A1_AGENT_CARD = 9010000`, `A2A1_AGENT_CAPABILITIES = 9020000`.
 - Each field gets the next multiple of `100` in its element block: `..._FIELD_INFO_TYPE = 7110100`, `..._FIELD_SERVERS_TYPE = 7110200`.
-- A second rule for the same field follows on the next line without a value, so the enum assigns `+1`: `OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED` (`7110101`), `OPENAPI3_2_OPEN_API_FIELD_SERVERS_ITEMS_TYPE` (`7110201`). A2A instead gives each required rule its own `100` slot after the type rules (`A2A1_AGENT_CARD_FIELD_NAME_REQUIRED = 9011600`); follow whichever pattern the block you extend uses.
+- A second rule for the same field follows on the next line without a value, so the enum assigns `+1`: `OPENAPI3_2_OPEN_API_FIELD_INFO_TYPE_REQUIRED` (`7110101`), `OPENAPI3_2_OPEN_API_FIELD_SERVERS_ITEMS_TYPE` (`7110201`). A2A instead gives each required rule its own `100` slot after the type rules (`A2A1_AGENT_CARD_FIELD_NAME_REQUIRED = 9011600`); follow whichever pattern the block you extend uses. AsyncAPI binding blocks use `+1` for range rules too (`ASYNCAPI2_IBMMQ_SERVER_BINDING_FIELD_HEART_BEAT_INTERVAL_MAXIMUM` after its `_TYPE`); the first ROS 2 draft gave `DOMAIN_ID_MAXIMUM` and `ROLE_EQUALS` their own `100` slots and had to be renumbered in review.
 
 Every code value must be unique; `review-ls-changes` checks this with `grep -oE "= [0-9]+," codes.ts | sort | uniq -d`.
+
+When a field's first rule is dropped before release, move the explicit value to the rule that is now first, otherwise the `+1` entries shift silently: removing `ASYNCAPI3_ROS2_OPERATION_BINDING_FIELD_ROLE_TYPE = 2250100` in the PR #5264 review made `ROLE_EQUALS` the `2250100` entry, and the tests that compare full diagnostics had to follow.
 
 #### 5.4 Generate lint/allowed-fields.ts
 
@@ -213,7 +215,46 @@ const locationEqualsLint: LinterMeta = {
 };
 ```
 
-When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`.
+Don't add a `--type` rule next to an `--equals` rule for a string enum: `apilintValueOrArray` already rejects numbers and other non-strings, so both rules report the same value (`role: 1` got two diagnostics until the PR #5264 review removed ROS 2 `role--type.ts`). Existing enum fields have only the `--equals` rule (`bindings/http/operation-binding/lint/0-3-0/method--equals.ts`, `bindings/amqp/channel-binding/lint/0-3-0/is--equals.ts`).
+
+When the allowed values depend on another field, add a `conditions` entry, as `config/asyncapi/security-scheme/lint/in--equals-api-key.ts` does with `apilintContainsValue` on `type`. Condition `targets` paths are resolved from the object the rule runs on (`checkConditions` in `src/utils/utils.ts`): a key segment descends, and each `parent` segment climbs to the enclosing object (two levels: member, then object). From an operation binding, `parent.parent.action` reaches the Operation's `action`. If a segment is missing, the condition fails and the rule is skipped (before `negate` is applied), so the same binding under `components.operationBindings` is not checked by the dependent rules.
+
+Give each dependent rule only its own set, so it reports any wrong value, and let the general `--equals` rule run only when the other field has none of the values the dependent rules handle (missing, another value, or no parent operation). That way every invalid value gets one diagnostic. `apilintKeysContainsValue` on the parent object returns `true` when the key is missing or differs from the value, so one condition per value expresses "neither". From `bindings/ros2/operation-binding/lint/0-1-0/role--equals-send.ts` and `role--equals.ts` (PR #5264, second review round):
+
+```typescript
+// role--equals-send.ts
+  linterParams: [['publisher', 'action_client', 'service_client']],
+  target: 'role',
+  conditions: [
+    // ... the bindingVersion condition of the directory
+    {
+      targets: [{ path: 'parent.parent.action' }],
+      function: 'apilintValueOrArray',
+      params: [['send']],
+    },
+  ],
+
+// role--equals.ts: the six-value union, message lists them
+  message:
+    "'role' must be one of allowed values: publisher, action_client, service_client, subscriber, action_server, service_server",
+  conditions: [
+    // ... the bindingVersion condition of the directory
+    {
+      targets: [{ path: 'parent.parent' }],
+      function: 'apilintKeysContainsValue',
+      params: [['action'], 'send'],
+    },
+    {
+      targets: [{ path: 'parent.parent' }],
+      function: 'apilintKeysContainsValue',
+      params: [['action'], 'receive'],
+    },
+  ],
+```
+
+Don't use `negate` with a path to the other field (`parent.parent.action`): a missing segment fails the condition before `negate` applies, so components bindings lose the general rule. `apilintFieldValueOrArray` with `negate` fails too for AsyncAPI 3 and OpenAPI 3.2: when the key is missing it falls back to `root()`, which doesn't know those root elements (FOLLOW-UPS 2.1) and throws, and the rule is skipped silently. Test the dependent rules with a binding under `components` and an operation without the other field.
+
+Name the dependent rules with a qualifier (`role--equals-send.ts`, `role--equals-receive.ts`) and give them `+1` codes.
 
 ### Linter Function Mapping
 
@@ -226,6 +267,11 @@ When the allowed values depend on another field, add a `conditions` entry, as `c
 | Required field | `hasRequiredField` | `['title']` | `info/lint/title--required.ts` |
 | Fixed set of values | `apilintValueOrArray` | `[['query', 'header', 'cookie']]` | `a2a/api-key-security-scheme/lint/location--equals.ts` |
 | Allowed fields | `allowedFields` | `[[...fields], 'x-']`, or `[[...fields]]` without extensions | `openapi3_2/lint/allowed-fields.ts`, `a2a/a2a1/lint/allowed-fields.ts` |
+| Integer, range | `apilintNumber`, `apilintMinimum`, `apilintMaximum` | `[true, true, true]` (integer, non-negative, zero allowed), `[0]`, `[231]` | `bindings/ibmmq/server-binding/lint/latest/heart-beat-internal--maximum.ts` (ROS 2 `domain-id--maximum.ts` in #5264) |
+
+`apilintMinimum` and `apilintMaximum` return `false` for non-numbers, so a string value would get both the type error and the range error: give range rules a `{ targets: [{ path: '{field}' }], function: 'apilintElementOrClass', params: [['number']] }` condition, as `bindings/mqtt/operation-binding/lint/0-2-0/message-expiry-interval--minimum.ts` does.
+
+For a field whose members can be Reference Objects, the names in `linterParams` must match both the unresolved reference and the element it is replaced with by dereferencing. `apilintElementOrClass` (`services/validation/linter-functions.ts`) accepts an element whose name, `referenced-element` meta or class is listed, and the dereference strategy copies `referenced-element` onto the resolved element. When the namespace sets `referenced-element` to the element name (`'server'`), `[['server']]` covers both. When it sets another value, list both names, as PR #5264 does in `asyncapi/channel/lint/servers--type.ts` (`[['server', 'channel-servers']]`) and `asyncapi/components/lint/reply-addresses--values-type.ts` (`[['operationReplyAddress', 'operation-reply-address']]`). Find the value with `grep -rn "setMetaProperty('referenced-element'" packages/{namespace}/src`. `[['reference']]` alone, the first draft of the channel `servers` rule in PR #5264, reports every dereferenced document.
 
 `apilintChildrenOfElementsOrClasses` returns `false` for anything that is not an object, so using it on an array field reports every valid array as an error. `apilintArrayOfElementsOrClasses` returns `false` for anything that is not an array. Check whether the namespace element extends `ArrayElement` or `ObjectElement` before choosing (`packages/apidom-ls/CLAUDE.md` section 3). All linter functions are defined in `packages/apidom-ls/src/services/validation/linter-functions.ts`.
 
@@ -240,6 +286,10 @@ Type messages differ between spec directories, so copy the style of the neighbou
 | `config/a2a/` | `'name' must be a string` | `should always have a 'name' field` |
 
 Arrays and maps of objects use the patterns in `packages/apidom-ls/CLAUDE.md` section 4 (`"'skills' must be an array of Agent Skill Objects"`). Fixed sets of values use `"'{field}' must be one of allowed values"`, optionally followed by `: value1, value2`. Never use `"must contain '{field}' field"`.
+
+Name a spec object in a type message only when the namespace has an element for it (`'tags' must be an array of Tags` in `asyncapi/server/lint/tags--type.ts`). A nested object the namespace keeps as a plain `ObjectElement` gets the generic message: `'qosPolicies' value must be an object` (ROS 2, after the PR #5264 review), like `'queue' value must be an object` in `bindings/sqs/channel-binding/lint/0-3-0/queue--type.ts`. When a field accepts both references and the dereferenced object, don't name either: `'servers' must be an array` (AsyncAPI 3 channel, PR #5264), like `'messages' must be an array` in `asyncapi/operation-reply/lint/messages--type.ts`.
+
+Empty binding objects' `allowedFields` rules say `This object MUST NOT contain any properties. Its name is reserved for future use.` Don't turn descriptive spec prose into a diagnostic: the ROS 2 message binding README says `While this object DOES NOT contain any ROS 2 specific properties, ...`, which as a diagnostic reads as if properties were missing; the rule uses the full sentence of the other empty bindings, including `Its name is reserved for future use.`, which the reviewer asked for after a first fix kept only the first sentence.
 
 #### 5.6 Generate lint/index.ts
 

@@ -48,6 +48,27 @@ A field that is an array of spec objects should use `apilintArrayOfElementsOrCla
 ### Deprecated/Removed Objects May Still Have Config Dirs
 If a spec removes an object in a new version, its config directory may persist in the implementation. Always check the spec changelog. If an older version that still defines the object is supported by the LS, **do not remove the config** — verify that its rules, documentation, and completion entries are scoped via `targetSpecs` to the versions where the object exists. Flag the directory for removal only if no supported version defines the object.
 
+### Prose-Only Changes Need Documentation Updates
+A minor version can change meaning without touching a Fixed Fields table: AsyncAPI 3.1 added a note to Operation `messages` ("excluding this property ... implies that all messages from the channel will be included"), made the Server Object extensible in prose and listed 3.1.0 schema format media types. Diff the prose of both versions and check that `documentation.ts` and `completion.ts` follow it.
+
+### Value Constraints Can Depend on Another Field
+The ROS 2 operation binding allows `publisher`, `action_client`, `service_client` for `action: send` and the other three roles for `receive`. A rule with the six-value union is correct but incomplete; report the missing dependency. The Fixed Fields table wins over an example that contradicts it (the README's `Pose` example uses `receive` with `publisher`, an upstream error). The dependency can be checked even when the other field sits in a parent object: condition paths support `parent` segments (`parent.parent.action` from the binding), as `update-ls-config/references/lint-rules.md` shows; PR #5264 enforced it after review. Check that each invalid value gets one diagnostic: the dependent rules report any value outside their own set, and the general rule runs only when the other field has none of their values (including bindings under `components`).
+
+### Rules for Reference-able Fields Must Pass After Dereferencing
+Dereferencing replaces a Reference element with the referenced element, so a rule that accepts only `reference` (or only the `referenced-element` value) reports every dereferenced document. Check that `linterParams` contains the element name (`server`) and, where the namespace sets a different `referenced-element` value (`channel-servers`), that value too. `'reference'` in `linterParams` is a finding of its own (check 4.8).
+
+### A Type Rule Next to an Equals Rule Duplicates Diagnostics
+`apilintValueOrArray` already fails for non-string values, so a `--type` rule (`apilintType`, `string`) on the same enum field reports the same value twice. Flag the `--type` rule; enum fields in existing bindings have only `--equals` (HTTP `method`, AMQP `is`).
+
+### Messages Must Read as Diagnostics
+Quoting the spec is not always right. Descriptive prose (ROS 2 message binding: "This object DOES NOT contain any ROS 2 specific properties") sounds like a complaint about missing properties; use the full wording of the other empty bindings (`This object MUST NOT contain any properties. Its name is reserved for future use.`). Likewise, a type message that names an object the namespace doesn't define (`must be a Quality of Service Policy Object`) should use the generic `value must be an object`.
+
+### Fixtures Belong to the Test Kind
+Completion fixtures under `test/fixtures/validation/` and one fixture per invalid field, when a shared `field-types` fixture already covers them, were both raised in the PR #5264 review. Check fixture locations and whether new single-field fixtures duplicate an existing one.
+
+### A Key New in One Version Must Be Scoped Everywhere
+A key the new version adds to a shared object (`ros2` in the bindings objects of AsyncAPI 3.1) needs version-scoped allowed-fields, type rule, completion item and documentation row. An object-level documentation entry shared by both versions that lists the new key advertises it to documents whose lint rejects it.
+
 ### Target Specs Must Be Updated in Both Directions
 When a new version is added, existing entries for unchanged fields must gain the new version in `targetSpecs` (otherwise the new version gets no coverage), while entries for fields new in that version must target **only** the new version (otherwise they fire for older documents). Both mistakes are easy to miss because the rule files themselves look correct.
 

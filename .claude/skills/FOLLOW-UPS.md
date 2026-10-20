@@ -211,6 +211,12 @@ Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/
 - `NO-COMPL ros2OperationBinding` / `ros2ServerBinding`: false positive with `--source`; the completion lives in `bindings/ros2/*/completion/` and is covered by tests.
 - `server.pathName` (4 findings): caused by the getter bug in 2.20; docs, completion, type and allowed-fields for `pathname` exist.
 
+### 2.23 ⏳ AsyncAPI 3 `referenced-element` meta values don't match element names
+
+- **Where:** `apidom-ns-asyncapi-3` sets `referenced-element` to element names in most visitors (`operationReply`, `operationTrait`, `messageTrait`, …) but uses other strings in some: `operation-reply-address` (`components/ReplyAddressesVisitor.ts`) while `operation-reply/AddressVisitor.ts` sets `operationReplyAddress` for the same target, and `channel-servers`, `operation-message`, `operation-reply-message`, `ExternalDocumentation` (`generics/ExternalDocumentationVisitor.ts`). LS rules have to list both forms, e.g. `components/lint/reply-addresses--values-type.ts` uses `['operationReplyAddress', 'operation-reply-address']`. Raised in the PR #5264 review.
+- **Fix:** set the referenced element name (`operationReplyAddress`, `server`, `message`, `externalDocumentation`) in the visitors, then drop the duplicate names from the LS rules. Check consumers first (`grep -rn "referenced-element" packages/apidom-reference packages/apidom-ls`): the dereference strategy copies the value onto the referenced element and the LS uses it to find local reference targets (may also fix 2.19).
+- **Commit:** `fix(ns-asyncapi-3): use element names for referenced-element meta`
+
 ---
 
 ## 3. Session leftovers (cleanup)

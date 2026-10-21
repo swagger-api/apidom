@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.1](https://github.com/swagger-api/apidom/compare/v1.13.0...v1.13.1) (2026-10-21)
+
+### Bug Fixes
+
+- **release:** publish packages serially to avoid provenance clashes ([#5270](https://github.com/swagger-api/apidom/issues/5270)) ([7938eaa](https://github.com/swagger-api/apidom/commit/7938eaa6c5e2fc637101573f49c0a7f9c761e902))
+
 # [1.13.0](https://github.com/swagger-api/apidom/compare/v1.12.1...v1.13.0) (2026-10-21)
 
 ### Bug Fixes

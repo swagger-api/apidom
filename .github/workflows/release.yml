@@ -51,11 +51,14 @@ jobs:
           for attempt in 1 2 3 4 5; do
             npx lerna publish from-package --no-private --yes && exit 0
             echo "Publish attempt $attempt failed"
+            # lerna leaves rewritten package.json files behind on failure and refuses to run on a dirty tree
+            git checkout -- .
             sleep 30
           done
           # Last resort: Sigstore keeps rejecting the attestation, publish remaining packages without provenance
           echo "::warning::Publishing remaining packages without provenance"
           sed -i 's/"provenance": true/"provenance": false/' packages/*/package.json
+          git commit -am "chore: disable provenance for fallback publish"
           npx lerna publish from-package --no-private --yes
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

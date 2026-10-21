@@ -24,10 +24,15 @@ describe('parsers', function () {
               uri: '/path/to/asyncapi.json',
               mediaType: mediaTypes.latest(),
             });
+            const file3 = new File({
+              uri: '/path/to/asyncapi.json',
+              mediaType: mediaTypes.findBy('3.0.0', 'json'),
+            });
             const parser = new AsyncAPIJSON3Parser();
 
             assert.isTrue(await parser.canParse(file1));
             assert.isTrue(await parser.canParse(file2));
+            assert.isTrue(await parser.canParse(file3));
           });
         });
 
@@ -69,7 +74,7 @@ describe('parsers', function () {
       });
 
       context('given file with supported extension', function () {
-        context('and file data is buffer and can be detected as AsyncAPI 3.0.0', function () {
+        context('and file data is buffer and can be detected as AsyncAPI 3.1.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = new File({
@@ -82,7 +87,7 @@ describe('parsers', function () {
           });
         });
 
-        context('and file data is string and can be detected as AsyncAPI 3.0.0', function () {
+        context('and file data is string and can be detected as AsyncAPI 3.1.0', function () {
           specify('should return true', async function () {
             const url = path.join(__dirname, 'fixtures', 'sample-api.json');
             const file = new File({
@@ -98,7 +103,7 @@ describe('parsers', function () {
     });
 
     context('parse', function () {
-      context('given AsyncApi 3.0.0 JSON data', function () {
+      context('given AsyncApi 3.1.0 JSON data', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(uri).toString();
@@ -114,7 +119,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given AsyncApi 3.0.0 JSON data as buffer', function () {
+      context('given AsyncApi 3.1.0 JSON data as buffer', function () {
         specify('should return parse result', async function () {
           const uri = path.join(__dirname, 'fixtures', 'sample-api.json');
           const data = fs.readFileSync(uri);
@@ -130,7 +135,7 @@ describe('parsers', function () {
         });
       });
 
-      context('given data that is not an AsyncApi 3.0.0 JSON data', function () {
+      context('given data that is not an AsyncApi 3.1.0 JSON data', function () {
         specify('should coerce to string and parse', async function () {
           const file = new File({
             uri: '/path/to/file.json',

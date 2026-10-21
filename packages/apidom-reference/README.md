@@ -269,6 +269,38 @@ Supported media types are:
 ]
 ```
 
+#### [asyncapi-json-3](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/asyncapi-json-3)
+
+Wraps [@swagger-api/apidom-parser-adapter-asyncapi-json-3](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-json-3) package
+and is uniquely identified by `asyncapi-json-3` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.aai.asyncapi;version=3.0.0',
+  'application/vnd.aai.asyncapi;version=3.1.0',
+  'application/vnd.aai.asyncapi+json;version=3.0.0',
+  'application/vnd.aai.asyncapi+json;version=3.1.0',
+]
+```
+
+#### [asyncapi-yaml-3](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/asyncapi-yaml-3)
+
+Wraps [@swagger-api/apidom-parser-adapter-asyncapi-yaml-3](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-asyncapi-yaml-3) package
+and is uniquely identified by `asyncapi-yaml-3` name.
+
+Supported media types are:
+
+```js
+[
+  'application/vnd.aai.asyncapi;version=3.0.0',
+  'application/vnd.aai.asyncapi;version=3.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=3.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=3.1.0',
+]
+```
+
 #### [arazzo-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/arazzo-json-1)
 
 Wraps [@swagger-api/apidom-parser-adapter-arazzo-json-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-arazzo-json-1) package
@@ -1581,6 +1613,23 @@ Supported media types:
   'application/vnd.aai.asyncapi;version=2.6.0',
   'application/vnd.aai.asyncapi+json;version=2.6.0',
   'application/vnd.aai.asyncapi+yaml;version=2.6.0',
+]
+```
+
+##### [asyncapi-3](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/asyncapi-3)
+
+Dereference strategy for dereferencing [AsyncApi 3.x.y](https://github.com/asyncapi/spec/blob/v3.1.0/spec/asyncapi.md) definitions.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.aai.asyncapi;version=3.0.0',
+  'application/vnd.aai.asyncapi+json;version=3.0.0',
+  'application/vnd.aai.asyncapi+yaml;version=3.0.0',
+  'application/vnd.aai.asyncapi;version=3.1.0',
+  'application/vnd.aai.asyncapi+json;version=3.1.0',
+  'application/vnd.aai.asyncapi+yaml;version=3.1.0',
 ]
 ```
 

@@ -97,6 +97,18 @@ const specServerBindingsCompletion300 = fs
   .readFileSync(path.join(completionPath, 'ros2-server-bindings-completion-3-0-0.yaml'))
   .toString();
 
+const specOperationBindingRoleCompletionSend = fs
+  .readFileSync(path.join(completionPath, 'ros2-operation-binding-role-completion-send.yaml'))
+  .toString();
+
+const specOperationBindingRoleCompletionReceive = fs
+  .readFileSync(path.join(completionPath, 'ros2-operation-binding-role-completion-receive.yaml'))
+  .toString();
+
+const specOperationBindingRoleCompletionNoAction = fs
+  .readFileSync(path.join(completionPath, 'ros2-operation-binding-role-completion-no-action.yaml'))
+  .toString();
+
 describe('asyncapi ROS 2 bindings test', function () {
   const context: LanguageServiceContext = {
     metadata: metadata(),
@@ -697,5 +709,75 @@ describe('asyncapi ROS 2 bindings test', function () {
 
     assert.isUndefined(result?.items.find((item) => item.label === 'ros2'));
     assert.isDefined(result?.items.find((item) => item.label === 'pulsar'));
+  });
+
+  it("ros2 operation binding - 'role' completion for 'send' action", async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ros2-operation-binding-role-completion-send.yaml',
+      'yaml',
+      0,
+      specOperationBindingRoleCompletionSend,
+    );
+
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: Position.create(9, 14) },
+      completionContext,
+    );
+    const roles = result?.items.map((item) => item.label).sort();
+
+    assert.deepEqual(roles, ['action_client', 'publisher', 'service_client']);
+  });
+
+  it("ros2 operation binding - 'role' completion for 'receive' action", async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ros2-operation-binding-role-completion-receive.yaml',
+      'yaml',
+      0,
+      specOperationBindingRoleCompletionReceive,
+    );
+
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: Position.create(9, 14) },
+      completionContext,
+    );
+    const roles = result?.items.map((item) => item.label).sort();
+
+    assert.deepEqual(roles, ['action_server', 'service_server', 'subscriber']);
+  });
+
+  it("ros2 operation binding - 'role' completion without operation 'action'", async function () {
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/ros2-operation-binding-role-completion-no-action.yaml',
+      'yaml',
+      0,
+      specOperationBindingRoleCompletionNoAction,
+    );
+
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: Position.create(8, 14) },
+      completionContext,
+    );
+    const roles = result?.items.map((item) => item.label).sort();
+
+    assert.deepEqual(roles, [
+      'action_client',
+      'action_server',
+      'publisher',
+      'service_client',
+      'service_server',
+      'subscriber',
+    ]);
   });
 });

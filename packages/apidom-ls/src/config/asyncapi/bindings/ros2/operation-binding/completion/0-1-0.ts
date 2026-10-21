@@ -39,6 +39,32 @@ const completion: ApidomCompletionItem[] = [
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
       },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['send']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'publisher',
+    insertText: 'publisher',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
+      },
     ],
   },
   {
@@ -54,6 +80,32 @@ const completion: ApidomCompletionItem[] = [
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['send']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'action_client',
+    insertText: 'action_client',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
       },
     ],
   },
@@ -71,6 +123,32 @@ const completion: ApidomCompletionItem[] = [
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
       },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['send']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'service_client',
+    insertText: 'service_client',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
+      },
     ],
   },
   {
@@ -86,6 +164,32 @@ const completion: ApidomCompletionItem[] = [
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['receive']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'subscriber',
+    insertText: 'subscriber',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
       },
     ],
   },
@@ -103,6 +207,32 @@ const completion: ApidomCompletionItem[] = [
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
       },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['receive']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'action_server',
+    insertText: 'action_server',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
+      },
     ],
   },
   {
@@ -118,6 +248,32 @@ const completion: ApidomCompletionItem[] = [
         targets: [{ path: 'bindingVersion' }],
         function: 'apilintValueOrArray',
         params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent.action' }],
+        function: 'apilintValueOrArray',
+        params: [['receive']],
+      },
+    ],
+  },
+  {
+    target: 'role',
+    label: 'service_server',
+    insertText: 'service_server',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    conditions: [
+      {
+        targets: [{ path: 'bindingVersion' }],
+        function: 'apilintValueOrArray',
+        params: [['0.1.0']],
+      },
+      {
+        targets: [{ path: 'parent.parent' }],
+        function: 'missingField',
+        params: ['action'],
       },
     ],
   },

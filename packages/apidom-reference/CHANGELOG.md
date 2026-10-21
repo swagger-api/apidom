@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.13.3](https://github.com/swagger-api/apidom/compare/v1.13.2...v1.13.3) (2026-10-21)
+
+### Bug Fixes
+
+- **release:** raise sigstore timeout and harden publish retries ([#5273](https://github.com/swagger-api/apidom/issues/5273)) ([27dafed](https://github.com/swagger-api/apidom/commit/27dafed1fcc2efdb444b54b21f1a7b64a5d3c612))
+
 ## [1.13.2](https://github.com/swagger-api/apidom/compare/v1.13.1...v1.13.2) (2026-10-21)
 
 **Note:** Version bump only for package @swagger-api/apidom-reference

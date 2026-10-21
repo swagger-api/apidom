@@ -5,7 +5,8 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org",
-    "provenance": true
+    "provenance": true,
+    "timeout": 60000
   },
   "type": "module",
   "sideEffects": false,

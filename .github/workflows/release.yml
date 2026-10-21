@@ -46,17 +46,23 @@ jobs:
           GH_TOKEN: ${{ secrets.SWAGGER_BOT_GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish monorepo npm packages
+        # Provenance signing can fail with TLOG_CREATE_ENTRY_ERROR (409). When Rekor takes longer
+        # than sigstore's default 5s timeout to respond, sigstore sends the same entry again and
+        # Rekor rejects it as a duplicate. Each package raises the timeout in its publishConfig.
+        # Retrying the whole step is safe because `from-package` skips versions already on npm.
         run: |
-          # `from-package` skips versions already on npm, so retrying only republishes failed packages
           for attempt in 1 2 3 4 5; do
-            npx lerna publish from-package --no-private --yes && exit 0
-            echo "Publish attempt $attempt failed"
+            npx lerna publish from-package --no-private --yes --concurrency 1 && exit 0
+            echo "::warning::lerna publish attempt ${attempt} failed"
+            # lerna leaves a temporary gitHead in package.json files when publishing aborts
+            git checkout -- package.json 'packages/*/package.json'
             sleep 30
           done
-          # Last resort: Sigstore keeps rejecting the attestation, publish remaining packages without provenance
+          # Last resort: publish the remaining packages without provenance
           echo "::warning::Publishing remaining packages without provenance"
           sed -i 's/"provenance": true/"provenance": false/' packages/*/package.json
-          npx lerna publish from-package --no-private --yes
+          git commit -am "chore: disable provenance for fallback publish"
+          npx lerna publish from-package --no-private --yes --concurrency 1
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 

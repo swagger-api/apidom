@@ -1,0 +1,35 @@
+{
+  "openapi": "3.2.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Container": {
+        "$dynamicAnchor": "node",
+        "type": "object",
+        "properties": {
+          "source": { "type": "string", "const": "outer" }
+        },
+        "$defs": {
+          "level1": {
+            "$dynamicAnchor": "node",
+            "type": "object",
+            "properties": {
+              "source": { "type": "string", "const": "level1" }
+            },
+            "$defs": {
+              "level2": {
+                "$dynamicAnchor": "node",
+                "type": "object",
+                "properties": {
+                  "source": { "type": "string", "const": "level2" },
+                  "leaf": { "$dynamicRef": "#node" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

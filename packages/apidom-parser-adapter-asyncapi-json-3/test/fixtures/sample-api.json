@@ -1,5 +1,5 @@
 {
-  "asyncapi": "3.0.0",
+  "asyncapi": "3.1.0",
   "id": "urn:com:smartylighting:streetlights:server",
   "info": {
     "title": "AsyncAPI Sample App",
@@ -235,7 +235,7 @@
         "$ref": "#/components/schemas/Schema1"
       },
       "Schema3": {
-        "schemaFormat": "application/vnd.aai.asyncapi;version=3.0.0",
+        "schemaFormat": "application/vnd.aai.asyncapi;version=3.1.0",
         "schema": {}
       }
     },

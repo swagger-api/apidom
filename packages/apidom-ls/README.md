@@ -20,6 +20,7 @@ The ApiDOM Language Service fully supports the following API specifications:
 - OpenAPI 3.0.x
 - OpenAPI 3.1.0
 - AsyncAPI 2.x.y
+- AsyncAPI 3.x.y
 
 ## Quick start
 

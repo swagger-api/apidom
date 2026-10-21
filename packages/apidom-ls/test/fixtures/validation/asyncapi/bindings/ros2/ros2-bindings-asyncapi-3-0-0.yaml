@@ -1,0 +1,43 @@
+asyncapi: 3.0.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+servers:
+  ros2:
+    host: none
+    protocol: ros2
+    protocolVersion: jazzy
+    bindings:
+      ros2:
+        rmwImplementation: rmw_fastrtps_cpp
+        domainId: 0
+        bindingVersion: '0.1.0'
+channels:
+  cmdVel:
+    address: /turtle1/cmd_vel
+    bindings:
+      ros2: {}
+    messages:
+      twist:
+        payload:
+          type: object
+        bindings:
+          ros2: {}
+operations:
+  receiveCmdVel:
+    action: receive
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: subscriber
+        node: /turtlesim
+        qosPolicies:
+          history: unknown
+          reliability: reliable
+          durability: volatile
+          lifespan: -1
+          deadline: -1
+          liveliness: automatic
+          leaseDuration: -1
+        bindingVersion: '0.1.0'

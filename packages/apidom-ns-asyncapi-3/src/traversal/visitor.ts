@@ -15,7 +15,7 @@ export const getNodeType = <T extends Element>(element: T): string | undefined =
  */
 export const keyMap = {
   /**
-   * `AsyncApi 3.0.0` specification elements.
+   * `AsyncApi >= 3.0.0 <=3.1.0` specification elements.
    */
   AsyncApi3Element: ['content'],
   AsyncApiVersionElement: [],
@@ -127,6 +127,11 @@ export const keyMap = {
   RedisMessageBindingElement: ['content'],
   RedisOperationBindingElement: ['content'],
   RedisServerBindingElement: ['content'],
+  // ROS 2
+  Ros2ChannelBindingElement: ['content'],
+  Ros2MessageBindingElement: ['content'],
+  Ros2OperationBindingElement: ['content'],
+  Ros2ServerBindingElement: ['content'],
   // SNS
   SnsChannelBindingElement: ['content'],
   SnsMessageBindingElement: ['content'],

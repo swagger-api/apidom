@@ -26,6 +26,7 @@ it('should refract to semantic ApiDOM tree', async function () {
           stomp:
           redis:
           mercure:
+          ros2:
        `;
   const apiDOM = await parse(yamlDefinition);
   const operationBindingsElement = OperationBindingsElement.refract(apiDOM.result, {

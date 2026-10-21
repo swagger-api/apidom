@@ -7,3 +7,10 @@ channels:
     description: 123
     bindings: 123
     parameters: 123
+    address: 123
+    messages: 123
+    title: 123
+    summary: 123
+    servers: 123
+    tags: 123
+    externalDocs: 123

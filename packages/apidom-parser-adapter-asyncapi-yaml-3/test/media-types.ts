@@ -13,4 +13,12 @@ describe('given adapter is used in parser', function () {
       assert.strictEqual(mediaType, 'application/vnd.aai.asyncapi+yaml;version=3.0.0');
     });
   });
+
+  context('given AsyncAPI 3.1.0 definition in YAML format', function () {
+    specify('should find appropriate media type', async function () {
+      const mediaType = await parser.findMediaType('asyncapi: "3.1.0"');
+
+      assert.strictEqual(mediaType, 'application/vnd.aai.asyncapi+yaml;version=3.1.0');
+    });
+  });
 });

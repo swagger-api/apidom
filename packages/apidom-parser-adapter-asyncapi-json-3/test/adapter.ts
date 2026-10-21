@@ -17,6 +17,10 @@ describe('adapter', function () {
       assert.isTrue(await adapter.detect(jsonSpec));
     });
 
+    specify('should detect AsyncAPI 3.1.0', async function () {
+      assert.isTrue(await adapter.detect('{"asyncapi": "3.1.0"}'));
+    });
+
     specify('should detect minor version bump', async function () {
       assert.isTrue(await adapter.detect('{"asyncapi": "3.25.0"}'));
     });
@@ -79,6 +83,8 @@ describe('adapter', function () {
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.0.0"'));
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.0.145"'));
       assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.0.1"'));
+      assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.1.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.1.1"'));
     });
 
     specify('should reject invalid version ranges', function () {
@@ -89,6 +95,7 @@ describe('adapter', function () {
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "2.6.01"'));
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "3.6.01"'));
       assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "3.06.0"'));
+      assert.isFalse(adapter.detectionRegExp.test('"asyncapi": "4.0.0"'));
     });
   });
 });

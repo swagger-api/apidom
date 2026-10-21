@@ -58,5 +58,8 @@ exports[`refractor elements OperationBindingsElement should refract to semantic 
     (IbmmqOperationBindingElement))
   (MemberElement
     (StringElement)
-    (PulsarOperationBindingElement)))
+    (PulsarOperationBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2OperationBindingElement)))
 `;

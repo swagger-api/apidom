@@ -127,6 +127,10 @@ import RedisChannelBindingElement from '../../elements/bindings/redis/RedisChann
 import RedisMessageBindingElement from '../../elements/bindings/redis/RedisMessageBinding.ts';
 import RedisOperationBindingElement from '../../elements/bindings/redis/RedisOperationBinding.ts';
 import RedisServerBindingElement from '../../elements/bindings/redis/RedisServerBinding.ts';
+import Ros2ChannelBindingElement from '../../elements/bindings/ros2/Ros2ChannelBinding.ts';
+import Ros2MessageBindingElement from '../../elements/bindings/ros2/Ros2MessageBinding.ts';
+import Ros2OperationBindingElement from '../../elements/bindings/ros2/Ros2OperationBinding.ts';
+import Ros2ServerBindingElement from '../../elements/bindings/ros2/Ros2ServerBinding.ts';
 import SnsChannelBindingElement from '../../elements/bindings/sns/SnsChannelBinding.ts';
 import SnsMessageBindingElement from '../../elements/bindings/sns/SnsMessageBinding.ts';
 import SnsOperationBindingElement from '../../elements/bindings/sns/SnsOperationBinding.ts';
@@ -169,7 +173,7 @@ import { getNodeType } from '../../traversal/visitor.ts';
  * @example
  *
  * ```yaml
- * asyncapi: 3.0.0
+ * asyncapi: 3.1.0
  * operations:
  *   sendMessage:
  * ```
@@ -439,6 +443,9 @@ const schema: Record<string, unknown> = {
     pulsar(...args: Record<string, unknown>[]) {
       return new PulsarServerBindingElement(...args);
     },
+    ros2(...args: Record<string, unknown>[]) {
+      return new Ros2ServerBindingElement(...args);
+    },
   },
 
   ChannelBindingsElement: {
@@ -498,6 +505,9 @@ const schema: Record<string, unknown> = {
     },
     pulsar(...args: Record<string, unknown>[]) {
       return new PulsarChannelBindingElement(...args);
+    },
+    ros2(...args: Record<string, unknown>[]) {
+      return new Ros2ChannelBindingElement(...args);
     },
   },
 
@@ -559,6 +569,9 @@ const schema: Record<string, unknown> = {
     pulsar(...args: Record<string, unknown>[]) {
       return new PulsarOperationBindingElement(...args);
     },
+    ros2(...args: Record<string, unknown>[]) {
+      return new Ros2OperationBindingElement(...args);
+    },
   },
 
   MessageBindingsElement: {
@@ -618,6 +631,9 @@ const schema: Record<string, unknown> = {
     },
     pulsar(...args: Record<string, unknown>[]) {
       return new PulsarMessageBindingElement(...args);
+    },
+    ros2(...args: Record<string, unknown>[]) {
+      return new Ros2MessageBindingElement(...args);
     },
   },
 
@@ -1069,6 +1085,12 @@ const schema: Record<string, unknown> = {
       return new ArrayElement(...args);
     },
     retention(...args: Record<string, unknown>[]) {
+      return new ObjectElement(...args);
+    },
+  },
+
+  Ros2OperationBindingElement: {
+    qosPolicies(...args: Record<string, unknown>[]) {
       return new ObjectElement(...args);
     },
   },

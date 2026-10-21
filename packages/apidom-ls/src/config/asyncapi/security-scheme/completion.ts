@@ -114,7 +114,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
+        '[OAuth Flows Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowsObject)\n\\\n\\\nApplies to `oauth2` type. **REQUIRED**. An object containing configuration information for the flow types supported.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -131,6 +131,20 @@ const completion: ApidomCompletionItem[] = [
         'Applies to `openIdConnect` type. **REQUIRED**. OpenId Connect URL to discover OAuth2 configuration values. This MUST be in the form of a URL.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
+  },
+  {
+    label: 'scopes',
+    insertText: 'scopes',
+    kind: 14,
+    format: CompletionFormat.ARRAY,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        'Applies to `oauth2` or `openIdConnect` type. List of the needed scope names. An empty array means no scopes are needed.',
+    },
+    targetSpecs: AsyncAPI3,
   },
   {
     target: 'type',

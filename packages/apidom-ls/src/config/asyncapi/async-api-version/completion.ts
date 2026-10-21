@@ -69,6 +69,14 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
   },
+  {
+    label: '3.1.0',
+    insertText: '3.1.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED_FORCED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+  },
 ];
 
 export default completion;

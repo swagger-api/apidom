@@ -66,7 +66,7 @@ describe('adapter', function () {
   context('given YAML with empty node', function () {
     specify('should generate source maps', async function () {
       const yamlSource = dedent`
-        asyncapi: 3.0.0
+        asyncapi: 3.1.0
         info:
       `;
 
@@ -86,12 +86,22 @@ describe('adapter', function () {
   context('detectionRegExp', function () {
     specify('should detect version', function () {
       assert.isTrue(adapter.detectionRegExp.test('asyncapi: 3.0.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 3.1.0'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: "3.1.0"'));
+      assert.isTrue(adapter.detectionRegExp.test('"asyncapi": "3.1.0"'));
+    });
+
+    specify('should detect version ranges in forward compatible way', function () {
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 3.1.1'));
+      assert.isTrue(adapter.detectionRegExp.test('asyncapi: 3.25.0'));
     });
 
     specify('should reject invalid version ranges', function () {
       assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.01.0'));
       assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.1.013'));
       assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.1.013 '));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 2.6.0'));
+      assert.isFalse(adapter.detectionRegExp.test('asyncapi: 4.0.0'));
     });
   });
 });

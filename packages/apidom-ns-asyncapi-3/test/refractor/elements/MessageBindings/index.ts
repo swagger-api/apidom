@@ -27,6 +27,7 @@ describe('refractor', function () {
           ibmmq: {},
           googlepubsub: {},
           pulsar: {},
+          ros2: {},
         });
 
         expect(sexprs(messageBindingsElement)).toMatchSnapshot();

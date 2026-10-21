@@ -115,6 +115,11 @@ import redisChannelBindingMeta from './bindings/redis/channel-binding/meta.ts';
 import redisMessageBindingMeta from './bindings/redis/message-binding/meta.ts';
 import redisOperationBindingMeta from './bindings/redis/operation-binding/meta.ts';
 import redisServerBindingMeta from './bindings/redis/server-binding/meta.ts';
+// ROS 2
+import ros2ChannelBindingMeta from './bindings/ros2/channel-binding/meta.ts';
+import ros2MessageBindingMeta from './bindings/ros2/message-binding/meta.ts';
+import ros2OperationBindingMeta from './bindings/ros2/operation-binding/meta.ts';
+import ros2ServerBindingMeta from './bindings/ros2/server-binding/meta.ts';
 // SNS
 import snsChannelBindingMeta from './bindings/sns/channel-binding/meta.ts';
 import snsMessageBindingMeta from './bindings/sns/message-binding/meta.ts';
@@ -273,6 +278,11 @@ export default {
   redisMessageBinding: redisMessageBindingMeta,
   redisOperationBinding: redisOperationBindingMeta,
   redisServerBinding: redisServerBindingMeta,
+  // ROS 2
+  ros2ChannelBinding: ros2ChannelBindingMeta,
+  ros2MessageBinding: ros2MessageBindingMeta,
+  ros2OperationBinding: ros2OperationBindingMeta,
+  ros2ServerBinding: ros2ServerBindingMeta,
   // SNS
   snsChannelBinding: snsChannelBindingMeta,
   snsMessageBinding: snsMessageBindingMeta,

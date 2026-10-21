@@ -1,6 +1,6 @@
 import { createRefractor } from './index.ts';
 /**
- * AsyncApi 3.0.0 specification elements.
+ * AsyncApi >= 3.0.0 <=3.1.0 specification elements.
  */
 import AsyncApi3Element from '../elements/AsyncApi3.ts';
 import AsyncApiVersionElement from '../elements/AsyncApiVersion.ts';
@@ -113,6 +113,11 @@ import RedisChannelBindingElement from '../elements/bindings/redis/RedisChannelB
 import RedisMessageBindingElement from '../elements/bindings/redis/RedisMessageBinding.ts';
 import RedisOperationBindingElement from '../elements/bindings/redis/RedisOperationBinding.ts';
 import RedisServerBindingElement from '../elements/bindings/redis/RedisServerBinding.ts';
+// ROS 2
+import Ros2ChannelBindingElement from '../elements/bindings/ros2/Ros2ChannelBinding.ts';
+import Ros2MessageBindingElement from '../elements/bindings/ros2/Ros2MessageBinding.ts';
+import Ros2OperationBindingElement from '../elements/bindings/ros2/Ros2OperationBinding.ts';
+import Ros2ServerBindingElement from '../elements/bindings/ros2/Ros2ServerBinding.ts';
 // SNS
 import SnsChannelBindingElement from '../elements/bindings/sns/SnsChannelBinding.ts';
 import SnsMessageBindingElement from '../elements/bindings/sns/SnsMessageBinding.ts';
@@ -140,7 +145,7 @@ import WebSocketOperationBindingElement from '../elements/bindings/ws/WebSocketO
 import WebSocketServerBindingElement from '../elements/bindings/ws/WebSocketServerBinding.ts';
 
 /**
- * AsyncApi 3.0.0 specification elements.
+ * AsyncApi >= 3.0.0 <=3.1.0 specification elements.
  */
 AsyncApi3Element.refract = createRefractor([
   'visitors',
@@ -900,6 +905,43 @@ RedisServerBindingElement.refract = createRefractor([
   'ServerBinding',
   '$visitor',
 ]);
+// ROS 2
+Ros2ChannelBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ros2',
+  'ChannelBinding',
+  '$visitor',
+]);
+Ros2MessageBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ros2',
+  'MessageBinding',
+  '$visitor',
+]);
+Ros2OperationBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ros2',
+  'OperationBinding',
+  '$visitor',
+]);
+Ros2ServerBindingElement.refract = createRefractor([
+  'visitors',
+  'document',
+  'objects',
+  'bindings',
+  'ros2',
+  'ServerBinding',
+  '$visitor',
+]);
 // SNS
 SnsChannelBindingElement.refract = createRefractor([
   'visitors',
@@ -1088,7 +1130,7 @@ WebSocketServerBindingElement.refract = createRefractor([
 
 export {
   /**
-   * AsyncApi 3.0.0 specification elements.
+   * AsyncApi >= 3.0.0 <=3.1.0 specification elements.
    */
   AsyncApi3Element,
   AsyncApiVersionElement,
@@ -1202,6 +1244,11 @@ export {
   RedisMessageBindingElement,
   RedisOperationBindingElement,
   RedisServerBindingElement,
+  // ROS 2
+  Ros2ChannelBindingElement,
+  Ros2MessageBindingElement,
+  Ros2OperationBindingElement,
+  Ros2ServerBindingElement,
   // SNS
   SnsChannelBindingElement,
   SnsMessageBindingElement,

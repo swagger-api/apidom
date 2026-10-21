@@ -3,6 +3,16 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/swagger-api/apidom/compare/v1.12.1...v1.13.0) (2026-10-21)
+
+### Features
+
+- **reference:** add support for AsyncAPI 3.1.0 ([#5263](https://github.com/swagger-api/apidom/issues/5263)) ([ce9881e](https://github.com/swagger-api/apidom/commit/ce9881efe00f7d24fb0a49868dce760c69ce583b))
+
+### Reverts
+
+- Revert "chore(release): cut the v1.12.2 release [skip ci]" (#5236) ([d185d8a](https://github.com/swagger-api/apidom/commit/d185d8a28162ce1aa0d8699bdd32de98bc76e29b)), closes [#5236](https://github.com/swagger-api/apidom/issues/5236)
+
 ## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
 
 ### Bug Fixes

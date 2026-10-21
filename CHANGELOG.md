@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.13.0](https://github.com/swagger-api/apidom/compare/v1.12.1...v1.13.0) (2026-10-21)
+
+### Bug Fixes
+
+- **deps:** bump js-yaml to 4.3.2 and smol-toml to 1.8.0 ([#5235](https://github.com/swagger-api/apidom/issues/5235)) ([2a73174](https://github.com/swagger-api/apidom/commit/2a73174014a228b8de2143319809179cce47f853))
+- **deps:** bump nx related packages ([#5252](https://github.com/swagger-api/apidom/issues/5252)) ([0bb5a88](https://github.com/swagger-api/apidom/commit/0bb5a887fe310dc799bca9d270e63e051e0f96f4))
+
+### Features
+
+- **ls:** add support for AsyncAPI 3.1.0 ([#5264](https://github.com/swagger-api/apidom/issues/5264)) ([afb6b17](https://github.com/swagger-api/apidom/commit/afb6b17ed678b8be9cf7d01098d220245e55763e))
+- **ns-asyncapi-3:** add support for AsyncAPI 3.1.0 ([#5261](https://github.com/swagger-api/apidom/issues/5261)) ([8a1a979](https://github.com/swagger-api/apidom/commit/8a1a979fcb540ae5548c593a52df48d308ebb14e))
+- **parser-adapters:** add support for AsyncAPI 3.1.0 ([#5262](https://github.com/swagger-api/apidom/issues/5262)) ([481ab29](https://github.com/swagger-api/apidom/commit/481ab292bba97a31794f11c3995a31b8f9519729))
+- **reference:** add support for AsyncAPI 3.1.0 ([#5263](https://github.com/swagger-api/apidom/issues/5263)) ([ce9881e](https://github.com/swagger-api/apidom/commit/ce9881efe00f7d24fb0a49868dce760c69ce583b))
+
+### Reverts
+
+- Revert "chore(release): cut the v1.12.2 release [skip ci]" (#5236) ([d185d8a](https://github.com/swagger-api/apidom/commit/d185d8a28162ce1aa0d8699bdd32de98bc76e29b)), closes [#5236](https://github.com/swagger-api/apidom/issues/5236)
+- Revert "ci(release): add temporary workflow_dispatch trigger to GPR release w…" (#5232) ([cdc3ff0](https://github.com/swagger-api/apidom/commit/cdc3ff039c8f8ab26532df948b78d165434d86e4)), closes [#5232](https://github.com/swagger-api/apidom/issues/5232)
+
 ## [1.12.1](https://github.com/swagger-api/apidom/compare/v1.12.0...v1.12.1) (2026-09-04)
 
 ### Bug Fixes

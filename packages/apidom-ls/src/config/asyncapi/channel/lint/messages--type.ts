@@ -1,7 +1,21 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
 
 const messagesTypeLint: LinterMeta = {
-  targetSpecs: [{ namespace: 'asyncapi', version: '3.0.0' }],
+  code: ApilintCodes.ASYNCAPI3_CHANNEL_FIELD_MESSAGES_TYPE,
+  source: 'apilint',
+  message: 'Messages Object values must be of Message Object shape',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintChildrenOfElementsOrClasses',
+  linterParams: [['message']],
+  marker: 'key',
+  markerTarget: 'messages',
+  target: 'messages',
+  data: {},
+  targetSpecs: AsyncAPI3,
 };
 
 export default messagesTypeLint;

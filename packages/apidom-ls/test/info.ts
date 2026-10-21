@@ -70,7 +70,7 @@ describe('asyncapi info test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
+          '[[Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject)]\n\\\n\\\nA list of tags for application API documentation control. Tags can be used for logical grouping of applications.',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -104,7 +104,7 @@ describe('asyncapi info test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nAdditional external documentation of the exposed API.',
+          '[External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) &#124; [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nAdditional external documentation of the exposed API.',
       },
       targetSpecs: AsyncAPI3,
     } as any);

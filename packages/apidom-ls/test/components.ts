@@ -90,7 +90,7 @@ describe('asyncapi components test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject).',
+          'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject).',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -124,7 +124,7 @@ describe('asyncapi components test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject).',
+          'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject).',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -158,7 +158,7 @@ describe('asyncapi components test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject).',
+          'Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject).',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -192,7 +192,7 @@ describe('asyncapi components test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject).',
+          'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject).',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -206,7 +206,7 @@ describe('asyncapi components test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject).',
+          'Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject).',
       },
       targetSpecs: AsyncAPI3,
     } as any);

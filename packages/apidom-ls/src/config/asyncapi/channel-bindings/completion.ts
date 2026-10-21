@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { AsyncAPI2, AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI2, AsyncAPI3, AsyncAPI310 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -134,7 +134,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
+        '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -176,7 +176,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
+        '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -238,7 +238,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
+        '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis/README.md#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
     },
     targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
   },
@@ -252,7 +252,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure#channel)\n\\\n\\\nProtocol-specific information for a Mercure channel.',
+        '[Mercure Channel Binding](https://github.com/asyncapi/bindings/blob/master/mercure/README.md#channel)\n\\\n\\\nProtocol-specific information for a Mercure channel.',
     },
     targetSpecs: [
       { namespace: 'asyncapi', version: '2.1.0' },
@@ -314,9 +314,23 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[Pulsar Channel Binding](https://github.com/asyncapi/bindings/tree/master/pulsar#channel-binding-object)\n\\\n\\\n\tProtocol-specific information for a Pulsar channel.',
+        '[Pulsar Channel Binding](https://github.com/asyncapi/bindings/blob/master/pulsar/README.md#channel-binding-object)\n\\\n\\\n\tProtocol-specific information for a Pulsar channel.',
     },
     targetSpecs: [{ namespace: 'asyncapi', version: '2.6.0' }, ...AsyncAPI3],
+  },
+  {
+    label: 'ros2',
+    insertText: 'ros2',
+    kind: 14,
+    format: CompletionFormat.OBJECT,
+    type: CompletionType.PROPERTY,
+    insertTextFormat: 2,
+    documentation: {
+      kind: 'markdown',
+      value:
+        '[ROS 2 Channel Binding](https://github.com/asyncapi/bindings/blob/master/ros2/README.md#channel-binding-object)\n\\\n\\\nProtocol-specific information for a ROS 2 channel.',
+    },
+    targetSpecs: AsyncAPI310,
   },
 ];
 

@@ -11,7 +11,7 @@ import {
   LanguageService,
   LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
-import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
+import { AsyncAPI3, AsyncAPI300, AsyncAPI310 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -19,6 +19,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const specSchemaFormat = fs
   .readFileSync(path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'schema-format.yaml'))
+  .toString();
+
+const specSchemaFormat310 = fs
+  .readFileSync(
+    path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'schema-format-3-1-0.yaml'),
+  )
   .toString();
 
 describe('asyncapi multi-format schema test', function () {
@@ -60,8 +66,11 @@ describe('asyncapi multi-format schema test', function () {
       insertTextFormat: 2,
       filterText: '',
       sortText: '0001',
-      targetSpecs: AsyncAPI3,
+      targetSpecs: AsyncAPI300,
     } as any);
+    assert.isUndefined(
+      result?.items.find((item) => item.label === 'application/vnd.aai.asyncapi;version=3.1.0'),
+    );
 
     const jsonSchemaItem = result?.items.find(
       (item) => item.label === 'application/schema+json;version=draft-07',
@@ -104,6 +113,46 @@ describe('asyncapi multi-format schema test', function () {
       sortText: '0014',
       targetSpecs: AsyncAPI3,
     } as any);
+
+    languageService.terminate();
+  });
+
+  it('complete schema format values (AsyncAPI 3.1.0)', async function () {
+    const languageService: LanguageService = getLanguageService(context);
+    const completionContext: CompletionContext = {
+      maxNumberOfItems: 100,
+    };
+
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/schema-format-3-1-0.yaml',
+      'yaml',
+      0,
+      specSchemaFormat310,
+    );
+
+    const pos = Position.create(4, 20);
+    const result = await languageService.doCompletion(
+      doc,
+      { textDocument: doc, position: pos },
+      completionContext,
+    );
+
+    const asyncapiItem = result?.items.find(
+      (item) => item.label === 'application/vnd.aai.asyncapi;version=3.1.0',
+    );
+    assert.deepEqual(asyncapiItem, {
+      target: 'schemaFormat',
+      label: 'application/vnd.aai.asyncapi;version=3.1.0',
+      insertText: 'application/vnd.aai.asyncapi;version=3.1.0$1',
+      kind: 12,
+      insertTextFormat: 2,
+      filterText: '',
+      sortText: '0001',
+      targetSpecs: AsyncAPI310,
+    } as any);
+    assert.isUndefined(
+      result?.items.find((item) => item.label === 'application/vnd.aai.asyncapi;version=3.0.0'),
+    );
 
     languageService.terminate();
   });

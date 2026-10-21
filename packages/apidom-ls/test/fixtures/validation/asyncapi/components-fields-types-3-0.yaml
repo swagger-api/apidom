@@ -25,3 +25,11 @@ components:
     serverVariable1: test
   servers:
     server1: test
+  replies:
+    reply1: test
+  replyAddresses:
+    replyAddress1: test
+  externalDocs:
+    externalDocs1: test
+  tags:
+    tag1: test

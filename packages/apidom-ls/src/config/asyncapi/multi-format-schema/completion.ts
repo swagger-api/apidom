@@ -3,7 +3,7 @@ import {
   CompletionFormat,
   CompletionType,
 } from '../../../apidom-language-types.ts';
-import { AsyncAPI3 } from '../target-specs.ts';
+import { AsyncAPI3, AsyncAPI300, AsyncAPI310 } from '../target-specs.ts';
 
 const completion: ApidomCompletionItem[] = [
   {
@@ -16,7 +16,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. A string containing the name of the schema format that is used to define the information. If schemaFormat is missing, it MUST default to application/vnd.aai.asyncapi+json;version={{asyncapi}} where {{asyncapi}} matches the [AsyncAPI Version String](https://www.asyncapi.com/docs/reference/specification/v3.0.0#A2SVersionString). In such a case, this would make the Multi Format Schema Object equivalent to the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject). When using [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) within the schema, the schemaFormat of the resource being referenced MUST match the schemaFormat of the schema that contains the initial reference. For example, if you reference Avro schema, then schemaFormat of referencing resource and the resource being reference MUST match.\\\n\\\nCheck out the [supported schema formats table](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaFormatTable) for more information. Custom values are allowed but their implementation is OPTIONAL. A custom value MUST NOT refer to one of the schema formats listed in the [table](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaFormatTable).\\\n\\\nWhen using [Reference Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) within the schema, the schemaFormat of the referenced resource MUST match the schemaFormat of the schema containing the reference.',
+        '**REQUIRED**. A string containing the name of the schema format that is used to define the information. If schemaFormat is missing, it MUST default to application/vnd.aai.asyncapi+json;version={{asyncapi}} where {{asyncapi}} matches the [AsyncAPI Version String](https://www.asyncapi.com/docs/reference/specification/v3.1.0#A2SVersionString). In such a case, this would make the Multi Format Schema Object equivalent to the [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject). When using [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject) within the schema, the schemaFormat of the resource being referenced MUST match the schemaFormat of the schema that contains the initial reference. For example, if you reference Avro schema, then schemaFormat of referencing resource and the resource being reference MUST match.\\\n\\\nCheck out the [supported schema formats table](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaFormatTable) for more information. Custom values are allowed but their implementation is OPTIONAL. A custom value MUST NOT refer to one of the schema formats listed in the [table](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaFormatTable).\\\n\\\nWhen using [Reference Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject) within the schema, the schemaFormat of the referenced resource MUST match the schemaFormat of the schema containing the reference.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -30,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '**REQUIRED**. Definition of the message payload. It can be of any type but defaults to [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject). It MUST match the schema format defined in [schemaFormat](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObjectSchemaFormat), including the encoding type. E.g., Avro should be inlined as either a YAML or JSON object instead of as a string to be parsed as YAML or JSON. Non-JSON-based schemas (e.g., Protobuf or XSD) MUST be inlined as a string.',
+        '**REQUIRED**. Definition of the message payload. It can be of any type but defaults to [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject). It MUST match the schema format defined in [schemaFormat](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaObjectSchemaFormat), including the encoding type. E.g., Avro should be inlined as either a YAML or JSON object instead of as a string to be parsed as YAML or JSON. Non-JSON-based schemas (e.g., Protobuf or XSD) MUST be inlined as a string.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -43,7 +43,18 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0001',
-    targetSpecs: AsyncAPI3,
+    targetSpecs: AsyncAPI300,
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi;version=3.1.0',
+    insertText: 'application/vnd.aai.asyncapi;version=3.1.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    sortText: '0001',
+    targetSpecs: AsyncAPI310,
   },
   {
     target: 'schemaFormat',
@@ -54,7 +65,18 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0002',
-    targetSpecs: AsyncAPI3,
+    targetSpecs: AsyncAPI300,
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+json;version=3.1.0',
+    insertText: 'application/vnd.aai.asyncapi+json;version=3.1.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    sortText: '0002',
+    targetSpecs: AsyncAPI310,
   },
   {
     target: 'schemaFormat',
@@ -65,7 +87,18 @@ const completion: ApidomCompletionItem[] = [
     type: CompletionType.VALUE,
     insertTextFormat: 2,
     sortText: '0003',
-    targetSpecs: AsyncAPI3,
+    targetSpecs: AsyncAPI300,
+  },
+  {
+    target: 'schemaFormat',
+    label: 'application/vnd.aai.asyncapi+yaml;version=3.1.0',
+    insertText: 'application/vnd.aai.asyncapi+yaml;version=3.1.0',
+    kind: 12,
+    format: CompletionFormat.QUOTED,
+    type: CompletionType.VALUE,
+    insertTextFormat: 2,
+    sortText: '0003',
+    targetSpecs: AsyncAPI310,
   },
   {
     target: 'schemaFormat',

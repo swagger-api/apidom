@@ -3,6 +3,7 @@ import allowedFields2_2Lint from './allowed-fields-2-2.ts';
 import allowedFields2_3__2_4Lint from './allowed-fields-2-3--2-4.ts';
 import allowedFields2_5Lint from './allowed-fields-2-5.ts';
 import allowedFields2_6__3_0Lint from './allowed-fields-2-6--3-0.ts';
+import allowedFields3_1Lint from './allowed-fields-3-1.ts';
 import $refValidLint from './$ref--valid.ts';
 import httpTypeLint from './http--type.ts';
 import amqpTypeLint from './amqp--type.ts';
@@ -23,6 +24,7 @@ import wsTypeLint from './ws--type.ts';
 import imbmqTypeLint from './ibmmq--type.ts';
 import googlepubsubTypeLint from './googlepubsub--type.ts';
 import pulsarTypeLint from './pulsar--type.ts';
+import ros2TypeLint from './ros2--type.ts';
 
 const lints = [
   allowedFields2_0__2_1Lint,
@@ -30,6 +32,7 @@ const lints = [
   allowedFields2_3__2_4Lint,
   allowedFields2_5Lint,
   allowedFields2_6__3_0Lint,
+  allowedFields3_1Lint,
   $refValidLint,
   httpTypeLint,
   amqpTypeLint,
@@ -50,6 +53,7 @@ const lints = [
   imbmqTypeLint,
   googlepubsubTypeLint,
   pulsarTypeLint,
+  ros2TypeLint,
 ];
 
 export default lints;

@@ -8,7 +8,7 @@ const documentation = [
   },
   {
     target: 'schemas',
-    docs: 'Map[`string`, [Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable Schema Object. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.    ',
+    docs: 'Map[`string`, [Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaObject) | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable Schema Object. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.    ',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -18,7 +18,7 @@ const documentation = [
   },
   {
     target: 'servers',
-    docs: 'Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable[Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject).',
+    docs: 'Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable[Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -28,7 +28,7 @@ const documentation = [
   },
   {
     target: 'serverVariables',
-    docs: 'Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject).',
+    docs: 'Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -38,7 +38,7 @@ const documentation = [
   },
   {
     target: 'channels',
-    docs: 'Map[`string`, [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Channel Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject).',
+    docs: 'Map[`string`, [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Channel Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -48,7 +48,7 @@ const documentation = [
   },
   {
     target: 'messages',
-    docs: 'Map[`string`, [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject).',
+    docs: 'Map[`string`, [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -58,7 +58,7 @@ const documentation = [
   },
   {
     target: 'securitySchemes',
-    docs: 'Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Security Scheme Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject).',
+    docs: 'Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#securitySchemeObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Security Scheme Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#securitySchemeObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -68,7 +68,7 @@ const documentation = [
   },
   {
     target: 'parameters',
-    docs: 'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject) or [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject).',
+    docs: 'Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#parameterObject) or [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#parameterObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -78,7 +78,7 @@ const documentation = [
   },
   {
     target: 'correlationIds',
-    docs: 'Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject).',
+    docs: 'Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#correlationIdObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#correlationIdObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -88,7 +88,7 @@ const documentation = [
   },
   {
     target: 'operationTraits',
-    docs: 'Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationTraitObject).',
+    docs: 'Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationTraitObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -98,7 +98,7 @@ const documentation = [
   },
   {
     target: 'messageTraits',
-    docs: 'Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageTraitObject).',
+    docs: 'Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -108,7 +108,7 @@ const documentation = [
   },
   {
     target: 'serverBindings',
-    docs: 'Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject).',
+    docs: 'Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverBindingsObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -118,7 +118,7 @@ const documentation = [
   },
   {
     target: 'channelBindings',
-    docs: 'Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nDefines a collection of reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject).',
+    docs: 'Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nDefines a collection of reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelBindingsObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -128,7 +128,7 @@ const documentation = [
   },
   {
     target: 'operationBindings',
-    docs: 'Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationBindingsObject).',
+    docs: 'Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationBindingsObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -138,27 +138,32 @@ const documentation = [
   },
   {
     target: 'messageBindings',
-    docs: 'Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject).',
+    docs: 'Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageBindingsObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageBindingsObject).',
     targetSpecs: AsyncAPI3,
   },
   {
     target: 'operations',
-    docs: 'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject).',
+    docs: 'Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject).',
     targetSpecs: AsyncAPI3,
   },
   {
     target: 'replies',
-    docs: 'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject).',
+    docs: 'Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject).',
     targetSpecs: AsyncAPI3,
   },
   {
     target: 'replyAddresses',
-    docs: 'Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject).',
+    docs: 'Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject).',
     targetSpecs: AsyncAPI3,
   },
   {
     target: 'tags',
-    docs: 'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject).',
+    docs: 'Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject).',
+    targetSpecs: AsyncAPI3,
+  },
+  {
+    target: 'externalDocs',
+    docs: 'Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) | [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)]\n\\\n\\\nAn object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject).',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -166,7 +171,7 @@ const documentation = [
     targetSpecs: AsyncAPI2,
   },
   {
-    docs: '#### [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#componentsObject)\n\nHolds a set of reusable objects for different aspects of the AsyncAPI specification. All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---|---\nschemas | Map[`string`, [Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#multiFormatSchemaObject) \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable Schema Object. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.\nservers | Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverObject).\nchannels | Map[`string`, [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Channel Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelObject).\noperations | Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationObject).\nmessages | Map[`string`, [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Message Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject).\nsecuritySchemes | Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Security Scheme Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#securitySchemeObject).\nserverVariables | Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject).\nparameters | Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#parameterObject).\ncorrelationIds | Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#correlationIdObject).\nreplies | Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyObject).\nreplyAddresses | Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationReplyAddressObject).\nexternalDocs | Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#externalDocumentationObject).\ntags | Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#tagObject).\noperationTraits | Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationTraitObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationTraitObject).\nmessageTraits | Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageTraitObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageTraitObject).\nserverBindings | Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverBindingsObject).\nchannelBindings | Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject).\noperationBindings | Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#operationBindingsObject).\nmessageBindings | Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)] | An object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageBindingsObject).\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#specificationExtensions).\n\\\n\\\nAll the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\\.\\-_]+$`.\n\\\n\\\nField Name Examples:\n\n```\nUser\nUser_1\nUser_Name\nuser-name\nmy.org.User\n\n\n```',
+    docs: '#### [Components Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#componentsObject)\n\nHolds a set of reusable objects for different aspects of the AsyncAPI specification. All objects defined within the components object will have no effect on the API unless they are explicitly referenced from properties outside the components object.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---|---\nschemas | Map[`string`, [Multi Format Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#multiFormatSchemaObject) \\| [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable Schema Object. If this is a Schema Object, then the schemaFormat will be assumed to be "application/vnd.aai.asyncapi+json;version=asyncapi" where the version is equal to the AsyncAPI Version String.\nservers | Map[`string`, [Server Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Server Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverObject).\nchannels | Map[`string`, [Channel Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Channel Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelObject).\noperations | Map[`string`, [Operation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Operation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationObject).\nmessages | Map[`string`, [Message Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Message Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject).\nsecuritySchemes | Map[`string`, [Security Scheme Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#securitySchemeObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Security Scheme Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#securitySchemeObject).\nserverVariables | Map[`string`, [Server Variable Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Server Variable Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject).\nparameters | Map[`string`, [Parameter Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#parameterObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Parameter Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#parameterObject).\ncorrelationIds | Map[`string`, [Correlation ID Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#correlationIdObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Correlation ID Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#correlationIdObject).\nreplies | Map[`string`, [Operation Reply Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Operation Reply Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyObject).\nreplyAddresses | Map[`string`, [Operation Reply Address Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Operation Reply Address Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationReplyAddressObject).\nexternalDocs | Map[`string`, [External Documentation Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [External Documentation Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#externalDocumentationObject).\ntags | Map[`string`, [Tag Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Tag Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#tagObject).\noperationTraits | Map[`string`, [Operation Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationTraitObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Operation Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationTraitObject).\nmessageTraits | Map[`string`, [Message Trait Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Message Trait Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageTraitObject).\nserverBindings | Map[`string`, [Server Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Server Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverBindingsObject).\nchannelBindings | Map[`string`, [Channel Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Channel Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelBindingsObject).\noperationBindings | Map[`string`, [Operation Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Operation Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#operationBindingsObject).\nmessageBindings | Map[`string`, [Message Bindings Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageBindingsObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)] | An object to hold reusable [Message Bindings Objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageBindingsObject).\n\nThis object MAY be extended with [Specification Extensions](https://www.asyncapi.com/docs/reference/specification/v3.1.0#specificationExtensions).\n\\\n\\\nAll the fixed fields declared above are objects that MUST use keys that match the regular expression: `^[a-zA-Z0-9\\.\\-_]+$`.\n\\\n\\\nField Name Examples:\n\n```\nUser\nUser_1\nUser_Name\nuser-name\nmy.org.User\n\n\n```',
     targetSpecs: AsyncAPI3,
   },
 ];

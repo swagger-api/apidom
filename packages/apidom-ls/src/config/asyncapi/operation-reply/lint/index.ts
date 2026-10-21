@@ -1,4 +1,4 @@
-import allowedFields3_0Lint from './allowed-fields-3-0.ts';
+import allowedFields3_0__3_1Lint from './allowed-fields-3-0--3-1.ts';
 import addressTypeLint from './address--type.ts';
 import channelTypeLint from './channel--type.ts';
 import messagesTypeLint from './messages--type.ts';
@@ -8,7 +8,7 @@ const lints = [
   addressTypeLint,
   channelTypeLint,
   messagesTypeLint,
-  allowedFields3_0Lint,
+  allowedFields3_0__3_1Lint,
   $refValidLint,
 ];
 

@@ -6366,6 +6366,17 @@ describe('apidom-ls-validate', function () {
       },
       {
         range: {
+          start: { line: 13, character: 4 },
+          end: { line: 13, character: 11 },
+        },
+        message: "'servers' must be an array",
+        severity: 1,
+        code: 2021100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
           start: { line: 5, character: 2 },
           end: { line: 5, character: 10 },
         },
@@ -6386,8 +6397,173 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
         data: {},
       },
+      {
+        range: {
+          start: { line: 9, character: 13 },
+          end: { line: 9, character: 16 },
+        },
+        message: "'address' must be a string or null",
+        severity: 1,
+        code: 2020700,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 10, character: 4 },
+          end: { line: 10, character: 12 },
+        },
+        message: 'Messages Object values must be of Message Object shape',
+        severity: 1,
+        code: 2020800,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 11, character: 11 },
+          end: { line: 11, character: 14 },
+        },
+        message: "'title' must be a string",
+        severity: 1,
+        code: 2020900,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 13 },
+          end: { line: 12, character: 16 },
+        },
+        message: "'summary' must be a string",
+        severity: 1,
+        code: 2021000,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 4 },
+          end: { line: 14, character: 8 },
+        },
+        message: 'tags must be an array of Tags',
+        severity: 1,
+        code: 2021200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 18 },
+          end: { line: 15, character: 21 },
+        },
+        message: 'externalDocs must be an object',
+        severity: 1,
+        code: 2021300,
+        source: 'apilint',
+        data: {},
+      },
     ];
     assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - Operation Trait Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'operation-trait-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/operation-trait-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 13, character: 4 },
+          end: { line: 13, character: 16 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.0 - OAuth Flow Object allowed fields', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(
+          __dirname,
+          'fixtures',
+          'validation',
+          'asyncapi',
+          'oauth-flow-allowed-fields-3-0.yaml',
+        ),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/oauth-flow-allowed-fields-3-0.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 15, character: 8 },
+          end: { line: 15, character: 16 },
+        },
+        message: 'Object includes not allowed fields',
+        severity: 1,
+        code: 15000,
+        source: 'apilint',
+      },
+    ];
+    assert.deepEqual(result, expected);
+
+    languageService.terminate();
+  });
+
+  it('asyncapi 3.1 - valid field types should not report apilint errors', async function () {
+    const spec = fs
+      .readFileSync(
+        path.join(__dirname, 'fixtures', 'validation', 'asyncapi', 'fields-types-valid-3-1.yaml'),
+      )
+      .toString();
+    const doc: TextDocument = TextDocument.create(
+      'foo://bar/fields-types-valid-3-1.yaml',
+      'yaml',
+      0,
+      spec,
+    );
+
+    const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+    const result = await languageService.doValidation(doc);
+    assert.deepEqual(result, []);
 
     languageService.terminate();
   });
@@ -6800,6 +6976,50 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc);
     const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 31, character: 2 },
+          end: { line: 31, character: 14 },
+        },
+        message: '"externalDocs" members must be External Documentation Object',
+        severity: 1,
+        code: 2110500,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 27, character: 2 },
+          end: { line: 27, character: 9 },
+        },
+        message: '"replies" members must be Operation Reply Object',
+        severity: 1,
+        code: 2110300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 29, character: 2 },
+          end: { line: 29, character: 16 },
+        },
+        message: '"replyAddresses" members must be Operation Reply Address Object',
+        severity: 1,
+        code: 2110400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 33, character: 2 },
+          end: { line: 33, character: 6 },
+        },
+        message: '"tags" members must be Tag Object',
+        severity: 1,
+        code: 2110600,
+        source: 'apilint',
+        data: {},
+      },
       {
         range: {
           start: { line: 25, character: 2 },
@@ -7728,6 +7948,17 @@ describe('apidom-ls-validate', function () {
         message: 'license must be an object',
         severity: 1,
         code: 70600,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 8, character: 2 },
+          end: { line: 8, character: 6 },
+        },
+        message: 'tags must be an array of Tags',
+        severity: 1,
+        code: 2100100,
         source: 'apilint',
         data: {},
       },
@@ -9016,6 +9247,17 @@ describe('apidom-ls-validate', function () {
         source: 'apilint',
         data: {},
       },
+      {
+        range: {
+          start: { line: 13, character: 27 },
+          end: { line: 13, character: 30 },
+        },
+        message: "'availableScopes' must be an object",
+        severity: 1,
+        code: 2280100,
+        source: 'apilint',
+        data: {},
+      },
     ];
     assert.deepEqual(result, expected);
 
@@ -9234,6 +9476,17 @@ describe('apidom-ls-validate', function () {
         message: "summary' value must be a string",
         severity: 1,
         code: 140200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 12, character: 13 },
+          end: { line: 12, character: 16 },
+        },
+        message: "'title' must be a string",
+        severity: 1,
+        code: 2170200,
         source: 'apilint',
         data: {},
       },
@@ -10209,6 +10462,17 @@ describe('apidom-ls-validate', function () {
         code: 270305,
         source: 'apilint',
       },
+      {
+        range: {
+          start: { line: 22, character: 6 },
+          end: { line: 22, character: 12 },
+        },
+        message: "'scopes' must be an array of strings",
+        severity: 1,
+        code: 2270100,
+        source: 'apilint',
+        data: {},
+      },
     ];
     assert.deepEqual(result, expected);
 
@@ -10457,6 +10721,50 @@ describe('apidom-ls-validate', function () {
     const expected: Diagnostic[] = [
       {
         range: {
+          start: { line: 12, character: 10 },
+          end: { line: 12, character: 13 },
+        },
+        message: "'host' must be a string",
+        severity: 1,
+        code: 2090100,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 13, character: 14 },
+          end: { line: 13, character: 17 },
+        },
+        message: "'pathname' must be a string",
+        severity: 1,
+        code: 2090200,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 15, character: 13 },
+          end: { line: 15, character: 16 },
+        },
+        message: "'summary' must be a string",
+        severity: 1,
+        code: 2090400,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
+          start: { line: 14, character: 11 },
+          end: { line: 14, character: 14 },
+        },
+        message: "'title' must be a string",
+        severity: 1,
+        code: 2090300,
+        source: 'apilint',
+        data: {},
+      },
+      {
+        range: {
           start: { line: 6, character: 14 },
           end: { line: 6, character: 17 },
         },
@@ -10562,6 +10870,26 @@ describe('apidom-ls-validate', function () {
 
     const result = await languageService.doValidation(doc);
     const expected: Diagnostic[] = [
+      {
+        range: {
+          start: { line: 5, character: 2 },
+          end: { line: 5, character: 9 },
+        },
+        message: "should always have a 'host'",
+        severity: 1,
+        code: 2090101,
+        source: 'apilint',
+        data: {
+          quickFix: [
+            {
+              message: "add 'host'",
+              action: 'addChild',
+              snippetYaml: 'host: \n    ',
+              snippetJson: '"host": "",\n      ',
+            },
+          ],
+        },
+      },
       {
         range: {
           start: { line: 5, character: 2 },

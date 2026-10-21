@@ -1,0 +1,51 @@
+asyncapi: 3.1.0
+info:
+  title: Sample AsyncAPI
+  version: '1.0.0'
+channels:
+  cmdVel:
+    address: /turtle1/cmd_vel
+operations:
+  sendCmdVel:
+    action: send
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: subscriber
+        bindingVersion: '0.1.0'
+  receiveCmdVel:
+    action: receive
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: publisher
+  sendSetPen:
+    action: send
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: service_client
+        bindingVersion: '0.1.0'
+  receiveRotateAbsolute:
+    action: receive
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: action_server
+  sendUnknownRole:
+    action: send
+    channel:
+      $ref: '#/channels/cmdVel'
+    bindings:
+      ros2:
+        role: talker
+components:
+  operationBindings:
+    bindings1:
+      ros2:
+        role: subscriber
+        bindingVersion: '0.1.0'

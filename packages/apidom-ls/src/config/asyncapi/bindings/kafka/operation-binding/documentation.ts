@@ -8,7 +8,7 @@ const documentation = [
   },
   {
     target: 'groupId',
-    docs: '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nId of the consumer group.',
+    docs: '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nId of the consumer group.',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -18,7 +18,7 @@ const documentation = [
   },
   {
     target: 'clientId',
-    docs: '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject)\n\\\n\\\nId of the consumer inside a consumer group.',
+    docs: '[Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject)\n\\\n\\\nId of the consumer inside a consumer group.',
     targetSpecs: AsyncAPI3,
   },
   {
@@ -30,7 +30,7 @@ const documentation = [
     targetSpecs: AsyncAPI2,
   },
   {
-    docs: "#### [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#operation-binding-object)\n\nThis object contains information about the operation representation in Kafka.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`groupId` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) | Id of the consumer group.\n`clientId` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#referenceObject) | Id of the consumer inside a consumer group.\n`bindingVersion` | string | The version of this binding. If omitted, \"latest\" MUST be assumed.\n\nThis object MUST contain only the properties defined above.\n\n##### Example\n\n\n\\\nYAML\n```yaml\nchannels:\n  user-signedup:\noperations:\n  userSignup:\n    action: receive\n    bindings:\n      kafka:\n        groupId:\n          type: string\n          enum: ['myGroupId']\n        clientId:\n          type: string\n          enum: ['myClientId']\n        bindingVersion: '0.5.0'\n```",
+    docs: "#### [Operation Binding Object](https://github.com/asyncapi/bindings/blob/master/kafka/README.md#operation-binding-object)\n\nThis object contains information about the operation representation in Kafka.\n\n##### Fixed Fields\n\nField Name | Type | Description\n---|:---:|---\n`groupId` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject) | Id of the consumer group.\n`clientId` | [Schema Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#schemaObject) \\| [Reference Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#referenceObject) | Id of the consumer inside a consumer group.\n`bindingVersion` | string | The version of this binding. If omitted, \"latest\" MUST be assumed.\n\nThis object MUST contain only the properties defined above.\n\n##### Example\n\n\n\\\nYAML\n```yaml\nchannels:\n  user-signedup:\noperations:\n  userSignup:\n    action: receive\n    bindings:\n      kafka:\n        groupId:\n          type: string\n          enum: ['myGroupId']\n        clientId:\n          type: string\n          enum: ['myClientId']\n        bindingVersion: '0.5.0'\n```",
     targetSpecs: AsyncAPI3,
   },
 ];

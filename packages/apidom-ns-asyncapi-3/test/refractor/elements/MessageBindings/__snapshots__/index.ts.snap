@@ -58,5 +58,8 @@ exports[`refractor elements MessageBindingsElement should refract to semantic Ap
     (GooglepubsubMessageBindingElement))
   (MemberElement
     (StringElement)
-    (PulsarMessageBindingElement)))
+    (PulsarMessageBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2MessageBindingElement)))
 `;

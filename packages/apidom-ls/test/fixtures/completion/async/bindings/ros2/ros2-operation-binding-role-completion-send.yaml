@@ -1,0 +1,10 @@
+asyncapi: 3.1.0
+info:
+  title: Test
+  version: 1.0.0
+operations:
+  op:
+    action: send
+    bindings:
+      ros2:
+        role: 

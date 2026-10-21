@@ -34,7 +34,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "Map[string, any]\\\n\\\nThe value of this field MUST validate against the [Message Object's headers](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObjectHeaders) field.",
+        "Map[string, any]\\\n\\\nThe value of this field MUST validate against the [Message Object's headers](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObjectHeaders) field.",
     },
     targetSpecs: AsyncAPI3,
   },
@@ -62,7 +62,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        "The value of this field MUST validate against the [Message Object's payload](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObjectPayload) field.",
+        "The value of this field MUST validate against the [Message Object's payload](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObjectPayload) field.",
     },
     targetSpecs: AsyncAPI3,
   },

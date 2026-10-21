@@ -1,8 +1,21 @@
+import { DiagnosticSeverity } from 'vscode-languageserver-types';
+
+import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
+import { AsyncAPI3 } from '../../target-specs.ts';
 
 const tagsTypeLint: LinterMeta = {
-  // add remaining lint docs here
-  targetSpecs: [{ namespace: 'asyncapi', version: '3.0.0' }],
+  code: ApilintCodes.ASYNCAPI3_INFO_FIELD_TAGS_TYPE,
+  source: 'apilint',
+  message: 'tags must be an array of Tags',
+  severity: DiagnosticSeverity.Error,
+  linterFunction: 'apilintElementOrClass',
+  linterParams: [['tags']],
+  marker: 'key',
+  markerTarget: 'tags',
+  target: 'tags',
+  data: {},
+  targetSpecs: AsyncAPI3,
 };
 
 export default tagsTypeLint;

@@ -227,7 +227,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
+                '[MQTT 5 Channel Binding](https://github.com/asyncapi/bindings/blob/master/mqtt5/README.md#channel)\n\\\n\\\nProtocol-specific information for an MQTT 5 channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
@@ -263,7 +263,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
+                '[SNS Channel Binding](https://github.com/asyncapi/bindings/blob/master/sns/3.0.0/README.md#channel)\n\\\n\\\nProtocol-specific information for an SNS channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
@@ -299,7 +299,7 @@ describe('asyncapi channel test', function () {
             documentation: {
               kind: 'markdown',
               value:
-                '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
+                '[Redis Channel Binding](https://github.com/asyncapi/bindings/blob/master/redis/README.md#channel)\n\\\n\\\nProtocol-specific information for a Redis channel.',
             },
             targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
           },
@@ -521,7 +521,7 @@ describe('asyncapi channel test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelAddressExpressions). Query parameters and fragments SHALL NOT be used, instead use [bindings](https://www.asyncapi.com/docs/reference/specification/v3.0.0#channelBindingsObject) to define them.',
+          'An optional string representation of this channel\'s address. The address is typically the "topic name", "routing key", "event type", or "path". When `null` or absent, it MUST be interpreted as unknown. This is useful when the address is generated dynamically at runtime or can\'t be known upfront. It MAY contain [Channel Address Expressions](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelAddressExpressions). Query parameters and fragments SHALL NOT be used, instead use [bindings](https://www.asyncapi.com/docs/reference/specification/v3.1.0#channelBindingsObject) to define them.',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -555,7 +555,7 @@ describe('asyncapi channel test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.0.0#messageObject) defined in this map.**',
+          '[Messages Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messagesObject)\n\\\n\\\nA map of the messages that will be sent to this channel by any application at any time. **Every message sent to this channel MUST be valid against one, and only one, of the [message objects](https://www.asyncapi.com/docs/reference/specification/v3.1.0#messageObject) defined in this map.**',
       },
       targetSpecs: AsyncAPI3,
     } as any);

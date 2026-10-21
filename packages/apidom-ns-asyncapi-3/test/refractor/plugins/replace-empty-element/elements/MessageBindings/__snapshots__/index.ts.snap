@@ -52,5 +52,8 @@ exports[`should refract to semantic ApiDOM tree 1`] = `
     (MercureMessageBindingElement))
   (MemberElement
     (StringElement)
-    (IbmmqMessageBindingElement)))
+    (IbmmqMessageBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2MessageBindingElement)))
 `;

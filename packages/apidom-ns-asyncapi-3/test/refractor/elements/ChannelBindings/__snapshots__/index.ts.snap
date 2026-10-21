@@ -58,5 +58,8 @@ exports[`refractor elements ChannelBindingsElement should refract to semantic Ap
     (GooglepubsubChannelBindingElement))
   (MemberElement
     (StringElement)
-    (PulsarChannelBindingElement)))
+    (PulsarChannelBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2ChannelBindingElement)))
 `;

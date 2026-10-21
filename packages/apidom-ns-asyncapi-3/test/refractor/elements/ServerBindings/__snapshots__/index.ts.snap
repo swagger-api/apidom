@@ -58,5 +58,8 @@ exports[`refractor elements ServerBindingsElement should refract to semantic Api
     (GooglepubsubServerBindingElement))
   (MemberElement
     (StringElement)
-    (PulsarServerBindingElement)))
+    (PulsarServerBindingElement))
+  (MemberElement
+    (StringElement)
+    (Ros2ServerBindingElement)))
 `;

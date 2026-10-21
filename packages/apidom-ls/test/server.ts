@@ -70,7 +70,7 @@ describe('asyncapi server test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+          '**REQUIRED**. The server host name. It MAY include the port. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
       },
       targetSpecs: AsyncAPI3,
     } as any);
@@ -104,7 +104,7 @@ describe('asyncapi server test', function () {
       documentation: {
         kind: 'markdown',
         value:
-          'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.0.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
+          'The path to a resource in the host. This field supports [Server Variables](https://www.asyncapi.com/docs/reference/specification/v3.1.0#serverVariableObject). Variable substitutions will be made when a variable is named in `{`braces`}`.',
       },
       targetSpecs: AsyncAPI3,
     } as any);

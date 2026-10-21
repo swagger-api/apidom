@@ -18,3 +18,6 @@ components:
       type: httpApiKey
       name: 123
       in: 123
+    securityScheme4:
+      type: userPassword
+      scopes: 123

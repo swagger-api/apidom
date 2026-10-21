@@ -5,7 +5,7 @@ import { ObjectElement } from '@swagger-api/apidom-core';
 import { AsyncApi3Element } from '../../src/index.ts';
 
 const genericObjectElement = new ObjectElement({
-  asyncapi: '3.0.0',
+  asyncapi: '3.1.0',
   info: {
     title: 'Webhook Example',
     version: '1.0.0',

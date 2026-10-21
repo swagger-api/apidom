@@ -143,6 +143,11 @@ import RedisChannelBindingVisitor from './visitors/async-api-3/bindings/redis/ch
 import RedisMessageBindingVisitor from './visitors/async-api-3/bindings/redis/message-binding/index.ts';
 import RedisOperationBindingVisitor from './visitors/async-api-3/bindings/redis/operation-binding/index.ts';
 import RedisServerBindingVisitor from './visitors/async-api-3/bindings/redis/server-binding/index.ts';
+// ROS 2
+import Ros2ChannelBindingVisitor from './visitors/async-api-3/bindings/ros2/channel-binding/index.ts';
+import Ros2MessageBindingVisitor from './visitors/async-api-3/bindings/ros2/message-binding/index.ts';
+import Ros2OperationBindingVisitor from './visitors/async-api-3/bindings/ros2/operation-binding/index.ts';
+import Ros2ServerBindingVisitor from './visitors/async-api-3/bindings/ros2/server-binding/index.ts';
 // SNS
 import SnsChannelBindingVisitor from './visitors/async-api-3/bindings/sns/channel-binding/index.ts';
 import SnsMessageBindingVisitor from './visitors/async-api-3/bindings/sns/message-binding/index.ts';
@@ -202,7 +207,7 @@ const specification = {
     document: {
       objects: {
         /**
-         * `AsyncApi 3.0.0` specification elements.
+         * `AsyncApi >= 3.0.0 <=3.1.0` specification elements.
          */
         AsyncApi: {
           $visitor: AsyncApi3Visitor,
@@ -457,6 +462,9 @@ const specification = {
             pulsar: {
               $ref: '#/visitors/document/objects/bindings/pulsar/ServerBinding',
             },
+            ros2: {
+              $ref: '#/visitors/document/objects/bindings/ros2/ServerBinding',
+            },
           },
         },
         ChannelBindings: {
@@ -518,6 +526,9 @@ const specification = {
             },
             pulsar: {
               $ref: '#/visitors/document/objects/bindings/pulsar/ChannelBinding',
+            },
+            ros2: {
+              $ref: '#/visitors/document/objects/bindings/ros2/ChannelBinding',
             },
           },
         },
@@ -581,6 +592,9 @@ const specification = {
             pulsar: {
               $ref: '#/visitors/document/objects/bindings/pulsar/OperationBinding',
             },
+            ros2: {
+              $ref: '#/visitors/document/objects/bindings/ros2/OperationBinding',
+            },
           },
         },
         MessageBindings: {
@@ -642,6 +656,9 @@ const specification = {
             },
             pulsar: {
               $ref: '#/visitors/document/objects/bindings/pulsar/MessageBinding',
+            },
+            ros2: {
+              $ref: '#/visitors/document/objects/bindings/ros2/MessageBinding',
             },
           },
         },
@@ -1569,6 +1586,45 @@ const specification = {
             },
             OperationBinding: {
               $visitor: IbmmqOperationBindingVisitor,
+            },
+          },
+          ros2: {
+            ServerBinding: {
+              $visitor: Ros2ServerBindingVisitor,
+              fixedFields: {
+                rmwImplementation: {
+                  $ref: '#/visitors/value',
+                },
+                domainId: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            ChannelBinding: {
+              $visitor: Ros2ChannelBindingVisitor,
+            },
+            OperationBinding: {
+              $visitor: Ros2OperationBindingVisitor,
+              fixedFields: {
+                role: {
+                  $ref: '#/visitors/value',
+                },
+                node: {
+                  $ref: '#/visitors/value',
+                },
+                qosPolicies: {
+                  $ref: '#/visitors/value',
+                },
+                bindingVersion: {
+                  $ref: '#/visitors/value',
+                },
+              },
+            },
+            MessageBinding: {
+              $visitor: Ros2MessageBindingVisitor,
             },
           },
         },

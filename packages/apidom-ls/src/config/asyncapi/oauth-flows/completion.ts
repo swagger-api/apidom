@@ -30,7 +30,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Implicit flow.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -58,7 +58,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Protected Credentials flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Resource Owner Protected Credentials flow.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -86,7 +86,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Client Credentials flow.',
     },
     targetSpecs: AsyncAPI3,
   },
@@ -114,7 +114,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.0.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow.',
+        '[OAuth Flow Object](https://www.asyncapi.com/docs/reference/specification/v3.1.0#oauthFlowObject)\n\\\n\\\nConfiguration for the OAuth Authorization Code flow.',
     },
     targetSpecs: AsyncAPI3,
   },

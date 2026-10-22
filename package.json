@@ -9,7 +9,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "=24.21",
+    "node": "=24.22",
     "npm": ">=11.16.0"
   },
   "comments": {

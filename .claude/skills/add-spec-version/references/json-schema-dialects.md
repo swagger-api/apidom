@@ -122,6 +122,12 @@ for a standalone document of the dialect in JSON and in YAML:
 
 - `doValidation` reports an invalid keyword value (full `Diagnostic` objects) and nothing for a
   valid document;
+- with `referenceValidationMode: ReferenceValidationMode.APIDOM_INDIRECT_EXTERNAL`, `doValidation`
+  reports an unresolvable internal `$ref` (e.g. to a missing `$defs` key) and an unresolvable
+  external one as `Reference Error` diagnostics, and none for resolvable ones. Shape it like
+  `test/validate-references.ts`, which serves the external files over HTTP from
+  `test/fixtures/deref`. Reference validation is what the design doc wants apidom-reference
+  support for;
 - `doCompletion` offers keywords inside a schema, nested schemas included;
 - `doHover` returns a keyword's documentation;
 - `computeSemanticTokens` returns tokens for keywords;

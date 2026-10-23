@@ -87,7 +87,11 @@ In addition to `integration-points.md` (new variant):
       `/add-reference-support` `references/reference-strategies.md` 3.8: the schema part of the
       OAS 3.1 strategy (references resolve against `$id` base URIs and `$anchor`s), a recorded
       `$dynamicRef` decision, and compound-document bundling assembled from the resolve
-      strategy's `ReferenceSet` (the OAS bundle strategies don't embed anything).
+      strategy's `ReferenceSet` (the OAS bundle strategies don't embed anything). Register the
+      dereference strategy in `saturated.ts` and let its `canDereference` accept a parsed
+      element without a media type (`isJSONSchemaElement`): apidom-ls's `doDeref`, behind
+      SwaggerEditor's Download Resolved, calls `dereferenceApiDOM` from the package root, which
+      exports the saturated configuration.
 - [ ] Tests: a standalone document with an internal (`#/$defs/...`), an `$anchor` and an external
       file reference dereferences and bundles.
 
@@ -121,6 +125,9 @@ for a standalone document of the dialect in JSON and in YAML:
 - `doCompletion` offers keywords inside a schema, nested schemas included;
 - `doHover` returns a keyword's documentation;
 - `computeSemanticTokens` returns tokens for keywords;
+- `doDeref` returns the dereferenced document in JSON and in YAML (shaped like "should dereference
+  into JSON" in `test/openapi-json.ts`): SwaggerEditor's Download Resolved calls it, for OpenAPI
+  and for JSON Schema alike;
 
 and a phase 3 test dereferences such a document. Swagger UI and SwaggerEditor take the ApiDOM
 release as given, so a gap that this check misses only shows up when they integrate it.

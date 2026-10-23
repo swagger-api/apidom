@@ -414,7 +414,7 @@ Put these to the user and record the answers in the tracking doc:
 
 Tests: every `$ref` of the bundled document resolves inside it, every embedded resource has an `$id`, and every `$ref` and `$dynamicRef` string is unchanged. Dereference the bundled document with the external files absent (bundle into a directory without them) and compare each dereferenced target with the original's, apart from the added `$id`s. `resolve.external: false` doesn't prove this: the copied visitor finds an embedded `$id` in the current document, but counts a reference whose absolute URI differs from the document's as external and skips it.
 
-If a release ships without bundling, keep the 3.5 no-op and record the gap in the tracking doc.
+If a release ships without bundling, keep the 3.5 no-op and record the gap in the tracking doc. SwaggerEditor's download doesn't depend on it: Download Resolved dereferences through apidom-ls `doDeref` (`dereferenceApiDOM`), for OpenAPI too, and the editor calls `bundle()` for no spec. So the dereference strategy comes first; bundling serves `bundle()` callers.
 
 **Resolve** (3.1): copy from `openapi-3-1`, with the dialect's `mediaTypes` and root predicate.
 

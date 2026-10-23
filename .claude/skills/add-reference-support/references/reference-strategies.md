@@ -21,6 +21,7 @@ Template variables (in addition to those in `reference-parsers.md`):
 - 3.5 Create Bundle Strategy
 - 3.6 Register Strategies and Add `exports` Subpaths (`saturated.ts`, `package.json` `exports`)
 - 3.7 Create Tests for Reference Strategies
+- 3.8 JSON Schema Dialects (schema as the document root, `$dynamicRef`, compound documents)
 - When strategies are needed (end of file)
 
 ## 3.1 Create Resolve Strategy
@@ -219,7 +220,7 @@ Copy from the parent version and only change the namespace import (`@swagger-api
 
 ## 3.5 Create Bundle Strategy
 
-Create `packages/apidom-reference/src/bundle/strategies/{spec}-{version}/index.ts`:
+Create `packages/apidom-reference/src/bundle/strategies/{spec}-{version}/index.ts`. Like the `openapi-3-1` and `openapi-3-2` strategies it is modelled on, this template returns the parse result unchanged: it makes the version bundleable without embedding anything. For a spec whose plan needs real bundling (JSON Schema compound documents), see 3.8.
 
 ```typescript
 import { ParseResultElement } from '@swagger-api/apidom-core';
@@ -378,4 +379,27 @@ describe('dereference', function () {
 });
 ```
 
-**When strategies are needed**: without them, `$ref`s in documents of the new version are neither resolved, dereferenced nor bundled. A new version of a spec that already has strategies needs the same set as its parent (OpenAPI 3.2.0 shipped resolve, dereference and bundle from the start, like 3.1). Specs without Reference Objects or `$ref` (A2A) ship parsers only. Arazzo has Reference Objects but currently ships parsers only too. Current coverage: resolve for `openapi-2`, `openapi-3-0`, `openapi-3-1`, `openapi-3-2`, `asyncapi-2`; dereference for those plus `asyncapi-3`; bundle only for `openapi-3-1` and `openapi-3-2`.
+## 3.8 JSON Schema Dialects
+
+A JSON Schema dialect's document root is itself a schema (element `JSONSchema202012` for 2020-12), and every reference is a schema keyword. The OAS 3.1 strategy already dereferences schemas; copy only that part, with `{spec}-{version}` = `json-schema-{dialect}`.
+
+**Dereference** (`dereference/strategies/json-schema-{dialect}/`):
+
+- `util.ts` and `selectors/` (3.4) from `openapi-3-1`, with `SchemaElement` replaced by the dialect's `JSONSchemaElement`. `resolveSchema$refField` and `resolveSchema$idField` read the `ancestorsSchemaIdentifiers` meta that the JSON Schema refractor sets on every schema (`apidom-ns-json-schema-draft-4/src/refractor/visitors/json-schema/index.ts`), so they work unchanged.
+- `visitor.ts` from `openapi-3-1/visitor.ts`: keep the shared machinery (constructor, `toReference`, `toAncestorLineage`, `indirections`, error handling and propagation) and the `SchemaElement` method, renamed to the dialect's traversal key (`JSONSchema202012Element`, from `keyMap` in the namespace's `src/traversal/visitor.ts`). Drop `ReferenceElement`, `PathItemElement`, `LinkElement`, `ExampleElement`, `MemberElement` and the `allOfDiscriminatorMapping` state: they serve OAS objects and discriminators.
+- Boolean schemas: the JSON Schema refractor tags them with the `boolean-json-schema` class (`apidom-ns-json-schema-draft-6`), but only the OAS and AsyncAPI namespaces export `isBooleanJsonSchemaElement`. Add the predicate to the dialect namespace, shaped like `apidom-ns-openapi-3-1/src/predicates.ts`, rather than importing it from OpenAPI.
+- `index.ts` (3.2): `canDereference` by the dialect's `mediaTypes` or `isJSONSchemaElement` on the parse result's root.
+
+**`$dynamicRef`** ([2020-12 core §8.2.3.2](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html#section-8.2.3.2)): resolved against the current base URI, it gives an initial target, and "this initial resolution is safe to perform on schema load". If that target's fragment was created by `$dynamicAnchor`, the final target is the outermost schema resource in the dynamic scope with the same `$dynamicAnchor`: it is known only during evaluation and can differ per evaluation path. Otherwise `$dynamicRef` behaves exactly like `$ref`. No code in the repo handles it, so there is no template. Put the options to the user and record the answer in the tracking doc:
+
+1. Leave every `$dynamicRef` in place; consumers evaluate them.
+2. Dereference a `$dynamicRef` whose initial target isn't a `$dynamicAnchor` fragment, exactly like `$ref`, and leave the others in place. This is the load-time resolution the spec calls safe; recommend it unless a consumer needs more.
+3. Also resolve `$dynamicAnchor` targets against the dynamic scope the visitor has entered (schema resources along the path, including through `$ref`). The same subschema can then dereference differently per path, and recursive schemas, the main use of `$dynamicRef`, produce cycles that the `dereference.circular` options must handle.
+
+Test the chosen behaviour with schemas from the JSON Schema Test Suite's [`tests/draft2020-12/dynamicRef.json`](https://github.com/json-schema-org/JSON-Schema-Test-Suite/blob/main/tests/draft2020-12/dynamicRef.json). Those are validation tests, so take their schemas as fixtures and write the expected dereferenced output by hand. Cover at least a `$dynamicRef` to a plain fragment and one to a `$dynamicAnchor`.
+
+**Bundle** ([2020-12 core §9.3.1](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html#section-9.3)): the OAS bundle strategies return the parse result unchanged (3.5), so there is nothing to copy. The specification defines bundling into a Compound Schema Document: embed each externally referenced schema resource, identified by its `$id` (absolute URI recommended), under `$defs` at the root; never change a reference, and never replace or wrap the referencing schema. If bundling is in scope, implement that and test that a bundled document dereferences to the same result as the original. Otherwise ship the 3.5 no-op and record the gap in the tracking doc.
+
+**Resolve** (3.1): copy from `openapi-3-1`, with the dialect's `mediaTypes` and root predicate.
+
+**When strategies are needed**: without them, `$ref`s in documents of the new version are neither resolved, dereferenced nor bundled. A new version of a spec that already has strategies needs the same set as its parent (OpenAPI 3.2.0 shipped resolve, dereference and bundle from the start, like 3.1). Specs without Reference Objects or `$ref` (A2A) ship parsers only. Arazzo has Reference Objects but currently ships parsers only too. Current coverage: resolve for `openapi-2`, `openapi-3-0`, `openapi-3-1`, `openapi-3-2`, `asyncapi-2`; dereference for those plus `asyncapi-3`; bundle only for `openapi-3-1` and `openapi-3-2`, both returning the parse result unchanged.

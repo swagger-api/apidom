@@ -83,11 +83,11 @@ In addition to `integration-points.md` (new variant):
 - [ ] Parsers `src/parse/parsers/json-schema-{json,yaml}-{dialect}/` wrapping the adapters,
       registered in `src/configuration/saturated.ts`, with `package.json` dependencies and
       `exports`, and the dialect's media types in the README.
-- [ ] Resolve, dereference and bundle strategies `json-schema-{dialect}`. The document root is
-      itself a schema, and references resolve against `$id` base URIs and `$anchor`s. The OAS
-      3.1/3.2 strategies' schema handling is the closest model (`/add-reference-support` §3.4:
-      `dereference/strategies/openapi-3-1/util.ts`, `selectors/$anchor.ts`, `selectors/uri.ts`).
-      No strategy handles `$dynamicRef` yet; record in the tracking doc whether this phase does.
+- [ ] Resolve, dereference and bundle strategies `json-schema-{dialect}`, built per
+      `/add-reference-support` `references/reference-strategies.md` 3.8: the schema part of the
+      OAS 3.1 strategy (references resolve against `$id` base URIs and `$anchor`s), a recorded
+      `$dynamicRef` decision, and compound-document bundling or a recorded gap (the OAS bundle
+      strategies don't embed anything).
 - [ ] Tests: a standalone document with an internal (`#/$defs/...`), an `$anchor` and an external
       file reference dereferences and bundles.
 

@@ -9,11 +9,13 @@ import { parseCli } from './lib/cli.mjs';
 
 const USAGE = `
 Usage:
-  node phase-status.mjs --spec <spec> --version <x.y.z> [--phase <n>] [--field <f>]
+  node phase-status.mjs --spec <spec> --version <x.y.z|dialect> [--phase <n>] [--field <f>]
     [--no-version-field] [--base <ref>]
 
-  --spec              spec id used in package names (openapi, asyncapi, arazzo, a2a, ...)
-  --version           full spec version (3.1.0)
+  --spec              spec id used in package names (openapi, asyncapi, arazzo, a2a,
+                      json-schema, ...)
+  --version           full spec version (3.1.0); for --spec json-schema the dialect id used in
+                      package names (2020-12, 2019-09, draft-7; draft-07 is accepted)
   --phase             phase you intend to start (1-4); exit code 1 unless all earlier phases
                       are DONE
   --field             root version field in documents (default: --spec)
@@ -39,6 +41,16 @@ Code evidence (tracked and untracked files, checked on --base and on the working
                      \`version: '{version}'\`
 Lines asserting non-detection (\`isFalse\`) don't count as evidence.
 
+JSON Schema dialects (documents carry \`$schema\`, packages are named by the dialect; media types
+spell Draft 4-7 as draft-04 ... draft-07):
+  1 namespace        packages/apidom-ns-json-schema-{dialect}/src/media-types.ts contains
+                     \`version={dialect}\`
+  2 parser adapters  apidom-parser-adapter-json-schema-{json,yaml}-{dialect} READMEs list it
+  3 reference        apidom-reference parser directories json-schema-{json,yaml}-{dialect} exist
+  4 language service a target-specs.ts under packages/apidom-ls/src/config/json-schema declares
+                     the dialect, and packages/apidom-ls/src/parser-factory.ts imports both of
+                     its adapters (a config without parser wiring never reaches a document)
+
 Exit codes:
   0  with --phase n: phases 1..n-1 are all DONE. Without --phase: no gap, i.e. no phase is
      incomplete while a later one has code or a PR (all complete also exits 0)
@@ -46,6 +58,8 @@ Exit codes:
      (e.g. phase 3 MISSING while phase 4 is DONE)
   2  usage error
 `;
+
+const DIALECT = /^(\d{4}-\d{2}|draft-0?\d)$/;
 
 const { values: args } = parseCli(USAGE, {
   options: {
@@ -58,20 +72,75 @@ const { values: args } = parseCli(USAGE, {
   },
   validate: ({ values }) => {
     if (!values.spec || !values.version) return '--spec and --version are required';
-    if (!/^\d+\.\d+\.\d+$/.test(values.version)) return '--version must look like x.y.z';
+    const dialect = DIALECT.test(values.version);
+    if (dialect && values.spec !== 'json-schema')
+      return 'dialect ids (2020-12, draft-7) are versions of --spec json-schema only';
+    if (!dialect && !/^\d+\.\d+\.\d+$/.test(values.version))
+      return '--version must look like x.y.z, or a JSON Schema dialect id (2020-12, draft-7)';
     if (values.phase !== undefined && !/^[1-4]$/.test(values.phase)) return '--phase must be 1-4';
     return undefined;
   },
 });
-const { spec, version } = args;
+const { spec } = args;
+const isDialect = DIALECT.test(args.version);
+// package names say draft-7, media types draft-07
+const version = isDialect ? args.version.replace(/^draft-0(\d)$/, 'draft-$1') : args.version;
+const mediaVersion = version.replace(/^draft-(\d)$/, 'draft-0$1');
 const requestedPhase = args.phase === undefined ? undefined : Number(args.phase);
 const field = args.field ?? spec;
 const base = args.base ?? 'origin/main';
 const esc = version.replaceAll('.', '\\.');
-const mediaTypeNeedle = `version=${esc}([^0-9]|$)`;
+const mediaTypeNeedle = `version=${mediaVersion.replaceAll('.', '\\.')}([^0-9]|$)`;
 const docNeedle = `"?${field}"?[[:space:]]*:[[:space:]]*["']?${esc}([^0-9]|$)`;
+const FORMATS = ['json', 'yaml'];
 
-const PHASES = [
+const DIALECT_PHASES = [
+  {
+    n: 1,
+    name: 'namespace',
+    checks: [
+      {
+        pattern: mediaTypeNeedle,
+        paths: [`packages/apidom-ns-${spec}-${version}/src/media-types.ts`],
+      },
+    ],
+  },
+  {
+    n: 2,
+    name: 'parser-adapters',
+    checks: FORMATS.map((format) => ({
+      pattern: mediaTypeNeedle,
+      paths: [`packages/apidom-parser-adapter-${spec}-${format}-${version}/README.md`],
+    })),
+  },
+  {
+    n: 3,
+    name: 'reference',
+    checks: FORMATS.map((format) => ({
+      pattern: '.',
+      paths: [`packages/apidom-reference/src/parse/parsers/${spec}-${format}-${version}`],
+    })),
+  },
+  {
+    n: 4,
+    name: 'ls',
+    checks: [
+      {
+        pattern:
+          `namespace:[[:space:]]*'${spec}',[[:space:]]*` +
+          `version:[[:space:]]*'(${esc}|${mediaVersion})'`,
+        paths: [`packages/apidom-ls/src/config/${spec}`],
+      },
+      ...FORMATS.map((format) => ({
+        pattern: `apidom-parser-adapter-${spec}-${format}-${esc}'`,
+        paths: ['packages/apidom-ls/src/parser-factory.ts'],
+      })),
+    ],
+    note: 'config and parser-factory wiring',
+  },
+];
+
+const VERSION_PHASES = [
   {
     n: 1,
     name: 'namespace',
@@ -109,6 +178,7 @@ const PHASES = [
     ],
   },
 ];
+const PHASES = isDialect ? DIALECT_PHASES : VERSION_PHASES;
 
 const run = (cmd, cmdArgs) => {
   try {
@@ -146,16 +216,19 @@ const hasEvidence = (ref, phase) =>
 const baseExists = run('git', ['rev-parse', '--verify', '--quiet', base]) !== null;
 if (!baseExists) console.warn(`warning: base ref ${base} not found; merged state not checked`);
 
-// specs whose documents carry no version field (A2A Agent Cards) can't match `{field}: {version}`
+// specs whose documents carry no version field (A2A Agent Cards) can't match `{field}: {version}`;
+// JSON Schema dialects have their own phase 3 evidence
 const REFERENCE_TEST = 'packages/apidom-reference/test';
 const fieldKeyNeedle = `(^|[^A-Za-z0-9_-])"?${field}"?[[:space:]]*:`;
-const fieldSeen = [baseExists ? base : null, undefined]
-  .filter((ref) => ref !== null)
-  .some(
-    (ref) =>
-      (grepFiles(ref, { pattern: fieldKeyNeedle, paths: [REFERENCE_TEST] }) ?? []).length > 0,
-  );
-const noVersionField = args['no-version-field'] || !fieldSeen;
+const fieldSeen =
+  isDialect ||
+  [baseExists ? base : null, undefined]
+    .filter((ref) => ref !== null)
+    .some(
+      (ref) =>
+        (grepFiles(ref, { pattern: fieldKeyNeedle, paths: [REFERENCE_TEST] }) ?? []).length > 0,
+    );
+const noVersionField = !isDialect && (args['no-version-field'] || !fieldSeen);
 if (noVersionField) {
   if (!args['no-version-field'])
     console.warn(
@@ -203,7 +276,8 @@ const results = PHASES.map((phase) => {
   return { ...phase, merged, local, pr, status, done: status.startsWith('DONE') };
 });
 
-const fieldText = noVersionField ? 'no version field' : `field "${field}"`;
+let fieldText = noVersionField ? 'no version field' : `field "${field}"`;
+if (isDialect) fieldText = 'dialect, identified by $schema';
 console.log(`${spec} ${version} (${fieldText}, base ${base})\n`);
 for (const r of results) {
   const pr = r.pr ? `  ${r.pr.url} [${r.pr.state}, base ${r.pr.baseRefName}]` : '';

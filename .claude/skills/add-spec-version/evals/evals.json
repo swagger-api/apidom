@@ -112,6 +112,29 @@
         "Documentation base URL is verified (https://spec.openapis.org/overlay/v1.2.0.html or the 1.2.0 markdown) with anchors taken from the page (e.g. #action-object)",
         "Decides, with a reason, whether apidom-reference needs dereference handling for the Reusable Action Reference $ref"
       ]
+    },
+    {
+      "id": 6,
+      "name": "json-schema-2020-12-phases-3-4-plan",
+      "fixture": {
+        "checkout": "00a75fbb0",
+        "note": "main on 2026-10-23: apidom-ns-json-schema-2020-12 and both 2020-12 adapters exist; apidom-reference has no JSON Schema parsers or strategies; apidom-ls has a partial config/json-schema/2020-12 but no parser-factory or detection wiring. The fixture contains an older .claude/skills: read the skill from the main checkout."
+      },
+      "prompt": "Next step for standalone JSON Schema 2020-12 in ApiDOM: plan the remaining phases so that apidom-ls gives validation, completion, hover and highlighting for a plain 2020-12 schema file, and apidom-reference can dereference and bundle one. Planning only, no code.",
+      "expected_output": "Phase status in dialect mode (1-2 done, 3 next), a keyword map from the 2020-12 vocabulary meta-schemas, and phase 3 and 4 plans covering reference parsers and strategies, LS detection and parser wiring, the namespace key mismatch, rule expectations and the exit check.",
+      "files": [],
+      "assertions": [
+        "Runs phase-status.mjs with --spec json-schema --version 2020-12 and reports phases 1 and 2 as complete and phase 3 as next",
+        "Does not plan new namespace or parser adapter packages; uses apidom-ns-json-schema-2020-12 and apidom-parser-adapter-json-schema-{json,yaml}-2020-12",
+        "Builds the keyword map from the 2020-12 vocabulary meta-schemas (core, applicator, unevaluated, validation, meta-data, format-annotation, content), not from Fixed Fields tables",
+        "Treats definitions, dependencies, $recursiveAnchor and $recursiveRef as REMOVED, not as keywords to configure",
+        "Phase 3 plans parsers json-schema-json-2020-12 and json-schema-yaml-2020-12 plus resolve, dereference and bundle strategies that resolve $id base URIs and $anchor, and states whether $dynamicRef is in scope",
+        "Phase 4 plans detection in apidom-ls utils.ts that only accepts a root-level $schema, JSON and YAML branches in parser-factory.ts, and package.json dependencies on both adapters",
+        "Notes that the metadataMaps key, the detected namespace and the targetSpecs namespace must agree (the config is registered as json-schema-2020-12 while target-specs.ts says json-schema)",
+        "Plans no --required rules and no error-level allowed-fields rule for the schema object",
+        "Runs or plans check-ls-coverage.mjs on config/json-schema/2020-12 with --inherited",
+        "The phase 4 exit check covers validation, completion, hover and semantic tokens for standalone JSON and YAML documents"
+      ]
     }
   ]
 }

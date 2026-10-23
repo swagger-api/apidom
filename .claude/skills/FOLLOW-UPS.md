@@ -54,7 +54,7 @@ Each was spotted during evals or by the new scripts and checked once against `ma
 - **Fix:** scope the rule to `[...OpenAPI2, ...OpenAPI30, ...OpenAPI31]` (consider renaming per the version-suffix convention), and drop **REQUIRED** from the 3.2 docs and completion entries. Add a test: an OAS 3.2 response without `description` yields no apilint diagnostic, while 3.1 still does.
 - **Commit:** `fix(ls): make Response description optional for OpenAPI 3.2`
 
-### 2.3 ⏳ AsyncAPI 3 `Server.description` redefines the parent getter
+### 2.3 ✅ AsyncAPI 3 `Server.description` redefines the parent getter (done in #5261)
 
 - **Where:** `packages/apidom-ns-asyncapi-3/src/elements/Server.ts:43` duplicates `apidom-ns-asyncapi-2/src/elements/Server.ts:44` with the same type.
 - **Found by:** `node .claude/skills/add-spec-version/scripts/check-redefined-fields.mjs packages/apidom-ns-asyncapi-3`
@@ -216,6 +216,12 @@ Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/
 - **Where:** `apidom-ns-asyncapi-3` sets `referenced-element` to element names in most visitors (`operationReply`, `operationTrait`, `messageTrait`, …) but uses other strings in some: `operation-reply-address` (`components/ReplyAddressesVisitor.ts`) while `operation-reply/AddressVisitor.ts` sets `operationReplyAddress` for the same target, and `channel-servers`, `operation-message`, `operation-reply-message`, `ExternalDocumentation` (`generics/ExternalDocumentationVisitor.ts`). LS rules have to list both forms, e.g. `components/lint/reply-addresses--values-type.ts` uses `['operationReplyAddress', 'operation-reply-address']`. Raised in the PR #5264 review.
 - **Fix:** set the referenced element name (`operationReplyAddress`, `server`, `message`, `externalDocumentation`) in the visitors, then drop the duplicate names from the LS rules. Check consumers first (`grep -rn "referenced-element" packages/apidom-reference packages/apidom-ls`): the dereference strategy copies the value onto the referenced element and the LS uses it to find local reference targets (may also fix 2.19).
 - **Commit:** `fix(ns-asyncapi-3): use element names for referenced-element meta`
+
+### 2.24 ⏳ The JSON Schema 2020-12 LS config can't reach a standalone document
+
+- **Where:** `packages/apidom-ls/src/config/config.ts` registers the 2020-12 config under `'json-schema-2020-12'`, while `config/json-schema/2020-12/target-specs.ts` declares `namespace: 'json-schema'`, and neither `parser-factory.ts` nor `utils/utils.ts` has a JSON Schema branch. `setMetadataMap` picks the config by the detected namespace and the services compare that namespace with `targetSpecs`, so no detected namespace satisfies both. The same config registers `LinkDescription`, but the element is named `linkDescription`.
+- **Found by:** `check-ls-coverage.mjs packages/apidom-ns-json-schema-2020-12 packages/apidom-ls/src/config/json-schema/2020-12 --source --inherited --orphans` (`NO-META linkDescription`, `NO-ELEMENT LinkDescription`) and reading `parser-factory.ts` (2026-10-23).
+- **Fix:** phase 4 of JSON Schema 2020-12, per `add-spec-version/references/json-schema-dialects.md` sections 4 and 5.
 
 ---
 

@@ -1,6 +1,6 @@
 ---
 name: update-ls-config
-description: Adds or updates apidom-ls language service configuration (completion items, hover documentation, lint rules, meta.ts and target-spec wiring) in packages/apidom-ls/src/config for a namespace package by analyzing its elements, refractor specification and parser adapters. Use when a new spec namespace or version (e.g. apidom-ns-openapi-3-2, apidom-ns-asyncapi-3, Arazzo) needs IDE support, or when an existing namespace gains new elements or fields that need autocomplete, hover docs or validation, even if the user doesn't say "ls config".
+description: Adds or updates apidom-ls language service configuration (completion items, hover documentation, lint rules, meta.ts and target-spec wiring) in packages/apidom-ls/src/config for a namespace package by analyzing its elements, refractor specification and parser adapters. Use when a new spec namespace or version (e.g. apidom-ns-openapi-3-2, apidom-ns-asyncapi-3, Arazzo, a standalone JSON Schema dialect such as 2020-12) needs IDE support, or when an existing namespace gains new elements or fields that need autocomplete, hover docs or validation, even if the user doesn't say "ls config".
 ---
 
 # Update Language Service Config Skill
@@ -50,6 +50,14 @@ These apply to every phase. Where a template in `references/` shows a different 
 6. **Only new fields**: check the parent version's config and namespace element first; never redefine fields inherited from the parent version. Scope new rules with the correct `targetSpecs`.
 7. **Documentation URLs follow the per-spec table** in `references/completion-and-documentation.md` ("Documentation URLs per Spec") and are checked with `verify-urls.mjs`. For OpenAPI 3.2+, links go to the GitHub markdown (`https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md`), not `spec.openapis.org`. In every spec, use the anchor that exists on the page (copy it from the markdown or page source, e.g. `3.2.0.md#path-item-object`) instead of deriving it from a naming convention; the upstream anchor style differs between versions and has changed before. Root `CLAUDE.md` ("apidom-ls Documentation URL Requirements") has the details.
 8. **Tests compare full Diagnostic objects with `assert.deepEqual`** (range, message, severity, code, source, data), and valid documents assert an empty list; see `packages/apidom-ls/CLAUDE.md` section 8 for the pattern and how to capture the actual values.
+
+### JSON Schema Dialects
+
+A standalone JSON Schema dialect (`apidom-ns-json-schema-{dialect}`) is configured in `config/json-schema/{dialect}/`, one directory per dialect, keyed by the schema element's name (`JSONSchema202012`). Read `.claude/skills/add-spec-version/references/json-schema-dialects.md` first; it changes these phases:
+
+- **Fields** are keywords from the dialect's vocabulary meta-schemas (its section 2), and documentation links go to keyword sections of the core and validation specifications (section 3).
+- **Rules**: a completion item, a documentation entry and a type rule per keyword; `--format-uri` where the meta-schema types the value as a URI string. No `--required` rules (no keyword is required) and no error-level allowed-fields rule (unknown keywords are legal).
+- **Wiring** beyond the config directory: detection, `parser-factory.ts`, one namespace key for `metadataMaps` and `targetSpecs`, tokens (section 4). Coverage: `check-ls-coverage.mjs` with `--inherited` (section 6).
 
 ## Skill Instructions
 
@@ -158,7 +166,7 @@ For **every** element registered in the namespace (`src/namespace.ts`), except i
      packages/apidom-ns-{spec}-{version} packages/apidom-ls/src/config/{spec} \
      --ignore {internal elements} [--orphans]
    ```
-   Resolve every finding. Compare its `required` lines with the field map's Required column. Use `--orphans` when the config directory serves only this namespace.
+   Resolve every finding. Compare its `required` lines with the field map's Required column. Use `--orphans` when the config directory serves only this namespace. JSON Schema dialects: `config/json-schema/{dialect}` with `--inherited --orphans`.
 
 Use `references/completion-and-documentation.md` and `references/lint-rules.md` for templates, and the "Common Element Types to Include" list in `references/special-cases-and-elements.md` as the baseline set.
 

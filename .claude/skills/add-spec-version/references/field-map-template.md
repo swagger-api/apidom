@@ -70,7 +70,7 @@ Every namespace element and LS config directory maps to exactly one row of this 
 ## Tips for Building the Map
 
 - Start from the latest patch release and its changes page; removals (A2A 1.0 dropped the implicit and password OAuth flows) rarely show up in the tables.
-- Take fields only from this version's Fixed Fields tables; the JSON Schema, examples and sibling specs add fields that don't exist (`AgentCard.url` in PR #5182).
+- Take fields only from this version's Fixed Fields tables; the JSON Schema, examples and sibling specs add fields that don't exist (`AgentCard.url` in PR #5182). JSON Schema dialects have no Fixed Fields tables: build their keyword map per `json-schema-dialects.md`.
 - Note fields named like ApiDOM element properties (`id`, `meta`, `content`, `attributes`, `classes`); they need renamed accessors (`idProp`).
 
 - Read the parent spec's Fixed Fields table side by side with the new one; diff field names per object. Diffing the raw markdown of both versions (`diff <(grep '^| <a name' parent.md) <(grep '^| <a name' new.md)`) is a quick first pass, but always confirm in the tables because anchor naming can change between versions.

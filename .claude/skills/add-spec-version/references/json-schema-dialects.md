@@ -86,8 +86,8 @@ In addition to `integration-points.md` (new variant):
 - [ ] Resolve, dereference and bundle strategies `json-schema-{dialect}`, built per
       `/add-reference-support` `references/reference-strategies.md` 3.8: the schema part of the
       OAS 3.1 strategy (references resolve against `$id` base URIs and `$anchor`s), a recorded
-      `$dynamicRef` decision, and compound-document bundling or a recorded gap (the OAS bundle
-      strategies don't embed anything).
+      `$dynamicRef` decision, and compound-document bundling assembled from the resolve
+      strategy's `ReferenceSet` (the OAS bundle strategies don't embed anything).
 - [ ] Tests: a standalone document with an internal (`#/$defs/...`), an `$anchor` and an external
       file reference dereferences and bundles.
 

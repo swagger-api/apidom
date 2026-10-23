@@ -9,7 +9,7 @@ This directory contains Claude Code skills for common development tasks in the A
 - New `add-spec-version/references/json-schema-dialects.md`: dialect identifiers, the keyword map built from the vocabulary meta-schemas (JSON Schema has no Fixed Fields tables), extra apidom-reference and apidom-ls integration points, a phase 4 exit check, and gate adjustments. `/add-spec-version`, `/add-reference-support`, `/update-ls-config` and `/review-ls-changes` point to it; `/review-ls-changes` no longer excludes JSON Schema.
 - `phase-status.mjs` accepts a dialect id as `--version` (`--spec json-schema --version 2020-12`) with dialect-specific evidence; phase 4 also requires the adapters in `apidom-ls` `parser-factory.ts`.
 - `check-ls-coverage.mjs` names elements by `this.element` (JSON Schema registry keys differ), and `--inherited` skips fields a closer class or refractor removes (throwing getter, `dissocPath`).
-- `/add-reference-support` 3.8: JSON Schema dialect strategies from the schema part of the OAS 3.1 strategy, `$dynamicRef` as a recorded decision with three spec-based options and Test Suite fixtures (no code in the repo to template it from), and compound-document bundling per 2020-12 §9.3.1 (the OAS bundle strategies return the parse result unchanged).
+- `/add-reference-support` 3.8: JSON Schema dialect strategies from the schema part of the OAS 3.1 strategy, `$dynamicRef` as a recorded decision with three spec-based options and Test Suite fixtures (no code in the repo to template it from), and compound-document bundling per 2020-12 §9.3.1, assembled from the resolve strategy's `ReferenceSet` with four recorded decisions (the OAS bundle strategies return the parse result unchanged).
 
 **2026-10-15**:
 

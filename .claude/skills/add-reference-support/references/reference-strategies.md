@@ -398,7 +398,23 @@ A JSON Schema dialect's document root is itself a schema (element `JSONSchema202
 
 Test the chosen behaviour with schemas from the JSON Schema Test Suite's [`tests/draft2020-12/dynamicRef.json`](https://github.com/json-schema-org/JSON-Schema-Test-Suite/blob/main/tests/draft2020-12/dynamicRef.json). Those are validation tests, so take their schemas as fixtures and write the expected dereferenced output by hand. Cover at least a `$dynamicRef` to a plain fragment and one to a `$dynamicAnchor`.
 
-**Bundle** ([2020-12 core §9.3.1](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html#section-9.3)): the OAS bundle strategies return the parse result unchanged (3.5), so there is nothing to copy. The specification defines bundling into a Compound Schema Document: embed each externally referenced schema resource, identified by its `$id` (absolute URI recommended), under `$defs` at the root; never change a reference, and never replace or wrap the referencing schema. If bundling is in scope, implement that and test that a bundled document dereferences to the same result as the original. Otherwise ship the 3.5 no-op and record the gap in the tracking doc.
+**Bundle** ([2020-12 core §9.3.1](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html#section-9.3)): the OAS bundle strategies return the parse result unchanged (3.5), so the specification is the only model. A Compound Schema Document embeds each externally referenced schema resource, identified by its `$id` (absolute URI recommended), under `$defs` at the root; it never changes a reference and never replaces or wraps the referencing schema. Assemble it from existing parts:
+
+1. **Collect** with the dialect's resolve strategy (3.1). Like `openapi-3-1`'s, it runs the dereference strategy with `resolve.internal: false` into a fresh `ReferenceSet` and returns it: `refs` holds every document reached, transitively, each with its `uri` and parse result, and `rootRef` is the document being bundled. No new reference walking is needed.
+2. **Embed** the root schema (`reference.value.result`) of every other reference, copied with `cloneDeep` from `@swagger-api/apidom-core` so the `ReferenceSet` stays intact. Give it an `$id` with its absolute retrieval URI when it has none, and add it to the root's `$defs` under that URI, once per URI.
+3. **Anchor the root.** Give it an absolute `$id` when it has none; otherwise a relative `$ref` resolves against wherever the bundled file is opened next and misses the embedded `$id`s.
+4. **Leave every `$ref` and `$dynamicRef` unchanged.** That is also why bundling needs no cycle handling and doesn't depend on the `$dynamicRef` decision.
+
+Put these to the user and record the answers in the tracking doc:
+
+- Root `$id` for a local file (it would be a `file://` URI): recommend a bundle option for a canonical base URI, falling back to the retrieval URI.
+- An external document whose own `$id` differs from the URI it was referenced by: the unchanged `$ref` no longer matches the embedded `$id`. Recommend an error naming both URIs.
+- An external document in another dialect (§9.3.2 allows embedding it with its own `$schema`): recommend an error while cross-dialect references are out of scope.
+- A `$defs` key the root already uses: recommend an error, since renaming would change references.
+
+Tests: every `$ref` of the bundled document resolves inside it, every embedded resource has an `$id`, and every `$ref` and `$dynamicRef` string is unchanged. Dereference the bundled document with the external files absent (bundle into a directory without them) and compare each dereferenced target with the original's, apart from the added `$id`s. `resolve.external: false` doesn't prove this: the copied visitor finds an embedded `$id` in the current document, but counts a reference whose absolute URI differs from the document's as external and skips it.
+
+If a release ships without bundling, keep the 3.5 no-op and record the gap in the tracking doc.
 
 **Resolve** (3.1): copy from `openapi-3-1`, with the dialect's `mediaTypes` and root predicate.
 

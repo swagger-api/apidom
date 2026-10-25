@@ -134,7 +134,8 @@
         "Notes that the metadataMaps key, the detected namespace and the targetSpecs namespace must agree (the config is registered as json-schema-2020-12 while target-specs.ts says json-schema)",
         "Plans no --required rules and no error-level allowed-fields rule for the schema object",
         "Runs or plans check-ls-coverage.mjs on config/json-schema/2020-12 with --inherited",
-        "The phase 4 exit check covers validation, completion, hover and semantic tokens for standalone JSON and YAML documents"
+        "The phase 4 exit check covers validation, completion, hover and semantic tokens for standalone JSON and YAML documents",
+        "Adds no JSON Schema token types: keys get key tokens and string or number values get value tokens, as in OpenAPI documents"
       ]
     }
   ]

@@ -110,8 +110,13 @@ In addition to `integration-points.md` (new variant):
 - [ ] `config/json-schema/{dialect}/`: per keyword a completion item, a documentation entry and a
       type rule (`--format-uri` where the meta-schema's type is a URI string), registered under the
       element name (`this.element`: `JSONSchema202012`, not the registry key `jSONSchema202012`).
-- [ ] Semantic tokens: `config/{spec}/tokens.ts` lists the token types per spec (ads, asyncapi,
-      openapi) and `config/tokens.ts` merges them; JSON Schema has no list yet.
+- [ ] Semantic tokens follow the OpenAPI pattern (decided 2026-10-25): every key is a `key`
+      token and every string or number value a `value` token. `semantic-tokens-service.ts`
+      emits those for anything that isn't a semantic token type, and both SwaggerEditor themes
+      already colour them. So add no `config/json-schema/tokens.ts` and no JSON Schema element,
+      class or keyword to `config/tokens.ts`: each would get a colour of its own. `$ref` keeps
+      the `reference-element`/`reference-value` classes the 2019-09 refractor sets, coloured as
+      in OpenAPI 3.1 Schema Objects.
 - [ ] `src/services/validation/linter-functions.ts` `rootElementTypes`: add the dialect's root
       element name if root-walking linter functions should stop at it.
 
@@ -130,7 +135,9 @@ for a standalone document of the dialect in JSON and in YAML:
   support for;
 - `doCompletion` offers keywords inside a schema, nested schemas included;
 - `doHover` returns a keyword's documentation;
-- `computeSemanticTokens` returns tokens for keywords;
+- `computeSemanticTokens` returns a `key` token for every key, nested schemas and keywords with
+  object or array values included, a `value` token for string and number values, and no other
+  token type except the reference ones on `$ref` (section 4);
 - `doDeref` returns the dereferenced document in JSON and in YAML (shaped like "should dereference
   into JSON" in `test/openapi-json.ts`): SwaggerEditor's Download Resolved calls it, for OpenAPI
   and for JSON Schema alike;

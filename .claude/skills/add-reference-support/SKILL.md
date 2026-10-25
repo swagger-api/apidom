@@ -27,7 +27,7 @@ apidom-reference turns a parsed document into a resolved, dereferenced or bundle
 3. Choose the mode:
    - **Extend**: the version belongs to an existing namespace whose adapters already detect it, and `src/parse/parsers/{spec}-json-{major}/` and `{spec}-yaml-{major}/` already exist. Strategies exist only for some specs, so check which of `src/{resolve,dereference,bundle}/strategies/{spec}-{major}/` are present and update only those: `asyncapi-2` has resolve and dereference, `asyncapi-3` only dereference, `openapi-3-1` and `openapi-3-2` all three. Example: AsyncAPI 2.6 (`asyncapi-2`).
    - **New**: new namespace package and new adapter packages. Example: OpenAPI 3.2 (`openapi-3-2`, commit `ef97b5c32`).
-   - A JSON Schema dialect (`json-schema-{dialect}`, e.g. `2020-12`) is always new mode. Its document root is itself a schema: build its strategies per `references/reference-strategies.md` 3.8 (schema-only visitor, `$dynamicRef` decision, compound-document bundling), with the integration points in `../add-spec-version/references/json-schema-dialects.md` section 4.
+   - A JSON Schema dialect (`json-schema-{dialect}`, e.g. `2020-12`) is always new mode. Its document root is itself a schema: build its strategies per `references/reference-strategies.md` 3.8 (schema-only visitor, `$dynamicRef` left in place as for OAS 3.1, compound-document bundling), with the integration points in `../add-spec-version/references/json-schema-dialects.md` section 4.
 
 ## Phase 2: Parse Integration
 

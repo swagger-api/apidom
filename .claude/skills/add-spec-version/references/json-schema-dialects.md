@@ -85,8 +85,8 @@ In addition to `integration-points.md` (new variant):
       `exports`, and the dialect's media types in the README.
 - [ ] Resolve, dereference and bundle strategies `json-schema-{dialect}`, built per
       `/add-reference-support` `references/reference-strategies.md` 3.8: the schema part of the
-      OAS 3.1 strategy (references resolve against `$id` base URIs and `$anchor`s), a recorded
-      `$dynamicRef` decision, and compound-document bundling assembled from the resolve
+      OAS 3.1 strategy (references resolve against `$id` base URIs and `$anchor`s), `$dynamicRef`
+      left in place as OAS 3.1 does, and compound-document bundling assembled from the resolve
       strategy's `ReferenceSet` (the OAS bundle strategies don't embed anything). Register the
       dereference strategy in `saturated.ts` and let its `canDereference` accept a parsed
       element without a media type (`isJSONSchemaElement`): apidom-ls's `doDeref`, behind

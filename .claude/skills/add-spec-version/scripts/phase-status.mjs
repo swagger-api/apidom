@@ -46,7 +46,10 @@ spell Draft 4-7 as draft-04 ... draft-07):
   1 namespace        packages/apidom-ns-json-schema-{dialect}/src/media-types.ts contains
                      \`version={dialect}\`
   2 parser adapters  apidom-parser-adapter-json-schema-{json,yaml}-{dialect} READMEs list it
-  3 reference        apidom-reference parser directories json-schema-{json,yaml}-{dialect} exist
+  3 reference        apidom-reference parser directories json-schema-{json,yaml}-{dialect} and
+                     resolve and dereference strategy directories json-schema-{dialect} exist,
+                     and the namespace's src/index.ts exports keyMap and getNodeType (what
+                     swagger-client's JSON Schema strategy needs from the release)
   4 language service a target-specs.ts under packages/apidom-ls/src/config/json-schema declares
                      the dialect, and packages/apidom-ls/src/parser-factory.ts imports both of
                      its adapters (a config without parser wiring never reaches a document)
@@ -116,10 +119,22 @@ const DIALECT_PHASES = [
   {
     n: 3,
     name: 'reference',
-    checks: FORMATS.map((format) => ({
-      pattern: '.',
-      paths: [`packages/apidom-reference/src/parse/parsers/${spec}-${format}-${version}`],
-    })),
+    checks: [
+      ...FORMATS.map((format) => ({
+        pattern: '.',
+        paths: [`packages/apidom-reference/src/parse/parsers/${spec}-${format}-${version}`],
+      })),
+      // swagger-client's json-schema-{dialect}-swagger-client strategy builds on these
+      ...['resolve', 'dereference'].map((kind) => ({
+        pattern: '.',
+        paths: [`packages/apidom-reference/src/${kind}/strategies/${spec}-${version}`],
+      })),
+      ...['keyMap', 'getNodeType'].map((name) => ({
+        pattern: name,
+        paths: [`packages/apidom-ns-${spec}-${version}/src/index.ts`],
+      })),
+    ],
+    note: 'parsers, resolve and dereference strategies, keyMap/getNodeType exports',
   },
   {
     n: 4,

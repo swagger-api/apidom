@@ -1,0 +1,11 @@
+{
+  "type": "object",
+  "properties": {
+    "avatar": {
+      "type": "string"
+    },
+    "user": {
+      "$ref": "../../root.json#/$defs/User"
+    }
+  }
+}

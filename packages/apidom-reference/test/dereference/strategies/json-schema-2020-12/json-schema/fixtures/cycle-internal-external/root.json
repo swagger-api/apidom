@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "type": "object",
+      "x-track": "1",
+      "properties": {
+        "profile": {
+          "$ref": "./ex.json#/$defs/UserProfile"
+        }
+      }
+    }
+  }
+}

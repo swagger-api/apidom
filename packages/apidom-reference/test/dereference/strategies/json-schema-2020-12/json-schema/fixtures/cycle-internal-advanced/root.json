@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "PlatformMenuTree": {
+      "$ref": "#/$defs/PlatformMenuTreeNode"
+    },
+    "PlatformMenuTreeNode": {
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformMenuTreeNode"
+          }
+        },
+        "resources": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PlatformMenuTreeResourceNode"
+          }
+        }
+      }
+    },
+    "PlatformMenuTreeResourceNode": {
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "description": "ID"
+        }
+      }
+    }
+  }
+}

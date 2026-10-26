@@ -1,0 +1,18 @@
+{
+  "openapi": "3.2.0",
+  "components": {
+    "schemas": {
+      "User": {
+        "$ref": "./ex.json",
+        "description": "User from an external JSON Schema 2020-12 document"
+      },
+      "Profile": {
+        "$ref": "./ex.json#/$defs/profile"
+      },
+      "Account": {
+        "$ref": "./ex.yaml",
+        "description": "Account from an external JSON Schema 2020-12 document in YAML"
+      }
+    }
+  }
+}

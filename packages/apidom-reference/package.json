@@ -65,6 +65,11 @@
       "require": "./src/resolve/strategies/asyncapi-2/index.cjs",
       "types": "./types/resolve/strategies/asyncapi-2/index.d.ts"
     },
+    "./resolve/strategies/json-schema-2020-12": {
+      "import": "./src/resolve/strategies/json-schema-2020-12/index.mjs",
+      "require": "./src/resolve/strategies/json-schema-2020-12/index.cjs",
+      "types": "./types/resolve/strategies/json-schema-2020-12/index.d.ts"
+    },
     "./resolve/strategies/openapi-2": {
       "import": "./src/resolve/strategies/openapi-2/index.mjs",
       "require": "./src/resolve/strategies/openapi-2/index.cjs",
@@ -134,6 +139,16 @@
       "import": "./src/parse/parsers/a2a-yaml-1/index.mjs",
       "require": "./src/parse/parsers/a2a-yaml-1/index.cjs",
       "types": "./types/parse/parsers/a2a-yaml-1/index.d.ts"
+    },
+    "./parse/parsers/json-schema-json-2020-12": {
+      "import": "./src/parse/parsers/json-schema-json-2020-12/index.mjs",
+      "require": "./src/parse/parsers/json-schema-json-2020-12/index.cjs",
+      "types": "./types/parse/parsers/json-schema-json-2020-12/index.d.ts"
+    },
+    "./parse/parsers/json-schema-yaml-2020-12": {
+      "import": "./src/parse/parsers/json-schema-yaml-2020-12/index.mjs",
+      "require": "./src/parse/parsers/json-schema-yaml-2020-12/index.cjs",
+      "types": "./types/parse/parsers/json-schema-yaml-2020-12/index.d.ts"
     },
     "./parse/parsers/apidom-json": {
       "import": "./src/parse/parsers/apidom-json/index.mjs",
@@ -217,6 +232,21 @@
       "require": "./src/dereference/strategies/asyncapi-2/index.cjs",
       "types": "./types/dereference/strategies/asyncapi-2/index.d.ts"
     },
+    "./dereference/strategies/json-schema-2020-12": {
+      "import": "./src/dereference/strategies/json-schema-2020-12/index.mjs",
+      "require": "./src/dereference/strategies/json-schema-2020-12/index.cjs",
+      "types": "./types/dereference/strategies/json-schema-2020-12/index.d.ts"
+    },
+    "./dereference/strategies/json-schema-2020-12/selectors/$anchor": {
+      "import": "./src/dereference/strategies/json-schema-2020-12/selectors/$anchor.mjs",
+      "require": "./src/dereference/strategies/json-schema-2020-12/selectors/$anchor.cjs",
+      "types": "./types/dereference/strategies/json-schema-2020-12/selectors/$anchor.d.ts"
+    },
+    "./dereference/strategies/json-schema-2020-12/selectors/uri": {
+      "import": "./src/dereference/strategies/json-schema-2020-12/selectors/uri.mjs",
+      "require": "./src/dereference/strategies/json-schema-2020-12/selectors/uri.cjs",
+      "types": "./types/dereference/strategies/json-schema-2020-12/selectors/uri.d.ts"
+    },
     "./dereference/strategies/openapi-2": {
       "import": "./src/dereference/strategies/openapi-2/index.mjs",
       "require": "./src/dereference/strategies/openapi-2/index.cjs",
@@ -266,6 +296,11 @@
       "import": "./src/bundle/strategies/openapi-3-2/index.mjs",
       "require": "./src/bundle/strategies/openapi-3-2/index.cjs",
       "types": "./types/bundle/strategies/openapi-3-2/index.d.ts"
+    },
+    "./bundle/strategies/json-schema-2020-12": {
+      "import": "./src/bundle/strategies/json-schema-2020-12/index.mjs",
+      "require": "./src/bundle/strategies/json-schema-2020-12/index.cjs",
+      "types": "./types/bundle/strategies/json-schema-2020-12/index.d.ts"
     }
   },
   "imports": {
@@ -328,6 +363,7 @@
     "@swagger-api/apidom-ns-a2a-1": "^1.13.3",
     "@swagger-api/apidom-ns-arazzo-1": "^1.13.3",
     "@swagger-api/apidom-ns-asyncapi-2": "^1.13.3",
+    "@swagger-api/apidom-ns-json-schema-2020-12": "^1.13.3",
     "@swagger-api/apidom-ns-openapi-2": "^1.13.3",
     "@swagger-api/apidom-ns-openapi-3-0": "^1.13.3",
     "@swagger-api/apidom-ns-openapi-3-1": "^1.13.3",
@@ -343,6 +379,8 @@
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "^1.13.3",
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-3": "^1.13.3",
     "@swagger-api/apidom-parser-adapter-json": "^1.13.3",
+    "@swagger-api/apidom-parser-adapter-json-schema-json-2020-12": "^1.13.3",
+    "@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12": "^1.13.3",
     "@swagger-api/apidom-parser-adapter-openapi-json-2": "^1.13.3",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "^1.13.3",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "^1.13.3",
@@ -358,6 +396,7 @@
     "@swagger-api/apidom-ns-a2a-1": "*",
     "@swagger-api/apidom-ns-arazzo-1": "*",
     "@swagger-api/apidom-ns-asyncapi-2": "*",
+    "@swagger-api/apidom-ns-json-schema-2020-12": "*",
     "@swagger-api/apidom-ns-openapi-2": "*",
     "@swagger-api/apidom-ns-openapi-3-0": "*",
     "@swagger-api/apidom-ns-openapi-3-1": "*",
@@ -373,6 +412,8 @@
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-2": "*",
     "@swagger-api/apidom-parser-adapter-asyncapi-yaml-3": "*",
     "@swagger-api/apidom-parser-adapter-json": "*",
+    "@swagger-api/apidom-parser-adapter-json-schema-json-2020-12": "*",
+    "@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-2": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-0": "*",
     "@swagger-api/apidom-parser-adapter-openapi-json-3-1": "*",

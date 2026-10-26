@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "https://swagger.io/schemas/user-profile#avatar"
+        }
+      }
+    },
+    "UserProfile": {
+      "$id": "https://swagger.io/schemas/user-profile",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "$anchor": "avatar",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

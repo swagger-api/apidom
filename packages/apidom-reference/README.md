@@ -333,6 +333,43 @@ Supported media types are:
 ]
 ```
 
+#### [json-schema-json-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/json-schema-json-2020-12)
+
+Wraps [@swagger-api/apidom-parser-adapter-json-schema-json-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-json-2020-12) package
+and is uniquely identified by `json-schema-json-2020-12` name.
+
+Supported media types are:
+
+```js
+[
+  'application/schema;version=2020-12',
+  'application/schema+json;version=2020-12',
+]
+```
+
+The parser detects a JSON Schema 2020-12 document by its root `$schema` keyword when the file's media type
+is not one of the supported media types. The saturated configuration turns this detection off
+(`detectContent: false`), so a document is parsed as JSON Schema 2020-12 only when one of these
+media types is given: files referenced from other specifications (e.g. OpenAPI 3.1) often declare
+a root `$schema`, and their dereference strategies expect them as generic ApiDOM.
+
+#### [json-schema-yaml-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/json-schema-yaml-2020-12)
+
+Wraps [@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-json-schema-yaml-2020-12) package
+and is uniquely identified by `json-schema-yaml-2020-12` name.
+
+Supported media types are:
+
+```js
+[
+  'application/schema;version=2020-12',
+  'application/schema+yaml;version=2020-12',
+]
+```
+
+Like `json-schema-json-2020-12`, it detects documents by content unless `detectContent` is `false`,
+which is how the saturated configuration registers it.
+
 #### [api-design-systems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/parse/parsers/api-design-systems-json)
 
 Wraps [@swagger-api/apidom-parser-adapter-api-design-systsems-json](https://github.com/swagger-api/apidom/tree/main/packages/apidom-parser-adapter-api-design-systems-json) package
@@ -423,6 +460,8 @@ returns `true` or until entire list of parser plugins is exhausted (throws error
   new AsyncAPIYAML3Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  new JSONSchemaJSON2020_12Parser({ allowEmpty: true, sourceMap: false, detectContent: false }),
+  new JSONSchemaYAML2020_12Parser({ allowEmpty: true, sourceMap: false, detectContent: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -1294,6 +1333,21 @@ Supported media types:
 ]
 ```
 
+##### [json-schema-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/resolve/strategies/json-schema-2020-12)
+
+External resolution strategy for understanding and resolving external dependencies of standalone
+[JSON Schema 2020-12](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html) documents.
+
+Supported media types:
+
+```js
+[
+  'application/schema;version=2020-12',
+  'application/schema+json;version=2020-12',
+  'application/schema+yaml;version=2020-12'
+]
+```
+
 ##### External resolution strategies execution order
 
 It's important to understand that default external resolution strategies are run in specific order. The order is determined
@@ -1310,6 +1364,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_0ResolveStrategy(),
   new OpenAPI3_1ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new JSONSchema2020_12ResolveStrategy(),
   new ApiDOMResolveStrategy(),
 ]
 ```
@@ -1687,6 +1742,25 @@ Supported media types:
 ]
 ```
 
+##### [json-schema-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/json-schema-2020-12)
+
+Dereference strategy for dereferencing standalone [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html) documents.
+`$ref` is resolved against the base URI established by `$id`, and against `$anchor` and `$dynamicAnchor` plain name fragments.
+`$dynamicRef` is left in place, as in the `openapi-3-1` strategy.
+
+Supported media types:
+
+```js
+[
+  'application/schema;version=2020-12',
+  'application/schema+json;version=2020-12',
+  'application/schema+yaml;version=2020-12'
+]
+```
+
+Without a media type (`text/plain`), the strategy dereferences a parse result whose root is a JSON Schema 2020-12 element,
+e.g. one passed to `dereferenceApiDOM`.
+
 ##### Dereference strategies execution order
 
 It's important to understand that default dereference strategies are run in specific order. The order is determined
@@ -1704,6 +1778,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
   new OpenAPI3_1DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
   new AsyncAPI3DereferenceStrategy(),
+  new JSONSchema2020_12DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ]
 ```
@@ -1988,6 +2063,22 @@ Supported media types:
 ]
 ```
 
+##### [json-schema-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/json-schema-2020-12)
+
+Bundle strategy for standalone [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html) documents.
+Like the `openapi-3-1` strategy, it returns the document unchanged: external schema resources
+are not embedded into a [Compound Schema Document](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html#section-9.3) yet.
+
+Supported media types:
+
+```js
+[
+  'application/schema;version=2020-12',
+  'application/schema+json;version=2020-12',
+  'application/schema+yaml;version=2020-12'
+]
+```
+
 ##### Bundle strategies execution order
 
 It's important to understand that default bundle strategies are run in specific order. The order is determined
@@ -2001,6 +2092,7 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 ```js
 [
   new OpenAPI3_1BundleStrategy(),
+  new JSONSchema2020_12BundleStrategy(),
 ]
 ```
 Most specific strategies are listed first, most generic are listed last.

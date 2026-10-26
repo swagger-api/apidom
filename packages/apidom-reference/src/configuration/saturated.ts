@@ -5,6 +5,7 @@ import OpenAPI3_0ResolveStrategy from '../resolve/strategies/openapi-3-0/index.t
 import OpenAPI3_1ResolveStrategy from '../resolve/strategies/openapi-3-1/index.ts';
 import OpenAPI3_2ResolveStrategy from '../resolve/strategies/openapi-3-2/index.ts';
 import AsyncAPI2ResolveStrategy from '../resolve/strategies/asyncapi-2/index.ts';
+import JSONSchema2020_12ResolveStrategy from '../resolve/strategies/json-schema-2020-12/index.ts';
 import ApiDOMResolveStrategy from '../resolve/strategies/apidom/index.ts';
 import APIDesignSystemsJSONParser from '../parse/parsers/api-design-systems-json/index.ts';
 import APIDesignSystemsYAMLParser from '../parse/parsers/api-design-systems-yaml/index.ts';
@@ -24,6 +25,8 @@ import ArazzoJSON1Parser from '../parse/parsers/arazzo-json-1/index.ts';
 import ArazzoYAML1Parser from '../parse/parsers/arazzo-yaml-1/index.ts';
 import A2AJSON1Parser from '../parse/parsers/a2a-json-1/index.ts';
 import A2AYAML1Parser from '../parse/parsers/a2a-yaml-1/index.ts';
+import JSONSchemaJSON2020_12Parser from '../parse/parsers/json-schema-json-2020-12/index.ts';
+import JSONSchemaYAML2020_12Parser from '../parse/parsers/json-schema-yaml-2020-12/index.ts';
 import APIDOMJSONParser from '../parse/parsers/apidom-json/index.ts';
 import JSONParser from '../parse/parsers/json/index.ts';
 import YAMLParser from '../parse/parsers/yaml-1-2/index.ts';
@@ -35,8 +38,10 @@ import OpenAPI3_1DereferenceStrategy from '../dereference/strategies/openapi-3-1
 import OpenAPI3_2DereferenceStrategy from '../dereference/strategies/openapi-3-2/index.ts';
 import AsyncAPI2DereferenceStrategy from '../dereference/strategies/asyncapi-2/index.ts';
 import AsyncAPI3DereferenceStrategy from '../dereference/strategies/asyncapi-3/index.ts';
+import JSONSchema2020_12DereferenceStrategy from '../dereference/strategies/json-schema-2020-12/index.ts';
 import OpenAPI3_1BundleStrategy from '../bundle/strategies/openapi-3-1/index.ts';
 import OpenAPI3_2BundleStrategy from '../bundle/strategies/openapi-3-2/index.ts';
+import JSONSchema2020_12BundleStrategy from '../bundle/strategies/json-schema-2020-12/index.ts';
 import { options } from '../index.ts';
 
 options.parse.parsers = [
@@ -56,6 +61,13 @@ options.parse.parsers = [
   new ArazzoYAML1Parser({ allowEmpty: true, sourceMap: false }),
   new A2AJSON1Parser({ allowEmpty: true, sourceMap: false }),
   new A2AYAML1Parser({ allowEmpty: true, sourceMap: false }),
+  /**
+   * JSON Schema 2020-12 documents are claimed only by their media type. External files
+   * referenced from other specifications often declare a root $schema, and those strategies
+   * expect such files as generic ApiDOM.
+   */
+  new JSONSchemaJSON2020_12Parser({ allowEmpty: true, sourceMap: false, detectContent: false }),
+  new JSONSchemaYAML2020_12Parser({ allowEmpty: true, sourceMap: false, detectContent: false }),
   new APIDesignSystemsJSONParser({ allowEmpty: true, sourceMap: false }),
   new APIDesignSystemsYAMLParser({ allowEmpty: true, sourceMap: false }),
   new APIDOMJSONParser({ allowEmpty: true, sourceMap: false }),
@@ -75,6 +87,7 @@ options.resolve.strategies = [
   new OpenAPI3_1ResolveStrategy(),
   new OpenAPI3_2ResolveStrategy(),
   new AsyncAPI2ResolveStrategy(),
+  new JSONSchema2020_12ResolveStrategy(),
   new ApiDOMResolveStrategy(),
 ];
 
@@ -85,9 +98,14 @@ options.dereference.strategies = [
   new OpenAPI3_2DereferenceStrategy(),
   new AsyncAPI2DereferenceStrategy(),
   new AsyncAPI3DereferenceStrategy(),
+  new JSONSchema2020_12DereferenceStrategy(),
   new ApiDOMDereferenceStrategy(),
 ];
 
-options.bundle.strategies = [new OpenAPI3_1BundleStrategy(), new OpenAPI3_2BundleStrategy()];
+options.bundle.strategies = [
+  new OpenAPI3_1BundleStrategy(),
+  new OpenAPI3_2BundleStrategy(),
+  new JSONSchema2020_12BundleStrategy(),
+];
 
 export * from '../index.ts';

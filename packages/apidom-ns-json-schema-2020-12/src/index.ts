@@ -22,7 +22,11 @@ export { default as refractorPluginReplaceEmptyElement } from './refractor/plugi
 export { default as refract, createRefractor } from './refractor/index.ts';
 export { default as specificationObj } from './refractor/specification.ts';
 
-export { isJSONSchemaElement, isLinkDescriptionElement } from './predicates.ts';
+export {
+  isJSONSchemaElement,
+  isLinkDescriptionElement,
+  isBooleanJsonSchemaElement,
+} from './predicates.ts';
 
 export {
   SpecificationVisitor,
@@ -74,6 +78,8 @@ export { PropertiesVisitor } from '@swagger-api/apidom-ns-json-schema-2019-09';
 export type { PropertiesVisitorOptions } from '@swagger-api/apidom-ns-json-schema-2019-09';
 export { default as PrefixItemsVisitor } from './refractor/visitors/json-schema/PrefixItemsVisitor.ts';
 export type { PrefixItemsVisitorOptions } from './refractor/visitors/json-schema/PrefixItemsVisitor.ts';
+
+export { keyMap, getNodeType } from './traversal/visitor.ts';
 
 /**
  * JSON Schema 2020-12 specification elements.

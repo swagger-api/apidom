@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "properties": {
+        "profile": {
+          "$ref": "./ex.json#/$defs/UserProfile"
+        }
+      }
+    }
+  }
+}

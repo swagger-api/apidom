@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "internal": {
+      "$ref": "#/$defs/string"
+    },
+    "internalMissing": {
+      "$ref": "#/$defs/missing"
+    },
+    "internalViaIndirection": {
+      "$ref": "#/$defs/hasMissing"
+    },
+    "anchor": {
+      "$ref": "#name"
+    },
+    "anchorMissing": {
+      "$ref": "#missing-anchor"
+    },
+    "external": {
+      "$ref": "./ex.json#/$defs/number"
+    },
+    "externalMissingFile": {
+      "$ref": "./missing.json"
+    },
+    "externalMissingPointer": {
+      "$ref": "./ex.json#/$defs/missing"
+    },
+    "externalBroken": {
+      "$ref": "./broken.json"
+    }
+  },
+  "$defs": {
+    "string": {
+      "type": "string"
+    },
+    "named": {
+      "$anchor": "name",
+      "type": "boolean"
+    },
+    "hasMissing": {
+      "type": "object",
+      "properties": {
+        "nested": {
+          "$ref": "#/$defs/missingInIndirection"
+        }
+      }
+    }
+  }
+}

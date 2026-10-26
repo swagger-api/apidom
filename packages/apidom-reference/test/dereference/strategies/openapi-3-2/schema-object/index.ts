@@ -253,6 +253,41 @@ describe('dereference', function () {
           });
         });
 
+        context(
+          'given Schema Objects pointing to external JSON Schema 2020-12 documents',
+          function () {
+            const fixturePath = path.join(
+              rootFixturePath,
+              'external-json-schema-2020-12-documents',
+            );
+
+            specify('should dereference', async function () {
+              const rootFilePath = path.join(fixturePath, 'root.json');
+              const actual = await dereference(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+
+            specify(
+              'should apply Schema Object semantics to external documents',
+              async function () {
+                const rootFilePath = path.join(fixturePath, 'root.json');
+                const dereferenced = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const user = evaluate(dereferenced, '/0/components/schemas/User');
+                const account = evaluate(dereferenced, '/0/components/schemas/Account');
+
+                assert.isTrue(isSchemaElement(user));
+                assert.isTrue(isSchemaElement(account));
+              },
+            );
+          },
+        );
+
         context('given Schema Objects pointing to external indirections', function () {
           const fixturePath = path.join(rootFixturePath, 'external-indirections');
 

@@ -1,0 +1,21 @@
+{
+  "type": "object",
+  "$defs": {
+    "schema1": {
+      "$ref": "#/$defs/somePayload"
+    },
+    "somePayload": {
+      "type": "object",
+      "properties": {
+        "sentAt": {
+          "$ref": "#/$defs/sentAt"
+        }
+      }
+    },
+    "sentAt": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Date and time when the message was sent."
+    }
+  }
+}

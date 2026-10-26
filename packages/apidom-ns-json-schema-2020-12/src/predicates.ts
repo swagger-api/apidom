@@ -1,4 +1,5 @@
-import { createPredicate } from '@swagger-api/apidom-core';
+import { BooleanElement, createPredicate, isBooleanElement } from '@swagger-api/apidom-core';
+import type { ElementPredicate } from '@swagger-api/apidom-core';
 
 import JSONSchemaElement from './elements/JSONSchema.ts';
 import LinkDescriptionElement from './elements/LinkDescription.ts';
@@ -28,3 +29,14 @@ export const isLinkDescriptionElement = createPredicate(
         primitiveEq('object', element));
   },
 );
+
+/**
+ * Boolean JSON Schema (`true` or `false` in place of a schema).
+ *
+ * @public
+ */
+export const isBooleanJsonSchemaElement: ElementPredicate<BooleanElement> = (
+  element: unknown,
+): element is BooleanElement => {
+  return isBooleanElement(element) && element.classes.includes('boolean-json-schema');
+};

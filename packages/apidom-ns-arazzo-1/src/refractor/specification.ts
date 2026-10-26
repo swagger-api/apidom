@@ -41,7 +41,8 @@ import FallbackVisitor from './visitors/FallbackVisitor.ts';
  * Note: Specification object allows to use absolute internal JSON pointers.
  */
 
-const { JSONSchema: JSONSchemaVisitor } = jsonSchemaSpecificationObj.visitors.document.objects;
+const { JSONSchema: JSONSchemaVisitor, LinkDescription: LinkDescriptionVisitor } =
+  jsonSchemaSpecificationObj.visitors.document.objects;
 
 /**
  * @public
@@ -162,6 +163,7 @@ const specification = {
           },
         },
         JSONSchema: JSONSchemaVisitor,
+        LinkDescription: LinkDescriptionVisitor,
       },
       extension: {
         $visitor: SpecificationExtensionVisitor,

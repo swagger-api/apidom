@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "string": {
+      "type": "string"
+    },
+    "number": {
+      "type": "number"
+    },
+    "alias": {
+      "$ref": "#/$defs/string"
+    }
+  },
+  "prefixItems": [
+    {
+      "$ref": "#/$defs/string"
+    },
+    {
+      "$ref": "#/$defs/number"
+    }
+  ],
+  "items": {
+    "$ref": "#/$defs/number"
+  },
+  "contains": {
+    "$ref": "#/$defs/string"
+  },
+  "additionalProperties": {
+    "$ref": "#/$defs/number"
+  },
+  "properties": {
+    "a": {
+      "$ref": "#/$defs/string"
+    }
+  },
+  "patternProperties": {
+    "^b": {
+      "$ref": "#/$defs/string"
+    }
+  },
+  "dependentSchemas": {
+    "c": {
+      "$ref": "#/$defs/string"
+    }
+  },
+  "propertyNames": {
+    "$ref": "#/$defs/string"
+  },
+  "if": {
+    "$ref": "#/$defs/string"
+  },
+  "then": {
+    "$ref": "#/$defs/string"
+  },
+  "else": {
+    "$ref": "#/$defs/number"
+  },
+  "allOf": [
+    {
+      "$ref": "#/$defs/string"
+    }
+  ],
+  "anyOf": [
+    {
+      "$ref": "#/$defs/string"
+    },
+    {
+      "$ref": "#/$defs/number"
+    }
+  ],
+  "oneOf": [
+    {
+      "$ref": "#/$defs/number"
+    }
+  ],
+  "not": {
+    "$ref": "#/$defs/number"
+  },
+  "unevaluatedItems": {
+    "$ref": "#/$defs/string"
+  },
+  "unevaluatedProperties": {
+    "$ref": "#/$defs/number"
+  },
+  "contentSchema": {
+    "$ref": "#/$defs/string"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "schema1": {
+      "$ref": "./ex.json#/$defs/schema1"
+    },
+    "schema2": {
+      "type": "object"
+    },
+    "schema3": {
+      "$ref": "./ex.json#/$defs/schema3"
+    }
+  }
+}

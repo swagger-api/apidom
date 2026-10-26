@@ -27,6 +27,7 @@ apidom-reference turns a parsed document into a resolved, dereferenced or bundle
 3. Choose the mode:
    - **Extend**: the version belongs to an existing namespace whose adapters already detect it, and `src/parse/parsers/{spec}-json-{major}/` and `{spec}-yaml-{major}/` already exist. Strategies exist only for some specs, so check which of `src/{resolve,dereference,bundle}/strategies/{spec}-{major}/` are present and update only those: `asyncapi-2` has resolve and dereference, `asyncapi-3` only dereference, `openapi-3-1` and `openapi-3-2` all three. Example: AsyncAPI 2.6 (`asyncapi-2`).
    - **New**: new namespace package and new adapter packages. Example: OpenAPI 3.2 (`openapi-3-2`, commit `ef97b5c32`).
+   - A JSON Schema dialect (`json-schema-{dialect}`, e.g. `2020-12`) is always new mode. Its document root is itself a schema: build its strategies per `references/reference-strategies.md` 3.8 (schema-only visitor, `$dynamicRef` left in place as for OAS 3.1, compound-document bundling), with the integration points in `../add-spec-version/references/json-schema-dialects.md` section 4.
 
 ## Phase 2: Parse Integration
 
@@ -50,7 +51,7 @@ Read `references/reference-strategies.md`, then create under `packages/apidom-re
 1. Resolve strategy `resolve/strategies/{spec}-{version}/index.ts` (3.1).
 2. Dereference strategy `dereference/strategies/{spec}-{version}/index.ts` (3.2) and visitor `visitor.ts`, copied from the parent version (3.3). Then adjust it to the field map: every `NEW` field that can hold a Reference Object or `$ref` is handled, and nothing else is.
 3. `util.ts` and selectors `selectors/$anchor.ts`, `selectors/uri.ts` (3.4).
-4. Bundle strategy `bundle/strategies/{spec}-{version}/index.ts` (3.5), if the parent has one (only `openapi-3-1` and `openapi-3-2` do).
+4. Bundle strategy `bundle/strategies/{spec}-{version}/index.ts` (3.5), if the parent has one (only `openapi-3-1` and `openapi-3-2` do, and both return the parse result unchanged). JSON Schema dialects: 3.8.
 5. Register the strategies in `saturated.ts` and add their `exports` entries (3.6).
 6. Tests in `test/dereference/strategies/{spec}-{version}/` and `test/bundle/strategies/{spec}-{version}/` (optionally `test/resolve/`) (3.7).
 

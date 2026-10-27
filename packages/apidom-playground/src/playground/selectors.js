@@ -20,6 +20,9 @@ import asyncApi2NsPlugin, {
 import arazzoSpecification1NsPlugin, {
   mediaTypes as arazzoSpecification1MediaTypes,
 } from '@swagger-api/apidom-ns-arazzo-1';
+import jsonSchema202012NsPlugin, {
+  mediaTypes as jsonSchema202012MediaTypes,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 import { mediaTypes as jsonMediaTypes } from '@swagger-api/apidom-parser-adapter-json';
 import { mediaTypes as yamlMediaTypes } from '@swagger-api/apidom-parser-adapter-yaml-1-2';
 
@@ -62,6 +65,9 @@ export const selectApiDOMNamespace = createSelector(selectMediaType, (mediaType)
   }
   if (arazzoSpecification1MediaTypes.includes(mediaType)) {
     return createNamespace(arazzoSpecification1NsPlugin);
+  }
+  if (jsonSchema202012MediaTypes.includes(mediaType)) {
+    return createNamespace(jsonSchema202012NsPlugin);
   }
   return createNamespace();
 });
@@ -139,6 +145,7 @@ export const selectMediaTypes = (() => {
     ...openApi3_2MediaTypes,
     ...asyncApi2MediaTypes,
     ...arazzoSpecification1MediaTypes,
+    ...jsonSchema202012MediaTypes,
   ];
   return () => allMediaTypes;
 })();

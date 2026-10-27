@@ -6,7 +6,7 @@
  * (`@swagger-api/apidom-ns-openapi-3-1` -> packages/apidom-ns-openapi-3-1/src).
  */
 import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join, resolve, dirname } from 'node:path';
+import { join, resolve, dirname, relative, sep } from 'node:path';
 
 export const walkTs = (dir) =>
   existsSync(dir)
@@ -157,7 +157,62 @@ export const createResolver = (packagesDir) => {
 
   const elementName = (cls) => chain(cls).find((c) => c.element)?.element;
 
-  return { resolveSuper, resolveIdentifier, chain, elementName };
+  // `{ present, gone }` field lists of the refractor specifications a package patches, closest
+  // first: the JSON Schema dialects build theirs from the parent's `specificationObj` with
+  // assocPath/dissocPath, so a dropped keyword (2020-12 `additionalItems`) keeps its getter
+  const specLayers = (pkgName, object) => {
+    const layers = [];
+    const seen = new Set();
+    const fieldsOf = (text, fn) => {
+      const path = `'objects',\\s*'(\\w+)',\\s*'fixedFields',\\s*'([^']+)'`;
+      return [...text.matchAll(new RegExp(`${fn}\\(\\s*\\[[^\\]]*${path}`, 'g'))]
+        .filter((m) => m[1] === object)
+        .map((m) => m[2]);
+    };
+    let current = pkgName;
+    while (current && !seen.has(current)) {
+      seen.add(current);
+      const file = join(pkgDir(current), 'src', 'refractor', 'specification.ts');
+      const text = existsSync(file) ? readFileSync(file, 'utf8') : '';
+      layers.push({ present: fieldsOf(text, 'assocPath'), gone: fieldsOf(text, 'dissocPath') });
+      current = text.match(
+        /import\s*\{[^}]*\bspecificationObj\b[^}]*\}\s*from\s*'(@swagger-api\/apidom-ns-[^']+)'/,
+      )?.[1];
+    }
+    return layers;
+  };
+
+  // fields the closest layer that mentions them removes
+  const removedIn = (layers) => {
+    const decided = new Set();
+    const removed = new Set();
+    for (const { present, gone } of layers) {
+      for (const field of gone) if (!decided.has(field)) removed.add(field);
+      [...gone, ...present].forEach((field) => decided.add(field));
+    }
+    return removed;
+  };
+
+  // fields declared by ancestors that `cls` still has, i.e. not removed by a closer throwing
+  // getter (2020-12 `$recursiveRef`) or a closer refractor `dissocPath`
+  const inheritedFields = (cls) => {
+    const [own, ...ancestors] = chain(cls);
+    const classLayers = [own, ...ancestors].map((c) => ({
+      present: c.fields,
+      gone: [...c.getters].filter(([, getter]) => getter.removed).map(([name]) => name),
+    }));
+    const pkgName = `@swagger-api/${relative(packagesDir, own.file).split(sep)[0]}`;
+    const removed = new Set([
+      ...removedIn(classLayers),
+      ...removedIn(specLayers(pkgName, own.className)),
+    ]);
+    const ownFields = new Set(own.fields);
+    return [...new Set(ancestors.flatMap((a) => a.fields))].filter(
+      (field) => !ownFields.has(field) && !removed.has(field),
+    );
+  };
+
+  return { resolveSuper, resolveIdentifier, chain, elementName, inheritedFields };
 };
 
 /**

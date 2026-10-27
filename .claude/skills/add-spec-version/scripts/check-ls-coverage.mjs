@@ -20,13 +20,17 @@ Usage:
                directory serves only this namespace (A2A), not for shared ones (openapi, asyncapi)
   --inherited  also check fields inherited from a parent namespace (by default only fields whose
                getters are declared in this namespace are checked: in extend mode the LS config
-               directory is shared across versions, so inherited fields are covered already)
+               directory is shared across versions, so inherited fields are covered already).
+               Fields a closer class removes with a throwing getter are skipped. Use it for
+               JSON Schema dialects: each has its own directory, config/json-schema/{dialect}
   --source     read the .ts sources by pattern even when config.mjs is built (use it instead of
                rebuilding when the build is stale; helper-generated items are missed)
   -h, --help   show this help
 
 Elements are the classes in src/elements that are registered in src/namespace.ts or declare
-field getters (\`this.get('field')\`). The element name is resolved through the superclass chain,
+field getters (\`this.get('field')\`). The element name is \`this.element\`, which LS metadata is
+keyed by (not the namespace.ts registry key, which differs for JSON Schema), resolved through the
+superclass chain,
 following imports into parent namespace packages, so subclasses that inherit \`this.element\`
 (e.g. OAS 3.2 Components extends OAS 3.1 ComponentsElement) are found. LS config is read from
 the built \`config.mjs\` when it exists (run \`npm run build:es\` in apidom-ls first; a warning is
@@ -147,10 +151,11 @@ for (const file of walkTs(join(nsDir, 'src', 'elements'))) {
   for (const cls of parseFile(file).classes) {
     const registeredName = registered.get(`${cls.file}#${cls.className}`);
     if (!registeredName && cls.fields.length === 0) continue;
-    const element = registeredName ?? resolver.elementName(cls);
+    // LS metadata is keyed by `this.element`, which can differ from the registry key
+    // (JSON Schema: 'jSONSchema202012' registers elements named 'JSONSchema202012')
+    const element = resolver.elementName(cls) ?? registeredName;
     if (!element) continue;
-    const ancestors = resolver.chain(cls).slice(1);
-    const inheritedFields = ancestors.flatMap((a) => a.fields);
+    const inheritedFields = resolver.inheritedFields(cls);
     const fields = [...new Set([...cls.fields, ...(values.inherited ? inheritedFields : [])])];
     const hasAnyFields = fields.length > 0 || inheritedFields.length > 0;
     if (!elementsByName.has(element))

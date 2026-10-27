@@ -58,7 +58,7 @@ Specs express required status in different ways. Determine which one applies by 
 |---|---|---|
 | Separate `Required` column | A2A | `capabilities \| AgentCapabilities \| Yes \| A2A Capability set...` |
 | Marker inside the Description column | OpenAPI, AsyncAPI, Arazzo | `openapi \| string \| **REQUIRED**. This string MUST be...` |
-| Prose only (keyword descriptions) | JSON Schema | Not supported — see [When NOT to Use](../SKILL.md#when-not-to-use) |
+| Prose only (keyword descriptions) | JSON Schema | No required keywords; build the keyword map from the meta-schemas — see [JSON Schema Dialects](../SKILL.md#json-schema-dialects) |
 
 For the description-marker format:
 - A field is required **only** if its description starts with the `REQUIRED` marker (exact spelling/punctuation varies: `**REQUIRED**.` in OpenAPI, `**REQUIRED.**` in AsyncAPI). Its absence means optional — there is no `No` value to look for.

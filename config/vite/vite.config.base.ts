@@ -9,11 +9,19 @@ import terser from '@rollup/plugin-terser';
  * emits each .wasm file as a separate asset with a hash-based name and
  * returns its URL as the module export value.
  */
-function wasmUrlLoader(): Plugin {
+export function wasmUrlLoader(): Plugin {
+  let devBasePath = '/';
   return {
     name: 'wasm-url-loader',
+    enforce: 'pre',
+    configResolved(config) {
+      devBasePath = new URL(config.base, 'http://localhost').pathname;
+    },
     load(id) {
       if (!id.endsWith('.wasm')) return null;
+      if (this.environment?.mode === 'dev') {
+        return `export default ${JSON.stringify(`${devBasePath}@fs${id}`)}`;
+      }
       const source = readFileSync(id);
       const hash = createHash('md5').update(source).digest('hex');
       const refId = this.emitFile({ type: 'asset', fileName: `${hash}.wasm`, source });

@@ -16,6 +16,8 @@ import * as asyncapi2AdapterJson from '@swagger-api/apidom-parser-adapter-asynca
 import * as asyncapi2AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-2';
 import * as arazzo1AdapterJson from '@swagger-api/apidom-parser-adapter-arazzo-json-1';
 import * as arazzo1AdapterYaml from '@swagger-api/apidom-parser-adapter-arazzo-yaml-1';
+import * as jsonSchema202012AdapterJson from '@swagger-api/apidom-parser-adapter-json-schema-json-2020-12';
+import * as jsonSchema202012AdapterYaml from '@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12';
 import {
   readFile,
   resolveApiDOM as resolveApiDOMReferences,
@@ -37,7 +39,9 @@ const parser = new ApiDOMParser()
   .use(asyncapi2AdapterJson)
   .use(asyncapi2AdapterYaml)
   .use(arazzo1AdapterJson)
-  .use(arazzo1AdapterYaml);
+  .use(arazzo1AdapterYaml)
+  .use(jsonSchema202012AdapterJson)
+  .use(jsonSchema202012AdapterYaml);
 
 /* eslint-disable */
 const service = {

@@ -1,6 +1,6 @@
 ---
 name: review-ls-changes
-description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, enum/format, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". Not for JSON Schema dialect configs.
+description: Reviews branch or PR changes in packages/apidom-ls against the official API specification (OpenAPI, AsyncAPI, A2A, Arazzo, etc.), checking lint rules (required, type, enum/format, allowed-fields, targetSpecs scoping), documentation values, completion files, element config coverage, and documentation URL anchors for correctness and completeness, then produces a structured findings report with spec citations. Use whenever LS config changes need spec-compliance verification, even if the user just says "review my LS changes" or "check the lint rules". JSON Schema dialect configs are reviewed against a keyword map built from the dialect's meta-schemas.
 ---
 
 # Review Language Service Changes Skill
@@ -35,9 +35,14 @@ Use this skill when:
 - A PR review is in progress and spec compliance needs to be confirmed
 - You need a structured gap analysis before submitting a PR
 
-## When NOT to Use
+## JSON Schema Dialects
 
-- **JSON Schema dialects** (`packages/apidom-ls/src/config/json-schema/`, Draft 4/6/7, 2019-09, 2020-12): the rules are spread across several specifications (core, validation, hyper-schema, ...) and keyword constraints are expressed in prose within each keyword's description (e.g. [2020-12 Validation §6.1.1](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-01#section-6.1.1)) rather than in Fixed Fields tables. The table-driven field map this skill relies on does not apply; review such changes manually against each relevant specification.
+`packages/apidom-ls/src/config/json-schema/{dialect}/` has no Fixed Fields tables to extract: keywords are listed in the dialect's vocabulary meta-schemas and defined in prose sections of the core and validation specifications (e.g. [2020-12 Validation §6.1.1](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-01#section-6.1.1)). Adapt the phases:
+
+- **Phase 2**: build the keyword map per `.claude/skills/add-spec-version/references/json-schema-dialects.md` section 2 instead of `references/spec-field-extraction.md`; cite the keyword's section as the spec source.
+- **Phase 3**: run `check-ls-coverage.mjs` on `config/json-schema/{dialect}` with `--inherited --orphans`; `NOT-ALLOWED` for the schema object is expected.
+- **Phase 4**: no keyword is required, so every `--required` rule is an Issue 1 finding; type and `--format-uri` expectations come from the meta-schema; an error-level allowed-fields rule is an Issue 10 finding (unknown keywords are legal).
+- Also check the wiring in section 4 of that file (one namespace key for `metadataMaps` and `targetSpecs`, config keys equal to `this.element`).
 
 ## Prerequisites
 

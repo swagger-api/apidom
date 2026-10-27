@@ -1,6 +1,6 @@
 ---
 name: add-spec-version
-description: End-to-end orchestrator for adding a new API specification or specification version to ApiDOM (e.g. AsyncAPI 3.1, OpenAPI 3.3, Arazzo 1.1, a brand-new spec) in four phases, each ending in its own stacked pull request: 1 namespace, 2 parser adapters, 3 apidom-reference, 4 apidom-ls. Builds a parent-vs-new field map from the official spec, chains /add-namespace, /add-parser-adapter, /add-reference-support, /update-ls-config and /review-ls-changes, and gates every phase (build, types, lint, tests, redefined-field check, URL/anchor check). Can start at any phase; it first checks that earlier phases are complete and refuses to skip ahead. Use whenever the user wants to "add support for" a spec version, continue such work at a given phase, or plan it, even if they don't name the individual skills.
+description: End-to-end orchestrator for adding a new API specification or specification version to ApiDOM (e.g. AsyncAPI 3.1, OpenAPI 3.3, Arazzo 1.1, a brand-new spec, or standalone JSON Schema dialects such as 2020-12) in four phases, each ending in its own stacked pull request: 1 namespace, 2 parser adapters, 3 apidom-reference, 4 apidom-ls. Builds a parent-vs-new field map from the official spec, chains /add-namespace, /add-parser-adapter, /add-reference-support, /update-ls-config and /review-ls-changes, and gates every phase (build, types, lint, tests, redefined-field check, URL/anchor check). Can start at any phase; it first checks that earlier phases are complete and refuses to skip ahead. Use whenever the user wants to "add support for" a spec version, continue such work at a given phase, or plan it, even if they don't name the individual skills.
 disable-model-invocation: false
 user-invocable: true
 ---
@@ -28,7 +28,7 @@ The review of PR #5110 (OAS 3.2) found three recurring defect classes; the gates
 
 | Tool | Use |
 |------|-----|
-| `scripts/phase-status.mjs --spec {spec} --version {x.y.z} [--phase n]` | Which phases are complete (code on `main`, PR open/merged, code only, missing), the next phase, its branch name and the branch to start it from. Exit 1 when a phase before `--phase n` is not done (without `--phase`: a gap, e.g. phase 3 missing while phase 4 is done). `--field` when the document's version field differs from the spec id; `--no-version-field` for specs without one (A2A; auto-detected); `--base` to compare against another ref. |
+| `scripts/phase-status.mjs --spec {spec} --version {x.y.z} [--phase n]` | Which phases are complete (code on `main`, PR open/merged, code only, missing), the next phase, its branch name and the branch to start it from. Exit 1 when a phase before `--phase n` is not done (without `--phase`: a gap, e.g. phase 3 missing while phase 4 is done). `--field` when the document's version field differs from the spec id; `--no-version-field` for specs without one (A2A; auto-detected); `--base` to compare against another ref. For JSON Schema, `--version` is the dialect id (`--spec json-schema --version 2020-12`). |
 | `scripts/check-redefined-fields.mjs <packages/apidom-ns-X>` | Getters (with or without return type) duplicating an ancestor element. `REDEFINED` = remove (exit 1); `RETYPED` = same type name, now this namespace's own class: keep when the refractor produces it; `OVERRIDE` = keep only if the version changed the type; `REMOVED` = throwing getter for a dropped field. |
 | `scripts/verify-urls.mjs <paths...>` or `--diff main` | Fetches every URL and checks `#anchors` (markdown sources and static HTML pages: missing anchor is `BROKEN`). `--diff` covers committed, uncommitted and untracked changes; `--timeout` per request (15 s). `BROKEN` fails the gate (exit 1); `UNVERIFIED` (incl. timeouts) needs a manual look. |
 | `scripts/find-unwired.sh <parent-id> <new-id>` | Files (packages, root `package.json` and `README.md`) mentioning the parent version but not the new one (new variant); exit 1 when any. Documented ignore list for known false positives (`--all` disables it). |
@@ -38,6 +38,7 @@ The review of PR #5110 (OAS 3.2) found three recurring defect classes; the gates
 | `references/phase-checklists.md` | Per-phase file checklists for the extend and new variants, with worked examples. |
 | `references/pr-workflow.md` | Branch names, PR titles and body, stacking and rebasing. |
 | `references/integration-points.md` | Files outside the new packages that must change (new variant), by phase. |
+| `references/json-schema-dialects.md` | JSON Schema dialects: identifiers, keyword map from the meta-schemas (no Fixed Fields tables), extra integration points, the phase 4 exit check, gate adjustments. |
 
 Run scripts from the repo root: `node .claude/skills/add-spec-version/scripts/<script>`.
 
@@ -46,7 +47,10 @@ Run scripts from the repo root: `node .claude/skills/add-spec-version/scripts/<s
 1. Identify spec, full version (`3.1.0`), parent version, and the **variant**:
    - **Extend**: the version goes into an existing namespace and adapters (AsyncAPI 2.6 into `asyncapi-2`, AsyncAPI 3.1 into `asyncapi-3`).
    - **New**: own namespace and adapter packages (OpenAPI 3.2 as `openapi-3-2`, a brand-new spec).
-   `references/phase-checklists.md` explains how to decide.
+   `references/phase-checklists.md` explains how to decide. A JSON Schema dialect is always new
+   (`--spec json-schema`, version = dialect id such as `2020-12`); read
+   `references/json-schema-dialects.md` now, it changes the preparation, integration points and
+   gates below.
 2. Identify the requested phase: the one the user named, or the next incomplete one.
 3. `git fetch origin`, then run `phase-status.mjs`.
 4. **If any phase before the requested one is not complete, stop.** Report the status table and which phase is missing, and offer to run that phase first. Don't start the requested phase, even partially. Two exceptions, both requiring the user to confirm:
@@ -62,7 +66,7 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
 1. **Pin the version.** List the spec's releases (GitHub releases or tags of the spec repository, and the versions the spec site serves) and target the latest patch release of the requested line. PR #5182 was written against A2A 1.0.0 while 1.0.1 was out, and had to be upgraded during review. Record the exact version and the source URL in the tracking doc.
 2. Fetch the **official** specification source for that exact version, preferably raw markdown, and the parent version's. Release notes and summaries miss fields; Fixed Fields tables are the source of truth. For extend-variant minor releases, also read the release notes for new bindings or extensions (AsyncAPI 3.1 only added the ROS 2 binding).
 3. **Read the changes page** ("What's new", changelog, migration guide) for removals and renames. They often aren't visible in the new tables: A2A 1.0 removed the implicit and password OAuth flows, which PR #5182 still implemented. Every removed object or field becomes a `REMOVED` row.
-4. Build the field map per `references/field-map-template.md`: every object, every field, with type (including fixed value sets and formats such as URL), required flag and `NEW` / `CHANGED-TYPE` / `REMOVED` / `INHERITED` status. Cross-check `INHERITED` against the parent namespace's element files. Fields come only from the Fixed Fields tables of this version: not from the JSON Schema, examples, other versions or similar specs (PR #5182 invented `AgentCard.url` and missed `AgentSkill.id`). Mark fields whose names clash with ApiDOM element properties (`id`, `meta`, `content`, ...); `add-namespace` gives them renamed accessors.
+4. Build the field map per `references/field-map-template.md`: every object, every field, with type (including fixed value sets and formats such as URL), required flag and `NEW` / `CHANGED-TYPE` / `REMOVED` / `INHERITED` status. Cross-check `INHERITED` against the parent namespace's element files. Fields come only from the Fixed Fields tables of this version: not from the JSON Schema, examples, other versions or similar specs (PR #5182 invented `AgentCard.url` and missed `AgentSkill.id`). JSON Schema dialects have no such tables: their keywords come from the vocabulary meta-schemas (`references/json-schema-dialects.md` section 2). Mark fields whose names clash with ApiDOM element properties (`id`, `meta`, `content`, ...); `add-namespace` gives them renamed accessors.
 5. List every object in the Objects table, and every helper element the namespace will need that isn't a spec object (NCEs, string lists) as `INTERNAL`. Each namespace element and each LS config directory must trace back to one row; anything else is invented (PR #5182 documented a Security Requirement object the spec doesn't define).
 6. Record every external URL (dialect, meta-schema, JSON Schema files, doc base URLs) and run `verify-urls.mjs` on the tracking doc. Never derive a URL from a pattern. For the LS documentation base URL and anchor form, add or check the spec's row in "Documentation URLs per Spec" (`update-ls-config/references/completion-and-documentation.md`).
 7. **Checkpoint:** show the user the NEW / CHANGED-TYPE / REMOVED rows and the URL list, and get confirmation before generating code.
@@ -107,6 +111,7 @@ Done once, before phase 1 (or when resuming without a tracking doc). The trackin
 3. **Gate 4**:
    - `cd packages/apidom-ls && npm run build && npm run typescript:check-types && npm run lint && npm test`
    - `check-ls-coverage.mjs packages/apidom-ns-{...} packages/apidom-ls/src/config/{spec} --ignore {INTERNAL elements}` reports 0 problems (build apidom-ls first). Its `required` lines match the field map's Required column.
+   - JSON Schema dialects: coverage and rule expectations per `references/json-schema-dialects.md` section 6 (`--inherited`, no `--required` or error-level allowed-fields rules), and its section 5 exit check passes.
    - Field-map coverage: every `NEW` field has a completion item, a documentation entry (or, for an object-valued field documented in its own element directory, a line in the header comment) and lint rules (allowed-fields, `--type`, `--required` when required, `--equals` for enums). No config for `REMOVED` objects of this version.
    - Lint messages follow existing patterns (`should always have a '{field}'`, `'{field}' must be a {type}`); new codes in `codes.ts` are unique.
    - Older versions don't accept what's new (e.g. AsyncAPI 3.0.0 documents don't accept `ros2` bindings); a test proves it.

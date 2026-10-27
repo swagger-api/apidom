@@ -4,6 +4,13 @@ This directory contains Claude Code skills for common development tasks in the A
 
 ## Recent Updates
 
+**2026-10-23**: standalone JSON Schema dialects (planned as the first part of the "Standalone JSON Schema" delivery plan):
+
+- New `add-spec-version/references/json-schema-dialects.md`: dialect identifiers, the keyword map built from the vocabulary meta-schemas (JSON Schema has no Fixed Fields tables), extra apidom-reference and apidom-ls integration points, a phase 4 exit check, and gate adjustments. `/add-spec-version`, `/add-reference-support`, `/update-ls-config` and `/review-ls-changes` point to it; `/review-ls-changes` no longer excludes JSON Schema.
+- `phase-status.mjs` accepts a dialect id as `--version` (`--spec json-schema --version 2020-12`) with dialect-specific evidence; phase 4 also requires the adapters in `apidom-ls` `parser-factory.ts`.
+- `check-ls-coverage.mjs` names elements by `this.element` (JSON Schema registry keys differ), and `--inherited` skips fields a closer class or refractor removes (throwing getter, `dissocPath`).
+- `/add-reference-support` 3.8: JSON Schema dialect strategies from the schema part of the OAS 3.1 strategy, `$dynamicRef` left in place as the OAS 3.1 strategy does (support later, for both together; tested with Test Suite fixtures), and compound-document bundling per 2020-12 §9.3.1, assembled from the resolve strategy's `ReferenceSet` with four recorded decisions (the OAS bundle strategies return the parse result unchanged).
+
 **2026-10-15**:
 
 - PR #5259 review: `--equals` and `--format-uri` / `--format-email` rules are required, not advisory, in both `/update-ls-config` and `/review-ls-changes` (new Issue 11); type rules are checked for every field, not only required ones; `/add-namespace` documents the `pipe(assocPath, dissocPath)` way of extending a parent specification (JSON Schema dialects) next to listing every object.
@@ -181,7 +188,7 @@ Each `evals/evals.json` follows the skill-creator schema plus a `fixture` field 
 | add-reference-support | OAS 3.2 reference wiring plan; AsyncAPI 2.6 reference extension (PR #2537) | `ef97b5c32^`, `c2d643904` |
 | update-ls-config | AsyncAPI 3 Operation Reply lint rules (PR #5104 review findings); A2A LS coverage (PR #5182 review findings) | `c201bb1f8^`, `6644586cb` |
 | review-ls-changes | 8 planted defects in OAS 3.2 LS config | branch from `main` + the patch (copy it to `/tmp` first, it isn't on `main`; see the eval's `fixture.note`) |
-| add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan; **unseen:** Arazzo 1.1 plan (extend), Overlay 1.2 plan (brand-new spec) | `ef97b5c32^`, `f85f39593`, `36cbf2f73`, `f85f39593`, `f85f39593` |
+| add-spec-version | OAS 3.2 field map and phase plan; phase gating (AsyncAPI 3.1 at phase 3); AsyncAPI 2.6 phase 4 plan; **unseen:** Arazzo 1.1 plan (extend), Overlay 1.2 plan (brand-new spec); JSON Schema 2020-12 phases 3-4 plan (dialect) | `ef97b5c32^`, `f85f39593`, `36cbf2f73`, `f85f39593`, `f85f39593`, `00a75fbb0` |
 
 Run them with the `skill-creator` skill: one subagent with the skill and one baseline (previous skill version, or no skill) per eval, working read-only in the fixture worktree and writing to an outputs directory outside the repo. Most assertions are checkable by script (getter names, regexes, file names, message patterns).
 

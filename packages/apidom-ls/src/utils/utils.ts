@@ -848,15 +848,44 @@ const isJsonRootMember = (text: string, index: number): boolean => {
 };
 
 /**
+ * Root fields of API description formats that embed JSON Schema. A document with any of them at
+ * its root is not a standalone JSON Schema, whatever their value: a version no adapter detects
+ * (e.g. `openapi: 3.3.0`) and Arazzo, which apidom-ls doesn't detect, would otherwise fall through
+ * to the JSON Schema check.
+ */
+const apiDescriptionRootFieldJSONRegExp = /"(?:openapi|swagger|asyncapi|arazzo)"\s*:/g;
+const apiDescriptionRootFieldYAMLRegExp = /^(["']?)(?:openapi|swagger|asyncapi|arazzo)\1\s*:/m;
+
+const hasAPIDescriptionRootField = (text: string, format: 'JSON' | 'YAML'): boolean => {
+  // YAML block mapping: a key at column 0 is a key of the root mapping
+  if (format === 'YAML' && apiDescriptionRootFieldYAMLRegExp.test(text)) {
+    return true;
+  }
+
+  for (const match of text.matchAll(apiDescriptionRootFieldJSONRegExp)) {
+    if (isJsonRootMember(text, match.index)) {
+      return true;
+    }
+  }
+
+  return false;
+};
+
+/**
  * The JSON Schema adapters' `detectionRegExp` matches `$schema` anywhere in the text, and
  * nested schemas (e.g. OpenAPI 3.1+ Schema Objects or embedded schema resources) can carry
- * `$schema` too: a document is a standalone JSON Schema only when its root object has it.
+ * `$schema` too: a document is a standalone JSON Schema only when its root object has it and none
+ * of the API description root fields.
  */
 const findRootJSONSchemaDialect = (
   text: string,
   detectionRegExp: RegExp,
   format: 'JSON' | 'YAML',
 ): string | undefined => {
+  if (hasAPIDescriptionRootField(text, format)) {
+    return undefined;
+  }
+
   const regExp = new RegExp(detectionRegExp.source, `${detectionRegExp.flags}g`);
 
   for (const match of text.matchAll(regExp)) {

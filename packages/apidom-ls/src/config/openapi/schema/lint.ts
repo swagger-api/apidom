@@ -1,4 +1,4 @@
-import jsonSchema202012Lint from '../../json-schema/2020-12/json-schema/lint.ts';
+import jsonSchema202012Lint from './json-schema-2020-12/lint.ts';
 import { compose, assoc } from '../../json-schema/2020-12/target-specs.ts';
 // below are older rule variants that need to be replaced
 import additionalItemsNonArrayLint from '../../common/schema/lint/additional-items--non-array.ts';

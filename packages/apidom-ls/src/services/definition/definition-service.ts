@@ -89,7 +89,11 @@ export class DefaultDefinitionService implements DefinitionService {
             contentLanguage.namespace === 'openapi'
               ? 'application/vnd.oai.openapi+'
               : 'application/vnd.aai.asyncapi+';
-          const mediaType = `${mediaTypePrefix}${format};version=${specVersion}`;
+          // JSON Schema media types are dialect-specific (`application/schema+json;version=2020-12`)
+          const mediaType =
+            contentLanguage.namespace === 'json-schema'
+              ? contentLanguage.mediaType
+              : `${mediaTypePrefix}${format};version=${specVersion}`;
           debug(
             'definitionService - go to external ref',
             `mediaType: ${mediaType}`,

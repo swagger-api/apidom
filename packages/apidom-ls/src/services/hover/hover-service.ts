@@ -196,7 +196,11 @@ export class DefaultHoverService implements HoverService {
                 contentLanguage.namespace === 'openapi'
                   ? 'application/vnd.oai.openapi+'
                   : 'application/vnd.aai.asyncapi+';
-              const mediaType = `${mediaTypePrefix}${format};version=${nonStrictSpecVersion}`;
+              // JSON Schema media types are dialect-specific (`application/schema+json;version=2020-12`)
+              const mediaType =
+                contentLanguage.namespace === 'json-schema'
+                  ? contentLanguage.mediaType
+                  : `${mediaTypePrefix}${format};version=${nonStrictSpecVersion}`;
               debug(
                 'hoverService - computeHover',
                 `mediaType: ${mediaType}`,

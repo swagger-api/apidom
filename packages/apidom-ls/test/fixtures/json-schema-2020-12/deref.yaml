@@ -1,0 +1,14 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+properties:
+  home:
+    $ref: '#/$defs/address'
+  work:
+    $ref: '#address'
+$defs:
+  address:
+    $anchor: address
+    type: object
+    properties:
+      street:
+        type: string

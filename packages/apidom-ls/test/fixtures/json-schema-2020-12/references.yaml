@@ -1,0 +1,17 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+type: object
+properties:
+  home:
+    $ref: '#/$defs/address'
+  work:
+    $ref: '#address'
+  billing:
+    $ref: '#/$defs/missing'
+  shipping:
+    $ref: http://localhost:8127/address.json
+  other:
+    $ref: http://localhost:8127/missing.json
+$defs:
+  address:
+    $anchor: address
+    type: object

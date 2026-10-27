@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$anchor": "1st",
+  "type": "objekt",
+  "required": "name",
+  "properties": {
+    "name": { "type": "string", "minLength": -1 },
+    "tags": { "type": "array", "items": [{ "type": "string" }] }
+  },
+  "allOf": []
+}

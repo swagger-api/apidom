@@ -20,7 +20,7 @@ export function config(): Metadata {
       asyncapi: configAsyncAPI,
       ads: configADS,
       a2a: configA2A,
-      'json-schema-2020-12': configJSONSchema202012,
+      'json-schema': configJSONSchema202012,
     },
     rules: {
       asyncapi: asyncapiReferenceMeta,

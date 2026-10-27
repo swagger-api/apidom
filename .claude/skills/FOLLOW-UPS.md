@@ -217,11 +217,12 @@ Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/
 - **Fix:** set the referenced element name (`operationReplyAddress`, `server`, `message`, `externalDocumentation`) in the visitors, then drop the duplicate names from the LS rules. Check consumers first (`grep -rn "referenced-element" packages/apidom-reference packages/apidom-ls`): the dereference strategy copies the value onto the referenced element and the LS uses it to find local reference targets (may also fix 2.19).
 - **Commit:** `fix(ns-asyncapi-3): use element names for referenced-element meta`
 
-### 2.24 ⏳ The JSON Schema 2020-12 LS config can't reach a standalone document
+### 2.24 ✅ The JSON Schema 2020-12 LS config can't reach a standalone document (done in phase 4 of JSON Schema 2020-12, `feat/json-schema-2020-12/phase-4`)
 
 - **Where:** `packages/apidom-ls/src/config/config.ts` registers the 2020-12 config under `'json-schema-2020-12'`, while `config/json-schema/2020-12/target-specs.ts` declares `namespace: 'json-schema'`, and neither `parser-factory.ts` nor `utils/utils.ts` has a JSON Schema branch. `setMetadataMap` picks the config by the detected namespace and the services compare that namespace with `targetSpecs`, so no detected namespace satisfies both. The same config registers `LinkDescription`, but the element is named `linkDescription`.
 - **Found by:** `check-ls-coverage.mjs packages/apidom-ns-json-schema-2020-12 packages/apidom-ls/src/config/json-schema/2020-12 --source --inherited --orphans` (`NO-META linkDescription`, `NO-ELEMENT LinkDescription`) and reading `parser-factory.ts` (2026-10-23).
 - **Fix:** phase 4 of JSON Schema 2020-12, per `add-spec-version/references/json-schema-dialects.md` sections 4 and 5.
+- **Done:** detection returns namespace `json-schema` with version `2020-12` only for a root `$schema`, `metadataMaps` registers the config under `json-schema`, and `parser-factory.ts` parses with the 2020-12 adapters. The config registers `linkDescription`, and `test/json-schema-2020-12.ts` covers validation, reference validation, completion, hover, semantic tokens and `doDeref`. `check-ls-coverage.mjs ... --inherited --orphans` reports only the expected `NOT-ALLOWED` for `JSONSchema202012` and `linkDescription`: neither meta-schema forbids unknown keywords.
 
 ---
 

@@ -215,6 +215,47 @@ describe('apidom-ls-json-schema-2020-12', function () {
       assert.deepEqual((await findNamespace(text)).namespace, 'apidom');
     });
 
+    [
+      ['an Arazzo 1.0.1', 'arazzo', '1.0.1'],
+      ['an AsyncAPI', 'asyncapi', '9.0.0'],
+      ['an OpenAPI', 'openapi', '3.3.0'],
+      ['a Swagger', 'swagger', '9.0'],
+    ].forEach(([title, field, version]) => {
+      specify(
+        `should not detect ${title} document with an undetected ${field} version and a root $schema in JSON`,
+        async function () {
+          const text = JSON.stringify({
+            [field]: version,
+            $schema: 'https://json-schema.org/draft/2020-12/schema',
+            type: 'object',
+          });
+
+          assert.deepEqual(await findNamespace(text), {
+            namespace: 'apidom',
+            format: 'JSON',
+            mediaType: 'application/json',
+          });
+        },
+      );
+
+      specify(
+        `should not detect ${title} document with an undetected ${field} version and a root $schema in YAML`,
+        async function () {
+          const text = [
+            '$schema: https://json-schema.org/draft/2020-12/schema',
+            `${field}: ${version}`,
+            'type: object',
+          ].join('\n');
+
+          assert.deepEqual(await findNamespace(text), {
+            namespace: 'apidom',
+            format: 'YAML',
+            mediaType: 'application/yaml',
+          });
+        },
+      );
+    });
+
     ['3.1.0', '3.2.0'].forEach((version) => {
       const schemas = {
         User: {

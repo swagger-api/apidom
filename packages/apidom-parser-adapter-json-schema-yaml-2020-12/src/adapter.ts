@@ -10,10 +10,12 @@ import jsonSchemaNamespace, { JSONSchemaElement } from '@swagger-api/apidom-ns-j
 export { default as mediaTypes } from './media-types.ts';
 
 /**
+ * Matches the 2020-12 dialect identifier, optionally followed by an empty fragment (`schema#`).
+ * A plain (unquoted) YAML value must end there: only whitespace or a comment may follow.
  * @public
  */
 export const detectionRegExp =
-  /(?<YAML>^(["']?)\$schema\2\s*:\s*(["']?)https:\/\/json-schema\.org\/draft\/(?<version_yaml>2020-12)\/schema\3)|(?<JSON>"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema")/m;
+  /(?<YAML>^(["']?)\$schema\2\s*:\s*(["']?)https:\/\/json-schema\.org\/draft\/(?<version_yaml>2020-12)\/schema#?\3(?:(?<=["'])|(?=(?:[ \t]+#.*)?[ \t]*$)))|(?<JSON>"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema#?")/m;
 
 /**
  * @public

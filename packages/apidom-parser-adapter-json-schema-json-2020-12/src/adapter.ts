@@ -7,10 +7,11 @@ import jsonSchemaNamespace, { JSONSchemaElement } from '@swagger-api/apidom-ns-j
 export { default as mediaTypes } from './media-types.ts';
 
 /**
+ * Matches the 2020-12 dialect identifier, optionally followed by an empty fragment (`schema#`).
  * @public
  */
 export const detectionRegExp =
-  /"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema"/;
+  /"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema#?"/;
 
 /**
  * @public

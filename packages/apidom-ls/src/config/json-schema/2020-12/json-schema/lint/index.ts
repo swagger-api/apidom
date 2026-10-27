@@ -24,6 +24,7 @@ import propertiesTypeLint from './properties--type.ts';
 import propertiesValuesTypeLint from './properties--values-type.ts';
 import patternPropertiesTypeLint from './pattern-properties--type.ts';
 import patternPropertiesValuesTypeLint from './pattern-properties--values-type.ts';
+import patternPropertiesKeysFormatRegexLint from './pattern-properties--keys-format-regex.ts';
 import dependentSchemasTypeLint from './dependent-schemas--type.ts';
 import dependentSchemasValuesTypeLint from './dependent-schemas--values-type.ts';
 import propertyNamesTypeLint from './property-names--type.ts';
@@ -55,8 +56,10 @@ import minContainsTypeLint from './min-contains--type.ts';
 import maxPropertiesTypeLint from './max-properties--type.ts';
 import minPropertiesTypeLint from './min-properties--type.ts';
 import requiredTypeLint from './required--type.ts';
+import requiredUniqueLint from './required--unique.ts';
 import dependentRequiredTypeLint from './dependent-required--type.ts';
 import dependentRequiredValuesTypeLint from './dependent-required--values-type.ts';
+import dependentRequiredValuesUniqueLint from './dependent-required--values-unique.ts';
 import titleTypeLint from './title--type.ts';
 import descriptionTypeLint from './description--type.ts';
 import deprecatedTypeLint from './deprecated--type.ts';
@@ -97,6 +100,7 @@ const lints = [
   propertiesValuesTypeLint,
   patternPropertiesTypeLint,
   patternPropertiesValuesTypeLint,
+  patternPropertiesKeysFormatRegexLint,
   dependentSchemasTypeLint,
   dependentSchemasValuesTypeLint,
   propertyNamesTypeLint,
@@ -128,8 +132,10 @@ const lints = [
   maxPropertiesTypeLint,
   minPropertiesTypeLint,
   requiredTypeLint,
+  requiredUniqueLint,
   dependentRequiredTypeLint,
   dependentRequiredValuesTypeLint,
+  dependentRequiredValuesUniqueLint,
   titleTypeLint,
   descriptionTypeLint,
   deprecatedTypeLint,

@@ -816,7 +816,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [base](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.5.1)\n\nIf present, this keyword MUST be first resolved as a URI Template, and then MUST be resolved as a URI Reference against the current URI base of the instance. The result MUST be set as the new URI base for the instance while processing the sub-schema containing "base" and all sub-schemas within it.\n\nThe process for resolving the "base" template can be different when being resolved for use with "anchor" than when being resolved for use with "href", which is explained in detail in the URI Templating section.',
+        '#### [base](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.5.1)\n\nIf present, this keyword MUST be first resolved as a URI Template, and then MUST be resolved as a URI Reference against the current URI base of the instance. The result MUST be set as the new URI base for the instance while processing the sub-schema containing "base" and all sub-schemas within it.\n\nThe process for resolving the "base" template can be different when being resolved for use with "anchor" than when being resolved for use with "href", which is explained in detail in the URI Templating section.\n\n"base" belongs to the Hyper-Schema vocabulary (meta-schema `https://json-schema.org/draft/2020-12/meta/hyper-schema`), which the `https://json-schema.org/draft/2020-12/hyper-schema` dialect adds to the `https://json-schema.org/draft/2020-12/schema` dialect.',
     },
     targetSpecs: JSONSchema202012,
   },
@@ -830,7 +830,7 @@ const completion: ApidomCompletionItem[] = [
     documentation: {
       kind: 'markdown',
       value:
-        '#### [links](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.5.2)\n\nThe "links" property of schemas is used to associate Link Description Objects with instances. The value of this property MUST be an array, and the items in the array must be Link Description Objects.',
+        '#### [links](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.5.2)\n\nThe "links" property of schemas is used to associate Link Description Objects with instances. The value of this property MUST be an array, and the items in the array must be Link Description Objects.\n\n"links" belongs to the Hyper-Schema vocabulary (meta-schema `https://json-schema.org/draft/2020-12/meta/hyper-schema`), which the `https://json-schema.org/draft/2020-12/hyper-schema` dialect adds to the `https://json-schema.org/draft/2020-12/schema` dialect.',
     },
     targetSpecs: JSONSchema202012,
   },

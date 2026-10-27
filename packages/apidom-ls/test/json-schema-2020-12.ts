@@ -4,6 +4,10 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Diagnostic, DiagnosticSeverity, Position } from 'vscode-languageserver-types';
 import { fileURLToPath } from 'node:url';
+import {
+  createRefractor,
+  JSONSchemaElement as JSONSchema202012Element,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import { createHTTPServer, ServerTerminable } from './helpers.ts';
 import getLanguageService from '../src/apidom-language-service.ts';
@@ -426,6 +430,154 @@ describe('apidom-ls-json-schema-2020-12', function () {
 
       assert.deepEqual(await languageService.doValidation(doc), []);
     });
+  });
+
+  context('keyword rules', function () {
+    const validate = async (schema: Record<string, unknown>) => {
+      const text = JSON.stringify(
+        { $schema: 'https://json-schema.org/draft/2020-12/schema', ...schema },
+        null,
+        2,
+      );
+      const doc = TextDocument.create('foo://bar/schema.json', 'json', 0, text);
+      return languageService.doValidation(doc);
+    };
+
+    specify('should report duplicate required properties', async function () {
+      assert.deepEqual(await validate({ required: ['name', 'name'] }), [
+        {
+          range: { start: { line: 2, character: 2 }, end: { line: 2, character: 12 } },
+          message: "'required' must be an array with unique items",
+          severity: 1,
+          code: 8034401,
+          source: 'apilint',
+          data: {},
+        },
+      ]);
+    });
+
+    specify(
+      'should report dependentRequired values that are not arrays of unique strings',
+      async function () {
+        assert.deepEqual(await validate({ dependentRequired: { a: [1, true], b: ['c', 'c'] } }), [
+          {
+            range: { start: { line: 2, character: 2 }, end: { line: 2, character: 21 } },
+            message: "'dependentRequired' values must be arrays of strings",
+            severity: 1,
+            code: 8034501,
+            source: 'apilint',
+            data: {},
+          },
+          {
+            range: { start: { line: 2, character: 2 }, end: { line: 2, character: 21 } },
+            message: "'dependentRequired' values must be arrays with unique items",
+            severity: 1,
+            code: 8034502,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      },
+    );
+
+    specify(
+      'should warn about a pattern that is not a valid regular expression',
+      async function () {
+        assert.deepEqual(await validate({ pattern: '[' }), [
+          {
+            range: { start: { line: 2, character: 13 }, end: { line: 2, character: 16 } },
+            message: "'pattern' should be a valid regular expression",
+            severity: 2,
+            code: 8033601,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      },
+    );
+
+    specify(
+      'should warn about patternProperties keys that are not valid regular expressions',
+      async function () {
+        assert.deepEqual(await validate({ patternProperties: { '[': {}, '^a': {} } }), [
+          {
+            range: { start: { line: 2, character: 2 }, end: { line: 2, character: 21 } },
+            message: "'patternProperties' keys should be valid regular expressions",
+            severity: 2,
+            code: 8031502,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      },
+    );
+
+    /**
+     * F6: apidom-ns-arazzo-1, loaded with apidom-reference, assigns its refractor to the JSON Schema
+     * 2020-12 element class, and the Arazzo specification lacks LinkDescription, so a document with
+     * `links` fails to parse until fix/ns-arazzo-1-link-description is merged. This test restores
+     * the JSON Schema 2020-12 refractor meanwhile; drop that once the fix is merged.
+     */
+    specify(
+      'should report invalid rel values and duplicate templateRequired items in Link Description Objects',
+      async function () {
+        const { refract } = JSONSchema202012Element;
+        JSONSchema202012Element.refract = createRefractor([
+          'visitors',
+          'document',
+          'objects',
+          'JSONSchema',
+          '$visitor',
+        ]);
+
+        try {
+          const result = await validate({
+            links: [
+              { rel: [], href: '/a' },
+              { rel: [1], href: '/b' },
+              { rel: 5, href: '/c', templateRequired: ['id', 'id'] },
+            ],
+          });
+
+          assert.deepEqual(result, [
+            {
+              range: { start: { line: 4, character: 6 }, end: { line: 4, character: 11 } },
+              message: "'rel' must be a non-empty array of strings",
+              severity: 1,
+              code: 8040302,
+              source: 'apilint',
+              data: {},
+            },
+            {
+              range: { start: { line: 8, character: 6 }, end: { line: 8, character: 11 } },
+              message: "'rel' must be a non-empty array of strings",
+              severity: 1,
+              code: 8040302,
+              source: 'apilint',
+              data: {},
+            },
+            {
+              range: { start: { line: 14, character: 13 }, end: { line: 14, character: 14 } },
+              message: "'rel' must be a string or a non-empty array of strings",
+              severity: 1,
+              code: 8040300,
+              source: 'apilint',
+              data: {},
+            },
+            {
+              range: { start: { line: 16, character: 6 }, end: { line: 16, character: 24 } },
+              message: "'templateRequired' must be an array with unique items",
+              severity: 1,
+              code: 8040701,
+              source: 'apilint',
+              data: {},
+            },
+          ]);
+        } finally {
+          JSONSchema202012Element.refract = refract;
+        }
+      },
+    );
   });
 
   context('references', function () {

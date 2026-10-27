@@ -28,6 +28,14 @@ describe('adapter', function () {
     });
   });
 
+  context('given definition with an empty fragment in $schema', function () {
+    specify('should detect proper media type', async function () {
+      assert.isTrue(
+        await adapter.detect('{"$schema": "https://json-schema.org/draft/2020-12/schema#"}'),
+      );
+    });
+  });
+
   context('given definition of unknown type', function () {
     specify('should detect proper media type', async function () {
       assert.isFalse(await adapter.detect('"asyncapi": "2.6.0"'));
@@ -82,6 +90,33 @@ describe('adapter', function () {
       );
       assert.isFalse(
         adapter.detectionRegExp.test('$schema: https://json-schema.org/draft/2019-09/schema'),
+      );
+    });
+
+    specify('should accept the dialect identifier with or without an empty fragment', function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+
+      assert.strictEqual(
+        `"$schema": "${id}"`.match(adapter.detectionRegExp)?.groups?.version_json,
+        '2020-12',
+      );
+      assert.strictEqual(
+        `"$schema": "${id}#"`.match(adapter.detectionRegExp)?.groups?.version_json,
+        '2020-12',
+      );
+    });
+
+    specify('should reject other fragments and suffixes of the dialect identifier', function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+
+      assert.isFalse(adapter.detectionRegExp.test(`"$schema": "${id}/"`));
+      assert.isFalse(adapter.detectionRegExp.test(`"$schema": "${id}#/x"`));
+      assert.isFalse(adapter.detectionRegExp.test(`"$schema": "${id}##"`));
+      assert.isFalse(
+        adapter.detectionRegExp.test('"$schema": "http://json-schema.org/draft/2020-12/schema#"'),
+      );
+      assert.isFalse(
+        adapter.detectionRegExp.test('"$schema": "https://json-schema.org/draft/2019-09/schema#"'),
       );
     });
   });

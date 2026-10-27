@@ -215,6 +215,91 @@ describe('apidom-ls-json-schema-2020-12', function () {
       assert.deepEqual((await findNamespace(text)).namespace, 'apidom');
     });
 
+    specify('should detect a root $schema with an empty fragment in JSON', async function () {
+      const text = JSON.stringify({
+        $schema: 'https://json-schema.org/draft/2020-12/schema#',
+        type: 'object',
+      });
+      const result = await parse(text, metadata().metadataMaps);
+
+      assert.deepEqual(await findNamespace(text), jsonContentLanguage);
+      assert.strictEqual(result.api?.element, 'JSONSchema202012');
+    });
+
+    specify('should detect a root $schema with an empty fragment in YAML', async function () {
+      const quotes = ['', "'", '"'];
+
+      for (const quote of quotes) {
+        const text = [
+          `$schema: ${quote}https://json-schema.org/draft/2020-12/schema#${quote}`,
+          'type: object',
+        ].join('\n');
+        // eslint-disable-next-line no-await-in-loop
+        const result = await parse(text, metadata().metadataMaps);
+
+        // eslint-disable-next-line no-await-in-loop
+        assert.deepEqual(await findNamespace(text), yamlContentLanguage);
+        assert.strictEqual(result.api?.element, 'JSONSchema202012');
+      }
+    });
+
+    specify(
+      'should not detect a root $schema with another fragment or the http scheme in JSON',
+      async function () {
+        const identifiers = [
+          'https://json-schema.org/draft/2020-12/schema#/x',
+          'https://json-schema.org/draft/2020-12/schema##',
+          'http://json-schema.org/draft/2020-12/schema#',
+        ];
+
+        for (const $schema of identifiers) {
+          // eslint-disable-next-line no-await-in-loop
+          assert.deepEqual(await findNamespace(JSON.stringify({ $schema, type: 'object' })), {
+            namespace: 'apidom',
+            format: 'JSON',
+            mediaType: 'application/json',
+          });
+        }
+      },
+    );
+
+    specify(
+      'should not detect a root $schema with another fragment or the http scheme in YAML',
+      async function () {
+        const identifiers = [
+          'https://json-schema.org/draft/2020-12/schema#/x',
+          'https://json-schema.org/draft/2020-12/schema##',
+          "'https://json-schema.org/draft/2020-12/schema#/x'",
+          'http://json-schema.org/draft/2020-12/schema#',
+        ];
+
+        for (const $schema of identifiers) {
+          // eslint-disable-next-line no-await-in-loop
+          assert.deepEqual(await findNamespace(`$schema: ${$schema}\ntype: object`), {
+            namespace: 'apidom',
+            format: 'YAML',
+            mediaType: 'application/yaml',
+          });
+        }
+      },
+    );
+
+    specify(
+      'should not detect an API description with a root $schema with an empty fragment',
+      async function () {
+        const $schema = 'https://json-schema.org/draft/2020-12/schema#';
+
+        assert.strictEqual(
+          (await findNamespace(JSON.stringify({ openapi: '3.3.0', $schema }))).namespace,
+          'apidom',
+        );
+        assert.strictEqual(
+          (await findNamespace(`arazzo: 1.0.1\n$schema: ${$schema}`)).namespace,
+          'apidom',
+        );
+      },
+    );
+
     [
       ['an Arazzo 1.0.1', 'arazzo', '1.0.1'],
       ['an AsyncAPI', 'asyncapi', '9.0.0'],

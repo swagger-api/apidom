@@ -606,6 +606,49 @@ export const standardLinterfunctions: FunctionItem[] = [
     },
   },
   {
+    functionName: 'apilintChildrenArrayOfType',
+    function: (element: Element, type: string): boolean => {
+      if (element && isObject(element)) {
+        return (element.content as MemberElement[]).every(
+          ({ value }) =>
+            isArray(value as Element) &&
+            ((value as ArrayElement).content as Element[]).every((item) => isType(item, type)),
+        );
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintChildrenUniqueArray',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        return (element.content as MemberElement[]).every(({ value }) => {
+          if (!isArray(value as Element)) return true;
+          const items = toValue(value as Element) as unknown[];
+          return new Set(items).size === items.length;
+        });
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintMembersKeysIsRegex',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        return (element.keys() as string[]).every((key) => {
+          try {
+            // eslint-disable-next-line no-new
+            new RegExp(key);
+          } catch (e) {
+            return false;
+          }
+          return true;
+        });
+      }
+      return true;
+    },
+  },
+  {
     functionName: 'apilintKeyIsRegex',
     function: (element: Element): boolean => {
       if (element && element.parent && isMember(element.parent)) {

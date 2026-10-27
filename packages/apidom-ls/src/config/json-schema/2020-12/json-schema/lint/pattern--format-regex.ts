@@ -7,8 +7,8 @@ import { JSONSchema202012 } from '../../target-specs.ts';
 const patternFormatRegexLint: LinterMeta = {
   code: ApilintCodes.JSON_SCHEMA_2020_12_KEYWORD_PATTERN_FORMAT_REGEX,
   source: 'apilint',
-  message: "'pattern' must be a valid regular expression",
-  severity: DiagnosticSeverity.Error,
+  message: "'pattern' should be a valid regular expression",
+  severity: DiagnosticSeverity.Warning,
   linterFunction: 'apilintValueIsRegex',
   marker: 'value',
   target: 'pattern',

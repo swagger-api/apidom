@@ -1,4 +1,4 @@
-import jsonSchema202012Documentation from '../../json-schema/2020-12/json-schema/documentation.ts';
+import jsonSchema202012Documentation from './json-schema-2020-12/documentation.ts';
 import { compose, assoc } from '../../json-schema/2020-12/target-specs.ts';
 import commonSchemaDocumentation from '../../common/schema/documentation.ts';
 import { OpenAPI31, OpenAPI32 } from '../target-specs.ts';

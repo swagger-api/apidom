@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "home": {
+      "$anchor": "address",
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        }
+      }
+    },
+    "work": {
+      "$anchor": "address",
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "address": {
+      "$anchor": "address",
+      "type": "object",
+      "properties": {
+        "street": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

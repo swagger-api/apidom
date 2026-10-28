@@ -15,7 +15,7 @@ export { default as mediaTypes } from './media-types.ts';
  * @public
  */
 export const detectionRegExp =
-  /(?<YAML>^(["']?)\$schema\2\s*:\s*(["']?)https:\/\/json-schema\.org\/draft\/(?<version_yaml>2020-12)\/schema#?\3(?:(?<=["'])|(?=(?:[ \t]+#.*)?[ \t]*$)))|(?<JSON>"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema#?")/m;
+  /(?<YAML>^(["']?)\$schema\2\s*:\s*(["']?)https:\/\/json-schema\.org\/draft\/(?<version_yaml>2020-12)\/schema#?\3(?:(?<=["'])|(?=[ \t]*$|[ \t]+#)))|(?<JSON>"\$schema"\s*:\s*"https:\/\/json-schema\.org\/draft\/(?<version_json>2020-12)\/schema#?")/m;
 
 /**
  * @public

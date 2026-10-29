@@ -1,5 +1,9 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
-import { mediaTypes, isJSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
+import {
+  mediaTypes,
+  isJSONSchemaElement,
+  isBooleanJsonSchemaElement,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
 import File from '../../../File.ts';
 import BundleStrategy, { BundleStrategyOptions } from '../BundleStrategy.ts';
@@ -53,7 +57,10 @@ class JSONSchema2020_12BundleStrategy extends BundleStrategy {
 
     // assert by inspecting ApiDOM
     const result = file.parseResult?.result;
-    return isJSONSchemaElement(result) && result.element === 'JSONSchema202012';
+    return (
+      (isJSONSchemaElement(result) && result.element === 'JSONSchema202012') ||
+      isBooleanJsonSchemaElement(result)
+    );
   }
 
   async bundle(file: File): Promise<ParseResultElement> {

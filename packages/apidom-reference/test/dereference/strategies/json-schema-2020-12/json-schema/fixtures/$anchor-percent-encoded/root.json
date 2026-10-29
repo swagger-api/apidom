@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "internal": {
+      "$ref": "#%75ser-profile"
+    },
+    "external": {
+      "$ref": "./ex.json#%75ser-name"
+    }
+  },
+  "$defs": {
+    "UserProfile": {
+      "$anchor": "user-profile",
+      "type": "object"
+    }
+  }
+}

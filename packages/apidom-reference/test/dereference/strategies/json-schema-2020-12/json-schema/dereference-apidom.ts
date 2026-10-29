@@ -1,6 +1,13 @@
 import path from 'node:path';
 import { assert } from 'chai';
-import { toValue, ParseResultElement, ObjectElement } from '@swagger-api/apidom-core';
+import {
+  toValue,
+  BooleanElement,
+  Element,
+  ParseResultElement,
+  ObjectElement,
+  isBooleanElement,
+} from '@swagger-api/apidom-core';
 import {
   JSONSchemaElement,
   mediaTypes,
@@ -14,7 +21,7 @@ import {
 import { evaluate } from '@swagger-api/apidom-json-pointer/modern';
 import { fileURLToPath } from 'node:url';
 
-import { parse, dereferenceApiDOM } from '../../../../../src/index.ts';
+import { parse, dereference, dereferenceApiDOM } from '../../../../../src/index.ts';
 import File from '../../../../../src/File.ts';
 import JSONSchema2020_12DereferenceStrategy from '../../../../../src/dereference/strategies/json-schema-2020-12/index.ts';
 import { loadJsonFile } from '../../../../helpers.ts';
@@ -126,6 +133,44 @@ describe('dereference', function () {
           });
         });
 
+        context(
+          'given Boolean JSON Schema parse result passed to dereferenceApiDOM without media type',
+          function () {
+            specify('should return the schema unchanged', async function () {
+              const rootFilePath = path.join(__dirname, 'fixtures', 'boolean-root', 'root.json');
+              const parseResult = await parse(rootFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+              const dereferenced = await dereferenceApiDOM(parseResult, {
+                resolve: { baseURI: rootFilePath },
+              });
+
+              assert.deepEqual(toValue(dereferenced), [true]);
+            });
+
+            specify(
+              'should accept the Boolean result of root $ref dereferencing',
+              async function () {
+                const rootFilePath = path.join(
+                  __dirname,
+                  'fixtures',
+                  'root-ref-boolean',
+                  'root.json',
+                );
+                const parseResult = await dereference(rootFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                });
+                const dereferenced = await dereferenceApiDOM(parseResult, {
+                  resolve: { baseURI: rootFilePath },
+                });
+
+                assert.deepEqual(toValue(dereferenced), [false]);
+                assert.isTrue(isBooleanElement((dereferenced as ParseResultElement).result));
+              },
+            );
+          },
+        );
+
         context('given Link Description Objects with schemas', function () {
           specify('should dereference $ref keyword in their schemas', async function () {
             const jsonSchemaElement = refract<JSONSchemaElement>({
@@ -160,7 +205,7 @@ describe('dereference', function () {
         });
 
         context('canDereference', function () {
-          const toFile = (element: ObjectElement, mediaType?: string) => {
+          const toFile = (element: Element, mediaType?: string) => {
             element.classes.push('result');
             return new File({
               uri: '/path/to/schema.json',
@@ -188,6 +233,20 @@ describe('dereference', function () {
             const strategy = new JSONSchema2020_12DereferenceStrategy();
 
             assert.isTrue(strategy.canDereference(toFile(new JSONSchemaElement())));
+          });
+
+          specify('should accept Boolean JSON Schema without media type', function () {
+            const strategy = new JSONSchema2020_12DereferenceStrategy();
+            const element = new BooleanElement(true);
+            element.classes.push('boolean-json-schema');
+
+            assert.isTrue(strategy.canDereference(toFile(element)));
+          });
+
+          specify('should reject generic boolean without media type', function () {
+            const strategy = new JSONSchema2020_12DereferenceStrategy();
+
+            assert.isFalse(strategy.canDereference(toFile(new BooleanElement(true))));
           });
 
           specify('should reject OpenAPI 3.1 Schema Object without media type', function () {

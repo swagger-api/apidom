@@ -3,6 +3,7 @@ import { createNamespace, visit, Element, cloneDeep } from '@swagger-api/apidom-
 import jsonSchema2020_12Namespace, {
   getNodeType,
   isJSONSchemaElement,
+  isBooleanJsonSchemaElement,
   keyMap,
   mediaTypes,
 } from '@swagger-api/apidom-ns-json-schema-2020-12';
@@ -68,14 +69,16 @@ class JSONSchema2020_12DereferenceStrategy extends DereferenceStrategy {
 
     // assert by inspecting ApiDOM
     const result = file.parseResult?.result;
-    return isJSONSchemaElement(result) && result.element === 'JSONSchema202012';
+    return (
+      (isJSONSchemaElement(result) && result.element === 'JSONSchema202012') ||
+      isBooleanJsonSchemaElement(result)
+    );
   }
 
   async dereference(file: File, options: ReferenceOptions): Promise<Element> {
     const namespace = createNamespace(jsonSchema2020_12Namespace);
     const immutableRefSet = options.dereference.refSet ?? new ReferenceSet();
     const mutableRefSet = new ReferenceSet();
-    let refSet = immutableRefSet;
     let reference;
 
     if (!immutableRefSet.has(file.uri)) {
@@ -101,7 +104,6 @@ class JSONSchema2020_12DereferenceStrategy extends DereferenceStrategy {
         )
         .forEach((ref) => mutableRefSet.add(ref));
       reference = mutableRefSet.find((ref) => ref.uri === file.uri);
-      refSet = mutableRefSet;
     }
 
     const visitor = new JSONSchema2020_12DereferenceVisitor({
@@ -109,7 +111,7 @@ class JSONSchema2020_12DereferenceStrategy extends DereferenceStrategy {
       namespace,
       options,
     });
-    const dereferencedElement = await visitAsync(refSet.rootRef!.value, visitor, {
+    const dereferencedElement = await visitAsync(reference!.value, visitor, {
       keyMap,
       nodeTypeGetter: getNodeType,
     });

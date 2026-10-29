@@ -853,23 +853,8 @@ const isJsonRootMember = (text: string, index: number): boolean => {
  * (e.g. `openapi: 3.3.0`) and Arazzo, which apidom-ls doesn't detect, would otherwise fall through
  * to the JSON Schema check.
  */
+const apiDescriptionRootFields = ['openapi', 'swagger', 'asyncapi', 'arazzo'];
 const apiDescriptionRootFieldJSONRegExp = /"(?:openapi|swagger|asyncapi|arazzo)"\s*:/g;
-const apiDescriptionRootFieldYAMLRegExp = /^(["']?)(?:openapi|swagger|asyncapi|arazzo)\1\s*:/m;
-
-const hasAPIDescriptionRootField = (text: string, format: 'JSON' | 'YAML'): boolean => {
-  // YAML block mapping: a key at column 0 is a key of the root mapping
-  if (format === 'YAML' && apiDescriptionRootFieldYAMLRegExp.test(text)) {
-    return true;
-  }
-
-  for (const match of text.matchAll(apiDescriptionRootFieldJSONRegExp)) {
-    if (isJsonRootMember(text, match.index)) {
-      return true;
-    }
-  }
-
-  return false;
-};
 
 /**
  * The JSON Schema adapters' `detectionRegExp` matches `$schema` anywhere in the text, and
@@ -877,29 +862,50 @@ const hasAPIDescriptionRootField = (text: string, format: 'JSON' | 'YAML'): bool
  * `$schema` too: a document is a standalone JSON Schema only when its root object has it and none
  * of the API description root fields.
  */
-const findRootJSONSchemaDialect = (
+const findRootJSONSchemaDialectInJSON = (
   text: string,
   detectionRegExp: RegExp,
-  format: 'JSON' | 'YAML',
 ): string | undefined => {
-  if (hasAPIDescriptionRootField(text, format)) {
-    return undefined;
+  for (const match of text.matchAll(apiDescriptionRootFieldJSONRegExp)) {
+    if (isJsonRootMember(text, match.index)) {
+      return undefined;
+    }
   }
 
   const regExp = new RegExp(detectionRegExp.source, `${detectionRegExp.flags}g`);
 
   for (const match of text.matchAll(regExp)) {
-    const groups = match.groups ?? {};
-    // YAML block mapping: `$schema` at column 0 is a key of the root mapping
-    if (format === 'YAML' && groups.version_yaml !== undefined) {
-      return groups.version_yaml;
-    }
-    if (groups.version_json !== undefined && isJsonRootMember(text, match.index)) {
-      return groups.version_json;
+    if (match.groups?.version_json !== undefined && isJsonRootMember(text, match.index)) {
+      return match.groups.version_json;
     }
   }
 
   return undefined;
+};
+
+/**
+ * YAML variant of `findRootJSONSchemaDialectInJSON`. Root membership is read from the parsed
+ * root mapping, as a nested (flow) mapping may come first in the text and look like the root.
+ */
+const findRootJSONSchemaDialectInYAML = async (
+  text: string,
+  detectionRegExp: RegExp,
+): Promise<string | undefined> => {
+  const { result } = await adapterYaml.parse(text);
+
+  if (!isObjectElement(result) || apiDescriptionRootFields.some((field) => result.hasKey(field))) {
+    return undefined;
+  }
+
+  const $schema = toValue(result.get('$schema'));
+
+  if (typeof $schema !== 'string') {
+    return undefined;
+  }
+
+  // let the adapter's regular expression recognize the dialect identifier and its version
+  const groups = `"$schema": ${JSON.stringify($schema)}`.match(detectionRegExp)?.groups;
+  return groups?.version_yaml ?? groups?.version_json;
 };
 
 /**
@@ -1098,10 +1104,9 @@ export async function findNamespace(
   }
 
   if (await jsonSchema202012AdapterJson.detect(text)) {
-    const version = findRootJSONSchemaDialect(
+    const version = findRootJSONSchemaDialectInJSON(
       text,
       jsonSchema202012AdapterJson.detectionRegExp,
-      'JSON',
     );
 
     if (version !== undefined) {
@@ -1116,10 +1121,9 @@ export async function findNamespace(
   }
 
   if (await jsonSchema202012AdapterYaml.detect(text)) {
-    const version = findRootJSONSchemaDialect(
+    const version = await findRootJSONSchemaDialectInYAML(
       text,
       jsonSchema202012AdapterYaml.detectionRegExp,
-      'YAML',
     );
 
     if (version !== undefined) {

@@ -68,7 +68,7 @@ const service = {
   async dereferenceApiDOM(apiDOM, { source, mediaType, baseURI, interpreter }) {
     const namespace = await parser.findNamespace(source, { mediaType });
     const parseResult = from(apiDOM, namespace);
-    const dereferenced = await derefereceApiDOMReferences(parseResult.api, {
+    const dereferenced = await derefereceApiDOMReferences(parseResult.result, {
       parse: { mediaType },
       resolve: { baseURI },
     });

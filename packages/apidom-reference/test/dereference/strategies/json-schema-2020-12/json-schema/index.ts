@@ -443,6 +443,47 @@ describe('dereference', function () {
           });
         });
 
+        context('given pre-computed refSet containing multiple documents', function () {
+          const fixturePath = path.join(rootFixturePath, 'refset-multiple-documents');
+
+          specify('should dereference the requested document', async function () {
+            const parse202012 = (file: string) =>
+              parse(path.join(fixturePath, file), {
+                parse: { mediaType: mediaTypes.latest('json') },
+              });
+            const rootURI = 'https://example.com/root.json';
+            const exURI = 'https://example.com/ex.json';
+            const refSet = new ReferenceSet({
+              refs: [
+                new Reference({ uri: rootURI, value: await parse202012('root.json') }),
+                new Reference({ uri: exURI, value: await parse202012('ex.json') }),
+              ],
+            });
+
+            const actual = await dereference(exURI, {
+              dereference: { refSet },
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
+        context('given schemas with $ref keyword containing percent-encoded anchor', function () {
+          const fixturePath = path.join(rootFixturePath, '$anchor-percent-encoded');
+
+          specify('should dereference', async function () {
+            const rootFilePath = path.join(fixturePath, 'root.json');
+            const actual = await dereference(rootFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+            });
+            const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+            assert.deepEqual(toValue(actual), expected);
+          });
+        });
+
         context('given schemas with $ref keyword containing resolvable URL', function () {
           const fixturePath = path.join(rootFixturePath, '$ref-url-resolvable');
 

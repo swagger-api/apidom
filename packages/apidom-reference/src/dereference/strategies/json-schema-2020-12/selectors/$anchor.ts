@@ -20,11 +20,18 @@ export const isAnchor = (uri: string) => {
 };
 
 /**
+ * Returns the percent-decoded plain name fragment of the URI.
+ * Malformed percent-encoding is returned as is and later rejected by `isAnchor`.
  * @public
  */
 export const uriToAnchor = (uri: string): string => {
-  const hash = getHash(uri);
-  return trimCharsStart('#', hash);
+  const fragment = trimCharsStart('#', getHash(uri));
+
+  try {
+    return decodeURIComponent(fragment);
+  } catch {
+    return fragment;
+  }
 };
 
 /**

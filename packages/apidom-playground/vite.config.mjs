@@ -1,14 +1,18 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
+// eslint-disable-next-line import/no-relative-packages
+import { wasmUrlLoader } from '../../config/vite/vite.config.base.ts';
+
 export default defineConfig({
   base: 'https://swagger-api.github.io/apidom/',
-  plugins: [react()],
+  plugins: [wasmUrlLoader(), react()],
   server: {
     port: 3000,
     sourcemap: false,
     sourcemapExcludeSources: true,
   },
+  worker: { format: 'es', plugins: () => [wasmUrlLoader()] },
   assetsInclude: ['**/*.wasm'],
   build: {
     sourcemap: false,
@@ -17,7 +21,6 @@ export default defineConfig({
     outDir: 'build',
     chunkSizeWarningLimit: 1000,
     rolldownOptions: {
-      output: { format: 'umd' },
       external: ['fs', 'path'],
       onwarn(warning, warn) {
         if (warning.message.includes('Use of eval')) return;

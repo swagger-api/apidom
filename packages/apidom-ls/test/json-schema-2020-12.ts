@@ -207,6 +207,34 @@ describe('apidom-ls-json-schema-2020-12', function () {
       });
     });
 
+    specify(
+      'should not detect a document whose only $schema is in a nested flow mapping in YAML',
+      async function () {
+        const text = [
+          'properties:',
+          '  name: {"$schema": "https://json-schema.org/draft/2020-12/schema", "type": "string"}',
+        ].join('\n');
+
+        assert.deepEqual(await findNamespace(text), {
+          namespace: 'apidom',
+          format: 'YAML',
+          mediaType: 'application/yaml',
+        });
+      },
+    );
+
+    specify(
+      'should detect a root $schema despite an API description field in a nested flow mapping in YAML',
+      async function () {
+        const text = [
+          '$schema: https://json-schema.org/draft/2020-12/schema',
+          'default: {"openapi": "example"}',
+        ].join('\n');
+
+        assert.deepEqual(await findNamespace(text), yamlContentLanguage);
+      },
+    );
+
     specify('should not detect a $schema 2020-12 inside a string value', async function () {
       const text = JSON.stringify({
         description: '"$schema": "https://json-schema.org/draft/2020-12/schema"',

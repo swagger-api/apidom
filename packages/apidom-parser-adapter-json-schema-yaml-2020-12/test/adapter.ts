@@ -39,6 +39,17 @@ describe('adapter', function () {
     });
   });
 
+  context('given definition in a multi-line YAML flow mapping', function () {
+    specify('should detect proper media type', async function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+
+      assert.isTrue(await adapter.detect(`{\n$schema: ${id},\ntype: object\n}`));
+      assert.isTrue(await adapter.detect(`{\n$schema: ${id}#,\ntype: object\n}`));
+      assert.isTrue(await adapter.detect(`{\ntype: object,\n$schema: ${id}}`));
+      assert.isTrue(await adapter.detect(`{\ntype: object,\n$schema: ${id}# }`));
+    });
+  });
+
   context('given definition of unknown type', function () {
     specify('should detect proper media type', async function () {
       assert.isFalse(await adapter.detect('"asyncapi": "2.6.0"'));
@@ -126,6 +137,37 @@ describe('adapter', function () {
       assert.strictEqual(versionOf(`$schema: "${id}#"`), '2020-12');
       assert.strictEqual(versionOf(`"$schema": "${id}#"`), '2020-12');
       assert.strictEqual(versionOf(`{ "$schema": "${id}#" }`), '2020-12');
+    });
+
+    specify('should accept flow indicators ending a plain value in flow context', function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+      const versionOf = (source: string) =>
+        source.match(adapter.detectionRegExp)?.groups?.version_yaml;
+
+      assert.strictEqual(versionOf(`{\n$schema: ${id},\ntype: object\n}`), '2020-12');
+      assert.strictEqual(versionOf(`{\n$schema: ${id}#,\ntype: object\n}`), '2020-12');
+      assert.strictEqual(versionOf(`{\r\n$schema: ${id} ,\r\ntype: object\r\n}`), '2020-12');
+      assert.strictEqual(versionOf(`{\ntype: object,\n$schema: ${id}}`), '2020-12');
+      assert.strictEqual(versionOf(`{\ntype: object,\n$schema: ${id}#}`), '2020-12');
+      assert.strictEqual(versionOf(`{\ntype: object,\n$schema: ${id} }`), '2020-12');
+    });
+
+    specify('should reject suffixes of the dialect identifier in flow context', function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+
+      assert.isFalse(adapter.detectionRegExp.test(`{\n$schema: ${id}#/x,\ntype: object\n}`));
+      assert.isFalse(adapter.detectionRegExp.test(`{\n$schema: ${id}/,\ntype: object\n}`));
+      assert.isFalse(adapter.detectionRegExp.test(`{\ntype: object,\n$schema: ${id}##}`));
+    });
+
+    specify('should reject flow indicators continuing a plain value in block context', function () {
+      const id = 'https://json-schema.org/draft/2020-12/schema';
+
+      assert.isFalse(adapter.detectionRegExp.test(`$schema: ${id},`));
+      assert.isFalse(adapter.detectionRegExp.test(`$schema: ${id}#,`));
+      assert.isFalse(adapter.detectionRegExp.test(`$schema: ${id}}`));
+      assert.isFalse(adapter.detectionRegExp.test(`type: object\n$schema: ${id},\n`));
+      assert.isFalse(adapter.detectionRegExp.test(`type: object\n$schema: ${id}#}\n`));
     });
 
     specify('should reject other fragments and suffixes of the dialect identifier', function () {

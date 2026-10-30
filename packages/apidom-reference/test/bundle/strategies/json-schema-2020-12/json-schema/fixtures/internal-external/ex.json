@@ -1,0 +1,7 @@
+{
+  "$defs": {
+    "address": {
+      "type": "object"
+    }
+  }
+}

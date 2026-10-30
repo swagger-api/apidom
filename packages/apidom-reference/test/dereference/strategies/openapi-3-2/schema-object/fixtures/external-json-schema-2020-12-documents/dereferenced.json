@@ -1,0 +1,64 @@
+[
+  {
+    "openapi": "3.2.0",
+    "components": {
+      "schemas": {
+        "User": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "profile": {
+              "type": "object",
+              "properties": {
+                "avatar": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            }
+          },
+          "$defs": {
+            "profile": {
+              "type": "object",
+              "properties": {
+                "avatar": {
+                  "type": "string",
+                  "format": "uri"
+                }
+              }
+            },
+            "avatar": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "description": "User from an external JSON Schema 2020-12 document"
+        },
+        "Profile": {
+          "type": "object",
+          "properties": {
+            "avatar": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "Account": {
+          "$schema": "https://json-schema.org/draft/2020-12/schema",
+          "type": "object",
+          "properties": {
+            "owner": {
+              "type": "string"
+            }
+          },
+          "$defs": {
+            "owner": {
+              "type": "string"
+            }
+          },
+          "description": "Account from an external JSON Schema 2020-12 document in YAML"
+        }
+      }
+    }
+  }
+]

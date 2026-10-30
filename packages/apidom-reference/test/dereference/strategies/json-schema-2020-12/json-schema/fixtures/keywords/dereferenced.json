@@ -1,0 +1,90 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "string": {
+        "type": "string"
+      },
+      "number": {
+        "type": "number"
+      },
+      "alias": {
+        "type": "string"
+      }
+    },
+    "prefixItems": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      }
+    ],
+    "items": {
+      "type": "number"
+    },
+    "contains": {
+      "type": "string"
+    },
+    "additionalProperties": {
+      "type": "number"
+    },
+    "properties": {
+      "a": {
+        "type": "string"
+      }
+    },
+    "patternProperties": {
+      "^b": {
+        "type": "string"
+      }
+    },
+    "dependentSchemas": {
+      "c": {
+        "type": "string"
+      }
+    },
+    "propertyNames": {
+      "type": "string"
+    },
+    "if": {
+      "type": "string"
+    },
+    "then": {
+      "type": "string"
+    },
+    "else": {
+      "type": "number"
+    },
+    "allOf": [
+      {
+        "type": "string"
+      }
+    ],
+    "anyOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      }
+    ],
+    "oneOf": [
+      {
+        "type": "number"
+      }
+    ],
+    "not": {
+      "type": "number"
+    },
+    "unevaluatedItems": {
+      "type": "string"
+    },
+    "unevaluatedProperties": {
+      "type": "number"
+    },
+    "contentSchema": {
+      "type": "string"
+    }
+  }
+]

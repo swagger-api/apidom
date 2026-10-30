@@ -1,0 +1,15 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "name": {
+        "type": "string"
+      }
+    },
+    "properties": {
+      "name": {
+        "type": "string"
+      }
+    }
+  }
+]

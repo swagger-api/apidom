@@ -1,0 +1,22 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "profile": {
+            "type": "object",
+            "properties": {
+              "sentAt": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Date and time when the message was sent."
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

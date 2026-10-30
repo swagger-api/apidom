@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://test.json-schema.org/dynamicRef-without-anchor/root",
+  "$ref": "list",
+  "$defs": {
+    "foo": {
+      "$dynamicAnchor": "items",
+      "type": "string"
+    },
+    "list": {
+      "$id": "list",
+      "type": "array",
+      "items": {
+        "$dynamicRef": "#/$defs/items"
+      },
+      "$defs": {
+        "items": {
+          "$comment": "This is only needed to satisfy the bookending requirement",
+          "$dynamicAnchor": "items",
+          "type": "number"
+        }
+      }
+    }
+  }
+}

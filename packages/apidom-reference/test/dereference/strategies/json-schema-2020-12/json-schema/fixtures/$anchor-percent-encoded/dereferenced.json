@@ -1,0 +1,21 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "properties": {
+      "internal": {
+        "$anchor": "user-profile",
+        "type": "object"
+      },
+      "external": {
+        "$dynamicAnchor": "user-name",
+        "type": "string"
+      }
+    },
+    "$defs": {
+      "UserProfile": {
+        "$anchor": "user-profile",
+        "type": "object"
+      }
+    }
+  }
+]

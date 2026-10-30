@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/product.schema.json",
+  "title": "Product",
+  "type": "object",
+  "properties": {
+    "productId": {
+      "type": "integer"
+    },
+    "tags": {
+      "type": "array",
+      "prefixItems": [{ "$ref": "#/$defs/tag" }],
+      "items": false
+    }
+  },
+  "$defs": {
+    "tag": {
+      "$anchor": "tag",
+      "type": "string"
+    }
+  }
+}

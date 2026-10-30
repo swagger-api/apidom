@@ -1,0 +1,15 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "Indirection": {
+        "type": "object",
+        "properties": {
+          "prop1": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+]

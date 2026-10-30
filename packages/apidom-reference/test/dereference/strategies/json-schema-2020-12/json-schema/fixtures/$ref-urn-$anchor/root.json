@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "profile": {
+          "$ref": "urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f#avatar"
+        }
+      }
+    },
+    "UserProfile": {
+      "$id": "urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f",
+      "type": "object",
+      "properties": {
+        "avatar": {
+          "$anchor": "avatar",
+          "type": "string"
+        }
+      }
+    }
+  }
+}

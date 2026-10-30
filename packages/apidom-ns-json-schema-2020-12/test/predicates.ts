@@ -1,8 +1,10 @@
 import { assert } from 'chai';
+import { BooleanElement } from '@swagger-api/apidom-core';
 
 import {
   isJSONSchemaElement,
   isLinkDescriptionElement,
+  isBooleanJsonSchemaElement,
   JSONSchemaElement,
   LinkDescriptionElement,
 } from '../src/index.ts';
@@ -115,6 +117,52 @@ describe('predicates', function () {
 
       assert.isTrue(isLinkDescriptionElement(linkDescriptionElementDuck));
       assert.isFalse(isLinkDescriptionElement(linkDescriptionElementSwan));
+    });
+  });
+
+  context('isBooleanJsonSchemaElement', function () {
+    context('given BooleanElement with boolean-json-schema class', function () {
+      specify('should return true', function () {
+        const element = new BooleanElement(true, { classes: ['boolean-json-schema'] });
+
+        assert.isTrue(isBooleanJsonSchemaElement(element));
+      });
+    });
+
+    context('given refracted Boolean JSON Schema', function () {
+      specify('should return true', function () {
+        const jsonSchemaElement = JSONSchemaElement.refract({
+          items: false,
+          properties: { a: true },
+        }) as JSONSchemaElement;
+
+        assert.isTrue(isBooleanJsonSchemaElement(jsonSchemaElement.get('items')));
+        assert.isTrue(isBooleanJsonSchemaElement(jsonSchemaElement.properties?.get('a')));
+      });
+    });
+
+    context('given BooleanElement without boolean-json-schema class', function () {
+      specify('should return false', function () {
+        const jsonSchemaElement = JSONSchemaElement.refract({
+          uniqueItems: true,
+        }) as JSONSchemaElement;
+
+        assert.isFalse(isBooleanJsonSchemaElement(new BooleanElement(true)));
+        assert.isFalse(isBooleanJsonSchemaElement(jsonSchemaElement.get('uniqueItems')));
+      });
+    });
+
+    context('given non BooleanElement value', function () {
+      specify('should return false', function () {
+        assert.isFalse(isBooleanJsonSchemaElement(1));
+        assert.isFalse(isBooleanJsonSchemaElement(null));
+        assert.isFalse(isBooleanJsonSchemaElement(undefined));
+        assert.isFalse(isBooleanJsonSchemaElement({}));
+        assert.isFalse(isBooleanJsonSchemaElement([]));
+        assert.isFalse(isBooleanJsonSchemaElement('string'));
+        assert.isFalse(isBooleanJsonSchemaElement(true));
+        assert.isFalse(isBooleanJsonSchemaElement(new JSONSchemaElement()));
+      });
     });
   });
 });

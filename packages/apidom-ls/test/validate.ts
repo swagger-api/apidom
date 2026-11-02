@@ -5637,6 +5637,40 @@ describe('apidom-ls-validate', function () {
       languageService.terminate();
     });
 
+    it(`oas ${version} / yaml - $ref must be a URI-reference`, async function () {
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+      const spec = schemaSpec(
+        [
+          '      properties:',
+          '        invalid:',
+          '          $ref: "./other.yaml#/x y"',
+          '        valid:',
+          '          $ref: "./other.yaml#/x%20y"',
+          '',
+        ].join('\n'),
+      );
+      const doc: TextDocument = TextDocument.create('foo://bar/schema.yaml', 'yaml', 0, spec);
+      const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+      const result = await languageService.doValidation(doc, validationContext);
+      const expected: Diagnostic[] = [
+        {
+          range: { start: { line: 9, character: 16 }, end: { line: 9, character: 35 } },
+          message: "'$ref' must be a valid URI-reference",
+          severity: DiagnosticSeverity.Error,
+          code: 8030300,
+          source: 'apilint',
+          data: {},
+        },
+      ];
+      assert.deepEqual(result, expected);
+
+      languageService.terminate();
+    });
   });
 
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {

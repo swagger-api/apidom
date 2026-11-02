@@ -645,6 +645,73 @@ describe('apidom-ls-json-schema-2020-12', function () {
     );
 
     specify(
+      'should report $ref, $dynamicRef and $id values that are not URI-references',
+      async function () {
+        const result = await validate({
+          properties: {
+            space: { $ref: '#/$defs/My Schema' },
+            brace: { $ref: '#/$defs/a{b}' },
+            external: { $ref: './other.json#/x y' },
+            percent: { $ref: '#/$defs/a%zz' },
+            dynamic: { $dynamicRef: '#/$defs/a b' },
+            id: { $id: 'https://example.com/a b' },
+          },
+        });
+        const refDiagnostic = (line: number, start: number, end: number): Diagnostic => ({
+          range: { start: { line, character: start }, end: { line, character: end } },
+          message: "'$ref' must be a valid URI-reference",
+          severity: DiagnosticSeverity.Error,
+          code: 8030300,
+          source: 'apilint',
+          data: {},
+        });
+
+        assert.deepEqual(result, [
+          refDiagnostic(4, 14, 33),
+          refDiagnostic(7, 14, 28),
+          refDiagnostic(10, 14, 33),
+          refDiagnostic(13, 14, 28),
+          {
+            range: { start: { line: 16, character: 21 }, end: { line: 16, character: 34 } },
+            message: "'$dynamicRef' must be a valid URI-reference",
+            severity: 1,
+            code: 8030601,
+            source: 'apilint',
+            data: {},
+          },
+          {
+            range: { start: { line: 19, character: 13 }, end: { line: 19, character: 38 } },
+            message: "'$id' must be a valid URI-reference",
+            severity: 1,
+            code: 8030100,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      },
+    );
+
+    specify(
+      'should accept $ref, $dynamicRef and $id values that are URI-references',
+      async function () {
+        assert.deepEqual(
+          await validate({
+            properties: {
+              encoded: { $ref: '#/$defs/a%7Bb%7D' },
+              colon: { $ref: '#/$defs/a:b' },
+              anchor: { $ref: '#node' },
+              absolute: { $ref: 'https://example.com/schema.json#/$defs/foo' },
+              dynamic: { $dynamicRef: '#node' },
+              urn: { $id: 'urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f' },
+              encodedId: { $id: 'https://example.com/a%20b' },
+            },
+          }),
+          [],
+        );
+      },
+    );
+
+    specify(
       'should warn about a pattern that is not a valid regular expression',
       async function () {
         assert.deepEqual(await validate({ pattern: '[' }), [

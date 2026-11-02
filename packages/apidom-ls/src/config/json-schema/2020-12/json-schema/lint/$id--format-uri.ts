@@ -9,7 +9,7 @@ const $idFormatURILint: LinterMeta = {
   source: 'apilint',
   message: "'$id' must be a valid URI-reference",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValidURI',
+  linterFunction: 'apilintValidURIReference',
   marker: 'value',
   target: '$id',
   conditions: [

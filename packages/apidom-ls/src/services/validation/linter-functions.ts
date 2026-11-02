@@ -36,6 +36,29 @@ import {
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
 
+// RFC 3986 URI-reference: components per Appendix B, characters per sections 3.1-3.5
+const uriReferenceComponents =
+  /^(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?$/s;
+const uriScheme = /^[A-Za-z][A-Za-z0-9+.-]*$/;
+const uriAuthority = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@[\]]|%[0-9A-Fa-f]{2})*$/;
+const uriPath = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@/]|%[0-9A-Fa-f]{2})*$/;
+const uriQueryOrFragment = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9A-Fa-f]{2})*$/;
+
+const isURIReference = (value: string): boolean => {
+  const match = value.match(uriReferenceComponents);
+  if (!match) {
+    return false;
+  }
+  const [, scheme, authority, path, query, fragment] = match;
+  return (
+    (scheme === undefined || uriScheme.test(scheme)) &&
+    (authority === undefined || uriAuthority.test(authority)) &&
+    uriPath.test(path) &&
+    (query === undefined || uriQueryOrFragment.test(query)) &&
+    (fragment === undefined || uriQueryOrFragment.test(fragment))
+  );
+};
+
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
   let node = el;
@@ -762,6 +785,18 @@ export const standardLinterfunctions: FunctionItem[] = [
         } catch (e) {
           return false;
         }
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintValidURIReference',
+    function: (element: Element): boolean => {
+      if (element) {
+        if (!isString(element)) {
+          return false;
+        }
+        return isURIReference(toValue(element));
       }
       return true;
     },

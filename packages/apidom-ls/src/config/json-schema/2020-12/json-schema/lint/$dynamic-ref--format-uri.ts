@@ -9,7 +9,7 @@ const $dynamicRefFormatURILint: LinterMeta = {
   source: 'apilint',
   message: "'$dynamicRef' must be a valid URI-reference",
   severity: DiagnosticSeverity.Error,
-  linterFunction: 'apilintValidURI',
+  linterFunction: 'apilintValidURIReference',
   marker: 'value',
   target: '$dynamicRef',
   conditions: [

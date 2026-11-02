@@ -275,23 +275,6 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 19,
-            character: 38,
-          },
-          end: {
-            line: 19,
-            character: 42,
-          },
-        },
-        message: "'exclusiveMaximum' value must be a number",
-        severity: 1,
-        code: 10016,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: {
             line: 18,
             character: 26,
           },
@@ -301,16 +284,16 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
+          "'type' must be one of allowed values: array, boolean, integer, null, number, object, string",
         severity: 1,
-        code: 10001,
+        code: 8032700,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to 'null'",
+              message: "update to 'array'",
               action: 'updateValue',
-              functionParams: ['null'],
+              functionParams: ['array'],
             },
             {
               message: "update to 'boolean'",
@@ -318,32 +301,49 @@ describe('apidom-ls-validate', function () {
               functionParams: ['boolean'],
             },
             {
-              message: "update to 'object'",
+              message: "update to 'integer'",
               action: 'updateValue',
-              functionParams: ['object'],
+              functionParams: ['integer'],
             },
             {
-              message: "update to 'array'",
+              message: "update to 'null'",
               action: 'updateValue',
-              functionParams: ['array'],
+              functionParams: ['null'],
             },
             {
               message: "update to 'number'",
               action: 'updateValue',
-              functionParams: ['null'],
+              functionParams: ['number'],
+            },
+            {
+              message: "update to 'object'",
+              action: 'updateValue',
+              functionParams: ['object'],
             },
             {
               message: "update to 'string'",
               action: 'updateValue',
               functionParams: ['string'],
             },
-            {
-              message: "update to 'integer'",
-              action: 'updateValue',
-              functionParams: ['integer'],
-            },
           ],
         },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "'exclusiveMaximum' must be a number",
+        severity: 1,
+        code: 8033100,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -847,23 +847,6 @@ describe('apidom-ls-validate', function () {
       {
         range: {
           start: {
-            line: 19,
-            character: 38,
-          },
-          end: {
-            line: 19,
-            character: 42,
-          },
-        },
-        message: "'exclusiveMaximum' value must be a number",
-        severity: 1,
-        code: 10016,
-        source: 'apilint',
-        data: {},
-      },
-      {
-        range: {
-          start: {
             line: 18,
             character: 26,
           },
@@ -873,16 +856,16 @@ describe('apidom-ls-validate', function () {
           },
         },
         message:
-          'should be equal to one of the allowed values allowedValues: boolean, object, array, number, string, integer, null',
+          "'type' must be one of allowed values: array, boolean, integer, null, number, object, string",
         severity: 1,
-        code: 10001,
+        code: 8032700,
         source: 'apilint',
         data: {
           quickFix: [
             {
-              message: "update to 'null'",
+              message: "update to 'array'",
               action: 'updateValue',
-              functionParams: ['null'],
+              functionParams: ['array'],
             },
             {
               message: "update to 'boolean'",
@@ -890,32 +873,49 @@ describe('apidom-ls-validate', function () {
               functionParams: ['boolean'],
             },
             {
-              message: "update to 'object'",
+              message: "update to 'integer'",
               action: 'updateValue',
-              functionParams: ['object'],
+              functionParams: ['integer'],
             },
             {
-              message: "update to 'array'",
+              message: "update to 'null'",
               action: 'updateValue',
-              functionParams: ['array'],
+              functionParams: ['null'],
             },
             {
               message: "update to 'number'",
               action: 'updateValue',
-              functionParams: ['null'],
+              functionParams: ['number'],
+            },
+            {
+              message: "update to 'object'",
+              action: 'updateValue',
+              functionParams: ['object'],
             },
             {
               message: "update to 'string'",
               action: 'updateValue',
               functionParams: ['string'],
             },
-            {
-              message: "update to 'integer'",
-              action: 'updateValue',
-              functionParams: ['integer'],
-            },
           ],
         },
+      },
+      {
+        range: {
+          start: {
+            line: 19,
+            character: 38,
+          },
+          end: {
+            line: 19,
+            character: 42,
+          },
+        },
+        message: "'exclusiveMaximum' must be a number",
+        severity: 1,
+        code: 8033100,
+        source: 'apilint',
+        data: {},
       },
     ];
     assert.deepEqual(result, expected as Diagnostic[]);
@@ -5485,7 +5485,7 @@ describe('apidom-ls-validate', function () {
     languageService.terminate();
   });
 
-  it('oas 3.1/ yaml - items must be a schema or array of schemas', async function () {
+  it('oas 3.1/ yaml - items must be a JSON Schema', async function () {
     const validationContext: ValidationContext = {
       comments: DiagnosticSeverity.Error,
       maxNumberOfProblems: 100,
@@ -5507,9 +5507,9 @@ describe('apidom-ls-validate', function () {
     const result = await languageService.doValidation(doc, validationContext);
     const expected: Diagnostic[] = [
       {
-        code: 10018,
+        code: 8031100,
         data: {},
-        message: 'items must be a schema or array of schemas',
+        message: "'items' must be a JSON Schema",
         range: {
           end: {
             character: 24,
@@ -5527,6 +5527,116 @@ describe('apidom-ls-validate', function () {
     assert.deepEqual(result, expected as Diagnostic[]);
 
     languageService.terminate();
+  });
+
+  ['3.1.0', '3.2.0'].forEach((version) => {
+    const schemaSpec = (schema: string) =>
+      `openapi: ${version}\ninfo:\n  title: test\n  version: 1.0.0\ncomponents:\n  schemas:\n    Test:\n${schema}`;
+
+    it(`oas ${version} / yaml - JSON Schema 2020-12 keywords are valid`, async function () {
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+      const spec = schemaSpec(
+        [
+          '      $anchor: test',
+          '      $dynamicAnchor: node',
+          '      type: [object, "null"]',
+          '      prefixItems:',
+          '        - type: string',
+          '        - true',
+          '      allOf:',
+          '        - type: object',
+          '      properties:',
+          '        child:',
+          '          $dynamicRef: "#node"',
+          '      dependentRequired:',
+          '        child: [parent]',
+          '      unevaluatedProperties: false',
+          '',
+        ].join('\n'),
+      );
+      const doc: TextDocument = TextDocument.create('foo://bar/schema.yaml', 'yaml', 0, spec);
+      const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+      const result = await languageService.doValidation(doc, validationContext);
+      const apilintErrors = result.filter((d) => d.source === 'apilint');
+      assert.deepEqual(apilintErrors, [], 'Valid schema should have no apilint errors');
+
+      languageService.terminate();
+    });
+
+    it(`oas ${version} / yaml - JSON Schema 2020-12 keywords are validated`, async function () {
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+      const spec = schemaSpec(
+        [
+          '      $anchor: "#test"',
+          '      $dynamicRef: 1',
+          '      prefixItems: 1',
+          '      dependentRequired:',
+          '        child: [parent, parent]',
+          '      unevaluatedProperties: 1',
+          '',
+        ].join('\n'),
+      );
+      const doc: TextDocument = TextDocument.create('foo://bar/schema.yaml', 'yaml', 0, spec);
+      const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+      const result = await languageService.doValidation(doc, validationContext);
+      const expected: Diagnostic[] = [
+        {
+          range: { start: { line: 7, character: 15 }, end: { line: 7, character: 22 } },
+          message:
+            "'$anchor' must start with a letter or underscore, followed by letters, digits, hyphens, underscores or periods",
+          severity: DiagnosticSeverity.Error,
+          code: 8030501,
+          source: 'apilint',
+          data: {},
+        },
+        {
+          range: { start: { line: 8, character: 19 }, end: { line: 8, character: 20 } },
+          message: "'$dynamicRef' must be a string",
+          severity: DiagnosticSeverity.Error,
+          code: 8030600,
+          source: 'apilint',
+          data: {},
+        },
+        {
+          range: { start: { line: 9, character: 6 }, end: { line: 9, character: 17 } },
+          message: "'prefixItems' must be a non-empty array of JSON Schemas",
+          severity: DiagnosticSeverity.Error,
+          code: 8031000,
+          source: 'apilint',
+          data: {},
+        },
+        {
+          range: { start: { line: 12, character: 29 }, end: { line: 12, character: 30 } },
+          message: "'unevaluatedProperties' must be a JSON Schema",
+          severity: DiagnosticSeverity.Error,
+          code: 8032600,
+          source: 'apilint',
+          data: {},
+        },
+        {
+          range: { start: { line: 10, character: 6 }, end: { line: 10, character: 23 } },
+          message: "'dependentRequired' values must be arrays with unique items",
+          severity: DiagnosticSeverity.Error,
+          code: 8034502,
+          source: 'apilint',
+          data: {},
+        },
+      ];
+      assert.deepEqual(result, expected);
+
+      languageService.terminate();
+    });
+
   });
 
   it('oas / yaml - schema should have at least one Schema core keyword - issue #3549', async function () {

@@ -14,7 +14,7 @@ import {
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { Asyncapi20JsonSchemaValidationProvider } from '../src/services/validation/providers/asyncapi-20-json-schema-validation-provider.ts';
-import { OpenAPI31, OpenAPI3, OpenAPI2 } from '../src/config/openapi/target-specs.ts';
+import { OpenAPI31, OpenAPI30, OpenAPI3, OpenAPI2 } from '../src/config/openapi/target-specs.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
@@ -860,7 +860,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
             textEdit: {
               range: {
                 start: {
@@ -882,7 +882,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {
@@ -904,7 +904,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {
@@ -926,7 +926,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {
@@ -948,7 +948,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {
@@ -970,7 +970,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {
@@ -992,7 +992,7 @@ describe('apidom-ls-complete', function () {
             kind: 12,
             insertTextFormat: 2,
             filterText: '[integer, string]',
-            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+            targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
             textEdit: {
               range: {
                 start: {

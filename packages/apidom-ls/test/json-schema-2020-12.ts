@@ -119,6 +119,16 @@ const decodeTokens = (data: number[], tokenTypes: string[]): DecodedToken[] => {
   return decoded;
 };
 
+const typeQuickFix = [
+  { message: "update to 'array'", action: 'updateValue', functionParams: ['array'] },
+  { message: "update to 'boolean'", action: 'updateValue', functionParams: ['boolean'] },
+  { message: "update to 'integer'", action: 'updateValue', functionParams: ['integer'] },
+  { message: "update to 'null'", action: 'updateValue', functionParams: ['null'] },
+  { message: "update to 'number'", action: 'updateValue', functionParams: ['number'] },
+  { message: "update to 'object'", action: 'updateValue', functionParams: ['object'] },
+  { message: "update to 'string'", action: 'updateValue', functionParams: ['string'] },
+];
+
 describe('apidom-ls-json-schema-2020-12', function () {
   const lsContext: LanguageServiceContext = {
     metadata: metadata(),
@@ -477,7 +487,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           severity: 1,
           code: 8032700,
           source: 'apilint',
-          data: {},
+          data: { quickFix: typeQuickFix },
         },
         {
           range: { start: { line: 4, character: 2 }, end: { line: 4, character: 12 } },
@@ -542,7 +552,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           severity: 1,
           code: 8032700,
           source: 'apilint',
-          data: {},
+          data: { quickFix: typeQuickFix },
         },
         {
           range: { start: { line: 3, character: 0 }, end: { line: 3, character: 8 } },

@@ -14,7 +14,45 @@ const typeEqualsLint: LinterMeta = {
   linterParams: [['array', 'boolean', 'integer', 'null', 'number', 'object', 'string'], true],
   marker: 'value',
   target: 'type',
-  data: {},
+  data: {
+    quickFix: [
+      {
+        message: "update to 'array'",
+        action: 'updateValue',
+        functionParams: ['array'],
+      },
+      {
+        message: "update to 'boolean'",
+        action: 'updateValue',
+        functionParams: ['boolean'],
+      },
+      {
+        message: "update to 'integer'",
+        action: 'updateValue',
+        functionParams: ['integer'],
+      },
+      {
+        message: "update to 'null'",
+        action: 'updateValue',
+        functionParams: ['null'],
+      },
+      {
+        message: "update to 'number'",
+        action: 'updateValue',
+        functionParams: ['number'],
+      },
+      {
+        message: "update to 'object'",
+        action: 'updateValue',
+        functionParams: ['object'],
+      },
+      {
+        message: "update to 'string'",
+        action: 'updateValue',
+        functionParams: ['string'],
+      },
+    ],
+  },
   targetSpecs: JSONSchema202012,
 };
 

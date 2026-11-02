@@ -3,10 +3,9 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
-import { OpenAPI31 } from '../../../openapi/target-specs.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const typeEqualsOpenAPI3_1__AsyncAPI2__3Lint: LinterMeta = {
+const typeEqualsAsyncAPI2__3Lint: LinterMeta = {
   code: ApilintCodes.SCHEMA_TYPE,
   source: 'apilint',
   message:
@@ -55,7 +54,7 @@ const typeEqualsOpenAPI3_1__AsyncAPI2__3Lint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3],
 };
 
-export default typeEqualsOpenAPI3_1__AsyncAPI2__3Lint;
+export default typeEqualsAsyncAPI2__3Lint;

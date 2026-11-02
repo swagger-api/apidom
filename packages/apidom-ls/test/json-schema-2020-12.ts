@@ -1046,6 +1046,91 @@ describe('apidom-ls-json-schema-2020-12', function () {
       });
     });
 
+    specify('should show the referenced schema on hover over an $anchor $ref', async function () {
+      const doc = TextDocument.create(
+        'foo://bar/references.json',
+        'json',
+        0,
+        fixture('references.json'),
+      );
+
+      const result = await languageService.doHover(doc, Position.create(5, 28));
+
+      assert.deepEqual(result, {
+        contents: {
+          kind: 'markdown',
+          value:
+            '***$ref***: **string**\n\n\n\n\n\n```yaml\n"address": { "$anchor": "address", "type": "object" }\n\n```',
+        },
+        range: { start: { line: 5, character: 22 }, end: { line: 5, character: 32 } },
+      });
+    });
+
+    specify('should go to the definition of an $anchor $ref', async function () {
+      const doc = TextDocument.create(
+        'foo://bar/references.json',
+        'json',
+        0,
+        fixture('references.json'),
+      );
+
+      const result = await languageService.doProvideDefinition(doc, {
+        position: Position.create(5, 28),
+        textDocument: doc,
+      });
+
+      assert.deepEqual(result, {
+        uri: 'foo://bar/references.json',
+        range: { start: { line: 11, character: 4 }, end: { line: 11, character: 57 } },
+      });
+    });
+
+    specify('should return no definition for an unresolvable local $ref', async function () {
+      const doc = TextDocument.create(
+        'foo://bar/references.json',
+        'json',
+        0,
+        fixture('references.json'),
+      );
+
+      const result = await languageService.doProvideDefinition(doc, {
+        position: Position.create(6, 30),
+        textDocument: doc,
+      });
+
+      assert.isNull(result);
+    });
+
+    specify(
+      'should resolve $anchor and $dynamicAnchor $refs only within the same schema resource',
+      async function () {
+        const text = JSON.stringify(
+          {
+            $schema: 'https://json-schema.org/draft/2020-12/schema',
+            properties: { dyn: { $ref: '#node' }, nested: { $ref: '#inner' } },
+            $defs: {
+              tree: { $dynamicAnchor: 'node' },
+              embedded: { $id: 'https://example.com/embedded', $defs: { x: { $anchor: 'inner' } } },
+            },
+          },
+          null,
+          2,
+        );
+        const doc = TextDocument.create('foo://bar/anchors.json', 'json', 0, text);
+        const definition = (line: number, character: number) =>
+          languageService.doProvideDefinition(doc, {
+            position: Position.create(line, character),
+            textDocument: doc,
+          });
+
+        assert.deepEqual(await definition(4, 16), {
+          uri: 'foo://bar/anchors.json',
+          range: { start: { line: 11, character: 4 }, end: { line: 13, character: 5 } },
+        });
+        assert.isNull(await definition(7, 16));
+      },
+    );
+
     specify('should report nothing for resolvable $refs', async function () {
       this.timeout(10000);
       const doc = TextDocument.create('foo://bar/deref.json', 'json', 0, fixture('deref.json'));

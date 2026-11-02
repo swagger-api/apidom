@@ -39,6 +39,7 @@ import {
   hasElementSourceMap,
 } from '@swagger-api/apidom-core';
 import { compile, evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
+import { isJSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
 
@@ -214,11 +215,11 @@ export function buildJsonPointer(path: string[]): string {
   return URIFragmentIdentifier.to(jsonPointer);
 }
 
-// nearest enclosing JSON Schema resource: an object with `$id`, else the document root
+// nearest enclosing JSON Schema resource: a schema with `$id`, else the document root
 const schemaResource = (element: Element): Element => {
   let node: Element | undefined = element;
   while (node?.parent) {
-    if (isObject(node) && node.hasKey('$id')) {
+    if (isJSONSchemaElement(node) && node.hasKey('$id')) {
       return node;
     }
     node = node.parent;
@@ -228,8 +229,9 @@ const schemaResource = (element: Element): Element => {
 
 /**
  * Resolves a local `$ref` (`#...`) within the document. A plain-name fragment identifies an
- * `$anchor` or `$dynamicAnchor` in the same schema resource (JSON Schema Core 8.2.2), any other
- * fragment is a JSON Pointer. Returns `undefined` if the target can't be found.
+ * `$anchor` or `$dynamicAnchor` of a schema in the same schema resource (JSON Schema Core 8.2.2),
+ * so instance data such as `default` or `examples` is never a target; any other fragment is a
+ * JSON Pointer. Returns `undefined` if the target can't be found.
  */
 export function resolveLocalReference(
   api: Element,
@@ -245,7 +247,7 @@ export function resolveLocalReference(
     const resource = refElement ? schemaResource(refElement) : undefined;
     return find(
       (element) =>
-        isObject(element) &&
+        isJSONSchemaElement(element) &&
         ['$anchor', '$dynamicAnchor'].some((keyword) => toValue(element.get(keyword)) === name) &&
         (resource === undefined || schemaResource(element) === resource),
       api,

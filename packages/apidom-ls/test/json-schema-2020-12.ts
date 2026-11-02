@@ -1131,6 +1131,42 @@ describe('apidom-ls-json-schema-2020-12', function () {
       },
     );
 
+    specify('should not resolve an $anchor $ref to instance data', async function () {
+      const text = JSON.stringify(
+        {
+          $schema: 'https://json-schema.org/draft/2020-12/schema',
+          default: { $anchor: 'target' },
+          examples: [{ $anchor: 'target' }],
+          const: { $anchor: 'target' },
+          properties: { p: { $ref: '#target' } },
+          $defs: { real: { $anchor: 'target', type: 'string' } },
+        },
+        null,
+        2,
+      );
+      const doc = TextDocument.create('foo://bar/instance-anchors.json', 'json', 0, text);
+      const position = Position.create(15, 16);
+
+      const definition = await languageService.doProvideDefinition(doc, {
+        position,
+        textDocument: doc,
+      });
+      const hover = await languageService.doHover(doc, position);
+
+      assert.deepEqual(definition, {
+        uri: 'foo://bar/instance-anchors.json',
+        range: { start: { line: 19, character: 4 }, end: { line: 22, character: 5 } },
+      });
+      assert.deepEqual(hover, {
+        contents: {
+          kind: 'markdown',
+          value:
+            '***$ref***: **string**\n\n\n\n\n\n```yaml\n"real": {\n  "$anchor": "target",\n  "type": "string"\n}\n\n```',
+        },
+        range: { start: { line: 15, character: 14 }, end: { line: 15, character: 23 } },
+      });
+    });
+
     specify('should report nothing for resolvable $refs', async function () {
       this.timeout(10000);
       const doc = TextDocument.create('foo://bar/deref.json', 'json', 0, fixture('deref.json'));

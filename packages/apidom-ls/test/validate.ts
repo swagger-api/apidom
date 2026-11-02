@@ -5694,6 +5694,39 @@ describe('apidom-ls-validate', function () {
       languageService.terminate();
     });
 
+    it(`oas ${version} / yaml - $vocabulary keys must be URIs`, async function () {
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+      const spec = schemaSpec(
+        [
+          '      $vocabulary:',
+          '        "https://json-schema.org/draft/2020-12/vocab/core": true',
+          '        "/vocab/custom": true',
+          '',
+        ].join('\n'),
+      );
+      const doc: TextDocument = TextDocument.create('foo://bar/schema.yaml', 'yaml', 0, spec);
+      const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+      const result = await languageService.doValidation(doc, validationContext);
+      const expected: Diagnostic[] = [
+        {
+          range: { start: { line: 7, character: 6 }, end: { line: 7, character: 17 } },
+          message: "'$vocabulary' keys must be valid URIs",
+          severity: DiagnosticSeverity.Error,
+          code: 8030802,
+          source: 'apilint',
+          data: {},
+        },
+      ];
+      assert.deepEqual(result, expected);
+
+      languageService.terminate();
+    });
+
     it(`oas ${version} / yaml - $ref must be a URI-reference`, async function () {
       const validationContext: ValidationContext = {
         comments: DiagnosticSeverity.Error,

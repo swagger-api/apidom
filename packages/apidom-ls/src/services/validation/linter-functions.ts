@@ -103,6 +103,10 @@ const isURIReference = (value: string): boolean => {
   );
 };
 
+// RFC 3986 URI (section 3): a URI-reference with a scheme
+const isURI = (value: string): boolean =>
+  isURIReference(value) && value.match(uriReferenceComponents)?.[1] !== undefined;
+
 const root = (el: Element): Element => {
   const rootElementTypes = ['swagger', 'openApi3_0', 'openApi3_1', 'asyncApi2'];
   let node = el;
@@ -711,6 +715,15 @@ export const standardLinterfunctions: FunctionItem[] = [
           }
           return true;
         });
+      }
+      return true;
+    },
+  },
+  {
+    functionName: 'apilintMembersKeysIsURI',
+    function: (element: Element): boolean => {
+      if (element && isObject(element)) {
+        return (element.keys() as string[]).every((key) => isURI(key));
       }
       return true;
     },

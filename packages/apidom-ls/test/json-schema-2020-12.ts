@@ -767,6 +767,34 @@ describe('apidom-ls-json-schema-2020-12', function () {
       ]);
     });
 
+    ['/vocab/core', 'not a URI'].forEach((key) => {
+      specify(`should report a $vocabulary key that is not a URI: ${key}`, async function () {
+        assert.deepEqual(await validate({ $vocabulary: { [key]: true } }), [
+          {
+            range: { start: { line: 2, character: 2 }, end: { line: 2, character: 15 } },
+            message: "'$vocabulary' keys must be valid URIs",
+            severity: 1,
+            code: 8030802,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      });
+    });
+
+    specify('should accept $vocabulary keys that are URIs', async function () {
+      assert.deepEqual(
+        await validate({
+          $vocabulary: {
+            'https://json-schema.org/draft/2020-12/vocab/core': true,
+            'https://example.com/vocab/custom?version=1#v': false,
+            'urn:example:vocab': false,
+          },
+        }),
+        [],
+      );
+    });
+
     specify(
       'should warn about a pattern that is not a valid regular expression',
       async function () {

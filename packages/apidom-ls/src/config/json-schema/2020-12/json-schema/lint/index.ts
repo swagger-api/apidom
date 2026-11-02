@@ -14,6 +14,7 @@ import $dynamicAnchorTypeLint from './$dynamic-anchor--type.ts';
 import $dynamicAnchorPatternLint from './$dynamic-anchor--pattern.ts';
 import $vocabularyTypeLint from './$vocabulary--type.ts';
 import $vocabularyValuesTypeLint from './$vocabulary--values-type.ts';
+import $vocabularyKeysFormatURILint from './$vocabulary--keys-format-uri.ts';
 import $defsTypeLint from './$defs--type.ts';
 import $defsValuesTypeLint from './$defs--values-type.ts';
 import prefixItemsTypeLint from './prefix-items--type.ts';
@@ -91,6 +92,7 @@ const lints = [
   $dynamicAnchorPatternLint,
   $vocabularyTypeLint,
   $vocabularyValuesTypeLint,
+  $vocabularyKeysFormatURILint,
   $defsTypeLint,
   $defsValuesTypeLint,
   prefixItemsTypeLint,

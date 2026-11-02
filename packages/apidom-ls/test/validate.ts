@@ -5568,6 +5568,63 @@ describe('apidom-ls-validate', function () {
       languageService.terminate();
     });
 
+    it(`oas ${version} / yaml - if without then or else and empty type array`, async function () {
+      const validationContext: ValidationContext = {
+        comments: DiagnosticSeverity.Error,
+        maxNumberOfProblems: 100,
+        relatedInformation: false,
+      };
+      const spec = schemaSpec(
+        [
+          '      properties:',
+          '        ifElse:',
+          '          if:',
+          '            type: string',
+          '          else: false',
+          '        ifOnly:',
+          '          if:',
+          '            type: string',
+          '        emptyType:',
+          '          type: []',
+          '',
+        ].join('\n'),
+      );
+      const doc: TextDocument = TextDocument.create('foo://bar/schema.yaml', 'yaml', 0, spec);
+      const languageService: LanguageService = getLanguageService(contextNoSchema);
+
+      const result = await languageService.doValidation(doc, validationContext);
+      const expected: Diagnostic[] = [
+        {
+          range: { start: { line: 13, character: 10 }, end: { line: 13, character: 12 } },
+          message: '"if" has no effect without a "then" or "else"',
+          severity: DiagnosticSeverity.Warning,
+          code: 10049,
+          source: 'apilint',
+          data: {
+            quickFix: [
+              {
+                message: 'remove if',
+                action: 'removeChild',
+                functionParams: ['if'],
+                target: 'parent',
+              },
+            ],
+          },
+        },
+        {
+          range: { start: { line: 16, character: 16 }, end: { line: 16, character: 18 } },
+          message: "'type' array must not be empty",
+          severity: DiagnosticSeverity.Error,
+          code: 8032701,
+          source: 'apilint',
+          data: {},
+        },
+      ];
+      assert.deepEqual(result, expected);
+
+      languageService.terminate();
+    });
+
     it(`oas ${version} / yaml - JSON Schema 2020-12 keywords are validated`, async function () {
       const validationContext: ValidationContext = {
         comments: DiagnosticSeverity.Error,

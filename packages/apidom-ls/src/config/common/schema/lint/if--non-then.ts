@@ -8,7 +8,7 @@ import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 const ifNonThenLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_IF_NONTHEN,
   source: 'apilint',
-  message: '"if" has no effect without a "then"',
+  message: '"if" has no effect without a "then" or "else"',
   severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['if'],
@@ -16,8 +16,8 @@ const ifNonThenLint: LinterMeta = {
   markerTarget: 'if',
   conditions: [
     {
-      function: 'missingField',
-      params: ['then'],
+      function: 'missingFields',
+      params: [['then', 'else']],
     },
   ],
   data: {

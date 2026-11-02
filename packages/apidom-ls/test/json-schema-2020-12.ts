@@ -711,6 +711,19 @@ describe('apidom-ls-json-schema-2020-12', function () {
       },
     );
 
+    specify('should report an empty type array', async function () {
+      assert.deepEqual(await validate({ type: [] }), [
+        {
+          range: { start: { line: 2, character: 10 }, end: { line: 2, character: 12 } },
+          message: "'type' array must not be empty",
+          severity: 1,
+          code: 8032701,
+          source: 'apilint',
+          data: {},
+        },
+      ]);
+    });
+
     specify(
       'should warn about a pattern that is not a valid regular expression',
       async function () {

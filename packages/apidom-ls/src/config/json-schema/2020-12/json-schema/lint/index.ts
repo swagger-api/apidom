@@ -38,6 +38,7 @@ import notTypeLint from './not--type.ts';
 import unevaluatedItemsTypeLint from './unevaluated-items--type.ts';
 import unevaluatedPropertiesTypeLint from './unevaluated-properties--type.ts';
 import typeEqualsLint from './type--equals.ts';
+import typeNonEmptyLint from './type--non-empty.ts';
 import enumTypeLint from './enum--type.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import maximumTypeLint from './maximum--type.ts';
@@ -114,6 +115,7 @@ const lints = [
   unevaluatedItemsTypeLint,
   unevaluatedPropertiesTypeLint,
   typeEqualsLint,
+  typeNonEmptyLint,
   enumTypeLint,
   multipleOfTypeLint,
   maximumTypeLint,

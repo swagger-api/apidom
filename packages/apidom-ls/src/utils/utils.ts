@@ -215,23 +215,25 @@ export function buildJsonPointer(path: string[]): string {
   return URIFragmentIdentifier.to(jsonPointer);
 }
 
-// nearest enclosing JSON Schema resource: a schema with `$id`, else the document root
-const schemaResource = (element: Element): Element => {
+// nearest enclosing embedded JSON Schema resource (a schema with `$id`), if any
+const schemaResource = (element: Element): Element | undefined => {
   let node: Element | undefined = element;
-  while (node?.parent) {
+  while (node) {
     if (isJSONSchemaElement(node) && node.hasKey('$id')) {
       return node;
     }
     node = node.parent;
   }
-  return node ?? element;
+  return undefined;
 };
 
 /**
- * Resolves a local `$ref` (`#...`) within the document. A plain-name fragment identifies an
- * `$anchor` or `$dynamicAnchor` of a schema in the same schema resource (JSON Schema Core 8.2.2),
- * so instance data such as `default` or `examples` is never a target; any other fragment is a
- * JSON Pointer. Returns `undefined` if the target can't be found.
+ * Resolves a local `$ref` (`#...`) within the document. The fragment is resolved against the
+ * schema resource of `refElement` (the nearest schema with `$id`, else the document), as `$id`
+ * changes the base URI (JSON Schema Core 8.2.1). A plain-name fragment identifies an `$anchor` or
+ * `$dynamicAnchor` of a schema in that resource (Core 8.2.2), so instance data such as `default`
+ * or `examples` is never a target; any other fragment is a JSON Pointer. Returns `undefined` if
+ * the target can't be found.
  */
 export function resolveLocalReference(
   api: Element,
@@ -239,18 +241,19 @@ export function resolveLocalReference(
   refElement?: Element,
 ): Element | undefined {
   const fragment = ref.slice(1);
+  const resource = refElement ? schemaResource(refElement) : undefined;
+  const root = resource ?? api;
   try {
     if (fragment === '' || fragment.startsWith('/')) {
-      return evaluate<Element>(api, URIFragmentIdentifier.from(ref));
+      return evaluate<Element>(root, URIFragmentIdentifier.from(ref));
     }
     const name = decodeURIComponent(fragment);
-    const resource = refElement ? schemaResource(refElement) : undefined;
     return find(
       (element) =>
         isJSONSchemaElement(element) &&
         ['$anchor', '$dynamicAnchor'].some((keyword) => toValue(element.get(keyword)) === name) &&
-        (resource === undefined || schemaResource(element) === resource),
-      api,
+        schemaResource(element) === resource,
+      root,
     );
   } catch {
     return undefined;

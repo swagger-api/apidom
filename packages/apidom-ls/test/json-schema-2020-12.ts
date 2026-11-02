@@ -1131,6 +1131,78 @@ describe('apidom-ls-json-schema-2020-12', function () {
       },
     );
 
+    specify(
+      'should resolve local $refs against the embedded schema resource that contains them',
+      async function () {
+        const text = JSON.stringify(
+          {
+            $schema: 'https://json-schema.org/draft/2020-12/schema',
+            $defs: {
+              address: { $anchor: 'address' },
+              embedded: {
+                $id: 'https://example.com/embedded',
+                properties: {
+                  pointer: { $ref: '#/$defs/x' },
+                  root: { $ref: '#' },
+                  outer: { $ref: '#address' },
+                },
+                $defs: { x: { type: 'boolean' } },
+              },
+            },
+          },
+          null,
+          2,
+        );
+        const doc = TextDocument.create('foo://bar/embedded.json', 'json', 0, text);
+        const definition = (line: number) =>
+          languageService.doProvideDefinition(doc, {
+            position: Position.create(line, 20),
+            textDocument: doc,
+          });
+
+        assert.deepEqual(await definition(10), {
+          uri: 'foo://bar/embedded.json',
+          range: { start: { line: 20, character: 8 }, end: { line: 22, character: 9 } },
+        });
+        assert.deepEqual(await definition(13), {
+          uri: 'foo://bar/embedded.json',
+          range: { start: { line: 6, character: 4 }, end: { line: 24, character: 5 } },
+        });
+        assert.isNull(await definition(16));
+      },
+    );
+
+    specify('should resolve percent-encoded local $ref fragments', async function () {
+      const text = JSON.stringify(
+        {
+          $schema: 'https://json-schema.org/draft/2020-12/schema',
+          properties: {
+            pointer: { $ref: '#/%24defs/a%20b' },
+            anchor: { $ref: '#addr%65ss' },
+            malformed: { $ref: '#%zz' },
+          },
+          $defs: { 'a b': { $anchor: 'address' } },
+        },
+        null,
+        2,
+      );
+      const doc = TextDocument.create('foo://bar/encoded.json', 'json', 0, text);
+      const definition = (line: number) =>
+        languageService.doProvideDefinition(doc, {
+          position: Position.create(line, 18),
+          textDocument: doc,
+        });
+
+      const target = {
+        uri: 'foo://bar/encoded.json',
+        range: { start: { line: 14, character: 4 }, end: { line: 16, character: 5 } },
+      };
+
+      assert.deepEqual(await definition(4), target);
+      assert.deepEqual(await definition(7), target);
+      assert.isNull(await definition(10));
+    });
+
     specify('should not resolve an $anchor $ref to instance data', async function () {
       const text = JSON.stringify(
         {

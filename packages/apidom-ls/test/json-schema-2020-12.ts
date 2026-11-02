@@ -704,10 +704,53 @@ describe('apidom-ls-json-schema-2020-12', function () {
               dynamic: { $dynamicRef: '#node' },
               urn: { $id: 'urn:uuid:ee564b8a-7a87-4125-8c96-e9f123d6766f' },
               encodedId: { $id: 'https://example.com/a%20b' },
+              port: { $id: 'https://example.com:8080/schema' },
+              ipv6: { $ref: 'https://[2001:db8::7]/schema.json' },
+              relativeColon: { $ref: './a:b.json' },
             },
           }),
           [],
         );
+      },
+    );
+
+    specify(
+      'should report URI-references with a malformed authority or a colon in the first segment',
+      async function () {
+        const result = await validate({
+          properties: {
+            port: { $id: 'https://example.com:not-a-port/schema' },
+            ipv6: { $ref: 'https://[1::2::3]/schema.json' },
+            colon: { $ref: ':foo' },
+          },
+        });
+
+        assert.deepEqual(result, [
+          {
+            range: { start: { line: 4, character: 13 }, end: { line: 4, character: 52 } },
+            message: "'$id' must be a valid URI-reference",
+            severity: 1,
+            code: 8030100,
+            source: 'apilint',
+            data: {},
+          },
+          {
+            range: { start: { line: 7, character: 14 }, end: { line: 7, character: 45 } },
+            message: "'$ref' must be a valid URI-reference",
+            severity: 1,
+            code: 8030300,
+            source: 'apilint',
+            data: {},
+          },
+          {
+            range: { start: { line: 10, character: 14 }, end: { line: 10, character: 20 } },
+            message: "'$ref' must be a valid URI-reference",
+            severity: 1,
+            code: 8030300,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
       },
     );
 

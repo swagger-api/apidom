@@ -36,13 +36,53 @@ import {
 } from '../../utils/utils.ts';
 import { FunctionItem } from '../../apidom-language-types.ts';
 
-// RFC 3986 URI-reference: components per Appendix B, characters per sections 3.1-3.5
+// RFC 3986 URI-reference: components per Appendix B, grammar per sections 3.1-3.5 and 4.2
 const uriReferenceComponents =
   /^(?:([^:/?#]+):)?(?:\/\/([^/?#]*))?([^?#]*)(?:\?([^#]*))?(?:#(.*))?$/s;
 const uriScheme = /^[A-Za-z][A-Za-z0-9+.-]*$/;
-const uriAuthority = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@[\]]|%[0-9A-Fa-f]{2})*$/;
+const uriAuthority =
+  /^(?:((?:[A-Za-z0-9\-._~!$&'()*+,;=:]|%[0-9A-Fa-f]{2})*)@)?(\[[^\]]*\]|(?:[A-Za-z0-9\-._~!$&'()*+,;=]|%[0-9A-Fa-f]{2})*)(?::([0-9]*))?$/;
+const uriIPvFuture = /^v[0-9A-Fa-f]+\.[A-Za-z0-9\-._~!$&'()*+,;=:]+$/;
+const uriIPv4 =
+  /^(?:(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])\.){3}(?:25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])$/;
+const uriH16 = /^[0-9A-Fa-f]{1,4}$/;
 const uriPath = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@/]|%[0-9A-Fa-f]{2})*$/;
 const uriQueryOrFragment = /^(?:[A-Za-z0-9\-._~!$&'()*+,;=:@/?]|%[0-9A-Fa-f]{2})*$/;
+
+const isIPv6 = (address: string): boolean => {
+  const halves = address.split('::');
+  if (halves.length > 2) {
+    return false;
+  }
+  const groups = (part: string) => (part === '' ? [] : part.split(':'));
+  const head = groups(halves[0]);
+  const tail = halves.length === 2 ? groups(halves[1]) : [];
+  const end = halves.length === 2 ? tail : head;
+  let size = head.length + tail.length;
+  if (end.length > 0 && end[end.length - 1].includes('.')) {
+    if (!uriIPv4.test(end.pop() as string)) {
+      return false;
+    }
+    size += 1;
+  }
+  if (![...head, ...tail].every((group) => uriH16.test(group))) {
+    return false;
+  }
+  return halves.length === 2 ? size <= 7 : size === 8;
+};
+
+const isURIAuthority = (authority: string): boolean => {
+  const match = authority.match(uriAuthority);
+  if (!match) {
+    return false;
+  }
+  const host = match[2];
+  if (host.startsWith('[')) {
+    const address = host.slice(1, -1);
+    return uriIPvFuture.test(address) || isIPv6(address);
+  }
+  return true;
+};
 
 const isURIReference = (value: string): boolean => {
   const match = value.match(uriReferenceComponents);
@@ -50,9 +90,13 @@ const isURIReference = (value: string): boolean => {
     return false;
   }
   const [, scheme, authority, path, query, fragment] = match;
+  // a relative reference without authority must not have a colon in its first path segment
+  if (scheme === undefined && authority === undefined && path.split('/')[0].includes(':')) {
+    return false;
+  }
   return (
     (scheme === undefined || uriScheme.test(scheme)) &&
-    (authority === undefined || uriAuthority.test(authority)) &&
+    (authority === undefined || isURIAuthority(authority)) &&
     uriPath.test(path) &&
     (query === undefined || uriQueryOrFragment.test(query)) &&
     (fragment === undefined || uriQueryOrFragment.test(fragment))

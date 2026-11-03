@@ -224,6 +224,13 @@ Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/
 - **Fix:** phase 4 of JSON Schema 2020-12, per `add-spec-version/references/json-schema-dialects.md` sections 4 and 5.
 - **Done:** detection returns namespace `json-schema` with version `2020-12` only for a root `$schema`, `metadataMaps` registers the config under `json-schema`, and `parser-factory.ts` parses with the 2020-12 adapters. The config registers `linkDescription`, and `test/json-schema-2020-12.ts` covers validation, reference validation, completion, hover, semantic tokens and `doDeref`. `check-ls-coverage.mjs ... --inherited --orphans` reports only the expected `NOT-ALLOWED` for `JSONSchema202012` and `linkDescription`: neither meta-schema forbids unknown keywords.
 
+### 2.25 ⏳ JSON Schema 2020-12 docs mention RFCs without linking them
+
+- **Where:** `packages/apidom-ls/src/config/json-schema/2020-12/json-schema/completion.ts` and `documentation.ts` (and the `link-description` equivalents). The spec links references such as RFC 3986, RFC 4648, RFC 2045 and RFC 8288 (e.g. `contentEncoding`, `rel`, `$id`), while our docs print them as plain text (`RFC 4648 [RFC4648]`).
+- **Found by:** PR #5283 review (glowcloud, 2026-11-03): "I'm wondering if we should be linking in places where the original specification does, e.g. to RFCs, but this would mean changing a lot of the docs, so we can leave it for the future". Deferred in the PR.
+- **Fix:** go through the keyword docs, list every place where the spec renders a reference as a link, and link it the same way. Do it for the completion and documentation entries together, and for the OpenAPI Schema Object reuse in `config/openapi/schema/`. Check with `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/json-schema` (0 `BROKEN`).
+- **Commit:** `docs(ls): link RFC references in JSON Schema 2020-12 documentation`
+
 ---
 
 ## 3. Session leftovers (cleanup)

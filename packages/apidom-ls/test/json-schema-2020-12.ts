@@ -466,7 +466,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
         {
           range: { start: { line: 2, character: 13 }, end: { line: 2, character: 18 } },
           message:
-            "'$anchor' must start with a letter or underscore, followed by letters, digits, hyphens, underscores or periods",
+            "'$anchor' must be a string starting with a letter or underscore, followed by letters, digits, hyphens, underscores or periods",
           severity: 1,
           code: 8030501,
           source: 'apilint',
@@ -531,7 +531,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
         {
           range: { start: { line: 1, character: 9 }, end: { line: 1, character: 12 } },
           message:
-            "'$anchor' must start with a letter or underscore, followed by letters, digits, hyphens, underscores or periods",
+            "'$anchor' must be a string starting with a letter or underscore, followed by letters, digits, hyphens, underscores or periods",
           severity: 1,
           code: 8030501,
           source: 'apilint',
@@ -659,7 +659,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
         });
         const refDiagnostic = (line: number, start: number, end: number): Diagnostic => ({
           range: { start: { line, character: start }, end: { line, character: end } },
-          message: "'$ref' must be a valid URI-reference",
+          message: "'$ref' must be a string containing a valid URI-reference",
           severity: DiagnosticSeverity.Error,
           code: 8030300,
           source: 'apilint',
@@ -673,7 +673,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           refDiagnostic(13, 14, 28),
           {
             range: { start: { line: 16, character: 21 }, end: { line: 16, character: 34 } },
-            message: "'$dynamicRef' must be a valid URI-reference",
+            message: "'$dynamicRef' must be a string containing a valid URI-reference",
             severity: 1,
             code: 8030601,
             source: 'apilint',
@@ -681,7 +681,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           },
           {
             range: { start: { line: 19, character: 13 }, end: { line: 19, character: 38 } },
-            message: "'$id' must be a valid URI-reference",
+            message: "'$id' must be a string containing a valid URI-reference",
             severity: 1,
             code: 8030100,
             source: 'apilint',
@@ -728,7 +728,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
         assert.deepEqual(result, [
           {
             range: { start: { line: 4, character: 13 }, end: { line: 4, character: 52 } },
-            message: "'$id' must be a valid URI-reference",
+            message: "'$id' must be a string containing a valid URI-reference",
             severity: 1,
             code: 8030100,
             source: 'apilint',
@@ -736,7 +736,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           },
           {
             range: { start: { line: 7, character: 14 }, end: { line: 7, character: 45 } },
-            message: "'$ref' must be a valid URI-reference",
+            message: "'$ref' must be a string containing a valid URI-reference",
             severity: 1,
             code: 8030300,
             source: 'apilint',
@@ -744,7 +744,7 @@ describe('apidom-ls-json-schema-2020-12', function () {
           },
           {
             range: { start: { line: 10, character: 14 }, end: { line: 10, character: 20 } },
-            message: "'$ref' must be a valid URI-reference",
+            message: "'$ref' must be a string containing a valid URI-reference",
             severity: 1,
             code: 8030300,
             source: 'apilint',
@@ -765,6 +765,49 @@ describe('apidom-ls-json-schema-2020-12', function () {
           data: {},
         },
       ]);
+    });
+
+    [
+      { keyword: '$anchor', character: 13, code: 8030501 },
+      { keyword: '$dynamicAnchor', character: 20, code: 8030701 },
+    ].forEach(({ keyword, character, code }) => {
+      specify(`should report a ${keyword} that is a boolean, not a string`, async function () {
+        assert.deepEqual(await validate({ [keyword]: true }), [
+          {
+            range: {
+              start: { line: 2, character },
+              end: { line: 2, character: character + 4 },
+            },
+            message: `'${keyword}' must be a string starting with a letter or underscore, followed by letters, digits, hyphens, underscores or periods`,
+            severity: 1,
+            code,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      });
+    });
+
+    [
+      { keyword: '$id', character: 9, code: 8030100 },
+      { keyword: '$ref', character: 10, code: 8030300 },
+      { keyword: '$dynamicRef', character: 17, code: 8030601 },
+    ].forEach(({ keyword, character, code }) => {
+      specify(`should report a ${keyword} that is not a string`, async function () {
+        assert.deepEqual(await validate({ [keyword]: 1 }), [
+          {
+            range: {
+              start: { line: 2, character },
+              end: { line: 2, character: character + 1 },
+            },
+            message: `'${keyword}' must be a string containing a valid URI-reference`,
+            severity: 1,
+            code,
+            source: 'apilint',
+            data: {},
+          },
+        ]);
+      });
     });
 
     ['/vocab/core', 'not a URI'].forEach((key) => {

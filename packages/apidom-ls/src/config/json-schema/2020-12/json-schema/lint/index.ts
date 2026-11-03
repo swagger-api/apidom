@@ -1,16 +1,10 @@
 import $idFormatURILint from './$id--format-uri.ts';
-import $idTypeLint from './$id--type.ts';
 import $idPatternLint from './$id--pattern.ts';
 import $schemaFormatURILint from './$schema--format-uri.ts';
-import $schemaTypeLint from './$schema--type.ts';
 import $refFormatURILint from './$ref--format-uri.ts';
-import $refTypeLint from './$ref--type.ts';
 import $commentTypeLint from './$comment--type.ts';
-import $anchorTypeLint from './$anchor--type.ts';
 import $anchorPatternLint from './$anchor--pattern.ts';
-import $dynamicRefTypeLint from './$dynamic-ref--type.ts';
 import $dynamicRefFormatURILint from './$dynamic-ref--format-uri.ts';
-import $dynamicAnchorTypeLint from './$dynamic-anchor--type.ts';
 import $dynamicAnchorPatternLint from './$dynamic-anchor--pattern.ts';
 import $vocabularyTypeLint from './$vocabulary--type.ts';
 import $vocabularyValuesTypeLint from './$vocabulary--values-type.ts';
@@ -77,18 +71,12 @@ import linksTypeLint from './links--type.ts';
 
 const lints = [
   $idFormatURILint,
-  $idTypeLint,
   $idPatternLint,
   $schemaFormatURILint,
-  $schemaTypeLint,
   $refFormatURILint,
-  $refTypeLint,
   $commentTypeLint,
-  $anchorTypeLint,
   $anchorPatternLint,
-  $dynamicRefTypeLint,
   $dynamicRefFormatURILint,
-  $dynamicAnchorTypeLint,
   $dynamicAnchorPatternLint,
   $vocabularyTypeLint,
   $vocabularyValuesTypeLint,

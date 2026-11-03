@@ -7,18 +7,11 @@ import { JSONSchema202012 } from '../../target-specs.ts';
 const $dynamicRefFormatURILint: LinterMeta = {
   code: ApilintCodes.JSON_SCHEMA_2020_12_KEYWORD_$DYNAMIC_REF_FORMAT_URI,
   source: 'apilint',
-  message: "'$dynamicRef' must be a valid URI-reference",
+  message: "'$dynamicRef' must be a string containing a valid URI-reference",
   severity: DiagnosticSeverity.Error,
   linterFunction: 'apilintValidURIReference',
   marker: 'value',
   target: '$dynamicRef',
-  conditions: [
-    {
-      targets: [{ path: '$dynamicRef' }],
-      function: 'apilintType',
-      params: ['string'],
-    },
-  ],
   data: {},
   targetSpecs: JSONSchema202012,
 };

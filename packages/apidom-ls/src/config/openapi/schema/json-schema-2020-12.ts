@@ -15,9 +15,14 @@ const hyperSchemaKeywords = ['base', 'links'];
 const toOpenAPI = <T>(rule: T): T =>
   assocElement('schema')(assoc([...OpenAPI31, ...OpenAPI32])(rule));
 
+const toSchemaObjectMessage = (rule: LinterMeta): LinterMeta => ({
+  ...toOpenAPI(rule),
+  message: rule.message?.replace(/JSON Schema/g, 'Schema Object'),
+});
+
 export const lint: LinterMeta[] = compose(
   jsonSchema202012Lint.filter((rule) => !hyperSchemaKeywords.includes(rule.target ?? '')),
-  toOpenAPI,
+  toSchemaObjectMessage,
 );
 
 export const completion: ApidomCompletionItem[] = compose(

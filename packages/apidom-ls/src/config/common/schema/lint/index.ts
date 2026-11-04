@@ -11,12 +11,12 @@ import additionalItemsTypeOpenAPI3_1__AsyncAPI2__3Lint from './additional-items-
 import additionalPropertiesNonObject from './additional-properties--non-object.ts';
 import additionalPropertiesTypeLint from './additional-properties--type.ts';
 import allOfTypeLint from './all-of--type.ts';
-import allOfTypeOpenAPI3_1__AsyncAPI2__3Lint from './all-of--type-openapi-3-1--asyncapi-2--3.ts';
+import allOfTypeAsyncAPI2__3Lint from './all-of--type-asyncapi-2--3.ts';
 import anyOfTypeLint from './any-of--type.ts';
-import anyOfTypeOpenAPI3_1__AsyncAPI2__3Lint from './any-of--type-openapi-3-1--asyncapi-2--3.ts';
+import anyOfTypeAsyncAPI2__3Lint from './any-of--type-asyncapi-2--3.ts';
 import containsNonArrayLint from './contains--non-array.ts';
 import containsTypeLint from './contains--type.ts';
-import containsTypeOpenAPI3_1__AsyncAPI2__3Lint from './contains--type-openapi-3-1--asyncapi-2--3.ts';
+import containsTypeAsyncAPI2__3Lint from './contains--type-asyncapi-2--3.ts';
 import descriptionTypeLint from './description--type.ts';
 import discriminatorExistInRequiredLint from './discriminator--exist-in-required.ts';
 import discriminatorTypeOpenAPI2_0__AsyncAPI2__3Lint from './discriminator--type-openapi-2-0--asyncapi-2--3.ts';
@@ -36,7 +36,7 @@ import ifNonThenLint from './if--non-then.ts';
 import ifTypeLint from './if--type.ts';
 import itemsNonArrayLint from './items--non-array.ts';
 import itemsRequiredLint from './items--required.ts';
-import itemsTypeOpenAPI31AsyncAPI2__3Lint from './items--type-3-1-asyncapi-2--3.ts';
+import itemsTypeAsyncAPI2__3Lint from './items--type-asyncapi-2--3.ts';
 import itemsTypeOpenAPI2OpenAPI30Lint from './items--type-2-0-3-0.ts';
 import maxItemsNonArrayLint from './max-items--non-array.ts';
 import maxItemsTypeLint from './max-items--type.ts';
@@ -56,11 +56,11 @@ import missingCoreFieldsOpenAPI3_1Lint from './missing-core-fields-openapi-3-1.t
 import missingCoreFieldsAsyncAPI2__3Lint from './missing-core-fields-asyncapi-2--3.ts';
 import multipleOfTypeLint from './multiple-of--type.ts';
 import notTypeLint from './not--type.ts';
-import notTypeOpenAPI3_1_AsyncAPI2__3Lint from './not--type-openapi-3-1-asyncapi-2--3.ts';
+import notTypeAsyncAPI2__3Lint from './not--type-asyncapi-2--3.ts';
 import nullableTypeLint from './nullable--type.ts';
 import nullableNotRecommendedLint from './nullable--not-recommended.ts';
 import oneOfTypeLint from './one-of--type.ts';
-import oneOfTypeOpenAPI3_1__AsyncAPI2__3Lint from './one-of--type-openapi-3-1--asyncapi-2--3.ts';
+import oneOfTypeAsyncAPI2__3Lint from './one-of--type-asyncapi-2--3.ts';
 import patternTypeLint from './pattern--type.ts';
 import patternPropertiesKeysRegexpLint from './pattern-properties--keys-regexp.ts';
 import patternPropertiesNonObjectLint from './pattern-properties--non-object.ts';
@@ -68,7 +68,7 @@ import patternPropertiesTypeLint from './pattern-properties--type.ts';
 import patternPropertiesValuesTypeLint from './pattern-properties--values-type.ts';
 import propertiesTypeLint from './properties--type.ts';
 import propertiesValuesTypeLint from './properties--values-type.ts';
-import propertiesValuesTypeOpenAPI3_1__AsyncAPI2__3Lint from './properties--values-type-openapi-3-1--asyncapi-2--3.ts';
+import propertiesValuesTypeAsyncAPI2__3Lint from './properties--values-type-asyncapi-2--3.ts';
 import propertyNamesNonObjectLint from './property-names--non-object.ts';
 import propertyNamesTypeLint from './property-names--type.ts';
 import readOnlyTypeLint from './read-only--type.ts';
@@ -80,7 +80,7 @@ import thenTypeLint from './then--type.ts';
 import titleTypeLint from './title--type.ts';
 import typeTypeLint from './type--type.ts';
 import typeEqualsLint from './type--equals.ts';
-import typeEqualsOpenAPI3_1__AsyncAPI2__3Lint from './type--equals-openapi-3-1--asyncapi-2--3.ts';
+import typeEqualsAsyncAPI2__3Lint from './type--equals-asyncapi-2--3.ts';
 import uniqueItemsNonArrayLint from './unique-items--non-array.ts';
 import uniqueItemsTypeLint from './unique-items--type.ts';
 import writeOnlyTypeLint from './write-only--type.ts';
@@ -111,12 +111,12 @@ const schemaLints = [
   additionalPropertiesNonObject,
   additionalPropertiesTypeLint,
   allOfTypeLint,
-  allOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
-  anyOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
+  allOfTypeAsyncAPI2__3Lint,
+  anyOfTypeAsyncAPI2__3Lint,
   anyOfTypeLint,
   containsNonArrayLint,
   containsTypeLint,
-  containsTypeOpenAPI3_1__AsyncAPI2__3Lint,
+  containsTypeAsyncAPI2__3Lint,
   descriptionTypeLint,
   discriminatorExistInRequiredLint,
   discriminatorTypeOpenAPI2_0__AsyncAPI2__3Lint,
@@ -138,7 +138,7 @@ const schemaLints = [
   ifTypeLint,
   itemsNonArrayLint,
   itemsRequiredLint,
-  itemsTypeOpenAPI31AsyncAPI2__3Lint,
+  itemsTypeAsyncAPI2__3Lint,
   itemsTypeOpenAPI2OpenAPI30Lint,
   maxItemsNonArrayLint,
   maxItemsTypeLint,
@@ -162,11 +162,11 @@ const schemaLints = [
   missingCoreFieldsAsyncAPI2__3Lint,
   multipleOfTypeLint,
   notTypeLint,
-  notTypeOpenAPI3_1_AsyncAPI2__3Lint,
+  notTypeAsyncAPI2__3Lint,
   nullableTypeLint,
   nullableNotRecommendedLint,
   oneOfTypeLint,
-  oneOfTypeOpenAPI3_1__AsyncAPI2__3Lint,
+  oneOfTypeAsyncAPI2__3Lint,
   patternTypeLint,
   patternPropertiesKeysRegexpLint,
   patternPropertiesNonObjectLint,
@@ -175,7 +175,7 @@ const schemaLints = [
   patternPropertiesValuesTypeLint,
   propertiesTypeLint,
   propertiesValuesTypeLint,
-  propertiesValuesTypeOpenAPI3_1__AsyncAPI2__3Lint,
+  propertiesValuesTypeAsyncAPI2__3Lint,
   propertyNamesNonObjectLint,
   propertyNamesTypeLint,
   readOnlyTypeLint,
@@ -189,7 +189,7 @@ const schemaLints = [
   titleTypeLint,
   typeTypeLint,
   typeEqualsLint,
-  typeEqualsOpenAPI3_1__AsyncAPI2__3Lint,
+  typeEqualsAsyncAPI2__3Lint,
   uniqueItemsNonArrayLint,
   uniqueItemsTypeLint,
   writeOnlyTypeLint,

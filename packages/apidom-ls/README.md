@@ -21,6 +21,7 @@ The ApiDOM Language Service fully supports the following API specifications:
 - OpenAPI 3.1.0
 - AsyncAPI 2.x.y
 - AsyncAPI 3.x.y
+- JSON Schema 2020-12 (standalone documents whose root schema declares `"$schema": "https://json-schema.org/draft/2020-12/schema"`)
 
 ## Quick start
 

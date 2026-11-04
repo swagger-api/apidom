@@ -12,6 +12,8 @@ import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asynca
 import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 import * as a2a1AdapterJson from '@swagger-api/apidom-parser-adapter-a2a-json-1';
 import * as a2a1AdapterYaml from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
+import * as jsonSchema202012AdapterJson from '@swagger-api/apidom-parser-adapter-json-schema-json-2020-12';
+import * as jsonSchema202012AdapterYaml from '@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -23,6 +25,7 @@ import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElemen
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_1 } from '@swagger-api/apidom-ns-openapi-3-1';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementOpenAPI3_2 } from '@swagger-api/apidom-ns-openapi-3-2';
 import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementA2A1 } from '@swagger-api/apidom-ns-a2a-1';
+import { refractorPluginReplaceEmptyElement as refractorPluginReplaceEmptyElementJSONSchema202012 } from '@swagger-api/apidom-ns-json-schema-2020-12';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { ParseResultElement } from '@swagger-api/apidom-core';
 
@@ -243,6 +246,35 @@ export async function parse(
     };
 
     result = await a2a1AdapterYaml.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'json-schema' &&
+    contentLanguage.version === '2020-12' &&
+    contentLanguage.format === 'JSON'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [...(refractorPlugins?.['json-schema-2020-12'] || [])],
+      },
+    };
+
+    result = await jsonSchema202012AdapterJson.parse(text, options);
+  } else if (
+    contentLanguage.namespace === 'json-schema' &&
+    contentLanguage.version === '2020-12' &&
+    contentLanguage.format === 'YAML'
+  ) {
+    const options: Record<string, unknown> = {
+      sourceMap: true,
+      refractorOpts: {
+        plugins: [
+          registerPlugins && refractorPluginReplaceEmptyElementJSONSchema202012(),
+          ...(refractorPlugins?.['json-schema-2020-12'] || []),
+        ].filter(Boolean),
+      },
+    };
+
+    result = await jsonSchema202012AdapterYaml.parse(text, options);
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'JSON') {
     result = await adsAdapterJson.parse(text, { sourceMap: true });
   } else if (contentLanguage.namespace === 'ads' && contentLanguage.format === 'YAML') {
@@ -254,6 +286,13 @@ export async function parse(
   } else {
     // fallback
     result = await adapterJson.parse(text, { sourceMap: true });
+  }
+  if (contentLanguage.namespace === 'json-schema' && result.api === undefined && result.result) {
+    /**
+     * Every nested schema is a JSON Schema element too, so the adapters mark the root only with
+     * the `result` class. The language services work on the `api` element of a parse result.
+     */
+    result.result.classes.push('api');
   }
   const { api } = result;
   if (api === undefined) return result;

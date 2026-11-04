@@ -734,8 +734,14 @@ export class DefaultValidationService implements ValidationService {
         refValueElement: Element,
       ): Diagnostic[] => {
         const refDiagnostics: Diagnostic[] = [];
+        /**
+         * The legacy check looks up JSON Pointers among elements named like the referenced
+         * element. JSON Schema references also resolve against `$id` base URIs and `$anchor`s,
+         * so JSON Schema documents rely on the reference validation modes (apidom-reference).
+         */
         if (
           refValidationMode === ReferenceValidationMode.LEGACY &&
+          docNs !== 'json-schema' &&
           toValue(refValueElement).startsWith('#')
         ) {
           let pointers = pointersMap[referencedElement];

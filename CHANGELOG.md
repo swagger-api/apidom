@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/swagger-api/apidom/compare/v1.13.3...v1.14.0) (2026-11-04)
+
+### Bug Fixes
+
+- **ci:** pin gh-pages deploy action and add .nojekyll ([#5288](https://github.com/swagger-api/apidom/issues/5288)) ([94de433](https://github.com/swagger-api/apidom/commit/94de4339ecb8868d9fed4fc36ca76fe81bd8bc57)), closes [gh-pages](https://github.com/swagger-api/apidom/issues/pages)
+- **parser-adapter-json-schema:** accept an empty fragment in $schema ([#5286](https://github.com/swagger-api/apidom/issues/5286)) ([ff6162e](https://github.com/swagger-api/apidom/commit/ff6162e8d936d1c5eef77ae79d7ef1f4544fd09d))
+
+### Features
+
+- **ls:** add support for JSON Schema 2020-12 ([#5283](https://github.com/swagger-api/apidom/issues/5283)) ([92954e4](https://github.com/swagger-api/apidom/commit/92954e4d8753a33d3b8da6dadeffa7cc598d5b4f)), closes [#4838](https://github.com/swagger-api/apidom/issues/4838)
+- **reference:** add support for JSON Schema 2020-12 ([#5284](https://github.com/swagger-api/apidom/issues/5284)) ([135f6c7](https://github.com/swagger-api/apidom/commit/135f6c7f6c2c1be6955bfeb5e09f9f4e863fb9fe))
+
 ## [1.13.3](https://github.com/swagger-api/apidom/compare/v1.13.2...v1.13.3) (2026-10-21)
 
 ### Bug Fixes

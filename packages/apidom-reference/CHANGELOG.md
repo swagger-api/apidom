@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/swagger-api/apidom/compare/v1.13.3...v1.14.0) (2026-11-04)
+
+### Features
+
+- **reference:** add support for JSON Schema 2020-12 ([#5284](https://github.com/swagger-api/apidom/issues/5284)) ([135f6c7](https://github.com/swagger-api/apidom/commit/135f6c7f6c2c1be6955bfeb5e09f9f4e863fb9fe))
+
 ## [1.13.3](https://github.com/swagger-api/apidom/compare/v1.13.2...v1.13.3) (2026-10-21)
 
 ### Bug Fixes

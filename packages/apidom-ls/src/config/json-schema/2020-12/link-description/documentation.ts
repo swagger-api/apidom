@@ -14,12 +14,12 @@ const documentation: DocumentationMeta[] = [
   },
   {
     target: 'rel',
-    docs: '#### [rel](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.6.2.1)\n\nThe value of this property MUST be either a string or an array of strings. If the value is an array, it MUST contain at least one string.\n\nEach string MUST be a single Link Relation Type as defined in RFC 8288, Section 2.1, including the restriction that additional semantics SHOULD NOT be inferred based upon the presence or absence of another link relation type.',
+    docs: '#### [rel](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.6.2.1)\n\nThe value of this property MUST be either a string or an array of strings. If the value is an array, it MUST contain at least one string.\n\nEach string MUST be a single Link Relation Type as defined in RFC 8288, Section 2.1, including the restriction that additional semantics SHOULD NOT be inferred based upon the presence or absence of another link relation type.\n\nThis property is required.',
     targetSpecs: JSONSchema202012,
   },
   {
     target: 'href',
-    docs: '#### [href](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.6.3.1)\n\nThe value of the "href" link description property is a template used to determine the target URI of the related resource. The value of the instance property MUST be resolved as a URI-reference against the base URI of the instance.',
+    docs: '#### [href](https://json-schema.org/draft/2019-09/draft-handrews-json-schema-hyperschema-02#rfc.section.6.3.1)\n\nThe value of the "href" link description property is a template used to determine the target URI of the related resource. The value of the instance property MUST be resolved as a URI-reference against the base URI of the instance.\n\nThis property is required.',
     targetSpecs: JSONSchema202012,
   },
   {

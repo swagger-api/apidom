@@ -9,7 +9,9 @@ depends-on: [apidom-core]
 
 ## Responsibility
 
-Parse, resolve, dereference and bundle API descriptions: pluggable parse, resolve (filesystem/HTTP), dereference (transclude `$ref`s) and bundle (multi-file to compound document) components, with per-specification strategies.
+Parse, resolve, dereference and bundle API descriptions: pluggable parse, resolve (filesystem/HTTP), dereference (transclude `$ref`s) and bundle components, with per-specification strategies.
+
+The bundle stage is a pluggable extension point. Every current bundle strategy (OpenAPI 3.1, OpenAPI 3.2, JSON Schema 2020-12) returns the document unchanged, so nothing produces a compound document yet.
 
 ## Boundary
 

@@ -32,7 +32,7 @@ Defines list of media types that this parser adapter recognizes.
 
 ### detect
 
-[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json-schema-json-2020-12/src/adapter.ts#L18) is based on a regular expression matching required JSON Schema 2020-12 symbols in JSON format.
+[Detection](https://github.com/swagger-api/apidom/blob/main/packages/apidom-parser-adapter-json-schema-json-2020-12/src/adapter.ts) is based on a regular expression matching required JSON Schema 2020-12 symbols in JSON format: a `$schema` of `https://json-schema.org/draft/2020-12/schema`, with or without an empty fragment (`#`).
 
 ### namespace
 
@@ -64,6 +64,7 @@ import { parse, detect } from '@swagger-api/apidom-parser-adapter-json-schema-js
 
 // detecting
 await detect('{"$schema": "https://json-schema.org/draft/2020-12/schema"}'); // => true
+await detect('{"$schema": "https://json-schema.org/draft/2020-12/schema#"}'); // => true
 await detect('test'); // => false
 
 // parsing

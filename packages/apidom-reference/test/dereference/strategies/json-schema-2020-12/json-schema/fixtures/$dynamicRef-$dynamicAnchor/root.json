@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://test.json-schema.org/dynamicRef-dynamicAnchor-same-schema/root",
+  "type": "array",
+  "items": {
+    "$dynamicRef": "#items"
+  },
+  "$defs": {
+    "foo": {
+      "$dynamicAnchor": "items",
+      "type": "string"
+    }
+  }
+}

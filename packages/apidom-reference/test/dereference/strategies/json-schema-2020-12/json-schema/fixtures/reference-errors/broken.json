@@ -1,0 +1,6 @@
+{
+  "type": "object",
+  "properties": {
+    "nested": { "$ref": "#/$defs/nope" }
+  }
+}

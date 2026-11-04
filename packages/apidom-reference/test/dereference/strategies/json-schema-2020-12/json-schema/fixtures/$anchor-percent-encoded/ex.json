@@ -1,0 +1,8 @@
+{
+  "$defs": {
+    "UserName": {
+      "$dynamicAnchor": "user-name",
+      "type": "string"
+    }
+  }
+}

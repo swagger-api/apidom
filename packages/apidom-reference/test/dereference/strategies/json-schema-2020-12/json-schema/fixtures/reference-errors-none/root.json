@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "properties": {
+    "internal": { "$ref": "#/$defs/string" },
+    "anchor": { "$ref": "#name" },
+    "external": { "$ref": "./ex.json#/$defs/number" }
+  },
+  "$defs": {
+    "string": { "type": "string" },
+    "named": { "$anchor": "name", "type": "boolean" }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "$id": "./schemas/",
+      "type": "object",
+      "properties": {
+        "login": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "profile": {
+          "$id": "./nested/",
+          "$ref": "./ex.json"
+        }
+      }
+    }
+  }
+}

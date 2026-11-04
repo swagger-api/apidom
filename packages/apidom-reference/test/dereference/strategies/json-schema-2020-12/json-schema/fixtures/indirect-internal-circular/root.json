@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "$ref": "#/$defs/Indirection1"
+    },
+    "Indirection1": {
+      "$ref": "#/$defs/Indirection2"
+    },
+    "Indirection2": {
+      "$ref": "#/$defs/Indirection3"
+    },
+    "Indirection3": {
+      "$ref": "#/$defs/User"
+    }
+  }
+}

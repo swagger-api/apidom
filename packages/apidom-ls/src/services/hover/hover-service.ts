@@ -9,10 +9,6 @@ import {
 } from '@swagger-api/apidom-core';
 import { MarkupContent, Position, Range } from 'vscode-languageserver-types';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
-import {
-  evaluate as jsonPointerEvaluate,
-  URIFragmentIdentifier,
-} from '@swagger-api/apidom-json-pointer/modern';
 
 import {
   HoverProvider,
@@ -32,6 +28,7 @@ import {
   isJsonDoc,
   findNamespace,
   debug,
+  resolveLocalReference,
 } from '../../utils/utils.ts';
 
 const CONTROL_CODES = '\\u0000-\\u0020\\u007f-\\u009f';
@@ -196,7 +193,11 @@ export class DefaultHoverService implements HoverService {
                 contentLanguage.namespace === 'openapi'
                   ? 'application/vnd.oai.openapi+'
                   : 'application/vnd.aai.asyncapi+';
-              const mediaType = `${mediaTypePrefix}${format};version=${nonStrictSpecVersion}`;
+              // JSON Schema media types are dialect-specific (`application/schema+json;version=2020-12`)
+              const mediaType =
+                contentLanguage.namespace === 'json-schema'
+                  ? contentLanguage.mediaType
+                  : `${mediaTypePrefix}${format};version=${nonStrictSpecVersion}`;
               debug(
                 'hoverService - computeHover',
                 `mediaType: ${mediaType}`,
@@ -225,9 +226,8 @@ export class DefaultHoverService implements HoverService {
               //
             }
           } else {
-            try {
-              // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-              const refTarget = jsonPointerEvaluate<Element>(api, URIFragmentIdentifier.from(ref));
+            const refTarget = resolveLocalReference(api, ref, node);
+            if (refTarget) {
               const nodeSourceMap = getSourceMap(refTarget);
 
               const linePosition = textDocument.positionAt(nodeSourceMap.offset);
@@ -242,8 +242,6 @@ export class DefaultHoverService implements HoverService {
                   ? 'json'
                   : 'yaml';
               contents.push(`\n\n\n\n\`\`\`${format}\n${targetVal}\n\`\`\``);
-            } catch (e) {
-              //
             }
           }
           try {

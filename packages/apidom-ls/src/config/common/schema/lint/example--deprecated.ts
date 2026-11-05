@@ -2,7 +2,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI31 } from '../../../openapi/target-specs.ts';
+import { OpenAPI31, OpenAPI32 } from '../../../openapi/target-specs.ts';
 
 const exampleDeprecatedLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_EXAMPLE_DEPRECATED,
@@ -29,7 +29,7 @@ const exampleDeprecatedLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: OpenAPI31,
+  targetSpecs: [...OpenAPI31, ...OpenAPI32],
 };
 
 export default exampleDeprecatedLint;

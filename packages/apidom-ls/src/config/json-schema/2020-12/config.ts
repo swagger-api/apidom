@@ -18,5 +18,5 @@ export default {
     ],
   },
   JSONSchema202012: JSONSchemaMeta,
-  LinkDescription: LinkDescriptionMeta,
+  linkDescription: LinkDescriptionMeta,
 };

@@ -3,7 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
-import { OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const writeOnlyTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_WRITEONLY,
@@ -15,7 +15,7 @@ const writeOnlyTypeLint: LinterMeta = {
   marker: 'value',
   target: 'writeOnly',
   data: {},
-  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI3],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI30],
 };
 
 export default writeOnlyTypeLint;

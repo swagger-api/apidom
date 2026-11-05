@@ -12,6 +12,8 @@ import * as asyncapi3AdapterJson from '@swagger-api/apidom-parser-adapter-asynca
 import * as asyncapi3AdapterYaml from '@swagger-api/apidom-parser-adapter-asyncapi-yaml-3';
 import * as a2a1AdapterJson from '@swagger-api/apidom-parser-adapter-a2a-json-1';
 import * as a2a1AdapterYaml from '@swagger-api/apidom-parser-adapter-a2a-yaml-1';
+import * as jsonSchema202012AdapterJson from '@swagger-api/apidom-parser-adapter-json-schema-json-2020-12';
+import * as jsonSchema202012AdapterYaml from '@swagger-api/apidom-parser-adapter-json-schema-yaml-2020-12';
 import * as adsAdapterJson from '@swagger-api/apidom-parser-adapter-api-design-systems-json';
 import * as adsAdapterYaml from '@swagger-api/apidom-parser-adapter-api-design-systems-yaml';
 import * as adapterJson from '@swagger-api/apidom-parser-adapter-json';
@@ -36,7 +38,8 @@ import {
   toValue,
   hasElementSourceMap,
 } from '@swagger-api/apidom-core';
-import { compile, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
+import { compile, evaluate, URIFragmentIdentifier } from '@swagger-api/apidom-json-pointer/modern';
+import { isJSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Range } from 'vscode-languageserver-types';
 
@@ -172,10 +175,21 @@ export function setMetadataMap(
   }
 }
 
+/**
+ * JSON Schema documents have no version field: the dialect, identified by the root `$schema`,
+ * determines the root element.
+ */
+const jsonSchemaDialectsByRootElement: Record<string, string> = {
+  JSONSchema202012: '2020-12',
+};
+
 export function getSpecVersion(root: Element, defaultVersion?: string): string {
   const el = find((e) => toValue(e.getMetaProperty('classes', []).includes('spec-version')), root);
   if (el) {
     return toValue(el);
+  }
+  if (root && Object.hasOwn(jsonSchemaDialectsByRootElement, root.element)) {
+    return jsonSchemaDialectsByRootElement[root.element];
   }
   return defaultVersion ?? '';
 }
@@ -199,6 +213,51 @@ export function logJson(label: string, message: unknown): void {
 export function buildJsonPointer(path: string[]): string {
   const jsonPointer = compile(path);
   return URIFragmentIdentifier.to(jsonPointer);
+}
+
+// nearest enclosing embedded JSON Schema resource (a schema with `$id`), if any
+const schemaResource = (element: Element): Element | undefined => {
+  let node: Element | undefined = element;
+  while (node) {
+    if (isJSONSchemaElement(node) && node.hasKey('$id')) {
+      return node;
+    }
+    node = node.parent;
+  }
+  return undefined;
+};
+
+/**
+ * Resolves a local `$ref` (`#...`) within the document. The fragment is resolved against the
+ * schema resource of `refElement` (the nearest schema with `$id`, else the document), as `$id`
+ * changes the base URI (JSON Schema Core 8.2.1). A plain-name fragment identifies an `$anchor` or
+ * `$dynamicAnchor` of a schema in that resource (Core 8.2.2), so instance data such as `default`
+ * or `examples` is never a target; any other fragment is a JSON Pointer. Returns `undefined` if
+ * the target can't be found.
+ */
+export function resolveLocalReference(
+  api: Element,
+  ref: string,
+  refElement?: Element,
+): Element | undefined {
+  const fragment = ref.slice(1);
+  const resource = refElement ? schemaResource(refElement) : undefined;
+  const root = resource ?? api;
+  try {
+    if (fragment === '' || fragment.startsWith('/')) {
+      return evaluate<Element>(root, URIFragmentIdentifier.from(ref));
+    }
+    const name = decodeURIComponent(fragment);
+    return find(
+      (element) =>
+        isJSONSchemaElement(element) &&
+        ['$anchor', '$dynamicAnchor'].some((keyword) => toValue(element.get(keyword)) === name) &&
+        schemaResource(element) === resource,
+      root,
+    );
+  } catch {
+    return undefined;
+  }
 }
 
 interface FoundNode {
@@ -807,6 +866,95 @@ export async function isYamlDoc(document: TextDocument | string): Promise<boolea
 }
 
 /**
+ * Whether `index` is a position directly inside the root object of a JSON text, i.e. a member
+ * key of the root object and not part of a nested value or a string.
+ */
+const isJsonRootMember = (text: string, index: number): boolean => {
+  const stack: string[] = [];
+  let inString = false;
+
+  for (let i = 0; i < index; i += 1) {
+    const char = text[i];
+    if (inString) {
+      if (char === '\\') {
+        i += 1;
+      } else if (char === '"') {
+        inString = false;
+      }
+    } else if (char === '"') {
+      inString = true;
+    } else if (char === '{' || char === '[') {
+      stack.push(char);
+    } else if (char === '}' || char === ']') {
+      stack.pop();
+    }
+  }
+
+  return !inString && stack.length === 1 && stack[0] === '{';
+};
+
+/**
+ * Root fields of API description formats that embed JSON Schema. A document with any of them at
+ * its root is not a standalone JSON Schema, whatever their value: a version no adapter detects
+ * (e.g. `openapi: 3.3.0`) and Arazzo, which apidom-ls doesn't detect, would otherwise fall through
+ * to the JSON Schema check.
+ */
+const apiDescriptionRootFields = ['openapi', 'swagger', 'asyncapi', 'arazzo'];
+const apiDescriptionRootFieldJSONRegExp = /"(?:openapi|swagger|asyncapi|arazzo)"\s*:/g;
+
+/**
+ * The JSON Schema adapters' `detectionRegExp` matches `$schema` anywhere in the text, and
+ * nested schemas (e.g. OpenAPI 3.1+ Schema Objects or embedded schema resources) can carry
+ * `$schema` too: a document is a standalone JSON Schema only when its root object has it and none
+ * of the API description root fields.
+ */
+const findRootJSONSchemaDialectInJSON = (
+  text: string,
+  detectionRegExp: RegExp,
+): string | undefined => {
+  for (const match of text.matchAll(apiDescriptionRootFieldJSONRegExp)) {
+    if (isJsonRootMember(text, match.index)) {
+      return undefined;
+    }
+  }
+
+  const regExp = new RegExp(detectionRegExp.source, `${detectionRegExp.flags}g`);
+
+  for (const match of text.matchAll(regExp)) {
+    if (match.groups?.version_json !== undefined && isJsonRootMember(text, match.index)) {
+      return match.groups.version_json;
+    }
+  }
+
+  return undefined;
+};
+
+/**
+ * YAML variant of `findRootJSONSchemaDialectInJSON`. Root membership is read from the parsed
+ * root mapping, as a nested (flow) mapping may come first in the text and look like the root.
+ */
+const findRootJSONSchemaDialectInYAML = async (
+  text: string,
+  detectionRegExp: RegExp,
+): Promise<string | undefined> => {
+  const { result } = await adapterYaml.parse(text);
+
+  if (!isObjectElement(result) || apiDescriptionRootFields.some((field) => result.hasKey(field))) {
+    return undefined;
+  }
+
+  const $schema = toValue(result.get('$schema'));
+
+  if (typeof $schema !== 'string') {
+    return undefined;
+  }
+
+  // let the adapter's regular expression recognize the dialect identifier and its version
+  const groups = `"$schema": ${JSON.stringify($schema)}`.match(detectionRegExp)?.groups;
+  return groups?.version_yaml ?? groups?.version_json;
+};
+
+/**
  * @public
  */
 export async function findNamespace(
@@ -999,6 +1147,40 @@ export async function findNamespace(
       format: 'YAML',
       mediaType: a2a1AdapterYaml.mediaTypes.findBy(version, 'yaml'),
     };
+  }
+
+  if (await jsonSchema202012AdapterJson.detect(text)) {
+    const version = findRootJSONSchemaDialectInJSON(
+      text,
+      jsonSchema202012AdapterJson.detectionRegExp,
+    );
+
+    if (version !== undefined) {
+      return {
+        namespace: 'json-schema',
+        version,
+        format: 'JSON',
+        admitsRefsSiblings: true,
+        mediaType: jsonSchema202012AdapterJson.mediaTypes.findBy(version, 'json'),
+      };
+    }
+  }
+
+  if (await jsonSchema202012AdapterYaml.detect(text)) {
+    const version = await findRootJSONSchemaDialectInYAML(
+      text,
+      jsonSchema202012AdapterYaml.detectionRegExp,
+    );
+
+    if (version !== undefined) {
+      return {
+        namespace: 'json-schema',
+        version,
+        format: 'YAML',
+        admitsRefsSiblings: true,
+        mediaType: jsonSchema202012AdapterYaml.mediaTypes.findBy(version, 'yaml'),
+      };
+    }
   }
 
   if (await adsAdapterJson.detect(text)) {

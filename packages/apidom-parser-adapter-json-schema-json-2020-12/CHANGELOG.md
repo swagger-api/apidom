@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.14.0](https://github.com/swagger-api/apidom/compare/v1.13.3...v1.14.0) (2026-11-04)
+
+### Bug Fixes
+
+- **parser-adapter-json-schema:** accept an empty fragment in $schema ([#5286](https://github.com/swagger-api/apidom/issues/5286)) ([ff6162e](https://github.com/swagger-api/apidom/commit/ff6162e8d936d1c5eef77ae79d7ef1f4544fd09d))
+
 ## [1.13.3](https://github.com/swagger-api/apidom/compare/v1.13.2...v1.13.3) (2026-10-21)
 
 ### Bug Fixes

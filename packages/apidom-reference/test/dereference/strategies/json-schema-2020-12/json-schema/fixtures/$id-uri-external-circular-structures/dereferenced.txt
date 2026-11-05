@@ -1,0 +1,22 @@
+[
+  {
+    '$schema': 'https://json-schema.org/draft/2020-12/schema',
+    '$defs': {
+      User: {
+        type: 'object',
+        properties: <ref *1> {
+          login: { type: 'string' },
+          password: { type: 'string' },
+          profile: {
+            type: 'object',
+            properties: {
+              avatar: { type: 'string' },
+              user: { type: 'object', properties: [Circular *1] }
+            },
+            '$id': './nested/'
+          }
+        }
+      }
+    }
+  }
+]

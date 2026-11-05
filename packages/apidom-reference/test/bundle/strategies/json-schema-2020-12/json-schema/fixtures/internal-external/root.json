@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/root.json",
+  "type": "object",
+  "properties": {
+    "internal": {
+      "$ref": "#/$defs/name"
+    },
+    "external": {
+      "$ref": "./ex.json#/$defs/address"
+    },
+    "dynamic": {
+      "$dynamicRef": "#node"
+    }
+  },
+  "$defs": {
+    "name": {
+      "$dynamicAnchor": "node",
+      "type": "string"
+    }
+  }
+}

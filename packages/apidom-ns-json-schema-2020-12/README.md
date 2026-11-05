@@ -50,6 +50,17 @@ const jsonSchemaElement = new JSONSchemaElement();
 isJSONSchemaElement(jsonSchemaElement); // => true
 ```
 
+Boolean JSON Schemas (`true` or `false` in place of a schema) are refracted to `BooleanElement`
+with the `boolean-json-schema` class; `isBooleanJsonSchemaElement` detects them.
+
+```js
+import { isBooleanJsonSchemaElement, JSONSchemaElement } from '@swagger-api/apidom-ns-json-schema-2020-12';
+
+const jsonSchemaElement = JSONSchemaElement.refract({ items: false });
+
+isBooleanJsonSchemaElement(jsonSchemaElement.get('items')); // => true
+```
+
 ## Traversal
 
 Traversing ApiDOM in this namespace is possible by using `visit` function from `apidom-core` package.

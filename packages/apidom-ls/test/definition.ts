@@ -105,4 +105,37 @@ describe('apidom-ls-definition', function () {
       assert.isTrue(result!.uri!.endsWith('ex.json'));
     }
   });
+
+  ['3.1.0', '3.2.0'].forEach((version) => {
+    it(`oas ${version} - $anchor $ref goes to the schema, not to instance data`, async function () {
+      const text = [
+        `openapi: ${version}`,
+        'info:',
+        '  title: test',
+        '  version: 1.0.0',
+        'components:',
+        '  schemas:',
+        '    Decoy:',
+        '      default:',
+        '        $anchor: target',
+        '    Real:',
+        '      $anchor: target',
+        '      type: string',
+        '    User:',
+        '      $ref: "#target"',
+        '',
+      ].join('\n');
+      const doc = TextDocument.create(`foo://bar/anchor-${version}.yaml`, 'yaml', 0, text);
+
+      const result = await languageService.doProvideDefinition(doc, {
+        position: Position.create(13, 16),
+        textDocument: doc,
+      });
+
+      assert.deepEqual(result, {
+        uri: `foo://bar/anchor-${version}.yaml`,
+        range: { start: { line: 9, character: 4 }, end: { line: 11, character: 18 } },
+      });
+    });
+  });
 });

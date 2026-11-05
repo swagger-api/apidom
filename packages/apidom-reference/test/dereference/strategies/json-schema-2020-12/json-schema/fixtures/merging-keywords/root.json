@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "profile": {
+          "type": "object",
+          "description": "user profile",
+          "$ref": "#/$defs/UserProfile"
+        }
+      }
+    },
+    "UserProfile": {
+      "properties": {
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        }
+      }
+    },
+    "Order": {
+      "type": "object",
+      "$ref": "./ex.json"
+    }
+  }
+}

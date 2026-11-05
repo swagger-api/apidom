@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.com/schemas/person",
+  "$comment": "A person and their addresses",
+  "title": "Person",
+  "description": "A person",
+  "type": "object",
+  "required": ["name"],
+  "properties": {
+    "name": { "type": "string", "minLength": 1, "maxLength": 100, "pattern": "^[A-Z]" },
+    "age": { "type": "integer", "minimum": 0, "exclusiveMaximum": 150, "multipleOf": 1 },
+    "email": { "type": "string", "format": "email", "deprecated": true },
+    "addresses": {
+      "type": "array",
+      "prefixItems": [{ "$ref": "#/$defs/address" }],
+      "items": { "$ref": "#address" },
+      "contains": { "type": "object" },
+      "minContains": 1,
+      "maxItems": 5,
+      "uniqueItems": true
+    },
+    "status": { "enum": ["active", "inactive"], "default": "active", "readOnly": true },
+    "kind": { "const": "person", "examples": ["person"] },
+    "avatar": { "type": "string", "contentEncoding": "base64", "contentMediaType": "image/png" },
+    "tree": { "$dynamicRef": "#node" }
+  },
+  "patternProperties": { "^x-": true },
+  "additionalProperties": false,
+  "dependentRequired": { "email": ["name"] },
+  "dependentSchemas": { "age": { "required": ["name"] } },
+  "propertyNames": { "maxLength": 20 },
+  "if": { "required": ["age"] },
+  "then": { "minProperties": 2 },
+  "else": { "maxProperties": 10 },
+  "allOf": [{ "type": "object" }],
+  "anyOf": [true],
+  "oneOf": [{ "type": "object" }],
+  "not": { "type": "null" },
+  "unevaluatedItems": false,
+  "unevaluatedProperties": { "$comment": "covered by additionalProperties" },
+  "$defs": {
+    "address": {
+      "$anchor": "address",
+      "type": "object",
+      "properties": { "street": { "type": "string" } }
+    },
+    "node": { "$dynamicAnchor": "node", "type": "object" }
+  }
+}

@@ -2,13 +2,13 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
-import { OpenAPI31 } from '../../../openapi/target-specs.ts';
+import { OpenAPI31, OpenAPI32 } from '../../../openapi/target-specs.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
 
 const ifNonThenLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_IF_NONTHEN,
   source: 'apilint',
-  message: '"if" has no effect without a "then"',
+  message: '"if" has no effect without a "then" or "else"',
   severity: DiagnosticSeverity.Warning,
   linterFunction: 'missingField',
   linterParams: ['if'],
@@ -16,8 +16,8 @@ const ifNonThenLint: LinterMeta = {
   markerTarget: 'if',
   conditions: [
     {
-      function: 'missingField',
-      params: ['then'],
+      function: 'missingFields',
+      params: [['then', 'else']],
     },
   ],
   data: {
@@ -30,7 +30,7 @@ const ifNonThenLint: LinterMeta = {
       },
     ],
   },
-  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI31, ...OpenAPI32],
 };
 
 export default ifNonThenLint;

@@ -3,7 +3,7 @@ import { DiagnosticSeverity } from 'vscode-languageserver-types';
 import ApilintCodes from '../../../codes.ts';
 import { LinterMeta } from '../../../../apidom-language-types.ts';
 import { AsyncAPI2, AsyncAPI3 } from '../../../asyncapi/target-specs.ts';
-import { OpenAPI2, OpenAPI3 } from '../../../openapi/target-specs.ts';
+import { OpenAPI2, OpenAPI30 } from '../../../openapi/target-specs.ts';
 
 const minItemsTypeLint: LinterMeta = {
   code: ApilintCodes.SCHEMA_MINITEMS,
@@ -15,7 +15,7 @@ const minItemsTypeLint: LinterMeta = {
   marker: 'value',
   target: 'minItems',
   data: {},
-  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI3],
+  targetSpecs: [...AsyncAPI2, ...AsyncAPI3, ...OpenAPI2, ...OpenAPI30],
 };
 
 export default minItemsTypeLint;

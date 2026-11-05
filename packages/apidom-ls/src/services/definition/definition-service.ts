@@ -8,10 +8,6 @@ import {
 } from '@swagger-api/apidom-core';
 import { Location, Range } from 'vscode-languageserver-types';
 import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
-import {
-  evaluate as jsonPointerEvaluate,
-  URIFragmentIdentifier,
-} from '@swagger-api/apidom-json-pointer/modern';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import { LanguageSettings } from '../../apidom-language-types.ts';
@@ -23,6 +19,7 @@ import {
   isMember,
   isObject,
   debug,
+  resolveLocalReference,
 } from '../../utils/utils.ts';
 
 export interface DefinitionService {
@@ -89,7 +86,11 @@ export class DefaultDefinitionService implements DefinitionService {
             contentLanguage.namespace === 'openapi'
               ? 'application/vnd.oai.openapi+'
               : 'application/vnd.aai.asyncapi+';
-          const mediaType = `${mediaTypePrefix}${format};version=${specVersion}`;
+          // JSON Schema media types are dialect-specific (`application/schema+json;version=2020-12`)
+          const mediaType =
+            contentLanguage.namespace === 'json-schema'
+              ? contentLanguage.mediaType
+              : `${mediaTypePrefix}${format};version=${specVersion}`;
           debug(
             'definitionService - go to external ref',
             `mediaType: ${mediaType}`,
@@ -131,9 +132,11 @@ export class DefaultDefinitionService implements DefinitionService {
           return null;
         }
       }
-      // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-      const refTarget = jsonPointerEvaluate<Element>(api, URIFragmentIdentifier.from(ref));
-      const nodeSourceMap = getSourceMap(refTarget?.parent ?? refTarget);
+      const refTarget = resolveLocalReference(api, ref, node);
+      if (!refTarget) {
+        return null;
+      }
+      const nodeSourceMap = getSourceMap(refTarget.parent ?? refTarget);
       const range = Range.create(
         textDocument.positionAt(nodeSourceMap.offset),
         textDocument.positionAt(nodeSourceMap.endOffset || nodeSourceMap.offset + 1),
@@ -179,8 +182,10 @@ export class DefaultDefinitionService implements DefinitionService {
       if (!ref.startsWith('#')) {
         return null;
       }
-      // TODO (francesco.tumanischvili@smartbear.com): replace with fragment deref
-      const refTarget = jsonPointerEvaluate<Element>(api, URIFragmentIdentifier.from(ref));
+      const refTarget = resolveLocalReference(api, ref, node);
+      if (!refTarget) {
+        return null;
+      }
       const nodeSourceMap = getSourceMap(refTarget);
       const range = Range.create(
         textDocument.positionAt(nodeSourceMap.offset),

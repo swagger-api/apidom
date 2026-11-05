@@ -11,6 +11,8 @@ const jsonSchema202012 = {
     const { base } = options;
 
     base.register('jSONSchema202012', JSONSchemaElement);
+    // also by element name, so refracted (e.g. dehydrated) JSON Schemas are rehydrated as such
+    base.register('JSONSchema202012', JSONSchemaElement);
     base.register('linkDescription', LinkDescriptionElement);
 
     return base;

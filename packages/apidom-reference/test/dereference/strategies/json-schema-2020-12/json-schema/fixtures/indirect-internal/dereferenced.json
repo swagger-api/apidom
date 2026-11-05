@@ -1,0 +1,16 @@
+[
+  {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$defs": {
+      "User": {
+        "type": "object"
+      },
+      "Indirection1": {
+        "type": "object"
+      },
+      "Indirection2": {
+        "type": "object"
+      }
+    }
+  }
+]

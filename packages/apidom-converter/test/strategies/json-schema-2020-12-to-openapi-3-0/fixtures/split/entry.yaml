@@ -1,0 +1,11 @@
+openapi: 3.0.0
+info:
+  title: split
+  version: 1.0.0
+paths:
+  /pets:
+    $ref: './paths/pets.yaml'
+components:
+  schemas:
+    Error:
+      type: object

@@ -134,6 +134,7 @@ has a `code` attribute. The `json-schema-2020-12-to-openapi-3-0` strategy report
 | `discriminator-mapping-external` | A `discriminator.mapping` target is external and was not converted. |
 | `circular-reference` | The converted document contains circular references (`dereference.circular: 'ignore'`). |
 | `unresolved-reference` | An internal `$ref` of the converted document does not resolve. |
+| `id-base-mismatch` | A relative `$ref` is resolved against its document's location, but its `$id` base would resolve it to another URI. |
 
 Warnings about content of external files name the reference URI in their message.
 

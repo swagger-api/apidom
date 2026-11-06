@@ -166,6 +166,50 @@ describe('converter', function () {
             assert.deepEqual(downgrade(input).output, input);
           });
         });
+
+        context('given a relative ref to another document under an $id', function () {
+          const convertWithWarnings = (document: Record<string, unknown>, tokens: string[]) => {
+            const documentElement = new ObjectElement(document);
+            let schema: any = documentElement;
+            tokens.forEach((token) => {
+              schema = schema.get(token);
+            });
+            const warnings = createWarnings();
+            downgradeSchema(schema, warnings, {
+              documentURI,
+              baseURI: baseURIAt(documentElement, documentURI, tokens),
+              index: buildIdentifierIndex(documentElement, documentURI),
+            });
+            return warnings.annotations.map((a) => toValue(a.attributes.get('code')));
+          };
+
+          specify('should warn when the $id base resolves it elsewhere', function () {
+            const codes = convertWithWarnings(
+              {
+                components: {
+                  schemas: {
+                    A: {
+                      $id: 'https://schemas.example.com/a',
+                      properties: { b: { $ref: 'b.json' } },
+                    },
+                  },
+                },
+              },
+              ['components', 'schemas', 'A'],
+            );
+
+            assert.include(codes, 'id-base-mismatch');
+          });
+
+          specify('should not warn without an $id', function () {
+            const codes = convertWithWarnings(
+              { components: { schemas: { A: { properties: { b: { $ref: 'b.json' } } } } } },
+              ['components', 'schemas', 'A'],
+            );
+
+            assert.notInclude(codes, 'id-base-mismatch');
+          });
+        });
       });
     });
   });

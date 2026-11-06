@@ -11,6 +11,7 @@ import { url } from '@swagger-api/apidom-reference';
 
 import { ANNOTATION_KEYWORDS, SCHEMA_MAP_KEYWORDS, isExtensionKeyword } from './keywords.ts';
 import { subschemaPositions } from './walk.ts';
+import type { Warnings } from './warnings.ts';
 
 /**
  * Maps `$id` URIs and `$anchor`/`$dynamicAnchor` names (as `<base URI>#<anchor>`) to the JSON
@@ -154,15 +155,21 @@ const rewriteRef = (
   return anchorTokens === undefined ? undefined : toPointerFragment(anchorTokens);
 };
 
+const isRelativeDocumentRef = (ref: string): boolean =>
+  !ref.startsWith('#') && url.getProtocol(ref) === undefined;
+
 /**
  * Rewrites `$ref`s that point at an `$anchor` or `$id` of the document into JSON Pointer refs.
- * `base` is the base URI in effect at `schema`. References to other documents are left as is.
+ * `base` is the base URI in effect at `schema`. References to other documents are left as is;
+ * when the `$id` base would resolve such a relative reference to another document than the one it
+ * is read from, a warning is reported.
  */
 export const rewriteIdentifierRefs = (
   schema: Element,
   base: string,
   documentURI: string,
   index: IdentifierIndex,
+  warnings?: Warnings,
 ): void => {
   if (!isObjectElement(schema)) return;
 
@@ -172,12 +179,25 @@ export const rewriteIdentifierRefs = (
 
   const ref = schema.get('$ref');
   if (isStringElement(ref)) {
-    const rewritten = rewriteRef(toValue(ref), currentBase, documentURI, index);
-    if (rewritten !== undefined) schema.set('$ref', rewritten);
+    const value = toValue(ref);
+    const rewritten = rewriteRef(value, currentBase, documentURI, index);
+    if (rewritten !== undefined) {
+      schema.set('$ref', rewritten);
+    } else if (warnings !== undefined && isRelativeDocumentRef(value)) {
+      const byId = normalizeId(url.resolve(currentBase, value));
+      const byLocation = normalizeId(url.resolve(documentURI, value));
+      if (byId !== byLocation) {
+        warnings.add(
+          ref,
+          'id-base-mismatch',
+          `"$ref" "${value}" is read from "${byLocation}"; its "$id" base would resolve it to "${byId}"`,
+        );
+      }
+    }
   }
 
   subschemaPositions(schema).forEach((position) =>
-    rewriteIdentifierRefs(position.element, currentBase, documentURI, index),
+    rewriteIdentifierRefs(position.element, currentBase, documentURI, index, warnings),
   );
 };
 

@@ -36,7 +36,7 @@ const downgradeSchema = (
   const root = isBooleanElement(copy) ? booleanSchemaToObject(copy) : copy;
 
   if (location !== undefined) {
-    rewriteIdentifierRefs(root, location.baseURI, location.documentURI, location.index);
+    rewriteIdentifierRefs(root, location.baseURI, location.documentURI, location.index, warnings);
   }
 
   walkSchemas(root, (node) => {

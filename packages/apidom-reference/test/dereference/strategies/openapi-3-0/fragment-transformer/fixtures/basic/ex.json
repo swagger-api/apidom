@@ -1,0 +1,22 @@
+{
+  "Pet": {
+    "type": "object",
+    "properties": {
+      "tag": {
+        "$ref": "#/Tag"
+      }
+    }
+  },
+  "Tag": {
+    "type": "string"
+  },
+  "PetsPath": {
+    "get": {
+      "responses": {
+        "200": {
+          "description": "ok"
+        }
+      }
+    }
+  }
+}

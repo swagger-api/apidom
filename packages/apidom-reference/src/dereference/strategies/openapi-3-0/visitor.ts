@@ -66,6 +66,28 @@ export const mutationReplacer = (
 };
 
 /**
+ * Input of the `strategyOpts['openapi-3-0'].fragmentTransformer` option.
+ * @public
+ */
+export interface FragmentTransformerInput {
+  /** The referenced fragment, as found in its document (generic or semantic ApiDOM). */
+  readonly fragment: Element;
+  /** The root element of the document that contains the fragment. */
+  readonly document: Element;
+  /** The resolved URI of the reference, including its fragment. */
+  readonly uri: string;
+  /** The OpenAPI 3.0 element type the fragment is referenced as (e.g. `schema`, `parameter`, `pathItem`). */
+  readonly referencedElementType: string;
+}
+
+/**
+ * Transforms a referenced fragment before it is refracted and transcluded.
+ * Returning a generic element lets the dereference refract it as `referencedElementType`.
+ * @public
+ */
+export type FragmentTransformer = (input: FragmentTransformerInput) => Element | Promise<Element>;
+
+/**
  * @public
  */
 export interface OpenAPI3_0DereferenceVisitorOptions {
@@ -263,6 +285,42 @@ class OpenAPI3_0DereferenceVisitor {
     return url.stripHash(this.reference.uri) === retrievalURI;
   }
 
+  /**
+   * Applies the optional `strategyOpts['openapi-3-0'].fragmentTransformer` to a referenced fragment.
+   * The result is cached per fragment and referenced element type, so every fragment is transformed
+   * once, and repeated (including circular) references resolve to the same transformed element.
+   */
+  protected async transformFragment(
+    fragment: Element,
+    reference: Reference,
+    uri: string,
+    referencedElementType: string,
+  ): Promise<Element> {
+    const fragmentTransformer: FragmentTransformer | undefined =
+      this.options.dereference.strategyOpts['openapi-3-0']?.fragmentTransformer;
+
+    if (typeof fragmentTransformer !== 'function') {
+      return fragment;
+    }
+
+    const cacheKey = `fragment-transformer-${referencedElementType}-${toValue(identityManager.identify(fragment))}`;
+
+    if (this.refractCache.has(cacheKey)) {
+      return this.refractCache.get(cacheKey)!;
+    }
+
+    const transformed = await fragmentTransformer({
+      fragment,
+      document: reference.value.result as Element,
+      uri,
+      referencedElementType,
+    });
+    transformed.id = identityManager.identify(transformed);
+    this.refractCache.set(cacheKey, transformed);
+
+    return transformed;
+  }
+
   protected async toReference(uri: string): Promise<Reference> {
     // detect maximum depth of resolution
     if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -394,6 +452,21 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+
+    try {
+      referencedElement = await this.transformFragment(
+        referencedElement,
+        reference,
+        $refBaseURI,
+        toValue(referencingElement.meta.get('referenced-element')),
+      );
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
+    }
 
     /**
      * Applying semantics to a referenced element if semantics are missing.
@@ -618,6 +691,21 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+
+    try {
+      referencedElement = await this.transformFragment(
+        referencedElement,
+        reference,
+        $refBaseURI,
+        'pathItem',
+      );
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
+    }
 
     /**
      * Applying semantics to a referenced element if semantics are missing.

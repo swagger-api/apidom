@@ -2,6 +2,7 @@ import { options as referenceOptions } from '@swagger-api/apidom-reference';
 
 import ConvertStrategy from '../strategies/ConvertStrategy.ts';
 import OpenAPI31ToOpenAPI30ConvertStrategy from '../strategies/openapi-3-1-to-openapi-3-0-3/index.ts';
+import JSONSchema202012ToOpenAPI30ConvertStrategy from '../strategies/json-schema-2020-12-to-openapi-3-0/index.ts';
 
 type ReferenceOptions = typeof referenceOptions;
 
@@ -9,6 +10,7 @@ interface ConvertOptions {
   strategies: Array<ConvertStrategy>;
   sourceMediaType: string;
   targetMediaType: string;
+  httpAllowList: Array<string | RegExp>;
 }
 
 export interface ConverterOptions extends ReferenceOptions {
@@ -25,7 +27,10 @@ const defaultOptions: ConverterOptions = {
      * You can add additional bundle strategies of your own, replace an existing one with
      * your own implementation, or remove any bundle strategy by removing it from the list.
      */
-    strategies: [new OpenAPI31ToOpenAPI30ConvertStrategy()],
+    strategies: [
+      new OpenAPI31ToOpenAPI30ConvertStrategy(),
+      new JSONSchema202012ToOpenAPI30ConvertStrategy(),
+    ],
     /**
      * Media type of source API definition.
      */
@@ -34,6 +39,11 @@ const defaultOptions: ConverterOptions = {
      * Media type of target API definition.
      */
     targetMediaType: 'text/plain',
+    /**
+     * URLs that external references may be fetched from when a strategy dereferences them
+     * (RegExps or minimatch globs). By default any HTTPS URL is allowed; plain HTTP is not.
+     */
+    httpAllowList: [/^https:\/\//],
   },
 };
 

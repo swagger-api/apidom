@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://example.com/legacy.json",
+  "definitions": {
+    "Legacy": {
+      "id": "#legacy",
+      "type": "object",
+      "properties": {
+        "kind": { "type": ["string", "null"] },
+        "nothing": { "type": "null" },
+        "tuple": { "type": "array", "items": [{ "type": "string" }, { "type": "integer" }], "additionalItems": false },
+        "count": { "type": "integer", "minimum": 0, "exclusiveMinimum": true }
+      },
+      "patternProperties": { "^x-": {} },
+      "additionalProperties": false,
+      "dependencies": { "kind": ["count"], "count": { "required": ["kind"] } },
+      "definitions": { "Inner": { "type": "string" } }
+    }
+  }
+}

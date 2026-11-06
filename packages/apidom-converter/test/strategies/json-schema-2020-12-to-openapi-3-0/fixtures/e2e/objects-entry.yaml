@@ -1,0 +1,14 @@
+openapi: 3.0.3
+info:
+  title: objects
+  version: 1.0.0
+paths:
+  /items:
+    $ref: './objects.yaml#/paths/~1items'
+  /search:
+    get:
+      parameters:
+        - $ref: './objects.yaml#/components/parameters/Limit'
+      responses:
+        '200':
+          description: ok

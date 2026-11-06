@@ -1,0 +1,18 @@
+openapi: 3.0.3
+info:
+  title: discriminator
+  version: 1.0.0
+paths: {}
+components:
+  schemas:
+    Pet:
+      oneOf:
+        - $ref: './pets.yaml#/Dog'
+        - $ref: './pets.yaml#/Cat'
+      discriminator:
+        propertyName: kind
+        mapping:
+          dog: './pets.yaml#/Dog'
+          cat: Cat
+    Cat:
+      type: object

@@ -100,6 +100,7 @@ export interface OpenAPI3_0DereferenceVisitorOptions {
   readonly errorContext?: Element[];
   readonly errorPropagationCache?: Map<Element, unknown[]>;
   readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
+  readonly skippedReferences?: Set<Element>;
 }
 
 /**
@@ -127,6 +128,13 @@ class OpenAPI3_0DereferenceVisitor {
     referencedElement: Element;
   }> = [];
 
+  /**
+   * Reference and Path Item elements a visitor deliberately left unresolved (because of
+   * `resolve.internal` / `resolve.external`). Shared with nested visitors so a visitor with a
+   * different base URI never re-resolves them, e.g. when an inlined Path Item is traversed again.
+   */
+  protected readonly skippedReferences: Set<Element>;
+
   constructor({
     reference,
     namespace,
@@ -137,6 +145,7 @@ class OpenAPI3_0DereferenceVisitor {
     errorContext = [],
     errorPropagationCache = new Map(),
     pendingPropagations = [],
+    skippedReferences = new Set(),
   }: OpenAPI3_0DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -147,6 +156,7 @@ class OpenAPI3_0DereferenceVisitor {
     this.errorContext = errorContext;
     this.errorPropagationCache = errorPropagationCache;
     this.pendingPropagations = pendingPropagations;
+    this.skippedReferences = skippedReferences;
   }
 
   protected popErrorContext(el: Element) {
@@ -405,6 +415,11 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
 
+    // skip referencing element another visitor deliberately left unresolved
+    if (this.skippedReferences.has(referencingElement)) {
+      return false;
+    }
+
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
@@ -413,11 +428,13 @@ class OpenAPI3_0DereferenceVisitor {
 
     // ignore resolving internal Reference Objects
     if (!this.options.resolve.internal && isInternalReference) {
+      this.skippedReferences.add(referencingElement);
       // skip traversing this reference element
       return false;
     }
     // ignore resolving external Reference Objects
     if (!this.options.resolve.external && isExternalReference) {
+      this.skippedReferences.add(referencingElement);
       // skip traversing this reference element
       return false;
     }
@@ -574,6 +591,7 @@ class OpenAPI3_0DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        skippedReferences: this.skippedReferences,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -644,6 +662,11 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
 
+    // skip referencing element another visitor deliberately left unresolved
+    if (this.skippedReferences.has(referencingElement)) {
+      return undefined;
+    }
+
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
@@ -652,11 +675,13 @@ class OpenAPI3_0DereferenceVisitor {
 
     // ignore resolving internal Path Item Objects
     if (!this.options.resolve.internal && isInternalReference) {
+      this.skippedReferences.add(referencingElement);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
     // ignore resolving external Path Item Objects
     if (!this.options.resolve.external && isExternalReference) {
+      this.skippedReferences.add(referencingElement);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
@@ -805,6 +830,7 @@ class OpenAPI3_0DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        skippedReferences: this.skippedReferences,
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {

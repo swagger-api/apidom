@@ -1,6 +1,6 @@
 import { omit } from 'ramda';
 import { ensureArray } from 'ramda-adjunct';
-import axios, { Axios, AxiosInstance, CreateAxiosDefaults } from 'axios';
+import axios, { Axios, AxiosInstance, AxiosRequestConfig, CreateAxiosDefaults } from 'axios';
 
 import HTTPResolver, { HTTPResolverOptions } from '../HTTPResolver.ts';
 import File from '../../../File.ts';
@@ -9,6 +9,8 @@ import ResolverError from '../../../errors/ResolverError.ts';
 export type { default as HTTPResolver, HTTPResolverOptions } from '../HTTPResolver.ts';
 export type { default as Resolver, ResolverOptions } from '../Resolver.ts';
 export type { default as File, FileOptions } from '../../../File.ts';
+
+type BeforeRedirect = NonNullable<AxiosRequestConfig['beforeRedirect']>;
 
 /**
  * @public
@@ -77,8 +79,21 @@ class HTTPResolverAxios extends HTTPResolver {
   async read(file: File): Promise<Buffer> {
     const client: AxiosInstance = this.getHttpClient();
 
+    const requestConfig =
+      this.urlAllowList === undefined
+        ? undefined
+        : {
+            beforeRedirect: (...args: Parameters<BeforeRedirect>) => {
+              const [options] = args;
+              if (!this.isUrlAllowed(options.href)) {
+                throw new Error(`Redirect to "${options.href}" is not allowed by urlAllowList`);
+              }
+              this.axiosConfig.beforeRedirect?.(...args);
+            },
+          };
+
     try {
-      const response = await client.get<Buffer>(file.uri);
+      const response = await client.get<Buffer>(file.uri, requestConfig);
       return response.data;
     } catch (error: unknown) {
       throw new ResolverError(`Error downloading "${file.uri}"`, { cause: error });

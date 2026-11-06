@@ -181,6 +181,29 @@ describe('dereference', function () {
             });
           });
         });
+        context('given dereferenceExamples is false', function () {
+          specify('should leave an unresolvable externalValue unchanged', async function () {
+            const fixturePath = path.join(entryFixturePath, 'external-value-unresolvable');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: { strategyOpts: { 'openapi-3-0': { dereferenceExamples: false } } },
+            });
+
+            assert.deepEqual(toValue(actual), [loadJsonFile(entryFilePath)]);
+          });
+
+          specify('should not report value and externalValue defined together', async function () {
+            const fixturePath = path.join(entryFixturePath, 'external-value-value-both-defined');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: { strategyOpts: { 'openapi-3-0': { dereferenceExamples: false } } },
+            });
+
+            assert.deepEqual(toValue(actual), [loadJsonFile(entryFilePath)]);
+          });
+        });
       });
     });
   });

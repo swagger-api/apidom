@@ -1,0 +1,6 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "http", "version": "1.0.0" },
+  "paths": {},
+  "components": { "schemas": { "Remote": { "$ref": "http://example.com/schemas.json#/Pet" } } }
+}

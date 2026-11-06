@@ -34,8 +34,12 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
 /**
  * @public
  */
-const convert = async (uri: string, options = {}) => {
-  const mergedOptions = mergeOptions(defaultOptions, options || {}) as ConverterOptions;
+const convert = async (uri: string, options: Record<string, any> = {}) => {
+  const baseURI = options?.resolve?.baseURI || uri;
+  const mergedOptions = mergeOptions(defaultOptions, {
+    ...options,
+    resolve: { ...options?.resolve, baseURI },
+  }) as ConverterOptions;
   const parseResult = await bundle(uri, mergedOptions);
 
   return convertApiDOM(parseResult, mergedOptions);

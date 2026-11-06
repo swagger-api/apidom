@@ -74,6 +74,17 @@ export const assertSameMeaning = (input: unknown, output: unknown): void => {
 };
 
 /**
+ * Asserts that the downgraded schema accepts every value the input accepts (it may accept more).
+ */
+export const assertNeverStricter = (input: unknown, output: unknown): void => {
+  const validateInput = compile2020(input);
+  const validateOutput = compileDraft04(output);
+  const rejected = VALUE_POOL.filter((value) => validateInput(value) && !validateOutput(value));
+
+  assert.deepEqual(rejected, [], 'output rejects values the input accepts');
+};
+
+/**
  * Asserts the doc example: the exact output, the same meaning, and no warnings.
  */
 export const assertLosslessRule = (input: unknown, expected: unknown): void => {

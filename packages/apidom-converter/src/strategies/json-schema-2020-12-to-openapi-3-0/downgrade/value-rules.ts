@@ -35,7 +35,7 @@ export const appendAllOf = (schema: ObjectElement, ...items: Element[]): void =>
   }
 };
 
-const convertBooleanSubschemas = (schema: ObjectElement): void => {
+export const convertBooleanSubschemas = (schema: ObjectElement): void => {
   subschemaPositions(schema)
     .filter((position) => position.keyword !== 'additionalProperties')
     .forEach((position) => {
@@ -188,10 +188,10 @@ const dropKeywords = (schema: ObjectElement, warnings: Warnings): void => {
 };
 
 /**
- * Applies the value rules to one schema, in place. Subschemas are handled separately.
+ * Applies the value rules to one schema, in place. Boolean subschemas must already be converted
+ * (see `convertBooleanSubschemas`); subschemas themselves are handled separately.
  */
 const applyValueRules = (schema: ObjectElement, warnings: Warnings): void => {
-  convertBooleanSubschemas(schema);
   convertExamples(schema, warnings);
   const nullOnlyFromConst = convertConst(schema);
   convertType(schema, nullOnlyFromConst);

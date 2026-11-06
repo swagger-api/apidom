@@ -16,6 +16,7 @@ import { createWarnings, needsDowngrade } from './downgrade/index.ts';
 import downgradeSchemasInDocument, { elementAt } from './downgrade/document.ts';
 import findSchemaPositions from './schema-positions.ts';
 import createFragmentTransformer from './external.ts';
+import postPass from './post-pass.ts';
 
 /**
  * Converts JSON Schema 2020-12 (and other JSON Schema dialects) used in an OpenAPI 3.0.x
@@ -89,6 +90,18 @@ class JSONSchema202012ToOpenAPI30ConvertStrategy extends ConvertStrategy {
         },
       },
     });
+
+    const postPassWarnings = createWarnings();
+    postPass(
+      dereferenced,
+      {
+        entryURI: file.uri,
+        targetMediaType: options.convert.targetMediaType,
+        circular: options.dereference.circular,
+      },
+      postPassWarnings,
+    );
+    annotations.push(...postPassWarnings.annotations);
 
     parseResult.replaceResult(dereferenced);
     annotations.forEach((annotation) => parseResult.push(annotation));

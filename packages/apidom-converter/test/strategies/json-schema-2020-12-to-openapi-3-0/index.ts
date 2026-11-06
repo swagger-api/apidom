@@ -1,7 +1,7 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
-import { toValue } from '@swagger-api/apidom-core';
+import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { File } from '@swagger-api/apidom-reference';
@@ -127,6 +127,95 @@ describe('converter', function () {
           } catch (error: any) {
             assert.instanceOf(error, ConvertError);
           }
+        });
+      });
+
+      context('post-pass', function () {
+        specify(
+          'should rebase refs back to the entry document and relative URIs',
+          async function () {
+            const result: any = await convertFixture(path.join('split', 'entry.yaml'));
+            const content = toValue(result.api).paths['/pets'].get.responses['200'].content[
+              'application/json'
+            ];
+
+            assert.deepEqual(content.schema, { $ref: '#/components/schemas/Error' });
+            assert.strictEqual(
+              content.examples.sample.externalValue,
+              path.join(fixtures, 'split', 'paths', 'sample.json'),
+            );
+          },
+        );
+
+        specify('should warn about a discriminator broken by inlining', async function () {
+          const result: any = await convertFixture('discriminator-entry.yaml');
+          const codes = warningCodes(result);
+
+          assert.include(codes, 'discriminator-inlined');
+          assert.include(codes, 'discriminator-mapping-external');
+          assert.lengthOf(
+            codes.filter((code: string) => code === 'discriminator-mapping-external'),
+            1,
+          );
+        });
+
+        specify('should set openapi to the target version', async function () {
+          const result: any = await convertFixture('discriminator-entry.yaml');
+
+          assert.strictEqual(toValue(result.api).openapi, '3.0.3');
+          const result304: any = await convert(path.join(fixtures, 'root-only.json'), {
+            convert: { targetMediaType: openAPI30MediaTypes.findBy('3.0.4', 'json') },
+          });
+          assert.strictEqual(toValue(result304.api).openapi, '3.0.4');
+        });
+
+        specify('should warn about an internal ref that does not resolve', async function () {
+          const result: any = await convertFixture('unresolved.json');
+
+          assert.include(warningCodes(result), 'unresolved-reference');
+        });
+
+        context('given a circular external schema', function () {
+          specify('should warn under circular "ignore"', async function () {
+            const result: any = await convertFixture('cycle-entry.json');
+
+            assert.include(warningCodes(result), 'circular-reference');
+          });
+
+          specify('should throw ConvertError under circular "error"', async function () {
+            try {
+              await convert(path.join(fixtures, 'cycle-entry.json'), {
+                convert: { targetMediaType: target },
+                dereference: { circular: 'error' },
+              });
+              assert.fail('should throw ConvertError');
+            } catch (error: any) {
+              assert.instanceOf(error, ConvertError);
+            }
+          });
+
+          specify(
+            'should produce a serializable document under circular "replace"',
+            async function () {
+              const result: any = await convert(path.join(fixtures, 'cycle-entry.json'), {
+                convert: { targetMediaType: target },
+                dereference: {
+                  circular: 'replace',
+                  circularReplacer: (refElement: any) =>
+                    new ObjectElement({
+                      $ref: `${toValue(refElement.meta.get('uri'))}${String(
+                        toValue(refElement.meta.get('$ref')),
+                      ).slice(String(toValue(refElement.meta.get('$ref'))).indexOf('#'))}`,
+                    }),
+                },
+              });
+              const node = toValue(result.api).components.schemas.Node;
+
+              assert.doesNotThrow(() => JSON.stringify(node));
+              assert.notInclude(warningCodes(result), 'circular-reference');
+              assert.match(node.properties.children.items.$ref, /tree\.json#\/\$defs\/Node$/);
+            },
+          );
         });
       });
     });

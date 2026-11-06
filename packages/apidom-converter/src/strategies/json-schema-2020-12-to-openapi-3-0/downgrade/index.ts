@@ -1,7 +1,8 @@
 import { Element, cloneDeep, isBooleanElement, isObjectElement } from '@swagger-api/apidom-core';
 import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
-import applyValueRules, { booleanSchemaToObject } from './value-rules.ts';
+import applyValueRules, { booleanSchemaToObject, convertBooleanSubschemas } from './value-rules.ts';
+import applyStructureRules from './structure-rules.ts';
 import { IdentifierIndex, rewriteIdentifierRefs, splitRefSiblings } from './refs.ts';
 import { walkSchemas } from './walk.ts';
 import type { Warnings } from './warnings.ts';
@@ -40,6 +41,8 @@ const downgradeSchema = (
 
   walkSchemas(root, (node) => {
     if (!isObjectElement(node)) return;
+    convertBooleanSubschemas(node);
+    applyStructureRules(node, warnings);
     applyValueRules(node, warnings);
     splitRefSiblings(node);
   });

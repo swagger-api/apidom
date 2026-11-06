@@ -66,6 +66,39 @@ describe('apidom-converter', function () {
         }
       });
     });
+
+    context('given convert strategy rejects', function () {
+      specify('should throw ConvertError', async function () {
+        const fixturePath = path.join(
+          __dirname,
+          'strategies',
+          'openapi-3-1-to-openapi-3-0-3',
+          'refractor-plugins',
+          'openapi-version',
+          'fixtures',
+          'openapi-version.json',
+        );
+
+        try {
+          await convert(fixturePath, {
+            convert: {
+              strategies: [
+                {
+                  canConvert: () => true,
+                  convert: async () => {
+                    throw new Error('test');
+                  },
+                },
+              ],
+            },
+          });
+          assert.fail('should throw ConvertError');
+        } catch (error: unknown) {
+          assert.instanceOf(error, ConvertError);
+          assert.strictEqual(((error as ConvertError).cause as Error).message, 'test');
+        }
+      });
+    });
   });
 
   context('convertApiDOM', function () {

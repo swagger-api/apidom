@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "root", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Plain": { "$ref": "#/components/schemas/Other", "description": "kept as is" },
+      "Other": { "type": "string" },
+      "Name": { "type": ["string", "null"], "examples": ["a"] }
+    }
+  }
+}

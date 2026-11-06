@@ -20,7 +20,7 @@ export const elementAt = (document: Element, tokens: readonly string[]): Element
     return undefined;
   }, document);
 
-const replaceAt = (document: Element, tokens: readonly string[], element: Element): void => {
+export const replaceAt = (document: Element, tokens: readonly string[], element: Element): void => {
   if (tokens.length === 0) {
     document.content = element.content; // eslint-disable-line no-param-reassign
     return;
@@ -31,7 +31,7 @@ const replaceAt = (document: Element, tokens: readonly string[], element: Elemen
   if (isArrayElement(parent)) parent.content[Number(key)] = element;
 };
 
-const forEachElement = (
+export const forEachElement = (
   element: Element,
   visit: (element: Element, tokens: readonly string[]) => void,
   tokens: readonly string[] = [],

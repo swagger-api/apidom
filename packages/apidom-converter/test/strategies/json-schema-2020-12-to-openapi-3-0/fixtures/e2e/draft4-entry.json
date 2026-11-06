@@ -1,0 +1,6 @@
+{
+  "openapi": "3.0.2",
+  "info": { "title": "draft4", "version": "1.0.0" },
+  "paths": {},
+  "components": { "schemas": { "Legacy": { "$ref": "./draft4.json#/definitions/Legacy" } } }
+}

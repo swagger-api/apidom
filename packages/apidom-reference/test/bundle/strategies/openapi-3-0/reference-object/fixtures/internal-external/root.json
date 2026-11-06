@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "parameters": {
+      "userId": {
+        "$ref": "#/components/parameters/userIdRef"
+      },
+      "userIdRef": {
+        "name": "userId",
+        "in": "query",
+        "description": "ID of the user",
+        "required": true
+      },
+      "externalRef": {
+        "$ref": "./ex.json#/externalParameter"
+      }
+    }
+  }
+}

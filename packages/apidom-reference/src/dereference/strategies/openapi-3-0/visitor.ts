@@ -243,6 +243,26 @@ class OpenAPI3_0DereferenceVisitor {
     return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
   }
 
+  /**
+   * Determines whether a retrieval URI is internal for the purpose of the
+   * `resolve.internal` and `resolve.external` options.
+   *
+   * By default (`internalScope: 'document'`) a reference is internal when it points into
+   * the document currently being traversed. With `internalScope: 'entry'` only references
+   * pointing into the entry document are internal, so references internal to external
+   * documents are treated as external.
+   */
+  protected isInternalRetrievalURI(retrievalURI: string): boolean {
+    const internalScope = this.options.dereference.strategyOpts['openapi-3-0']?.internalScope;
+    const entryURI = this.reference.refSet?.rootRef?.uri;
+
+    if (internalScope === 'entry' && typeof entryURI === 'string') {
+      return url.stripHash(entryURI) === retrievalURI;
+    }
+
+    return url.stripHash(this.reference.uri) === retrievalURI;
+  }
+
   protected async toReference(uri: string): Promise<Reference> {
     // detect maximum depth of resolution
     if (this.reference.depth >= this.options.resolve.maxDepth) {
@@ -330,7 +350,7 @@ class OpenAPI3_0DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Reference Objects
@@ -554,7 +574,7 @@ class OpenAPI3_0DereferenceVisitor {
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Path Item Objects
@@ -791,7 +811,7 @@ class OpenAPI3_0DereferenceVisitor {
       // possibly non-semantic referenced element
       const jsonPointer = URIFragmentIdentifier.fromURIReference(toValue(linkElement.operationRef));
       const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
-      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
       const isExternalReference = !isInternalReference;
 
       // ignore resolving internal Operation Object reference
@@ -904,7 +924,7 @@ class OpenAPI3_0DereferenceVisitor {
     }
 
     const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving external Example Objects

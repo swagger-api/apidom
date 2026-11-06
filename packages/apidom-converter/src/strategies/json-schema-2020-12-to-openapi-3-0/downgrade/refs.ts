@@ -57,7 +57,10 @@ const unescapeToken = (token: string): string =>
 export const toPointerFragment = (tokens: readonly string[]): string =>
   `#${tokens.map((token) => `/${escapeToken(token)}`).join('')}`;
 
-const fragmentTokens = (fragment: string): string[] =>
+/**
+ * Splits a JSON Pointer (`/a/b`, without the leading `#`) into unescaped tokens.
+ */
+export const fragmentTokens = (fragment: string): string[] =>
   fragment === '' ? [] : fragment.slice(1).split('/').map(unescapeToken);
 
 const normalizeId = (uri: string): string => url.stripHash(uri);

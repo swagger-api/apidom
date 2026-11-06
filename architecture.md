@@ -23,7 +23,7 @@ Package families, in dependency order (a package may depend only on families lis
 5. **Specification parser adapters** `apidom-parser-adapter-{spec}-{json|yaml}-{version}`: wrap a base adapter plus a namespace; each exposes `detect`, `parse`, `mediaTypes`. They never depend on one another.
 6. [apidom-parser](packages/apidom-parser/SPEC.md): format/spec detection and dispatch to adapters.
 7. [apidom-reference](packages/apidom-reference/SPEC.md): parse, resolve, dereference, bundle.
-8. **Consumers**: `apidom-converter` (uses core, namespaces, reference), [apidom-ls](packages/apidom-ls/SPEC.md) and `apidom-playground` (an app, not a library).
+8. **Consumers**: [apidom-converter](packages/apidom-converter/SPEC.md) (uses core, the OpenAPI 3.0/3.1 and JSON Schema 2020-12 namespaces, reference), [apidom-ls](packages/apidom-ls/SPEC.md) and `apidom-playground` (an app, not a library).
 
 ## Invariants
 

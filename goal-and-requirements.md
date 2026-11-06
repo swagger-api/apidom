@@ -19,7 +19,7 @@ API tooling (editors, linters, dereferencers, converters, documentation) is reim
 - Detect which format and specification a source is, and dispatch to the matching parser.
 - Traverse, transform, query (JSON Pointer, relative JSON Pointer, JSONPath) and serialize ApiDOM back to JSON/YAML.
 - Resolve and dereference references across files and HTTP.
-- Convert between specification versions (currently OpenAPI 3.1 to 3.0.3).
+- Convert between specification versions: OpenAPI 3.1 to 3.0.3, and JSON Schema 2020-12 (and other JSON Schema dialects) used in OpenAPI 3.0 documents to OpenAPI 3.0 Schema Objects.
 - Provide an LSP-compliant language service (validation, completion, hover documentation, semantic highlighting) over supported specifications.
 - Source-map information lets elements be traced back to source positions.
 - Run in Node.js, browsers and web workers.

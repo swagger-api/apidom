@@ -880,6 +880,11 @@ class OpenAPI3_0DereferenceVisitor {
     ancestors: [Element | Element[]],
     link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
+    // skip LinkElement dereferencing when disabled
+    if (this.options.dereference.strategyOpts['openapi-3-0']?.dereferenceLinks === false) {
+      return undefined;
+    }
+
     // ignore LinkElement without operationRef or operationId field
     if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
       return undefined;
@@ -998,6 +1003,11 @@ class OpenAPI3_0DereferenceVisitor {
     ancestors: [Element | Element[]],
     link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
+    // skip ExampleElement dereferencing when disabled
+    if (this.options.dereference.strategyOpts['openapi-3-0']?.dereferenceExamples === false) {
+      return undefined;
+    }
+
     // ignore ExampleElement without externalValue field
     if (!isStringElement(exampleElement.externalValue)) {
       return undefined;

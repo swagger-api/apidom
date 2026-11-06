@@ -2047,7 +2047,34 @@ await bundle('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/e
 #### [Bundle strategies](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies)
 
 Bundle strategy determines how a document is bundled into a Compound Document. Depending on document `mediaType` option,
-every strategy differs significantly. `Bundle component` comes with single (1) default bundle strategy.
+every strategy differs significantly. `Bundle component` comes with the default bundle strategies listed below.
+
+##### [openapi-3-0](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/openapi-3-0)
+
+Bundle strategy for bundling [OpenApi 3.0.4](https://spec.openapis.org/oas/v3.0.4.html) definitions.
+Like the `openapi-3-1` strategy, it returns the document unchanged.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.0.0',
+  'application/vnd.oai.openapi+json;version=3.0.0',
+  'application/vnd.oai.openapi+yaml;version=3.0.0',
+  'application/vnd.oai.openapi;version=3.0.1',
+  'application/vnd.oai.openapi+json;version=3.0.1',
+  'application/vnd.oai.openapi+yaml;version=3.0.1',
+  'application/vnd.oai.openapi;version=3.0.2',
+  'application/vnd.oai.openapi+json;version=3.0.2',
+  'application/vnd.oai.openapi+yaml;version=3.0.2',
+  'application/vnd.oai.openapi;version=3.0.3',
+  'application/vnd.oai.openapi+json;version=3.0.3',
+  'application/vnd.oai.openapi+yaml;version=3.0.3',
+  'application/vnd.oai.openapi;version=3.0.4',
+  'application/vnd.oai.openapi+json;version=3.0.4',
+  'application/vnd.oai.openapi+yaml;version=3.0.4'
+]
+```
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/openapi-3-1)
 
@@ -2091,7 +2118,9 @@ returns `true` or until entire list of strategies is exhausted (throws error).
 
 ```js
 [
+  new OpenAPI3_0BundleStrategy(),
   new OpenAPI3_1BundleStrategy(),
+  new OpenAPI3_2BundleStrategy(),
   new JSONSchema2020_12BundleStrategy(),
 ]
 ```

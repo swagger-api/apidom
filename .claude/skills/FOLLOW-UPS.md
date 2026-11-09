@@ -231,6 +231,27 @@ Still reported by `check-ls-coverage.mjs packages/apidom-ns-asyncapi-3 packages/
 - **Fix:** go through the keyword docs, list every place where the spec renders a reference as a link, and link it the same way. Do it for the completion and documentation entries together, and for the OpenAPI Schema Object reuse in `config/openapi/schema/`. Check with `node .claude/skills/add-spec-version/scripts/verify-urls.mjs packages/apidom-ls/src/config/json-schema` (0 `BROKEN`).
 - **Commit:** `docs(ls): link RFC references in JSON Schema 2020-12 documentation`
 
+### 2.26 ⏳ JSON Schema 2020-12 refractor drops `definitions`, so `$ref`s inside it are not dereferenced
+
+- **Where:** `packages/apidom-ns-json-schema-2019-09/src/refractor/specification.ts:42` removes the `definitions` fixed field (`dissocPath(...)`), and `src/elements/JSONSchema.ts:78-87` has a `definitions` getter and setter that throw `UnsupportedOperationError` ("renamed to $defs"). `apidom-ns-json-schema-2020-12` builds on 2019-09 and doesn't re-add it, so `definitions` is a generic member: its entries are not refracted as JSON Schema elements and the dereference visitors don't visit them. `add-spec-version/references/json-schema-dialects.md` (section 2) lists it as a `REMOVED` compatibility row, which is right for the namespace as built but is what this item questions.
+- **Effect:** in a standalone 2020-12 document whose `$schema` is the default meta-schema, a `$ref` that points into `definitions` is dereferenced, but a `$ref` written inside a `definitions` entry stays as written (`{ "$ref": "#/definitions/Price" }`), while the same schema under `$defs` is fully resolved. Found in swagger-ui (standalone JSON Schema rendering) with swagger-client 3.39.0 and ApiDOM 1.14.0.
+- **Spec:** the 2020-12 default meta-schema keeps `definitions` (marked `deprecated`), and the validation specification, Appendix A, says "implementations SHOULD assume that `$defs` and `definitions` have the same behavior when that meta-schema is used" (https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-validation-01.html#appendix-A). The same sentence covers `dependencies`, `$recursiveAnchor` and `$recursiveRef`, which are out of scope here.
+- **Check:**
+
+  ```bash
+  node -e "
+  const {refract}=require('@swagger-api/apidom-ns-json-schema-2020-12');
+  const e=refract({\$schema:'https://json-schema.org/draft/2020-12/schema',definitions:{A:{type:'string'}},\$defs:{B:{type:'string'}}});
+  for (const k of ['definitions','\$defs']) { const m=e.get(k); console.log(k, m.element, m.classes.toValue(), m.get(k==='definitions'?'A':'B').element) }"
+  ```
+
+  Run it from a package that depends on the namespace (or the repo root after a build). Today it prints `definitions object [] object` and `$defs object [ 'json-schema-$defs' ] JSONSchema202012`; once fixed, the `definitions` line should match the `$defs` one. To see the dereference effect, dereference a document with a `$ref` inside `definitions.A` through `apidom-reference` and compare it with the same document using `$defs`.
+- **Decision first:** the namespace is shared. `apidom-ns-openapi-3-1` and `apidom-ns-openapi-3-2` Schema Objects, Arazzo and others build on the 2020-12 `JSONSchemaElement`, so adding the field there would also refract `definitions` inside OpenAPI Schema Objects, where it has no meaning. Decide between (a) adding it to the 2020-12 namespace and removing it again in the OpenAPI namespaces that extend it, and (b) a dialect-specific refractor option or plugin used only for standalone documents (the apidom-reference strategy for `json-schema-2020-12`).
+- **Fix (for (a)):** in `apidom-ns-json-schema-2020-12`, add the `definitions` fixed field reusing the `$defs` visitor (`specification.ts`), its class entry in `refractor/plugins/replace-empty-element.ts` (as for `json-schema-$defs`), and a working getter and setter in `elements/JSONSchema.ts` (replacing the inherited throwing ones); `dissocPath` it in the OpenAPI 3.1 and 3.2 namespaces. Add refractor tests for `definitions` and an `apidom-reference` dereference test that resolves a `$ref` inside `definitions`; update the `REMOVED` row in `json-schema-dialects.md`. swagger-client needs only a dependency bump afterwards (its `json-schema-2020-12-swagger-client` dereference strategy has no `definitions` handling and doesn't need one).
+- **Commit:** `feat(json-schema-2020-12): refract definitions like $defs`
+- **Issue:** swagger-api/apidom#5303.
+- **Consumer:** swagger-ui PR https://github.com/swagger-api/swagger-ui/pull/11120 renders `definitions` like `$defs` and waits for this; its e2e test asserts the unresolved `$ref` today and should expect the resolved constraint afterwards.
+
 ---
 
 ## 3. Session leftovers (cleanup)

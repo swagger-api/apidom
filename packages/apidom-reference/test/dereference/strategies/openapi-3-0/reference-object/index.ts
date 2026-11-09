@@ -291,6 +291,41 @@ describe('dereference', function () {
           });
         });
 
+        context('given resolve.internal is false', function () {
+          const fixturePath = path.join(entryFixturePath, 'internal-scope-entry');
+          const entryFilePath = path.join(fixturePath, 'entry.json');
+
+          context('and internalScope is not set', function () {
+            specify('should skip references internal to every document', async function () {
+              const actual = await dereference(entryFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+              });
+              const expected = loadJsonFile(
+                path.join(fixturePath, 'dereferenced-document-scope.json'),
+              );
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          });
+
+          context('and internalScope is entry', function () {
+            specify(
+              'should skip only references internal to the entry document',
+              async function () {
+                const actual = await dereference(entryFilePath, {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { internal: false },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+                assert.deepEqual(toValue(actual), expected);
+              },
+            );
+          });
+        });
+
         context('given Reference Objects with direct circular internal reference', function () {
           const fixturePath = path.join(entryFixturePath, 'direct-internal-circular');
 

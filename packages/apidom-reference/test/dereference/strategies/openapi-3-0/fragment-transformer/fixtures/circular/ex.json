@@ -1,0 +1,10 @@
+{
+  "Node": {
+    "type": "object",
+    "properties": {
+      "next": {
+        "$ref": "#/Node"
+      }
+    }
+  }
+}

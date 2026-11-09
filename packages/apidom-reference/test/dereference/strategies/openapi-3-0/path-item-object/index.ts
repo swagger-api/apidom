@@ -426,6 +426,24 @@ describe('dereference', function () {
             });
           });
         });
+        context('given an external Path Item referring back into the entry document', function () {
+          context('and internalScope entry with resolve.internal false', function () {
+            specify('should keep the back reference unresolved', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+          });
+        });
       });
     });
   });

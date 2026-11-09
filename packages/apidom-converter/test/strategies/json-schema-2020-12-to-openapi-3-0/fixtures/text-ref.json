@@ -1,0 +1,6 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "text", "version": "1.0.0" },
+  "paths": {},
+  "components": { "schemas": { "Notes": { "$ref": "./notes.yaml" } } }
+}

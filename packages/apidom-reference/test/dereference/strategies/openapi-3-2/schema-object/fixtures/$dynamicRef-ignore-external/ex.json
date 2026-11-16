@@ -1,0 +1,9 @@
+{
+  "$dynamicAnchor": "profileType",
+  "type": "object",
+  "properties": {
+    "externalOnly": {
+      "type": "string"
+    }
+  }
+}

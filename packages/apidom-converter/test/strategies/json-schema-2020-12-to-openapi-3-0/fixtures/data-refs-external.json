@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Pet": {
+      "type": "object",
+      "$defs": {
+        "Inner": { "type": "string", "example": { "$ref": "#/data-in-stash" } },
+        "ToOther": { "$ref": "#/$defs/Other" }
+      },
+      "properties": { "name": { "$ref": "#/$defs/Pet/$defs/Inner" } },
+      "example": {
+        "$ref": "#/data",
+        "externalValue": "./data.json",
+        "operationRef": "./op.json#/paths/~1x/get"
+      },
+      "x-meta": { "$ref": "#/user-extension" },
+      "x-conversion-note": { "$ref": "#/user-extension" }
+    },
+    "Other": { "type": "integer" }
+  }
+}

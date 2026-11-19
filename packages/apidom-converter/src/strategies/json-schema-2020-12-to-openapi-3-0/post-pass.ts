@@ -1,19 +1,25 @@
 import {
   Element,
+  ObjectElement,
   isArrayElement,
   isObjectElement,
   isStringElement,
   toValue,
 } from '@swagger-api/apidom-core';
-import { isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  isExampleElement,
+  isLinkElement,
+  isReferenceElement,
+  isSchemaElement,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 import { url } from '@swagger-api/apidom-reference';
 
 import { elementAt } from './downgrade/document.ts';
-import { fragmentTokens } from './downgrade/refs.ts';
+import { forEachMappingRef, fragmentTokens, isSchemaName } from './downgrade/refs.ts';
+import { forEachSchema, subschemaPositions, unmarkStash } from './downgrade/walk.ts';
 import type { Warnings } from './downgrade/index.ts';
 
 const ORIGIN_META = 'ref-origin';
-const URI_FIELDS = ['$ref', 'externalValue', 'operationRef'] as const;
 
 const originOf = (element: Element): string | undefined => {
   const origin = element.meta.get(ORIGIN_META);
@@ -57,16 +63,62 @@ const traverse = (
   walk(root, entryURI);
 };
 
-const rebase = (element: Element, origin: string, entryURI: string): void => {
-  if (!isObjectElement(element) || origin === entryURI) return;
-  URI_FIELDS.forEach((field) => {
-    const value = element.get(field);
-    if (!isStringElement(value)) return;
-    const absolute = url.resolve(origin, toValue(value));
-    const rebased =
-      url.stripHash(absolute) === url.stripHash(entryURI) ? url.getHash(absolute) : absolute;
-    if (rebased !== toValue(value)) element.set(field, rebased);
+const isRefracted = (element: Element): boolean =>
+  isSchemaElement(element) || isReferenceElement(element);
+
+/**
+ * Calls `visit` for every object owned by `element` whose `$ref` is a reference: the element
+ * itself when it is a Reference or Schema Object and, for a Schema Object, its subschemas the
+ * dereference left unrefracted (circular replacements) and the schemas inside the converter's
+ * `x-conversion-*` stashes. Data and extensions are never visited.
+ */
+const forEachRefOwner = (element: Element, visit: (owner: ObjectElement) => void): void => {
+  if (isRefracted(element)) visit(element as ObjectElement);
+  if (!isSchemaElement(element)) return;
+
+  subschemaPositions(element, { stashes: true }).forEach((position) => {
+    if (position.path[0] !== position.keyword) {
+      forEachSchema(position.element, (schema) => {
+        if (isObjectElement(schema)) visit(schema);
+      });
+    } else if (isObjectElement(position.element) && !isRefracted(position.element)) {
+      visit(position.element);
+    }
   });
+};
+
+/**
+ * Resolves a URI read from `origin` and, when it points into the entry document, makes it a
+ * fragment again.
+ */
+const rebaseURI = (value: string, origin: string, entryURI: string): string => {
+  const absolute = url.resolve(origin, value);
+  return url.stripHash(absolute) === url.stripHash(entryURI) ? url.getHash(absolute) : absolute;
+};
+
+const rebaseField = (
+  element: ObjectElement,
+  field: string,
+  origin: string,
+  entryURI: string,
+): void => {
+  const value = element.get(field);
+  if (!isStringElement(value)) return;
+  const rebased = rebaseURI(toValue(value), origin, entryURI);
+  if (rebased !== toValue(value)) element.set(field, rebased);
+};
+
+const rebase = (element: Element, origin: string, entryURI: string): void => {
+  if (origin === entryURI) return;
+  forEachRefOwner(element, (owner) => {
+    rebaseField(owner, '$ref', origin, entryURI);
+    forEachMappingRef(owner, (value, replace) => {
+      const rebased = rebaseURI(value, origin, entryURI);
+      if (rebased !== value) replace(rebased);
+    });
+  });
+  if (isExampleElement(element)) rebaseField(element, 'externalValue', origin, entryURI);
+  if (isLinkElement(element)) rebaseField(element, 'operationRef', origin, entryURI);
 };
 
 const isExternal = (element: Element, entryURI: string): boolean => {
@@ -94,7 +146,7 @@ const checkDiscriminator = (element: Element, entryURI: string, warnings: Warnin
   if (isObjectElement(mapping)) {
     mapping.forEach((value: Element) => {
       const target = String(toValue(value));
-      if (target.startsWith('#') || /^[a-zA-Z0-9.\-_]+$/.test(target)) return;
+      if (target.startsWith('#') || isSchemaName(target)) return;
       warnings.add(
         value,
         'discriminator-mapping-external',
@@ -123,14 +175,18 @@ const checkInheritedDiscriminator = (
   });
 };
 
-const checkInternalRef = (element: Element, api: Element, warnings: Warnings): void => {
-  if (!isObjectElement(element)) return;
-  const ref = element.get('$ref');
-  if (!isStringElement(ref) || !toValue(ref).startsWith('#')) return;
-  if (elementAt(api, fragmentTokens(toValue(ref).slice(1))) === undefined) {
-    warnings.add(ref, 'unresolved-reference', `The reference "${toValue(ref)}" does not resolve`);
-  }
-};
+const checkInternalRefs = (element: Element, api: Element, warnings: Warnings): void =>
+  forEachRefOwner(element, (owner) => {
+    const check = (ref: string, source: Element) => {
+      if (!ref.startsWith('#')) return;
+      const tokens = fragmentTokens(ref.slice(1));
+      if (tokens !== undefined && elementAt(api, tokens) !== undefined) return;
+      warnings.add(source, 'unresolved-reference', `The reference "${ref}" does not resolve`);
+    };
+    const ref = owner.get('$ref');
+    if (isStringElement(ref)) check(toValue(ref), ref);
+    forEachMappingRef(owner, (value, _replace, mappingValue) => check(value, mappingValue));
+  });
 
 export interface PostPassOptions {
   readonly entryURI: string;
@@ -162,7 +218,10 @@ const postPass = (api: Element, options: PostPassOptions, warnings: Warnings): v
   traverse(
     api,
     options.entryURI,
-    (element) => checkInternalRef(element, api, warnings),
+    (element) => {
+      checkInternalRefs(element, api, warnings);
+      unmarkStash(element);
+    },
     () => {},
   );
 

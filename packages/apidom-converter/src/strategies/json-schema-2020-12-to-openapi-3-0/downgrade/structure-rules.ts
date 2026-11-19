@@ -8,22 +8,12 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { appendAllOf } from './value-rules.ts';
+import { addKeyword } from './value-rules.ts';
+import { stashKey, stashKeyword } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
-const stashKey = (keyword: string): string => `x-conversion-${keyword}`;
-
-/**
- * Adds an applicator the rules introduce. When the schema already has that applicator, the new
- * one is wrapped in `allOf` so both keep applying.
- */
-const addApplicator = (schema: ObjectElement, keyword: 'anyOf' | 'oneOf', items: Element[]) => {
-  if (schema.hasKey(keyword)) {
-    appendAllOf(schema, new ObjectElement({ [keyword]: new ArrayElement(items) }));
-  } else {
-    schema.set(keyword, new ArrayElement(items));
-  }
-};
+const addApplicator = (schema: ObjectElement, keyword: 'anyOf' | 'oneOf', items: Element[]) =>
+  addKeyword(schema, keyword, new ArrayElement(items));
 
 /**
  * Matches every instance that is not an object containing `property`. `required` alone would not
@@ -43,7 +33,7 @@ const foldDependentRequired = (schema: ObjectElement, dependentRequired: ObjectE
     const dependents = (toValue(value) as unknown[]).map(String);
     addApplicator(schema, 'anyOf', [
       notRequired(property),
-      requiredProperties([property, ...dependents]),
+      requiredProperties([...new Set([property, ...dependents])]),
     ]);
   });
 };
@@ -77,8 +67,7 @@ const foldConditional = (schema: ObjectElement, warnings: Warnings) => {
   if (ifSchema === undefined || (thenSchema === undefined && elseSchema === undefined)) {
     (['if', 'then', 'else'] as const).forEach((keyword) => {
       if (!schema.hasKey(keyword)) return;
-      schema.set(stashKey(keyword), schema.get(keyword));
-      schema.remove(keyword);
+      stashKeyword(schema, keyword);
       warnings.add(
         schema.get(stashKey(keyword)),
         'moved-keyword',
@@ -145,10 +134,7 @@ const moveGroups = (schema: ObjectElement): string[][] => {
 
 const moveKeywords = (schema: ObjectElement, warnings: Warnings) => {
   moveGroups(schema).forEach((group) => {
-    group.forEach((keyword) => {
-      schema.set(stashKey(keyword), schema.get(keyword));
-      schema.remove(keyword);
-    });
+    group.forEach((keyword) => stashKeyword(schema, keyword));
     const [keyword] = group;
     const moved = group.map((name) => `"${name}"`).join(' and ');
     warnings.add(

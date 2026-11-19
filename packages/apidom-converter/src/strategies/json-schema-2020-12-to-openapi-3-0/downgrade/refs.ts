@@ -7,6 +7,7 @@ import {
   isStringElement,
   toValue,
 } from '@swagger-api/apidom-core';
+import { URIFragmentIdentifier, compile, parse } from '@swagger-api/apidom-json-pointer/modern';
 import { url } from '@swagger-api/apidom-reference';
 
 import { ANNOTATION_KEYWORDS, SCHEMA_MAP_KEYWORDS, isExtensionKeyword } from './keywords.ts';
@@ -43,28 +44,56 @@ const MAP_FIELDS = new Set<string>([
   'scopes',
 ]);
 
-const escapeToken = (token: string): string =>
-  encodeURIComponent(token.replace(/~/g, '~0').replace(/\//g, '~1')).replace(
-    /%(24|26|2B|2C|3A|3B|3D|40)/g,
-    (encoded) => decodeURIComponent(encoded),
-  );
-
-const unescapeToken = (token: string): string =>
-  decodeURIComponent(token).replace(/~1/g, '/').replace(/~0/g, '~');
-
 /**
  * Builds a URI fragment JSON Pointer (`#/a/b`) from pointer tokens.
  */
 export const toPointerFragment = (tokens: readonly string[]): string =>
-  `#${tokens.map((token) => `/${escapeToken(token)}`).join('')}`;
+  URIFragmentIdentifier.to(compile([...tokens]));
 
 /**
- * Splits a JSON Pointer (`/a/b`, without the leading `#`) into unescaped tokens.
+ * Splits the URI fragment of a JSON Pointer (`/a/b`, without the leading `#`) into unescaped
+ * tokens, or returns `undefined` when it is not a valid JSON Pointer.
  */
-export const fragmentTokens = (fragment: string): string[] =>
-  fragment === '' ? [] : fragment.slice(1).split('/').map(unescapeToken);
+export const fragmentTokens = (fragment: string): string[] | undefined => {
+  const { result, tree } = parse(URIFragmentIdentifier.from(`#${fragment}`));
+  return result.success ? tree : undefined;
+};
 
 const normalizeId = (uri: string): string => url.stripHash(uri);
+
+const decodeFragment = (fragment: string): string => {
+  try {
+    return decodeURIComponent(fragment);
+  } catch {
+    return fragment;
+  }
+};
+
+interface SchemaId {
+  /** The base URI in effect inside the schema. */
+  readonly base: string;
+  /** Whether the `$id` sets a new base URI (a fragment-only `$id` does not). */
+  readonly setsBase: boolean;
+  /** A plain-name fragment of the `$id`, which Draft 6/7 use as an anchor (`"$id": "#foo"`). */
+  readonly anchor?: string;
+}
+
+/**
+ * Reads the `$id` of a schema, given the base URI in effect around it.
+ */
+const readId = (schema: ObjectElement, base: string): SchemaId => {
+  const id = schema.get('$id');
+  if (!isStringElement(id)) return { base, setsBase: false };
+
+  const value = toValue(id) as string;
+  const hashIndex = value.indexOf('#');
+  const fragment = hashIndex === -1 ? '' : value.slice(hashIndex + 1);
+  const anchor =
+    fragment !== '' && !fragment.startsWith('/') ? decodeFragment(fragment) : undefined;
+
+  if (hashIndex === 0) return { base, setsBase: false, anchor };
+  return { base: normalizeId(url.resolve(base, value)), setsBase: true, anchor };
+};
 
 /**
  * Indexes every `$id`, `$anchor` and `$dynamicAnchor` of a document, following the `$id`
@@ -84,11 +113,10 @@ export const buildIdentifierIndex = (document: Element, documentURI: string): Id
 
     let currentBase = base;
     if (!isMap) {
-      const id = element.get('$id');
-      if (isStringElement(id)) {
-        currentBase = normalizeId(url.resolve(base, toValue(id)));
-        index.set(currentBase, tokens);
-      }
+      const id = readId(element, base);
+      currentBase = id.base;
+      if (id.setsBase) index.set(currentBase, tokens);
+      if (id.anchor !== undefined) index.set(`${currentBase}#${id.anchor}`, tokens);
       ['$anchor', '$dynamicAnchor'].forEach((keyword) => {
         const anchor = element.get(keyword);
         if (isStringElement(anchor)) index.set(`${currentBase}#${toValue(anchor)}`, tokens);
@@ -120,8 +148,7 @@ export const baseURIAt = (
 
   tokens.forEach((token) => {
     if (isObjectElement(current)) {
-      const id = current.get('$id');
-      if (isStringElement(id)) base = normalizeId(url.resolve(base, toValue(id)));
+      base = readId(current, base).base;
       current = current.get(token);
     } else if (isArrayElement(current)) {
       current = current.get(Number(token));
@@ -147,12 +174,35 @@ const rewriteRef = (
   if (fragment === '' || fragment.startsWith('/')) {
     if (target === normalizeId(documentURI)) return undefined;
     const idTokens = index.get(target);
-    if (idTokens === undefined) return undefined;
-    return toPointerFragment([...idTokens, ...fragmentTokens(fragment)]);
+    const tokens = fragmentTokens(fragment);
+    if (idTokens === undefined || tokens === undefined) return undefined;
+    return toPointerFragment([...idTokens, ...tokens]);
   }
 
-  const anchorTokens = index.get(`${target}#${decodeURIComponent(fragment)}`);
+  const anchorTokens = index.get(`${target}#${decodeFragment(fragment)}`);
   return anchorTokens === undefined ? undefined : toPointerFragment(anchorTokens);
+};
+
+/**
+ * Whether a `discriminator.mapping` value is a schema name rather than a reference.
+ */
+export const isSchemaName = (value: string): boolean => /^[a-zA-Z0-9.\-_]+$/.test(value);
+
+/**
+ * Visits the `discriminator.mapping` values of a schema that are references (not schema names).
+ */
+export const forEachMappingRef = (
+  schema: ObjectElement,
+  visit: (value: string, replace: (ref: string) => void, element: Element) => void,
+): void => {
+  const discriminator = schema.get('discriminator');
+  const mapping = isObjectElement(discriminator) ? discriminator.get('mapping') : undefined;
+  if (!isObjectElement(mapping)) return;
+  mapping.forEach((value: Element, key: Element) => {
+    if (!isStringElement(value) || isSchemaName(toValue(value))) return;
+    const name = String(toValue(key));
+    visit(toValue(value), (ref) => mapping.set(name, ref), value);
+  });
 };
 
 const isRelativeDocumentRef = (ref: string): boolean =>
@@ -162,7 +212,7 @@ const isRelativeDocumentRef = (ref: string): boolean =>
  * Rewrites `$ref`s that point at an `$anchor` or `$id` of the document into JSON Pointer refs.
  * `base` is the base URI in effect at `schema`. References to other documents are left as is;
  * when the `$id` base would resolve such a relative reference to another document than the one it
- * is read from, a warning is reported.
+ * is read from, a warning is reported. Returns whether any `$ref` was changed.
  */
 export const rewriteIdentifierRefs = (
   schema: Element,
@@ -170,19 +220,21 @@ export const rewriteIdentifierRefs = (
   documentURI: string,
   index: IdentifierIndex,
   warnings?: Warnings,
-): void => {
-  if (!isObjectElement(schema)) return;
+): boolean => {
+  if (!isObjectElement(schema)) return false;
 
-  let currentBase = base;
-  const id = schema.get('$id');
-  if (isStringElement(id)) currentBase = normalizeId(url.resolve(base, toValue(id)));
+  const currentBase = readId(schema, base).base;
+  let changed = false;
 
   const ref = schema.get('$ref');
   if (isStringElement(ref)) {
     const value = toValue(ref);
     const rewritten = rewriteRef(value, currentBase, documentURI, index);
     if (rewritten !== undefined) {
-      schema.set('$ref', rewritten);
+      if (rewritten !== value) {
+        schema.set('$ref', rewritten);
+        changed = true;
+      }
     } else if (warnings !== undefined && isRelativeDocumentRef(value)) {
       const byId = normalizeId(url.resolve(currentBase, value));
       const byLocation = normalizeId(url.resolve(documentURI, value));
@@ -196,25 +248,31 @@ export const rewriteIdentifierRefs = (
     }
   }
 
-  subschemaPositions(schema).forEach((position) =>
-    rewriteIdentifierRefs(position.element, currentBase, documentURI, index, warnings),
-  );
+  subschemaPositions(schema).forEach((position) => {
+    if (rewriteIdentifierRefs(position.element, currentBase, documentURI, index, warnings)) {
+      changed = true;
+    }
+  });
+
+  return changed;
 };
 
 /**
- * Moves the validation keywords next to a `$ref` into `allOf`, so they keep applying in OpenAPI
- * 3.0 (where siblings of `$ref` are ignored). Annotations and extensions stay on the schema.
+ * Moves a `$ref` that has siblings into `allOf`, so the siblings keep applying in OpenAPI 3.0
+ * (where siblings of `$ref` are ignored, and dropped when the reference is inlined). Validation
+ * keywords move with it into `allOf`; annotations and extensions stay on the schema, except
+ * `nullable`, which only has an effect next to `type` and moves with it.
  */
 export const splitRefSiblings = (schema: ObjectElement): void => {
   const ref = schema.get('$ref');
-  if (!isStringElement(ref)) return;
+  if (!isStringElement(ref) || schema.length === 1) return;
 
   const annotations = new Set<string>(ANNOTATION_KEYWORDS);
   const validationKeys = schema
     .keys()
     .map(String)
     .filter((key) => key !== '$ref' && !annotations.has(key) && !isExtensionKeyword(key));
-  if (validationKeys.length === 0) return;
+  if (validationKeys.includes('type') && schema.hasKey('nullable')) validationKeys.push('nullable');
 
   const siblings = new ObjectElement();
   let existingAllOf: Element[] = [];

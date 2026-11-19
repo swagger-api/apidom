@@ -1,5 +1,6 @@
 import {
   Element,
+  cloneDeep,
   createNamespace,
   isBooleanElement,
   isObjectElement,
@@ -8,6 +9,10 @@ import {
 } from '@swagger-api/apidom-core';
 import openApi3_0Namespace from '@swagger-api/apidom-ns-openapi-3-0';
 import { url } from '@swagger-api/apidom-reference';
+import type {
+  FragmentTransformer,
+  FragmentTransformerInput,
+} from '@swagger-api/apidom-reference/dereference/strategies/openapi-3-0';
 
 import downgradeSchema, {
   IdentifierIndex,
@@ -15,9 +20,11 @@ import downgradeSchema, {
   buildIdentifierIndex,
   createWarnings,
   needsDowngrade,
+  rewriteIdentifierRefs,
 } from './downgrade/index.ts';
-import { elementAt, forEachElement, replaceAt } from './downgrade/document.ts';
+import { elementAt, replaceAt } from './downgrade/document.ts';
 import { fragmentTokens } from './downgrade/refs.ts';
+import { forEachSchema } from './downgrade/walk.ts';
 import findSchemaPositions from './schema-positions.ts';
 import type { Warnings } from './downgrade/index.ts';
 
@@ -38,26 +45,17 @@ const isForeignSchemaDocument = (document: Element): boolean => {
   );
 };
 
-const absolutizeRefsInStashes = (element: Element, fileURI: string): void => {
-  forEachElement(element, (current, tokens) => {
-    if (!isObjectElement(current)) return;
-    if (!tokens.some((token) => token.startsWith('x-conversion-'))) return;
+/**
+ * The dereference does not follow `$ref`s inside the converter's `x-conversion-*` stashes, so
+ * once the schema is inlined into another document they are made absolute.
+ */
+const absolutizeRefsInStashes = (schema: Element, fileURI: string): void => {
+  forEachSchema(schema, (current, inStash) => {
+    if (!inStash || !isObjectElement(current)) return;
     const ref = current.get('$ref');
     if (isStringElement(ref)) current.set('$ref', url.resolve(fileURI, toValue(ref)));
   });
 };
-
-/**
- * Input of apidom-reference's OpenAPI 3.0 dereference `fragmentTransformer` option.
- */
-interface FragmentTransformerInput {
-  readonly fragment: Element;
-  readonly document: Element;
-  readonly uri: string;
-  readonly referencedElementType: string;
-}
-
-type FragmentTransformer = (input: FragmentTransformerInput) => Element;
 
 interface DocumentInfo {
   readonly uri: string;
@@ -95,30 +93,42 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
     const info = documentInfo(document, documentURI);
     const foreign = isForeignSchemaDocument(document);
     const warnings = createWarnings(uri);
-    const fragmentPointer = fragmentTokens(url.getHash(uri).slice(1));
-    const convertSchema = (schema: Element, tokens: readonly string[]) =>
-      downgradeSchema(schema, warnings, {
-        documentURI,
-        baseURI: baseURIAt(document, documentURI, tokens),
-        index: info.index,
-      });
+    // the dereference has already evaluated this fragment as a JSON Pointer
+    const fragmentPointer = fragmentTokens(url.getHash(uri).slice(1)) ?? [];
+    /**
+     * Converts a schema when needed. A schema that is not converted still gets its `$ref`s to
+     * `$anchor`s and `$id`s rewritten (on a copy, the document is cached by the dereference).
+     */
+    const processSchema = (schema: Element, tokens: readonly string[]): Element => {
+      const baseURI = baseURIAt(document, documentURI, tokens);
+      if (foreign || needsDowngrade(schema)) {
+        const downgraded = downgradeSchema(schema, warnings, {
+          documentURI,
+          baseURI,
+          index: info.index,
+        });
+        absolutizeRefsInStashes(downgraded, documentURI);
+        return downgraded;
+      }
+      const copy = cloneDeep(schema);
+      return rewriteIdentifierRefs(copy, baseURI, documentURI, info.index, warnings)
+        ? copy
+        : schema;
+    };
 
     let converted: Element;
     if (referencedElementType === 'schema') {
-      converted =
-        foreign || needsDowngrade(fragment) ? convertSchema(fragment, fragmentPointer) : fragment;
+      converted = processSchema(fragment, fragmentPointer);
     } else {
       const ElementClass = namespace.getElementClass(referencedElementType);
       converted = ElementClass.refract(fragment);
       findSchemaPositions(converted).forEach((tokens) => {
         const schema = elementAt(converted, tokens)!;
-        if (foreign || needsDowngrade(schema)) {
-          replaceAt(converted, tokens, convertSchema(schema, [...fragmentPointer, ...tokens]));
-        }
+        const processed = processSchema(schema, [...fragmentPointer, ...tokens]);
+        if (processed !== schema) replaceAt(converted, tokens, processed);
       });
     }
 
-    absolutizeRefsInStashes(converted, documentURI);
     annotations.push(...warnings.annotations);
 
     return converted;

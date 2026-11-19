@@ -108,6 +108,215 @@ describe('converter', function () {
         });
       });
 
+      context('given bare $refs to $ids', function () {
+        let schemas: any;
+        let codes: string[];
+
+        before(async function () {
+          const result: any = await convertFixture('id-refs.json');
+          schemas = toValue(result.api).components.schemas;
+          codes = warningCodes(result);
+        });
+
+        specify('should rewrite a $ref to a URN $id into a JSON Pointer', function () {
+          assert.deepEqual(schemas.ByUrn, { $ref: '#/components/schemas/Urn' });
+          assert.deepEqual(schemas.ByUrnInProperty, {
+            type: 'object',
+            properties: { a: { $ref: '#/components/schemas/Urn' } },
+          });
+        });
+
+        specify('should rewrite a $ref to an https $id without fetching it', function () {
+          assert.deepEqual(schemas.ByHttps, { $ref: '#/components/schemas/Https' });
+        });
+
+        specify('should resolve a relative $id against its parent $id', function () {
+          assert.deepEqual(schemas.ByNestedId, {
+            $ref: '#/components/schemas/Root/properties/nested',
+          });
+          assert.deepEqual(schemas.Root.properties.nested, { type: 'boolean' });
+        });
+
+        specify('should point at an $id whose schema was moved to x-conversion-*', function () {
+          assert.deepEqual(schemas.ByMovedId, {
+            $ref: '#/components/schemas/Holder/x-conversion-$defs/Moved',
+          });
+          assert.deepEqual(schemas.Holder['x-conversion-$defs'].Moved, { type: 'number' });
+        });
+
+        specify('should leave other refs as before', function () {
+          assert.deepEqual(schemas.ByPointer, { $ref: '#/components/schemas/Urn' });
+          assert.deepEqual(schemas.ByPointerWithDescription, {
+            $ref: '#/components/schemas/Urn',
+            description: 'kept',
+          });
+          assert.deepEqual(schemas.ByRelative, { type: 'string', minLength: 1 });
+        });
+
+        specify('should rewrite them in an external OpenAPI 3.0 file too', function () {
+          assert.deepEqual(schemas.ByExternalId, {
+            type: 'object',
+            properties: { ext: { type: 'object', properties: { x: { type: 'string' } } } },
+          });
+        });
+
+        specify('should leave no unresolved references', function () {
+          assert.notInclude(codes, 'unresolved-reference');
+        });
+      });
+
+      context('given keywords next to a $ref', function () {
+        const targetSchema = { type: 'object', properties: { id: { type: 'integer' } } };
+        let schemas: any;
+
+        before(async function () {
+          const result: any = await convertFixture('siblings-entry.json');
+          schemas = toValue(result.api).components.schemas;
+        });
+
+        specify('should keep annotations of an inlined JSON Schema $ref', function () {
+          assert.deepEqual(schemas.Owner, { description: 'The owner', allOf: [targetSchema] });
+        });
+
+        specify('should keep a stash next to an inlined JSON Schema $ref', function () {
+          assert.deepEqual(schemas.WithStash, {
+            'x-conversion-$defs': { Local: { type: 'string' } },
+            allOf: [{ type: 'string' }],
+          });
+        });
+
+        specify('should convert a $ref with validation siblings', function () {
+          assert.deepEqual(schemas.InternalValidation, {
+            allOf: [{ minProperties: 1 }, { $ref: '#/components/schemas/Target' }],
+          });
+          assert.deepEqual(schemas.ExternalValidation, {
+            allOf: [{ minProperties: 1 }, targetSchema],
+          });
+        });
+
+        specify('should leave an OpenAPI 3.0 $ref with annotations unchanged', function () {
+          assert.deepEqual(schemas.PlainAnnotation, {
+            $ref: '#/components/schemas/Target',
+            description: 'kept as is',
+          });
+        });
+      });
+
+      context('given discriminator.mapping references', function () {
+        let result: any;
+        let schemas: any;
+
+        before(async function () {
+          result = await convertFixture('mapping-entry.json');
+          schemas = toValue(result.api).components.schemas;
+        });
+
+        specify('should rebase mapping values of an inlined external schema', function () {
+          assert.deepEqual(schemas.Pet.discriminator.mapping, {
+            cat: `${path.join(fixtures, 'mapping-ext.json')}#/$defs/Cat`,
+            back: '#/components/schemas/Back',
+            named: 'Cat',
+          });
+          assert.include(warningCodes(result), 'discriminator-mapping-external');
+        });
+
+        specify('should follow a mapping target moved to x-conversion-*', function () {
+          assert.deepEqual(schemas.Local.discriminator.mapping, {
+            fish: '#/components/schemas/Local/x-conversion-$defs/Fish',
+            named: 'Fish',
+            missing: '#/components/schemas/Missing',
+          });
+        });
+
+        specify('should report a mapping value that does not resolve', function () {
+          const unresolved = result.annotations
+            .filter((a: any) => toValue(a.attributes.get('code')) === 'unresolved-reference')
+            .map((a: any) => toValue(a));
+
+          assert.deepEqual(unresolved, [
+            'The reference "#/components/schemas/Missing" does not resolve',
+          ]);
+        });
+      });
+
+      context('given data and extensions that look like references', function () {
+        const dataRef = { $ref: '#/components/schemas/WithDefs/$defs/T' };
+        let result: any;
+        let api: any;
+
+        before(async function () {
+          result = await convertFixture('data-refs.json');
+          api = toValue(result.api);
+        });
+
+        specify('should rewrite only schema refs in the entry document', function () {
+          const { WithDefs, DataRef, UserExtension } = api.components.schemas;
+
+          assert.deepEqual(WithDefs.properties.x, {
+            $ref: '#/components/schemas/WithDefs/x-conversion-$defs/T',
+          });
+          assert.deepEqual(WithDefs.example, dataRef);
+          assert.deepEqual(WithDefs.default, dataRef);
+          assert.deepEqual(WithDefs['x-meta'], dataRef);
+          assert.deepEqual(DataRef.example, dataRef);
+          assert.deepEqual(UserExtension['x-conversion-$defs'].T, dataRef);
+          assert.deepEqual(
+            api.paths['/pets'].get.responses['200'].content['application/json'].examples.inline
+              .value,
+            dataRef,
+          );
+        });
+
+        specify('should not rebase data and extensions of inlined schemas', function () {
+          const pet = api.paths['/pets'].get.responses['200'].content['application/json'].schema;
+
+          assert.deepEqual(pet.example, {
+            $ref: '#/data',
+            externalValue: './data.json',
+            operationRef: './op.json#/paths/~1x/get',
+          });
+          assert.deepEqual(pet['x-meta'], { $ref: '#/user-extension' });
+          assert.deepEqual(pet['x-conversion-note'], { $ref: '#/user-extension' });
+          assert.deepEqual(pet.properties.name.example, { $ref: '#/data-in-stash' });
+          assert.deepEqual(pet['x-conversion-$defs'].Inner.example, { $ref: '#/data-in-stash' });
+        });
+
+        specify('should still make refs inside converter stashes absolute', function () {
+          const pet = api.paths['/pets'].get.responses['200'].content['application/json'].schema;
+
+          assert.strictEqual(
+            pet['x-conversion-$defs'].ToOther.$ref,
+            `${path.join(fixtures, 'data-refs-external.json')}#/$defs/Other`,
+          );
+        });
+
+        specify('should not report data as unresolved references', function () {
+          assert.notInclude(warningCodes(result), 'unresolved-reference');
+        });
+
+        specify('should leave no internal metadata behind', function () {
+          const stash = result.api
+            .get('components')
+            .get('schemas')
+            .get('WithDefs')
+            .get('x-conversion-$defs');
+
+          assert.isFalse(stash.meta.hasKey('conversion-stash'));
+        });
+      });
+
+      context('given an external Draft 7 file with a fragment-only $id', function () {
+        specify('should resolve refs to the anchor and to JSON Pointers', async function () {
+          const result: any = await convertFixture('draft7-entry.json');
+          const schema = toValue(result.api).components.schemas.B;
+
+          assert.deepEqual(schema, {
+            type: 'object',
+            properties: { a: { type: 'integer' }, c: { type: 'string' } },
+          });
+        });
+      });
+
       context('given an external http:// reference with default options', function () {
         specify('should throw ConvertError', async function () {
           try {
@@ -173,6 +382,12 @@ describe('converter', function () {
           const result: any = await convertFixture('unresolved.json');
 
           assert.include(warningCodes(result), 'unresolved-reference');
+        });
+
+        specify('should warn about an internal ref that is not a JSON Pointer', async function () {
+          const result: any = await convertFixture('malformed-ref.json');
+
+          assert.deepEqual(warningCodes(result), ['unresolved-reference']);
         });
 
         context('given a circular external schema', function () {

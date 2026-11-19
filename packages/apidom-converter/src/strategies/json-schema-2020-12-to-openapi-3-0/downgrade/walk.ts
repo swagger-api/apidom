@@ -25,56 +25,121 @@ export interface SubschemaPosition {
 export const isSchemaLike = (element: unknown): element is Element =>
   isObjectElement(element) || isBooleanElement(element);
 
+const STASH_META = 'conversion-stash';
+
+/**
+ * The extension a keyword without an OpenAPI 3.0 form is moved to.
+ */
+export const stashKey = (keyword: string): string => `x-conversion-${keyword}`;
+
+/**
+ * Moves the value of `keyword` to `x-conversion-<keyword>` and marks it as created by the
+ * converter, so that it is walked as the keyword it came from (see `subschemaPositions`), unlike
+ * a user's own `x-conversion-*` extension.
+ */
+export const stashKeyword = (schema: ObjectElement, keyword: string): void => {
+  const value = schema.get(keyword);
+  value.setMetaProperty(STASH_META, true);
+  schema.set(stashKey(keyword), value);
+  schema.remove(keyword);
+};
+
+const isStash = (element: Element | undefined): boolean =>
+  element !== undefined && element.meta.hasKey(STASH_META);
+
+/**
+ * Removes the stash marks the converter left in an element tree.
+ */
+export const unmarkStash = (element: Element): void => {
+  element.meta.remove(STASH_META);
+};
+
+export interface SubschemaOptions {
+  /** Also return subschemas inside the converter's `x-conversion-*` stashes. */
+  readonly stashes?: boolean;
+}
+
 /**
  * Lists the direct subschema positions of a schema. Data positions (`example`, `default`,
- * `enum`, `const`, `examples`, extensions, …) are never returned.
+ * `enum`, `const`, `examples`, extensions, …) are never returned. With `stashes`, the
+ * converter's `x-conversion-<keyword>` stashes are read as `<keyword>`.
  */
-export const subschemaPositions = (schema: ObjectElement): SubschemaPosition[] => {
+export const subschemaPositions = (
+  schema: ObjectElement,
+  { stashes = false }: SubschemaOptions = {},
+): SubschemaPosition[] => {
   const positions: SubschemaPosition[] = [];
+  const fields = (keyword: string): string[] => {
+    const stash = stashKey(keyword);
+    return stashes && isStash(schema.get(stash)) ? [keyword, stash] : [keyword];
+  };
 
-  SCHEMA_KEYWORDS.forEach((keyword) => {
-    const value = schema.get(keyword);
-    if (!isSchemaLike(value)) return;
-    positions.push({
-      keyword,
-      path: [keyword],
-      element: value,
-      replace: (element) => schema.set(keyword, element),
-    });
-  });
-
-  SCHEMA_ARRAY_KEYWORDS.forEach((keyword) => {
-    const value = schema.get(keyword);
-    if (!isArrayElement(value)) return;
-    value.content.forEach((item, index) => {
-      if (!isSchemaLike(item)) return;
+  SCHEMA_KEYWORDS.forEach((keyword) =>
+    fields(keyword).forEach((field) => {
+      const value = schema.get(field);
+      if (!isSchemaLike(value)) return;
       positions.push({
         keyword,
-        path: [keyword, String(index)],
-        element: item,
-        replace: (element) => {
-          value.content[index] = element;
-        },
+        path: [field],
+        element: value,
+        replace: (element) => schema.set(field, element),
       });
-    });
-  });
+    }),
+  );
 
-  SCHEMA_MAP_KEYWORDS.forEach((keyword) => {
-    const value = schema.get(keyword);
-    if (!isObjectElement(value)) return;
-    value.forEach((item: Element, key: Element) => {
-      if (!isSchemaLike(item)) return;
-      const name = String(toValue(key));
-      positions.push({
-        keyword,
-        path: [keyword, name],
-        element: item,
-        replace: (element) => value.set(name, element),
+  SCHEMA_ARRAY_KEYWORDS.forEach((keyword) =>
+    fields(keyword).forEach((field) => {
+      const value = schema.get(field);
+      if (!isArrayElement(value)) return;
+      value.content.forEach((item, index) => {
+        if (!isSchemaLike(item)) return;
+        positions.push({
+          keyword,
+          path: [field, String(index)],
+          element: item,
+          replace: (element) => {
+            value.content[index] = element;
+          },
+        });
       });
-    });
-  });
+    }),
+  );
+
+  SCHEMA_MAP_KEYWORDS.forEach((keyword) =>
+    fields(keyword).forEach((field) => {
+      const value = schema.get(field);
+      if (!isObjectElement(value)) return;
+      value.forEach((item: Element, key: Element) => {
+        if (!isSchemaLike(item)) return;
+        const name = String(toValue(key));
+        positions.push({
+          keyword,
+          path: [field, name],
+          element: item,
+          replace: (element) => value.set(name, element),
+        });
+      });
+    }),
+  );
 
   return positions;
+};
+
+/**
+ * Visits a schema and every subschema below it, including those inside the converter's
+ * `x-conversion-*` stashes, parents before children. `inStash` tells whether a schema is
+ * inside a stash. Data and extensions are never visited.
+ */
+export const forEachSchema = (
+  schema: Element,
+  visit: (schema: Element, inStash: boolean) => void,
+  inStash = false,
+): void => {
+  visit(schema, inStash);
+  if (!isObjectElement(schema)) return;
+  subschemaPositions(schema, { stashes: true }).forEach((position) =>
+    forEachSchema(position.element, visit, inStash || position.path[0] !== position.keyword),
+  );
 };
 
 /**

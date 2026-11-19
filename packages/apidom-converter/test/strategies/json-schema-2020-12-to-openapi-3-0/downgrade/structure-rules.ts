@@ -98,6 +98,21 @@ describe('converter', function () {
             );
           });
 
+          specify('should not repeat a property in required', function () {
+            assertLosslessRule(
+              { dependentRequired: { license: ['license'] } },
+              {
+                anyOf: [
+                  { not: { type: 'object', required: ['license'] } },
+                  { required: ['license'] },
+                ],
+              },
+            );
+            assert.deepEqual(downgrade({ dependencies: { a: ['b', 'a', 'b'] } }).output, {
+              anyOf: [{ not: { type: 'object', required: ['a'] } }, { required: ['a', 'b'] }],
+            });
+          });
+
           specify('should fold dependentSchemas', function () {
             assertLosslessRule(
               {
@@ -228,11 +243,11 @@ describe('converter', function () {
             );
 
             assert.deepEqual(document, {
-              $ref: '#/x-conversion-$defs/def1',
               'x-conversion-$defs': {
                 def1: { type: 'string' },
                 def2: { $ref: '#/x-conversion-$defs/def1' },
               },
+              allOf: [{ $ref: '#/x-conversion-$defs/def1' }],
             });
           });
 
@@ -258,6 +273,28 @@ describe('converter', function () {
             );
           });
 
+          specify('should rewrite refs to keys that need escaping', function () {
+            const { document } = convertDocument(
+              {
+                components: {
+                  schemas: {
+                    A: { $defs: { 'a/b?c~d e': { type: 'string' } } },
+                    C: { $ref: '#/components/schemas/A/$defs/a~1b?c~0d%20e' },
+                  },
+                },
+              },
+              [
+                ['components', 'schemas', 'A'],
+                ['components', 'schemas', 'C'],
+              ],
+            );
+
+            assert.strictEqual(
+              document.components.schemas.C.$ref,
+              '#/components/schemas/A/x-conversion-$defs/a~1b?c~0d%20e',
+            );
+          });
+
           specify('should follow subschemas relocated by a parent rule', function () {
             const { document } = convertDocument(
               {
@@ -272,7 +309,11 @@ describe('converter', function () {
                   },
                 },
               },
-              [['components', 'schemas', 'A']],
+              [
+                ['components', 'schemas', 'Base'],
+                ['components', 'schemas', 'A'],
+                ['components', 'schemas', 'D'],
+              ],
             );
 
             assert.strictEqual(

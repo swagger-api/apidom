@@ -1,0 +1,43 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Data that looks like references", "version": "1.0.0" },
+  "paths": {
+    "/pets": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "./data-refs-external.json#/$defs/Pet" },
+                "examples": {
+                  "inline": { "value": { "$ref": "#/components/schemas/WithDefs/$defs/T" } }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "WithDefs": {
+        "$defs": { "T": { "type": "string" } },
+        "properties": { "x": { "$ref": "#/components/schemas/WithDefs/$defs/T" } },
+        "example": { "$ref": "#/components/schemas/WithDefs/$defs/T" },
+        "default": { "$ref": "#/components/schemas/WithDefs/$defs/T" },
+        "x-meta": { "$ref": "#/components/schemas/WithDefs/$defs/T" }
+      },
+      "DataRef": {
+        "type": "object",
+        "example": { "$ref": "#/components/schemas/WithDefs/$defs/T" }
+      },
+      "DataRefNowhere": { "type": "object", "example": { "$ref": "#/not/a/schema" } },
+      "UserExtension": {
+        "type": "object",
+        "x-conversion-$defs": { "T": { "$ref": "#/components/schemas/WithDefs/$defs/T" } }
+      }
+    }
+  }
+}

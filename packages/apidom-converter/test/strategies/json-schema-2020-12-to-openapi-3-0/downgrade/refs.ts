@@ -6,7 +6,12 @@ import downgradeSchema, {
   buildIdentifierIndex,
   createWarnings,
 } from '../../../../src/strategies/json-schema-2020-12-to-openapi-3-0/downgrade/index.ts';
-import { downgrade } from './helpers.ts';
+import {
+  fragmentTokens,
+  toPointerFragment,
+} from '../../../../src/strategies/json-schema-2020-12-to-openapi-3-0/downgrade/refs.ts';
+import { elementAt } from '../../../../src/strategies/json-schema-2020-12-to-openapi-3-0/downgrade/document.ts';
+import { assertSameMeaning, downgrade } from './helpers.ts';
 
 const documentURI = 'file:///specs/openapi.json';
 
@@ -30,6 +35,39 @@ const downgradeInDocument = (document: Record<string, unknown>, tokens: string[]
 describe('converter', function () {
   context('strategies', function () {
     context('json-schema-2020-12-to-openapi-3-0', function () {
+      context('JSON Pointers', function () {
+        specify('should round-trip tokens through URI fragments', function () {
+          const tokens = ['a/b', 'c~d', 'e?f', 'g%h', 'i j', 'x-conversion-$defs', 'é', '01', ''];
+          const fragment = toPointerFragment(tokens);
+
+          assert.strictEqual(fragment, '#/a~1b/c~0d/e?f/g%25h/i%20j/x-conversion-$defs/%C3%A9/01/');
+          assert.deepEqual(fragmentTokens(fragment.slice(1)), tokens);
+          assert.strictEqual(toPointerFragment([]), '#');
+          assert.deepEqual(fragmentTokens(''), []);
+        });
+
+        specify('should percent-decode a fragment before splitting it (RFC 6901)', function () {
+          assert.deepEqual(fragmentTokens('/a%2Fb'), ['a', 'b']);
+        });
+
+        specify('should return undefined for a fragment that is not a JSON Pointer', function () {
+          assert.isUndefined(fragmentTokens('/a~2'));
+          assert.isUndefined(fragmentTokens('anchor'));
+          assert.isUndefined(fragmentTokens('/%E0%A4%A'));
+        });
+
+        specify('should find elements by object key and array index', function () {
+          const document = new ObjectElement({ a: { '01': 'key', list: ['x', 'y'] } });
+
+          assert.strictEqual(toValue(elementAt(document, ['a', '01'])), 'key');
+          assert.strictEqual(toValue(elementAt(document, ['a', 'list', '1'])), 'y');
+          assert.strictEqual(elementAt(document, []), document);
+          assert.isUndefined(elementAt(document, ['a', 'missing']));
+          assert.isUndefined(elementAt(document, ['a', 'list', '01']));
+          assert.isUndefined(elementAt(document, ['a', 'list', '2']));
+        });
+      });
+
       context('$ref handling', function () {
         context('given a $ref to an $anchor', function () {
           specify('should rewrite it to a JSON Pointer', function () {
@@ -84,6 +122,82 @@ describe('converter', function () {
             const root = downgradeInDocument(document, ['$defs', 'Root']);
 
             assert.strictEqual(root.properties.y.$ref, '#/$defs/Root/$defs/A/properties/x');
+          });
+        });
+
+        context('given a Draft 6/7 $id with a plain-name fragment', function () {
+          const root = 'https://example.com/root.json';
+
+          specify('should index a fragment-only $id as an anchor', function () {
+            const document = new ObjectElement({
+              $id: root,
+              definitions: { A: { $id: '#foo', type: 'integer' } },
+            });
+            const index = buildIdentifierIndex(document, documentURI);
+
+            assert.deepEqual(index.get(root), []);
+            assert.deepEqual(index.get(`${root}#foo`), ['definitions', 'A']);
+          });
+
+          specify('should rewrite a $ref to it into a JSON Pointer', function () {
+            const document = {
+              $id: root,
+              definitions: {
+                A: { $id: '#foo', type: 'integer' },
+                B: { properties: { a: { $ref: '#foo' } } },
+              },
+            };
+
+            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']), {
+              properties: { a: { $ref: '#/definitions/A' } },
+            });
+          });
+
+          specify('should not change where JSON Pointer refs of the document point', function () {
+            const document = {
+              $id: root,
+              definitions: {
+                A: { $id: '#foo', type: 'integer' },
+                B: { properties: { c: { $ref: '#/definitions/C' } } },
+                C: { type: 'string' },
+              },
+            };
+
+            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']), {
+              properties: { c: { $ref: '#/definitions/C' } },
+            });
+          });
+
+          specify('should not change the base URI', function () {
+            const document = new ObjectElement({
+              $id: root,
+              definitions: { A: { $id: '#foo', properties: { b: {} } } },
+            });
+
+            assert.strictEqual(
+              baseURIAt(document, documentURI, ['definitions', 'A', 'properties', 'b']),
+              root,
+            );
+          });
+
+          specify('should index both the base and the anchor of "other.json#bar"', function () {
+            const document = {
+              $id: root,
+              definitions: {
+                A: { $id: 'other.json#bar', type: 'integer' },
+                B: {
+                  properties: {
+                    byAnchor: { $ref: 'https://example.com/other.json#bar' },
+                    byId: { $ref: 'other.json' },
+                  },
+                },
+              },
+            };
+
+            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']).properties, {
+              byAnchor: { $ref: '#/definitions/A' },
+              byId: { $ref: '#/definitions/A' },
+            });
           });
         });
 
@@ -142,6 +256,44 @@ describe('converter', function () {
             });
           });
 
+          context('given a nullable type', function () {
+            const input = { $ref: '#/definitions/S', type: ['string', 'null'], description: 'd' };
+            const withDefinitions = (schema: unknown, S: unknown) => ({
+              ...(schema as object),
+              definitions: { S },
+            });
+
+            specify('should move nullable together with type', function () {
+              const { output } = downgrade(input);
+
+              assert.deepEqual(output, {
+                description: 'd',
+                allOf: [{ type: 'string', nullable: true }, { $ref: '#/definitions/S' }],
+              });
+            });
+
+            specify('should keep accepting null when the target does', function () {
+              const { output } = downgrade(input);
+
+              [{}, { minLength: 1 }, { type: 'string' }, { type: 'integer' }].forEach((S) =>
+                assertSameMeaning(withDefinitions(input, S), withDefinitions(output, S)),
+              );
+            });
+
+            specify('should leave nullable without type on the schema', function () {
+              const { output } = downgrade({
+                $ref: '#/definitions/S',
+                nullable: true,
+                minLength: 1,
+              });
+
+              assert.deepEqual(output, {
+                nullable: true,
+                allOf: [{ minLength: 1 }, { $ref: '#/definitions/S' }],
+              });
+            });
+          });
+
           specify('should merge an existing allOf', function () {
             const { output } = downgrade({
               $ref: '#/components/schemas/A',
@@ -159,9 +311,16 @@ describe('converter', function () {
           });
         });
 
-        context('given only annotations next to a $ref', function () {
-          specify('should leave the schema unchanged', function () {
-            const input = { $ref: '#/components/schemas/A', description: 'kept' };
+        context('given only annotations or extensions next to a $ref', function () {
+          specify('should move the $ref into allOf and keep them on the schema', function () {
+            assert.deepEqual(
+              downgrade({ $ref: '#/components/schemas/A', description: 'kept', 'x-a': 1 }).output,
+              { description: 'kept', 'x-a': 1, allOf: [{ $ref: '#/components/schemas/A' }] },
+            );
+          });
+
+          specify('should leave a $ref without siblings unchanged', function () {
+            const input = { $ref: '#/components/schemas/A' };
 
             assert.deepEqual(downgrade(input).output, input);
           });

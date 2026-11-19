@@ -9,8 +9,10 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { TRIGGER_KEYWORDS } from './keywords.ts';
+import { ANNOTATION_KEYWORDS, TRIGGER_KEYWORDS, isExtensionKeyword } from './keywords.ts';
 import { subschemaPositions } from './walk.ts';
+
+const ANNOTATIONS: ReadonlySet<string> = new Set<string>(ANNOTATION_KEYWORDS);
 
 /**
  * A `$ref` that is not a plain JSON Pointer reference: an `$anchor` (`#name`) or a bare URI
@@ -42,7 +44,13 @@ const isOwnConstructInvalid = (schema: ObjectElement): boolean => {
   if (isArrayElement(required) && required.length === 0) return true;
 
   const ref = schema.get('$ref');
-  if (isStringElement(ref) && isNonPointerRef(toValue(ref))) return true;
+  if (isStringElement(ref)) {
+    if (isNonPointerRef(toValue(ref))) return true;
+    // validation keywords next to $ref apply in JSON Schema; OpenAPI 3.0 ignores them
+    if (keys.some((key) => key !== '$ref' && !ANNOTATIONS.has(key) && !isExtensionKeyword(key))) {
+      return true;
+    }
+  }
 
   return subschemaPositions(schema).some(
     (position) => isBooleanElement(position.element) && position.keyword !== 'additionalProperties',

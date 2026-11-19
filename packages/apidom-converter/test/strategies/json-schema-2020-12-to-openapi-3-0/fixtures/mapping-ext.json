@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Pet": {
+      "type": "object",
+      "oneOf": [{ "$ref": "#/$defs/Cat" }, { "$ref": "./mapping-entry.json#/components/schemas/Back" }],
+      "discriminator": {
+        "propertyName": "kind",
+        "mapping": {
+          "cat": "#/$defs/Cat",
+          "back": "./mapping-entry.json#/components/schemas/Back",
+          "named": "Cat"
+        }
+      }
+    },
+    "Cat": { "type": "object" }
+  }
+}

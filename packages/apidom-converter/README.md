@@ -62,6 +62,10 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
 - Keywords without an OpenAPI 3.0 equivalent that hold schemas (for example `$defs`, `prefixItems`,
   `patternProperties`, `unevaluatedProperties`) are moved to `x-conversion-<keyword>` extensions. Other
   unsupported keywords (for example `$schema`, `$comment`, `contentEncoding`) are removed.
+- Keywords next to a `$ref`, which OpenAPI 3.0 ignores, keep applying: the `$ref` moves into `allOf` together
+  with the validation keywords, while annotations and extensions stay on the schema. A `$ref` with validation
+  keywords next to it marks the schema for conversion; a `$ref` with only annotations (for example
+  `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason.
 - Schemas that are already valid OpenAPI 3.0 Schema Objects are left unchanged.
 - Example Object `externalValue` and Link Object `operationRef` are left unchanged and are not fetched.
 

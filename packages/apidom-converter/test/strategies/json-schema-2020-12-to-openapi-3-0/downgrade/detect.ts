@@ -55,6 +55,8 @@ describe('converter', function () {
             ['empty required', { required: [] }],
             ['tuple items', { items: [{ type: 'string' }] }],
             ['$ref to an $anchor', { $ref: '#user-profile' }],
+            ['$ref with validation siblings', { $ref: '#/a', minProperties: 1 }],
+            ['$ref with a type sibling', { $ref: '#/a', type: 'object', description: 'd' }],
             ['boolean subschema', { properties: { a: true } }],
             ['nested construct', { properties: { a: { allOf: [{ const: 1 }] } } }],
           ];
@@ -81,6 +83,20 @@ describe('converter', function () {
             });
 
             assert.isFalse(needsDowngrade(dataOnly));
+          });
+        });
+
+        context('given only annotations and extensions next to a $ref', function () {
+          specify('should return false', function () {
+            const ref = schema({
+              $ref: '#/a',
+              description: 'd',
+              readOnly: true,
+              nullable: true,
+              'x-a': { minProperties: 1 },
+            });
+
+            assert.isFalse(needsDowngrade(ref));
           });
         });
 

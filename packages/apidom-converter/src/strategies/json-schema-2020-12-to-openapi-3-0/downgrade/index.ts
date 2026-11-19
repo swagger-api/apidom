@@ -10,7 +10,7 @@ import type { Warnings } from './warnings.ts';
 export { default as needsDowngrade } from './detect.ts';
 export { createWarnings } from './warnings.ts';
 export type { Warnings } from './warnings.ts';
-export { buildIdentifierIndex, baseURIAt } from './refs.ts';
+export { buildIdentifierIndex, baseURIAt, rewriteIdentifierRefs } from './refs.ts';
 export type { IdentifierIndex } from './refs.ts';
 
 /**

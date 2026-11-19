@@ -12,8 +12,8 @@ import { File, dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import ConvertStrategy from '../ConvertStrategy.ts';
 import type { ConverterOptions } from '../../options/index.ts';
-import { createWarnings, needsDowngrade } from './downgrade/index.ts';
-import downgradeSchemasInDocument, { elementAt } from './downgrade/document.ts';
+import { createWarnings } from './downgrade/index.ts';
+import downgradeSchemasInDocument from './downgrade/document.ts';
 import findSchemaPositions from './schema-positions.ts';
 import createFragmentTransformer from './external.ts';
 import postPass from './post-pass.ts';
@@ -53,10 +53,7 @@ class JSONSchema202012ToOpenAPI30ConvertStrategy extends ConvertStrategy {
     const warnings = createWarnings();
     const annotations: AnnotationElement[] = [];
 
-    const rootSchemas = findSchemaPositions(api).filter((tokens) =>
-      needsDowngrade(elementAt(api, tokens)!),
-    );
-    downgradeSchemasInDocument(api, file.uri, rootSchemas, warnings);
+    downgradeSchemasInDocument(api, file.uri, findSchemaPositions(api), warnings);
     annotations.push(...warnings.annotations);
 
     const openApi30Options = options.dereference.strategyOpts['openapi-3-0'] ?? {};

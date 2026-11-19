@@ -26,12 +26,24 @@ export const booleanSchemaToObject = (element: BooleanElement): ObjectElement =>
 /**
  * Appends schemas to `allOf`, creating it when missing.
  */
-export const appendAllOf = (schema: ObjectElement, ...items: Element[]): void => {
+const appendAllOf = (schema: ObjectElement, ...items: Element[]): void => {
   const allOf = schema.get('allOf');
   if (isArrayElement(allOf)) {
     items.forEach((item) => allOf.push(item));
   } else {
     schema.set('allOf', new ArrayElement(items));
+  }
+};
+
+/**
+ * Adds a keyword the rules introduce. When the schema already has that keyword, the new one is
+ * wrapped in `allOf` so both keep applying.
+ */
+export const addKeyword = (schema: ObjectElement, keyword: string, value: Element): void => {
+  if (schema.hasKey(keyword)) {
+    appendAllOf(schema, new ObjectElement({ [keyword]: value }));
+  } else {
+    schema.set(keyword, value);
   }
 };
 
@@ -68,23 +80,51 @@ const setNullOnly = (schema: ObjectElement): void => {
   schema.set('enum', new ArrayElement([new NullElement()]));
 };
 
+/**
+ * Makes a schema accept nothing, keeping an existing `not`.
+ */
+const rejectAll = (schema: ObjectElement): void => addKeyword(schema, 'not', new ObjectElement({}));
+
+/**
+ * Whether the schema's own `type`, `nullable` and `enum` accept `null`.
+ */
+const allowsNull = (schema: ObjectElement): boolean => {
+  const type = schema.get('type');
+  const typeAllowsNull =
+    type === undefined ||
+    toValue(schema.get('nullable')) === true ||
+    (isStringElement(type) && toValue(type) === 'null') ||
+    (isArrayElement(type) && type.content.some((item) => toValue(item) === 'null'));
+  const enumElement = schema.get('enum');
+
+  return (
+    typeAllowsNull && (!isArrayElement(enumElement) || enumElement.content.some(isNullElement))
+  );
+};
+
+/**
+ * Converts `const`. Returns whether the schema must take the null-only form (`const: null` that
+ * the schema's `type` and `enum` allow); a `const: null` they don't allow makes it accept nothing.
+ */
 const convertConst = (schema: ObjectElement): boolean => {
   if (!schema.hasKey('const')) return false;
   const value = schema.get('const');
   schema.remove('const');
 
-  if (isNullElement(value)) return true;
-
-  const constEnum = new ArrayElement([cloneDeep(value)]);
-  if (schema.hasKey('enum')) {
-    appendAllOf(schema, new ObjectElement({ enum: constEnum }));
-  } else {
-    schema.set('enum', constEnum);
+  if (isNullElement(value)) {
+    if (allowsNull(schema)) {
+      schema.remove('type');
+      return true;
+    }
+    rejectAll(schema);
+    return false;
   }
+
+  addKeyword(schema, 'enum', new ArrayElement([cloneDeep(value)]));
   return false;
 };
 
-const splitTypes = (schema: ObjectElement, types: string[], nullable: boolean): void => {
+const splitTypes = (schema: ObjectElement, types: string[], nullable: boolean): ObjectElement[] => {
   const moved = new Set<string>();
   const branches = types.map((type) => {
     const branch = new ObjectElement({ type });
@@ -100,16 +140,19 @@ const splitTypes = (schema: ObjectElement, types: string[], nullable: boolean): 
   moved.forEach((keyword) => schema.remove(keyword));
   schema.remove('type');
 
-  if (schema.hasKey('anyOf')) {
-    appendAllOf(schema, new ObjectElement({ anyOf: new ArrayElement(branches) }));
-  } else {
-    schema.set('anyOf', new ArrayElement(branches));
-  }
+  addKeyword(schema, 'anyOf', new ArrayElement(branches));
+
+  return branches;
 };
 
-const convertType = (schema: ObjectElement, nullOnlyFromConst: boolean): void => {
+/**
+ * Converts `type`. Returns the branches created when several types are split into `anyOf`; the
+ * type-specific keywords moved into them still need the remaining value rules.
+ */
+const convertType = (schema: ObjectElement, nullOnlyFromConst: boolean): ObjectElement[] => {
   const type = schema.get('type');
   let nullOnly = nullOnlyFromConst;
+  let branches: ObjectElement[] = [];
 
   if (isStringElement(type) && toValue(type) === 'null') {
     nullOnly = true;
@@ -124,11 +167,12 @@ const convertType = (schema: ObjectElement, nullOnlyFromConst: boolean): void =>
       schema.set('type', others[0]);
       if (hasNull) schema.set('nullable', true);
     } else {
-      splitTypes(schema, others, hasNull);
+      branches = splitTypes(schema, others, hasNull);
     }
   }
 
   if (nullOnly) setNullOnly(schema);
+  return branches;
 };
 
 const removeUnreachableNullFromEnum = (schema: ObjectElement): void => {
@@ -140,7 +184,7 @@ const removeUnreachableNullFromEnum = (schema: ObjectElement): void => {
   const kept = enumElement.content.filter((item) => !isNullElement(item));
   if (kept.length === 0) {
     schema.remove('enum');
-    schema.set('not', new ObjectElement({}));
+    rejectAll(schema);
   } else {
     schema.set('enum', new ArrayElement(kept));
   }
@@ -194,12 +238,13 @@ const dropKeywords = (schema: ObjectElement, warnings: Warnings): void => {
 const applyValueRules = (schema: ObjectElement, warnings: Warnings): void => {
   convertExamples(schema, warnings);
   const nullOnlyFromConst = convertConst(schema);
-  convertType(schema, nullOnlyFromConst);
+  const branches = convertType(schema, nullOnlyFromConst);
   removeUnreachableNullFromEnum(schema);
   convertExclusiveBound(schema, 'exclusiveMinimum', 'minimum');
   convertExclusiveBound(schema, 'exclusiveMaximum', 'maximum');
   removeEmptyRequired(schema);
   dropKeywords(schema, warnings);
+  branches.forEach((branch) => applyValueRules(branch, warnings));
 };
 
 export default applyValueRules;

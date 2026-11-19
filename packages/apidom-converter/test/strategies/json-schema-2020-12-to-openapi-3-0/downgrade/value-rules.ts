@@ -62,6 +62,46 @@ describe('converter', function () {
             );
           });
 
+          context('given keywords moved into split branches', function () {
+            specify('should convert numeric exclusive bounds in the branches', function () {
+              assertLosslessRule(
+                { type: ['string', 'number'], exclusiveMinimum: 5 },
+                {
+                  anyOf: [
+                    { type: 'string' },
+                    { type: 'number', minimum: 5, exclusiveMinimum: true },
+                  ],
+                },
+              );
+              assertLosslessRule(
+                { type: ['number', 'integer', 'null'], exclusiveMaximum: 3, maximum: 10 },
+                {
+                  anyOf: [
+                    { type: 'number', maximum: 3, exclusiveMaximum: true, nullable: true },
+                    { type: 'integer', maximum: 3, exclusiveMaximum: true, nullable: true },
+                  ],
+                },
+              );
+            });
+
+            specify('should remove an empty required from the branch', function () {
+              assertLosslessRule(
+                { type: ['object', 'string'], required: [] },
+                { anyOf: [{ type: 'object' }, { type: 'string' }] },
+              );
+            });
+
+            specify('should drop unsupported keywords from the branch', function () {
+              const { output, warnings } = downgrade({ type: ['array', 'string'], minContains: 2 });
+
+              assert.deepEqual(output, { anyOf: [{ type: 'array' }, { type: 'string' }] });
+              assert.deepEqual(
+                warnings.map((w) => toValue(w.attributes.get('code'))),
+                ['dropped-keyword'],
+              );
+            });
+          });
+
           specify('should convert a null-only type to the null-only form', function () {
             assertLosslessRule({ type: 'null' }, { type: 'string', nullable: true, enum: [null] });
             assertLosslessRule(
@@ -85,6 +125,23 @@ describe('converter', function () {
 
           specify('should convert const null to the null-only form', function () {
             assertLosslessRule({ const: null }, { type: 'string', nullable: true, enum: [null] });
+          });
+
+          specify('should keep the null-only form when the type allows null', function () {
+            const nullOnly = { type: 'string', nullable: true, enum: [null] };
+
+            assertLosslessRule({ type: ['string', 'null'], const: null }, nullOnly);
+            assertLosslessRule({ type: ['string', 'number', 'null'], const: null }, nullOnly);
+            assertLosslessRule({ const: null, enum: [1, null] }, nullOnly);
+          });
+
+          specify('should accept nothing when the type or enum excludes null', function () {
+            assertLosslessRule({ type: 'string', const: null }, { type: 'string', not: {} });
+            assertLosslessRule({ const: null, enum: [1] }, { enum: [1], not: {} });
+            assertLosslessRule(
+              { type: 'integer', const: null, not: { minimum: 3 } },
+              { type: 'integer', not: { minimum: 3 }, allOf: [{ not: {} }] },
+            );
           });
 
           specify('should remove a null the type does not allow from enum', function () {

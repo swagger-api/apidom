@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor plugins normalize-security-requirements given Operation Object is defined in Components.callbacks should skip the Operation from normalization 1`] = `
 (OpenApi3_1Element

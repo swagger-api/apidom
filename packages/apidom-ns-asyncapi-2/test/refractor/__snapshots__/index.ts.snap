@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor given generic ApiDOM object in AsyncApi 2.0.0 shape should refract to AsyncApi2Element 1`] = `
 {

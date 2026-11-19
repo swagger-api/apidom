@@ -1,16 +1,13 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
-exports[`refractor elements MqttMessageBindingElement should refract to semantic ApiDOM tree 1`] = `
+exports[`refractor elements MqttMessageBindingElement given correlationData field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
 (MqttMessageBindingElement
   (MemberElement
     (StringElement)
-    (NumberElement))
-  (MemberElement
-    (StringElement)
-    (StringElement))
-  (MemberElement
-    (StringElement)
-    (StringElement))
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
   (MemberElement
     (StringElement)
     (StringElement)))
@@ -26,7 +23,7 @@ exports[`refractor elements MqttMessageBindingElement given correlationData fiel
     (StringElement)))
 `;
 
-exports[`refractor elements MqttMessageBindingElement given correlationData field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+exports[`refractor elements MqttMessageBindingElement given responseTopic field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
 (MqttMessageBindingElement
   (MemberElement
     (StringElement)
@@ -49,14 +46,17 @@ exports[`refractor elements MqttMessageBindingElement given responseTopic field 
     (StringElement)))
 `;
 
-exports[`refractor elements MqttMessageBindingElement given responseTopic field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+exports[`refractor elements MqttMessageBindingElement should refract to semantic ApiDOM tree 1`] = `
 (MqttMessageBindingElement
   (MemberElement
     (StringElement)
-    (ReferenceElement
-      (MemberElement
-        (StringElement)
-        (StringElement))))
+    (NumberElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
+  (MemberElement
+    (StringElement)
+    (StringElement))
   (MemberElement
     (StringElement)
     (StringElement)))

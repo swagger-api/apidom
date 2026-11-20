@@ -17,7 +17,7 @@ import {
   rewriteIdentifierRefs,
   splitRefSiblings,
 } from './refs.ts';
-import { walkSchemas } from './walk.ts';
+import { subschemaPositions, walkSchemas } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
 export { default as needsDowngrade } from './detect.ts';
@@ -29,6 +29,7 @@ export {
   baseURIAt,
   ignoresRefSiblings,
   rewriteIdentifierRefs,
+  schemaDialectAt,
   setStringValue,
 } from './refs.ts';
 export type { IdentifierIndex } from './refs.ts';
@@ -41,7 +42,7 @@ export interface DowngradeLocation {
   readonly documentURI: string;
   readonly baseURI: string;
   readonly index: IdentifierIndex;
-  /** Whether the document's dialect (Draft 4, 6 or 7) ignores the keywords next to `$ref`. */
+  /** Whether the dialect in effect above the schema (Draft 4, 6 or 7) ignores `$ref` siblings. */
   readonly ignoresRefSiblings?: boolean;
 }
 
@@ -61,13 +62,20 @@ const downgradeSchema = (
   if (location !== undefined) {
     rewriteIdentifierRefs(root, location.baseURI, location.documentURI, location.index, warnings);
   }
-  const legacyRefs =
-    location?.ignoresRefSiblings === true ||
-    (isObjectElement(root) && ignoresRefSiblings(toValue(root.get('$schema'))));
+  // schemas whose dialect (their own `$schema`, or the nearest one above) ignores `$ref` siblings
+  const legacyRefSchemas = new Set<Element>();
+  const markDialect = (node: Element, inherited: boolean): void => {
+    if (!isObjectElement(node)) return;
+    const own = node.get('$schema');
+    const legacy = isStringElement(own) ? ignoresRefSiblings(toValue(own)) : inherited;
+    if (legacy) legacyRefSchemas.add(node);
+    subschemaPositions(node).forEach((position) => markDialect(position.element, legacy));
+  };
+  markDialect(root, location?.ignoresRefSiblings === true);
 
   walkSchemas(root, (node) => {
     if (!isObjectElement(node)) return;
-    if (legacyRefs) dropIgnoredRefSiblings(node, warnings);
+    if (legacyRefSchemas.has(node)) dropIgnoredRefSiblings(node, warnings);
     convertBooleanSubschemas(node);
     applyStructureRules(node, warnings);
     applyValueRules(node, warnings);

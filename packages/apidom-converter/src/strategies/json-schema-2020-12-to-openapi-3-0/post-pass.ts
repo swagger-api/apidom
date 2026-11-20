@@ -12,6 +12,7 @@ import {
   isPathItemElement,
   isReferenceElement,
   isSchemaElement,
+  isServerElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { url } from '@swagger-api/apidom-reference';
 
@@ -127,6 +128,69 @@ const rebaseURI = (value: string, origin: string, entryURI: string): string => {
   return url.stripHash(absolute) === url.stripHash(entryURI) ? url.getHash(absolute) : absolute;
 };
 
+const SERVER_VARIABLE = /\{[^}]*\}/g;
+const VARIABLE_PLACEHOLDER = /__apidom_variable_(\d+)__/g;
+
+/**
+ * Splits an absolute URL or file system path into its host (empty for a path) and the rest, or
+ * returns `undefined` when it is neither.
+ */
+const splitHost = (uri: string): { host: string; path: string } | undefined => {
+  if (uri.startsWith('/')) return { host: '', path: uri };
+  try {
+    const parsed = new URL(uri);
+    return {
+      host: `${parsed.protocol}//${parsed.host}`,
+      path: `${parsed.pathname}${parsed.search}${parsed.hash}`,
+    };
+  } catch {
+    return undefined;
+  }
+};
+
+/**
+ * The path of `target` relative to the directory of `base`, both absolute paths.
+ */
+const relativePath = (base: string, target: string): string => {
+  const from = base.split('/').slice(0, -1);
+  const to = target.split('/');
+  let common = 0;
+  while (common < from.length && common < to.length - 1 && from[common] === to[common]) {
+    common += 1;
+  }
+  const rest = to.slice(common).join('/');
+  return from.length === common ? `./${rest}` : `${'../'.repeat(from.length - common)}${rest}`;
+};
+
+/**
+ * Rebases a Server Object URL read from `origin`: a relative URL is relative to the document
+ * containing the Server Object (OpenAPI 3.0.4). It stays relative when it is on the entry
+ * document's host. Absolute URLs and URLs starting with a server variable are kept; server
+ * variables in the rest of the URL are kept as they are.
+ */
+export const rebaseServerURL = (value: string, origin: string, entryURI: string): string => {
+  if (value === '' || value.startsWith('{') || url.getProtocol(value) !== undefined) return value;
+
+  const variables: string[] = [];
+  const masked = value.replace(SERVER_VARIABLE, (variable) => {
+    variables.push(variable);
+    return `__apidom_variable_${variables.length - 1}__`;
+  });
+  const target = splitHost(url.resolve(origin, masked));
+  const entry = splitHost(entryURI);
+  if (target === undefined || entry === undefined) return value;
+
+  let rebased: string;
+  if (target.host !== entry.host) {
+    rebased = `${target.host}${target.path}`;
+  } else if (value.startsWith('/')) {
+    rebased = target.path;
+  } else {
+    rebased = relativePath(entry.path, target.path);
+  }
+  return rebased.replace(VARIABLE_PLACEHOLDER, (_match, index) => variables[Number(index)]);
+};
+
 /**
  * Rebases URI values read from `origin`. An inlined fragment used in several places shares its
  * subtree between the copies, so every value is rebased once: `rebased` holds the values already
@@ -160,6 +224,13 @@ const createRebase = (entryURI: string) => {
     });
     if (isExampleElement(element)) rebaseField(element, 'externalValue', origin);
     if (isLinkElement(element)) rebaseField(element, 'operationRef', origin);
+    if (isServerElement(element)) {
+      const value = element.get('url');
+      if (isStringElement(value) && !rebased.has(value)) {
+        setStringValue(value, rebaseServerURL(toValue(value), origin, entryURI));
+        rebased.add(value);
+      }
+    }
   };
 };
 
@@ -258,7 +329,7 @@ export interface PostPassOptions {
 }
 
 /**
- * Finishes a converted document: rebases URIs that came with inlined content, reports
+ * Finishes a converted document: rebases URIs (and relative server URLs) that came with inlined content, reports
  * `discriminator`s broken by inlining, cycles left in memory and internal refs that don't
  * resolve, and sets `openapi` to the target version.
  */

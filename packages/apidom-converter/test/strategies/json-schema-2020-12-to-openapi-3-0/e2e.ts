@@ -91,7 +91,8 @@ const swaggerClientReplacer =
   (refElement: any) => {
     const ref = String(toValue(refElement.meta.get('$ref')));
     const uri = String(toValue(refElement.meta.get('uri')));
-    const $ref = `${uri}${ref.slice(ref.indexOf('#'))}`;
+    const hashIndex = ref.indexOf('#');
+    const $ref = hashIndex === -1 ? uri : `${uri}${ref.slice(hashIndex)}`;
     written.add($ref);
     return new ObjectElement({ $ref });
   };
@@ -117,6 +118,24 @@ describe('converter', function () {
   context('strategies', function () {
     context('json-schema-2020-12-to-openapi-3-0', function () {
       context('end to end', function () {
+        context('given a circular reference to a whole document', function () {
+          specify('should replace it with the document URI', async function () {
+            const cycleRefs = new Set<string>();
+            const { document } = await convertFile(path.join(e2e, 'node-entry.json'), {
+              dereference: {
+                circular: 'replace',
+                circularReplacer: swaggerClientReplacer(cycleRefs),
+              },
+            });
+
+            assertConverted(document, cycleRefs);
+            assert.deepEqual([...cycleRefs], [path.join(e2e, 'node.json')]);
+            assert.deepEqual(document.components.schemas.Node.properties.child, {
+              $ref: path.join(e2e, 'node.json'),
+            });
+          });
+        });
+
         context(
           'given an OpenAPI 3.0.0 Petstore referencing a JSON Schema 2020-12 file',
           function () {

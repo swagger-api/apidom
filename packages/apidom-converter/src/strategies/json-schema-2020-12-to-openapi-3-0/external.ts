@@ -23,6 +23,7 @@ import downgradeSchema, {
   ignoresRefSiblings,
   needsDowngrade,
   rewriteIdentifierRefs,
+  schemaDialectAt,
   setStringValue,
 } from './downgrade/index.ts';
 import { elementAt, replaceAt } from './downgrade/document.ts';
@@ -64,7 +65,6 @@ const absolutizeRefsInStashes = (schema: Element, fileURI: string): void => {
 interface DocumentInfo {
   readonly uri: string;
   readonly index: IdentifierIndex;
-  readonly ignoresRefSiblings: boolean;
 }
 
 /**
@@ -87,7 +87,6 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
       info = {
         uri,
         index: buildIdentifierIndex(document, uri, indexedSchemaPointers(document)),
-        ignoresRefSiblings: ignoresRefSiblings(toValue(document.get('$schema'))),
       };
       documents.set(document, info);
     }
@@ -122,7 +121,7 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
           documentURI,
           baseURI,
           index: info.index,
-          ignoresRefSiblings: info.ignoresRefSiblings,
+          ignoresRefSiblings: ignoresRefSiblings(schemaDialectAt(document, tokens)),
         });
         absolutizeRefsInStashes(downgraded, documentURI);
         return downgraded;

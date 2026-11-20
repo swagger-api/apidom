@@ -72,10 +72,16 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
   with the validation keywords, while annotations and extensions stay on the schema. A `$ref` with validation
   keywords next to it marks the schema for conversion; a `$ref` with only annotations (for example
   `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason. In a
-  document that declares Draft 4, 6 or 7 in `$schema`, where keywords next to `$ref` have no effect, these
-  validation keywords are removed instead (`dropped-keyword`).
+  schema whose `$schema` (its own, or the nearest one above it) is Draft 4, 6 or 7, where keywords next to `$ref`
+  have no effect, these validation keywords are set aside instead: those that hold schemas are moved to
+  `x-conversion-<keyword>`, so that references into them still resolve, and the others are removed
+  (`dropped-keyword`).
 - Schemas that are already valid OpenAPI 3.0 Schema Objects are left unchanged.
 - Example Object `externalValue` and Link Object `operationRef` are left unchanged and are not fetched.
+- Relative URLs in inlined content keep pointing where they did in their own file: `$ref`, `externalValue` and
+  `operationRef` are resolved against that file, and so is a relative Server Object `url` (relative to the document
+  containing the Server Object, as OpenAPI 3.0.4 specifies). A server URL on the same host as the entry document
+  stays relative to it; absolute URLs and URLs starting with a server variable are kept.
 
 ```js
 import convert from '@swagger-api/apidom-converter';
@@ -130,7 +136,8 @@ await convert('/home/user/openapi.yaml', {
     circularReplacer: (refElement) => {
       const ref = toValue(refElement.meta.get('$ref'));
       const uri = toValue(refElement.meta.get('uri'));
-      return new ObjectElement({ $ref: `${uri}${ref.slice(ref.indexOf('#'))}` });
+      const hashIndex = ref.indexOf('#');
+      return new ObjectElement({ $ref: hashIndex === -1 ? uri : `${uri}${ref.slice(hashIndex)}` });
     },
   },
 });

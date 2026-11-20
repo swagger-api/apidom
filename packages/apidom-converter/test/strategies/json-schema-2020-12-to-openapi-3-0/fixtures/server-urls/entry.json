@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Server URLs", "version": "1.0.0" },
+  "servers": [{ "url": "./api" }],
+  "paths": {
+    "/pets": {
+      "$ref": "./paths/pets.json",
+      "servers": [{ "url": "./entry-own" }]
+    },
+    "/owners": { "$ref": "./paths/pets.json" }
+  }
+}

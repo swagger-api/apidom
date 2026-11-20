@@ -53,6 +53,7 @@ describe('converter', function () {
             ['type null', { type: 'null' }],
             ['numeric exclusiveMinimum', { exclusiveMinimum: 5 }],
             ['empty required', { required: [] }],
+            ['empty enum', { enum: [] }],
             ['tuple items', { items: [{ type: 'string' }] }],
             ['$ref to an $anchor', { $ref: '#user-profile' }],
             ['$ref with validation siblings', { $ref: '#/a', minProperties: 1 }],

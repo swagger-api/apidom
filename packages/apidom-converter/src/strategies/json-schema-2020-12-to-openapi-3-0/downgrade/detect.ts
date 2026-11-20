@@ -43,6 +43,9 @@ const isOwnConstructInvalid = (schema: ObjectElement): boolean => {
   const required = schema.get('required');
   if (isArrayElement(required) && required.length === 0) return true;
 
+  const enumElement = schema.get('enum');
+  if (isArrayElement(enumElement) && enumElement.length === 0) return true;
+
   const ref = schema.get('$ref');
   if (isStringElement(ref)) {
     if (isNonPointerRef(toValue(ref))) return true;

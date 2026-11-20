@@ -214,6 +214,16 @@ const convertExclusiveBound = (
   }
 };
 
+/**
+ * An empty `enum` accepts no value, but OpenAPI 3.0 requires at least one item.
+ */
+const convertEmptyEnum = (schema: ObjectElement): void => {
+  const enumElement = schema.get('enum');
+  if (!isArrayElement(enumElement) || enumElement.length > 0) return;
+  schema.remove('enum');
+  rejectAll(schema);
+};
+
 const removeEmptyRequired = (schema: ObjectElement): void => {
   const required = schema.get('required');
   if (isArrayElement(required) && required.length === 0) schema.remove('required');
@@ -237,6 +247,7 @@ const dropKeywords = (schema: ObjectElement, warnings: Warnings): void => {
  */
 const applyValueRules = (schema: ObjectElement, warnings: Warnings): void => {
   convertExamples(schema, warnings);
+  convertEmptyEnum(schema);
   const nullOnlyFromConst = convertConst(schema);
   const branches = convertType(schema, nullOnlyFromConst);
   removeUnreachableNullFromEnum(schema);

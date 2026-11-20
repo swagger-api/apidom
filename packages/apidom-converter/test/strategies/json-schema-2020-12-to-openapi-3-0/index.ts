@@ -4,7 +4,7 @@ import { assert } from 'chai';
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
-import { File } from '@swagger-api/apidom-reference';
+import { File, Reference, ReferenceSet, parse } from '@swagger-api/apidom-reference';
 
 import convert, { ConvertError } from '../../../src/index.ts';
 import defaultOptions from '../../../src/options/index.ts';
@@ -66,6 +66,31 @@ describe('converter', function () {
           });
           assert.deepEqual(warningCodes(result), []);
         });
+
+        specify(
+          'should convert the entry when dereference.refSet already has it',
+          async function () {
+            const entryPath = path.join(fixtures, 'root-only.json');
+            const cached = new Reference({
+              uri: entryPath,
+              value: await parse(entryPath, { parse: { mediaType: target } }),
+            });
+            const refSet = new ReferenceSet({ refs: [cached] });
+
+            const result: any = await convert(entryPath, {
+              convert: { targetMediaType: target },
+              dereference: { refSet },
+            });
+
+            assert.deepEqual(toValue(result.api).components.schemas.Name, {
+              type: 'string',
+              nullable: true,
+              example: 'a',
+            });
+            assert.deepEqual(refSet.refs, [cached]);
+            assert.strictEqual(cached.refSet, refSet);
+          },
+        );
       });
 
       context('given an external standalone JSON Schema 2020-12 file', function () {
@@ -302,6 +327,71 @@ describe('converter', function () {
             .get('x-conversion-$defs');
 
           assert.isFalse(stash.meta.hasKey('conversion-stash'));
+        });
+      });
+
+      context('given references across directories and a path with a space', function () {
+        const entry = path.join(fixtures, 'sub dir', 'entry.json');
+        let result: any;
+        let api: any;
+
+        before(async function () {
+          result = await convert(entry, { convert: { targetMediaType: target } });
+          api = toValue(result.api);
+        });
+
+        specify('should keep references back into the entry document internal', function () {
+          const { Pet, PetAgain } = api.components.schemas;
+
+          [Pet, PetAgain].forEach((schema) => {
+            assert.strictEqual(schema.properties.owner.$ref, '#/components/schemas/Cat');
+            assert.strictEqual(
+              schema['x-conversion-$defs'].Friend.$ref,
+              '#/components/schemas/Cat',
+            );
+            assert.deepEqual(schema.discriminator.mapping, { cat: '#/components/schemas/Cat' });
+          });
+        });
+
+        specify('should name the external file in warnings', function () {
+          const moved = result.annotations
+            .map((annotation: any) => toValue(annotation))
+            .find((message: string) => message.includes('x-conversion-$defs'));
+
+          assert.include(moved, 'sub%20dir/shared/schemas.json#/$defs/Pet');
+        });
+
+        specify('should inline references whose target is a reference', function () {
+          assert.deepEqual(api.components.schemas.Commented, { type: 'integer' });
+          assert.deepEqual(api.paths['/callback'].get.parameters, [
+            { name: 'q', in: 'query', schema: { type: 'string' } },
+          ]);
+        });
+
+        specify('should rebase only the referenced fields of a Path Item', function () {
+          const local = api.paths['/local'];
+
+          assert.deepEqual(local.get, { responses: { '200': { description: 'ok' } } });
+          assert.strictEqual(
+            local.post.responses['200'].content['application/json'].schema.$ref,
+            '#/components/schemas/Cat',
+          );
+          assert.strictEqual(
+            api.paths['/callback'].get.callbacks.onEvent['{$request.body#/url}'].$ref,
+            '#/paths/~1target',
+          );
+        });
+
+        specify('should report nothing but the moved keyword', function () {
+          assert.sameMembers(warningCodes(result), ['dropped-keyword', 'moved-keyword']);
+        });
+
+        specify('should convert the same way from a relative path', async function () {
+          const relative: any = await convert(path.relative(process.cwd(), entry), {
+            convert: { targetMediaType: target },
+          });
+
+          assert.deepEqual(toValue(relative.api), api);
         });
       });
 

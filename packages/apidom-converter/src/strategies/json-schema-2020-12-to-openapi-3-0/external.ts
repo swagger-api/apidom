@@ -26,6 +26,7 @@ import { elementAt, replaceAt } from './downgrade/document.ts';
 import { fragmentTokens } from './downgrade/refs.ts';
 import { forEachSchema } from './downgrade/walk.ts';
 import findSchemaPositions from './schema-positions.ts';
+import { markPathItemFieldOrigins } from './post-pass.ts';
 import type { Warnings } from './downgrade/index.ts';
 
 const namespace = createNamespace(openApi3_0Namespace);
@@ -119,6 +120,13 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
     let converted: Element;
     if (referencedElementType === 'schema') {
       converted = processSchema(fragment, fragmentPointer);
+    } else if (
+      referencedElementType !== 'pathItem' &&
+      isObjectElement(fragment) &&
+      isStringElement(fragment.get('$ref'))
+    ) {
+      // a Reference Object to another fragment: the dereference follows it
+      converted = fragment;
     } else {
       const ElementClass = namespace.getElementClass(referencedElementType);
       converted = ElementClass.refract(fragment);
@@ -127,6 +135,7 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
         const processed = processSchema(schema, [...fragmentPointer, ...tokens]);
         if (processed !== schema) replaceAt(converted, tokens, processed);
       });
+      markPathItemFieldOrigins(converted, documentURI);
     }
 
     annotations.push(...warnings.annotations);

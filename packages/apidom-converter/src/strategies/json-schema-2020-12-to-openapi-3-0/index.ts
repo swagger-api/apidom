@@ -3,12 +3,13 @@ import {
   Element,
   ParseResultElement,
   cloneDeep,
+  cloneShallow,
 } from '@swagger-api/apidom-core';
 import {
   isOpenApi3_0Element,
   mediaTypes as openAPI3_0MediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-0';
-import { File, dereferenceApiDOM } from '@swagger-api/apidom-reference';
+import { File, Reference, ReferenceSet, dereferenceApiDOM } from '@swagger-api/apidom-reference';
 
 import ConvertStrategy from '../ConvertStrategy.ts';
 import type { ConverterOptions } from '../../options/index.ts';
@@ -16,7 +17,22 @@ import { createWarnings } from './downgrade/index.ts';
 import downgradeSchemasInDocument from './downgrade/document.ts';
 import findSchemaPositions from './schema-positions.ts';
 import createFragmentTransformer from './external.ts';
-import postPass from './post-pass.ts';
+import postPass, { markPathItemFieldOrigins } from './post-pass.ts';
+
+/**
+ * A copy of a caller's `dereference.refSet` whose entry is the converted document. The
+ * dereference would otherwise use a cached parse result of the entry, without the conversion.
+ */
+const withConvertedEntry = (refSet: ReferenceSet, entryURI: string, api: Element) => {
+  const entry = cloneShallow(api);
+  entry.classes.push('result');
+  const copy = new ReferenceSet();
+  copy.add(new Reference({ uri: entryURI, value: new ParseResultElement([entry]) }));
+  refSet.refs
+    .filter((ref) => ref.uri !== entryURI)
+    .forEach(({ uri, depth, value }) => copy.add(new Reference({ uri, depth, value })));
+  return copy;
+};
 
 /**
  * Converts JSON Schema 2020-12 (and other JSON Schema dialects) used in an OpenAPI 3.0.x
@@ -54,9 +70,13 @@ class JSONSchema202012ToOpenAPI30ConvertStrategy extends ConvertStrategy {
     const annotations: AnnotationElement[] = [];
 
     downgradeSchemasInDocument(api, file.uri, findSchemaPositions(api), warnings);
+    markPathItemFieldOrigins(api, file.uri);
     annotations.push(...warnings.annotations);
 
     const openApi30Options = options.dereference.strategyOpts['openapi-3-0'] ?? {};
+    const refSet = options.dereference.refSet
+      ? withConvertedEntry(options.dereference.refSet, file.uri, api)
+      : null;
     const dereferenced = await dereferenceApiDOM(api, {
       ...options,
       parse: {
@@ -75,6 +95,7 @@ class JSONSchema202012ToOpenAPI30ConvertStrategy extends ConvertStrategy {
       },
       dereference: {
         ...options.dereference,
+        refSet,
         strategyOpts: {
           ...options.dereference.strategyOpts,
           'openapi-3-0': {
@@ -87,6 +108,8 @@ class JSONSchema202012ToOpenAPI30ConvertStrategy extends ConvertStrategy {
         },
       },
     });
+
+    refSet?.clean();
 
     const postPassWarnings = createWarnings();
     postPass(

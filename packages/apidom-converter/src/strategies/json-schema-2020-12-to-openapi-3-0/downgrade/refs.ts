@@ -79,10 +79,10 @@ interface SchemaId {
 }
 
 /**
- * Reads the `$id` of a schema, given the base URI in effect around it.
+ * Reads the `$id` (Draft 4: `id`) of a schema, given the base URI in effect around it.
  */
 const readId = (schema: ObjectElement, base: string): SchemaId => {
-  const id = schema.get('$id');
+  const id = schema.hasKey('$id') ? schema.get('$id') : schema.get('id');
   if (!isStringElement(id)) return { base, setsBase: false };
 
   const value = toValue(id) as string;
@@ -193,7 +193,7 @@ export const isSchemaName = (value: string): boolean => /^[a-zA-Z0-9.\-_]+$/.tes
  */
 export const forEachMappingRef = (
   schema: ObjectElement,
-  visit: (value: string, replace: (ref: string) => void, element: Element) => void,
+  visit: (value: string, replace: (ref: string) => Element, element: Element) => void,
 ): void => {
   const discriminator = schema.get('discriminator');
   const mapping = isObjectElement(discriminator) ? discriminator.get('mapping') : undefined;
@@ -201,7 +201,11 @@ export const forEachMappingRef = (
   mapping.forEach((value: Element, key: Element) => {
     if (!isStringElement(value) || isSchemaName(toValue(value))) return;
     const name = String(toValue(key));
-    visit(toValue(value), (ref) => mapping.set(name, ref), value);
+    const replace = (ref: string): Element => {
+      mapping.set(name, ref);
+      return mapping.get(name);
+    };
+    visit(toValue(value), replace, value);
   });
 };
 

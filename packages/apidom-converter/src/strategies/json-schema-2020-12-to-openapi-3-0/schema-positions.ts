@@ -1,7 +1,5 @@
-import { Element, toValue } from '@swagger-api/apidom-core';
+import { Element, isArrayElement, isObjectElement, toValue } from '@swagger-api/apidom-core';
 import { isReferenceElement, isSchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
-
-import { forEachElement } from './downgrade/document.ts';
 
 const isSchemaPosition = (element: Element): boolean =>
   isSchemaElement(element) ||
@@ -13,17 +11,24 @@ const isSchemaPosition = (element: Element): boolean =>
  */
 const findSchemaPositions = (element: Element): string[][] => {
   const positions: string[][] = [];
-  const inside = new Set<string>();
 
-  forEachElement(element, (current, tokens) => {
-    const pointer = tokens.join('/');
-    const parentPointer = [...inside].find((prefix) => pointer.startsWith(`${prefix}/`));
-    if (parentPointer !== undefined) return;
+  const walk = (current: Element, tokens: string[]): void => {
     if (tokens.length > 0 && isSchemaPosition(current)) {
-      positions.push([...tokens]);
-      inside.add(pointer);
+      positions.push(tokens);
+      return;
     }
-  });
+    if (isObjectElement(current)) {
+      current.forEach((value: Element, key: Element) =>
+        walk(value, [...tokens, String(toValue(key))]),
+      );
+    } else if (isArrayElement(current)) {
+      (current.content as Element[]).forEach((item, index) =>
+        walk(item, [...tokens, String(index)]),
+      );
+    }
+  };
+
+  walk(element, []);
 
   return positions;
 };

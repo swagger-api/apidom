@@ -182,6 +182,46 @@ describe('converter', function () {
             assertNeverStricter(input, output);
           });
 
+          context('given an array schema whose items are moved', function () {
+            specify('should add a permissive items', function () {
+              const input = { type: 'array', prefixItems: [{ type: 'string' }], items: false };
+              const { output } = downgrade(input);
+
+              assert.deepEqual(output, {
+                type: 'array',
+                items: {},
+                'x-conversion-prefixItems': [{ type: 'string' }],
+                'x-conversion-items': { not: {} },
+              });
+              assertNeverStricter(input, output);
+            });
+
+            specify('should add it for Draft 4 tuple items and nullable arrays', function () {
+              assert.deepEqual(
+                downgrade({ type: ['array', 'null'], items: [{ type: 'string' }] }).output,
+                {
+                  type: 'array',
+                  nullable: true,
+                  items: {},
+                  'x-conversion-items': [{ type: 'string' }],
+                },
+              );
+            });
+
+            specify('should add it to the array branch of a type split', function () {
+              const { output } = downgrade({
+                type: ['array', 'string'],
+                prefixItems: [{ type: 'string' }],
+              });
+
+              assert.deepEqual(output.anyOf, [{ type: 'array', items: {} }, { type: 'string' }]);
+            });
+
+            specify('should not add it when the schema is not an array schema', function () {
+              assert.notProperty(downgrade({ prefixItems: [{ type: 'string' }] }).output, 'items');
+            });
+          });
+
           specify('should move patternProperties together with additionalProperties', function () {
             const input = { patternProperties: { '^x-': {} }, additionalProperties: false };
             const { output } = downgrade(input);
@@ -228,6 +268,22 @@ describe('converter', function () {
 
             assert.deepEqual(output, {
               'x-conversion-$defs': { A: { enum: [1], type: 'string', nullable: true } },
+            });
+          });
+
+          specify('should fail when the stash extension already exists', function () {
+            assert.throws(
+              () => downgrade({ $defs: { A: {} }, 'x-conversion-$defs': { mine: true } }),
+              'Cannot move "$defs" to "x-conversion-$defs": the schema already has "x-conversion-$defs"',
+            );
+          });
+
+          specify('should keep an existing stash extension when nothing moves', function () {
+            const input = { const: 1, 'x-conversion-$defs': { mine: true } };
+
+            assert.deepEqual(downgrade(input).output, {
+              enum: [1],
+              'x-conversion-$defs': { mine: true },
             });
           });
         });

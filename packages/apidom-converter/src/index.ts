@@ -1,5 +1,5 @@
 import { ParseResultElement } from '@swagger-api/apidom-core';
-import { mergeOptions, bundle, File } from '@swagger-api/apidom-reference';
+import { mergeOptions, bundle, File, url } from '@swagger-api/apidom-reference';
 
 import defaultOptions, { ConverterOptions } from './options/index.ts';
 import ConvertError from './errors/ConvertError.ts';
@@ -35,7 +35,7 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
  * @public
  */
 const convert = async (uri: string, options: Record<string, any> = {}) => {
-  const baseURI = options?.resolve?.baseURI || uri;
+  const baseURI = options?.resolve?.baseURI || url.resolve(url.cwd(), url.sanitize(uri));
   const mergedOptions = mergeOptions(defaultOptions, {
     ...options,
     resolve: { ...options?.resolve, baseURI },

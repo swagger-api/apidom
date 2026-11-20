@@ -9,12 +9,13 @@ import {
 import {
   isExampleElement,
   isLinkElement,
+  isPathItemElement,
   isReferenceElement,
   isSchemaElement,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { url } from '@swagger-api/apidom-reference';
 
-import { elementAt } from './downgrade/document.ts';
+import { elementAt, forEachElement } from './downgrade/document.ts';
 import { forEachMappingRef, fragmentTokens, isSchemaName } from './downgrade/refs.ts';
 import { forEachSchema, subschemaPositions, unmarkStash } from './downgrade/walk.ts';
 import type { Warnings } from './downgrade/index.ts';
@@ -25,6 +26,21 @@ const originOf = (element: Element): string | undefined => {
   const origin = element.meta.get(ORIGIN_META);
   return isStringElement(origin) ? toValue(origin) : undefined;
 };
+
+/**
+ * The dereference merges a Path Item's `$ref` target with the Path Item's own fields and marks
+ * the merged item with the target's document. The own fields are marked here with the document
+ * they come from, so that their references are not rebased as the target's.
+ */
+export const markPathItemFieldOrigins = (element: Element, documentURI: string): void =>
+  forEachElement(element, (current) => {
+    if (!isPathItemElement(current) || !isStringElement(current.get('$ref'))) return;
+    current.forEach((value: Element, key: Element) => {
+      if (toValue(key) !== '$ref' && originOf(value) === undefined) {
+        value.setMetaProperty(ORIGIN_META, documentURI);
+      }
+    });
+  });
 
 /**
  * Visits every element once, children after their parent, with the origin document URI in
@@ -68,12 +84,12 @@ const isRefracted = (element: Element): boolean =>
 
 /**
  * Calls `visit` for every object owned by `element` whose `$ref` is a reference: the element
- * itself when it is a Reference or Schema Object and, for a Schema Object, its subschemas the
+ * itself when it is a Reference, Schema or Path Item Object and, for a Schema Object, its subschemas the
  * dereference left unrefracted (circular replacements) and the schemas inside the converter's
  * `x-conversion-*` stashes. Data and extensions are never visited.
  */
 const forEachRefOwner = (element: Element, visit: (owner: ObjectElement) => void): void => {
-  if (isRefracted(element)) visit(element as ObjectElement);
+  if (isRefracted(element) || isPathItemElement(element)) visit(element as ObjectElement);
   if (!isSchemaElement(element)) return;
 
   subschemaPositions(element, { stashes: true }).forEach((position) => {
@@ -96,29 +112,37 @@ const rebaseURI = (value: string, origin: string, entryURI: string): string => {
   return url.stripHash(absolute) === url.stripHash(entryURI) ? url.getHash(absolute) : absolute;
 };
 
-const rebaseField = (
-  element: ObjectElement,
-  field: string,
-  origin: string,
-  entryURI: string,
-): void => {
-  const value = element.get(field);
-  if (!isStringElement(value)) return;
-  const rebased = rebaseURI(toValue(value), origin, entryURI);
-  if (rebased !== toValue(value)) element.set(field, rebased);
-};
+/**
+ * Rebases URI values read from `origin`. An inlined fragment used in several places shares its
+ * subtree between the copies, so every value is rebased once: `rebased` holds the values already
+ * done.
+ */
+const createRebase = (entryURI: string) => {
+  const rebased = new WeakSet<Element>();
 
-const rebase = (element: Element, origin: string, entryURI: string): void => {
-  if (origin === entryURI) return;
-  forEachRefOwner(element, (owner) => {
-    rebaseField(owner, '$ref', origin, entryURI);
-    forEachMappingRef(owner, (value, replace) => {
-      const rebased = rebaseURI(value, origin, entryURI);
-      if (rebased !== value) replace(rebased);
+  const rebaseValue = (value: Element, origin: string, replace: (uri: string) => Element): void => {
+    if (!isStringElement(value) || rebased.has(value)) return;
+    const uri = rebaseURI(toValue(value), origin, entryURI);
+    rebased.add(uri === toValue(value) ? value : replace(uri));
+  };
+
+  const rebaseField = (element: ObjectElement, field: string, origin: string): void =>
+    rebaseValue(element.get(field), origin, (uri) => {
+      element.set(field, uri);
+      return element.get(field);
     });
-  });
-  if (isExampleElement(element)) rebaseField(element, 'externalValue', origin, entryURI);
-  if (isLinkElement(element)) rebaseField(element, 'operationRef', origin, entryURI);
+
+  return (element: Element, origin: string): void => {
+    if (origin === entryURI) return;
+    forEachRefOwner(element, (owner) => {
+      rebaseField(owner, '$ref', origin);
+      forEachMappingRef(owner, (_value, replace, mappingValue) =>
+        rebaseValue(mappingValue, origin, replace),
+      );
+    });
+    if (isExampleElement(element)) rebaseField(element, 'externalValue', origin);
+    if (isLinkElement(element)) rebaseField(element, 'operationRef', origin);
+  };
 };
 
 const isExternal = (element: Element, entryURI: string): boolean => {
@@ -201,12 +225,13 @@ export interface PostPassOptions {
  */
 const postPass = (api: Element, options: PostPassOptions, warnings: Warnings): void => {
   let hasCycle = false;
+  const rebase = createRebase(options.entryURI);
 
   traverse(
     api,
     options.entryURI,
     (element, origin) => {
-      rebase(element, origin, options.entryURI);
+      rebase(element, origin);
       checkDiscriminator(element, options.entryURI, warnings);
       checkInheritedDiscriminator(element, options.entryURI, warnings);
     },

@@ -39,6 +39,7 @@ import OpenAPI3_2DereferenceStrategy from '../dereference/strategies/openapi-3-2
 import AsyncAPI2DereferenceStrategy from '../dereference/strategies/asyncapi-2/index.ts';
 import AsyncAPI3DereferenceStrategy from '../dereference/strategies/asyncapi-3/index.ts';
 import JSONSchema2020_12DereferenceStrategy from '../dereference/strategies/json-schema-2020-12/index.ts';
+import OpenAPI3_0BundleStrategy from '../bundle/strategies/openapi-3-0/index.ts';
 import OpenAPI3_1BundleStrategy from '../bundle/strategies/openapi-3-1/index.ts';
 import OpenAPI3_2BundleStrategy from '../bundle/strategies/openapi-3-2/index.ts';
 import JSONSchema2020_12BundleStrategy from '../bundle/strategies/json-schema-2020-12/index.ts';
@@ -103,6 +104,7 @@ options.dereference.strategies = [
 ];
 
 options.bundle.strategies = [
+  new OpenAPI3_0BundleStrategy(),
   new OpenAPI3_1BundleStrategy(),
   new OpenAPI3_2BundleStrategy(),
   new JSONSchema2020_12BundleStrategy(),

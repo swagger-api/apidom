@@ -287,6 +287,11 @@
       "require": "./src/dereference/strategies/openapi-3-2/selectors/uri.cjs",
       "types": "./types/dereference/strategies/openapi-3-2/selectors/uri.d.ts"
     },
+    "./bundle/strategies/openapi-3-0": {
+      "import": "./src/bundle/strategies/openapi-3-0/index.mjs",
+      "require": "./src/bundle/strategies/openapi-3-0/index.cjs",
+      "types": "./types/bundle/strategies/openapi-3-0/index.d.ts"
+    },
     "./bundle/strategies/openapi-3-1": {
       "import": "./src/bundle/strategies/openapi-3-1/index.mjs",
       "require": "./src/bundle/strategies/openapi-3-1/index.cjs",

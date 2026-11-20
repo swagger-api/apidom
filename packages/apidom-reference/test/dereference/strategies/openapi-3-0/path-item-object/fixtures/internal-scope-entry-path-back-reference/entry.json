@@ -1,0 +1,18 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/pets": {
+      "$ref": "./paths/pets.json#/paths/~1alias",
+      "summary": "pets"
+    },
+    "/other": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    }
+  }
+}

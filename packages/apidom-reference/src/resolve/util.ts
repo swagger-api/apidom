@@ -76,13 +76,23 @@ const setCacheFileResult = async ({
 };
 
 /**
+ * Identifies the allow lists of the resolvers that may read a file. A redirect is checked only
+ * when the file is read, so a result is cached per allow list and never reused under another one.
+ */
+const allowListKey = (resolvers: Resolver[]): string => {
+  const lists = resolvers
+    .map((resolver) => (resolver as { urlAllowList?: Array<string | RegExp> }).urlAllowList)
+    .filter((list) => list !== undefined)
+    .map((list) => list.map(String));
+  return lists.length === 0 ? '' : `?allow=${encodeURIComponent(JSON.stringify(lists))}`;
+};
+
+/**
  * Reads the given file, using the configured resolver plugins.
  */
 // eslint-disable-next-line import/prefer-default-export
 export const readFile = async (file: File, options: ReferenceOptions): Promise<Buffer | string> => {
   const { cacheTTL = 0 } = options.resolve.resolverOpts;
-
-  const cacheKey = `read_${file.uri}`;
 
   const optsBoundResolvers: Resolver[] = options.resolve.resolvers.map((resolver) => {
     const clonedResolver = Object.create(resolver);
@@ -101,6 +111,7 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
   }
 
   // the cache is read only once a resolver may read the file, so that allow lists apply to it
+  const cacheKey = `read_${file.uri}${allowListKey(resolvers)}`;
   const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
 
   if (cachedResult !== null) {

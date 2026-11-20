@@ -126,6 +126,40 @@ describe('resolve', function () {
             assert.isTrue(beforeRedirect.calledOnce);
           });
 
+          specify('should not reuse a file cached under another urlAllowList', async function () {
+            const originalCaches = globalThis.caches;
+            const cache = new Map<string, Response>();
+            globalThis.caches = {
+              open: async () => ({
+                match: async (key: string) => cache.get(key),
+                put: async (key: string, response: Response) => {
+                  cache.set(key, response);
+                },
+                delete: async (key: string) => cache.delete(key),
+              }),
+            } as any;
+
+            try {
+              await parse(`${origin}/start`, {
+                resolve: { resolvers: [new HttpResolverAxios()], resolverOpts: { cacheTTL: 1000 } },
+              });
+              await parse(`${origin}/start`, {
+                resolve: {
+                  resolvers: [new HttpResolverAxios({ urlAllowList: [/\/start$/] })],
+                  resolverOpts: { cacheTTL: 1000 },
+                },
+              });
+              assert.fail('should throw ResolverError');
+            } catch (error: any) {
+              assert.include(
+                String(error.cause?.cause?.cause?.message ?? error.cause?.cause?.message),
+                'is not allowed by urlAllowList',
+              );
+            } finally {
+              globalThis.caches = originalCaches;
+            }
+          });
+
           specify('should apply urlAllowList passed per call via resolverOpts', async function () {
             try {
               await parse(`${origin}/doc.json`, {

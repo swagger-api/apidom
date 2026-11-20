@@ -150,6 +150,32 @@ describe('converter', function () {
               { type: 'string', enum: ['a'] },
             );
           });
+
+          specify('should replace an empty enum with a schema that accepts nothing', function () {
+            // Ajv refuses an empty enum, so the output is compared with a schema accepting nothing
+            const cases: Array<[Record<string, unknown>, Record<string, unknown>]> = [
+              [
+                { type: 'string', enum: [] },
+                { type: 'string', not: {} },
+              ],
+              [
+                { enum: [], const: 'a', not: { minLength: 3 } },
+                { not: { minLength: 3 }, allOf: [{ not: {} }], enum: ['a'] },
+              ],
+              [
+                { type: ['string', 'null'], enum: [] },
+                { type: 'string', nullable: true, not: {} },
+              ],
+            ];
+
+            cases.forEach(([input, expected]) => {
+              const { output, warnings } = downgrade(input);
+
+              assert.deepEqual(output, expected);
+              assertSameMeaning({ not: {} }, output);
+              assert.lengthOf(warnings, 0);
+            });
+          });
         });
 
         context('exclusive bounds', function () {

@@ -1,5 +1,11 @@
-import { Element, cloneDeep, isBooleanElement, isObjectElement } from '@swagger-api/apidom-core';
-import { SchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  Element,
+  cloneDeep,
+  isBooleanElement,
+  isObjectElement,
+  isStringElement,
+} from '@swagger-api/apidom-core';
+import { ReferenceElement, SchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import applyValueRules, { booleanSchemaToObject, convertBooleanSubschemas } from './value-rules.ts';
 import applyStructureRules from './structure-rules.ts';
@@ -25,13 +31,14 @@ export interface DowngradeLocation {
 
 /**
  * Converts one schema (generic, OpenAPI 3.0/3.1 or JSON Schema element) into an OpenAPI 3.0
- * Schema Object. The input is not mutated.
+ * Schema Object, or into a Reference Object when only a `$ref` is left, so that the dereference
+ * follows it. The input is not mutated.
  */
 const downgradeSchema = (
   schema: Element,
   warnings: Warnings,
   location?: DowngradeLocation,
-): SchemaElement => {
+): SchemaElement | ReferenceElement => {
   const copy = cloneDeep(schema);
   const root = isBooleanElement(copy) ? booleanSchemaToObject(copy) : copy;
 
@@ -46,6 +53,12 @@ const downgradeSchema = (
     applyValueRules(node, warnings);
     splitRefSiblings(node);
   });
+
+  if (isObjectElement(root) && root.length === 1 && isStringElement(root.get('$ref'))) {
+    const reference = ReferenceElement.refract(root) as ReferenceElement;
+    reference.setMetaProperty('referenced-element', 'schema');
+    return reference;
+  }
 
   return SchemaElement.refract(root) as SchemaElement;
 };

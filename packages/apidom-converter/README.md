@@ -60,7 +60,8 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
   `example`, `if`/`then`/`else` and `dependentRequired`/`dependentSchemas` to `anyOf`/`oneOf`/`allOf`, and
   `$ref` to an `$anchor` or `$id` to a JSON Pointer reference.
 - Keywords without an OpenAPI 3.0 equivalent that hold schemas (for example `$defs`, `prefixItems`,
-  `patternProperties`, `unevaluatedProperties`) are moved to `x-conversion-<keyword>` extensions. Other
+  `patternProperties`, `unevaluatedProperties`) are moved to `x-conversion-<keyword>` extensions. An array
+  schema whose tuple `items` or `prefixItems` were moved gets `items: {}`, which OpenAPI 3.0 requires. Other
   unsupported keywords (for example `$schema`, `$comment`, `contentEncoding`) are removed.
 - Keywords next to a `$ref`, which OpenAPI 3.0 ignores, keep applying: the `$ref` moves into `allOf` together
   with the validation keywords, while annotations and extensions stay on the schema. A `$ref` with validation
@@ -123,6 +124,32 @@ await convert('/home/user/openapi.yaml', {
   },
 });
 ```
+
+#### Known limitations
+
+- Keywords moved to `x-conversion-<keyword>` no longer validate, so the converted schema usually accepts values
+  the original rejects. Inside `not`, the `if` of a conditional or a `oneOf`, a moved keyword can instead make the
+  converted schema reject values the original accepts.
+- External references are inlined at each use. A schema referenced from several places is copied to each of
+  them; it is not added to `components.schemas`.
+- A `discriminator` whose schemas come from external files may stop working after inlining
+  (`discriminator-inlined`, `discriminator-mapping-external` warnings).
+- A relative `$ref` is resolved against the location of its file, not against an enclosing `$id`
+  (`id-base-mismatch` warning).
+- A `$ref` to an `$anchor` or `$id` is rewritten to a JSON Pointer only within the same document. A reference to
+  an anchor in another file, such as `schemas.json#pet`, fails the conversion with `ConvertError`.
+- A reference from an external file into a keyword that was moved in the converted document (for example into
+  `$defs`) does not resolve (`unresolved-reference` warning).
+- Schemas that are reachable only through references into `x-*` extensions or other non-schema locations are not
+  converted.
+- `$dynamicRef` and `$dynamicAnchor` are removed, so dynamic references no longer apply (`dropped-keyword`
+  warning).
+- A schema is converted when it or its document declares `$schema`, `jsonSchemaDialect` or `openapi: 3.1.x`, or
+  when it uses a construct OpenAPI 3.0 does not allow. Otherwise it is treated as OpenAPI 3.0. For example, in an
+  external file without `$schema`, `{ "$ref": "...", "description": "..." }` loses `description` when it is
+  inlined, because OpenAPI 3.0 ignores the siblings of `$ref`.
+- A schema that has both a keyword to move (for example `$defs`) and an `x-conversion-<keyword>` extension of the
+  same name fails the conversion with `ConvertError`.
 
 ## Warnings
 

@@ -1,0 +1,33 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "References across directories", "version": "1.0.0" },
+  "paths": {
+    "/local": {
+      "$ref": "./shared/paths.json#/paths/~1remote",
+      "post": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Cat" } } }
+          }
+        }
+      }
+    },
+    "/callback": {
+      "get": {
+        "parameters": [{ "$ref": "./shared/paths.json#/components/parameters/Alias" }],
+        "callbacks": { "onEvent": { "$ref": "./shared/paths.json#/components/callbacks/OnEvent" } },
+        "responses": { "200": { "description": "ok" } }
+      }
+    },
+    "/target": { "post": { "responses": { "200": { "description": "ok" } } } }
+  },
+  "components": {
+    "schemas": {
+      "Cat": { "type": "object" },
+      "Pet": { "$ref": "./shared/schemas.json#/$defs/Pet" },
+      "PetAgain": { "$ref": "./shared/schemas.json#/$defs/Pet" },
+      "Commented": { "$ref": "./shared/schemas.json#/$defs/Id", "$comment": "an alias" }
+    }
+  }
+}

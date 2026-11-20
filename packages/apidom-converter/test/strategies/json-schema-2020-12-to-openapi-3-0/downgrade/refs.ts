@@ -201,6 +201,42 @@ describe('converter', function () {
           });
         });
 
+        context('given a Draft 4 id', function () {
+          const root = 'https://example.com/root.json';
+
+          specify('should rewrite a $ref to a plain-name id into a JSON Pointer', function () {
+            const document = {
+              id: root,
+              definitions: {
+                A: { id: '#a', type: 'string' },
+                B: { properties: { a: { $ref: '#a' } } },
+              },
+            };
+
+            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']), {
+              properties: { a: { $ref: '#/definitions/A' } },
+            });
+          });
+
+          specify('should use an id that is a URI as the base URI', function () {
+            const document = new ObjectElement({
+              id: root,
+              definitions: { A: { id: 'other.json', properties: { b: {} } } },
+            });
+
+            assert.strictEqual(
+              baseURIAt(document, documentURI, ['definitions', 'A', 'properties', 'b']),
+              'https://example.com/other.json',
+            );
+          });
+
+          specify('should prefer $id when a schema has both', function () {
+            const document = new ObjectElement({ $id: root, id: 'https://example.com/id.json' });
+
+            assert.deepEqual(buildIdentifierIndex(document, documentURI).get(root), []);
+          });
+        });
+
         context('given a $ref to another document', function () {
           specify('should leave it unchanged', function () {
             const document = {

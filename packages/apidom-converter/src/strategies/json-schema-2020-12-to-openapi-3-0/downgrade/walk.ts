@@ -35,9 +35,14 @@ export const stashKey = (keyword: string): string => `x-conversion-${keyword}`;
 /**
  * Moves the value of `keyword` to `x-conversion-<keyword>` and marks it as created by the
  * converter, so that it is walked as the keyword it came from (see `subschemaPositions`), unlike
- * a user's own `x-conversion-*` extension.
+ * a user's own `x-conversion-*` extension. Fails when the schema already has that extension.
  */
 export const stashKeyword = (schema: ObjectElement, keyword: string): void => {
+  if (schema.hasKey(stashKey(keyword))) {
+    throw new Error(
+      `Cannot move "${keyword}" to "${stashKey(keyword)}": the schema already has "${stashKey(keyword)}"`,
+    );
+  }
   const value = schema.get(keyword);
   value.setMetaProperty(STASH_META, true);
   schema.set(stashKey(keyword), value);

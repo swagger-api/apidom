@@ -58,9 +58,10 @@ const pointerTarget = (document: any, ref: string): unknown =>
 
 /**
  * Asserts the conversion invariants on a converted document: valid against the official OpenAPI
- * 3.0 schema, every internal `$ref` resolves, and no `$ref` keeps validation siblings.
+ * 3.0 schema, every internal `$ref` resolves, no `$ref` keeps validation siblings, and no external
+ * `$ref` is left apart from `cycleRefs` (references written by a circular replacer).
  */
-const assertConverted = (document: any): void => {
+const assertConverted = (document: any, cycleRefs: ReadonlySet<string> = new Set()): void => {
   const valid = validateOAS(document);
   assert.isTrue(valid, JSON.stringify(validateOAS.errors?.slice(0, 5)));
 
@@ -74,6 +75,8 @@ const assertConverted = (document: any): void => {
     if (typeof object.$ref === 'string') {
       if (object.$ref.startsWith('#')) {
         assert.isDefined(pointerTarget(document, object.$ref), `${location}: ${object.$ref}`);
+      } else {
+        assert.isTrue(cycleRefs.has(object.$ref), `${location}: external ${object.$ref}`);
       }
       const siblings = Object.keys(object).filter((key) => VALIDATION_KEYWORDS.has(key));
       assert.deepEqual(siblings, [], `${location}: $ref with validation siblings`);
@@ -83,11 +86,15 @@ const assertConverted = (document: any): void => {
   visit(document, '#');
 };
 
-const swaggerClientReplacer = (refElement: any) => {
-  const ref = String(toValue(refElement.meta.get('$ref')));
-  const uri = String(toValue(refElement.meta.get('uri')));
-  return new ObjectElement({ $ref: `${uri}${ref.slice(ref.indexOf('#'))}` });
-};
+const swaggerClientReplacer =
+  (written: Set<string> = new Set()) =>
+  (refElement: any) => {
+    const ref = String(toValue(refElement.meta.get('$ref')));
+    const uri = String(toValue(refElement.meta.get('uri')));
+    const $ref = `${uri}${ref.slice(ref.indexOf('#'))}`;
+    written.add($ref);
+    return new ObjectElement({ $ref });
+  };
 
 const convertFile = async (file: string, options: Record<string, unknown> = {}) => {
   const result: any = await convert(file, { convert: { targetMediaType: target }, ...options });
@@ -116,11 +123,15 @@ describe('converter', function () {
             specify(
               'should produce a valid, fully converted OpenAPI 3.0 document',
               async function () {
+                const cycleRefs = new Set<string>();
                 const { document } = await convertFile(path.join(e2e, 'petstore.yaml'), {
-                  dereference: { circular: 'replace', circularReplacer: swaggerClientReplacer },
+                  dereference: {
+                    circular: 'replace',
+                    circularReplacer: swaggerClientReplacer(cycleRefs),
+                  },
                 });
 
-                assertConverted(document);
+                assertConverted(document, cycleRefs);
                 assert.strictEqual(document.openapi, '3.0.3');
                 assert.deepEqual(document.components.schemas.Category.properties.id, {
                   type: 'integer',

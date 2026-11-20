@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Id": { "type": "integer" },
+    "Pet": {
+      "type": "object",
+      "properties": {
+        "kind": { "type": "string" },
+        "owner": { "$ref": "../entry.json#/components/schemas/Cat" }
+      },
+      "discriminator": {
+        "propertyName": "kind",
+        "mapping": { "cat": "../entry.json#/components/schemas/Cat" }
+      },
+      "$defs": { "Friend": { "$ref": "../entry.json#/components/schemas/Cat" } }
+    }
+  }
+}

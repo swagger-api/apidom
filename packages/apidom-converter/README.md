@@ -85,7 +85,8 @@ const parseResult = await convert('/home/user/openapi.yaml', {
 
 External references are fetched with the resolvers configured in `resolve.resolvers`. HTTP(S) URLs are
 restricted by the `convert.httpAllowList` option: a list of RegExps or minimatch globs matched against each URL,
-including every redirect (in Node.js). The default allows any HTTPS URL and no plain HTTP URL. Local files follow
+including every redirect (in Node.js). The default allows any HTTPS URL and no plain HTTP URL. It replaces any
+`urlAllowList` set on the HTTP resolvers (in `resolve.resolverOpts` or on a resolver instance). Local files follow
 `FileResolver`'s `fileAllowList`. An external reference that cannot be resolved fails the conversion with
 `ConvertError`. Referenced content must be a JSON or YAML object.
 
@@ -161,6 +162,7 @@ has a `code` attribute. The `json-schema-2020-12-to-openapi-3-0` strategy report
 | `dropped-keyword` | A keyword without an OpenAPI 3.0 equivalent was removed. |
 | `moved-keyword` | A keyword was moved to an `x-conversion-<keyword>` extension. |
 | `examples-truncated` | `examples` had several entries; only the first was kept as `example`. |
+| `example-replaced` | A different `example` was replaced by the first entry of `examples`. |
 | `discriminator-inlined` | A schema used with `discriminator` came from an external file and was inlined. |
 | `discriminator-mapping-external` | A `discriminator.mapping` target is external and was not converted. |
 | `circular-reference` | The converted document contains circular references (`dereference.circular: 'ignore'`). |

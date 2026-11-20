@@ -21,9 +21,18 @@ import { forEachSchema, subschemaPositions, unmarkStash } from './downgrade/walk
 import type { Warnings } from './downgrade/index.ts';
 
 const ORIGIN_META = 'ref-origin';
+const SOURCE_META = 'conversion-source';
+
+/**
+ * Marks an inlined fragment with the document it comes from. The dereference's `ref-origin` names
+ * the first document of a chain of references (`a.json` whose fragment is a `$ref` to `b.json`);
+ * this mark is copied with the fragment and takes precedence.
+ */
+export const markFragmentSource = (element: Element, documentURI: string): void =>
+  element.setMetaProperty(SOURCE_META, documentURI);
 
 const originOf = (element: Element): string | undefined => {
-  const origin = element.meta.get(ORIGIN_META);
+  const origin = element.meta.get(SOURCE_META) ?? element.meta.get(ORIGIN_META);
   return isStringElement(origin) ? toValue(origin) : undefined;
 };
 
@@ -246,6 +255,7 @@ const postPass = (api: Element, options: PostPassOptions, warnings: Warnings): v
     (element) => {
       checkInternalRefs(element, api, warnings);
       unmarkStash(element);
+      element.meta.remove(SOURCE_META);
     },
     () => {},
   );
@@ -259,8 +269,10 @@ const postPass = (api: Element, options: PostPassOptions, warnings: Warnings): v
   }
 
   const version = /version=([0-9.]+)/.exec(options.targetMediaType)?.[1];
-  if (version !== undefined && isObjectElement(api) && api.hasKey('openapi')) {
-    api.set('openapi', version);
+  const openapi = isObjectElement(api) ? api.get('openapi') : undefined;
+  if (version !== undefined && isStringElement(openapi)) {
+    // changed in place, so that the element keeps its OpenAPI type
+    (openapi.content as unknown as string) = version;
   }
 };
 

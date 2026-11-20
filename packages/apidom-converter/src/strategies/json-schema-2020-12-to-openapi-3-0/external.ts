@@ -26,7 +26,7 @@ import { elementAt, replaceAt } from './downgrade/document.ts';
 import { fragmentTokens } from './downgrade/refs.ts';
 import { forEachSchema } from './downgrade/walk.ts';
 import findSchemaPositions from './schema-positions.ts';
-import { markPathItemFieldOrigins } from './post-pass.ts';
+import { markFragmentSource, markPathItemFieldOrigins } from './post-pass.ts';
 import type { Warnings } from './downgrade/index.ts';
 
 const namespace = createNamespace(openApi3_0Namespace);
@@ -137,6 +137,7 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
       });
       markPathItemFieldOrigins(converted, documentURI);
     }
+    markFragmentSource(converted, documentURI);
 
     annotations.push(...warnings.annotations);
 

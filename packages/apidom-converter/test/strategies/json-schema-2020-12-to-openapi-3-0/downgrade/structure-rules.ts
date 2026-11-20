@@ -182,6 +182,19 @@ describe('converter', function () {
             assertNeverStricter(input, output);
           });
 
+          specify('should move a legacy additionalItems together with prefixItems', function () {
+            const input = { type: 'array', prefixItems: [{}], additionalItems: false };
+            const { output } = downgrade(input);
+
+            assert.deepEqual(output, {
+              type: 'array',
+              items: {},
+              'x-conversion-prefixItems': [{}],
+              'x-conversion-additionalItems': { not: {} },
+            });
+            assertNeverStricter(input, output);
+          });
+
           context('given an array schema whose items are moved', function () {
             specify('should add a permissive items', function () {
               const input = { type: 'array', prefixItems: [{ type: 'string' }], items: false };
@@ -327,6 +340,32 @@ describe('converter', function () {
               document.components.schemas.C.$ref,
               '#/components/schemas/A/x-conversion-$defs/B',
             );
+          });
+
+          specify('should rewrite refs to a moved boolean schema', function () {
+            const { document, warnings } = convertDocument(
+              {
+                components: {
+                  schemas: {
+                    A: { $defs: { T: false } },
+                    B: { $ref: '#/components/schemas/A/$defs/T' },
+                  },
+                },
+              },
+              [
+                ['components', 'schemas', 'A'],
+                ['components', 'schemas', 'B'],
+              ],
+            );
+
+            assert.deepEqual(document.components.schemas.A, {
+              'x-conversion-$defs': { T: { not: {} } },
+            });
+            assert.strictEqual(
+              document.components.schemas.B.$ref,
+              '#/components/schemas/A/x-conversion-$defs/T',
+            );
+            assert.deepEqual(codes(warnings), ['moved-keyword']);
           });
 
           specify('should rewrite refs to keys that need escaping', function () {

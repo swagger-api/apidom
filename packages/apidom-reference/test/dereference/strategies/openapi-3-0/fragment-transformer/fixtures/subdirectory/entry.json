@@ -1,0 +1,18 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/pets": {
+      "$ref": "./nested/ex.json#/PetsPath"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pet": {
+        "$ref": "./nested/ex.json#/Pet"
+      },
+      "Whole": {
+        "$ref": "./nested/whole.json"
+      }
+    }
+  }
+}

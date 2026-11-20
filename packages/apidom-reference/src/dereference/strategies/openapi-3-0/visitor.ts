@@ -276,6 +276,14 @@ class OpenAPI3_0DereferenceVisitor {
   }
 
   /**
+   * The resolved URI of a `$ref`: its retrieval URI followed by the `$ref`'s fragment, if any.
+   */
+  protected toReferenceURI(retrievalURI: string, $ref: string): string {
+    const hashIndex = $ref.indexOf('#');
+    return hashIndex === -1 ? retrievalURI : `${retrievalURI}${$ref.slice(hashIndex)}`;
+  }
+
+  /**
    * Determines whether a retrieval URI is internal for the purpose of the
    * `resolve.internal` and `resolve.external` options.
    *
@@ -474,7 +482,7 @@ class OpenAPI3_0DereferenceVisitor {
       referencedElement = await this.transformFragment(
         referencedElement,
         reference,
-        $refBaseURI,
+        this.toReferenceURI(retrievalURI, toValue(referencingElement.$ref)),
         toValue(referencingElement.meta.get('referenced-element')),
       );
     } catch (error) {
@@ -721,7 +729,7 @@ class OpenAPI3_0DereferenceVisitor {
       referencedElement = await this.transformFragment(
         referencedElement,
         reference,
-        $refBaseURI,
+        this.toReferenceURI(retrievalURI, toValue(referencingElement.$ref)),
         'pathItem',
       );
     } catch (error) {

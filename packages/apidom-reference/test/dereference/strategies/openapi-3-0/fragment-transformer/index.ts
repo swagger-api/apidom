@@ -89,6 +89,32 @@ describe('dereference', function () {
           );
         });
 
+        context('given references into a subdirectory', function () {
+          const fixturePath = path.join(rootFixturePath, 'subdirectory');
+          const entryFilePath = path.join(fixturePath, 'entry.json');
+
+          specify('should pass the resolved URI of each reference', async function () {
+            const calls: FragmentTransformerInput[] = [];
+            await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                strategyOpts: { 'openapi-3-0': { fragmentTransformer: markingTransformer(calls) } },
+              },
+            });
+            const ex = path.join(fixturePath, 'nested', 'ex.json');
+
+            assert.sameMembers(
+              calls.map((call) => call.uri),
+              [
+                `${ex}#/Pet`,
+                `${ex}#/Tag`,
+                `${ex}#/PetsPath`,
+                path.join(fixturePath, 'nested', 'whole.json'),
+              ],
+            );
+          });
+        });
+
         context('given a circular external reference', function () {
           const fixturePath = path.join(rootFixturePath, 'circular');
           const entryFilePath = path.join(fixturePath, 'entry.json');

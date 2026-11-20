@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "URN base", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "$id": "urn:example:pet",
+        "$defs": { "Name": { "$id": "name", "type": "string" } },
+        "properties": {
+          "name": { "$ref": "#/$defs/Name" },
+          "owner": { "$ref": "owner.json" }
+        }
+      }
+    }
+  }
+}

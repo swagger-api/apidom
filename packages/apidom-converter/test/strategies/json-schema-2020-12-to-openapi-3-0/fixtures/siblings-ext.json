@@ -1,0 +1,11 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Owner": { "$ref": "#/$defs/Target", "description": "The owner" },
+    "WithStash": {
+      "$ref": "#/$defs/WithStash/$defs/Local",
+      "$defs": { "Local": { "type": "string" } }
+    },
+    "Target": { "type": "object", "properties": { "id": { "type": "integer" } } }
+  }
+}

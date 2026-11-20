@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Path back references", "version": "1.0.0" },
+  "paths": {
+    "/pets": { "$ref": "./paths/pets.json#/paths/~1pets" },
+    "/pets-alias": { "$ref": "./paths/pets.json#/paths/~1alias" },
+    "/owners": {
+      "get": { "responses": { "200": { "description": "ok" } } }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": { "type": "object" }
+    }
+  }
+}

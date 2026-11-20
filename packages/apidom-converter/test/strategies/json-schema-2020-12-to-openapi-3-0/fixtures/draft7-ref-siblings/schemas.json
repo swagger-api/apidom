@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Integer": { "type": "integer" },
+    "Count": { "$ref": "#/definitions/Integer", "minimum": 5, "description": "A count" }
+  }
+}

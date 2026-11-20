@@ -101,6 +101,7 @@ export interface OpenAPI3_0DereferenceVisitorOptions {
   readonly errorPropagationCache?: Map<Element, unknown[]>;
   readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
   readonly skippedReferences?: Set<Element>;
+  readonly skipsExternalLocally?: boolean;
 }
 
 /**
@@ -135,6 +136,11 @@ class OpenAPI3_0DereferenceVisitor {
    */
   protected readonly skippedReferences: Set<Element>;
 
+  /**
+   * Whether external resolution is disabled only for this nested visit (`skipNestedExternal`).
+   */
+  protected readonly skipsExternalLocally: boolean;
+
   constructor({
     reference,
     namespace,
@@ -146,6 +152,7 @@ class OpenAPI3_0DereferenceVisitor {
     errorPropagationCache = new Map(),
     pendingPropagations = [],
     skippedReferences = new Set(),
+    skipsExternalLocally = false,
   }: OpenAPI3_0DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -157,6 +164,28 @@ class OpenAPI3_0DereferenceVisitor {
     this.errorPropagationCache = errorPropagationCache;
     this.pendingPropagations = pendingPropagations;
     this.skippedReferences = skippedReferences;
+    this.skipsExternalLocally = skipsExternalLocally;
+  }
+
+  /**
+   * Records a reference this visitor leaves unresolved. An external reference skipped only
+   * because of `skipNestedExternal` is not recorded: the visit of its own position may resolve it.
+   */
+  protected markSkipped(element: Element, isExternalReference: boolean): void {
+    if (isExternalReference && this.skipsExternalLocally) return;
+    this.skippedReferences.add(element);
+  }
+
+  /**
+   * Whether the nested visit of a referenced fragment has external resolution disabled only
+   * because of `skipNestedExternal`.
+   */
+  protected nestedSkipsExternalLocally(referencingElement: ObjectElement): boolean {
+    return (
+      this.skipsExternalLocally ||
+      (this.options.resolve.external &&
+        !this.getNestedVisitorOptions(referencingElement).resolve.external)
+    );
   }
 
   protected popErrorContext(el: Element) {
@@ -436,13 +465,13 @@ class OpenAPI3_0DereferenceVisitor {
 
     // ignore resolving internal Reference Objects
     if (!this.options.resolve.internal && isInternalReference) {
-      this.skippedReferences.add(referencingElement);
+      this.markSkipped(referencingElement, false);
       // skip traversing this reference element
       return false;
     }
     // ignore resolving external Reference Objects
     if (!this.options.resolve.external && isExternalReference) {
-      this.skippedReferences.add(referencingElement);
+      this.markSkipped(referencingElement, true);
       // skip traversing this reference element
       return false;
     }
@@ -477,6 +506,7 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+    const fragment = referencedElement;
 
     try {
       referencedElement = await this.transformFragment(
@@ -492,6 +522,9 @@ class OpenAPI3_0DereferenceVisitor {
         isExternalReference,
       });
     }
+
+    // a transformed fragment is a new element, which the traversal of its document never reaches
+    const isTransformed = referencedElement !== fragment;
 
     /**
      * Applying semantics to a referenced element if semantics are missing.
@@ -581,6 +614,7 @@ class OpenAPI3_0DereferenceVisitor {
     if (
       (isExternalReference ||
         isNonEntryDocument ||
+        isTransformed ||
         isReferenceElement(referencedElement) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -600,6 +634,7 @@ class OpenAPI3_0DereferenceVisitor {
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
         skippedReferences: this.skippedReferences,
+        skipsExternalLocally: this.nestedSkipsExternalLocally(referencingElement),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -640,6 +675,11 @@ class OpenAPI3_0DereferenceVisitor {
       'ref-referencing-element-id',
       cloneDeep(identityManager.identify(referencingElement)),
     );
+
+    // the copy of a reference left unresolved stays unresolved
+    if (this.skippedReferences.has(referencedElement)) {
+      this.skippedReferences.add(mergedElement);
+    }
 
     /**
      * Transclude referencing element with merged referenced element.
@@ -683,13 +723,13 @@ class OpenAPI3_0DereferenceVisitor {
 
     // ignore resolving internal Path Item Objects
     if (!this.options.resolve.internal && isInternalReference) {
-      this.skippedReferences.add(referencingElement);
+      this.markSkipped(referencingElement, false);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
     // ignore resolving external Path Item Objects
     if (!this.options.resolve.external && isExternalReference) {
-      this.skippedReferences.add(referencingElement);
+      this.markSkipped(referencingElement, true);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
@@ -724,6 +764,7 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+    const fragment = referencedElement;
 
     try {
       referencedElement = await this.transformFragment(
@@ -739,6 +780,8 @@ class OpenAPI3_0DereferenceVisitor {
         isExternalReference,
       });
     }
+
+    const isTransformed = referencedElement !== fragment;
 
     /**
      * Applying semantics to a referenced element if semantics are missing.
@@ -820,6 +863,7 @@ class OpenAPI3_0DereferenceVisitor {
     if (
       (isExternalReference ||
         isNonEntryDocument ||
+        isTransformed ||
         (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -839,6 +883,7 @@ class OpenAPI3_0DereferenceVisitor {
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
         skippedReferences: this.skippedReferences,
+        skipsExternalLocally: this.nestedSkipsExternalLocally(referencingElement),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -861,6 +906,14 @@ class OpenAPI3_0DereferenceVisitor {
     }
 
     this.indirections.pop();
+
+    // with internalScope 'entry', a referenced Path Item left unresolved keeps its own `$ref`
+    const skippedTargetRef =
+      this.options.dereference.strategyOpts['openapi-3-0']?.internalScope === 'entry' &&
+      isPathItemElement(referencedElement) &&
+      this.skippedReferences.has(referencedElement)
+        ? referencedElement.get('$ref')
+        : undefined;
 
     /**
      * Creating a new version of Path Item by merging fields from referenced Path Item with referencing one.
@@ -893,6 +946,11 @@ class OpenAPI3_0DereferenceVisitor {
       );
 
       referencedElement = mergedElement;
+    }
+
+    if (skippedTargetRef !== undefined && isPathItemElement(referencedElement)) {
+      referencedElement.set('$ref', skippedTargetRef);
+      this.skippedReferences.add(referencedElement);
     }
 
     /**

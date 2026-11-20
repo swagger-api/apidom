@@ -133,6 +133,28 @@ describe('dereference', function () {
           });
         });
 
+        context('given an internal reference whose fragment is transformed', function () {
+          const entryFilePath = path.join(rootFixturePath, 'internal', 'entry.json');
+
+          specify(
+            'should resolve the references inside the transformed fragment',
+            async function () {
+              const actual = await dereference(entryFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  strategyOpts: { 'openapi-3-0': { fragmentTransformer: markingTransformer([]) } },
+                },
+              });
+              const [api] = toValue(actual) as any[];
+
+              assert.deepEqual(api.components.schemas.A.properties.c, {
+                type: 'string',
+                'x-transformed': 'schema',
+              });
+            },
+          );
+        });
+
         context('given fragmentTransformer throws', function () {
           const fixturePath = path.join(rootFixturePath, 'basic');
           const entryFilePath = path.join(fixturePath, 'entry.json');

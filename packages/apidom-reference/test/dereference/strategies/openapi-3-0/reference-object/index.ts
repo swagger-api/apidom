@@ -534,6 +534,27 @@ describe('dereference', function () {
           });
         });
 
+        context(
+          'given skipNestedExternal and an internal reference to an external one',
+          function () {
+            specify('should still report the external reference', async function () {
+              const fixturePath = path.join(entryFixturePath, 'skip-nested-external');
+              const errors: Array<{ error: unknown; refEl: Element }> = [];
+              await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: {
+                  dereferenceOpts: { skipNestedExternal: true, continueOnError: true, errors },
+                },
+              });
+
+              assert.deepEqual(
+                errors.map(({ refEl }) => toValue(refEl)),
+                [{ $ref: './missing.json' }],
+              );
+            });
+          },
+        );
+
         context('given path with invalid URL characters - spaces', function () {
           const fixturePath = path.join(entryFixturePath, 'path-encoding', 'path with spaces');
 

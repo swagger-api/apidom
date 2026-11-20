@@ -442,6 +442,42 @@ describe('dereference', function () {
 
               assert.deepEqual(toValue(actual), expected);
             });
+
+            specify('should keep a back reference reached through an alias', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-alias-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const [api] = toValue(actual) as any[];
+
+              assert.deepEqual(
+                api.paths['/pets'].get.responses['200'].content['application/json'].schema,
+                { $ref: '../entry.json#/components/schemas/Error' },
+              );
+            });
+
+            specify('should keep a Path Item back reference', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-path-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const [api] = toValue(actual) as any[];
+
+              assert.deepEqual(api.paths['/pets'], {
+                $ref: '../entry.json#/paths/~1other',
+                summary: 'pets',
+              });
+            });
           });
         });
       });

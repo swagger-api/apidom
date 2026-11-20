@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor plugins normalize-discriminator-mapping given Discriminator is defined and multiple allOf are present should add x-normalized-mapping field with normalized mapping 1`] = `
 Object {

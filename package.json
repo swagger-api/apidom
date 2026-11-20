@@ -9,8 +9,8 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": "=24.22",
-    "npm": ">=11.16.0"
+    "node": "=26.13",
+    "npm": ">=11.20.0"
   },
   "comments": {
     "scripts": {
@@ -94,8 +94,8 @@
     "lerna": "=10.1.0",
     "lint-staged": "=16.1.0",
     "microtime": "=3.1.1",
-    "mocha": "=11.0.1",
-    "mocha-chai-jest-snapshot": "^1.1.6",
+    "mocha": "^11.8.0",
+    "mocha-chai-jest-snapshot": "^1.1.8",
     "node-gyp": "=12.2.0",
     "npm-run-all": "=4.1.5",
     "prettier": "=3.5.3",

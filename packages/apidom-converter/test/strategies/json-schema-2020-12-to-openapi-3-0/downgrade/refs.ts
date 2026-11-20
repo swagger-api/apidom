@@ -5,6 +5,7 @@ import downgradeSchema, {
   baseURIAt,
   buildIdentifierIndex,
   createWarnings,
+  rewriteIdentifierRefs,
 } from '../../../../src/strategies/json-schema-2020-12-to-openapi-3-0/downgrade/index.ts';
 import {
   fragmentTokens,
@@ -106,6 +107,80 @@ describe('converter', function () {
               dog: '#/components/schemas/Dog',
               cat: 'Cat',
             });
+          });
+
+          specify('should change the $ref string in place', function () {
+            const document = new ObjectElement({
+              components: {
+                schemas: { Dog: { $anchor: 'dog' }, DogAlias: { $ref: '#dog' } },
+              },
+            });
+            const alias: any = (document as any).get('components').get('schemas').get('DogAlias');
+            const ref = alias.get('$ref');
+            ref.setMetaProperty('source', 'kept');
+            rewriteIdentifierRefs(
+              alias,
+              documentURI,
+              documentURI,
+              buildIdentifierIndex(document, documentURI),
+            );
+
+            assert.strictEqual(alias.get('$ref'), ref);
+            assert.strictEqual(toValue(ref), '#/components/schemas/Dog');
+            assert.strictEqual(toValue(ref.meta.get('source')), 'kept');
+          });
+        });
+
+        context('given schema pointers of an OpenAPI document', function () {
+          specify('should index identifiers only inside the schemas', function () {
+            const document = new ObjectElement({
+              components: {
+                schemas: { Pet: { $id: 'https://example.com/pet' } },
+                links: { L: { requestBody: { $id: 'https://example.com/pet' } } },
+              },
+            });
+            const index = buildIdentifierIndex(document, documentURI, [
+              ['components', 'schemas', 'Pet'],
+            ]);
+
+            assert.deepEqual(index.get('https://example.com/pet'), [
+              'components',
+              'schemas',
+              'Pet',
+            ]);
+          });
+        });
+
+        context('given a $ref spelled with the document URI', function () {
+          specify('should rewrite it to a fragment', function () {
+            const document = {
+              components: {
+                schemas: {
+                  Name: { type: 'string' },
+                  Pet: {
+                    properties: { name: { $ref: `${documentURI}#/components/schemas/Name` } },
+                  },
+                },
+              },
+            };
+            const pet = downgradeInDocument(document, ['components', 'schemas', 'Pet']);
+
+            assert.deepEqual(pet.properties.name, { $ref: '#/components/schemas/Name' });
+          });
+        });
+
+        context('given an $id base that cannot resolve relative references', function () {
+          specify('should not throw and keep the base', function () {
+            const document = new ObjectElement({
+              $id: 'urn:example:root',
+              $defs: { A: { $id: 'child', type: 'string' } },
+            });
+
+            assert.doesNotThrow(() => buildIdentifierIndex(document, documentURI));
+            assert.strictEqual(
+              baseURIAt(document, documentURI, ['$defs', 'A', 'type']),
+              'urn:example:root',
+            );
           });
         });
 

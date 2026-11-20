@@ -4,19 +4,33 @@ import {
   isBooleanElement,
   isObjectElement,
   isStringElement,
+  toValue,
 } from '@swagger-api/apidom-core';
 import { ReferenceElement, SchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import applyValueRules, { booleanSchemaToObject, convertBooleanSubschemas } from './value-rules.ts';
 import applyStructureRules from './structure-rules.ts';
-import { IdentifierIndex, rewriteIdentifierRefs, splitRefSiblings } from './refs.ts';
+import {
+  IdentifierIndex,
+  dropIgnoredRefSiblings,
+  ignoresRefSiblings,
+  rewriteIdentifierRefs,
+  splitRefSiblings,
+} from './refs.ts';
 import { walkSchemas } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
 export { default as needsDowngrade } from './detect.ts';
 export { createWarnings } from './warnings.ts';
 export type { Warnings } from './warnings.ts';
-export { buildIdentifierIndex, baseURIAt, rewriteIdentifierRefs } from './refs.ts';
+export {
+  REF_SPLIT_META,
+  buildIdentifierIndex,
+  baseURIAt,
+  ignoresRefSiblings,
+  rewriteIdentifierRefs,
+  setStringValue,
+} from './refs.ts';
 export type { IdentifierIndex } from './refs.ts';
 
 /**
@@ -27,6 +41,8 @@ export interface DowngradeLocation {
   readonly documentURI: string;
   readonly baseURI: string;
   readonly index: IdentifierIndex;
+  /** Whether the document's dialect (Draft 4, 6 or 7) ignores the keywords next to `$ref`. */
+  readonly ignoresRefSiblings?: boolean;
 }
 
 /**
@@ -45,9 +61,13 @@ const downgradeSchema = (
   if (location !== undefined) {
     rewriteIdentifierRefs(root, location.baseURI, location.documentURI, location.index, warnings);
   }
+  const legacyRefs =
+    location?.ignoresRefSiblings === true ||
+    (isObjectElement(root) && ignoresRefSiblings(toValue(root.get('$schema'))));
 
   walkSchemas(root, (node) => {
     if (!isObjectElement(node)) return;
+    if (legacyRefs) dropIgnoredRefSiblings(node, warnings);
     convertBooleanSubschemas(node);
     applyStructureRules(node, warnings);
     applyValueRules(node, warnings);

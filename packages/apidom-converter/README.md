@@ -16,16 +16,21 @@ You can install this package via [npm CLI](https://docs.npmjs.com/cli) by runnin
 import convert, { convertApiDOM } from '@swagger-api/apidom-converter';
 import { parse } from '@swagger-api/apidom-reference';
 
+// local files are read only when FileResolver's fileAllowList allows them (it allows none by default)
+const resolverOpts = { fileAllowList: ['/home/user/**'] };
+
 // convert a document by URI
 const parseResult = await convert('/home/user/openapi.yaml', {
+  resolve: { resolverOpts },
   convert: {
     targetMediaType: 'application/vnd.oai.openapi+json;version=3.0.3',
   },
 });
 
 // or convert an already parsed document
-const converted = await convertApiDOM(await parse('/home/user/openapi.yaml'), {
-  resolve: { baseURI: '/home/user/openapi.yaml' },
+const parsed = await parse('/home/user/openapi.yaml', { resolve: { resolverOpts } });
+const converted = await convertApiDOM(parsed, {
+  resolve: { baseURI: '/home/user/openapi.yaml', resolverOpts },
   convert: {
     targetMediaType: 'application/vnd.oai.openapi+json;version=3.0.3',
   },
@@ -66,7 +71,9 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
 - Keywords next to a `$ref`, which OpenAPI 3.0 ignores, keep applying: the `$ref` moves into `allOf` together
   with the validation keywords, while annotations and extensions stay on the schema. A `$ref` with validation
   keywords next to it marks the schema for conversion; a `$ref` with only annotations (for example
-  `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason.
+  `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason. In a
+  document that declares Draft 4, 6 or 7 in `$schema`, where keywords next to `$ref` have no effect, these
+  validation keywords are removed instead (`dropped-keyword`).
 - Schemas that are already valid OpenAPI 3.0 Schema Objects are left unchanged.
 - Example Object `externalValue` and Link Object `operationRef` are left unchanged and are not fetched.
 
@@ -74,6 +81,7 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
 import convert from '@swagger-api/apidom-converter';
 
 const parseResult = await convert('/home/user/openapi.yaml', {
+  resolve: { resolverOpts: { fileAllowList: ['/home/user/**'] } },
   convert: {
     sourceMediaType: 'application/vnd.oai.openapi+yaml;version=3.0.3',
     targetMediaType: 'application/vnd.oai.openapi+json;version=3.0.3',
@@ -92,6 +100,7 @@ including every redirect (in Node.js). The default allows any HTTPS URL and no p
 
 ```js
 await convert('/home/user/openapi.yaml', {
+  resolve: { resolverOpts: { fileAllowList: ['/home/user/**'] } },
   convert: {
     targetMediaType: 'application/vnd.oai.openapi+json;version=3.0.3',
     httpAllowList: ['https://schemas.example.com/**'],
@@ -114,6 +123,7 @@ in [apidom-reference](https://github.com/swagger-api/apidom/tree/main/packages/a
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
 
 await convert('/home/user/openapi.yaml', {
+  resolve: { resolverOpts: { fileAllowList: ['/home/user/**'] } },
   convert: { targetMediaType: 'application/vnd.oai.openapi+json;version=3.0.3' },
   dereference: {
     circular: 'replace',

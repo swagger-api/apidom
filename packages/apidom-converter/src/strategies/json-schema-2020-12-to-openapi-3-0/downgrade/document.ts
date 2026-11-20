@@ -17,6 +17,7 @@ import {
   forEachMappingRef,
   fragmentTokens,
   rewriteIdentifierRefs,
+  setStringValue,
   toPointerFragment,
 } from './refs.ts';
 import { forEachSchema } from './walk.ts';
@@ -86,7 +87,7 @@ const forEachInternalRef = (
     forEachSchema(root, (schema) => {
       if (!isObjectElement(schema)) return;
       const ref = schema.get('$ref');
-      if (isStringElement(ref)) visitRef(toValue(ref), (value) => schema.set('$ref', value));
+      if (isStringElement(ref)) visitRef(toValue(ref), (value) => setStringValue(ref, value));
       forEachMappingRef(schema as ObjectElement, visitRef);
     });
   });
@@ -112,7 +113,7 @@ const downgradeSchemasInDocument = (
   schemaPointers: ReadonlyArray<readonly string[]>,
   warnings: Warnings,
 ): void => {
-  const index = buildIdentifierIndex(document, documentURI);
+  const index = buildIdentifierIndex(document, documentURI, schemaPointers);
 
   const toConvert = schemaPointers.filter((tokens) => {
     const schema = elementAt(document, tokens);

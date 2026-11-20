@@ -2,12 +2,18 @@ import {
   ArrayElement,
   Element,
   ObjectElement,
+  StringElement,
   isArrayElement,
   isObjectElement,
   isStringElement,
   toValue,
 } from '@swagger-api/apidom-core';
-import { URIFragmentIdentifier, compile, parse } from '@swagger-api/apidom-json-pointer/modern';
+import {
+  URIFragmentIdentifier,
+  compile,
+  evaluate,
+  parse,
+} from '@swagger-api/apidom-json-pointer/modern';
 import { url } from '@swagger-api/apidom-reference';
 
 import { ANNOTATION_KEYWORDS, SCHEMA_MAP_KEYWORDS, isExtensionKeyword } from './keywords.ts';
@@ -59,7 +65,34 @@ export const fragmentTokens = (fragment: string): string[] | undefined => {
   return result.success ? tree : undefined;
 };
 
+/**
+ * Changes a string in place, so that it keeps its source map and metadata.
+ */
+export const setStringValue = (element: StringElement, value: string): void => {
+  (element.content as unknown as string) = value; // eslint-disable-line no-param-reassign
+};
+
+const evaluateTokens = (document: Element, tokens: readonly string[]): Element | undefined => {
+  try {
+    return evaluate<Element>(document, compile([...tokens]));
+  } catch {
+    return undefined;
+  }
+};
+
 const normalizeId = (uri: string): string => url.stripHash(uri);
+
+/**
+ * Resolves a URI reference against a base, or returns `undefined` when the base cannot resolve
+ * it (a relative reference against a URN, for example).
+ */
+const resolveURI = (base: string, ref: string): string | undefined => {
+  try {
+    return url.resolve(base, ref);
+  } catch {
+    return undefined;
+  }
+};
 
 const decodeFragment = (fragment: string): string => {
   try {
@@ -92,14 +125,48 @@ const readId = (schema: ObjectElement, base: string): SchemaId => {
     fragment !== '' && !fragment.startsWith('/') ? decodeFragment(fragment) : undefined;
 
   if (hashIndex === 0) return { base, setsBase: false, anchor };
-  return { base: normalizeId(url.resolve(base, value)), setsBase: true, anchor };
+  // an `$id` the base cannot resolve leaves the base unchanged
+  const resolved = resolveURI(base, value);
+  if (resolved === undefined) return { base, setsBase: false };
+  return { base: normalizeId(resolved), setsBase: true, anchor };
+};
+
+/**
+ * Returns the base URI in effect at a JSON Pointer of a document (the `$id` chain above it).
+ */
+export const baseURIAt = (
+  document: Element,
+  documentURI: string,
+  tokens: readonly string[],
+): string => {
+  let base = normalizeId(documentURI);
+  let current: Element | undefined = document;
+
+  tokens.forEach((token) => {
+    if (isObjectElement(current)) {
+      base = readId(current, base).base;
+      current = current.get(token);
+    } else if (isArrayElement(current)) {
+      current = current.get(Number(token));
+    } else {
+      current = undefined;
+    }
+  });
+
+  return base;
 };
 
 /**
  * Indexes every `$id`, `$anchor` and `$dynamicAnchor` of a document, following the `$id`
- * base-URI chain. Data positions and extensions are skipped.
+ * base-URI chain. Data positions and extensions are skipped. Given the pointers of the outermost
+ * schemas of an OpenAPI document, only those schemas are indexed, so that data such as a Link's
+ * `requestBody` is never taken for a schema.
  */
-export const buildIdentifierIndex = (document: Element, documentURI: string): IdentifierIndex => {
+export const buildIdentifierIndex = (
+  document: Element,
+  documentURI: string,
+  schemaPointers?: ReadonlyArray<readonly string[]>,
+): IdentifierIndex => {
   const index: IdentifierIndex = new Map();
 
   const visit = (element: Element, tokens: string[], base: string, isMap: boolean) => {
@@ -130,34 +197,19 @@ export const buildIdentifierIndex = (document: Element, documentURI: string): Id
     });
   };
 
-  visit(document, [], normalizeId(documentURI), false);
+  if (schemaPointers === undefined) {
+    visit(document, [], normalizeId(documentURI), false);
+    return index;
+  }
 
-  return index;
-};
-
-/**
- * Returns the base URI in effect at a JSON Pointer of a document (the `$id` chain above it).
- */
-export const baseURIAt = (
-  document: Element,
-  documentURI: string,
-  tokens: readonly string[],
-): string => {
-  let base = normalizeId(documentURI);
-  let current: Element | undefined = document;
-
-  tokens.forEach((token) => {
-    if (isObjectElement(current)) {
-      base = readId(current, base).base;
-      current = current.get(token);
-    } else if (isArrayElement(current)) {
-      current = current.get(Number(token));
-    } else {
-      current = undefined;
+  schemaPointers.forEach((tokens) => {
+    const schema = evaluateTokens(document, tokens);
+    if (schema !== undefined) {
+      visit(schema, [...tokens], baseURIAt(document, documentURI, tokens), false);
     }
   });
 
-  return base;
+  return index;
 };
 
 const rewriteRef = (
@@ -166,13 +218,16 @@ const rewriteRef = (
   documentURI: string,
   index: IdentifierIndex,
 ): string | undefined => {
-  const absolute = url.resolve(base, ref);
+  const absolute = resolveURI(base, ref);
+  if (absolute === undefined) return undefined;
   const target = normalizeId(absolute);
   const hashIndex = absolute.indexOf('#');
   const fragment = hashIndex === -1 ? '' : absolute.slice(hashIndex + 1);
 
   if (fragment === '' || fragment.startsWith('/')) {
-    if (target === normalizeId(documentURI)) return undefined;
+    // a reference into the document itself, spelled with its URI, becomes a fragment, so that it
+    // follows its target when the target moves
+    if (target === normalizeId(documentURI)) return fragment === '' ? undefined : `#${fragment}`;
     const idTokens = index.get(target);
     const tokens = fragmentTokens(fragment);
     if (idTokens === undefined || tokens === undefined) return undefined;
@@ -198,12 +253,11 @@ export const forEachMappingRef = (
   const discriminator = schema.get('discriminator');
   const mapping = isObjectElement(discriminator) ? discriminator.get('mapping') : undefined;
   if (!isObjectElement(mapping)) return;
-  mapping.forEach((value: Element, key: Element) => {
+  mapping.forEach((value: Element) => {
     if (!isStringElement(value) || isSchemaName(toValue(value))) return;
-    const name = String(toValue(key));
     const replace = (ref: string): Element => {
-      mapping.set(name, ref);
-      return mapping.get(name);
+      setStringValue(value, ref);
+      return value;
     };
     visit(toValue(value), replace, value);
   });
@@ -211,6 +265,19 @@ export const forEachMappingRef = (
 
 const isRelativeDocumentRef = (ref: string): boolean =>
   !ref.startsWith('#') && url.getProtocol(ref) === undefined;
+
+/**
+ * Marks a schema whose `$ref` was moved into `allOf` together with its siblings.
+ */
+export const REF_SPLIT_META = 'conversion-ref-split';
+
+const refSiblingValidationKeys = (schema: ObjectElement): string[] => {
+  const annotations = new Set<string>(ANNOTATION_KEYWORDS);
+  return schema
+    .keys()
+    .map(String)
+    .filter((key) => key !== '$ref' && !annotations.has(key) && !isExtensionKeyword(key));
+};
 
 /**
  * Rewrites `$ref`s and `discriminator.mapping` values that point at an `$anchor` or `$id` of the
@@ -236,17 +303,23 @@ export const rewriteIdentifierRefs = (
     const rewritten = rewriteRef(value, currentBase, documentURI, index);
     if (rewritten !== undefined) {
       if (rewritten !== value) {
-        schema.set('$ref', rewritten);
+        setStringValue(ref, rewritten);
         changed = true;
       }
     } else if (warnings !== undefined && isRelativeDocumentRef(value)) {
-      const byId = normalizeId(url.resolve(currentBase, value));
+      const byId = resolveURI(currentBase, value);
       const byLocation = normalizeId(url.resolve(documentURI, value));
-      if (byId !== byLocation) {
+      if (byId === undefined) {
         warnings.add(
           ref,
           'id-base-mismatch',
-          `"$ref" "${value}" is read from "${byLocation}"; its "$id" base would resolve it to "${byId}"`,
+          `"$ref" "${value}" is read from "${byLocation}"; its "$id" base "${currentBase}" cannot resolve a relative reference`,
+        );
+      } else if (normalizeId(byId) !== byLocation) {
+        warnings.add(
+          ref,
+          'id-base-mismatch',
+          `"$ref" "${value}" is read from "${byLocation}"; its "$id" base would resolve it to "${normalizeId(byId)}"`,
         );
       }
     }
@@ -279,11 +352,7 @@ export const splitRefSiblings = (schema: ObjectElement): void => {
   const ref = schema.get('$ref');
   if (!isStringElement(ref) || schema.length === 1) return;
 
-  const annotations = new Set<string>(ANNOTATION_KEYWORDS);
-  const validationKeys = schema
-    .keys()
-    .map(String)
-    .filter((key) => key !== '$ref' && !annotations.has(key) && !isExtensionKeyword(key));
+  const validationKeys = refSiblingValidationKeys(schema);
   if (validationKeys.includes('type') && schema.hasKey('nullable')) validationKeys.push('nullable');
 
   const siblings = new ObjectElement();
@@ -303,4 +372,45 @@ export const splitRefSiblings = (schema: ObjectElement): void => {
   refSchema.set('$ref', ref);
   const items = [...(siblings.length > 0 ? [siblings] : []), ...existingAllOf, refSchema];
   schema.set('allOf', new ArrayElement(items));
+  schema.setMetaProperty(REF_SPLIT_META, true);
+};
+
+/**
+ * Whether a JSON Schema dialect ignores the keywords next to `$ref` (Draft 4, 6 and 7).
+ */
+export const ignoresRefSiblings = (schemaURI: unknown): boolean =>
+  typeof schemaURI === 'string' && /json-schema\.org\/draft-0[4-7]\/schema/.test(schemaURI);
+
+/**
+ * Kept next to a `$ref`: `definitions`/`$defs` hold the schemas other references point to, and
+ * identifiers are reference targets.
+ */
+const REF_TARGET_KEYWORDS = new Set([
+  '$defs',
+  'definitions',
+  '$id',
+  'id',
+  '$schema',
+  '$anchor',
+  '$dynamicAnchor',
+  '$comment',
+]);
+
+/**
+ * Removes the validation keywords next to a `$ref`, which Draft 4, 6 and 7 ignore, so that the
+ * converted schema does not start enforcing them. Annotations, extensions and the keywords that
+ * hold reference targets are kept.
+ */
+export const dropIgnoredRefSiblings = (schema: ObjectElement, warnings: Warnings): void => {
+  if (!isStringElement(schema.get('$ref'))) return;
+  refSiblingValidationKeys(schema)
+    .filter((key) => !REF_TARGET_KEYWORDS.has(key))
+    .forEach((key) => {
+      warnings.add(
+        schema.get(key),
+        'dropped-keyword',
+        `"${key}" next to "$ref" has no effect in this JSON Schema dialect and was removed`,
+      );
+      schema.remove(key);
+    });
 };

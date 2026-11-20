@@ -843,8 +843,9 @@ fetches the file and provides its content.
 ###### URL allow list
 
 The `urlAllowList` option restricts which URLs the resolver may read. Each entry is either a `RegExp` tested against
-the full URL, or a glob string matched with [minimatch](https://github.com/isaacs/minimatch) (the same semantics as
-`FileResolver`'s `fileAllowList`). When `urlAllowList` is not provided, any HTTP(s) URL may be read. An empty list
+the full URL, or a glob string matched against the full URL with [minimatch](https://github.com/isaacs/minimatch).
+Unlike `FileResolver`'s `fileAllowList`, a glob without `/` does not match the last segment alone, so `*.json` matches
+no URL. When `urlAllowList` is not provided, any HTTP(s) URL may be read. An empty list
 allows no URL. The list is also applied to every redirect (in Node.js; browsers follow redirects themselves).
 
 ```js

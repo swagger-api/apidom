@@ -12,9 +12,9 @@ export interface HTTPResolverOptions extends ResolverOptions {
   readonly redirects?: number;
   readonly withCredentials?: boolean;
   /**
-   * Restricts which URLs the resolver may read. Each entry is a RegExp or a glob
-   * (matched with minimatch, like `FileResolver.fileAllowList`). When undefined, any
-   * http(s) URL may be read.
+   * Restricts which URLs the resolver may read. Each entry is a RegExp or a glob, both
+   * matched against the full URL (globs with minimatch). When undefined, any http(s) URL
+   * may be read.
    */
   readonly urlAllowList?: Array<string | RegExp>;
 }
@@ -56,9 +56,12 @@ abstract class HTTPResolver extends Resolver {
       return true;
     }
 
-    return this.urlAllowList.some((pattern) =>
-      typeof pattern === 'string' ? minimatch(uri, pattern) : pattern.test(uri),
-    );
+    return this.urlAllowList.some((pattern) => {
+      if (typeof pattern === 'string') return minimatch(uri, pattern);
+      // a global or sticky RegExp would otherwise continue from the previous match
+      pattern.lastIndex = 0; // eslint-disable-line no-param-reassign
+      return pattern.test(uri);
+    });
   }
 
   abstract getHttpClient(): unknown;

@@ -155,6 +155,26 @@ describe('dereference', function () {
           );
         });
 
+        context('given internal references to a fragment that gets replaced', function () {
+          const entryFilePath = path.join(rootFixturePath, 'internal-chain', 'entry.json');
+
+          specify('should transform each referenced fragment once', async function () {
+            const calls: FragmentTransformerInput[] = [];
+            await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                strategyOpts: { 'openapi-3-0': { fragmentTransformer: markingTransformer(calls) } },
+              },
+            });
+            const fragments = calls.map(({ uri }) => uri.slice(uri.indexOf('#')));
+
+            assert.lengthOf(
+              fragments.filter((fragment) => fragment === '#/components/schemas/B'),
+              1,
+            );
+          });
+        });
+
         context('given fragmentTransformer throws', function () {
           const fixturePath = path.join(rootFixturePath, 'basic');
           const entryFilePath = path.join(fixturePath, 'entry.json');

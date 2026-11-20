@@ -76,15 +76,28 @@ const setCacheFileResult = async ({
 };
 
 /**
- * Identifies the allow lists of the resolvers that may read a file. A redirect is checked only
- * when the file is read, so a result is cached per allow list and never reused under another one.
+ * The cache key of a file. A redirect is checked only when the file is read, so a file read by
+ * resolvers with a `urlAllowList` is cached per allow lists (of every resolver that may read it,
+ * in order, `null` for one without a list) and never reused under others. Without any list the
+ * key is the file URI alone.
  */
-const allowListKey = (resolvers: Resolver[]): string => {
-  const lists = resolvers
-    .map((resolver) => (resolver as { urlAllowList?: Array<string | RegExp> }).urlAllowList)
-    .filter((list) => list !== undefined)
-    .map((list) => list.map(String));
-  return lists.length === 0 ? '' : `?allow=${encodeURIComponent(JSON.stringify(lists))}`;
+const toCacheKey = (uri: string, resolvers: Resolver[]): string => {
+  const lists = resolvers.map(
+    (resolver) => (resolver as { urlAllowList?: Array<string | RegExp> }).urlAllowList,
+  );
+  if (lists.every((list) => list === undefined)) {
+    return `read_${uri}`;
+  }
+  const allow = lists.map((list) =>
+    list === undefined
+      ? null
+      : list.map((pattern) =>
+          typeof pattern === 'string'
+            ? { glob: pattern }
+            : { regexp: pattern.source, flags: pattern.flags },
+        ),
+  );
+  return `read_allow_${encodeURIComponent(JSON.stringify({ uri, allow }))}`;
 };
 
 /**
@@ -111,7 +124,7 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
   }
 
   // the cache is read only once a resolver may read the file, so that allow lists apply to it
-  const cacheKey = `read_${file.uri}${allowListKey(resolvers)}`;
+  const cacheKey = toCacheKey(file.uri, resolvers);
   const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
 
   if (cachedResult !== null) {

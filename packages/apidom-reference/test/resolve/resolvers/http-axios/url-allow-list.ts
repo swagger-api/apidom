@@ -126,38 +126,75 @@ describe('resolve', function () {
             assert.isTrue(beforeRedirect.calledOnce);
           });
 
-          specify('should not reuse a file cached under another urlAllowList', async function () {
-            const originalCaches = globalThis.caches;
-            const cache = new Map<string, Response>();
-            globalThis.caches = {
-              open: async () => ({
-                match: async (key: string) => cache.get(key),
-                put: async (key: string, response: Response) => {
-                  cache.set(key, response);
-                },
-                delete: async (key: string) => cache.delete(key),
-              }),
-            } as any;
+          context('and cacheTTL', function () {
+            let originalCaches: any;
+            let cache: Map<string, Response>;
+            const readStart = (resolvers: HttpResolverAxios[]) =>
+              parse(`${origin}/start`, {
+                resolve: { resolvers, resolverOpts: { cacheTTL: 1000 } },
+              });
+            const assertRedirectRejected = async (resolvers: HttpResolverAxios[]) => {
+              try {
+                await readStart(resolvers);
+                assert.fail('should throw ResolverError');
+              } catch (error: any) {
+                assert.include(
+                  String(error.cause?.cause?.cause?.message ?? error.cause?.cause?.message),
+                  'is not allowed by urlAllowList',
+                );
+              }
+            };
 
-            try {
-              await parse(`${origin}/start`, {
-                resolve: { resolvers: [new HttpResolverAxios()], resolverOpts: { cacheTTL: 1000 } },
-              });
-              await parse(`${origin}/start`, {
-                resolve: {
-                  resolvers: [new HttpResolverAxios({ urlAllowList: [/\/start$/] })],
-                  resolverOpts: { cacheTTL: 1000 },
-                },
-              });
-              assert.fail('should throw ResolverError');
-            } catch (error: any) {
-              assert.include(
-                String(error.cause?.cause?.cause?.message ?? error.cause?.cause?.message),
-                'is not allowed by urlAllowList',
-              );
-            } finally {
+            beforeEach(function () {
+              originalCaches = globalThis.caches;
+              cache = new Map();
+              globalThis.caches = {
+                open: async () => ({
+                  match: async (key: string) => cache.get(key),
+                  put: async (key: string, response: Response) => {
+                    cache.set(key, response);
+                  },
+                  delete: async (key: string) => cache.delete(key),
+                }),
+              } as any;
+            });
+
+            afterEach(function () {
               globalThis.caches = originalCaches;
-            }
+            });
+
+            specify('should not reuse a file cached under another urlAllowList', async function () {
+              await readStart([new HttpResolverAxios()]);
+              await assertRedirectRejected([new HttpResolverAxios({ urlAllowList: [/\/start$/] })]);
+            });
+
+            specify(
+              'should not reuse a file cached when an unrestricted resolver could read it',
+              async function () {
+                await readStart([
+                  new HttpResolverAxios(),
+                  new HttpResolverAxios({ urlAllowList: [/\/start$/] }),
+                ]);
+                await assertRedirectRejected([
+                  new HttpResolverAxios({ urlAllowList: [/\/start$/] }),
+                ]);
+              },
+            );
+
+            specify(
+              'should keep the cache key of files read without urlAllowList',
+              async function () {
+                await readStart([new HttpResolverAxios()]);
+                await readStart([new HttpResolverAxios({ urlAllowList: [/^http:\/\/localhost/] })]);
+                const keys = [...cache.keys()];
+
+                assert.include(keys, `read_${origin}/start`);
+                assert.isTrue(
+                  keys.some((key) => key.startsWith('read_allow_')),
+                  'a file read under urlAllowList has its own key prefix',
+                );
+              },
+            );
           });
 
           specify('should apply urlAllowList passed per call via resolverOpts', async function () {

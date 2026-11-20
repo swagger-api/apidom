@@ -1,0 +1,6 @@
+{
+  "paths": { "/alias": { "$ref": "../b/deep/b.json#/paths/~1alias" } },
+  "components": {
+    "schemas": { "Alias": { "$ref": "../b/deep/b.json#/components/schemas/Alias" } }
+  }
+}

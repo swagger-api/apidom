@@ -1763,8 +1763,9 @@ Strategy options (passed via `dereference.strategyOpts['openapi-3-0']`):
   for every referenced fragment before it is refracted and transcluded. `fragment` is the referenced element as found in
   its document, `document` is that document's root element, `uri` is the resolved reference URI and
   `referencedElementType` is the OpenAPI 3.0 element type the fragment is referenced as (e.g. `schema`, `parameter`,
-  `pathItem`). A generic element returned by the transformer is refracted as `referencedElementType`. The result is
-  cached per fragment, so each fragment is transformed once.
+  `pathItem`). A generic element returned by the transformer is refracted as `referencedElementType`. Return a new
+  element instead of changing `fragment`, which belongs to a cached document. The result is cached per reference URI
+  and element type, so each fragment is transformed once, and the references inside it are resolved.
 - `dereferenceExamples` (`boolean`, default `true`) - when `false`, Example Object `externalValue` fields are neither
   fetched nor validated.
 - `dereferenceLinks` (`boolean`, default `true`) - when `false`, Link Object `operationRef` fields are neither fetched

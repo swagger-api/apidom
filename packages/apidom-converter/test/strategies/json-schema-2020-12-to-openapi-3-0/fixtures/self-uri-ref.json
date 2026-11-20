@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Self URI", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "$defs": { "Name": { "type": "string" } },
+        "properties": {
+          "name": { "$ref": "./self-uri-ref.json#/components/schemas/Pet/$defs/Name" }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import {
   Element,
+  ObjectElement,
   cloneDeep,
   createNamespace,
   isBooleanElement,
@@ -19,8 +20,10 @@ import downgradeSchema, {
   baseURIAt,
   buildIdentifierIndex,
   createWarnings,
+  ignoresRefSiblings,
   needsDowngrade,
   rewriteIdentifierRefs,
+  setStringValue,
 } from './downgrade/index.ts';
 import { elementAt, replaceAt } from './downgrade/document.ts';
 import { fragmentTokens } from './downgrade/refs.ts';
@@ -54,14 +57,22 @@ const absolutizeRefsInStashes = (schema: Element, fileURI: string): void => {
   forEachSchema(schema, (current, inStash) => {
     if (!inStash || !isObjectElement(current)) return;
     const ref = current.get('$ref');
-    if (isStringElement(ref)) current.set('$ref', url.resolve(fileURI, toValue(ref)));
+    if (isStringElement(ref)) setStringValue(ref, url.resolve(fileURI, toValue(ref)));
   });
 };
 
 interface DocumentInfo {
   readonly uri: string;
   readonly index: IdentifierIndex;
+  readonly ignoresRefSiblings: boolean;
 }
+
+/**
+ * The pointers of the schemas to index: the outermost schemas of an OpenAPI document, or the
+ * whole document otherwise (a JSON Schema document, or a file of schemas).
+ */
+const indexedSchemaPointers = (document: ObjectElement): string[][] | undefined =>
+  isStringElement(document.get('openapi')) ? findSchemaPositions(document) : undefined;
 
 /**
  * Creates the `fragmentTransformer` for apidom-reference's OpenAPI 3.0 dereference: every
@@ -70,10 +81,14 @@ interface DocumentInfo {
 const createFragmentTransformer = (annotations: Warnings['annotations']): FragmentTransformer => {
   const documents = new WeakMap<Element, DocumentInfo>();
 
-  const documentInfo = (document: Element, uri: string): DocumentInfo => {
+  const documentInfo = (document: ObjectElement, uri: string): DocumentInfo => {
     let info = documents.get(document);
     if (info === undefined) {
-      info = { uri, index: buildIdentifierIndex(document, uri) };
+      info = {
+        uri,
+        index: buildIdentifierIndex(document, uri, indexedSchemaPointers(document)),
+        ignoresRefSiblings: ignoresRefSiblings(toValue(document.get('$schema'))),
+      };
       documents.set(document, info);
     }
     return info;
@@ -107,6 +122,7 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
           documentURI,
           baseURI,
           index: info.index,
+          ignoresRefSiblings: info.ignoresRefSiblings,
         });
         absolutizeRefsInStashes(downgraded, documentURI);
         return downgraded;

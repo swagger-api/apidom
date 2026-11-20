@@ -354,6 +354,85 @@ describe('converter', function () {
         });
       });
 
+      context('given an $id repeated in a Link requestBody', function () {
+        specify('should resolve the $ref to the schema, not to the data', async function () {
+          const result: any = await convertFixture('link-data-id.json');
+          const { PetAlias } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(PetAlias, { $ref: '#/components/schemas/Pet' });
+        });
+      });
+
+      context('given a reference into the document spelled with its file name', function () {
+        specify('should follow its target when the target moves', async function () {
+          const result: any = await convertFixture('self-uri-ref.json');
+          const { Pet } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(Pet.properties.name, {
+            $ref: '#/components/schemas/Pet/x-conversion-$defs/Name',
+          });
+          assert.notInclude(warningCodes(result), 'unresolved-reference');
+        });
+      });
+
+      context('given a Draft 7 schema with keywords next to $ref', function () {
+        specify('should remove the keywords Draft 7 ignores', async function () {
+          const result: any = await convertFixture(path.join('draft7-ref-siblings', 'entry.json'));
+          const { Count } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(Count, { description: 'A count', allOf: [{ type: 'integer' }] });
+          assert.include(warningCodes(result), 'dropped-keyword');
+        });
+      });
+
+      context('given an $id with a URN base', function () {
+        specify('should convert and fall back to the file location', async function () {
+          const result: any = await convertFixture(path.join('urn-id-base', 'entry.json'));
+          const { Pet } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(Pet.properties.name, {
+            $ref: '#/components/schemas/Pet/x-conversion-$defs/Name',
+          });
+          assert.deepEqual(Pet.properties.owner, { type: 'object' });
+          assert.include(warningCodes(result), 'id-base-mismatch');
+        });
+      });
+
+      context(
+        'given an external discriminator alternative with keywords next to $ref',
+        function () {
+          specify('should report the inlined alternative', async function () {
+            const result: any = await convertFixture(
+              path.join('discriminator-wrapped', 'entry.json'),
+            );
+            const pet = result.api.get('components').get('schemas').get('Pet');
+
+            assert.include(warningCodes(result), 'discriminator-inlined');
+            assert.isFalse(pet.get('oneOf').get(0).meta.hasKey('conversion-ref-split'));
+          });
+        },
+      );
+
+      context('given external Path Items referring back into the entry document', function () {
+        let api: any;
+
+        before(async function () {
+          const result: any = await convertFixture(path.join('path-back-references', 'entry.json'));
+          api = toValue(result.api);
+        });
+
+        specify('should keep a back reference reached through an alias', function () {
+          assert.deepEqual(
+            api.paths['/pets'].get.responses['200'].content['application/json'].schema,
+            { $ref: '#/components/schemas/Error' },
+          );
+        });
+
+        specify('should keep a Path Item back reference', function () {
+          assert.deepEqual(api.paths['/pets-alias'], { $ref: '#/paths/~1owners' });
+        });
+      });
+
       context('given a target version', function () {
         specify('should set openapi and keep its element type', async function () {
           const result: any = await convertFixture('root-only.json', {

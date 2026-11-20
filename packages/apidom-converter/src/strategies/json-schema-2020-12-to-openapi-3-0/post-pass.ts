@@ -16,7 +16,13 @@ import {
 import { url } from '@swagger-api/apidom-reference';
 
 import { elementAt, forEachElement } from './downgrade/document.ts';
-import { forEachMappingRef, fragmentTokens, isSchemaName } from './downgrade/refs.ts';
+import {
+  REF_SPLIT_META,
+  forEachMappingRef,
+  fragmentTokens,
+  isSchemaName,
+  setStringValue,
+} from './downgrade/refs.ts';
 import { forEachSchema, subschemaPositions, unmarkStash } from './downgrade/walk.ts';
 import type { Warnings } from './downgrade/index.ts';
 
@@ -135,11 +141,14 @@ const createRebase = (entryURI: string) => {
     rebased.add(uri === toValue(value) ? value : replace(uri));
   };
 
-  const rebaseField = (element: ObjectElement, field: string, origin: string): void =>
-    rebaseValue(element.get(field), origin, (uri) => {
-      element.set(field, uri);
-      return element.get(field);
+  const rebaseField = (element: ObjectElement, field: string, origin: string): void => {
+    const value = element.get(field);
+    if (!isStringElement(value)) return;
+    rebaseValue(value, origin, (uri) => {
+      setStringValue(value, uri);
+      return value;
     });
+  };
 
   return (element: Element, origin: string): void => {
     if (origin === entryURI) return;
@@ -159,6 +168,27 @@ const isExternal = (element: Element, entryURI: string): boolean => {
   return origin !== undefined && url.stripHash(origin) !== url.stripHash(entryURI);
 };
 
+/**
+ * Whether a discriminator alternative was inlined from another document: the alternative itself,
+ * or, when the converter moved its `$ref` into `allOf` together with its siblings, that `$ref`'s
+ * target.
+ */
+const isInlinedAlternative = (
+  element: Element,
+  entryURI: string,
+  seen: Set<Element> = new Set(),
+): boolean => {
+  if (isExternal(element, entryURI)) return true;
+  if (seen.has(element) || !isObjectElement(element)) return false;
+  seen.add(element);
+  const allOf = element.get('allOf');
+  return (
+    toValue(element.meta.get(REF_SPLIT_META)) === true &&
+    isArrayElement(allOf) &&
+    (allOf.content as Element[]).some((item) => isInlinedAlternative(item, entryURI, seen))
+  );
+};
+
 const checkDiscriminator = (element: Element, entryURI: string, warnings: Warnings): void => {
   if (!isSchemaElement(element) || !element.hasKey('discriminator')) return;
   const discriminator = element.get('discriminator');
@@ -167,7 +197,7 @@ const checkDiscriminator = (element: Element, entryURI: string, warnings: Warnin
     const value = element.get(keyword);
     return isArrayElement(value) ? (value.content as Element[]) : [];
   });
-  if (alternatives.some((alternative) => isExternal(alternative, entryURI))) {
+  if (alternatives.some((alternative) => isInlinedAlternative(alternative, entryURI))) {
     warnings.add(
       discriminator,
       'discriminator-inlined',
@@ -256,6 +286,7 @@ const postPass = (api: Element, options: PostPassOptions, warnings: Warnings): v
       checkInternalRefs(element, api, warnings);
       unmarkStash(element);
       element.meta.remove(SOURCE_META);
+      element.meta.remove(REF_SPLIT_META);
     },
     () => {},
   );

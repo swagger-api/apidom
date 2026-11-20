@@ -12,6 +12,7 @@ import { File, Reference, ReferenceSet, parse } from '@swagger-api/apidom-refere
 import convert, { ConvertError } from '../../../src/index.ts';
 import defaultOptions from '../../../src/options/index.ts';
 import JSONSchema202012ToOpenAPI30ConvertStrategy from '../../../src/strategies/json-schema-2020-12-to-openapi-3-0/index.ts';
+import { rebaseServerURL } from '../../../src/strategies/json-schema-2020-12-to-openapi-3-0/post-pass.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const fixtures = path.join(__dirname, 'fixtures');
@@ -382,6 +383,91 @@ describe('converter', function () {
 
           assert.deepEqual(Count, { description: 'A count', allOf: [{ type: 'integer' }] });
           assert.include(warningCodes(result), 'dropped-keyword');
+        });
+      });
+
+      context('given a document mixing JSON Schema dialects', function () {
+        specify('should apply the $ref rules of each schema dialect', async function () {
+          const result: any = await convertFixture(
+            path.join('draft7-ref-siblings', 'mixed-entry.json'),
+          );
+          const { Modern, Legacy, LegacyCount } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(Modern, { allOf: [{ minimum: 5 }, { type: 'integer' }] });
+          assert.deepEqual(Legacy.properties.count, { type: 'integer' });
+          assert.deepEqual(LegacyCount, { type: 'integer' });
+        });
+      });
+
+      context('given a reference into a schema next to a Draft 7 $ref', function () {
+        specify('should move the schema and follow it', async function () {
+          const result: any = await convertFixture(
+            path.join('draft7-ref-siblings', 'target-entry.json'),
+          );
+          const { Count, Unit } = toValue(result.api).components.schemas;
+
+          assert.deepEqual(Count['x-conversion-properties'], { unit: { type: 'string' } });
+          assert.deepEqual(Unit, {
+            $ref: '#/components/schemas/Count/x-conversion-properties/unit',
+          });
+          assert.include(warningCodes(result), 'moved-keyword');
+          assert.notInclude(warningCodes(result), 'unresolved-reference');
+        });
+      });
+
+      context('given relative server URLs in inlined Path Items', function () {
+        let api: any;
+
+        before(async function () {
+          const result: any = await convertFixture(path.join('server-urls', 'entry.json'));
+          api = toValue(result.api);
+        });
+
+        specify('should rebase them against the document they come from', function () {
+          assert.deepEqual(
+            api.paths['/owners'].servers.map((server: any) => server.url),
+            [
+              './paths/v1',
+              '/root',
+              'https://api.example.com/v1',
+              '{scheme}://example.com',
+              './paths/{version}/api',
+            ],
+          );
+          assert.deepEqual(api.paths['/owners'].get.servers, [{ url: './shared' }]);
+          assert.strictEqual(
+            api.paths['/owners'].get.responses['200'].links.self.server.url,
+            './paths/links',
+          );
+        });
+
+        specify('should keep the server URLs of the entry document', function () {
+          assert.deepEqual(api.servers, [{ url: './api' }]);
+          assert.deepEqual(api.paths['/pets'].servers, [{ url: './entry-own' }]);
+        });
+      });
+
+      context('given server URLs read over HTTP', function () {
+        const origin = 'https://schemas.example.com/paths/pets.yaml';
+
+        specify('should make a URL on another host absolute', function () {
+          const entry = 'https://api.example.com/openapi.yaml';
+
+          assert.strictEqual(
+            rebaseServerURL('./v1', origin, entry),
+            'https://schemas.example.com/paths/v1',
+          );
+          assert.strictEqual(
+            rebaseServerURL('/v1', origin, entry),
+            'https://schemas.example.com/v1',
+          );
+        });
+
+        specify('should keep a URL on the same host relative', function () {
+          const entry = 'https://schemas.example.com/openapi.yaml';
+
+          assert.strictEqual(rebaseServerURL('./v1', origin, entry), './paths/v1');
+          assert.strictEqual(rebaseServerURL('/v1', origin, entry), '/v1');
         });
       });
 

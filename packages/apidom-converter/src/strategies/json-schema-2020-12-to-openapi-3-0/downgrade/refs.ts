@@ -16,8 +16,14 @@ import {
 } from '@swagger-api/apidom-json-pointer/modern';
 import { url } from '@swagger-api/apidom-reference';
 
-import { ANNOTATION_KEYWORDS, SCHEMA_MAP_KEYWORDS, isExtensionKeyword } from './keywords.ts';
-import { subschemaPositions } from './walk.ts';
+import {
+  ANNOTATION_KEYWORDS,
+  SCHEMA_ARRAY_KEYWORDS,
+  SCHEMA_KEYWORDS,
+  SCHEMA_MAP_KEYWORDS,
+  isExtensionKeyword,
+} from './keywords.ts';
+import { stashKey, stashKeyword, subschemaPositions } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
 /**
@@ -154,6 +160,32 @@ export const baseURIAt = (
   });
 
   return base;
+};
+
+/**
+ * Returns the `$schema` in effect at a JSON Pointer of a document: the nearest one declared above
+ * it (the element at the pointer itself excluded).
+ */
+export const schemaDialectAt = (
+  document: Element,
+  tokens: readonly string[],
+): string | undefined => {
+  let dialect: string | undefined;
+  let current: Element | undefined = document;
+
+  tokens.forEach((token) => {
+    if (isObjectElement(current)) {
+      const schema = current.get('$schema');
+      if (isStringElement(schema)) dialect = toValue(schema);
+      current = current.get(token);
+    } else if (isArrayElement(current)) {
+      current = current.get(Number(token));
+    } else {
+      current = undefined;
+    }
+  });
+
+  return dialect;
 };
 
 /**
@@ -396,16 +428,32 @@ const REF_TARGET_KEYWORDS = new Set([
   '$comment',
 ]);
 
+const SCHEMA_VALUED_KEYWORDS = new Set<string>([
+  ...SCHEMA_KEYWORDS,
+  ...SCHEMA_ARRAY_KEYWORDS,
+  ...SCHEMA_MAP_KEYWORDS,
+]);
+
 /**
- * Removes the validation keywords next to a `$ref`, which Draft 4, 6 and 7 ignore, so that the
- * converted schema does not start enforcing them. Annotations, extensions and the keywords that
- * hold reference targets are kept.
+ * Sets aside the validation keywords next to a `$ref`, which Draft 4, 6 and 7 ignore, so that the
+ * converted schema does not start enforcing them: keywords that hold schemas move to
+ * `x-conversion-*` (references into them still resolve), the others are removed. Annotations,
+ * extensions and the keywords that hold reference targets are kept.
  */
 export const dropIgnoredRefSiblings = (schema: ObjectElement, warnings: Warnings): void => {
   if (!isStringElement(schema.get('$ref'))) return;
   refSiblingValidationKeys(schema)
     .filter((key) => !REF_TARGET_KEYWORDS.has(key))
     .forEach((key) => {
+      if (SCHEMA_VALUED_KEYWORDS.has(key)) {
+        stashKeyword(schema, key);
+        warnings.add(
+          schema.get(stashKey(key)),
+          'moved-keyword',
+          `"${key}" next to "$ref" has no effect in this JSON Schema dialect and was moved to "${stashKey(key)}"`,
+        );
+        return;
+      }
       warnings.add(
         schema.get(key),
         'dropped-keyword',

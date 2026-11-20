@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Integer": { "type": "integer" },
+    "Modern": { "$ref": "#/$defs/Integer", "minimum": 5 },
+    "Legacy": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "properties": {
+        "count": { "$ref": "#/$defs/Integer", "minimum": 5 }
+      }
+    }
+  }
+}

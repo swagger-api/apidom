@@ -46,6 +46,21 @@ describe('resolve', function () {
             );
           });
 
+          specify('should match a glob against the full URL', function () {
+            const resolver = new HttpResolverAxios({ urlAllowList: ['*.json'] });
+
+            assert.isFalse(resolver.canRead(new File({ uri: 'https://example.com/a.json' })));
+          });
+
+          specify('should give the same result on every call with a global RegExp', function () {
+            const resolver = new HttpResolverAxios({ urlAllowList: [/^https:\/\//g] });
+            const file = new File({ uri: 'https://example.com/a.json' });
+
+            assert.isTrue(resolver.canRead(file));
+            assert.isTrue(resolver.canRead(file));
+            assert.isTrue(resolver.canRead(file));
+          });
+
           specify('should never read non-http URLs', function () {
             const resolver = new HttpResolverAxios({ urlAllowList: [/.*/] });
 

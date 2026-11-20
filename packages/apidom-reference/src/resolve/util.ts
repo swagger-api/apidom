@@ -84,16 +84,6 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
 
   const cacheKey = `read_${file.uri}`;
 
-  const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
-
-  if (cachedResult !== null) {
-    return cachedResult;
-  }
-
-  if (cachedError !== null) {
-    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: cachedError });
-  }
-
   const optsBoundResolvers: Resolver[] = options.resolve.resolvers.map((resolver) => {
     const clonedResolver = Object.create(resolver);
     return Object.assign(clonedResolver, options.resolve.resolverOpts);
@@ -108,6 +98,17 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
   // we couldn't find any resolver for this File
   if (isEmpty(resolvers)) {
     throw new UnmatchedResolverError(file.uri);
+  }
+
+  // the cache is read only once a resolver may read the file, so that allow lists apply to it
+  const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
+
+  if (cachedResult !== null) {
+    return cachedResult;
+  }
+
+  if (cachedError !== null) {
+    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: cachedError });
   }
 
   try {

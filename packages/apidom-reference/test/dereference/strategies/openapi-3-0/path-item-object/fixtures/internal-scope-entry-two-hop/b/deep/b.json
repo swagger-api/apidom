@@ -1,0 +1,6 @@
+{
+  "paths": { "/alias": { "$ref": "../../entry.json#/paths/~1owners" } },
+  "components": {
+    "schemas": { "Alias": { "$ref": "../../entry.json#/components/schemas/Error" } }
+  }
+}

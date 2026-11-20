@@ -1,0 +1,9 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/pets": { "$ref": "./paths/pets.json" },
+    "/owners": {
+      "get": { "operationId": "getOwners", "responses": { "200": { "description": "ok" } } }
+    }
+  }
+}

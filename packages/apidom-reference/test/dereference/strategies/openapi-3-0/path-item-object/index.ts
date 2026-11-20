@@ -461,6 +461,56 @@ describe('dereference', function () {
               );
             });
 
+            specify(
+              'should keep the origin of a back reference reached through two documents',
+              async function () {
+                const fixturePath = path.join(entryFixturePath, 'internal-scope-entry-two-hop');
+                const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { internal: false },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const origin = path.join(fixturePath, 'b', 'deep', 'b.json');
+                const pet = actual.api.get('components').get('schemas').get('Pet');
+                const pets = actual.api.get('paths').get('/pets');
+
+                assert.strictEqual(
+                  toValue(pet.get('$ref')),
+                  '../../entry.json#/components/schemas/Error',
+                );
+                assert.strictEqual(toValue(pet.meta.get('ref-origin')), origin);
+                assert.strictEqual(toValue(pets.get('$ref')), '../../entry.json#/paths/~1owners');
+                assert.strictEqual(toValue(pets.meta.get('ref-origin')), origin);
+              },
+            );
+
+            specify('should keep Link and Example back references unresolved', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-links-examples',
+              );
+              const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const response = actual.api
+                .get('paths')
+                .get('/pets')
+                .get('get')
+                .get('responses')
+                .get('200');
+
+              assert.deepEqual(
+                toValue(response.get('content').get('application/json').get('examples')),
+                { entry: { externalValue: '../entry.json' } },
+              );
+              assert.strictEqual(
+                toValue(response.get('links').get('owners').get('operationRef')),
+                '../entry.json#/paths/~1owners/get',
+              );
+            });
+
             specify('should keep a Path Item back reference', async function () {
               const fixturePath = path.join(
                 entryFixturePath,

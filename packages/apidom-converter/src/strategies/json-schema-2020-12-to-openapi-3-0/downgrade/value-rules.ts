@@ -18,10 +18,15 @@ import { subschemaPositions } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
 /**
- * Converts a boolean schema into an equivalent object schema.
+ * Converts a boolean schema into an equivalent object schema. The metadata is kept, as it holds
+ * the references that point at the schema.
  */
 export const booleanSchemaToObject = (element: BooleanElement): ObjectElement =>
-  toValue(element) ? new ObjectElement({}) : new ObjectElement({ not: {} });
+  new ObjectElement(
+    toValue(element) ? {} : { not: {} },
+    cloneDeep(element.meta),
+    cloneDeep(element.attributes),
+  );
 
 /**
  * Appends schemas to `allOf`, creating it when missing.
@@ -64,6 +69,14 @@ const convertExamples = (schema: ObjectElement, warnings: Warnings): void => {
 
   if (!isArrayElement(examples) || examples.length === 0) return;
 
+  const existing = schema.get('example');
+  if (existing !== undefined && !existing.equals(toValue(examples.get(0)))) {
+    warnings.add(
+      existing,
+      'example-replaced',
+      '"example" was replaced by the first entry of "examples"',
+    );
+  }
   schema.set('example', cloneDeep(examples.get(0)));
   if (examples.length > 1) {
     warnings.add(

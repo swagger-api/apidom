@@ -87,6 +87,26 @@ describe('converter', function () {
             });
             assert.deepEqual(profile, { properties: { firstName: {} } });
           });
+
+          specify('should rewrite a discriminator.mapping value to it', function () {
+            const document = {
+              components: {
+                schemas: {
+                  Dog: { $anchor: 'dog', type: 'object' },
+                  Pet: {
+                    oneOf: [{ $ref: '#dog' }],
+                    discriminator: { propertyName: 'kind', mapping: { dog: '#dog', cat: 'Cat' } },
+                  },
+                },
+              },
+            };
+            const pet = downgradeInDocument(document, ['components', 'schemas', 'Pet']);
+
+            assert.deepEqual(pet.discriminator.mapping, {
+              dog: '#/components/schemas/Dog',
+              cat: 'Cat',
+            });
+          });
         });
 
         context('given a $ref to an $id', function () {

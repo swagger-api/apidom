@@ -103,7 +103,11 @@ const moveGroups = (schema: ObjectElement): string[][] => {
   const has = (keyword: string) => schema.hasKey(keyword);
 
   if (has('prefixItems')) {
-    groups.push(['prefixItems', ...(has('items') ? ['items'] : [])]);
+    groups.push([
+      'prefixItems',
+      ...(has('items') ? ['items'] : []),
+      ...(has('additionalItems') ? ['additionalItems'] : []),
+    ]);
   } else if (isArrayElement(schema.get('items'))) {
     groups.push(['items', ...(has('additionalItems') ? ['additionalItems'] : [])]);
   } else if (has('additionalItems')) {

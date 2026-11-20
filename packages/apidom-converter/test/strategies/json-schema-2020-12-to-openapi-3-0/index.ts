@@ -2,7 +2,10 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { assert } from 'chai';
 import { ObjectElement, toValue } from '@swagger-api/apidom-core';
-import { mediaTypes as openAPI30MediaTypes } from '@swagger-api/apidom-ns-openapi-3-0';
+import {
+  isOpenapiElement,
+  mediaTypes as openAPI30MediaTypes,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
 import { File, Reference, ReferenceSet, parse } from '@swagger-api/apidom-reference';
 
@@ -327,6 +330,39 @@ describe('converter', function () {
             .get('x-conversion-$defs');
 
           assert.isFalse(stash.meta.hasKey('conversion-stash'));
+        });
+      });
+
+      context('given a chain of external references across directories', function () {
+        specify(
+          'should rebase the last file of the chain against its own location',
+          async function () {
+            const result: any = await convertFixture(path.join('alias-chain', 'entry.json'));
+            const { Pet } = toValue(result.api).components.schemas;
+
+            assert.strictEqual(Pet.properties.cat.$ref, '#/components/schemas/Cat');
+            assert.deepEqual(Pet.discriminator.mapping, { cat: '#/components/schemas/Cat' });
+            assert.deepEqual(warningCodes(result), ['dropped-keyword']);
+          },
+        );
+
+        specify('should leave no internal metadata behind', async function () {
+          const result: any = await convertFixture(path.join('alias-chain', 'entry.json'));
+          const pet = result.api.get('components').get('schemas').get('Pet');
+
+          assert.isFalse(pet.meta.hasKey('conversion-source'));
+        });
+      });
+
+      context('given a target version', function () {
+        specify('should set openapi and keep its element type', async function () {
+          const result: any = await convertFixture('root-only.json', {
+            targetMediaType: openAPI30MediaTypes.findBy('3.0.4', 'json'),
+          });
+          const openapi = result.api.get('openapi');
+
+          assert.isTrue(isOpenapiElement(openapi));
+          assert.strictEqual(toValue(openapi), '3.0.4');
         });
       });
 

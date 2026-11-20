@@ -244,9 +244,34 @@ describe('converter', function () {
             });
 
             assert.deepEqual(output, { type: 'string', example: 'a' });
+            assert.sameMembers(
+              warnings.map((warning) => toValue(warning.attributes.get('code'))),
+              ['example-replaced', 'examples-truncated'],
+            );
+            assert.isTrue(warnings.every((warning) => warning.classes.includes('warning')));
+          });
+
+          specify('should warn when a single entry replaces a different example', function () {
+            const { output, warnings } = downgrade({
+              type: 'string',
+              example: 'old',
+              examples: ['new'],
+            });
+
+            assert.deepEqual(output, { type: 'string', example: 'new' });
             assert.lengthOf(warnings, 1);
-            assert.strictEqual(toValue(warnings[0].attributes.get('code')), 'examples-truncated');
-            assert.isTrue(warnings[0].classes.includes('warning'));
+            assert.strictEqual(toValue(warnings[0].attributes.get('code')), 'example-replaced');
+          });
+
+          specify('should not warn when example equals the first entry', function () {
+            const { output, warnings } = downgrade({
+              type: 'object',
+              example: { a: [1] },
+              examples: [{ a: [1] }],
+            });
+
+            assert.deepEqual(output, { type: 'object', example: { a: [1] } });
+            assert.lengthOf(warnings, 0);
           });
         });
 

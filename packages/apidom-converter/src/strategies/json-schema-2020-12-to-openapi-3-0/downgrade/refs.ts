@@ -213,8 +213,8 @@ const isRelativeDocumentRef = (ref: string): boolean =>
   !ref.startsWith('#') && url.getProtocol(ref) === undefined;
 
 /**
- * Rewrites `$ref`s that point at an `$anchor` or `$id` of the document into JSON Pointer refs.
- * `base` is the base URI in effect at `schema`. References to other documents are left as is;
+ * Rewrites `$ref`s and `discriminator.mapping` values that point at an `$anchor` or `$id` of the
+ * document into JSON Pointer refs. `base` is the base URI in effect at `schema`. References to other documents are left as is;
  * when the `$id` base would resolve such a relative reference to another document than the one it
  * is read from, a warning is reported. Returns whether any `$ref` was changed.
  */
@@ -251,6 +251,14 @@ export const rewriteIdentifierRefs = (
       }
     }
   }
+
+  forEachMappingRef(schema, (value, replace) => {
+    const rewritten = rewriteRef(value, currentBase, documentURI, index);
+    if (rewritten !== undefined && rewritten !== value) {
+      replace(rewritten);
+      changed = true;
+    }
+  });
 
   subschemaPositions(schema).forEach((position) => {
     if (rewriteIdentifierRefs(position.element, currentBase, documentURI, index, warnings)) {

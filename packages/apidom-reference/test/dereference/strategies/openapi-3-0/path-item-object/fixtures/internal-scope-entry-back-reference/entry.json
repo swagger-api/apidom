@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/pets": {
+      "$ref": "./paths/pets.json"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Error": {
+        "type": "object"
+      }
+    }
+  }
+}

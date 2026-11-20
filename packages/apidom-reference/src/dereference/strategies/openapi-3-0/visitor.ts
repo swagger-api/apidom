@@ -66,6 +66,28 @@ export const mutationReplacer = (
 };
 
 /**
+ * Input of the `strategyOpts['openapi-3-0'].fragmentTransformer` option.
+ * @public
+ */
+export interface FragmentTransformerInput {
+  /** The referenced fragment, as found in its document (generic or semantic ApiDOM). */
+  readonly fragment: Element;
+  /** The root element of the document that contains the fragment. */
+  readonly document: Element;
+  /** The resolved URI of the reference, including its fragment. */
+  readonly uri: string;
+  /** The OpenAPI 3.0 element type the fragment is referenced as (e.g. `schema`, `parameter`, `pathItem`). */
+  readonly referencedElementType: string;
+}
+
+/**
+ * Transforms a referenced fragment before it is refracted and transcluded.
+ * Returning a generic element lets the dereference refract it as `referencedElementType`.
+ * @public
+ */
+export type FragmentTransformer = (input: FragmentTransformerInput) => Element | Promise<Element>;
+
+/**
  * @public
  */
 export interface OpenAPI3_0DereferenceVisitorOptions {
@@ -78,6 +100,8 @@ export interface OpenAPI3_0DereferenceVisitorOptions {
   readonly errorContext?: Element[];
   readonly errorPropagationCache?: Map<Element, unknown[]>;
   readonly pendingPropagations?: Array<{ referencingElement: Element; referencedElement: Element }>;
+  readonly skippedReferences?: Set<Element>;
+  readonly skipsExternalLocally?: boolean;
 }
 
 /**
@@ -105,6 +129,18 @@ class OpenAPI3_0DereferenceVisitor {
     referencedElement: Element;
   }> = [];
 
+  /**
+   * Reference and Path Item elements a visitor deliberately left unresolved (because of
+   * `resolve.internal` / `resolve.external`). Shared with nested visitors so a visitor with a
+   * different base URI never re-resolves them, e.g. when an inlined Path Item is traversed again.
+   */
+  protected readonly skippedReferences: Set<Element>;
+
+  /**
+   * Whether external resolution is disabled only for this nested visit (`skipNestedExternal`).
+   */
+  protected readonly skipsExternalLocally: boolean;
+
   constructor({
     reference,
     namespace,
@@ -115,6 +151,8 @@ class OpenAPI3_0DereferenceVisitor {
     errorContext = [],
     errorPropagationCache = new Map(),
     pendingPropagations = [],
+    skippedReferences = new Set(),
+    skipsExternalLocally = false,
   }: OpenAPI3_0DereferenceVisitorOptions) {
     this.indirections = indirections;
     this.namespace = namespace;
@@ -125,6 +163,29 @@ class OpenAPI3_0DereferenceVisitor {
     this.errorContext = errorContext;
     this.errorPropagationCache = errorPropagationCache;
     this.pendingPropagations = pendingPropagations;
+    this.skippedReferences = skippedReferences;
+    this.skipsExternalLocally = skipsExternalLocally;
+  }
+
+  /**
+   * Records a reference this visitor leaves unresolved. An external reference skipped only
+   * because of `skipNestedExternal` is not recorded: the visit of its own position may resolve it.
+   */
+  protected markSkipped(element: Element, isExternalReference: boolean): void {
+    if (isExternalReference && this.skipsExternalLocally) return;
+    this.skippedReferences.add(element);
+  }
+
+  /**
+   * Whether the nested visit of a referenced fragment has external resolution disabled only
+   * because of `skipNestedExternal`.
+   */
+  protected nestedSkipsExternalLocally(referencingElement: ObjectElement): boolean {
+    return (
+      this.skipsExternalLocally ||
+      (this.options.resolve.external &&
+        !this.getNestedVisitorOptions(referencingElement).resolve.external)
+    );
   }
 
   protected popErrorContext(el: Element) {
@@ -239,8 +300,82 @@ class OpenAPI3_0DereferenceVisitor {
     };
   }
 
+  /**
+   * Records a Link or Example left unresolved, only with `internalScope: 'entry'`, where an
+   * inlined Path Item would otherwise have it resolved again against the entry document.
+   */
+  protected markSkippedInEntryScope(element: Element, isExternalReference: boolean): void {
+    if (this.options.dereference.strategyOpts['openapi-3-0']?.internalScope !== 'entry') return;
+    this.markSkipped(element, isExternalReference);
+  }
+
   protected toBaseURI(uri: string): string {
     return url.resolve(this.reference.uri, url.sanitize(url.stripHash(uri)));
+  }
+
+  /**
+   * The resolved URI of a `$ref`: its retrieval URI followed by the `$ref`'s fragment, if any.
+   */
+  protected toReferenceURI(retrievalURI: string, $ref: string): string {
+    const hashIndex = $ref.indexOf('#');
+    return hashIndex === -1 ? retrievalURI : `${retrievalURI}${$ref.slice(hashIndex)}`;
+  }
+
+  /**
+   * Determines whether a retrieval URI is internal for the purpose of the
+   * `resolve.internal` and `resolve.external` options.
+   *
+   * By default (`internalScope: 'document'`) a reference is internal when it points into
+   * the document currently being traversed. With `internalScope: 'entry'` only references
+   * pointing into the entry document are internal, so references internal to external
+   * documents are treated as external.
+   */
+  protected isInternalRetrievalURI(retrievalURI: string): boolean {
+    const internalScope = this.options.dereference.strategyOpts['openapi-3-0']?.internalScope;
+    const entryURI = this.reference.refSet?.rootRef?.uri;
+
+    if (internalScope === 'entry' && typeof entryURI === 'string') {
+      return url.stripHash(entryURI) === retrievalURI;
+    }
+
+    return url.stripHash(this.reference.uri) === retrievalURI;
+  }
+
+  /**
+   * Applies the optional `strategyOpts['openapi-3-0'].fragmentTransformer` to a referenced fragment.
+   * The result is cached per referenced URI and element type, so every fragment is transformed
+   * once, and repeated (including circular) references resolve to the same transformed element.
+   */
+  protected async transformFragment(
+    fragment: Element,
+    reference: Reference,
+    uri: string,
+    referencedElementType: string,
+  ): Promise<Element> {
+    const fragmentTransformer: FragmentTransformer | undefined =
+      this.options.dereference.strategyOpts['openapi-3-0']?.fragmentTransformer;
+
+    if (typeof fragmentTransformer !== 'function') {
+      return fragment;
+    }
+
+    // keyed by URI: the element at a URI is replaced once the references inside it are resolved
+    const cacheKey = `fragment-transformer-${referencedElementType}-${uri}`;
+
+    if (this.refractCache.has(cacheKey)) {
+      return this.refractCache.get(cacheKey)!;
+    }
+
+    const transformed = await fragmentTransformer({
+      fragment,
+      document: reference.value.result as Element,
+      uri,
+      referencedElementType,
+    });
+    transformed.id = identityManager.identify(transformed);
+    this.refractCache.set(cacheKey, transformed);
+
+    return transformed;
   }
 
   protected async toReference(uri: string): Promise<Reference> {
@@ -327,19 +462,26 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
 
+    // skip referencing element another visitor deliberately left unresolved
+    if (this.skippedReferences.has(referencingElement)) {
+      return false;
+    }
+
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Reference Objects
     if (!this.options.resolve.internal && isInternalReference) {
+      this.markSkipped(referencingElement, false);
       // skip traversing this reference element
       return false;
     }
     // ignore resolving external Reference Objects
     if (!this.options.resolve.external && isExternalReference) {
+      this.markSkipped(referencingElement, true);
       // skip traversing this reference element
       return false;
     }
@@ -374,6 +516,25 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+    const fragment = referencedElement;
+
+    try {
+      referencedElement = await this.transformFragment(
+        referencedElement,
+        reference,
+        this.toReferenceURI(retrievalURI, toValue(referencingElement.$ref)),
+        toValue(referencingElement.meta.get('referenced-element')),
+      );
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
+    }
+
+    // a transformed fragment is a new element, which the traversal of its document never reaches
+    const isTransformed = referencedElement !== fragment;
 
     /**
      * Applying semantics to a referenced element if semantics are missing.
@@ -463,6 +624,7 @@ class OpenAPI3_0DereferenceVisitor {
     if (
       (isExternalReference ||
         isNonEntryDocument ||
+        isTransformed ||
         isReferenceElement(referencedElement) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -481,6 +643,8 @@ class OpenAPI3_0DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        skippedReferences: this.skippedReferences,
+        skipsExternalLocally: this.nestedSkipsExternalLocally(referencingElement),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -522,6 +686,13 @@ class OpenAPI3_0DereferenceVisitor {
       cloneDeep(identityManager.identify(referencingElement)),
     );
 
+    // the copy of a reference left unresolved stays unresolved, and keeps the document it is written in
+    if (this.skippedReferences.has(referencedElement)) {
+      const origin = referencedElement.meta.get('ref-origin');
+      if (origin !== undefined) mergedElement.setMetaProperty('ref-origin', toValue(origin));
+      this.skippedReferences.add(mergedElement);
+    }
+
     /**
      * Transclude referencing element with merged referenced element.
      */
@@ -551,19 +722,26 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
 
+    // skip referencing element another visitor deliberately left unresolved
+    if (this.skippedReferences.has(referencingElement)) {
+      return undefined;
+    }
+
     const [ancestorsLineage, directAncestors] = this.toAncestorLineage([...ancestors, parent]);
 
     const retrievalURI = this.toBaseURI(toValue(referencingElement.$ref));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving internal Path Item Objects
     if (!this.options.resolve.internal && isInternalReference) {
+      this.markSkipped(referencingElement, false);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
     // ignore resolving external Path Item Objects
     if (!this.options.resolve.external && isExternalReference) {
+      this.markSkipped(referencingElement, true);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
     }
@@ -598,6 +776,24 @@ class OpenAPI3_0DereferenceVisitor {
       });
     }
     referencedElement.id = identityManager.identify(referencedElement);
+    const fragment = referencedElement;
+
+    try {
+      referencedElement = await this.transformFragment(
+        referencedElement,
+        reference,
+        this.toReferenceURI(retrievalURI, toValue(referencingElement.$ref)),
+        'pathItem',
+      );
+    } catch (error) {
+      this.indirections.pop();
+      return this.handleDereferenceError(error, referencingElement, {
+        directAncestors,
+        isExternalReference,
+      });
+    }
+
+    const isTransformed = referencedElement !== fragment;
 
     /**
      * Applying semantics to a referenced element if semantics are missing.
@@ -679,6 +875,7 @@ class OpenAPI3_0DereferenceVisitor {
     if (
       (isExternalReference ||
         isNonEntryDocument ||
+        isTransformed ||
         (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||
         shouldDetectCircular) &&
       !ancestorsLineage.includesCycle(referencedElement)
@@ -697,6 +894,8 @@ class OpenAPI3_0DereferenceVisitor {
         errorContext: this.errorContext,
         errorPropagationCache: this.errorPropagationCache,
         pendingPropagations: this.pendingPropagations,
+        skippedReferences: this.skippedReferences,
+        skipsExternalLocally: this.nestedSkipsExternalLocally(referencingElement),
       });
       try {
         referencedElement = await visitAsync(referencedElement, visitor, {
@@ -719,6 +918,15 @@ class OpenAPI3_0DereferenceVisitor {
     }
 
     this.indirections.pop();
+
+    // with internalScope 'entry', a referenced Path Item left unresolved keeps its own `$ref`, and
+    // the document it is written in
+    const skippedTarget =
+      this.options.dereference.strategyOpts['openapi-3-0']?.internalScope === 'entry' &&
+      isPathItemElement(referencedElement) &&
+      this.skippedReferences.has(referencedElement)
+        ? referencedElement
+        : undefined;
 
     /**
      * Creating a new version of Path Item by merging fields from referenced Path Item with referencing one.
@@ -753,6 +961,13 @@ class OpenAPI3_0DereferenceVisitor {
       referencedElement = mergedElement;
     }
 
+    if (skippedTarget !== undefined && isPathItemElement(referencedElement)) {
+      referencedElement.set('$ref', skippedTarget.get('$ref'));
+      const origin = skippedTarget.meta.get('ref-origin');
+      if (origin !== undefined) referencedElement.setMetaProperty('ref-origin', toValue(origin));
+      this.skippedReferences.add(referencedElement);
+    }
+
     /**
      * Transclude referencing element with merged referenced element.
      */
@@ -772,8 +987,18 @@ class OpenAPI3_0DereferenceVisitor {
     ancestors: [Element | Element[]],
     link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
+    // skip LinkElement dereferencing when disabled
+    if (this.options.dereference.strategyOpts['openapi-3-0']?.dereferenceLinks === false) {
+      return undefined;
+    }
+
     // ignore LinkElement without operationRef or operationId field
     if (!isStringElement(linkElement.operationRef) && !isStringElement(linkElement.operationId)) {
+      return undefined;
+    }
+
+    // skip LinkElement another visitor deliberately left unresolved
+    if (this.skippedReferences.has(linkElement)) {
       return undefined;
     }
 
@@ -791,16 +1016,18 @@ class OpenAPI3_0DereferenceVisitor {
       // possibly non-semantic referenced element
       const jsonPointer = URIFragmentIdentifier.fromURIReference(toValue(linkElement.operationRef));
       const retrievalURI = this.toBaseURI(toValue(linkElement.operationRef));
-      const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+      const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
       const isExternalReference = !isInternalReference;
 
       // ignore resolving internal Operation Object reference
       if (!this.options.resolve.internal && isInternalReference) {
+        this.markSkippedInEntryScope(linkElement, false);
         // skip traversing this Link element but traverse all it's child elements
         return undefined;
       }
       // ignore resolving external Operation Object reference
       if (!this.options.resolve.external && isExternalReference) {
+        this.markSkippedInEntryScope(linkElement, true);
         // skip traversing this Link element but traverse all it's child elements
         return undefined;
       }
@@ -890,8 +1117,18 @@ class OpenAPI3_0DereferenceVisitor {
     ancestors: [Element | Element[]],
     link: { replaceWith: (element: Element, replacer: typeof mutationReplacer) => void },
   ) {
+    // skip ExampleElement dereferencing when disabled
+    if (this.options.dereference.strategyOpts['openapi-3-0']?.dereferenceExamples === false) {
+      return undefined;
+    }
+
     // ignore ExampleElement without externalValue field
     if (!isStringElement(exampleElement.externalValue)) {
+      return undefined;
+    }
+
+    // skip ExampleElement another visitor deliberately left unresolved
+    if (this.skippedReferences.has(exampleElement)) {
       return undefined;
     }
 
@@ -904,16 +1141,18 @@ class OpenAPI3_0DereferenceVisitor {
     }
 
     const retrievalURI = this.toBaseURI(toValue(exampleElement.externalValue));
-    const isInternalReference = url.stripHash(this.reference.uri) === retrievalURI;
+    const isInternalReference = this.isInternalRetrievalURI(retrievalURI);
     const isExternalReference = !isInternalReference;
 
     // ignore resolving external Example Objects
     if (!this.options.resolve.internal && isInternalReference) {
+      this.markSkippedInEntryScope(exampleElement, false);
       // skip traversing this Example element but traverse all it's child elements
       return undefined;
     }
     // ignore resolving external Example Objects
     if (!this.options.resolve.external && isExternalReference) {
+      this.markSkippedInEntryScope(exampleElement, true);
       // skip traversing this Example element but traverse all it's child elements
       return undefined;
     }

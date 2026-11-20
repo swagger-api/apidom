@@ -820,7 +820,8 @@ await resolve('/home/user/oas.json', {
 The `cacheTTL` option controls caching behavior for files resolved from remote URLs or local filesystem paths. When
 set to a value greater than `0`, resolved file contents are cached using
 the [Cache Storage API](https://developer.mozilla.org/en-US/docs/Web/API/Cache) for the specified time-to-live (TTL)
-duration in milliseconds.
+duration in milliseconds. A cached file is returned only when a resolver may read its URL, and results read under a
+`urlAllowList` are cached per list, so a redirect that one list rejects is never served under it.
 
 ```js
 import { resolve } from '@swagger-api/apidom-reference';
@@ -839,6 +840,28 @@ await resolve('https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/
 This resolver plugin is responsible for resolving a remote file represented by HTTP(s) URL.
 It detects if the provided URI represents an HTTP(s) URL and if so,
 fetches the file and provides its content.
+
+###### URL allow list
+
+The `urlAllowList` option restricts which URLs the resolver may read. Each entry is either a `RegExp` tested against
+the full URL, or a glob string matched against the full URL with [minimatch](https://github.com/isaacs/minimatch).
+Unlike `FileResolver`'s `fileAllowList`, a glob without `/` does not match the last segment alone, so `*.json` matches
+no URL. When `urlAllowList` is not provided, any HTTP(s) URL may be read. An empty list
+allows no URL. The list is also applied to every redirect (in Node.js; browsers follow redirects themselves).
+
+```js
+import { resolve } from '@swagger-api/apidom-reference';
+import HTTPResolverAxios from '@swagger-api/apidom-reference/resolve/resolvers/http-axios';
+
+new HTTPResolverAxios({ urlAllowList: ['https://schemas.example.com/**', /^https:\/\/cdn\.example\.com\//] });
+
+// or per call, via resolver options
+await resolve('https://schemas.example.com/openapi.json', {
+  resolve: {
+    resolverOpts: { urlAllowList: [/^https:\/\//] },
+  },
+});
+```
 
 ###### [Axios Request Config](https://axios-http.com/docs/req_config) support
 
@@ -1726,6 +1749,45 @@ Supported media types:
   'application/vnd.oai.openapi+json;version=3.0.4',
   'application/vnd.oai.openapi+yaml;version=3.0.4',
 ]
+```
+
+
+Strategy options (passed via `dereference.strategyOpts['openapi-3-0']`):
+
+- `internalScope` (`'document'` | `'entry'`, default `'document'`) - determines which references count as internal
+  for the `resolve.internal` and `resolve.external` options. With `'document'`, a reference is internal when it points
+  into the document currently being traversed. With `'entry'`, only references pointing into the entry document are
+  internal, so references internal to external documents are treated as external. References left unresolved keep
+  their value as written in their own document; the `ref-origin` metadata of the inlined fragment names that document.
+- `fragmentTransformer` (`({ fragment, document, uri, referencedElementType }) => Element | Promise<Element>`) - called
+  for every referenced fragment before it is refracted and transcluded. `fragment` is the referenced element as found in
+  its document, `document` is that document's root element, `uri` is the resolved reference URI and
+  `referencedElementType` is the OpenAPI 3.0 element type the fragment is referenced as (e.g. `schema`, `parameter`,
+  `pathItem`). A generic element returned by the transformer is refracted as `referencedElementType`. Return a new
+  element instead of changing `fragment`, which belongs to a cached document. The result is cached per reference URI
+  and element type, so each fragment is transformed once, and the references inside it are resolved.
+- `dereferenceExamples` (`boolean`, default `true`) - when `false`, Example Object `externalValue` fields are neither
+  fetched nor validated.
+- `dereferenceLinks` (`boolean`, default `true`) - when `false`, Link Object `operationRef` fields are neither fetched
+  nor validated.
+- `circularReplacer` - see `dereference.circularReplacer`.
+
+```js
+import { dereference } from '@swagger-api/apidom-reference';
+
+await dereference('/home/user/oas.json', {
+  parse: { mediaType: 'application/vnd.oai.openapi+json;version=3.0.4' },
+  resolve: { internal: false },
+  dereference: {
+    strategyOpts: {
+      'openapi-3-0': {
+        internalScope: 'entry',
+        dereferenceExamples: false,
+        dereferenceLinks: false,
+      },
+    },
+  },
+});
 ```
 
 ##### [openapi-3-1](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/dereference/strategies/openapi-3-1)

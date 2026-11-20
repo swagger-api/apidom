@@ -76,23 +76,36 @@ const setCacheFileResult = async ({
 };
 
 /**
+ * The cache key of a file. A redirect is checked only when the file is read, so a file read by
+ * resolvers with a `urlAllowList` is cached per allow lists (of every resolver that may read it,
+ * in order, `null` for one without a list) and never reused under others. Without any list the
+ * key is the file URI alone.
+ */
+const toCacheKey = (uri: string, resolvers: Resolver[]): string => {
+  const lists = resolvers.map(
+    (resolver) => (resolver as { urlAllowList?: Array<string | RegExp> }).urlAllowList,
+  );
+  if (lists.every((list) => list === undefined)) {
+    return `read_${uri}`;
+  }
+  const allow = lists.map((list) =>
+    list === undefined
+      ? null
+      : list.map((pattern) =>
+          typeof pattern === 'string'
+            ? { glob: pattern }
+            : { regexp: pattern.source, flags: pattern.flags },
+        ),
+  );
+  return `read_allow_${encodeURIComponent(JSON.stringify({ uri, allow }))}`;
+};
+
+/**
  * Reads the given file, using the configured resolver plugins.
  */
 // eslint-disable-next-line import/prefer-default-export
 export const readFile = async (file: File, options: ReferenceOptions): Promise<Buffer | string> => {
   const { cacheTTL = 0 } = options.resolve.resolverOpts;
-
-  const cacheKey = `read_${file.uri}`;
-
-  const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
-
-  if (cachedResult !== null) {
-    return cachedResult;
-  }
-
-  if (cachedError !== null) {
-    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: cachedError });
-  }
 
   const optsBoundResolvers: Resolver[] = options.resolve.resolvers.map((resolver) => {
     const clonedResolver = Object.create(resolver);
@@ -108,6 +121,18 @@ export const readFile = async (file: File, options: ReferenceOptions): Promise<B
   // we couldn't find any resolver for this File
   if (isEmpty(resolvers)) {
     throw new UnmatchedResolverError(file.uri);
+  }
+
+  // the cache is read only once a resolver may read the file, so that allow lists apply to it
+  const cacheKey = toCacheKey(file.uri, resolvers);
+  const { cachedResult, cachedError } = await getCacheFileResult({ cacheKey, cacheTTL });
+
+  if (cachedResult !== null) {
+    return cachedResult;
+  }
+
+  if (cachedError !== null) {
+    throw new ResolveError(`Error while reading file "${file.uri}"`, { cause: cachedError });
   }
 
   try {

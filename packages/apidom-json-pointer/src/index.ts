@@ -46,7 +46,8 @@ export {
 /**
  * Contextual Evaluation for ApiDOM
  */
-export { evaluate } from '@swaggerexpert/json-pointer/evaluate/realms/apidom';
+export { default as evaluate } from './evaluate.ts';
+export type { ApiDOMRealmEvaluationOptions } from './evaluate.ts';
 /**
  * Re-export all types
  */

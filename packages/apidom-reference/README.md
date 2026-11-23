@@ -2090,6 +2090,21 @@ Supported media types:
 ]
 ```
 
+##### [openapi-3-2](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/openapi-3-2)
+
+Bundle strategy for bundling [OpenApi 3.2.0](https://github.com/OAI/OpenAPI-Specification/blob/main/versions/3.2.0.md) definitions.
+Like the `openapi-3-1` strategy, it returns the document unchanged.
+
+Supported media types:
+
+```js
+[
+  'application/vnd.oai.openapi;version=3.2.0',
+  'application/vnd.oai.openapi+json;version=3.2.0',
+  'application/vnd.oai.openapi+yaml;version=3.2.0'
+]
+```
+
 ##### [json-schema-2020-12](https://github.com/swagger-api/apidom/tree/main/packages/apidom-reference/src/bundle/strategies/json-schema-2020-12)
 
 Bundle strategy for standalone [JSON Schema 2020-12](https://json-schema.org/draft/2020-12/draft-bhutton-json-schema-01.html) documents.

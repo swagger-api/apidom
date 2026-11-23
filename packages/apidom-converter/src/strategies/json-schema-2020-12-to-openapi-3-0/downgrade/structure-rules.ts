@@ -136,20 +136,18 @@ const moveGroups = (schema: ObjectElement): string[][] => {
   return groups;
 };
 
-const allowsArray = (schema: ObjectElement): boolean => {
-  const type = schema.get('type');
-  return isArrayElement(type)
-    ? type.content.some((item) => toValue(item) === 'array')
-    : toValue(type) === 'array';
+/**
+ * OpenAPI 3.0 requires `items` for arrays; `{}` accepts what a missing `items` accepts.
+ */
+export const ensureArrayItems = (schema: ObjectElement): void => {
+  if (toValue(schema.get('type')) === 'array' && !schema.hasKey('items')) {
+    schema.set('items', new ObjectElement({}));
+  }
 };
 
 const moveKeywords = (schema: ObjectElement, warnings: Warnings) => {
   moveGroups(schema).forEach((group) => {
     group.forEach((keyword) => stashKeyword(schema, keyword));
-    // OpenAPI 3.0 requires `items` for arrays; `{}` accepts what a missing `items` accepts
-    if (['prefixItems', 'items'].includes(group[0]) && allowsArray(schema)) {
-      schema.set('items', new ObjectElement({}));
-    }
     const [keyword] = group;
     const moved = group.map((name) => `"${name}"`).join(' and ');
     warnings.add(

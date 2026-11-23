@@ -7,7 +7,13 @@ import {
   mediaTypes as openAPI30MediaTypes,
 } from '@swagger-api/apidom-ns-openapi-3-0';
 import { mediaTypes as openAPI31MediaTypes } from '@swagger-api/apidom-ns-openapi-3-1';
-import { File, Reference, ReferenceSet, parse } from '@swagger-api/apidom-reference';
+import {
+  File,
+  Reference,
+  ReferenceSet,
+  UnmatchedResolverError,
+  parse,
+} from '@swagger-api/apidom-reference';
 
 import convert, { ConvertError } from '../../../src/index.ts';
 import defaultOptions from '../../../src/options/index.ts';
@@ -95,6 +101,39 @@ describe('converter', function () {
             assert.strictEqual(cached.refSet, refSet);
           },
         );
+      });
+
+      context('given array schemas without items', function () {
+        specify('should add items to the arrays it converts', async function () {
+          const result: any = await convertFixture('array-items.json');
+          const { schemas } = toValue(result.api).components;
+
+          assert.deepEqual(schemas.Nullable, { type: 'array', nullable: true, items: {} });
+          assert.deepEqual(schemas.Split, {
+            anyOf: [{ type: 'array', items: {} }, { type: 'string' }],
+          });
+          assert.deepEqual(schemas.Dialect, { type: 'array', items: {} });
+          assert.deepEqual(schemas.Nested.properties.tags, {
+            type: 'array',
+            nullable: true,
+            items: {},
+          });
+          assert.deepEqual(schemas.Plain, { type: 'array' });
+        });
+      });
+
+      context('given boolean schemas in schema fields', function () {
+        specify('should convert them to Schema Objects', async function () {
+          const result: any = await convertFixture('boolean-slots.json');
+          const api = toValue(result.api);
+          const operation = api.paths['/x'].get;
+          const response = operation.responses['200'];
+
+          assert.deepEqual(api.components.schemas, { Never: { not: {} }, Any: {} });
+          assert.deepEqual(operation.parameters[0].schema, {});
+          assert.deepEqual(response.headers['X-Rate'].schema, { not: {} });
+          assert.deepEqual(response.content['application/json'].schema, { not: {} });
+        });
       });
 
       context('given an external standalone JSON Schema 2020-12 file', function () {
@@ -445,6 +484,12 @@ describe('converter', function () {
 
           assert.strictEqual(rebaseServerURL('', origin, entry), './paths/pets.yaml');
         });
+
+        specify('should ignore the query and fragment of the entry URL', function () {
+          const entry = 'https://schemas.example.com/openapi.yaml?source=/a/b#/x';
+
+          assert.strictEqual(rebaseServerURL('./v1?mode=/c', origin, entry), './paths/v1?mode=/c');
+        });
       });
 
       context('given an $id with a URN base', function () {
@@ -457,6 +502,14 @@ describe('converter', function () {
           });
           assert.deepEqual(Pet.properties.owner, { type: 'object' });
           assert.include(warningCodes(result), 'id-base-mismatch');
+        });
+
+        specify('should resolve a percent-encoded JSON Pointer against the $id', async function () {
+          const result: any = await convertFixture('encoded-pointer.json');
+
+          assert.deepEqual(toValue(result.api).components.schemas.Name, {
+            $ref: '#/components/schemas/Root/properties/name',
+          });
         });
       });
 
@@ -570,6 +623,15 @@ describe('converter', function () {
 
           assert.deepEqual(toValue(relative.api), api);
         });
+
+        specify('should convert the same way given the path as resolve.baseURI', async function () {
+          const explicit: any = await convert(entry, {
+            resolve: { baseURI: entry },
+            convert: { targetMediaType: target },
+          });
+
+          assert.deepEqual(toValue(explicit.api), api);
+        });
       });
 
       context('given an external file with a fragment-only $id', function () {
@@ -581,14 +643,72 @@ describe('converter', function () {
         });
       });
 
-      context('given an external http:// reference with default options', function () {
-        specify('should throw ConvertError', async function () {
+      context('given an external http:// reference', function () {
+        const requested: string[] = [];
+        // answers every request without the network and records its URL
+        const adapter = async (config: any) => {
+          requested.push(config.url);
+          return {
+            data: Buffer.from(JSON.stringify({ Pet: { type: 'string' } })),
+            status: 200,
+            statusText: 'OK',
+            headers: {},
+            config,
+          };
+        };
+        const convertHttpRef = (
+          httpAllowList?: Array<string | RegExp>,
+          resolverOpts: Record<string, unknown> = {},
+        ) =>
+          convert(path.join(fixtures, 'http-ref.json'), {
+            resolve: { resolverOpts: { ...resolverOpts, axiosConfig: { adapter } } },
+            convert: {
+              targetMediaType: target,
+              ...(httpAllowList === undefined ? {} : { httpAllowList }),
+            },
+          });
+        const causesOf = (error: any): unknown[] =>
+          error?.cause ? [error.cause, ...causesOf(error.cause)] : [];
+        const assertNoResolver = async (conversion: Promise<unknown>) => {
           try {
-            await convertFixture('http-ref.json');
+            await conversion;
             assert.fail('should throw ConvertError');
           } catch (error: any) {
             assert.instanceOf(error, ConvertError);
+            assert.isTrue(causesOf(error).some((cause) => cause instanceof UnmatchedResolverError));
+            assert.deepEqual(requested, []);
           }
+        };
+
+        beforeEach(function () {
+          requested.length = 0;
+        });
+
+        specify('should not fetch it with default options', async function () {
+          await assertNoResolver(convertHttpRef());
+        });
+
+        specify('should fetch it when a glob allows it', async function () {
+          const result: any = await convertHttpRef(['http://example.com/**']);
+
+          assert.deepEqual(toValue(result.api).components.schemas.Remote, { type: 'string' });
+          assert.deepEqual(requested, ['http://example.com/schemas.json']);
+        });
+
+        specify('should fetch it when a RegExp allows it', async function () {
+          const result: any = await convertHttpRef([/^http:\/\/example\.com\//]);
+
+          assert.deepEqual(toValue(result.api).components.schemas.Remote, { type: 'string' });
+        });
+
+        specify('should not fetch it when the allow list does not match', async function () {
+          await assertNoResolver(convertHttpRef(['https://example.com/**', /^https:/]));
+        });
+
+        specify('should replace the urlAllowList of the resolvers', async function () {
+          await assertNoResolver(
+            convertHttpRef(undefined, { urlAllowList: ['http://example.com/**'] }),
+          );
         });
       });
 

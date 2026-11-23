@@ -8,7 +8,7 @@ import {
 import { ReferenceElement, SchemaElement } from '@swagger-api/apidom-ns-openapi-3-0';
 
 import applyValueRules, { booleanSchemaToObject, convertBooleanSubschemas } from './value-rules.ts';
-import applyStructureRules from './structure-rules.ts';
+import applyStructureRules, { ensureArrayItems } from './structure-rules.ts';
 import { IdentifierIndex, rewriteIdentifierRefs, splitRefSiblings } from './refs.ts';
 import { walkSchemas } from './walk.ts';
 import type { Warnings } from './warnings.ts';
@@ -58,6 +58,10 @@ const downgradeSchema = (
     applyStructureRules(node, warnings);
     applyValueRules(node, warnings);
     splitRefSiblings(node);
+  });
+  // after the rules, so that it also reaches the branches they create
+  walkSchemas(root, (node) => {
+    if (isObjectElement(node)) ensureArrayItems(node);
   });
 
   if (isObjectElement(root) && root.length === 1 && isStringElement(root.get('$ref'))) {

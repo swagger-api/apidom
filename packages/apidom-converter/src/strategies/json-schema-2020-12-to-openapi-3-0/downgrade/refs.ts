@@ -94,7 +94,7 @@ const resolveURI = (base: string, ref: string): string | undefined => {
   }
 };
 
-const decodeFragment = (fragment: string): string => {
+export const decodeFragment = (fragment: string): string => {
   try {
     return decodeURIComponent(fragment);
   } catch {
@@ -216,7 +216,7 @@ const rewriteRef = (
   const hashIndex = absolute.indexOf('#');
   const fragment = hashIndex === -1 ? '' : absolute.slice(hashIndex + 1);
 
-  if (fragment === '' || fragment.startsWith('/')) {
+  if (fragment === '' || decodeFragment(fragment).startsWith('/')) {
     // a reference into the document itself, spelled with its URI, becomes a fragment, so that it
     // follows its target when the target moves
     if (target === normalizeId(documentURI)) return fragment === '' ? undefined : `#${fragment}`;

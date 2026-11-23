@@ -132,16 +132,17 @@ const SERVER_VARIABLE = /\{[^}]*\}/g;
 const VARIABLE_PLACEHOLDER = /__apidom_variable_(\d+)__/g;
 
 /**
- * Splits an absolute URL or file system path into its host (empty for a path) and the rest, or
- * returns `undefined` when it is neither.
+ * Splits an absolute URL or file system path into its host (empty for a path), its path and its
+ * query and fragment, or returns `undefined` when it is neither.
  */
-const splitHost = (uri: string): { host: string; path: string } | undefined => {
-  if (uri.startsWith('/')) return { host: '', path: uri };
+const splitHost = (uri: string): { host: string; path: string; suffix: string } | undefined => {
+  if (uri.startsWith('/')) return { host: '', path: uri, suffix: '' };
   try {
     const parsed = new URL(uri);
     return {
       host: `${parsed.protocol}//${parsed.host}`,
-      path: `${parsed.pathname}${parsed.search}${parsed.hash}`,
+      path: parsed.pathname,
+      suffix: `${parsed.search}${parsed.hash}`,
     };
   } catch {
     return undefined;
@@ -191,6 +192,7 @@ export const rebaseServerURL = (value: string, origin: string, entryURI: string)
   } else {
     rebased = relativePath(entry.path, target.path);
   }
+  rebased += target.suffix;
   return rebased.replace(VARIABLE_PLACEHOLDER, (_match, index) => variables[Number(index)]);
 };
 

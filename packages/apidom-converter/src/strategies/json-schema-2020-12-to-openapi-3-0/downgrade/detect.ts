@@ -10,6 +10,7 @@ import {
 } from '@swagger-api/apidom-core';
 
 import { ANNOTATION_KEYWORDS, TRIGGER_KEYWORDS, isExtensionKeyword } from './keywords.ts';
+import { decodeFragment } from './refs.ts';
 import { subschemaPositions } from './walk.ts';
 
 const ANNOTATIONS: ReadonlySet<string> = new Set<string>(ANNOTATION_KEYWORDS);
@@ -22,7 +23,7 @@ export const isNonPointerRef = (ref: string): boolean => {
   const hashIndex = ref.indexOf('#');
   if (hashIndex === -1) return false;
   const fragment = ref.slice(hashIndex + 1);
-  return fragment !== '' && !fragment.startsWith('/');
+  return fragment !== '' && !decodeFragment(fragment).startsWith('/');
 };
 
 const isOwnConstructInvalid = (schema: ObjectElement): boolean => {

@@ -104,7 +104,9 @@ describe('converter', function () {
             specify('should drop unsupported keywords from the branch', function () {
               const { output, warnings } = downgrade({ type: ['array', 'string'], minContains: 2 });
 
-              assert.deepEqual(output, { anyOf: [{ type: 'array' }, { type: 'string' }] });
+              assert.deepEqual(output, {
+                anyOf: [{ type: 'array', items: {} }, { type: 'string' }],
+              });
               assert.deepEqual(
                 warnings.map((w) => toValue(w.attributes.get('code'))),
                 ['dropped-keyword'],

@@ -1758,7 +1758,8 @@ Strategy options (passed via `dereference.strategyOpts['openapi-3-0']`):
   for the `resolve.internal` and `resolve.external` options. With `'document'`, a reference is internal when it points
   into the document currently being traversed. With `'entry'`, only references pointing into the entry document are
   internal, so references internal to external documents are treated as external. References left unresolved keep
-  their value as written in their own document; the `ref-origin` metadata of the inlined fragment names that document.
+  their value as written in their own document, and, outside the entry document, name that document in their
+  `ref-origin` metadata.
 - `fragmentTransformer` (`({ fragment, document, uri, referencedElementType }) => Element | Promise<Element>`) - called
   for every referenced fragment before it is refracted and transcluded. `fragment` is the referenced element as found in
   its document, `document` is that document's root element, `uri` is the resolved reference URI and

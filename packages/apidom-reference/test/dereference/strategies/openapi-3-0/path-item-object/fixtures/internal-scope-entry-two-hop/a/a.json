@@ -1,6 +1,17 @@
 {
-  "paths": { "/alias": { "$ref": "../b/deep/b.json#/paths/~1alias" } },
+  "paths": {
+    "/alias": {
+      "$ref": "../b/deep/b.json#/paths/~1alias"
+    },
+    "/deep": {
+      "$ref": "../b/deep/b.json#/paths/~1deep"
+    }
+  },
   "components": {
-    "schemas": { "Alias": { "$ref": "../b/deep/b.json#/components/schemas/Alias" } }
+    "schemas": {
+      "Alias": {
+        "$ref": "../b/deep/b.json#/components/schemas/Alias"
+      }
+    }
   }
 }

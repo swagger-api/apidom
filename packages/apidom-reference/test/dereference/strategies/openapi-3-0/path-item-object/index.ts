@@ -484,6 +484,36 @@ describe('dereference', function () {
               },
             );
 
+            specify(
+              'should record the document of a back reference inside a Path Item reached through two documents',
+              async function () {
+                const fixturePath = path.join(entryFixturePath, 'internal-scope-entry-two-hop');
+                const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { internal: false },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const schema = actual.api
+                  .get('paths')
+                  .get('/deep')
+                  .get('get')
+                  .get('responses')
+                  .get('200')
+                  .get('content')
+                  .get('application/json')
+                  .get('schema');
+
+                assert.strictEqual(
+                  toValue(schema.get('$ref')),
+                  '../../entry.json#/components/schemas/Error',
+                );
+                assert.strictEqual(
+                  toValue(schema.meta.get('ref-origin')),
+                  path.join(fixturePath, 'b', 'deep', 'b.json'),
+                );
+              },
+            );
+
             specify('should keep Link and Example back references unresolved', async function () {
               const fixturePath = path.join(
                 entryFixturePath,

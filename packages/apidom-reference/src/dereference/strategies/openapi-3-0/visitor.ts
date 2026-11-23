@@ -168,12 +168,17 @@ class OpenAPI3_0DereferenceVisitor {
   }
 
   /**
-   * Records a reference this visitor leaves unresolved. An external reference skipped only
-   * because of `skipNestedExternal` is not recorded: the visit of its own position may resolve it.
+   * Records a reference this visitor leaves unresolved, and, outside the entry document, the
+   * document it is written in (`ref-origin`), which inlining would otherwise lose. An external
+   * reference skipped only because of `skipNestedExternal` is not recorded: the visit of its own
+   * position may resolve it.
    */
   protected markSkipped(element: Element, isExternalReference: boolean): void {
     if (isExternalReference && this.skipsExternalLocally) return;
     this.skippedReferences.add(element);
+    if (this.reference !== this.reference.refSet?.rootRef && !element.meta.hasKey('ref-origin')) {
+      element.setMetaProperty('ref-origin', this.reference.uri);
+    }
   }
 
   /**
@@ -372,6 +377,14 @@ class OpenAPI3_0DereferenceVisitor {
       uri,
       referencedElementType,
     });
+    // a copy of the fragment carries its identity, which the caches keyed by identity would mix up
+    if (
+      transformed !== fragment &&
+      transformed.meta.hasKey('id') &&
+      toValue(transformed.id) === toValue(fragment.id)
+    ) {
+      transformed.setMetaProperty('id', identityManager.generateId());
+    }
     transformed.id = identityManager.identify(transformed);
     this.refractCache.set(cacheKey, transformed);
 

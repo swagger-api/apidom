@@ -175,6 +175,25 @@ describe('dereference', function () {
           });
         });
 
+        context('given two spellings of a reference to the same fragment', function () {
+          specify('should keep the result of each transformation', async function () {
+            const entryFilePath = path.join(rootFixturePath, 'uri-spellings', 'entry.json');
+            const recordURI: FragmentTransformer = ({ fragment, uri }) => {
+              const copy = cloneDeep(fragment) as ObjectElement;
+              copy.set('x-uri', uri.slice(uri.lastIndexOf('/') + 1));
+              return copy;
+            };
+            const actual = await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: { strategyOpts: { 'openapi-3-0': { fragmentTransformer: recordURI } } },
+            });
+            const [api] = toValue(actual) as any[];
+
+            assert.strictEqual(api.components.schemas.A['x-uri'], 'ext.json');
+            assert.strictEqual(api.components.schemas.B['x-uri'], 'ext.json#');
+          });
+        });
+
         context('given fragmentTransformer throws', function () {
           const fixturePath = path.join(rootFixturePath, 'basic');
           const entryFilePath = path.join(fixturePath, 'entry.json');

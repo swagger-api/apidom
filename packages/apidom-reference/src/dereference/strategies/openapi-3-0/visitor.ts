@@ -193,6 +193,15 @@ class OpenAPI3_0DereferenceVisitor {
     );
   }
 
+  /**
+   * Whether a reference into the document being traversed is followed although external
+   * resolution is disabled: `skipNestedExternal` only skips other documents, also when
+   * `internalScope: 'entry'` classifies the reference as external.
+   */
+  protected followsWithinDocument(retrievalURI: string): boolean {
+    return this.skipsExternalLocally && url.stripHash(this.reference.uri) === retrievalURI;
+  }
+
   protected popErrorContext(el: Element) {
     if (this.errorContext[this.errorContext.length - 1] === el) {
       this.errorContext.pop();
@@ -493,7 +502,11 @@ class OpenAPI3_0DereferenceVisitor {
       return false;
     }
     // ignore resolving external Reference Objects
-    if (!this.options.resolve.external && isExternalReference) {
+    if (
+      !this.options.resolve.external &&
+      isExternalReference &&
+      !this.followsWithinDocument(retrievalURI)
+    ) {
       this.markSkipped(referencingElement, true);
       // skip traversing this reference element
       return false;
@@ -753,7 +766,11 @@ class OpenAPI3_0DereferenceVisitor {
       return undefined;
     }
     // ignore resolving external Path Item Objects
-    if (!this.options.resolve.external && isExternalReference) {
+    if (
+      !this.options.resolve.external &&
+      isExternalReference &&
+      !this.followsWithinDocument(retrievalURI)
+    ) {
       this.markSkipped(referencingElement, true);
       // skip traversing this Path Item element but traverse all it's child elements
       return undefined;
@@ -885,8 +902,12 @@ class OpenAPI3_0DereferenceVisitor {
      */
     const isNonEntryDocument = url.stripHash(reference.refSet!.rootRef!.uri) !== reference.uri;
     const shouldDetectCircular = ['error', 'replace'].includes(this.options.dereference.circular);
+    // with internalScope 'entry', a reference back into the entry document is internal, but its
+    // children must still be resolved against the entry document
+    const isCrossingDocument = url.stripHash(this.reference.uri) !== retrievalURI;
     if (
       (isExternalReference ||
+        isCrossingDocument ||
         isNonEntryDocument ||
         isTransformed ||
         (isPathItemElement(referencedElement) && isStringElement(referencedElement.$ref)) ||

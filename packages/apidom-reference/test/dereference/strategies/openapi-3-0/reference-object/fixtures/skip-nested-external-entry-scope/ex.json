@@ -1,0 +1,20 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "Holder": {
+        "properties": {
+          "p": {
+            "$ref": "#/components/schemas/Alias"
+          }
+        }
+      },
+      "Alias": {
+        "$ref": "#/components/schemas/Target"
+      },
+      "Target": {
+        "type": "string"
+      }
+    }
+  }
+}

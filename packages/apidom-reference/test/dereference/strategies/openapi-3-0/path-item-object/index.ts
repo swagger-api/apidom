@@ -559,6 +559,27 @@ describe('dereference', function () {
               });
             });
           });
+
+          context('and internalScope entry with resolve.internal true', function () {
+            specify(
+              'should resolve the references of the entry Path Item in the entry',
+              async function () {
+                const fixturePath = path.join(
+                  entryFixturePath,
+                  'internal-scope-entry-resolved-back-reference',
+                );
+                const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const [api] = toValue(actual) as any[];
+                const parameter = { name: 'entry', in: 'query' };
+
+                assert.deepEqual(api.paths['/a'].get.parameters, [parameter]);
+                assert.deepEqual(api.paths['/b'].get.parameters, [parameter]);
+              },
+            );
+          });
         });
       });
     });

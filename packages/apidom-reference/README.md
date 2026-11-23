@@ -1762,7 +1762,8 @@ Strategy options (passed via `dereference.strategyOpts['openapi-3-0']`):
   `ref-origin` metadata.
 - `fragmentTransformer` (`({ fragment, document, uri, referencedElementType }) => Element | Promise<Element>`) - called
   for every referenced fragment before it is refracted and transcluded. `fragment` is the referenced element as found in
-  its document, `document` is that document's root element, `uri` is the resolved reference URI and
+  its document (references inside it may already be resolved), `document` is that document's root element, `uri` is
+  the resolved reference URI and
   `referencedElementType` is the OpenAPI 3.0 element type the fragment is referenced as (e.g. `schema`, `parameter`,
   `pathItem`). A generic element returned by the transformer is refracted as `referencedElementType`. Return a new
   element instead of changing `fragment`, which belongs to a cached document. The result is cached per reference URI

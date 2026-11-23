@@ -555,6 +555,22 @@ describe('dereference', function () {
           },
         );
 
+        context('given skipNestedExternal and internalScope entry', function () {
+          specify('should resolve references within an external document', async function () {
+            const fixturePath = path.join(entryFixturePath, 'skip-nested-external-entry-scope');
+            const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: {
+                dereferenceOpts: { skipNestedExternal: true },
+                strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } },
+              },
+            });
+            const [api] = toValue(actual) as any[];
+
+            assert.deepEqual(api.components.schemas.E, { properties: { p: { type: 'string' } } });
+          });
+        });
+
         context('given path with invalid URL characters - spaces', function () {
           const fixturePath = path.join(entryFixturePath, 'path-encoding', 'path with spaces');
 

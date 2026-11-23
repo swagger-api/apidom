@@ -5,13 +5,13 @@ import { Diagnostic, DiagnosticSeverity } from 'vscode-languageserver-types';
 import fs from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
-import { createHTTPServer, ServerTerminable } from './helpers.ts';
+import { createHTTPServer, type ServerTerminable } from './helpers.ts';
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
+  type LanguageService,
+  type LanguageServiceContext,
   ReferenceValidationMode,
-  ValidationContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logLevel, logPerformance } from './test-utils.ts';

@@ -2,12 +2,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { DefinitionParams } from 'vscode-languageserver-protocol';
+import { type DefinitionParams } from 'vscode-languageserver-protocol';
 import { Position, Range } from 'vscode-languageserver-types';
 import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
-import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types.ts';
+import { type LanguageService, type LanguageServiceContext } from '../src/apidom-language-types.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));

@@ -10,16 +10,16 @@ import { isOpenApi3_1Element, OpenApi3_1Element } from '@swagger-api/apidom-ns-o
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  LanguageSettings,
-  LinterMetaData,
+  type LanguageService,
+  type LanguageServiceContext,
+  type LanguageSettings,
+  type LinterMetaData,
   MergeStrategy,
-  NamespaceVersion,
+  type NamespaceVersion,
   ProviderMode,
-  ValidationContext,
-  ValidationProvider,
-  ValidationProviderResult,
+  type ValidationContext,
+  type ValidationProvider,
+  type ValidationProviderResult,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logLevel, logPerformance } from './test-utils.ts';

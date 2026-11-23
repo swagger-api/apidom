@@ -5,20 +5,20 @@ import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { CompletionItem, Position } from 'vscode-languageserver-types';
 import { toValue, Element } from '@swagger-api/apidom-core';
-import { CompletionParams } from 'vscode-languageserver-protocol';
+import { type CompletionParams } from 'vscode-languageserver-protocol';
 import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  LanguageSettings,
+  type LanguageService,
+  type LanguageServiceContext,
+  type LanguageSettings,
   MergeStrategy,
-  NamespaceVersion,
+  type NamespaceVersion,
   ProviderMode,
-  CompletionContext,
-  CompletionProvider,
-  CompletionProviderResult,
+  type CompletionContext,
+  type CompletionProvider,
+  type CompletionProviderResult,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logLevel, logPerformance } from './test-utils.ts';

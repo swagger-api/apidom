@@ -58,7 +58,7 @@ cd packages/apidom-core
 npm run test              # Run tests for specific package
 ```
 
-Tests use ts-mocha with mocha bootstrap files. Test files are located in `test/` directories within each package and use `.ts` extension.
+Tests use mocha (with ts-node) and bootstrap files. Test files are located in `test/` directories within each package and use `.ts` extension.
 
 ### Linting and Type Checking
 ```bash

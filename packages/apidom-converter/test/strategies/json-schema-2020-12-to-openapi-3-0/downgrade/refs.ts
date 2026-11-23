@@ -220,10 +220,10 @@ describe('converter', function () {
           });
         });
 
-        context('given a Draft 6/7 $id with a plain-name fragment', function () {
+        context('given a fragment-only $id', function () {
           const root = 'https://example.com/root.json';
 
-          specify('should index a fragment-only $id as an anchor', function () {
+          specify('should not index it as a base URI', function () {
             const document = new ObjectElement({
               $id: root,
               definitions: { A: { $id: '#foo', type: 'integer' } },
@@ -231,21 +231,7 @@ describe('converter', function () {
             const index = buildIdentifierIndex(document, documentURI);
 
             assert.deepEqual(index.get(root), []);
-            assert.deepEqual(index.get(`${root}#foo`), ['definitions', 'A']);
-          });
-
-          specify('should rewrite a $ref to it into a JSON Pointer', function () {
-            const document = {
-              $id: root,
-              definitions: {
-                A: { $id: '#foo', type: 'integer' },
-                B: { properties: { a: { $ref: '#foo' } } },
-              },
-            };
-
-            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']), {
-              properties: { a: { $ref: '#/definitions/A' } },
-            });
+            assert.isFalse(index.has(`${root}#foo`));
           });
 
           specify('should not change where JSON Pointer refs of the document point', function () {
@@ -274,61 +260,23 @@ describe('converter', function () {
               root,
             );
           });
+        });
 
-          specify('should index both the base and the anchor of "other.json#bar"', function () {
+        context('given an id keyword', function () {
+          specify('should not treat it as an identifier', function () {
             const document = {
-              $id: root,
-              definitions: {
-                A: { $id: 'other.json#bar', type: 'integer' },
-                B: {
-                  properties: {
-                    byAnchor: { $ref: 'https://example.com/other.json#bar' },
-                    byId: { $ref: 'other.json' },
-                  },
+              components: {
+                schemas: {
+                  Tag: { type: 'string' },
+                  Pet: { id: 'Pet', properties: { tag: { $ref: '#/components/schemas/Tag' } } },
                 },
               },
             };
 
-            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']).properties, {
-              byAnchor: { $ref: '#/definitions/A' },
-              byId: { $ref: '#/definitions/A' },
-            });
-          });
-        });
-
-        context('given a Draft 4 id', function () {
-          const root = 'https://example.com/root.json';
-
-          specify('should rewrite a $ref to a plain-name id into a JSON Pointer', function () {
-            const document = {
-              id: root,
-              definitions: {
-                A: { id: '#a', type: 'string' },
-                B: { properties: { a: { $ref: '#a' } } },
-              },
-            };
-
-            assert.deepEqual(downgradeInDocument(document, ['definitions', 'B']), {
-              properties: { a: { $ref: '#/definitions/A' } },
-            });
-          });
-
-          specify('should use an id that is a URI as the base URI', function () {
-            const document = new ObjectElement({
-              id: root,
-              definitions: { A: { id: 'other.json', properties: { b: {} } } },
-            });
-
-            assert.strictEqual(
-              baseURIAt(document, documentURI, ['definitions', 'A', 'properties', 'b']),
-              'https://example.com/other.json',
+            assert.deepEqual(
+              downgradeInDocument(document, ['components', 'schemas', 'Pet']).properties.tag,
+              { $ref: '#/components/schemas/Tag' },
             );
-          });
-
-          specify('should prefer $id when a schema has both', function () {
-            const document = new ObjectElement({ $id: root, id: 'https://example.com/id.json' });
-
-            assert.deepEqual(buildIdentifierIndex(document, documentURI).get(root), []);
           });
         });
 

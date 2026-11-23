@@ -2,14 +2,20 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "http://example.com/root.json",
   "definitions": {
-    "A": { "$id": "#foo", "type": "integer" },
+    "A": {
+      "$id": "#foo",
+      "type": "integer"
+    },
     "B": {
       "type": "object",
       "properties": {
-        "a": { "$ref": "#foo" },
-        "c": { "$ref": "#/definitions/C" }
+        "c": {
+          "$ref": "#/definitions/C"
+        }
       }
     },
-    "C": { "type": "string" }
+    "C": {
+      "type": "string"
+    }
   }
 }

@@ -67,15 +67,12 @@ is any OpenAPI 3.0.x media type; the output's `openapi` field is set to the targ
 - Keywords without an OpenAPI 3.0 equivalent that hold schemas (for example `$defs`, `prefixItems`,
   `patternProperties`, `unevaluatedProperties`) are moved to `x-conversion-<keyword>` extensions. An array
   schema whose tuple `items` or `prefixItems` were moved gets `items: {}`, which OpenAPI 3.0 requires. Other
-  unsupported keywords (for example `$schema`, `$comment`, `contentEncoding`) are removed.
+  unsupported keywords (for example `$schema`, `$comment`, `contentEncoding`, or annotations of custom
+  vocabularies) are removed.
 - Keywords next to a `$ref`, which OpenAPI 3.0 ignores, keep applying: the `$ref` moves into `allOf` together
   with the validation keywords, while annotations and extensions stay on the schema. A `$ref` with validation
   keywords next to it marks the schema for conversion; a `$ref` with only annotations (for example
-  `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason. In a
-  schema whose `$schema` (its own, or the nearest one above it) is Draft 4, 6 or 7, where keywords next to `$ref`
-  have no effect, these validation keywords are set aside instead: those that hold schemas are moved to
-  `x-conversion-<keyword>`, so that references into them still resolve, and the others are removed
-  (`dropped-keyword`).
+  `description`) is valid OpenAPI 3.0 and is moved only when the schema is converted for another reason.
 - Schemas that are already valid OpenAPI 3.0 Schema Objects are left unchanged.
 - Example Object `externalValue` and Link Object `operationRef` are left unchanged and are not fetched.
 - Relative URLs in inlined content keep pointing where they did in their own file: `$ref`, `externalValue` and
@@ -160,6 +157,10 @@ await convert('/home/user/openapi.yaml', {
   `$defs`) does not resolve (`unresolved-reference` warning).
 - Schemas that are reachable only through references into `x-*` extensions or other non-schema locations are not
   converted.
+- Schemas of older JSON Schema drafts (Draft 4, 6, 7, 2019-09) are converted with the same rules as 2020-12. Where
+  a draft means something else, the 2020-12 meaning is used: keywords next to `$ref` apply (Draft 4 to 7 ignore
+  them), Draft 4 `id` is removed without being used as an identifier, and a `$id` that is only a fragment
+  (`"#foo"`, an anchor in Draft 6 and 7) is not used as an anchor.
 - `$dynamicRef` and `$dynamicAnchor` are removed, so dynamic references no longer apply (`dropped-keyword`
   warning).
 - A schema is converted when it or its document declares `$schema`, `jsonSchemaDialect` or `openapi: 3.1.x`, or

@@ -35,7 +35,8 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
  * @public
  */
 const convert = async (uri: string, options: Record<string, any> = {}) => {
-  const baseURI = options?.resolve?.baseURI || url.resolve(url.cwd(), url.sanitize(uri));
+  const baseURI =
+    options?.resolve?.baseURI || url.resolve(url.sanitize(url.cwd()), url.sanitize(uri));
   const mergedOptions = mergeOptions(defaultOptions, {
     ...options,
     resolve: { ...options?.resolve, baseURI },

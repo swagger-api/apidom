@@ -13,7 +13,12 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 
-import { DROPPED_KEYWORDS, IDENTIFIER_KEYWORDS, TYPE_SPECIFIC_KEYWORDS } from './keywords.ts';
+import {
+  DROPPED_KEYWORDS,
+  IDENTIFIER_KEYWORDS,
+  TYPE_SPECIFIC_KEYWORDS,
+  isUnknownKeyword,
+} from './keywords.ts';
 import { subschemaPositions } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
@@ -184,7 +189,17 @@ const convertType = (schema: ObjectElement, nullOnlyFromConst: boolean): ObjectE
     }
   }
 
-  if (nullOnly) setNullOnly(schema);
+  if (nullOnly) {
+    const enumElement = schema.get('enum');
+    // an `enum` without `null` leaves a null-only schema no value to accept
+    if (isArrayElement(enumElement) && !enumElement.content.some(isNullElement)) {
+      schema.remove('type');
+      schema.remove('enum');
+      rejectAll(schema);
+    } else {
+      setNullOnly(schema);
+    }
+  }
   return branches;
 };
 
@@ -255,6 +270,25 @@ const dropKeywords = (schema: ObjectElement, warnings: Warnings): void => {
 };
 
 /**
+ * Removes the keywords left that OpenAPI 3.0 does not allow in a Schema Object, such as
+ * annotations of custom JSON Schema vocabularies (JSON Schema ignores unknown keywords).
+ */
+const dropUnknownKeywords = (schema: ObjectElement, warnings: Warnings): void => {
+  schema
+    .keys()
+    .map(String)
+    .filter(isUnknownKeyword)
+    .forEach((keyword) => {
+      warnings.add(
+        schema.get(keyword),
+        'dropped-keyword',
+        `"${keyword}" is not supported in OpenAPI 3.0 and was removed`,
+      );
+      schema.remove(keyword);
+    });
+};
+
+/**
  * Applies the value rules to one schema, in place. Boolean subschemas must already be converted
  * (see `convertBooleanSubschemas`); subschemas themselves are handled separately.
  */
@@ -268,6 +302,7 @@ const applyValueRules = (schema: ObjectElement, warnings: Warnings): void => {
   convertExclusiveBound(schema, 'exclusiveMaximum', 'maximum');
   removeEmptyRequired(schema);
   dropKeywords(schema, warnings);
+  dropUnknownKeywords(schema, warnings);
   branches.forEach((branch) => applyValueRules(branch, warnings));
 };
 

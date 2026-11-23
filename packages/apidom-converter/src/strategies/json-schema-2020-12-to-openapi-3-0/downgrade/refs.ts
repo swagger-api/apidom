@@ -16,14 +16,8 @@ import {
 } from '@swagger-api/apidom-json-pointer/modern';
 import { url } from '@swagger-api/apidom-reference';
 
-import {
-  ANNOTATION_KEYWORDS,
-  SCHEMA_ARRAY_KEYWORDS,
-  SCHEMA_KEYWORDS,
-  SCHEMA_MAP_KEYWORDS,
-  isExtensionKeyword,
-} from './keywords.ts';
-import { stashKey, stashKeyword, subschemaPositions } from './walk.ts';
+import { ANNOTATION_KEYWORDS, SCHEMA_MAP_KEYWORDS, isExtensionKeyword } from './keywords.ts';
+import { subschemaPositions } from './walk.ts';
 import type { Warnings } from './warnings.ts';
 
 /**
@@ -113,28 +107,21 @@ interface SchemaId {
   readonly base: string;
   /** Whether the `$id` sets a new base URI (a fragment-only `$id` does not). */
   readonly setsBase: boolean;
-  /** A plain-name fragment of the `$id`, which Draft 6/7 use as an anchor (`"$id": "#foo"`). */
-  readonly anchor?: string;
 }
 
 /**
- * Reads the `$id` (Draft 4: `id`) of a schema, given the base URI in effect around it.
+ * Reads the `$id` of a schema, given the base URI in effect around it.
  */
 const readId = (schema: ObjectElement, base: string): SchemaId => {
-  const id = schema.hasKey('$id') ? schema.get('$id') : schema.get('id');
+  const id = schema.get('$id');
   if (!isStringElement(id)) return { base, setsBase: false };
 
   const value = toValue(id) as string;
-  const hashIndex = value.indexOf('#');
-  const fragment = hashIndex === -1 ? '' : value.slice(hashIndex + 1);
-  const anchor =
-    fragment !== '' && !fragment.startsWith('/') ? decodeFragment(fragment) : undefined;
-
-  if (hashIndex === 0) return { base, setsBase: false, anchor };
+  if (value.startsWith('#')) return { base, setsBase: false };
   // an `$id` the base cannot resolve leaves the base unchanged
   const resolved = resolveURI(base, value);
   if (resolved === undefined) return { base, setsBase: false };
-  return { base: normalizeId(resolved), setsBase: true, anchor };
+  return { base: normalizeId(resolved), setsBase: true };
 };
 
 /**
@@ -160,32 +147,6 @@ export const baseURIAt = (
   });
 
   return base;
-};
-
-/**
- * Returns the `$schema` in effect at a JSON Pointer of a document: the nearest one declared above
- * it (the element at the pointer itself excluded).
- */
-export const schemaDialectAt = (
-  document: Element,
-  tokens: readonly string[],
-): string | undefined => {
-  let dialect: string | undefined;
-  let current: Element | undefined = document;
-
-  tokens.forEach((token) => {
-    if (isObjectElement(current)) {
-      const schema = current.get('$schema');
-      if (isStringElement(schema)) dialect = toValue(schema);
-      current = current.get(token);
-    } else if (isArrayElement(current)) {
-      current = current.get(Number(token));
-    } else {
-      current = undefined;
-    }
-  });
-
-  return dialect;
 };
 
 /**
@@ -215,7 +176,6 @@ export const buildIdentifierIndex = (
       const id = readId(element, base);
       currentBase = id.base;
       if (id.setsBase) index.set(currentBase, tokens);
-      if (id.anchor !== undefined) index.set(`${currentBase}#${id.anchor}`, tokens);
       ['$anchor', '$dynamicAnchor'].forEach((keyword) => {
         const anchor = element.get(keyword);
         if (isStringElement(anchor)) index.set(`${currentBase}#${toValue(anchor)}`, tokens);
@@ -303,14 +263,6 @@ const isRelativeDocumentRef = (ref: string): boolean =>
  */
 export const REF_SPLIT_META = 'conversion-ref-split';
 
-const refSiblingValidationKeys = (schema: ObjectElement): string[] => {
-  const annotations = new Set<string>(ANNOTATION_KEYWORDS);
-  return schema
-    .keys()
-    .map(String)
-    .filter((key) => key !== '$ref' && !annotations.has(key) && !isExtensionKeyword(key));
-};
-
 /**
  * Rewrites `$ref`s and `discriminator.mapping` values that point at an `$anchor` or `$id` of the
  * document into JSON Pointer refs. `base` is the base URI in effect at `schema`. References to other documents are left as is;
@@ -384,7 +336,11 @@ export const splitRefSiblings = (schema: ObjectElement): void => {
   const ref = schema.get('$ref');
   if (!isStringElement(ref) || schema.length === 1) return;
 
-  const validationKeys = refSiblingValidationKeys(schema);
+  const annotations = new Set<string>(ANNOTATION_KEYWORDS);
+  const validationKeys = schema
+    .keys()
+    .map(String)
+    .filter((key) => key !== '$ref' && !annotations.has(key) && !isExtensionKeyword(key));
   if (validationKeys.includes('type') && schema.hasKey('nullable')) validationKeys.push('nullable');
 
   const siblings = new ObjectElement();
@@ -405,60 +361,4 @@ export const splitRefSiblings = (schema: ObjectElement): void => {
   const items = [...(siblings.length > 0 ? [siblings] : []), ...existingAllOf, refSchema];
   schema.set('allOf', new ArrayElement(items));
   schema.setMetaProperty(REF_SPLIT_META, true);
-};
-
-/**
- * Whether a JSON Schema dialect ignores the keywords next to `$ref` (Draft 4, 6 and 7).
- */
-export const ignoresRefSiblings = (schemaURI: unknown): boolean =>
-  typeof schemaURI === 'string' && /json-schema\.org\/draft-0[4-7]\/schema/.test(schemaURI);
-
-/**
- * Kept next to a `$ref`: `definitions`/`$defs` hold the schemas other references point to, and
- * identifiers are reference targets.
- */
-const REF_TARGET_KEYWORDS = new Set([
-  '$defs',
-  'definitions',
-  '$id',
-  'id',
-  '$schema',
-  '$anchor',
-  '$dynamicAnchor',
-  '$comment',
-]);
-
-const SCHEMA_VALUED_KEYWORDS = new Set<string>([
-  ...SCHEMA_KEYWORDS,
-  ...SCHEMA_ARRAY_KEYWORDS,
-  ...SCHEMA_MAP_KEYWORDS,
-]);
-
-/**
- * Sets aside the validation keywords next to a `$ref`, which Draft 4, 6 and 7 ignore, so that the
- * converted schema does not start enforcing them: keywords that hold schemas move to
- * `x-conversion-*` (references into them still resolve), the others are removed. Annotations,
- * extensions and the keywords that hold reference targets are kept.
- */
-export const dropIgnoredRefSiblings = (schema: ObjectElement, warnings: Warnings): void => {
-  if (!isStringElement(schema.get('$ref'))) return;
-  refSiblingValidationKeys(schema)
-    .filter((key) => !REF_TARGET_KEYWORDS.has(key))
-    .forEach((key) => {
-      if (SCHEMA_VALUED_KEYWORDS.has(key)) {
-        stashKeyword(schema, key);
-        warnings.add(
-          schema.get(stashKey(key)),
-          'moved-keyword',
-          `"${key}" next to "$ref" has no effect in this JSON Schema dialect and was moved to "${stashKey(key)}"`,
-        );
-        return;
-      }
-      warnings.add(
-        schema.get(key),
-        'dropped-keyword',
-        `"${key}" next to "$ref" has no effect in this JSON Schema dialect and was removed`,
-      );
-      schema.remove(key);
-    });
 };

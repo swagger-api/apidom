@@ -20,10 +20,8 @@ import downgradeSchema, {
   baseURIAt,
   buildIdentifierIndex,
   createWarnings,
-  ignoresRefSiblings,
   needsDowngrade,
   rewriteIdentifierRefs,
-  schemaDialectAt,
   setStringValue,
 } from './downgrade/index.ts';
 import { elementAt, replaceAt } from './downgrade/document.ts';
@@ -121,7 +119,6 @@ const createFragmentTransformer = (annotations: Warnings['annotations']): Fragme
           documentURI,
           baseURI,
           index: info.index,
-          ignoresRefSiblings: ignoresRefSiblings(schemaDialectAt(document, tokens)),
         });
         absolutizeRefsInStashes(downgraded, documentURI);
         return downgraded;

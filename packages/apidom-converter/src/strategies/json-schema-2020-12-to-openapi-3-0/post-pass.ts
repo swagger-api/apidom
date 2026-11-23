@@ -163,13 +163,16 @@ const relativePath = (base: string, target: string): string => {
 };
 
 /**
- * Rebases a Server Object URL read from `origin`: a relative URL is relative to the document
- * containing the Server Object (OpenAPI 3.0.4). It stays relative when it is on the entry
- * document's host. Absolute URLs and URLs starting with a server variable are kept; server
- * variables in the rest of the URL are kept as they are.
+ * Rebases a Server Object URL read from `origin`: a relative URL, including an empty one, is
+ * relative to the document containing the Server Object (OpenAPI 3.0.4). It stays relative when it
+ * is on the entry document's host. Absolute and protocol-relative URLs and URLs starting with a
+ * server variable are kept; server variables in the rest of the URL are kept as they are.
  */
 export const rebaseServerURL = (value: string, origin: string, entryURI: string): string => {
-  if (value === '' || value.startsWith('{') || url.getProtocol(value) !== undefined) return value;
+  // absolute, protocol-relative (`//host/...`) or starting with a variable (`{scheme}://...`)
+  if (value.startsWith('//') || value.startsWith('{') || url.getProtocol(value) !== undefined) {
+    return value;
+  }
 
   const variables: string[] = [];
   const masked = value.replace(SERVER_VARIABLE, (variable) => {

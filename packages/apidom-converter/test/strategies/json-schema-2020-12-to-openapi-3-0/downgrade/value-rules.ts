@@ -91,6 +91,16 @@ describe('converter', function () {
               );
             });
 
+            specify('should drop keywords OpenAPI 3.0 does not know', function () {
+              const { output, warnings } = downgrade({ type: 'string', myAnnotation: 'value' });
+
+              assert.deepEqual(output, { type: 'string' });
+              assert.deepEqual(
+                warnings.map((w) => toValue(w.attributes.get('code'))),
+                ['dropped-keyword'],
+              );
+            });
+
             specify('should drop unsupported keywords from the branch', function () {
               const { output, warnings } = downgrade({ type: ['array', 'string'], minContains: 2 });
 
@@ -106,6 +116,15 @@ describe('converter', function () {
             assertLosslessRule({ type: 'null' }, { type: 'string', nullable: true, enum: [null] });
             assertLosslessRule(
               { type: ['null'] },
+              { type: 'string', nullable: true, enum: [null] },
+            );
+          });
+
+          specify('should reject everything when enum or const excludes null', function () {
+            assertLosslessRule({ type: 'null', enum: ['a'] }, { not: {} });
+            assertLosslessRule({ type: 'null', const: 'a' }, { not: {} });
+            assertLosslessRule(
+              { type: 'null', enum: ['a', null] },
               { type: 'string', nullable: true, enum: [null] },
             );
           });

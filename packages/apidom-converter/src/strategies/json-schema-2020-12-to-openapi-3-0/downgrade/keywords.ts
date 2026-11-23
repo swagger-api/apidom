@@ -146,3 +146,53 @@ export const TRIGGER_KEYWORDS: ReadonlySet<string> = new Set<string>([
 ]);
 
 export const isExtensionKeyword = (keyword: string): boolean => keyword.startsWith('x-');
+
+/**
+ * The fields of an OpenAPI 3.0 Schema Object (and `$ref`); any other field that is not an
+ * extension makes the Schema Object invalid.
+ */
+export const OPENAPI_3_0_SCHEMA_FIELDS: ReadonlySet<string> = new Set<string>([
+  '$ref',
+  'title',
+  'multipleOf',
+  'maximum',
+  'exclusiveMaximum',
+  'minimum',
+  'exclusiveMinimum',
+  'maxLength',
+  'minLength',
+  'pattern',
+  'maxItems',
+  'minItems',
+  'uniqueItems',
+  'maxProperties',
+  'minProperties',
+  'required',
+  'enum',
+  'type',
+  'not',
+  'allOf',
+  'oneOf',
+  'anyOf',
+  'items',
+  'properties',
+  'additionalProperties',
+  'description',
+  'format',
+  'default',
+  'nullable',
+  'discriminator',
+  'readOnly',
+  'writeOnly',
+  'example',
+  'externalDocs',
+  'deprecated',
+  'xml',
+]);
+
+/**
+ * Whether a keyword is neither an OpenAPI 3.0 Schema Object field nor an extension, such as an
+ * annotation of a custom JSON Schema vocabulary.
+ */
+export const isUnknownKeyword = (keyword: string): boolean =>
+  !OPENAPI_3_0_SCHEMA_FIELDS.has(keyword) && !isExtensionKeyword(keyword);

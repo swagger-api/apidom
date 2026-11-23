@@ -33,6 +33,12 @@ describe('converter', function () {
           });
         });
 
+        context('given a keyword outside the rules', function () {
+          specify('should return false, so that the schema is left as it is', function () {
+            assert.isFalse(needsDowngrade(schema({ type: 'string', myAnnotation: 'value' })));
+          });
+        });
+
         context('given 2020-12 or OAS-invalid constructs', function () {
           const cases: Array<[string, Record<string, unknown>]> = [
             ['const', { const: 1 }],

@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 import { parse } from '../src/parser-factory.ts';
 import { findNamespace } from '../src/utils/utils.ts';
-import { ContentLanguage } from '../src/apidom-language-types.ts';
+import { type ContentLanguage } from '../src/apidom-language-types.ts';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 

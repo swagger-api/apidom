@@ -9,9 +9,9 @@ import { fileURLToPath } from 'node:url';
 import { AdsValidationProvider } from '../src/services/validation/providers/ads-validation-provider.ts';
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  ValidationContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logLevel, logPerformance } from './test-utils.ts';

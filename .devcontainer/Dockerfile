@@ -1,8 +1,8 @@
-ARG VARIANT="24.22-bookworm"
+ARG VARIANT="26.13-bookworm"
 FROM mcr.microsoft.com/vscode/devcontainers/javascript-node:1-${VARIANT}
 
-# Install 24.12 version of Node.js using nvm
-ARG EXTRA_NODE_VERSION="24.22"
+# Install 26.13 version of Node.js using nvm
+ARG EXTRA_NODE_VERSION="26.13"
 RUN su node -c "source /usr/local/share/nvm/nvm.sh && nvm install ${EXTRA_NODE_VERSION}"
 
 ## install emscripten

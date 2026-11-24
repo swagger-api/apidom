@@ -7,9 +7,9 @@ import { Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  CompletionContext,
-  LanguageService,
-  LanguageServiceContext,
+  type CompletionContext,
+  type LanguageService,
+  type LanguageServiceContext,
 } from '../src/apidom-language-types.ts';
 import { AsyncAPI3, AsyncAPI300, AsyncAPI310 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';

@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor elements AgentCardElement should refract a minimal agent card 1`] = `
 (A2aAgentCard1Element

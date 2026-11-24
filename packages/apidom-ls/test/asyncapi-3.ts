@@ -3,7 +3,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
-import { LanguageService, ApidomCompletionItem } from '../src/apidom-language-types.ts';
+import { type LanguageService, type ApidomCompletionItem } from '../src/apidom-language-types.ts';
 import { AsyncAPI3 } from '../src/config/asyncapi/target-specs.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';

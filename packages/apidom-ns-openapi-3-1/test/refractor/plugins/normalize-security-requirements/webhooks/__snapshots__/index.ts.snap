@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor plugins normalize-security-requirements given OpenAPI.security fixed field is defined and Operation.security contains single Security Requirement should not inherit Security Requirements from OpenAPI.security field 1`] = `
 (OpenApi3_1Element

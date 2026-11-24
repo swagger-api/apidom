@@ -8,16 +8,16 @@ import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  LanguageSettings,
-  LinksContext,
-  LinksModifierFunction,
-  LinksProviderResult,
+  type LanguageService,
+  type LanguageServiceContext,
+  type LanguageSettings,
+  type LinksContext,
+  type LinksModifierFunction,
+  type LinksProviderResult,
   MergeStrategy,
-  NamespaceVersion,
+  type NamespaceVersion,
   ProviderMode,
-  LinksProvider,
+  type LinksProvider,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';

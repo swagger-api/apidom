@@ -1,6 +1,6 @@
 # Tests
 
-Test templates for the new namespace package. Read this in Phase 5. Tests use ts-mocha with the
+Test templates for the new namespace package. Read this in Phase 5. Tests use mocha (with ts-node) with the
 `test/mocha-bootstrap.ts` file copied in Phase 4; snapshot tests live next to each element test in
 `__snapshots__/`.
 

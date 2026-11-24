@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor plugins normalize-parameters given parameters are defined in Path Item Object and Operation Object defines additional parameter should merge with all Path Item parameters 1`] = `
 (OpenApi3_1Element

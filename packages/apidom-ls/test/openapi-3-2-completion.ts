@@ -4,10 +4,10 @@ import { Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  CompletionContext,
-  LanguageService,
-  LanguageServiceContext,
-  ApidomCompletionItem,
+  type CompletionContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ApidomCompletionItem,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { OpenAPi32JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-32-json-schema-validation-provider.ts';

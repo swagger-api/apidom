@@ -334,7 +334,7 @@
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
     "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
-    "test": "NODE_ENV=test ts-mocha --exit",
+    "test": "NODE_ENV=test mocha --exit",
     "perf": "cross-env BABEL_ENV=es babel ./test/perf/index.ts --out-file ./test/perf/index.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/index.mjs",
     "perf:openapi-3-1-dereference": "cross-env BABEL_ENV=es babel ./test/perf/openapi-3-1-dereference.ts --out-file ./test/perf/openapi-3-1-dereference.mjs --root-mode 'upward' && cross-env NODE_ENV=test node ./test/perf/openapi-3-1-dereference.mjs",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
@@ -354,7 +354,7 @@
     "@swagger-api/apidom-error": "^1.14.0",
     "@types/ramda": "~0.30.0",
     "axios": "^1.20.0",
-    "minimatch": "^10.2.6",
+    "minimatch": "^11.0.1",
     "ramda": "~0.30.0",
     "ramda-adjunct": "^5.0.0"
   },

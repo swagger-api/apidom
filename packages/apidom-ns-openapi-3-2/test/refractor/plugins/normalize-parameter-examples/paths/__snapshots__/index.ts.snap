@@ -1,4 +1,4 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
 
 exports[`refractor plugins normalize-parameter-examples given Parameter Object defines both example and examples field and Schema Object defines both example and examples fields should override both Schema Object example and examples fields 1`] = `
 Object {

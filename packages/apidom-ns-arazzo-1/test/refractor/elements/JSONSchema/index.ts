@@ -1,7 +1,12 @@
 import { expect } from 'chai';
-import { sexprs } from '@swagger-api/apidom-core';
+import { ArrayElement, sexprs } from '@swagger-api/apidom-core';
+import {
+  JSONSchemaElement as JSONSchema202012Element,
+  LinkDescriptionElement,
+  isLinkDescriptionElement,
+} from '@swagger-api/apidom-ns-json-schema-2020-12';
 
-import { JSONSchemaElement } from '../../../../src/index.ts';
+import { JSONSchemaElement, isJSONSchemaElement } from '../../../../src/index.ts';
 
 describe('refractor', function () {
   context('elements', function () {
@@ -125,6 +130,42 @@ describe('refractor', function () {
 
           expect(sexprs(schemaElement)).toMatchSnapshot();
         });
+      });
+
+      context('given Hyper-Schema links', function () {
+        const linksSchema = {
+          links: [
+            {
+              rel: 'self',
+              href: '/users/{id}',
+              hrefSchema: { type: 'object' },
+              targetSchema: { $ref: '#' },
+              headerSchema: true,
+              submissionSchema: { type: 'string' },
+            },
+          ],
+        };
+
+        const assertLinks = (schemaElement: JSONSchemaElement) => {
+          const links = schemaElement.get('links') as ArrayElement;
+          const linkDescription = links.get(0) as LinkDescriptionElement;
+
+          expect(isLinkDescriptionElement(linkDescription)).to.be.true;
+          expect(isJSONSchemaElement(linkDescription.hrefSchema)).to.be.true;
+          expect(isJSONSchemaElement(linkDescription.targetSchema)).to.be.true;
+          expect(isJSONSchemaElement(linkDescription.submissionSchema)).to.be.true;
+        };
+
+        specify('should refract links to Link Description Objects', function () {
+          assertLinks(JSONSchemaElement.refract(linksSchema) as JSONSchemaElement);
+        });
+
+        specify(
+          'should refract links with the JSON Schema 2020-12 element while Arazzo is loaded',
+          function () {
+            assertLinks(JSONSchema202012Element.refract(linksSchema) as JSONSchemaElement);
+          },
+        );
       });
     });
   });

@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/swagger-api/apidom/compare/v1.14.0...v1.15.0) (2026-11-26)
+
+### Features
+
+- **converter:** add JSON Schema 2020-12 to OpenAPI 3.0 downgrader ([#5298](https://github.com/swagger-api/apidom/issues/5298)) ([b0ef5f0](https://github.com/swagger-api/apidom/commit/b0ef5f0431d2e43f2e3e9a9d57fc3f461e9f1b57))
+
 # [1.14.0](https://github.com/swagger-api/apidom/compare/v1.13.3...v1.14.0) (2026-11-04)
 
 **Note:** Version bump only for package @swagger-api/apidom-ns-openapi-3-0

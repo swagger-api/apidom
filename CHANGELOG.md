@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.15.0](https://github.com/swagger-api/apidom/compare/v1.14.0...v1.15.0) (2026-11-26)
+
+### Bug Fixes
+
+- **converter:** wrap strategy rejections and add OpenAPI 3.0 bundle strategy ([#5296](https://github.com/swagger-api/apidom/issues/5296)) ([a6fbc3c](https://github.com/swagger-api/apidom/commit/a6fbc3cd92f0ec2bbd8b459eec06a2765b7fa67b))
+
+### Features
+
+- **converter:** add JSON Schema 2020-12 to OpenAPI 3.0 downgrader ([#5298](https://github.com/swagger-api/apidom/issues/5298)) ([b0ef5f0](https://github.com/swagger-api/apidom/commit/b0ef5f0431d2e43f2e3e9a9d57fc3f461e9f1b57))
+- **reference:** add OpenAPI 3.0 dereference and HTTP resolver options ([#5297](https://github.com/swagger-api/apidom/issues/5297)) ([2e2f97a](https://github.com/swagger-api/apidom/commit/2e2f97af72d1203424099bb5cd6025cf35a1c9af))
+
 # [1.14.0](https://github.com/swagger-api/apidom/compare/v1.13.3...v1.14.0) (2026-11-04)
 
 ### Bug Fixes

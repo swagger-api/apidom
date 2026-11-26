@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Pet": {
+      "$anchor": "pet",
+      "type": "object",
+      "required": ["name"],
+      "properties": {
+        "name": { "type": "string", "examples": ["Rex"] },
+        "kind": { "const": "dog" },
+        "tag": { "type": ["string", "null"] }
+      }
+    }
+  }
+}

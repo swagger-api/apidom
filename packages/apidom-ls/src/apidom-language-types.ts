@@ -361,6 +361,7 @@ export interface CompletionContext {
 export interface DerefContext {
   format?: Format;
   baseURI?: string;
+  convertJSONSchema?: boolean;
 }
 
 /**

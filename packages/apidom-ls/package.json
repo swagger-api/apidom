@@ -100,6 +100,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
+    "@swagger-api/apidom-converter": "^1.15.0",
     "@swagger-api/apidom-core": "^1.15.0",
     "@swagger-api/apidom-json-path": "^1.15.0",
     "@swagger-api/apidom-json-pointer": "^1.15.0",

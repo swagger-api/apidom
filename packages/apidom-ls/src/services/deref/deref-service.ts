@@ -11,6 +11,11 @@ import {
   toValue,
 } from '@swagger-api/apidom-core';
 import { dereferenceApiDOM } from '@swagger-api/apidom-reference';
+import { convertApiDOM } from '@swagger-api/apidom-converter';
+import {
+  isOpenApi3_0Element,
+  mediaTypes as openAPI3_0MediaTypes,
+} from '@swagger-api/apidom-ns-openapi-3-0';
 
 import { DerefContext, Format, LanguageSettings } from '../../apidom-language-types.ts';
 import { parse } from '../../parser-factory.ts';
@@ -49,7 +54,7 @@ export class DefaultDerefService implements DerefService {
       this.settings?.defaultContentLanguage,
     );
 
-    const api: ObjectElement = <ObjectElement>result.api;
+    let api: ObjectElement = <ObjectElement>result.api;
 
     // no API document has been parsed
     if (api === undefined) return '';
@@ -81,14 +86,32 @@ export class DefaultDerefService implements DerefService {
         ? context.format
         : textFormat;
 
+    const resolveOptions = {
+      baseURI,
+      resolverOpts: {
+        fileAllowList: ['*'],
+      },
+    };
+
+    if (context?.convertJSONSchema && isOpenApi3_0Element(api)) {
+      const found = openAPI3_0MediaTypes.findBy(toValue(api.openapi), 'json');
+
+      const targetMediaType =
+        found === openAPI3_0MediaTypes.unknownMediaType
+          ? openAPI3_0MediaTypes.latest('json')
+          : found;
+
+      const converted = await convertApiDOM(result, {
+        resolve: resolveOptions,
+        convert: { targetMediaType, httpAllowList: [/^https:\/\//] },
+      });
+
+      api = <ObjectElement>converted.api;
+    }
+
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {
-      resolve: {
-        baseURI,
-        resolverOpts: {
-          fileAllowList: ['*'],
-        },
-      },
+      resolve: resolveOptions,
     });
 
     return format === Format.JSON

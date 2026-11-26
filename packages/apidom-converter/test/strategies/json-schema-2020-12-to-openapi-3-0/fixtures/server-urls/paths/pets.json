@@ -1,0 +1,20 @@
+{
+  "servers": [
+    { "url": "./v1" },
+    { "url": "/root" },
+    { "url": "https://api.example.com/v1" },
+    { "url": "{scheme}://example.com" },
+    { "url": "./{version}/api", "variables": { "version": { "default": "v2" } } }
+  ],
+  "get": {
+    "servers": [{ "url": "../shared" }],
+    "responses": {
+      "200": {
+        "description": "ok",
+        "links": {
+          "self": { "operationId": "listPets", "server": { "url": "./links" } }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Chain of external references", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Cat": { "type": "object" },
+      "Pet": { "$ref": "./aliases/deep/a.json" }
+    }
+  }
+}

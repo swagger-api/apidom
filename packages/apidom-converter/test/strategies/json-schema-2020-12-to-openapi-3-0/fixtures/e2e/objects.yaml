@@ -1,0 +1,26 @@
+openapi: 3.1.0
+info:
+  title: shared
+  version: 1.0.0
+paths:
+  /items:
+    get:
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: [string, 'null']
+                  examples: [a]
+components:
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      schema:
+        type: integer
+        exclusiveMinimum: 0
+        const: 10

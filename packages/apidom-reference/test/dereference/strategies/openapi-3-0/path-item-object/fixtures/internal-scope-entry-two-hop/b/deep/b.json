@@ -1,0 +1,30 @@
+{
+  "paths": {
+    "/alias": {
+      "$ref": "../../entry.json#/paths/~1owners"
+    },
+    "/deep": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "../../entry.json#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Alias": {
+        "$ref": "../../entry.json#/components/schemas/Error"
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "External OpenAPI 3.0 file with an $id", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Plain": { "type": "string", "minLength": 1 },
+      "Ext": { "$id": "urn:example:ext", "type": "object", "properties": { "x": { "type": "string" } } },
+      "ByUrn": { "type": "object", "properties": { "ext": { "$ref": "urn:example:ext" } } }
+    }
+  }
+}

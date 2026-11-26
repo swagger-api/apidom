@@ -1,0 +1,11 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Malformed internal reference", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "A": { "$ref": "#/components/schemas/B~2" },
+      "B~2": { "type": "string" }
+    }
+  }
+}

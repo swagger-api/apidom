@@ -1,0 +1,10 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Draft 7 fragment $id", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "B": { "$ref": "./draft7.json#/definitions/B" }
+    }
+  }
+}

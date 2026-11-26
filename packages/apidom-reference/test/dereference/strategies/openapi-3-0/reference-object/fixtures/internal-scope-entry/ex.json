@@ -1,0 +1,12 @@
+{
+  "externalParameter": {
+    "$ref": "#/indirection"
+  },
+  "indirection": {
+    "name": "externalParameter",
+    "in": "query",
+    "schema": {
+      "$ref": "./entry.json#/components/schemas/UserId"
+    }
+  }
+}

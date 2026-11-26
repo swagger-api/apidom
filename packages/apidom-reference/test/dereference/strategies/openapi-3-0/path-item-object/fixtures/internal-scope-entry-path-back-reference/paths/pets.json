@@ -1,0 +1,7 @@
+{
+  "paths": {
+    "/alias": {
+      "$ref": "../entry.json#/paths/~1other"
+    }
+  }
+}

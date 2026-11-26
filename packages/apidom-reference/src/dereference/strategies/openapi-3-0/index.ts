@@ -20,7 +20,12 @@ export type {
 export type { default as File, FileOptions } from '../../../File.ts';
 export type { default as Reference, ReferenceOptions } from '../../../Reference.ts';
 export type { default as ReferenceSet, ReferenceSetOptions } from '../../../ReferenceSet.ts';
-export type { OpenAPI3_0DereferenceVisitorOptions, mutationReplacer } from './visitor.ts';
+export type {
+  OpenAPI3_0DereferenceVisitorOptions,
+  mutationReplacer,
+  FragmentTransformer,
+  FragmentTransformerInput,
+} from './visitor.ts';
 export type {
   ReferenceOptions as ApiDOMReferenceOptions,
   ReferenceBundleOptions as ApiDOMReferenceBundleOptions,

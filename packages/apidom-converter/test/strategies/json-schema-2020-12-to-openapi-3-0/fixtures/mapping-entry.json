@@ -1,0 +1,23 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "discriminator.mapping references", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": { "$ref": "./mapping-ext.json#/$defs/Pet" },
+      "Local": {
+        "$defs": { "Fish": { "type": "object" } },
+        "oneOf": [{ "$ref": "#/components/schemas/Local/$defs/Fish" }],
+        "discriminator": {
+          "propertyName": "kind",
+          "mapping": {
+            "fish": "#/components/schemas/Local/$defs/Fish",
+            "named": "Fish",
+            "missing": "#/components/schemas/Missing"
+          }
+        }
+      },
+      "Back": { "type": "object" }
+    }
+  }
+}

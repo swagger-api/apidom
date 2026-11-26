@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "encoded pointer", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Root": {
+        "$id": "urn:example:root",
+        "type": "object",
+        "properties": { "name": { "type": "string" } }
+      },
+      "Name": { "$ref": "urn:example:root#%2Fproperties%2Fname" }
+    }
+  }
+}

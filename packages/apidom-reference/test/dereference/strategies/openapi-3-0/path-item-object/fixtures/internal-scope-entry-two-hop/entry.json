@@ -1,0 +1,30 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/pets": {
+      "$ref": "./a/a.json#/paths/~1alias"
+    },
+    "/owners": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "ok"
+          }
+        }
+      }
+    },
+    "/deep": {
+      "$ref": "./a/a.json#/paths/~1deep"
+    }
+  },
+  "components": {
+    "schemas": {
+      "Pet": {
+        "$ref": "./a/a.json#/components/schemas/Alias"
+      },
+      "Error": {
+        "type": "object"
+      }
+    }
+  }
+}

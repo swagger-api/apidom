@@ -1,8 +1,7 @@
 {
   "name": "@swagger-api/apidom-converter",
-  "version": "0.92.0",
+  "version": "1.15.0",
   "description": "Tool for converting API specifications.",
-  "private": true,
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
@@ -23,12 +22,12 @@
     "build:umd:browser": "vite build",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
+    "clean": "rimraf --glob 'src/^1.15.0^1.15.0/^1.15.0.mjs' 'src/^1.15.0^1.15.0/^1.15.0.cjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
     "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "test": "NODE_ENV=test mocha --exit",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 mocha",
-    "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
+    "prepack": "copyfiles -u 3 ../../LICENSES/^1.15.0 LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
   "repository": {
@@ -39,13 +38,13 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.26.10",
-    "@swagger-api/apidom-error": "*",
-    "@swagger-api/apidom-core": "*",
-    "@swagger-api/apidom-json-pointer": "*",
-    "@swagger-api/apidom-ns-json-schema-2020-12": "*",
-    "@swagger-api/apidom-ns-openapi-3-0": "*",
-    "@swagger-api/apidom-ns-openapi-3-1": "*",
-    "@swagger-api/apidom-reference": "*"
+    "@swagger-api/apidom-error": "^1.15.0",
+    "@swagger-api/apidom-core": "^1.15.0",
+    "@swagger-api/apidom-json-pointer": "^1.15.0",
+    "@swagger-api/apidom-ns-json-schema-2020-12": "^1.15.0",
+    "@swagger-api/apidom-ns-openapi-3-0": "^1.15.0",
+    "@swagger-api/apidom-ns-openapi-3-1": "^1.15.0",
+    "@swagger-api/apidom-reference": "^1.15.0"
   },
   "devDependencies": {
     "ajv": "^8.18.0",

@@ -150,7 +150,7 @@ describe('apidom-ls-deref-convert-json-schema', function () {
           components: {
             schemas: {
               Pet: {
-                $ref: './json-schema-2020-12/root.json#pet',
+                $ref: './json-schema-2020-12/root.json#missing',
               },
             },
           },
@@ -189,30 +189,25 @@ describe('apidom-ls-deref-convert-json-schema', function () {
 
   describe('given convertJSONSchema and an OpenAPI 3.1.0 definition', function () {
     it('leaves definition unconverted', async function () {
-      const { openapi, components } = await deref(
-        {
-          openapi: '3.1.0',
-          info,
-          paths: {},
-          components: {
-            schemas: {
-              Pet: {
-                const: 'cat',
-              },
+      const { openapi, components } = await deref({
+        openapi: '3.1.0',
+        info,
+        paths: {},
+        components: {
+          schemas: {
+            Pet: {
+              const: 'cat',
             },
           },
         },
-        {
-          convertJSONSchema: undefined,
-        },
-      );
+      });
 
       assert.strictEqual(openapi, '3.1.0');
       assert.deepEqual(components.schemas.Pet, { const: 'cat' });
     });
   });
 
-  describe('given convertJSONSchema and an OpenAPI 3.0.4 YAML definition', function () {
+  describe('given convertJSONSchema and an OpenAPI 3.0.3 YAML definition', function () {
     const derefYAML = async (definition: string) => {
       const doc = TextDocument.create('foo://bar/convert.yaml', 'yaml', 0, definition);
 

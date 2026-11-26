@@ -86,6 +86,13 @@ export class DefaultDerefService implements DerefService {
         ? context.format
         : textFormat;
 
+    const resolveOptions = {
+      baseURI,
+      resolverOpts: {
+        fileAllowList: ['*'],
+      },
+    };
+
     if (context?.convertJSONSchema && isOpenApi3_0Element(api)) {
       const found = openAPI3_0MediaTypes.findBy(toValue(api.openapi), 'json');
 
@@ -95,8 +102,8 @@ export class DefaultDerefService implements DerefService {
           : found;
 
       const converted = await convertApiDOM(result, {
-        resolve: { baseURI, resolverOpts: { fileAllowList: ['*'] } },
-        convert: { targetMediaType, httpAllowList: [/^https?:\/\//] },
+        resolve: resolveOptions,
+        convert: { targetMediaType, httpAllowList: [/^https:\/\//] },
       });
 
       api = <ObjectElement>converted.api;
@@ -104,12 +111,7 @@ export class DefaultDerefService implements DerefService {
 
     // dereference
     const dereferenced = await dereferenceApiDOM(api, {
-      resolve: {
-        baseURI,
-        resolverOpts: {
-          fileAllowList: ['*'],
-        },
-      },
+      resolve: resolveOptions,
     });
 
     return format === Format.JSON

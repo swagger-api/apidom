@@ -622,11 +622,7 @@ export interface LanguageService {
 
   doHover(document: TextDocument, position: Position): Promise<Hover | undefined>;
 
-  doDeref(
-    document: TextDocument,
-    context?: DerefContext,
-    convertJSONSchema?: boolean,
-  ): Promise<string>;
+  doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
 
   doLinks(document: TextDocument, context?: LinksContext): Promise<DocumentLink[]>;
 

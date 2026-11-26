@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { assert } from 'chai';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { DefinitionParams, ReferenceParams } from 'vscode-languageserver-protocol';
+import { type DefinitionParams, type ReferenceParams } from 'vscode-languageserver-protocol';
 import {
   CompletionList,
   Diagnostic,
@@ -16,10 +16,10 @@ import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  CompletionContext,
-  LanguageService,
-  LanguageServiceContext,
-  ValidationContext,
+  type CompletionContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ValidationContext,
   Format,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';

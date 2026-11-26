@@ -15,11 +15,11 @@ import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  CompletionContext,
+  type CompletionContext,
   Format,
-  LanguageService,
-  LanguageServiceContext,
-  ValidationContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { parse } from '../src/parser-factory.ts';

@@ -1,0 +1,14 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "array items", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Nullable": { "type": ["array", "null"] },
+      "Split": { "type": ["array", "string"] },
+      "Dialect": { "$schema": "https://json-schema.org/draft/2020-12/schema", "type": "array" },
+      "Nested": { "properties": { "tags": { "type": ["array", "null"] } } },
+      "Plain": { "type": "array" }
+    }
+  }
+}

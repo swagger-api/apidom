@@ -9,14 +9,14 @@ import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  LanguageSettings,
+  type LanguageService,
+  type LanguageServiceContext,
+  type LanguageSettings,
   MergeStrategy,
-  NamespaceVersion,
+  type NamespaceVersion,
   ProviderMode,
-  HoverProvider,
-  HoverProviderResult,
+  type HoverProvider,
+  type HoverProviderResult,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logLevel, logPerformance } from './test-utils.ts';

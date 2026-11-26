@@ -1,0 +1,24 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "boolean schemas", "version": "1.0.0" },
+  "paths": {
+    "/x": {
+      "get": {
+        "parameters": [{ "name": "q", "in": "query", "schema": true }],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "headers": { "X-Rate": { "schema": false } },
+            "content": { "application/json": { "schema": false } }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Never": false,
+      "Any": true
+    }
+  }
+}

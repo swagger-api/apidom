@@ -13,10 +13,10 @@ import {
 // @ts-ignore
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  CompletionContext,
-  LanguageService,
-  LanguageServiceContext,
-  ValidationContext,
+  type CompletionContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';

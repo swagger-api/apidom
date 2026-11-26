@@ -5,7 +5,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
-import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types.ts';
+import { type LanguageService, type LanguageServiceContext } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { logPerformance, logLevel } from './test-utils.ts';
 

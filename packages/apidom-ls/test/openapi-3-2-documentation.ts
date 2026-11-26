@@ -3,7 +3,7 @@ import { TextDocument } from 'vscode-languageserver-textdocument';
 import { Position } from 'vscode-languageserver-types';
 
 import getLanguageService from '../src/apidom-language-service.ts';
-import { LanguageService, LanguageServiceContext } from '../src/apidom-language-types.ts';
+import { type LanguageService, type LanguageServiceContext } from '../src/apidom-language-types.ts';
 import { metadata } from './metadata.ts';
 import { OpenAPi32JsonSchemaValidationProvider } from '../src/services/validation/providers/openapi-32-json-schema-validation-provider.ts';
 import { logPerformance, logLevel } from './test-utils.ts';

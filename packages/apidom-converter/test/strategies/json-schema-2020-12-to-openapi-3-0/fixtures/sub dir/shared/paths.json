@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Shared paths", "version": "1.0.0" },
+  "paths": {
+    "/remote": { "get": { "responses": { "200": { "description": "ok" } } } }
+  },
+  "components": {
+    "parameters": {
+      "Alias": { "$ref": "#/components/parameters/Real" },
+      "Real": { "name": "q", "in": "query", "schema": { "type": "string" } }
+    },
+    "callbacks": {
+      "OnEvent": { "{$request.body#/url}": { "$ref": "../entry.json#/paths/~1target" } }
+    }
+  }
+}

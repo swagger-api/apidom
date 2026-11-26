@@ -1,0 +1,17 @@
+{
+  "get": {
+    "responses": {
+      "200": {
+        "description": "ok",
+        "content": {
+          "application/json": {
+            "examples": { "entry": { "externalValue": "../entry.json" } }
+          }
+        },
+        "links": {
+          "owners": { "operationRef": "../entry.json#/paths/~1owners/get" }
+        }
+      }
+    }
+  }
+}

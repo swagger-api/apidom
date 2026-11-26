@@ -7,9 +7,9 @@ import { fileURLToPath } from 'node:url';
 
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  LanguageService,
-  LanguageServiceContext,
-  ValidationContext,
+  type LanguageService,
+  type LanguageServiceContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { metadata } from './custom-metadata.ts';
 import { metadata as metadataJsonpath } from './custom-metadata-jsonpath.ts';

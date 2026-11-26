@@ -1,4 +1,50 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`refractor elements MqttServerBindingElement given maximumPacketSize field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(MqttServerBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttServerBindingElement given maximumPacketSize field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
+(MqttServerBindingElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttServerBindingElement given sessionExpiryInterval field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
+(MqttServerBindingElement
+  (MemberElement
+    (StringElement)
+    (ReferenceElement
+      (MemberElement
+        (StringElement)
+        (StringElement))))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
+
+exports[`refractor elements MqttServerBindingElement given sessionExpiryInterval field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
+(MqttServerBindingElement
+  (MemberElement
+    (StringElement)
+    (SchemaElement))
+  (MemberElement
+    (StringElement)
+    (StringElement)))
+`;
 
 exports[`refractor elements MqttServerBindingElement should refract to semantic ApiDOM tree 1`] = `
 (MqttServerBindingElement
@@ -32,52 +78,6 @@ exports[`refractor elements MqttServerBindingElement should refract to semantic 
   (MemberElement
     (StringElement)
     (NumberElement))
-  (MemberElement
-    (StringElement)
-    (StringElement)))
-`;
-
-exports[`refractor elements MqttServerBindingElement given sessionExpiryInterval field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
-(MqttServerBindingElement
-  (MemberElement
-    (StringElement)
-    (SchemaElement))
-  (MemberElement
-    (StringElement)
-    (StringElement)))
-`;
-
-exports[`refractor elements MqttServerBindingElement given sessionExpiryInterval field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
-(MqttServerBindingElement
-  (MemberElement
-    (StringElement)
-    (ReferenceElement
-      (MemberElement
-        (StringElement)
-        (StringElement))))
-  (MemberElement
-    (StringElement)
-    (StringElement)))
-`;
-
-exports[`refractor elements MqttServerBindingElement given maximumPacketSize field of type SchemaElement should refract to semantic ApiDOM tree 1`] = `
-(MqttServerBindingElement
-  (MemberElement
-    (StringElement)
-    (SchemaElement))
-  (MemberElement
-    (StringElement)
-    (StringElement)))
-`;
-
-exports[`refractor elements MqttServerBindingElement given maximumPacketSize field of type ReferenceElement should refract to semantic ApiDOM tree 1`] = `
-(MqttServerBindingElement
-  (MemberElement
-    (StringElement)
-    (ReferenceElement
-      (MemberElement
-        (StringElement)
-        (StringElement))))
   (MemberElement
     (StringElement)
     (StringElement)))

@@ -30,6 +30,7 @@ export {
   isContactElement,
   isExampleElement,
   isExternalDocumentationElement,
+  isHeaderElement,
   isInfoElement,
   isLicenseElement,
   isLinkElement,

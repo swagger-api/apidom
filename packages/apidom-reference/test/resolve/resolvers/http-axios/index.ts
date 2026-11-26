@@ -1,7 +1,7 @@
 import { Buffer } from 'node:buffer';
 import http from 'node:http';
 import { assert } from 'chai';
-import { AxiosRequestConfig } from 'axios';
+import { type AxiosRequestConfig } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { identity } from 'ramda';
 

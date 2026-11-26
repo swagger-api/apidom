@@ -1,0 +1,15 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "$ref siblings", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Owner": { "$ref": "./siblings-ext.json#/$defs/Owner" },
+      "WithStash": { "$ref": "./siblings-ext.json#/$defs/WithStash" },
+      "InternalValidation": { "$ref": "#/components/schemas/Target", "minProperties": 1 },
+      "ExternalValidation": { "$ref": "./siblings-ext.json#/$defs/Target", "minProperties": 1 },
+      "PlainAnnotation": { "$ref": "#/components/schemas/Target", "description": "kept as is" },
+      "Target": { "type": "object" }
+    }
+  }
+}

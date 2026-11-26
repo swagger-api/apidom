@@ -345,5 +345,36 @@ describe('resolve', function () {
       assert.isTrue(mockCacheStorage.put.notCalled);
       assert.strictEqual(refSet.size, 2);
     });
+
+    specify('should not return a cached file that no resolver may read', async function () {
+      const uri = path.join(
+        __dirname,
+        'strategies',
+        'openapi-3-1',
+        'reference-object',
+        'fixtures',
+        'external-only',
+        'root.json',
+      );
+      await resolve(uri, {
+        parse: { mediaType: mediaTypes.latest('json') },
+        resolve: { resolverOpts: { cacheTTL: 1000 } },
+      });
+      sinon.spy(mockCacheStorage, 'match');
+
+      try {
+        await resolve(uri, {
+          parse: { mediaType: mediaTypes.latest('json') },
+          resolve: {
+            resolvers: [new FileResolver({ fileAllowList: [] })],
+            resolverOpts: { cacheTTL: 1000 },
+          },
+        });
+        assert.fail('should throw ResolveError');
+      } catch (error: any) {
+        assert.instanceOf(error, ResolveError);
+        assert.isTrue(mockCacheStorage.match.notCalled);
+      }
+    });
   });
 });

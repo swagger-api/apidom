@@ -9,15 +9,15 @@ import {
   JSONSchemaElement as JSONSchema202012Element,
 } from '@swagger-api/apidom-ns-json-schema-2020-12';
 
-import { createHTTPServer, ServerTerminable } from './helpers.ts';
+import { createHTTPServer, type ServerTerminable } from './helpers.ts';
 import getLanguageService from '../src/apidom-language-service.ts';
 import {
-  ContentLanguage,
+  type ContentLanguage,
   Format,
-  LanguageService,
-  LanguageServiceContext,
+  type LanguageService,
+  type LanguageServiceContext,
   ReferenceValidationMode,
-  ValidationContext,
+  type ValidationContext,
 } from '../src/apidom-language-types.ts';
 import { parse } from '../src/parser-factory.ts';
 import { findNamespace, getSpecVersion } from '../src/utils/utils.ts';

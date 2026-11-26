@@ -22,7 +22,7 @@
     "build:umd:browser": "vite build",
     "lint": "eslint ./",
     "lint:fix": "eslint ./ --fix",
-    "clean": "rimraf --glob 'src/^1.15.0^1.15.0/^1.15.0.mjs' 'src/^1.15.0^1.15.0/^1.15.0.cjs' ./dist ./types",
+    "clean": "rimraf --glob 'src/**/*.mjs' 'src/**/*.cjs' ./dist ./types",
     "typescript:check-types": "tsc --noEmit && tsc -p ./test/tsconfig.json --noEmit",
     "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "test": "NODE_ENV=test mocha --exit",

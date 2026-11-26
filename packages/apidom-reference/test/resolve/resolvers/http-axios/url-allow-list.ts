@@ -1,5 +1,5 @@
 import http from 'node:http';
-import { AddressInfo } from 'node:net';
+import { type AddressInfo } from 'node:net';
 import { assert } from 'chai';
 import sinon from 'sinon';
 

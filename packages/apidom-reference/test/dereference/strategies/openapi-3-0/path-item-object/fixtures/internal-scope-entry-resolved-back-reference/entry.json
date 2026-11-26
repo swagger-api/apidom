@@ -1,0 +1,25 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/a": {
+      "$ref": "./ext.json#/paths/~1x"
+    },
+    "/b": {
+      "get": {
+        "parameters": [
+          {
+            "$ref": "#/components/parameters/P"
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "parameters": {
+      "P": {
+        "name": "entry",
+        "in": "query"
+      }
+    }
+  }
+}

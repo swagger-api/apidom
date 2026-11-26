@@ -1,0 +1,16 @@
+{
+  "openapi": "3.0.4",
+  "paths": {
+    "/x": {
+      "$ref": "./entry.json#/paths/~1b"
+    }
+  },
+  "components": {
+    "parameters": {
+      "P": {
+        "name": "ext",
+        "in": "header"
+      }
+    }
+  }
+}

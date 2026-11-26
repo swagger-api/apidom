@@ -27,7 +27,7 @@
     "typescript:declaration": "tsc -p tsconfig.declaration.json && api-extractor run -l -c ./config/api-extractor/api-extractor.json",
     "test": "NODE_ENV=test mocha --exit",
     "test:update-snapshots": "cross-env UPDATE_SNAPSHOT=1 mocha",
-    "prepack": "copyfiles -u 3 ../../LICENSES/^1.15.0 LICENSES && copyfiles -u 2 ../../NOTICE .",
+    "prepack": "copyfiles -u 3 ../../LICENSES/* LICENSES && copyfiles -u 2 ../../NOTICE .",
     "postpack": "rimraf NOTICE LICENSES"
   },
   "repository": {

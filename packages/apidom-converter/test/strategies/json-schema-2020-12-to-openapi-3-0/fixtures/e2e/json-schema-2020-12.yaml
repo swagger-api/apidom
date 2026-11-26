@@ -1,0 +1,305 @@
+$schema: https://json-schema.org/draft/2020-12/schema
+$id: https://example.com/json-schema-2020-12
+title: JSON Schema 2020-12 Example
+description: Example JSON Schema 2020-12 document
+$defs:
+  Pet:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        examples: [10]
+      name:
+        type: string
+        examples: [doggie]
+      category:
+        $ref: '#/$defs/Category'
+      photoUrls:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          type: string
+          xml:
+            name: photoUrl
+      tags:
+        type: array
+        xml:
+          wrapped: true
+        items:
+          $ref: '#/$defs/Tag'
+      status:
+        type: string
+        description: pet status in the store
+        enum:
+          - available
+          - pending
+          - sold
+    required:
+      - name
+      - photoUrls
+    xml:
+      name: pet
+    if:
+      properties:
+        status:
+          const: available
+    then:
+      properties:
+        photoUrls:
+          minItems: 1
+    dependentRequired:
+      category: [tags]
+  Category:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+        examples: [1]
+      name:
+        type: string
+        examples: [Dogs]
+    xml:
+      name: category
+  Tag:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      name:
+        type: string
+    xml:
+      name: tag
+  Id:
+    type: string
+    format: uuid
+  ParentId:
+    $ref: '#/$defs/Id'
+  Timestamps:
+    type: object
+    properties:
+      createdAt:
+        type: string
+        format: date-time
+      updatedAt:
+        type: string
+        format: date-time
+    required: [createdAt]
+  Money:
+    type: object
+    properties:
+      amount:
+        type: number
+      currency:
+        type: string
+        pattern: '^[A-Z]{3}$'
+    required: [amount, currency]
+  Status:
+    type: string
+    enum: [active, inactive, archived]
+  Coordinates:
+    type: object
+    properties:
+      latitude:
+        type: number
+        minimum: -90
+        maximum: 90
+      longitude:
+        type: number
+        minimum: -180
+        maximum: 180
+    required: [latitude, longitude]
+  Address:
+    type: object
+    properties:
+      street:
+        type: string
+      city:
+        type: string
+      postalCode:
+        type: string
+      country:
+        type: string
+      coordinates:
+        $ref: '#/$defs/Coordinates'
+    required: [street, city, country]
+  Contact:
+    type: object
+    properties:
+      name:
+        type: string
+      email:
+        type: string
+        format: email
+      phone:
+        type: string
+      address:
+        $ref: '#/$defs/Address'
+    required: [name]
+  Metadata:
+    type: object
+    additionalProperties:
+      type: string
+  Labels:
+    type: object
+    additionalProperties:
+      type: string
+  TagSet:
+    type: array
+    uniqueItems: true
+    items:
+      $ref: '#/$defs/Tag'
+  Range:
+    type: object
+    properties:
+      min:
+        type: number
+      max:
+        type: number
+    required: [min, max]
+  Quantity:
+    type: object
+    properties:
+      value:
+        type: number
+      unit:
+        type: string
+    required: [value, unit]
+  Attachment:
+    type: object
+    properties:
+      id:
+        $ref: '#/$defs/Id'
+      fileName:
+        type: string
+      mediaType:
+        type: string
+      size:
+        type: integer
+        minimum: 0
+      url:
+        type: string
+        format: uri
+    required: [fileName, url]
+  Payment:
+    type: object
+    properties:
+      id:
+        $ref: '#/$defs/Id'
+      amount:
+        $ref: '#/$defs/Money'
+      status:
+        type: string
+        enum: [pending, completed, failed]
+      timestamps:
+        $ref: '#/$defs/Timestamps'
+    required: [amount, status]
+  Item:
+    type: object
+    properties:
+      id:
+        $ref: '#/$defs/Id'
+      name:
+        type: string
+      price:
+        $ref: '#/$defs/Money'
+      quantity:
+        $ref: '#/$defs/Quantity'
+      labels:
+        $ref: '#/$defs/Labels'
+      timestamps:
+        $ref: '#/$defs/Timestamps'
+    required: [id, name]
+  Pagination:
+    type: object
+    properties:
+      page:
+        type: integer
+        minimum: 1
+      pageSize:
+        type: integer
+        minimum: 1
+      total:
+        type: integer
+        minimum: 0
+    required: [page, pageSize]
+  ItemList:
+    type: object
+    properties:
+      items:
+        type: array
+        items:
+          $ref: '#/$defs/Item'
+      pagination:
+        $ref: '#/$defs/Pagination'
+    required: [items]
+  Event:
+    type: object
+    properties:
+      id:
+        $ref: '#/$defs/Id'
+      type:
+        type: string
+      occurredAt:
+        type: string
+        format: date-time
+      metadata:
+        $ref: '#/$defs/Metadata'
+    required: [id, type, occurredAt]
+  ItemCreatedEvent:
+    allOf:
+      - $ref: '#/$defs/Event'
+      - type: object
+        properties:
+          item:
+            $ref: '#/$defs/Item'
+        required: [item]
+  ItemDeletedEvent:
+    allOf:
+      - $ref: '#/$defs/Event'
+      - type: object
+        properties:
+          itemId:
+            $ref: '#/$defs/Id'
+        required: [itemId]
+  TreeNode:
+    type: object
+    properties:
+      id:
+        $ref: '#/$defs/Id'
+      parentId:
+        $ref: '#/$defs/ParentId'
+      name:
+        type: string
+      children:
+        type: array
+        items:
+          $ref: '#/$defs/TreeNode'
+    required: [id, name]
+  ErrorModel:
+    type: object
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    required: [code, message]
+  ValidationErrorModel:
+    allOf:
+      - $ref: '#/$defs/ErrorModel'
+      - type: object
+        properties:
+          errors:
+            type: array
+            items:
+              type: object
+              properties:
+                field:
+                  type: string
+                message:
+                  type: string
+              required: [field, message]
+        required: [errors]

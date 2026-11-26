@@ -1,0 +1,13 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Wrapped alternative", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": {
+        "oneOf": [{ "$ref": "./cat.json", "minProperties": 1 }],
+        "discriminator": { "propertyName": "petType" }
+      }
+    }
+  }
+}

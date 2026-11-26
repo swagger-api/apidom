@@ -1,0 +1,17 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Link data", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Pet": { "$id": "https://example.com/pet", "type": "string" },
+      "PetAlias": { "$ref": "https://example.com/pet" }
+    },
+    "links": {
+      "CreatePet": {
+        "operationId": "createPet",
+        "requestBody": { "$id": "https://example.com/pet", "name": "Rex" }
+      }
+    }
+  }
+}

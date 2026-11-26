@@ -1,0 +1,28 @@
+{
+  "openapi": "3.0.3",
+  "info": { "title": "Refs to $id", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "Urn": { "$id": "urn:example:urn", "type": "string" },
+      "ByUrn": { "$ref": "urn:example:urn" },
+      "ByUrnInProperty": { "type": "object", "properties": { "a": { "$ref": "urn:example:urn" } } },
+      "Https": { "$id": "https://schemas.invalid/https", "type": "integer" },
+      "ByHttps": { "$ref": "https://schemas.invalid/https" },
+      "Root": {
+        "$id": "https://schemas.invalid/root/",
+        "type": "object",
+        "properties": { "nested": { "$id": "nested", "type": "boolean" } }
+      },
+      "ByNestedId": { "$ref": "https://schemas.invalid/root/nested" },
+      "Holder": {
+        "$defs": { "Moved": { "$id": "urn:example:moved", "type": "number" } }
+      },
+      "ByMovedId": { "$ref": "urn:example:moved" },
+      "ByPointer": { "$ref": "#/components/schemas/Urn" },
+      "ByPointerWithDescription": { "$ref": "#/components/schemas/Urn", "description": "kept" },
+      "ByRelative": { "$ref": "./id-refs-external.json#/components/schemas/Plain" },
+      "ByExternalId": { "$ref": "./id-refs-external.json#/components/schemas/ByUrn" }
+    }
+  }
+}

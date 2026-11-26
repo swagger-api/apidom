@@ -25,7 +25,7 @@ export const convertApiDOM = async (element: ParseResultElement, options = {}) =
   }
 
   try {
-    return strategy.convert(file, mergedOptions);
+    return await strategy.convert(file, mergedOptions);
   } catch (error) {
     throw new ConvertError(`Error while converting file "${file.uri}"`, { cause: error, strategy });
   }

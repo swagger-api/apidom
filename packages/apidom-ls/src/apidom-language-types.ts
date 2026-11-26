@@ -361,6 +361,7 @@ export interface CompletionContext {
 export interface DerefContext {
   format?: Format;
   baseURI?: string;
+  convertJSONSchema?: boolean;
 }
 
 /**
@@ -621,7 +622,11 @@ export interface LanguageService {
 
   doHover(document: TextDocument, position: Position): Promise<Hover | undefined>;
 
-  doDeref(document: TextDocument, context?: DerefContext): Promise<string>;
+  doDeref(
+    document: TextDocument,
+    context?: DerefContext,
+    convertJSONSchema?: boolean,
+  ): Promise<string>;
 
   doLinks(document: TextDocument, context?: LinksContext): Promise<DocumentLink[]>;
 

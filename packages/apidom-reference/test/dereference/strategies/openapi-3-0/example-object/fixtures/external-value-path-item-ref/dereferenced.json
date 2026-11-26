@@ -1,0 +1,30 @@
+[
+  {
+    "openapi": "3.0.4",
+    "paths": {
+      "/path1": {
+        "post": {
+          "responses": {
+            "200": {
+              "description": "200 response",
+              "content": {
+                "application/json": {
+                  "examples": {
+                    "example1": {
+                      "description": "example1 description",
+                      "externalValue": "./ex.json",
+                      "value": {
+                        "prop1": "value1",
+                        "prop2": "value2"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+]

@@ -1,0 +1,29 @@
+[
+  {
+    "openapi": "3.0.4",
+    "components": {
+      "parameters": {
+        "internalRef": {
+          "$ref": "#/components/parameters/userIdRef"
+        },
+        "userIdRef": {
+          "name": "userId",
+          "in": "query",
+          "required": true
+        },
+        "externalRef": {
+          "name": "externalParameter",
+          "in": "query",
+          "schema": {
+            "$ref": "./entry.json#/components/schemas/UserId"
+          }
+        }
+      },
+      "schemas": {
+        "UserId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+]

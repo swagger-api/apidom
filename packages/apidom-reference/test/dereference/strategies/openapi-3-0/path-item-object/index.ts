@@ -426,6 +426,161 @@ describe('dereference', function () {
             });
           });
         });
+        context('given an external Path Item referring back into the entry document', function () {
+          context('and internalScope entry with resolve.internal false', function () {
+            specify('should keep the back reference unresolved', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const expected = loadJsonFile(path.join(fixturePath, 'dereferenced.json'));
+
+              assert.deepEqual(toValue(actual), expected);
+            });
+
+            specify('should keep a back reference reached through an alias', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-alias-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const [api] = toValue(actual) as any[];
+
+              assert.deepEqual(
+                api.paths['/pets'].get.responses['200'].content['application/json'].schema,
+                { $ref: '../entry.json#/components/schemas/Error' },
+              );
+            });
+
+            specify(
+              'should keep the origin of a back reference reached through two documents',
+              async function () {
+                const fixturePath = path.join(entryFixturePath, 'internal-scope-entry-two-hop');
+                const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { internal: false },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const origin = path.join(fixturePath, 'b', 'deep', 'b.json');
+                const pet = actual.api.get('components').get('schemas').get('Pet');
+                const pets = actual.api.get('paths').get('/pets');
+
+                assert.strictEqual(
+                  toValue(pet.get('$ref')),
+                  '../../entry.json#/components/schemas/Error',
+                );
+                assert.strictEqual(toValue(pet.meta.get('ref-origin')), origin);
+                assert.strictEqual(toValue(pets.get('$ref')), '../../entry.json#/paths/~1owners');
+                assert.strictEqual(toValue(pets.meta.get('ref-origin')), origin);
+              },
+            );
+
+            specify(
+              'should record the document of a back reference inside a Path Item reached through two documents',
+              async function () {
+                const fixturePath = path.join(entryFixturePath, 'internal-scope-entry-two-hop');
+                const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  resolve: { internal: false },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const schema = actual.api
+                  .get('paths')
+                  .get('/deep')
+                  .get('get')
+                  .get('responses')
+                  .get('200')
+                  .get('content')
+                  .get('application/json')
+                  .get('schema');
+
+                assert.strictEqual(
+                  toValue(schema.get('$ref')),
+                  '../../entry.json#/components/schemas/Error',
+                );
+                assert.strictEqual(
+                  toValue(schema.meta.get('ref-origin')),
+                  path.join(fixturePath, 'b', 'deep', 'b.json'),
+                );
+              },
+            );
+
+            specify('should keep Link and Example back references unresolved', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-links-examples',
+              );
+              const actual: any = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const response = actual.api
+                .get('paths')
+                .get('/pets')
+                .get('get')
+                .get('responses')
+                .get('200');
+
+              assert.deepEqual(
+                toValue(response.get('content').get('application/json').get('examples')),
+                { entry: { externalValue: '../entry.json' } },
+              );
+              assert.strictEqual(
+                toValue(response.get('links').get('owners').get('operationRef')),
+                '../entry.json#/paths/~1owners/get',
+              );
+            });
+
+            specify('should keep a Path Item back reference', async function () {
+              const fixturePath = path.join(
+                entryFixturePath,
+                'internal-scope-entry-path-back-reference',
+              );
+              const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                parse: { mediaType: mediaTypes.latest('json') },
+                resolve: { internal: false },
+                dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+              });
+              const [api] = toValue(actual) as any[];
+
+              assert.deepEqual(api.paths['/pets'], {
+                $ref: '../entry.json#/paths/~1other',
+                summary: 'pets',
+              });
+            });
+          });
+
+          context('and internalScope entry with resolve.internal true', function () {
+            specify(
+              'should resolve the references of the entry Path Item in the entry',
+              async function () {
+                const fixturePath = path.join(
+                  entryFixturePath,
+                  'internal-scope-entry-resolved-back-reference',
+                );
+                const actual = await dereference(path.join(fixturePath, 'entry.json'), {
+                  parse: { mediaType: mediaTypes.latest('json') },
+                  dereference: { strategyOpts: { 'openapi-3-0': { internalScope: 'entry' } } },
+                });
+                const [api] = toValue(actual) as any[];
+                const parameter = { name: 'entry', in: 'query' };
+
+                assert.deepEqual(api.paths['/a'].get.parameters, [parameter]);
+                assert.deepEqual(api.paths['/b'].get.parameters, [parameter]);
+              },
+            );
+          });
+        });
       });
     });
   });

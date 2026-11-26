@@ -1,0 +1,19 @@
+{
+  "openapi": "3.0.4",
+  "components": {
+    "schemas": {
+      "A": {
+        "$ref": "#/components/schemas/B"
+      },
+      "B": {
+        "$ref": "#/components/schemas/C"
+      },
+      "C": {
+        "type": "string"
+      },
+      "D": {
+        "$ref": "#/components/schemas/B"
+      }
+    }
+  }
+}

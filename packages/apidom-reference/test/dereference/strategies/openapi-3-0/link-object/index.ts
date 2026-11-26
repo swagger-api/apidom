@@ -257,6 +257,32 @@ describe('dereference', function () {
             }
           });
         });
+        context('given dereferenceLinks is false', function () {
+          specify('should leave an unresolvable operationRef unchanged', async function () {
+            const fixturePath = path.join(entryFixturePath, 'operation-ref-unresolvable');
+            const entryFilePath = path.join(fixturePath, 'entry.json');
+            const actual = await dereference(entryFilePath, {
+              parse: { mediaType: mediaTypes.latest('json') },
+              dereference: { strategyOpts: { 'openapi-3-0': { dereferenceLinks: false } } },
+            });
+
+            assert.deepEqual(toValue(actual), [loadJsonFile(entryFilePath)]);
+          });
+
+          specify(
+            'should not report operationRef and operationId defined together',
+            async function () {
+              const fixturePath = path.join(entryFixturePath, 'operation-ref-id-both-defined');
+              const entryFilePath = path.join(fixturePath, 'entry.json');
+              const actual = await dereference(entryFilePath, {
+                parse: { mediaType: mediaTypes.latest('json') },
+                dereference: { strategyOpts: { 'openapi-3-0': { dereferenceLinks: false } } },
+              });
+
+              assert.deepEqual(toValue(actual), [loadJsonFile(entryFilePath)]);
+            },
+          );
+        });
       });
     });
   });

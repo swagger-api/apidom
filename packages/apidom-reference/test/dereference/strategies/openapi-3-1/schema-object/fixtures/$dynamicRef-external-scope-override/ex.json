@@ -1,0 +1,13 @@
+{
+  "$dynamicAnchor": "node",
+  "type": "object",
+  "properties": {
+    "source": {
+      "type": "string",
+      "const": "external"
+    },
+    "child": {
+      "$dynamicRef": "#node"
+    }
+  }
+}

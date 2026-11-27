@@ -1,0 +1,43 @@
+[
+  {
+    "openapi": "3.2.0",
+    "info": { "title": "Test", "version": "1.0.0" },
+    "paths": {},
+    "components": {
+      "schemas": {
+        "User": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "profile": {
+              "$dynamicAnchor": "profileType",
+              "type": "object",
+              "properties": {
+                "firstName": {
+                  "type": "string"
+                },
+                "lastName": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "Profile": {
+          "$dynamicAnchor": "profileType",
+          "type": "object",
+          "properties": {
+            "firstName": {
+              "type": "string"
+            },
+            "lastName": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+]

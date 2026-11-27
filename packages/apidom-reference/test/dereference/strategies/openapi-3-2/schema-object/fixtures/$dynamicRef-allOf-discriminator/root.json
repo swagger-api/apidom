@@ -1,0 +1,68 @@
+{
+  "openapi": "3.2.0",
+  "info": { "title": "Test", "version": "1.0.0" },
+  "paths": {},
+  "components": {
+    "schemas": {
+      "PetResponse": {
+        "type": "object",
+        "properties": {
+          "pet": {
+            "$dynamicRef": "#petType"
+          }
+        },
+        "discriminator": {
+          "propertyName": "petType",
+          "mapping": {
+            "dog": "#/components/schemas/Dog",
+            "cat": "#/components/schemas/Cat"
+          }
+        }
+      },
+      "PetTemplate": {
+        "$dynamicAnchor": "petType",
+        "type": "object",
+        "properties": {
+          "petType": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Dog": {
+        "allOf": [
+          {
+            "$dynamicAnchor": "petType",
+            "$ref": "#/components/schemas/PetTemplate"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "breed": {
+                "type": "string"
+              }
+            }
+          }
+        ]
+      },
+      "Cat": {
+        "allOf": [
+          {
+            "$dynamicAnchor": "petType",
+            "$ref": "#/components/schemas/PetTemplate"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "indoor": {
+                "type": "boolean"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}
